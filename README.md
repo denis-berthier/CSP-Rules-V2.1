@@ -48,7 +48,7 @@ For making the above more explicit, consider the following (moderately difficult
 . . . . 8 9 . . . <br>
 
 Here is how the problem is given to SudoRules (the part of CSP-Rules that deals with the Sudoku CSP):<br>
-(solve "4...3.......6..8..........1....5..9..8....6...7.2........1.27..5.3....4.9........")<br><br>
+(solve "...13.....1...45....2....6.1..3...7.2...5...8.4...6..9.5....7....67...9.....89...")<br><br>
 
 And here is how the solution of this puzzle will appear (with variants, depending on which resolution rules have been selected by the user).<br>
 Each line starts with the name of a precise pattern, including its size (as described in detail in [PBCS]); the name is followed by the full details of its instantiation and, after a "==>" sign, by the eliminations it allows:<br>

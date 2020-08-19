@@ -1,0 +1,117 @@
+.......61
+4..2.....
+9........
+.67.15.3.
+.1..7....
+......4..
+2..8..5..
+.3.......
+.........
+
+
+(solve ".......614..2.....9.........67.15.3..1..7..........4..2..8..5...3................")
+
+***********************************************************************************************
+***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************
+.......614..2.....9.........67.15.3..1..7..........4..2..8..5...3................
+17 givens, 312 candidates
+entering BRT
+naked-single ==> r4c1 = 8
+hidden-single-in-a-row ==> r6c8 = 1
+hidden-single-in-a-block ==> r6c9 = 7
+hidden-single-in-a-block ==> r5c3 = 4
+hidden-single-in-a-block ==> r4c4 = 4
+Starting_init_links_with_<Fact-3765>
+270 candidates, 2078 csp-links and 2078 links. Density = 5.72%
+starting non trivial part of solution
+Entering_level_W1_with_<Fact-11442>
+whip[1]: c1n6{r9 .} ==> r9c3 ≠ 6, r7c3 ≠ 6, r8c3 ≠ 6
+whip[1]: c1n1{r9 .} ==> r9c3 ≠ 1, r7c3 ≠ 1, r8c3 ≠ 1
+naked-single ==> r7c3 = 9
+hidden-single-in-a-block ==> r6c2 = 9
+hidden-single-in-a-block ==> r6c3 = 2
+hidden-single-in-a-row ==> r6c1 = 5
+naked-single ==> r5c1 = 3
+naked-single ==> r1c1 = 7
+hidden-single-in-a-block ==> r5c6 = 2
+hidden-single-in-a-block ==> r5c4 = 9
+hidden-single-in-a-row ==> r7c6 = 1
+hidden-single-in-a-block ==> r3c4 = 1
+hidden-single-in-a-block ==> r2c3 = 1
+hidden-single-in-a-block ==> r3c3 = 6
+hidden-single-in-a-block ==> r1c3 = 3
+naked-single ==> r1c4 = 5
+whip[1]: c3n5{r9 .} ==> r9c2 ≠ 5
+whip[1]: c3n8{r9 .} ==> r9c2 ≠ 8
+whip[1]: c4n7{r9 .} ==> r8c6 ≠ 7, r9c6 ≠ 7
+whip[1]: r1n4{c6 .} ==> r3c6 ≠ 4, r3c5 ≠ 4
+Entering_relation_bivalue_with_<Fact-11469>
+Entering_level_S2_with_<Fact-11604>
+naked-pairs-in-a-row: r7{c2 c8}{n4 n7} ==> r7c9 ≠ 4, r7c5 ≠ 4
+hidden-pairs-in-a-column: c5{n2 n5}{r8 r9} ==> r9c5 ≠ 9, r9c5 ≠ 6, r9c5 ≠ 4, r9c5 ≠ 3, r8c5 ≠ 9, r8c5 ≠ 6, r8c5 ≠ 4
+hidden-single-in-a-column ==> r1c5 = 4
+hidden-single-in-a-column ==> r2c5 = 9
+naked-single ==> r1c6 = 8
+naked-single ==> r1c2 = 2
+naked-single ==> r1c7 = 9
+naked-single ==> r4c7 = 2
+naked-single ==> r4c9 = 9
+naked-single ==> r3c5 = 3
+naked-single ==> r3c6 = 7
+naked-single ==> r2c6 = 6
+naked-single ==> r6c6 = 3
+naked-single ==> r6c4 = 6
+naked-single ==> r6c5 = 8
+naked-single ==> r8c4 = 7
+naked-single ==> r9c4 = 3
+naked-single ==> r3c7 = 8
+naked-single ==> r3c2 = 5
+naked-single ==> r2c2 = 8
+naked-single ==> r5c7 = 6
+naked-single ==> r8c7 = 1
+naked-single ==> r8c1 = 6
+naked-single ==> r9c1 = 1
+naked-single ==> r9c7 = 7
+naked-single ==> r2c7 = 3
+naked-single ==> r2c9 = 5
+naked-single ==> r2c8 = 7
+naked-single ==> r5c9 = 8
+naked-single ==> r5c8 = 5
+naked-single ==> r7c8 = 4
+naked-single ==> r3c8 = 2
+naked-single ==> r3c9 = 4
+naked-single ==> r7c2 = 7
+naked-single ==> r8c9 = 2
+naked-single ==> r8c5 = 5
+naked-single ==> r8c3 = 8
+naked-single ==> r8c8 = 9
+naked-single ==> r8c6 = 4
+naked-single ==> r9c6 = 9
+naked-single ==> r9c8 = 8
+naked-single ==> r9c3 = 5
+naked-single ==> r9c5 = 2
+naked-single ==> r9c9 = 6
+naked-single ==> r7c9 = 3
+naked-single ==> r9c2 = 4
+naked-single ==> r7c5 = 6
+GRID 0 SOLVED. rating-type = SFin, MOST COMPLEX RULE TRIED = HP
+723548961
+481296375
+956137824
+867415239
+314972658
+592683417
+279861543
+638754192
+145329786
+Puzzle .......614..2.....9.........67.15.3..1..7..........4..2..8..5...3................ :
+init-time = 0.18s, solve-time = 0.22s, total-time = 0.39s
+nb-facts=<Fact-11679>
+***********************************************************************************************
+***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************

@@ -1,0 +1,105 @@
+9..82...7
+.......1.
+.673....4
+37...41..
+....1....
+4....3.79
+..42..59.
+.9.......
+..5.492..
+
+
+(solve "9..82...7.......1..673....437...41......1....4....3.79..42..59..9.........5.492..")
+***********************************************************************************************
+9..82...7.......1..673....437...41......1....4....3.79..42..59..9.........5.492..
+27 givens, 201 candidates
+entering BRT
+hidden-single-in-a-column ==> r8c7 = 7
+hidden-single-in-a-block ==> r8c8 = 4
+hidden-single-in-a-block ==> r5c7 = 4
+hidden-single-in-a-column ==> r5c6 = 2
+hidden-single-in-a-block ==> r5c4 = 7
+hidden-single-in-a-row ==> r5c3 = 9
+hidden-single-in-a-row ==> r9c1 = 7
+hidden-single-in-a-column ==> r2c4 = 4
+hidden-single-in-a-block ==> r1c2 = 4
+hidden-single-in-a-column ==> r4c4 = 9
+Starting_init_links_with_<Fact-3669>
+155 candidates, 760 csp-links and 760 links. Density = 6.37%
+starting non trivial part of solution
+Entering_level_W1_with_<Fact-6494>
+whip[1]: c4n1{r9 .} ==> r8c6 ≠ 1, r7c6 ≠ 1
+whip[1]: c6n8{r8 .} ==> r8c5 ≠ 8, r7c5 ≠ 8
+whip[1]: r6n2{c3 .} ==> r4c3 ≠ 2
+whip[1]: c7n3{r2 .} ==> r2c9 ≠ 3, r1c8 ≠ 3
+Entering_relation_bivalue_with_<Fact-6503>
+Entering_level_S2_with_<Fact-6618>
+hidden-pairs-in-a-row: r6{n1 n2}{c2 c3} ==> r6c3 ≠ 8, r6c3 ≠ 6, r6c2 ≠ 8, r6c2 ≠ 5
+whip[1]: r6n5{c5 .} ==> r4c5 ≠ 5
+whip[1]: r4n5{c9 .} ==> r5c8 ≠ 5, r5c9 ≠ 5
+naked-pairs-in-a-row: r4{c3 c5}{n6 n8} ==> r4c9 ≠ 8, r4c9 ≠ 6, r4c8 ≠ 8, r4c8 ≠ 6
+hidden-pairs-in-a-column: c9{n2 n5}{r2 r4} ==> r2c9 ≠ 8, r2c9 ≠ 6
+Entering_level_S3_with_<Fact-6704>
+hidden-triplets-in-a-row: r2{n6 n7 n9}{c7 c6 c5} ==> r2c7 ≠ 8, r2c7 ≠ 3, r2c6 ≠ 5, r2c5 ≠ 5
+hidden-single-in-a-block ==> r1c7 = 3
+naked-single ==> r1c3 = 1
+naked-single ==> r6c3 = 2
+naked-single ==> r6c2 = 1
+hidden-single-in-a-column ==> r2c2 = 2
+naked-single ==> r2c9 = 5
+naked-single ==> r1c8 = 6
+naked-single ==> r1c6 = 5
+naked-single ==> r3c5 = 9
+naked-single ==> r3c7 = 8
+naked-single ==> r3c1 = 5
+naked-single ==> r3c8 = 2
+naked-single ==> r4c8 = 5
+naked-single ==> r6c7 = 6
+naked-single ==> r6c4 = 5
+naked-single ==> r6c5 = 8
+naked-single ==> r4c5 = 6
+naked-single ==> r2c5 = 7
+naked-single ==> r2c6 = 6
+naked-single ==> r8c6 = 8
+naked-single ==> r7c6 = 7
+naked-single ==> r7c5 = 3
+naked-single ==> r7c2 = 8
+naked-single ==> r5c2 = 5
+naked-single ==> r9c2 = 3
+naked-single ==> r8c3 = 6
+naked-single ==> r7c1 = 1
+naked-single ==> r7c9 = 6
+naked-single ==> r8c1 = 2
+naked-single ==> r8c4 = 1
+naked-single ==> r8c9 = 3
+naked-single ==> r5c9 = 8
+naked-single ==> r5c1 = 6
+naked-single ==> r5c8 = 3
+naked-single ==> r9c9 = 1
+naked-single ==> r9c4 = 6
+naked-single ==> r9c8 = 8
+naked-single ==> r8c5 = 5
+naked-single ==> r4c3 = 8
+naked-single ==> r2c3 = 3
+naked-single ==> r3c6 = 1
+naked-single ==> r2c7 = 9
+naked-single ==> r2c1 = 8
+naked-single ==> r4c9 = 2
+GRID 0 SOLVED. rating-type = SFin, MOST COMPLEX RULE TRIED = HT
+941825367
+823476915
+567391824
+378964152
+659712438
+412583679
+184237596
+296158743
+735649281
+Puzzle 9..82...7.......1..673....437...41......1....4....3.79..42..59..9.........5.492.. :
+init-time = 0.18s, solve-time = 0.13s, total-time = 0.31s
+nb-facts=<Fact-6776>
+***********************************************************************************************
+***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************

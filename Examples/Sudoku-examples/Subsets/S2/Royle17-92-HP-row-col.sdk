@@ -1,0 +1,123 @@
+.......21
+.7.3.....
+...4.8...
+1...6..5.
+.3....4..
+....2....
+2...5....
+...7..8..
+6........
+
+
+(solve ".......21.7.3........4.8...1...6..5..3....4......2....2...5.......7..8..6........")
+
+***********************************************************************************************
+***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************
+.......21.7.3........4.8...1...6..5..3....4......2....2...5.......7..8..6........
+17 givens, 301 candidates
+entering BRT
+hidden-single-in-a-column ==> r9c4 = 2
+hidden-single-in-a-column ==> r2c6 = 2
+hidden-single-in-a-row ==> r8c9 = 2
+hidden-single-in-a-block ==> r4c7 = 2
+hidden-single-in-a-block ==> r5c3 = 2
+hidden-single-in-a-block ==> r3c2 = 2
+Starting_init_links_with_<Fact-3755>
+267 candidates, 2063 csp-links and 2063 links. Density = 5.81%
+starting non trivial part of solution
+Entering_level_W1_with_<Fact-11396>
+whip[1]: c5n4{r9 .} ==> r9c6 ≠ 4, r7c6 ≠ 4, r8c6 ≠ 4
+whip[1]: c5n3{r9 .} ==> r9c6 ≠ 3, r7c6 ≠ 3, r8c6 ≠ 3
+whip[1]: c2n1{r9 .} ==> r9c3 ≠ 1, r7c3 ≠ 1, r8c3 ≠ 1
+whip[1]: r8n5{c3 .} ==> r9c3 ≠ 5, r9c2 ≠ 5
+whip[1]: c1n7{r6 .} ==> r6c3 ≠ 7, r4c3 ≠ 7
+whip[1]: r5n6{c9 .} ==> r6c9 ≠ 6, r6c7 ≠ 6, r6c8 ≠ 6
+whip[1]: r1n8{c3 .} ==> r2c3 ≠ 8, r2c1 ≠ 8
+whip[1]: r1n4{c3 .} ==> r2c3 ≠ 4, r2c1 ≠ 4
+whip[1]: b2n1{r3c5 .} ==> r9c5 ≠ 1, r5c5 ≠ 1, r8c5 ≠ 1
+whip[1]: b2n6{r1c6 .} ==> r1c7 ≠ 6, r1c2 ≠ 6, r1c3 ≠ 6
+hidden-single-in-a-column ==> r6c2 = 6
+whip[1]: b2n5{r1c6 .} ==> r1c7 ≠ 5, r1c1 ≠ 5, r1c2 ≠ 5, r1c3 ≠ 5
+hidden-single-in-a-column ==> r8c2 = 5
+Entering_relation_bivalue_with_<Fact-11421>
+Entering_level_S2_with_<Fact-11514>
+hidden-pairs-in-a-row: r8{n1 n6}{c6 c8} ==> r8c8 ≠ 9, r8c8 ≠ 4, r8c8 ≠ 3, r8c6 ≠ 9
+hidden-pairs-in-a-column: c5{n3 n4}{r8 r9} ==> r9c5 ≠ 9, r9c5 ≠ 8, r8c5 ≠ 9
+hidden-single-in-a-block ==> r7c4 = 8
+naked-single ==> r4c4 = 9
+hidden-single-in-a-block ==> r5c5 = 8
+hidden-single-in-a-column ==> r1c4 = 6
+hidden-single-in-a-block ==> r1c6 = 5
+whip[1]: b8n1{r9c6 .} ==> r5c6 ≠ 1, r6c6 ≠ 1
+naked-single ==> r5c6 = 7
+hidden-single-in-a-row ==> r4c9 = 7
+hidden-single-in-a-row ==> r4c6 = 3
+naked-single ==> r6c6 = 4
+hidden-single-in-a-row ==> r6c1 = 7
+hidden-single-in-a-column ==> r1c1 = 8
+hidden-single-in-a-column ==> r8c1 = 4
+naked-single ==> r8c5 = 3
+naked-single ==> r8c3 = 9
+naked-single ==> r7c2 = 1
+naked-single ==> r9c2 = 8
+naked-single ==> r4c2 = 4
+naked-single ==> r1c2 = 9
+naked-single ==> r1c5 = 7
+naked-single ==> r1c7 = 3
+naked-single ==> r1c3 = 4
+naked-single ==> r2c1 = 5
+naked-single ==> r3c1 = 3
+naked-single ==> r5c1 = 9
+naked-single ==> r5c9 = 6
+naked-single ==> r5c8 = 1
+naked-single ==> r5c4 = 5
+naked-single ==> r6c4 = 1
+naked-single ==> r6c7 = 9
+naked-single ==> r2c7 = 6
+naked-single ==> r2c3 = 1
+naked-single ==> r2c5 = 9
+naked-single ==> r3c5 = 1
+naked-single ==> r3c3 = 6
+naked-single ==> r7c7 = 7
+naked-single ==> r3c7 = 5
+naked-single ==> r3c9 = 9
+naked-single ==> r3c8 = 7
+naked-single ==> r9c7 = 1
+naked-single ==> r9c6 = 9
+naked-single ==> r7c6 = 6
+naked-single ==> r8c6 = 1
+naked-single ==> r7c3 = 3
+naked-single ==> r7c9 = 4
+naked-single ==> r2c9 = 8
+naked-single ==> r2c8 = 4
+naked-single ==> r6c9 = 3
+naked-single ==> r6c8 = 8
+naked-single ==> r6c3 = 5
+naked-single ==> r9c9 = 5
+naked-single ==> r7c8 = 9
+naked-single ==> r9c8 = 3
+naked-single ==> r9c3 = 7
+naked-single ==> r8c8 = 6
+naked-single ==> r4c3 = 8
+naked-single ==> r9c5 = 4
+GRID 0 SOLVED. rating-type = SFin, MOST COMPLEX RULE TRIED = HP
+894675321
+571392648
+326418579
+148963257
+932587416
+765124983
+213856794
+459731862
+687249135
+Puzzle .......21.7.3........4.8...1...6..5..3....4......2....2...5.......7..8..6........ :
+init-time = 0.18s, solve-time = 0.21s, total-time = 0.39s
+nb-facts=<Fact-11584>
+***********************************************************************************************
+***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************

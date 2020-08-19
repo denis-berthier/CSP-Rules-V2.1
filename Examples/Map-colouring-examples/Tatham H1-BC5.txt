@@ -1,0 +1,92 @@
+
+
+(solve 4 30
+	"....G.YRG.YRG........GRBG....G"
+	1 2 9 10 11 12 : 2 3 12 : 3 4 10 12 13 19 : 4 5 6 13 14 15 : 5 6 : 6 7 15 17 : 7 8 17 : 8 17 : 9 10 18 : 10 11 18 19 : 11 12 : 13 14 19 20 : 14 15 16 20 : 15 16 17 : 16 17 20 21 22 23 : 17 23 : 18 19 24 25 : 19 20 25 26 27 : 20 21 22 27 : 21 22 : 22 23 27 29 : 24 25 : 25 26 28 : 26 27 28 : 27 28 29 : 28 29 : 29 30
+)
+
+***********************************************************************************************
+***  MapRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************
+12 givens and 72 candidates
+entering BRT
+single ==> X1 = B
+single ==> X10 = R
+single ==> X18 = Y
+single ==> X19 = B
+single ==> X3 = Y
+single ==> X2 = G
+Starting_init_links_with_<Fact-795>
+36 candidates, 25 csp-links and 64 links. Density = 10.16%
+starting non trivial part of solution
+Entering_level_W1_with_<Fact-976>
+Entering_relation_bivalue_with_<Fact-977>
+Entering_level_BC2_with_<Fact-992>
+biv-chain[2]: X4{B R} - X6{R B} ==> X15 ≠ B
+biv-chain[2]: X4{R B} - X6{B R} ==> X15 ≠ R
+biv-chain[2]: X26{Y R} - X27{R Y} ==> X28 ≠ Y
+biv-chain[2]: X26{R Y} - X27{Y R} ==> X28 ≠ R
+single ==> X28 = B
+Entering_level_W2_with_<Fact-1039>
+Entering_level_BC3_with_<Fact-1077>
+biv-chain[3]: X15{Y G} - X17{G B} - X16{B Y} ==> X14 ≠ Y
+biv-chain[3]: X16{Y B} - X14{B R} - X20{R Y} ==> X21 ≠ Y
+Entering_level_W3_with_<Fact-1159>
+Entering_level_BC4_with_<Fact-1214>
+Entering_level_W4_with_<Fact-1274>
+Entering_level_BC5_with_<Fact-1333>
+biv-chain[5]: X4{B R} - X6{R B} - X17{B G} - X15{G Y} - X16{Y B} ==> X14 ≠ B
+single ==> X14 = R
+single ==> X4 = B
+single ==> X6 = R
+single ==> X20 = Y
+single ==> X16 = B
+single ==> X17 = G
+single ==> X15 = Y
+single ==> X21 = R
+single ==> X27 = R
+single ==> X26 = Y
+single ==> X29 = Y
+GRID 0 SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = BC[5]
+X1 = B
+X2 = G
+X3 = Y
+X4 = B
+X5 = G
+X6 = R
+X7 = Y
+X8 = R
+X9 = G
+X10 = R
+X11 = Y
+X12 = R
+X13 = G
+X14 = R
+X15 = Y
+X16 = B
+X17 = G
+X18 = Y
+X19 = B
+X20 = Y
+X21 = R
+X22 = G
+X23 = R
+X24 = B
+X25 = G
+X26 = Y
+X27 = R
+X28 = B
+X29 = Y
+X30 = G
+Puzzle :
+init-time = 0.01s, solve time = 0.01s, total-time = 0.02s
+nb-facts=<Fact-1348>
+***********************************************************************************************
+***  MapRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************
+
+"BGYBGRYRGRYRGRYBGYBYRGRBGYRBYG"

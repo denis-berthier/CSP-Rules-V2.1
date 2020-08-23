@@ -37,6 +37,7 @@ Each application-specific part consists of a specific interfacing with the gener
 ## 4. Example:<br>
 For making the above more explicit, consider the following (moderately difficult) Sudoku puzzle (created by "Mith"):<br>
 
+...
 . . . 1 3 . . . . <br>
 . 1 . . . 4 5 . . <br>
 . . 2 . . . . 6 . <br>
@@ -46,12 +47,14 @@ For making the above more explicit, consider the following (moderately difficult
 . 5 . . . . 7 . . <br>
 . . 6 7 . . . 9 . <br>
 . . . . 8 9 . . . <br>
+...
 
 Here is how the problem is given to SudoRules (the part of CSP-Rules that deals with the Sudoku CSP):<br>
 (solve "...13.....1...45....2....6.1..3...7.2...5...8.4...6..9.5....7....67...9.....89...")<br><br>
 
 And here is how the solution of this puzzle will appear (with variants, depending on which resolution rules have been selected by the user).<br>
 Each line starts with the name of a precise pattern, including its size (as described in detail in [PBCS]); the name is followed by the full details of its instantiation and, after a "==>" sign, by the eliminations it allows:<br>
+...
 217 candidates, 1371 csp-links and 1371 links. Density = 5.85%<br>
 whip[1]: r1n6{c2 .} ==> r2c1 ≠ 6<br>
 hidden-single-in-a-column ==> r1c1 = 6<br>
@@ -110,7 +113,7 @@ hidden-single-in-a-row ==> r2c9 = 7<br>
 whip[1]: c7n2{r6 .} ==> r4c9 ≠ 2, r6c8 ≠ 2<br>
 naked-pairs-in-a-block: b3{r1c8 r1c9}{n2 n4} ==> r3c7 ≠ 4<br>
 (singles to the end)<br><br>
-
+...
 
 ## 5. License:<br>
 CSP-Rules V2.1 is distributed under the GNU GPL v3.0 license (see the full text in the Docs folder).<br><br>

@@ -52,7 +52,7 @@
 	(logical
 		(partial-loop
 			(context ?cont)
-			(length ?len)
+            (length ?len&:(>= ?len 79))
 			(nb-cont ?nb-cont)
             (labs $?labs ?labp ?labq)
             (rows $?rows ?rowp ?rowq)
@@ -97,7 +97,7 @@
 	(declare (salience ?*loop[>80]-salience*))
 	(partial-loop
 		(context ?cont)
-		(length ?len)
+        (length ?len&:(> ?len 80))
 		(nb-cont ?nb-cont)
         (labs ?lab1 $?middle-labs ?labp ?labq)
         (rows ?row1 $?middle-rows ?rowp ?rowq)

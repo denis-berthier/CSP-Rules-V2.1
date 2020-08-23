@@ -199,7 +199,7 @@
         (bind ?i (+ ?i 2))
     )
     (if (> ?*loops-max-length* 80) then
-        (load (str-cat ?*Application-Dir* "LOOPS" ?*Directory-symbol* "Loops[>80].clp"))
+        (load (str-cat ?*Application-Dir* "LOOPS" ?*Directory-symbol* "Loops[GT80].clp"))
     )
 )
 
@@ -226,7 +226,7 @@
         (bind ?i (+ ?i 1))
     )
     (if (< 80 ?*loops-max-length*) then
-        (load (str-cat ?*Application-Dir* "XTD-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[>80].clp"))
+        (load (str-cat ?*Application-Dir* "XTD-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[GT80].clp"))
     )
 
     ;;; extended-loops
@@ -238,7 +238,7 @@
         (bind ?i (+ ?i 1))
     )
     (if (< 80 ?*loops-max-length*) then
-        (load (str-cat ?*Application-Dir* "XTD-LOOPS" ?*Directory-symbol* "xtd-loops[>80].clp"))
+        (load (str-cat ?*Application-Dir* "XTD-LOOPS" ?*Directory-symbol* "xtd-loops[GT80].clp"))
     )
 )
 

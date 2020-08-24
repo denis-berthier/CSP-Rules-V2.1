@@ -51,10 +51,10 @@
       (context ?cont)
       (length ?p&:(< ?p 25))
       (nb-cont ?nb-cont)
-      (labs ?lab1 $?middle-labs ?labp ?labq)
-      (rows ?row1 $?middle-rows ?rowp ?rowq)
-      (columns ?col1 $?middle-cols ?colp ?colq)
-      (types ?type1 $?middle-types ?typep ?typeq)
+      (labs ?lab1 ?lab2 $?middle-labs ?labp ?labq)
+      (rows ?row1 ?row2 $?middle-rows ?rowp ?rowq)
+      (columns ?col1 ?col2 $?middle-cols ?colp ?colq)
+      (types ?type1 ?type2 $?middle-types ?typep ?typeq)
    )
 
    ;;; closing-lines
@@ -70,7 +70,7 @@
    )
    (test (and
       (combinable-lines ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12)
-      (touching-lines ?rowp2 ?colp2 ?typep2 ?row1 ?col1 ?type1)
+      (combinable-lines ?rowp2 ?colp2 ?typep2 ?row1 ?col1 ?type1 ?row2 ?col2 ?type2)
    ))
 =>
    (bind ?*QL-max* (max 26 ?*QL-max*))
@@ -87,7 +87,7 @@
          (bind ?assert-values 1)
    )
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* ?q)))
-   (print-xtd-loop 26 ?row1 ?col1 ?type1 $?middle-rows $?middle-cols $?middle-types ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12 $?rows2 $?cols2 $?types2 ?rowp2 ?colp2 ?typep2 ?assert-values)
+   (print-xtd-loop 26 ?row1 ?col1 ?type1 ?row2 ?col2 ?type2 $?middle-rows $?middle-cols $?middle-types ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12 $?rows2 $?cols2 $?types2 ?rowp2 ?colp2 ?typep2 ?assert-values)
 )
 
 

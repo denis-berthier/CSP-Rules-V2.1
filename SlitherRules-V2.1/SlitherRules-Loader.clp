@@ -226,7 +226,7 @@
         (bind ?i (+ ?i 1))
     )
     (if (< 80 ?*loops-max-length*) then
-        (load (str-cat ?*Application-Dir* "XTD-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[GT80].clp"))
+        (load (str-cat ?*Application-Dir* "EVEN-PARTIAL-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[GT80].clp"))
     )
 
     ;;; extended-loops

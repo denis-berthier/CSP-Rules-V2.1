@@ -337,10 +337,12 @@
  
 
 
-(deffunction print-xtd-loop (?len ?row1 ?col1 ?type1 ?middle-rows ?middle-cols ?middle-types ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12 ?rows2 ?cols2 ?types2 ?rowp2 ?colp2 ?typep2 ?val)
+(deffunction print-xtd-loop (?len ?row1 ?col1 ?type1 ?row2 ?col2 ?type2 ?middle-rows ?middle-cols ?middle-types ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12 ?rows2 ?cols2 ?types2 ?rowp2 ?colp2 ?typep2 ?val)
     ;;; quasi-loop
     (printout t crlf "XTD-LOOP[" ?len "]: ")
     (printout t ?type1 (row-name ?row1) (column-name ?col1))
+    (printout t ?*link-symbol-in-loops*)
+    (printout t ?type2 (row-name ?row2) (column-name ?col2))
     (printout t ?*link-symbol-in-loops*)
 
     (print-HV-chain ?middle-rows ?middle-cols ?middle-types)

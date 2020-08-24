@@ -38,19 +38,26 @@ Each application-specific part consists of a specific interfacing with the gener
 For making the above more explicit, consider the following (moderately difficult) Sudoku puzzle (created by "Mith"):<br>
 
 ```
-. . . 1 3 . . . . 
-. 1 . . . 4 5 . . 
-. . 2 . . . . 6 . 
-1 . . 3 . . . 7 . 
-2 . . . 5 . . . 8 
-. 4 . . . 6 . . 9 
-. 5 . . . . 7 . . 
-. . 6 7 . . . 9 . 
-. . . . 8 9 . . . 
++-------+-------+-------+ 
+| . . . | 1 3 . | . . . | 
+| . 1 . | . . 4 | 5 . . | 
+| . . 2 | . . . | . 6 . | 
++-------+-------+-------+ 
+| 1 . . | 3 . . | . 7 . | 
+| 2 . . | . 5 . | . . 8 | 
+| . 4 . | . . 6 | . . 9 | 
++-------+-------+-------+ 
+| . 5 . | . . . | 7 . . | 
+| . . 6 | 7 . . | . 9 . | 
+| . . . | . 8 9 | . . . | 
++-------+-------+-------+ 
 ```
 
 Here is how the problem is given to SudoRules (the part of CSP-Rules that deals with the Sudoku CSP):<br>
-(solve "...13.....1...45....2....6.1..3...7.2...5...8.4...6..9.5....7....67...9.....89...")<br><br>
+```
+(solve "...13.....1...45....2....6.1..3...7.2...5...8.4...6..9.5....7....67...9.....89...") 
+```
+<br>
 
 And here is how the solution of this puzzle will appear (with variants, depending on which resolution rules have been selected by the user).<br>
 Each line starts with the name of a precise pattern, including its size (as described in detail in [PBCS]); the name is followed by the full details of its instantiation and, after a "==>" sign, by the eliminations it allows:<br>
@@ -114,6 +121,16 @@ hidden-single-in-a-row ==> r2c9 = 7
 whip[1]: c7n2{r6 .} ==> r4c9 ≠ 2, r6c8 ≠ 2 
 naked-pairs-in-a-block: b3{r1c8 r1c9}{n2 n4} ==> r3c7 ≠ 4 
 (singles to the end) 
+675138924 
+819264537 
+432597861 
+198342675 
+267951348 
+543876219 
+951423786 
+386715492 
+724689153 
+
 ```
 <br>
 

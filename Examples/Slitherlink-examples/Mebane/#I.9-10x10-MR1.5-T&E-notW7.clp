@@ -18,7 +18,7 @@ Mellon rating = 1.5
 
 ***********************************************************************************************
 ***  SlitherRules 2.1.s based on CSP-Rules 2.1.s, config = W+nW1eq+Col+Loop
-***  Using CLIPS 6.32-r768
+***  Using CLIPS 6.32-r770
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
 
@@ -33,26 +33,9 @@ Mellon rating = 1.5
 2 3 . 3 2 . . . . .
 . . 1 . . 3 . 3 3 3
 
-start init-grid-structure 0.0341291427612305
-start create-csp-variables
-start create-labels 0.00143718719482422
-start init-physical-csp-links 0.0130040645599365
-start init-physical-non-csp-links 12.196624994278
-     start init-physical-PH-and-PV-non-csp-links at local time 0
-     start init-physical-BH-and-BV-non-csp-links at local time 3.51585698127747
-     start init-physical-BN-non-csp-links at local time 12.1293201446533
-     start init-physical-BP-non-csp-links at local time 22.2760000228882
-     end init-physical-BP-non-csp-links at local time 254.599613189697
-end init-physical-non-csp-links 266.796280145645
-start init-corner-B-c-values 266.830718994141
-start init-outer-B-candidates 266.830775022507
-start init-outer-I-candidates 266.831559181213
-start init-H-candidates 266.832139015198
-start init-V-candidates 266.836196184158
-start init-P-candidates 266.840031147003
-start init-inner-I-candidates 266.846520185471
-start init-inner-N-and-B-candidates 266.849009037018
-start solution 266.862185955048
+Loading pre-computed background
+start init-inner-N-and-B-candidates 0.607258081436157
+start solution 0.622105121612549
 entering BRT
 w[1]-3-in-se-corner ==> Vr10c11 = 1, Hr11c10 = 1
 w[1]-3-in-nw-corner ==> Vr1c1 = 1, Hr1c1 = 1
@@ -115,7 +98,7 @@ different-colours-in-r9{c10 c11} ==> Hr9c11 = 1
 w[1]-3-in-r8c10-hit-by-verti-line-at-se ==> Vr8c10 = 1, Hr8c10 = 1
 w[1]-3-in-r8c10-closed-nw-corner ==> Pr9c11 ≠ nw, Pr9c11 ≠ o
 Starting_init_links_with_<Fact-93544>
-2654 candidates, 9179 csp-links and 38199 links. Density = 1.09%
+1225 candidates, 9179 csp-links and 38199 links. Density = 5.1%
 starting non trivial part of solution
 Entering_level_W1_with_<Fact-188305>
 whip[1]: Vr7c10{0 .} ==> Br7c10 ≠ wne, Pr7c10 ≠ ns, Pr7c10 ≠ se, Pr7c10 ≠ sw, Pr8c10 ≠ ne, Pr8c10 ≠ ns, Pr8c10 ≠ nw, Br7c9 ≠ e, Br7c9 ≠ ne, Br7c9 ≠ se, Br7c9 ≠ ew, Br7c9 ≠ esw, Br7c9 ≠ wne, Br7c9 ≠ nes, Br7c10 ≠ w, Br7c10 ≠ nw, Br7c10 ≠ ew, Br7c10 ≠ sw, Br7c10 ≠ esw, Br7c10 ≠ swn
@@ -134,23 +117,24 @@ whip[1]: Br9c10{nes .} ==> Nr9c10 ≠ 0
 whip[1]: Hr2c6{0 .} ==> Br2c6 ≠ n, Pr2c6 ≠ ne, Pr2c6 ≠ se, Pr2c6 ≠ ew, Pr2c7 ≠ sw, Br1c6 ≠ s, Br1c6 ≠ ns, Br1c6 ≠ se, Br1c6 ≠ sw, Br1c6 ≠ esw, Br1c6 ≠ swn, Br1c6 ≠ nes
 whip[1]: Pr2c7{ne .} ==> Br1c7 ≠ s, Br1c7 ≠ w, Br1c7 ≠ ns, Br1c7 ≠ nw, Br1c7 ≠ se, Br1c7 ≠ ew, Br1c7 ≠ wne, Br1c7 ≠ nes, Br2c6 ≠ e, Br2c7 ≠ esw, Br2c7 ≠ swn, Br2c7 ≠ wne
 B-single: Br2c7 = nes
+whip[1]: Br2c7{nes .} ==> Pr3c8 ≠ sw, Pr3c8 ≠ ew, Pr3c8 ≠ se, Pr3c8 ≠ ns, Pr3c8 ≠ ne, Pr3c8 ≠ o, Pr3c7 ≠ sw, Pr3c7 ≠ nw, Pr3c7 ≠ ns, Pr3c7 ≠ ne, Pr3c7 ≠ o, Pr2c8 ≠ ew, Pr2c8 ≠ se, Pr2c8 ≠ nw, Pr2c8 ≠ ns, Pr2c8 ≠ ne, Pr2c8 ≠ o, Pr2c7 ≠ o, Vr2c8 ≠ 0, Hr3c7 ≠ 0, Hr2c7 ≠ 0
 H-single: Hr2c7 = 1
 H-single: Hr3c7 = 1
 V-single: Vr2c8 = 1
 w[1]-3-in-r2c7-asymmetric-sw-corner ==> Vr1c8 = 0, Hr2c8 = 0
 w[1]-3-in-r2c7-asymmetric-nw-corner ==> Vr3c8 = 0, Hr3c8 = 0
 P-single: Pr2c7 = ne
-V-single: Vr1c7 = 1
 P-single: Pr2c8 = sw
 P-single: Pr3c8 = nw
 w[1]-1-in-r1c8-symmetric-sw-corner ==> Pr1c9 ≠ sw, Pr1c9 ≠ o
 whip[1]: Hr2c7{1 .} ==> Br1c7 ≠ o, Br1c7 ≠ n, Br1c7 ≠ e, Br1c7 ≠ ne
-whip[1]: Br1c7{swn .} ==> Pr1c7 ≠ o, Pr1c7 ≠ ew, Pr1c8 ≠ sw, Nr1c7 ≠ 0, Nr1c7 ≠ 1
+whip[1]: Br1c7{swn .} ==> Vr1c7 ≠ 0, Pr1c7 ≠ o, Pr1c7 ≠ ew, Pr1c8 ≠ sw, Nr1c7 ≠ 0, Nr1c7 ≠ 1
+V-single: Vr1c7 = 1
+whip[1]: Vr1c7{1 .} ==> Br1c6 ≠ o, Br1c6 ≠ n, Br1c6 ≠ w, Br1c6 ≠ nw
+whip[1]: Br1c6{wne .} ==> Nr1c6 ≠ 0
 whip[1]: Pr1c8{ew .} ==> Br1c8 ≠ w
 whip[1]: Br1c8{s .} ==> Pr1c8 ≠ se, Pr2c9 ≠ nw
 whip[1]: Pr1c8{ew .} ==> Br1c7 ≠ esw
-whip[1]: Pr1c7{sw .} ==> Br1c6 ≠ nw, Br1c6 ≠ o, Br1c6 ≠ n, Br1c6 ≠ w
-whip[1]: Br1c6{wne .} ==> Nr1c6 ≠ 0
 whip[1]: Hr3c7{1 .} ==> Br3c7 ≠ o, Br3c7 ≠ e, Br3c7 ≠ s, Br3c7 ≠ w, Br3c7 ≠ se, Br3c7 ≠ ew, Br3c7 ≠ sw, Br3c7 ≠ esw
 whip[1]: Br3c7{nes .} ==> Nr3c7 ≠ 0
 whip[1]: Vr2c8{1 .} ==> Br2c8 ≠ o, Br2c8 ≠ n, Br2c8 ≠ e, Br2c8 ≠ s, Br2c8 ≠ ne, Br2c8 ≠ ns, Br2c8 ≠ se, Br2c8 ≠ nes
@@ -197,15 +181,8 @@ whip[1]: Vr5c4{1 .} ==> Br5c4 ≠ nes, Br5c4 ≠ o, Pr5c4 ≠ nw, Pr5c4 ≠ ew, 
 P-single: Pr5c4 = sw
 whip[1]: Pr5c4{sw .} ==> Br4c4 ≠ w, Br4c4 ≠ s, Br4c3 ≠ se, Br4c3 ≠ esw, Br4c3 ≠ nes
 B-single: Br4c4 = o
+whip[1]: Br4c4{o .} ==> Pr4c4 ≠ ns, Pr4c4 ≠ sw, Pr5c5 ≠ ew, Pr5c5 ≠ sw, Nr4c4 ≠ 1
 N-single: Nr4c4 = 0
-whip[1]: Pr4c4{nw .} ==> Br3c3 ≠ swn, Br3c3 ≠ wne
-whip[1]: Br3c3{nes .} ==> Pr3c4 ≠ o, Pr3c4 ≠ ne, Pr3c4 ≠ nw, Pr3c4 ≠ ew, Pr4c3 ≠ o, Pr4c3 ≠ ns, Pr4c3 ≠ nw, Pr4c3 ≠ sw, Pr4c4 ≠ o
-P-single: Pr4c4 = nw
-whip[1]: Pr4c4{nw .} ==> Br4c3 ≠ s, Br3c4 ≠ e, Br3c4 ≠ ne, Br4c3 ≠ sw
-whip[1]: Br4c3{swn .} ==> Nr4c3 ≠ 1
-whip[1]: Br3c4{wne .} ==> Nr3c4 ≠ 1
-whip[1]: Pr4c3{ew .} ==> Br3c2 ≠ se, Br3c2 ≠ esw, Br3c2 ≠ nes, Br4c2 ≠ wne, Br4c2 ≠ ne
-whip[1]: Pr3c4{sw .} ==> Br2c3 ≠ se, Br2c3 ≠ esw, Br2c3 ≠ nes, Br2c4 ≠ sw, Br2c4 ≠ swn
 whip[1]: Pr5c5{se .} ==> Br5c5 ≠ esw, Br5c5 ≠ nes
 whip[1]: Br5c5{wne .} ==> Pr5c5 ≠ o, Pr5c6 ≠ o, Pr5c6 ≠ ne, Pr5c6 ≠ ns, Pr5c6 ≠ se, Pr6c5 ≠ o, Pr6c5 ≠ se, Pr6c5 ≠ ew, Pr6c5 ≠ sw
 P-single: Pr5c5 = se
@@ -214,6 +191,14 @@ whip[1]: Br5c4{esw .} ==> Nr5c4 ≠ 0, Nr5c4 ≠ 1
 whip[1]: Br4c5{nes .} ==> Nr4c5 ≠ 1
 whip[1]: Pr6c5{nw .} ==> Br6c4 ≠ ne, Br6c4 ≠ nes, Br6c5 ≠ nw, Br6c5 ≠ swn, Br6c5 ≠ wne
 whip[1]: Pr5c6{sw .} ==> Br4c6 ≠ sw, Br4c6 ≠ esw, Br5c6 ≠ nw, Br5c6 ≠ swn, Br5c6 ≠ wne
+whip[1]: Pr4c4{nw .} ==> Br3c3 ≠ swn, Br3c3 ≠ wne
+whip[1]: Br3c3{nes .} ==> Pr3c4 ≠ o, Pr3c4 ≠ ne, Pr3c4 ≠ nw, Pr3c4 ≠ ew, Pr4c3 ≠ o, Pr4c3 ≠ ns, Pr4c3 ≠ nw, Pr4c3 ≠ sw, Pr4c4 ≠ o
+P-single: Pr4c4 = nw
+whip[1]: Pr4c4{nw .} ==> Br4c3 ≠ s, Br3c4 ≠ e, Br3c4 ≠ ne, Br4c3 ≠ sw
+whip[1]: Br4c3{swn .} ==> Nr4c3 ≠ 1
+whip[1]: Br3c4{wne .} ==> Nr3c4 ≠ 1
+whip[1]: Pr4c3{ew .} ==> Br3c2 ≠ se, Br3c2 ≠ esw, Br3c2 ≠ nes, Br4c2 ≠ wne, Br4c2 ≠ ne
+whip[1]: Pr3c4{sw .} ==> Br2c3 ≠ se, Br2c3 ≠ esw, Br2c3 ≠ nes, Br2c4 ≠ sw, Br2c4 ≠ swn
 whip[1]: Pr6c4{nw .} ==> Br6c3 ≠ ne, Br6c3 ≠ wne, Br6c3 ≠ nes
 whip[1]: Vr2c3{1 .} ==> Br2c3 ≠ ns, Br2c2 ≠ o, Br2c3 ≠ o, Pr2c3 ≠ nw, Pr2c3 ≠ ew, Pr3c3 ≠ ew, Pr3c3 ≠ sw, Br2c2 ≠ n, Br2c2 ≠ s, Br2c2 ≠ w, Br2c2 ≠ ns, Br2c2 ≠ nw, Br2c2 ≠ sw, Br2c2 ≠ swn, Br2c3 ≠ n, Br2c3 ≠ e, Br2c3 ≠ s, Br2c3 ≠ ne
 whip[1]: Br2c3{wne .} ==> Nr2c3 ≠ 0
@@ -224,6 +209,7 @@ whip[1]: Pr3c2{nw .} ==> Br2c1 ≠ w, Br2c1 ≠ ns, Br2c1 ≠ nw, Br2c1 ≠ sw, 
 whip[1]: Br2c2{wne .} ==> Pr2c2 ≠ ne, Pr2c2 ≠ ew, Nr2c2 ≠ 1
 whip[1]: Pr2c2{sw .} ==> Br2c2 ≠ wne, Br1c2 ≠ s
 B-single: Br2c2 = ew
+whip[1]: Br2c2{ew .} ==> Nr2c2 ≠ 3
 N-single: Nr2c2 = 2
 whip[1]: Br1c2{w .} ==> Pr1c2 ≠ se, Pr1c3 ≠ sw
 P-single: Pr1c3 = ew
@@ -234,9 +220,10 @@ w[1]-1-in-r1c2-asymmetric-ne-corner ==> Pr2c2 ≠ ns
 P-single: Pr2c2 = sw
 whip[1]: Pr1c3{ew .} ==> Br1c2 ≠ w, Br1c2 ≠ e, Br1c3 ≠ esw, Br1c3 ≠ swn, Br1c3 ≠ wne
 B-single: Br1c3 = nes
+B-single: Br1c2 = n
+whip[1]: Br1c3{nes .} ==> Pr2c4 ≠ sw, Pr2c4 ≠ ew, Pr2c4 ≠ se, Pr2c4 ≠ ns, Pr2c4 ≠ ne, Pr2c4 ≠ o, Pr1c4 ≠ ew, Pr1c4 ≠ se, Pr1c4 ≠ o
 P-single: Pr1c4 = sw
 P-single: Pr2c4 = nw
-B-single: Br1c2 = n
 whip[1]: Pr1c4{sw .} ==> Br1c4 ≠ ns, Br1c4 ≠ ne, Br1c4 ≠ s, Br1c4 ≠ e, Br1c4 ≠ n, Br1c4 ≠ o, Br1c4 ≠ nw, Br1c4 ≠ se, Br1c4 ≠ swn, Br1c4 ≠ wne, Br1c4 ≠ nes
 whip[1]: Br1c4{esw .} ==> Pr1c5 ≠ ew, Pr1c5 ≠ sw, Nr1c4 ≠ 0
 w[1]-3-in-r1c5-symmetric-nw-corner ==> Vr1c5 = 1, Hr1c5 = 1
@@ -262,6 +249,7 @@ whip[1]: Hr1c5{1 .} ==> Br0c5 ≠ o
 B-single: Br0c5 = s
 whip[1]: Hr3c6{0 .} ==> Pr3c6 ≠ se, Pr3c6 ≠ ew, Br2c6 ≠ s, Br3c6 ≠ n, Br3c6 ≠ ns, Br3c6 ≠ nw
 B-single: Br2c6 = w
+whip[1]: Br2c6{w .} ==> Vr2c6 ≠ 0
 V-single: Vr2c6 = 1
 whip[1]: Vr2c6{1 .} ==> Br2c5 ≠ o, Br2c5 ≠ n, Br2c5 ≠ s, Br2c5 ≠ w, Br2c5 ≠ ns
 whip[1]: Br2c5{nes .} ==> Nr2c5 ≠ 0
@@ -278,6 +266,7 @@ whip[1]: Br4c8{wne .} ==> Nr4c8 ≠ 0
 whip[1]: Pr5c7{ew .} ==> Br4c6 ≠ se, Br5c6 ≠ nes, Br5c6 ≠ ne
 whip[1]: Pr2c4{nw .} ==> Br2c4 ≠ n, Br1c4 ≠ esw, Br2c3 ≠ w, Br2c3 ≠ ew, Br2c3 ≠ sw, Br2c3 ≠ wne, Br2c4 ≠ w, Br2c4 ≠ ns, Br2c4 ≠ nw, Br2c4 ≠ ew
 B-single: Br1c4 = ew
+whip[1]: Br1c4{ew .} ==> Nr1c4 ≠ 3, Pr2c5 ≠ nw
 N-single: Nr1c4 = 2
 whip[1]: Pr2c5{ns .} ==> Br2c5 ≠ se, Br2c5 ≠ e
 whip[1]: Br2c5{nes .} ==> Nr2c5 ≠ 1
@@ -285,17 +274,20 @@ whip[1]: Br2c4{s .} ==> Pr3c4 ≠ ns, Nr2c4 ≠ 2
 whip[1]: Br2c3{swn .} ==> Nr2c3 ≠ 1
 whip[1]: Pr1c2{ew .} ==> Br1c1 ≠ wne
 B-single: Br1c1 = swn
+whip[1]: Br1c1{swn .} ==> Pr2c1 ≠ se, Pr2c1 ≠ ns, Pr2c1 ≠ o, Pr1c1 ≠ o
 P-single: Pr1c1 = se
 P-single: Pr2c1 = ne
 whip[1]: Pr2c1{ne .} ==> Br2c1 ≠ e, Br2c1 ≠ se, Br2c1 ≠ ew, Br2c1 ≠ esw, Br2c1 ≠ wne
 whip[1]: Br2c1{nes .} ==> Pr3c1 ≠ ne, Pr3c1 ≠ ns, Nr2c1 ≠ 0, Nr2c1 ≠ 1
 whip[1]: Pr3c1{se .} ==> Br3c1 ≠ esw
 B-single: Br3c1 = swn
+whip[1]: Br3c1{swn .} ==> Pr4c2 ≠ ns, Pr4c2 ≠ ne, Pr3c2 ≠ ns, Pr4c1 ≠ se, Pr4c1 ≠ ns, Pr4c1 ≠ o, Pr3c1 ≠ o
 P-single: Pr3c1 = se
 P-single: Pr4c1 = ne
 P-single: Pr3c2 = nw
 whip[1]: Pr3c1{se .} ==> Br2c1 ≠ ne
 B-single: Br2c1 = nes
+whip[1]: Br2c1{nes .} ==> Nr2c1 ≠ 2
 N-single: Nr2c1 = 3
 whip[1]: Pr4c1{ne .} ==> Br4c1 ≠ o, Br4c1 ≠ e, Br4c1 ≠ s, Br4c1 ≠ w, Br4c1 ≠ nw, Br4c1 ≠ se, Br4c1 ≠ ew, Br4c1 ≠ sw, Br4c1 ≠ esw, Br4c1 ≠ swn, Br4c1 ≠ wne
 whip[1]: Br4c1{nes .} ==> Pr5c1 ≠ ne, Pr5c1 ≠ ns, Nr4c1 ≠ 0
@@ -335,14 +327,16 @@ whip[1]: Br10c8{swn .} ==> Pr11c8 ≠ o, Pr11c8 ≠ nw, Pr11c8 ≠ ew, Pr10c8 �
 P-single: Pr11c8 = ne
 whip[1]: Pr11c8{ne .} ==> Br10c7 ≠ n, Br10c7 ≠ o, Br11c8 ≠ o, Br11c7 ≠ n, Br10c7 ≠ s, Br10c7 ≠ w, Br10c7 ≠ ns, Br10c7 ≠ nw, Br10c7 ≠ se, Br10c7 ≠ sw, Br10c7 ≠ esw, Br10c7 ≠ swn, Br10c7 ≠ nes
 B-single: Br11c7 = o
+B-single: Br11c8 = n
+whip[1]: Br11c7{o .} ==> Pr11c7 ≠ ne, Pr11c7 ≠ ew
 w[1]-3-in-r10c6-symmetric-se-corner ==> Vr10c7 = 1, Hr11c6 = 1
 w[1]-3-in-r10c6-closed-se-corner ==> Pr10c6 ≠ se, Pr10c6 ≠ nw, Pr10c6 ≠ o
-B-single: Br11c8 = n
 horizontal-line-{r10 r11}c6 ==> Ir10c6 = in
 whip[1]: Vr10c7{1 .} ==> Pr11c7 ≠ o, Pr10c7 ≠ o, Pr10c7 ≠ ne, Pr10c7 ≠ nw, Pr10c7 ≠ ew, Br10c6 ≠ swn, Br10c7 ≠ e, Br10c7 ≠ ne
 P-single: Pr11c7 = nw
 whip[1]: Pr11c7{nw .} ==> Br11c6 ≠ o, Br10c6 ≠ wne
 B-single: Br11c6 = n
+whip[1]: Br11c6{n .} ==> Pr11c6 ≠ o, Pr11c6 ≠ nw
 whip[1]: Pr11c6{ew .} ==> Br10c5 ≠ nw, Br10c5 ≠ se, Br10c5 ≠ esw, Br10c5 ≠ nes, Br10c5 ≠ o, Br10c5 ≠ n, Br10c5 ≠ w
 whip[1]: Br10c5{wne .} ==> Nr10c5 ≠ 0
 whip[1]: Br10c7{wne .} ==> Nr10c7 ≠ 0, Nr10c7 ≠ 1
@@ -351,18 +345,21 @@ whip[1]: Pr9c5{sw .} ==> Br8c4 ≠ nw, Br8c4 ≠ se, Br8c4 ≠ esw, Br8c4 ≠ ne
 whip[1]: Br8c4{wne .} ==> Nr8c4 ≠ 0
 whip[1]: Pr10c8{sw .} ==> Br9c7 ≠ nw, Br9c7 ≠ se, Br9c7 ≠ nes, Br9c8 ≠ sw, Br9c8 ≠ swn, Br10c8 ≠ swn, Br9c7 ≠ o, Br9c7 ≠ n, Br9c7 ≠ w, Br9c8 ≠ s, Br9c8 ≠ ns
 B-single: Br10c8 = esw
+whip[1]: Br10c8{esw .} ==> Pr10c9 ≠ ew, Pr11c9 ≠ ew
 P-single: Pr11c9 = nw
 P-single: Pr10c9 = se
 whip[1]: Pr11c9{nw .} ==> Br11c9 ≠ n, Br10c9 ≠ swn, Br10c9 ≠ nes
 B-single: Br10c9 = wne
+B-single: Br11c9 = o
+whip[1]: Br10c9{wne .} ==> Pr10c10 ≠ ew, Pr11c10 ≠ ew
 P-single: Pr11c10 = ne
 P-single: Pr10c10 = sw
-B-single: Br11c9 = o
 whip[1]: Pr11c10{ne .} ==> Br11c10 ≠ o, Br10c10 ≠ nes
 B-single: Br10c10 = esw
+B-single: Br11c10 = n
+whip[1]: Br10c10{esw .} ==> Pr10c11 ≠ nw, Pr11c11 ≠ o
 P-single: Pr11c11 = nw
 P-single: Pr10c11 = ns
-B-single: Br11c10 = n
 whip[1]: Pr10c11{ns .} ==> Br9c10 ≠ se, Br9c10 ≠ nes
 whip[1]: Br9c10{ne .} ==> Nr9c10 ≠ 3
 whip[1]: Br9c8{nw .} ==> Nr9c8 ≠ 3
@@ -470,8 +467,11 @@ whip[1]: Hr1c2{1 .} ==> Br0c2 ≠ o
 B-single: Br0c2 = s
 whip[1]: Hr1c1{1 .} ==> Br0c1 ≠ o
 B-single: Br0c1 = s
-Entering_level_W2_with_<Fact-190205>
-Entering_level_W3_with_<Fact-195451>
+Entering_relation_bivalue_with_<Fact-190340>
+Entering_level_BC2_with_<Fact-190973>
+Entering_level_W2_with_<Fact-191583>
+Entering_level_BC3_with_<Fact-196828>
+Entering_level_W3_with_<Fact-198042>
 whip[3]: Pr10c4{ew nw} - Br10c3{s n} - Pr11c4{ne .} ==> Br10c4 ≠ s
 whip[3]: Pr10c3{sw ne} - Br10c3{w n} - Pr11c3{nw .} ==> Br10c2 ≠ s
 whip[3]: Pr10c7{se sw} - Br9c7{ns e} - Pr9c7{ne .} ==> Br9c6 ≠ s
@@ -493,10 +493,12 @@ whip[1]: Pr7c1{se .} ==> Br7c1 ≠ ne, Br7c1 ≠ ns, Br7c1 ≠ nes, Br7c1 ≠ n
 whip[1]: Pr5c3{ew .} ==> Vr4c3 ≠ 1, Br4c2 ≠ ew, Br4c3 ≠ swn
 V-single: Vr4c3 = 0
 B-single: Br4c3 = ns
-N-single: Nr4c3 = 2
+whip[1]: Vr4c3{0 .} ==> Pr4c3 ≠ se
 whip[1]: Pr4c3{ew .} ==> Br3c2 ≠ o
 whip[1]: Br3c2{s .} ==> Nr3c2 ≠ 0
 N-single: Nr3c2 = 1
+whip[1]: Br4c3{ns .} ==> Nr4c3 ≠ 3
+N-single: Nr4c3 = 2
 whip[3]: Br3c9{n esw} - Pr4c9{sw ne} - Br4c9{esw .} ==> Pr4c10 ≠ nw
 whip[1]: Pr4c10{sw .} ==> Br3c9 ≠ esw, Br4c10 ≠ se, Br4c10 ≠ o, Br4c10 ≠ e, Br4c10 ≠ s
 whip[1]: Br4c10{nes .} ==> Nr4c10 ≠ 0
@@ -529,8 +531,10 @@ whip[3]: Pr2c10{sw nw} - Br1c10{nes w} - Pr2c11{ns .} ==> Br2c10 ≠ se
 whip[1]: Br2c10{sw .} ==> Pr3c11 ≠ nw, Pr2c10 ≠ nw
 whip[1]: Pr2c10{sw .} ==> Br1c9 ≠ nes
 whip[1]: Pr3c11{sw .} ==> Br3c10 ≠ n, Br3c10 ≠ ns
-Entering_level_W4_with_<Fact-209979>
-Entering_level_W5_with_<Fact-249570>
+Entering_level_BC4_with_<Fact-212883>
+Entering_level_W4_with_<Fact-215881>
+Entering_level_BC5_with_<Fact-255471>
+Entering_level_W5_with_<Fact-261281>
 whip[5]: Pr10c2{ew nw} - Br9c1{sw se} - Pr10c1{ns se} - Br10c1{e swn} - Pr11c2{o .} ==> Br10c2 ≠ o
 whip[1]: Br10c2{nes .} ==> Nr10c2 ≠ 0
 whip[5]: Pr10c1{se o} - Br9c1{sw ne} - Pr10c2{ew ns} - Br9c2{nes wne} - Pr9c2{ne .} ==> Br10c1 ≠ e
@@ -556,7 +560,7 @@ P-single: Pr1c10 = ew
 whip[1]: Hr1c10{1 .} ==> Br0c10 ≠ o
 B-single: Br0c10 = s
 whip[1]: Br1c10{nes .} ==> Nr1c10 ≠ 1
-GRID 0 NOT SOLVED. 920 VALUES MISSING.
+GRID 0 NOT SOLVED. 245 VALUES MISSING.
 filling unsolved HV variables
 filling unsolved IO variables
 
@@ -583,18 +587,18 @@ GRID 0 SOLVED. rating-type = W+nW1eq+Col+Loop, MOST COMPLEX RULE TRIED = W[5]
 :   :   : 1 :   :   : 3 |   | 3 | 3 | 3 |
 .....................———.   .———.   .———.
 
-init-time = 4m 26.86s, solve-time = 2m 51.84s, total-time = 7m 18.7s
-nb-facts=<Fact-365423>
+init-time = 0.62s, solve-time = 1m 56.2s, total-time = 1m 56.83s
+nb-facts=<Fact-377236>
 Quasi-Loop max length = 0
 Colours effectively used
 ***********************************************************************************************
 ***  SlitherRules 2.1.s based on CSP-Rules 2.1.s, config = W+nW1eq+Col+Loop
-***  Using CLIPS 6.32-r768
+***  Using CLIPS 6.32-r770
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
 
 
-Manual finish:
+It is now easy to finish the puzzle manually:
 
 .———.———.———.   .———.............———.———.
 | 3   1   3 |   | 3 :   |     1 :       |

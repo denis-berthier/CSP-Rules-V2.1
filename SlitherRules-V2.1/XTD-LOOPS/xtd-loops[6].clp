@@ -28,12 +28,17 @@
 
 
 
+;;;     DO NOT USE THE AUTOMATIC GENERATOR
+
 (defrule activate-xtd-loop[6]
    (declare (salience ?*activate-xtd-loop[6]-salience*))
    (logical (context (name ?cont)) (technique ?cont BRT))
    (not (deactivate ?cont xtd-loop))
 =>
    (assert (technique ?cont xtd-loop[6]))
+   (assert (technique ?cont partial-loop[2]))
+   (assert (technique ?cont partial-loop[3]))
+   (assert (technique ?cont partial-loop[4]))
    (assert (technique ?cont partial-loop[5]))
    (bind ?*technique* xtd-loop[6])
 )
@@ -70,7 +75,7 @@
    )
    (test (and
       (combinable-lines ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12)
-      (combinable-lines ?rowp2 ?colp2 ?typep2 ?row1 ?col1 ?type1 ?row2 ?col2 ?type2)
+      (touching-lines ?rowp2 ?colp2 ?typep2 ?row1 ?col1 ?type1)
    ))
 =>
    (bind ?*QL-max* (max 6 ?*QL-max*))

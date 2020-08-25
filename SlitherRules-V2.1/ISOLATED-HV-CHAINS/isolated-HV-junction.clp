@@ -48,7 +48,7 @@
     )
     (test (touching-lines ?row1 ?col1 ?type1 ?row2 ?col2 ?type2))
     (or
-        ;;; both H or both V
+        ;;; both H
         (and (test (and (eq ?type1 H) (eq ?type2 H) (eq ?row2 ?row1) (eq ?col2 (+ ?col1 1))))
             (or
                 (test (eq ?row1 1))
@@ -60,6 +60,7 @@
             )
         )
             
+        ;;; both V
         (and (test (and (eq ?type1 V) (eq ?type2 V) (eq ?col2 ?col1) (eq ?row2 (+ ?row1 1))))
             (or
                 (test (eq ?col1 1))
@@ -71,17 +72,19 @@
             )
         )
         
-        ;;; mixed H and V, increasing lines
+        ;;; H -> V right up
         (and (test (and (eq ?type1 H) (eq ?type2 V) (eq ?col2 (+ ?col1 1)) (eq ?row2 (- ?row1 1))))
             (or
                 (test (eq ?col1 ?*nb-columns*))
                 (candidate (context ?cont) (status c-value) (value 0) (type H) (row ?row1) (column ?col2))
             )
             (or
-                (test (eq ?row1 ?*nb-rows*))
+                (test (eq ?row2 ?*nb-rows*))
                 (candidate (context ?cont) (status c-value) (value 0) (type V) (row ?row1) (column ?col2))
             )
         )
+        
+        ;;; H -> V right down
         (and (test (and (eq ?type1 H) (eq ?type2 V) (eq ?col2 (+ ?col1 1)) (eq ?row2 ?row1)))
             (or
                 (test (eq ?col1 ?*nb-columns*))
@@ -93,38 +96,7 @@
             )
         )
         
-        (and (test (and (eq ?type1 V) (eq ?type2 H) (eq ?row2 (+ ?row1 1)) (eq ?col2 (- ?col1 1))))
-            (or
-                (test (eq ?col1 (+ ?*nb-columns* 1)))
-                (candidate (context ?cont) (status c-value) (value 0) (type H) (row ?row2) (column ?col1))
-            )
-            (or
-                (test (eq ?row1 ?*nb-rows*))
-                (candidate (context ?cont) (status c-value) (value 0) (type V) (row ?row2) (column ?col1))
-            )
-        )
-        (and (test (and (eq ?type1 V) (eq ?type2 H) (eq ?row2 (+ ?row1 1)) (eq ?col2 ?col1)))
-            (or
-                (test (eq ?col1 1))
-                (candidate (context ?cont) (status c-value) (value 0) (type H) (row ?row2) (column ?colx&:(eq ?colx (- ?col1 1))))
-            )
-            (or
-                (test (eq ?row1 ?*nb-rows*))
-                (candidate (context ?cont) (status c-value) (value 0) (type V) (row ?row2) (column ?col1))
-            )
-        )
-        
-        ;;; mixed H and V, decreasing lines
-        (and (test (and (eq ?type1 H) (eq ?type2 V) (eq ?col2 ?col1) (eq ?row2 ?row1)))
-            (or
-                (test (eq ?col1 1))
-                (candidate (context ?cont) (status c-value) (value 0) (type H) (row ?row1) (column ?colx&:(eq ?colx (- ?col1 1))))
-            )
-            (or
-                (test (eq ?row1 1))
-                (candidate (context ?cont) (status c-value) (value 0) (type V) (row ?rowx&:(eq ?rowx (- ?row1 1))) (column ?col1))
-            )
-        )
+        ;;; H -> V left up
         (and (test (and (eq ?type1 H) (eq ?type2 V) (eq ?col2 ?col1) (eq ?row2 (- ?row1 1))))
             (or
                 (test (eq ?col1 1))
@@ -135,18 +107,9 @@
                 (candidate (context ?cont) (status c-value) (value 0) (type V) (row ?row1) (column ?col1))
             )
         )
-
-        (and (test (and (eq ?type1 V) (eq ?type2 H) (eq ?row2 ?row1) (eq ?col2 (- ?col1 1))))
-            (or
-                (test (eq ?col2 ?*nb-columns*))
-                (candidate (context ?cont) (status c-value) (value 0) (type H) (row ?row1) (column ?col1))
-            )
-            (or
-                (test (eq ?row1 1))
-                (candidate (context ?cont) (status c-value) (value 0) (type V) (row ?rowx&:(eq ?rowx (- ?row1 1))) (column ?col1))
-            )
-        )
-        (and (test (and (eq ?type1 V) (eq ?type2 H) (eq ?row2 ?row1) (eq ?col2 ?col1)))
+        
+        ;;; H -> V left down
+        (and (test (and (eq ?type1 H) (eq ?type2 V) (eq ?col2 ?col1) (eq ?row2 ?row1)))
             (or
                 (test (eq ?col1 1))
                 (candidate (context ?cont) (status c-value) (value 0) (type H) (row ?row1) (column ?colx&:(eq ?colx (- ?col1 1))))

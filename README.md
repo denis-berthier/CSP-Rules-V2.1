@@ -53,13 +53,30 @@ For making the above more explicit, consider the following (moderately difficult
 +-------+-------+-------+ 
 ```
 
-Here is how the problem is given to SudoRules (the part of CSP-Rules that deals with the Sudoku CSP):<br>
+The problem can be given to SudoRules (the part of CSP-Rules that deals with the Sudoku CSP) in several forms, including the following two:<br>
+— using the "line format" for Sudoku puzzles, widespread in the Sudoku community: <br>
 ```
 (solve "...13.....1...45....2....6.1..3...7.2...5...8.4...6..9.5....7....67...9.....89...") 
 ```
 <br>
+— using a more visually appealing format: <br>
 
+```
+(solve-puzzle-as-list 
+    . . .  1 3 .  . . .
+    . 1 .  . . 4  5 . .
+    . . 2  . . .  . 6 .
+    1 . .  3 . .  . 7 .
+    2 . .  . 5 .  . . 8
+    . 4 .  . . 6  . . 9
+    . 5 .  . . .  7 . .
+    . . 6  7 . .  . 9 .
+    . . .  . 8 9  . . .
+ ) 
+```
+<br>
 And here is how the solution of this puzzle will appear (with variants, depending on which resolution rules have been selected by the user).<br>
+The resolution path is a constructive proof of the solution.
 Each line starts with the name of a precise pattern, including its size (as described in detail in [PBCS]); the name is followed by the full details of its instantiation and, after a "==>" sign, by the eliminations it allows:<br>
 
 ```
@@ -139,7 +156,7 @@ CSP-Rules V2.1 is distributed under the GNU GPL v3.0 license (see the full text 
 
 
 ## 6. Installation:<br>
-Download CSP-Rules V2.1 from the master branch (by clicking "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (i.e. delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>
+Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (i.e. delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>
 For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MACOS security rules, you may have to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "Clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br><br>
 
 
@@ -158,4 +175,4 @@ _Books:_<br>
 <> [HLS]: any of [HLS1] or [HLS2]<br>
 <> [PBCS1]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles, Lulu.com Publishers, July 2012.<br>
 <> [PBCS2]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Second Edition), Lulu.com Publishers, November 2015.<br>
-<> [PBCS]:any of [PBCS1] or [PBCS2].<br><br>
+<> [PBCS]: any of [PBCS1] or [PBCS2].<br><br>

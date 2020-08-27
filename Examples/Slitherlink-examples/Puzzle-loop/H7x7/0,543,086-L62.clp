@@ -13,7 +13,7 @@
 
 ***********************************************************************************************
 ***  SlitherRules 2.1.s based on CSP-Rules 2.1.s, config = W+nW1eq+Col+Loop
-***  Using CLIPS 6.32-r768
+***  Using CLIPS 6.32-r770
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
 
@@ -25,26 +25,9 @@
 . 3 . 3 . . 2
 3 . . . 3 . .
 
-start init-grid-structure 0.0117108821868896
-start create-csp-variables
-start create-labels 0.000941991806030273
-start init-physical-csp-links 0.00614595413208008
-start init-physical-non-csp-links 3.48274993896484
-     start init-physical-PH-and-PV-non-csp-links at local time 0
-     start init-physical-BH-and-BV-non-csp-links at local time 0.994364976882935
-     start init-physical-BN-non-csp-links at local time 3.67548298835754
-     start init-physical-BP-non-csp-links at local time 6.2585129737854
-     end init-physical-BP-non-csp-links at local time 41.0596721172333
-end init-physical-non-csp-links 44.542464017868
-start init-corner-B-c-values 44.5544309616089
-start init-outer-B-candidates 44.5544860363007
-start init-outer-I-candidates 44.5550849437714
-start init-H-candidates 44.555438041687
-start init-V-candidates 44.5573890209198
-start init-P-candidates 44.5590808391571
-start init-inner-I-candidates 44.5619838237762
-start init-inner-N-and-B-candidates 44.563117980957
-start solution 44.5714190006256
+Loading pre-computed background
+start init-inner-N-and-B-candidates 0.299947023391724
+start solution 0.305459976196289
 entering BRT
 w[1]-3-in-sw-corner ==> Vr7c1 = 1, Hr8c1 = 1
 w[1]-3-in-ne-corner ==> Vr1c8 = 1, Hr1c7 = 1
@@ -173,6 +156,7 @@ different-colours-in-r6{c6 c7} ==> Hr6c7 = 1
 LOOP[62]: Vr6c7-Hr6c6-Vr5c6-Vr4c6-Hr4c5-Vr4c5-Vr5c5-Hr6c4-Vr6c4-Hr7c4-Hr7c5-Vr7c6-Hr8c5-Hr8c4-Hr8c3-Hr8c2-Hr8c1-Vr7c1-Hr7c1-Hr7c2-Vr6c3-Hr6c2-Hr6c1-Vr5c1-Vr4c1-Hr4c1-Vr4c2-Hr5c2-Hr5c3-Vr4c4-Hr4c3-Vr3c3-Hr3c3-Vr2c4-Hr2c3-Hr2c2-Vr2c2-Hr3c1-Vr2c1-Vr1c1-Hr1c1-Hr1c2-Hr1c3-Hr1c4-Hr1c5-Vr1c6-Hr2c5-Vr2c5-Hr3c5-Hr3c6-Vr2c7-Vr1c7-Hr1c7-Vr1c8-Vr2c8-Vr3c8-Hr4c7-Vr4c7-Hr5c7-Vr5c8-Vr6c8- ==> Hr7c7 = 1
 no-vertical-line-r7{c6 c7} ==> Ir7c7 = out
 same-colour-in-{r7 r8}c7 ==> Hr8c7 = 0
+
 PUZZLE 0 SOLVED. rating-type = W+nW1eq+Col+Loop, MOST COMPLEX RULE TRIED = Col
 
 XXXXXOX
@@ -199,12 +183,12 @@ XXXXXOO
 | 3               3 |
 .———.———.———.———.———.   .   .
 
-init-time = 44.57s, solve-time = 15.61s, total-time = 1m 0.18s
+init-time = 0.31s, solve-time = 1.05s, total-time = 1.35s
 nb-facts=<Fact-53795>
 Quasi-Loop max length = 62
 Colours effectively used
 ***********************************************************************************************
 ***  SlitherRules 2.1.s based on CSP-Rules 2.1.s, config = W+nW1eq+Col+Loop
-***  Using CLIPS 6.32-r768
+***  Using CLIPS 6.32-r770
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************

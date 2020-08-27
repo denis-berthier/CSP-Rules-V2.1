@@ -28,7 +28,7 @@
 
 
 
-;;; DO NOT USE THE AUTOMATIC GENERATOR
+;;;     DO NOT USE THE AUTOMATIC GENERATOR
 
 (defrule activate-xtd-loop[6]
    (declare (salience ?*activate-xtd-loop[6]-salience*))
@@ -36,10 +36,10 @@
    (not (deactivate ?cont xtd-loop))
 =>
    (assert (technique ?cont xtd-loop[6]))
-   (assert (technique ?cont partial-loop[5]))
-   (assert (technique ?cont partial-loop[4]))
-   (assert (technique ?cont partial-loop[3]))
    (assert (technique ?cont partial-loop[2]))
+   (assert (technique ?cont partial-loop[3]))
+   (assert (technique ?cont partial-loop[4]))
+   (assert (technique ?cont partial-loop[5]))
    (bind ?*technique* xtd-loop[6])
 )
 
@@ -56,10 +56,10 @@
       (context ?cont)
       (length ?p&:(< ?p 5))
       (nb-cont ?nb-cont)
-      (labs ?lab1 $?middle-labs ?labp ?labq)
-      (rows ?row1 $?middle-rows ?rowp ?rowq)
-      (columns ?col1 $?middle-cols ?colp ?colq)
-      (types ?type1 $?middle-types ?typep ?typeq)
+      (labs ?lab1 ?lab2 $?middle-labs ?labp ?labq)
+      (rows ?row1 ?row2 $?middle-rows ?rowp ?rowq)
+      (columns ?col1 ?col2 $?middle-cols ?colp ?colq)
+      (types ?type1 ?type2 $?middle-types ?typep ?typeq)
    )
 
    ;;; closing-lines
@@ -92,7 +92,7 @@
          (bind ?assert-values 1)
    )
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* ?q)))
-   (print-xtd-loop 6 ?row1 ?col1 ?type1 $?middle-rows $?middle-cols $?middle-types ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12 $?rows2 $?cols2 $?types2 ?rowp2 ?colp2 ?typep2 ?assert-values)
+   (print-xtd-loop 6 ?row1 ?col1 ?type1 ?row2 ?col2 ?type2 $?middle-rows $?middle-cols $?middle-types ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12 $?rows2 $?cols2 $?types2 ?rowp2 ?colp2 ?typep2 ?assert-values)
 )
 
 

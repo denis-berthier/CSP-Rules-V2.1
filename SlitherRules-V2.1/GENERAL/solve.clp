@@ -46,7 +46,7 @@
     (bind ?*sum-of-givens* 0)
     (bind ?*cells-with-a-given* (create$))
     ;;; redefine the global variables, depending on grid sizes
-    (bind ?*grid-size* (max ?*nb-rows* ?*nb-columns*))
+    (bind ?*grid-size* (max ?nb-rows ?nb-columns))
     (bind ?*internal-factor* (if (<= ?*grid-size* 8) then 10 else 100))
     (bind ?*internal-factor-1* ?*internal-factor*)
     (bind ?*internal-factor-2* (* ?*internal-factor-1* ?*internal-factor-1*))
@@ -796,8 +796,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
 (deffunction init-physical-PH-and-PV-non-csp-links ()	
 	;;; physical HH and PV links
     ;;; for each P csp-variable, each P-label for it gives rise to 4 such facts (fewer in the outer border)
@@ -1160,20 +1158,18 @@
             (-  (time) ?init-physical-non-csp-links-start-time) crlf
     ))
     
-    (if ?*Allow-direct-PP-links* then
-        (if ?*print-actions* then (printout t "     start init-physical-PP-non-csp-links at local time "
-            (-  (time) ?init-physical-non-csp-links-start-time) crlf))
-        (init-physical-PP-non-csp-links)
-    )
+    ;(if ?*Allow-direct-PP-links* then
+    ;    (if ?*print-actions* then (printout t "     start init-physical-PP-non-csp-links at local time "
+    ;        (-  (time) ?init-physical-non-csp-links-start-time) crlf))
+    ;    (init-physical-PP-non-csp-links)
+    ;)
     ; (if ?*print-actions* then (printout t "     start init-physical-BB-non-csp-links at local time "  (-  (time) ?init-physical-non-csp-links-start-time) crlf))
     ; (init-physical-BB-non-csp-links)
     ;;; There are no binary physical non csp-links for I csp-variables:
-    ;;; these contradictions will be dealt with by specific border-colour rules
+    ;;; these contradictions are dealt with by specific border-colour rules
     ;;; There are no binary physical non csp-links for N csp-variables:
     ;;; these variables are dealt with by special rules
 )
-
-
 
 
 
@@ -1205,12 +1201,10 @@
 
 
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; functions for initializing candidates and c-values and for solving puzzles
+;;; functions for initializing candidates and c-values
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1609,6 +1603,16 @@
 )
 
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; functions for initializing and solving puzzles
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (deffunction print-slitherlink-list-as-a-puzzle (?p ?q ?list)
     (bind ?row 1)
     (while (<= ?row ?p)
@@ -1625,18 +1629,19 @@
 )
 
 
+;;; Old version of init-instance, before the inroduction of pre-computed backgrounds.
+;;; It will be over-written by the next definitions.
 (deffunction init-instance (?nb-rows ?nb-columns $?givens)
 	(if ?*print-actions* then (print-slitherlink-list-as-a-puzzle ?nb-rows ?nb-columns $?givens))
-    (reset) (reset)
     (bind ?start-init-time (time))
     (init-universal-globals)
+    (redefine-instance-globals ?nb-rows ?nb-columns)
 
 	;;; This function could be simplified (and initialization time shortened)
 	;;; by combining the following two calls into a single function,
 	;;; but, for easier navigation in the facts base, I prefer asserting all the labels first and then all the candidates.
-    ;;; fixed facts related to grid structure are defined here
+    ;;; fixed facts related to grid structure are asserted here
     
-    (redefine-instance-globals ?nb-rows ?nb-columns)
     (if ?*print-actions* then (printout t "start init-grid-structure " (- (time) ?start-init-time) crlf))
     (init-grid-structure ?nb-rows ?nb-columns)
     
@@ -1659,7 +1664,106 @@
     (if ?*print-actions* then (printout t "start init-inner-I-candidates " (- (time) ?start-init-time) crlf))
     (init-inner-I-candidates ?nb-rows ?nb-columns)
     
-	;;; puzzle data are taken into account here
+	;;; specific puzzle data are taken into account here
+    (bind ?*givens* $?givens)
+    (if ?*print-actions* then (printout t "start init-inner-N-and-B-candidates " (- (time) ?start-init-time) crlf))
+    (init-inner-N-and-B-candidates ?nb-rows ?nb-columns $?givens)
+)
+
+
+
+
+;;; new functions:
+
+(deffunction init-precomputed-background (?nb-rows ?nb-columns)
+    ;;; instance globals must have been re-initialised before using this function
+    (load-facts
+        (str-cat
+            ?*Application-Dir* ?*Directory-symbol*
+            "PRECOMPUTED-BACKGROUNDS" ?*Directory-symbol*
+            "background-" ?nb-rows "x" ?nb-columns ".clp"
+        )
+    )
+)
+
+
+
+(deffunction init-non-precomputed-background (?start-init-time ?nb-rows ?nb-columns)
+    ;;; This function could be simplified (and initialization time shortened)
+    ;;; by combining the following function calls into a single function,
+    ;;; but, for easier navigation in the facts base, I prefer asserting all the labels first and then all the candidates.
+    ;;; fixed facts related to grid structure are defined here
+    
+    ;;; instance globals must have been re-initialised before using this function
+
+    (if ?*print-actions* then (printout t "start init-grid-structure " (- (time) ?start-init-time) crlf))
+    (init-grid-structure ?nb-rows ?nb-columns)
+    
+    (if ?*print-actions* then (printout t "start init-corner-B-c-values " (- (time) ?start-init-time) crlf))
+    (init-corner-B-c-values ?nb-rows ?nb-columns)
+    (if ?*print-actions* then (printout t "start init-outer-B-candidates " (- (time) ?start-init-time) crlf))
+    (init-outer-B-candidates ?nb-rows ?nb-columns)
+    
+    (if ?*print-actions* then (printout t "start init-outer-I-candidates " (- (time) ?start-init-time) crlf))
+    (init-outer-I-candidates ?nb-rows ?nb-columns)
+    
+    (if ?*print-actions* then (printout t "start init-H-candidates " (- (time) ?start-init-time) crlf))
+    (init-H-candidates ?nb-rows ?nb-columns)
+    (if ?*print-actions* then (printout t "start init-V-candidates " (- (time) ?start-init-time) crlf))
+    (init-V-candidates ?nb-rows ?nb-columns)
+    
+    (if ?*print-actions* then (printout t "start init-P-candidates " (- (time) ?start-init-time) crlf))
+    (init-P-candidates ?nb-rows ?nb-columns)
+    
+    (if ?*print-actions* then (printout t "start init-inner-I-candidates " (- (time) ?start-init-time) crlf))
+    (init-inner-I-candidates ?nb-rows ?nb-columns)
+    (if ?*print-actions* then (printout t "end init-inner-I-candidates " (- (time) ?start-init-time) crlf))
+)
+
+
+
+;;; functions for creating the pre-computed background files
+(deffunction save-background (?nb-rows ?nb-columns)
+    (reset)
+    (init-universal-globals)
+    (redefine-instance-globals ?nb-rows ?nb-columns)
+    (init-non-precomputed-background (time) ?nb-rows ?nb-columns)
+    (save-facts
+        (str-cat
+            ?*Application-Dir* ?*Directory-symbol*
+            "PRECOMPUTED-BACKGROUNDS" ?*Directory-symbol*
+            "background-" ?nb-rows "x" ?nb-columns ".clp"
+        )
+    )
+)
+
+
+(deffunction save-all-square-backgrounds ()
+    (loop-for-count (?i 5 15)
+        (printout t crlf "GENERATING " ?i "x" ?i " BACKGROUND" crlf)
+        (save-background ?i ?i)
+    )
+)
+
+;;; use as: (save-all-square-backgrounds)
+
+
+
+
+(deffunction init-instance (?nb-rows ?nb-columns $?givens)
+    (if ?*print-actions* then (print-slitherlink-list-as-a-puzzle ?nb-rows ?nb-columns $?givens))
+    (bind ?start-init-time (time))
+    ;;; init puzzle-independent background
+    (init-universal-globals)
+    (redefine-instance-globals ?nb-rows ?nb-columns)
+    (if (and (eq ?nb-rows ?nb-columns) (>= ?nb-rows 5) (<= ?nb-rows 15))
+        then (printout t "Loading pre-computed background" crlf)
+            (init-precomputed-background ?nb-rows ?nb-columns)
+        else (printout t "Initialising non-pre-computed background" crlf)
+            (init-non-precomputed-background ?start-init-time ?nb-rows ?nb-columns)
+    )
+
+    ;;; puzzle data are taken into account here
     (bind ?*givens* $?givens)
     (if ?*print-actions* then (printout t "start init-inner-N-and-B-candidates " (- (time) ?start-init-time) crlf))
     (init-inner-N-and-B-candidates ?nb-rows ?nb-columns $?givens)
@@ -1669,7 +1773,7 @@
 
 
 (deffunction solve (?nb-rows ?nb-columns $?givens)
-	(reset) (reset)  
+	(reset)
 	(if ?*print-actions* then (print-banner))
     (if ?*only-HV-whips* then (printout t "       *****              Only HV-whips               *****" crlf))
     (if (neq (length$ $?givens) (* ?nb-rows ?nb-columns)) then (printout t "ERROR IN DATA LENGTH." crlf) (halt))
@@ -1683,7 +1787,6 @@
 	(assert (grid 0))
 	(bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
-    (release-mem)
 
     ;;; the puzzle is solved here
     (if ?*print-actions* then (printout t "start solution " ?*init-instance-time* crlf))

@@ -34,7 +34,7 @@ Each application-specific part consists of a specific interfacing with the gener
 
 
 
-## 4. Example:<br>
+## 4. Example<br>
 For making the above more explicit, consider the following (moderately difficult) Sudoku puzzle (created by "Mith"):<br>
 
 ```
@@ -147,32 +147,29 @@ naked-pairs-in-a-block: b3{r1c8 r1c9}{n2 n4} ==> r3c7 ≠ 4
 951423786 
 386715492 
 724689153 
-
 ```
 <br>
 
-## 5. License:<br>
+## 5. License<br>
 CSP-Rules V2.1 is distributed under the GNU GPL v3.0 license (see the full text in the Docs folder).<br><br>
 
-
-## 6. Installation:<br>
+## 6. Installation<br>
 Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (i.e. delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>
 For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MACOS security rules, you may have to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "Clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br><br>
 
-
-## 7. References <br>
+## 7. References<br>
 (A copy of  each reference is present in the "Publications" folder)<br>
-_Articles:_<br>
-<> [Berthier 2008a]: BERTHIER D., From Constraints to Resolution Rules, Part I: Conceptual Framework, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 08), December 5-13, 2008, Springer. Published as a chapter of Advanced Techniques in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 165-170, Springer, 2010.<br>
-<> [Berthier 2008b]: BERTHIER D., From Constraints to Resolution Rules, Part II: chains, braids, confluence and T&E, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 08), December 5-13, 2008, Springer. Published as a chapter of Advanced Techniques in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 171-176, Springer, 2010.<br>
-<> [Berthier 2009]: BERTHIER D., Unbiased Statistics of a CSP - A Controlled-Bias Generator, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 09), December 4-12, 2009, Springer. Published as a chapter of Innovations in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 11-17, Springer, 2010.<br><br>
+### Articles<br>
+* [Berthier 2008a]: BERTHIER D., From Constraints to Resolution Rules, Part I: Conceptual Framework, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 08), December 5-13, 2008, Springer. Published as a chapter of Advanced Techniques in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 165-170, Springer, 2010.<br>
+* [Berthier 2008b]: BERTHIER D., From Constraints to Resolution Rules, Part II: chains, braids, confluence and T&E, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 08), December 5-13, 2008, Springer. Published as a chapter of Advanced Techniques in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 171-176, Springer, 2010.<br>
+* [Berthier 2009]: BERTHIER D., Unbiased Statistics of a CSP - A Controlled-Bias Generator, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 09), December 4-12, 2009, Springer. Published as a chapter of Innovations in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 11-17, Springer, 2010.<br><br>
 
-_Books:_<br>
-<> [BUM]: BERTHIER D., Basic User Manual for CSP-Rules V2.1, Lulu.com Publishers, August 2020.<br>
-<> [CRT]: BERTHIER D., Constraint Resolution Theories, Lulu.com Publishers, October 2011.<br>
-<> [HLS1]: BERTHIER D., The Hidden Logic of Sudoku, First Edition, Lulu.com Publishers, May 2007.<br>
-<> [HLS2]: BERTHIER D., The Hidden Logic of Sudoku, Second Edition, Lulu.com Publishers, November 2007.<br>
-<> [HLS]: any of [HLS1] or [HLS2]<br>
-<> [PBCS1]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles, Lulu.com Publishers, July 2012.<br>
-<> [PBCS2]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Second Edition), Lulu.com Publishers, November 2015.<br>
-<> [PBCS]: any of [PBCS1] or [PBCS2].<br><br>
+### Books<br>
+* [BUM]: BERTHIER D., Basic User Manual for CSP-Rules V2.1, Lulu.com Publishers, August 2020.<br>
+* [CRT]: BERTHIER D., Constraint Resolution Theories, Lulu.com Publishers, October 2011.<br>
+* [HLS1]: BERTHIER D., The Hidden Logic of Sudoku, First Edition, Lulu.com Publishers, May 2007.<br>
+* [HLS2]: BERTHIER D., The Hidden Logic of Sudoku, Second Edition, Lulu.com Publishers, November 2007.<br>
+* [HLS]: any of [HLS1] or [HLS2]<br>
+* [PBCS1]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles, Lulu.com Publishers, July 2012.<br>
+* [PBCS2]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Second Edition), Lulu.com Publishers, November 2015.<br>
+* [PBCS]: any of [PBCS1] or [PBCS2].<br><br>

@@ -1,0 +1,95 @@
+plugins {
+    id 'java'
+}
+
+group 'org.pbscp'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.testng',    name: 'testng',     version: '6.14.3'
+    testImplementation group: 'org.hamcrest',  name: 'hamcrest',   version: '2.2'
+}
+
+test {
+    useTestNG()
+}
+
+task configure {
+    doLast {
+        println "Generating installation configuration..."
+        def rootDir = rootProject.projectDir.parent.replaceAll('\\\\', '/')
+        def osName = System.properties['os.name'].toUpperCase(Locale.ROOT)
+        def system
+        if (osName.contains('WINDOWS')) {
+            def rawInfo = 'systeminfo'.execute().text.split('\n')
+            def info = rawInfo.collectEntries {
+                def words = it.split(':'); [ (words.head().trim()) : words.tail().join("").trim() ]
+            }
+            def make = info['System Manufacturer']
+            def model = info['System Model']
+            def procIndex = rawInfo.findIndexOf {it =~ /^Processor/ }
+            def proc = rawInfo[++procIndex].split(':')[1].trim()
+            def mem = info['Total Physical Memory']
+            def os = info['OS Name']
+            system = "$make $model $proc, $mem, $os"
+        } else if (osName.contains('MAC')) {
+            def model = '/usr/libexec/PlistBuddy -c "print :\\\'CPU Names\\\':$(system_profiler SPHardwareDataType | awk \\\'/Serial/ {print $4}\\\' | cut -c 9-)-en-US_US" ~/Library/Preferences/com.apple.SystemProfiler.plist'.execute().text
+            def info = 'system_profiler SPHardwareDataType'.execute().text.split('\n').collectEntries {
+                def words = it.split(':'); [ (words.head().trim()) : words.tail().join("").trim() ]
+            }
+            def proc = "${info['Processor Name']} ${info['Processor Speed']}"
+            def mem = info['Memory']
+            info = 'sw_vers'.execute().text.split('\n').collectEntries {
+                def words = it.split(':'); [ (words.head().trim()) : words.tail().join("").trim() ]
+            }
+            def os = "${info['ProductName']} ${info['ProductVersion']}"
+            system = "$model $proc, $mem, $os"
+        } else {
+            system = "Unsupported OS: <Please enter description manually in install-config.clp>"
+        }
+        delete file('install-config.clp')
+        file('install-config.clp') <<
+""";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; INSTALLATION ONLY:
+;;; Define environment variables: OS, installation directory and inference engine
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; default setting is for Unix and MacOS:
+(defglobal ?*Directory-symbol* = "/")
+
+;;; define your general CSP-Rules installation directory (including the ending directory symbol / or \\)
+;;; CSP-Rules-V2.1 will be installed inside this general CSP-Rules installation directory
+(defglobal ?*CSP-Rules* = "$rootDir/")
+
+;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
+;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
+(defglobal ?*Clips-version* = "6.32-r770")
+
+;;; Description of the computer used for the resolution
+(defglobal ?*Computer-description* =
+    "$system"
+;    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4"
+)
+"""
+    }
+}
+
+// Generate the application launcher tasks
+projectDir.traverse(nameFilter: ~/\w+-V.+-config.clp/) {
+    def m = it =~ /(\w+)-V[^-]+-config.clp/
+    def appName = m[0][1]
+    def taskName = "launch$appName"
+    tasks.create(taskName, Exec) {
+        group = 'Launch'
+        description = "Launches $appName"
+        workingDir rootProject.projectDir
+        commandLine 'CLIPS/clips', '-f', m[0][0]
+        standardInput System.in
+    }
+}

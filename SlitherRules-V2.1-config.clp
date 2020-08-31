@@ -35,29 +35,29 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; default setting is for Unix and MacOS:
+;;; Default setting is for Unix and MacOS, but should also work for Windows:
 (defglobal ?*Directory-symbol* = "/")
 
-;;; for Windows, un-comment this line:
-; (bind ?*Directory-symbol* "\") ;                                           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
-;;; define your general CSP-Rules installation directory (including the ending directory symbol / or \)
-;;; CSP-Rules-V2.1 will be installed inside this general CSP-Rules installation directory
-(defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;;; Define your general CSP-Rules installation directory (including the ending directory symbol / or \).
+;;; This is the directory in which the CSP-Rules-V2.1 version is installed, not the CSP-Rules-V2.1 directory.
+;;; By defining the path in an absolute way, you will be able to launch CSP-Rules-V2.1 from anywhere.
+;;; You need to write something as follows.
+;;; For Unix (including MacOS):
+; (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;;; For Windows:
+; (defglobal ?*CSP-Rules* = "c:\Users\berthier\Documents\Projets\CSP-Rules\") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r770");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r770");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-;;; Description of the computer used for the resolution
 ;;; Description of the computer used for the resolution
 (defglobal ?*Computer-description* =
     "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 
 
 
@@ -147,9 +147,8 @@
 ; (bind ?*blocked-t-Whips* FALSE)
 
 
-;;; Choose what's printed as the output.
-
-;;; The default combination is what has been used in PBCS.
+;;; Choose what's printed as the output:
+;;; The following default combination (keeping all the semi-colons) is what has been used in [PBCS2].
 ;;; Changes below will print more or less details.
 ; (bind ?*print-init-details* TRUE)
 ; (bind ?*print-ECP-details* TRUE)
@@ -178,11 +177,6 @@
 ;;; when it has not found a solution, so as to be able to print the final state
 ;;; It is FALSE by default, but it can be changed here:
  (bind ?*Final-fill* TRUE)
-
-;;; New in V2.1:
-;;; By default, no direct links between two candidates for CSP-Variables of types P are allowed.
-;;; You can allow them here:
-; (bind ?*Allow-direct-PP-links* TRUE)
 
 
 

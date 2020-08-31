@@ -39,14 +39,14 @@
 (defglobal ?*Directory-symbol* = "/")
 
 
-;;; Define your general CSP-Rules installation directory (including the ending directory symbol / or \).
+;;; Define your general CSP-Rules installation directory (including the ending directory symbol /).
 ;;; This is the directory in which the CSP-Rules-V2.1 version is installed, not the CSP-Rules-V2.1 directory.
 ;;; By defining the path in an absolute way, you will be able to launch CSP-Rules-V2.1 from anywhere.
 ;;; You need to write something as follows.
 ;;; For Unix (including MacOS):
 ; (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;;; For Windows:
-; (defglobal ?*CSP-Rules* = "c:\Users\berthier\Documents\Projets\CSP-Rules\") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; (defglobal ?*CSP-Rules* = "c:/Users/berthier/Documents/Projets/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine

@@ -44,7 +44,7 @@
 ;;; By defining the path in an absolute way, you will be able to launch CSP-Rules-V2.1 from anywhere.
 ;;; You need to write something as follows.
 ;;; For Unix (including MacOS):
-; (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;;; For Windows:
 ; (defglobal ?*CSP-Rules* = "c:/Users/berthier/Documents/Projets/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -93,6 +93,39 @@
 (defglobal ?*Computer-description* =
     "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Define the application
+;;; Define useful directories and load all the globals
+;;; (they must be available before choosing the configuration of rules)
+;;;
+;;; do NOT change any of the following
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; an ?*Application* must be defined as the name of the application (here, SudoRules), not as the name of the puzzle (Sudoku)
+;;; this name must coincide with the leading part of the name of the directory for the application inside the CSP-Rules-V2.1 directory
+;;; the version number of the ?*Application* must also be defined
+;;; this allows to have several versions of the same application based on the same version of CSP-Rules
+;;; for historical reasons, SudoRules version number inside CSP-Rules-V2.1 is not 2.1 but 20.1
+;;; (there were many versions of SudoRules before the development of a generic CSP-Rules core)
+(defglobal ?*Application* = "LatinRules")
+(defglobal ?*Application-VersionNumber* = 2.1)
+
+(defglobal ?*CSP-Rules-current-version* = (str-cat ?*CSP-Rules* "CSP-Rules-V2.1" ?*Directory-symbol*))
+(defglobal ?*CSP-Rules-Generic-Dir* = (str-cat ?*CSP-Rules-current-version* "CSP-Rules-Generic" ?*Directory-symbol*))
+(defglobal ?*CSP-Rules-Generic-Loader* = (str-cat ?*CSP-Rules-Generic-Dir* "CSP-Rules-Generic-Loader.clp"))
+
+(defglobal ?*Application-Dir* = (str-cat ?*CSP-Rules-current-version* ?*Application* "-V" ?*Application-VersionNumber* ?*Directory-symbol*))
+(defglobal ?*Application-Loader* = (str-cat ?*Application-Dir* ?*Application* "-Loader.clp"))
+
+;;; load definitions for the global variables necessary for the upcoming choices
+(load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "globals.clp"))
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "globals.clp"))
+
 
 
 

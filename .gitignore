@@ -27,6 +27,8 @@ Temporary Items
 
 # IDEA
 .idea
+build/
+out/
 
 # Gradle
 .gradle

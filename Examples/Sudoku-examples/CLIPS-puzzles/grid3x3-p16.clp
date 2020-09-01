@@ -39,13 +39,22 @@
 ;;;    Forced Chain Convergence
 
 
-
+(bind ?override "(progn
+(bind ?*Subsets* TRUE)
+(bind ?*FinnedFish* TRUE)
+(bind ?*Bivalue-Chains* TRUE)
+(bind ?*Whips* TRUE)
+(bind ?*z-Chains* TRUE)
+(bind ?*t-Whips* TRUE)
+)")
+(batch "SudoRules-V20.1-config.clp")
+----LOAD-COMPLETE----
 (solve "2......3..8..3.7...7..945..1....7.86..5...9..82.3....1..251..4...6.8..2..1......5")
-
+#### BEGIN EXPECTED ####
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = W+SFin
-***  Using CLIPS 6.32-r768
-***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+#***  Using CLIPS 6.32-r768
+#***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
 2......3..8..3.7...7..945..1....7.86..5...9..82.3....1..251..4...6.8..2..1......5
 28 givens, 170 candidates
@@ -133,10 +142,11 @@ GRID 0 SOLVED. rating-type = W+SFin, MOST COMPLEX RULE TRIED = BC[3]
 546983127
 318742695
 Puzzle 2......3..8..3.7...7..945..1....7.86..5...9..82.3....1..251..4...6.8..2..1......5 :
-init-time = 0.19s, solve-time = 0.15s, total-time = 0.34s
+#init-time = 0.19s, solve-time = 0.15s, total-time = 0.34s
 nb-facts=<Fact-6426>
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = W+SFin
-***  Using CLIPS 6.32-r768
-***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+#***  Using CLIPS 6.32-r768
+#***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
+#### END EXPECTED ####

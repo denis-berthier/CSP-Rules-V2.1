@@ -40,12 +40,22 @@
 ;;;    Forced Chain XY
 
 
-
+(bind ?override "(progn
+(bind ?*Subsets* TRUE)
+(bind ?*FinnedFish* TRUE)
+(bind ?*Bivalue-Chains* TRUE)
+(bind ?*Whips* TRUE)
+(bind ?*z-Chains* TRUE)
+(bind ?*t-Whips* TRUE)
+)")
+(batch "SudoRules-V20.1-config.clp")
+----LOAD-COMPLETE----
 (solve "..12...8..8..6..9.6.....1.4....9.2.8...6.5...9.7.2....2.4.....9.7..5..6..9...13..")
+#### BEGIN EXPECTED ####
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = W+SFin
-***  Using CLIPS 6.32-r768
-***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+#***  Using CLIPS 6.32-r768
+#***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
 ..12...8..8..6..9.6.....1.4....9.2.8...6.5...9.7.2....2.4.....9.7..5..6..9...13..
 26 givens, 194 candidates
@@ -146,10 +156,11 @@ GRID 0 SOLVED. rating-type = W+SFin, MOST COMPLEX RULE TRIED = BC[4]
 378952461
 596841327
 Puzzle ..12...8..8..6..9.6.....1.4....9.2.8...6.5...9.7.2....2.4.....9.7..5..6..9...13.. :
-init-time = 0.18s, solve-time = 0.46s, total-time = 0.65s
+#init-time = 0.18s, solve-time = 0.46s, total-time = 0.65s
 nb-facts=<Fact-16243>
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = W+SFin
-***  Using CLIPS 6.32-r768
-***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+#***  Using CLIPS 6.32-r768
+#***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
+#### END EXPECTED ####

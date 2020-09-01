@@ -30,12 +30,18 @@
 ;;; 
 ;;;    Naked Single
 
-
+(bind ?override "(progn
+(bind ?*Subsets* TRUE)
+(bind ?*FinnedFish* TRUE)
+)")
+(batch "SudoRules-V20.1-config.clp")
+----LOAD-COMPLETE----
 (solve "...3....6.8....91.31.7.9.2.627..43......5......86..274.6.4.1.98.45....6.9....5...")
+#### BEGIN EXPECTED ####
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
-***  Using CLIPS 6.32-r768
-***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+#***  Using CLIPS 6.32-r768
+#***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
 ...3....6.8....91.31.7.9.2.627..43......5......86..274.6.4.1.98.45....6.9....5...
 31 givens, 143 candidates
@@ -101,10 +107,11 @@ GRID 0 SOLVED. rating-type = SFin, MOST COMPLEX RULE TRIED = NS
 845932167
 971865432
 Puzzle ...3....6.8....91.31.7.9.2.627..43......5......86..274.6.4.1.98.45....6.9....5... :
-init-time = 0.18s, solve-time = 0.07s, total-time = 0.25s
+#init-time = 0.18s, solve-time = 0.07s, total-time = 0.25s
 nb-facts=<Fact-3654>
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
-***  Using CLIPS 6.32-r768
-***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+#***  Using CLIPS 6.32-r768
+#***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
 ***********************************************************************************************
+#### END EXPECTED ####

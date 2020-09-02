@@ -186,7 +186,7 @@
  (bind ?*FinnedFish* TRUE)
 ;;; generic:
  (bind ?*Bivalue-Chains* TRUE)
-; (bind ?*Whips* TRUE)
+ (bind ?*Whips* TRUE)
 
 
 ;;; Some additional rules I use frequently:

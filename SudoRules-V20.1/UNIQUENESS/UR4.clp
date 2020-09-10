@@ -69,16 +69,17 @@
 =>
 	(retract ?cand1)
 	(retract ?cand2)
-    (printout t "************ UNIQUENESS RULE UR4-V APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur4*) then
 		(printout t "vertical unique rectangle type 4 in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> " (number-name ?nb1) " eliminated from the candidates for ")
-		(printout t (row-name ?row2) (column-name ?col1) " and ")
-		(printout t (row-name ?row2) (column-name ?col2) crlf)
+        (printout t ?*implication-sign*
+            (row-name ?row2) (column-name ?col1) ?*non-equal-sign* (numeral-name ?nb1) ", "
+            (row-name ?row2) (column-name ?col2) ?*non-equal-sign* (numeral-name ?nb1) crlf
+        )
 	)
 )
 
@@ -111,16 +112,17 @@
 =>
 	(retract ?cand1)
 	(retract ?cand2)
-    (printout t "************ UNIQUENESS RULE UR4-H APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur4*) then
 		(printout t "horizontal unique rectangle type 4 in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> " (number-name ?nb1) " eliminated from the candidates for ")
-		(printout t (row-name ?row1) (column-name ?col2) " and ")
-		(printout t (row-name ?row2) (column-name ?col2) crlf)
+		(printout t ?*implication-sign*
+            (row-name ?row1) (column-name ?col2) ?*non-equal-sign* (numeral-name ?nb1) ", "
+            (row-name ?row2) (column-name ?col2) ?*non-equal-sign* (numeral-name ?nb1) crlf
+        )
 	)
 )
 

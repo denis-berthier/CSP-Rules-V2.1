@@ -65,15 +65,14 @@
 =>
 	(retract ?cand1)
 	(retract ?cand2)
-    (printout t "************ UNIQUENESS RULE UR1-V APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur1*) then
 		(printout t "vertical unique rectangle type 1 in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> retracting " (number-name ?nb1) " and " (number-name ?nb2))
-		(printout t " from the candidates for " (row-name ?row2) (column-name ?col2) crlf)
+		(printout t ?*implication-sign* (row-name ?row2) (column-name ?col2) ?*non-equal-sign* (number-name ?nb1) ", " (row-name ?row2) (column-name ?col2) ?*non-equal-sign* (numeral-name ?nb2) crlf)
 	)
 )
 
@@ -102,15 +101,14 @@
 =>
 	(retract ?cand1)
 	(retract ?cand2)
-    (printout t "************ UNIQUENESS RULE UR1-H APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur1*) then
 		(printout t "horizontal unique rectangle type 1 in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> retracting " (number-name ?nb1) " and " (number-name ?nb2))
-		(printout t " from the candidates for " (row-name ?row2) (column-name ?col2) crlf)
+        (printout t ?*implication-sign* (row-name ?row2) (column-name ?col2) ?*non-equal-sign* (number-name ?nb1) ", " (row-name ?row2) (column-name ?col2) ?*non-equal-sign* (numeral-name ?nb2) crlf)
 	)
 )
 

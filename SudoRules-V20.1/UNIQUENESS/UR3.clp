@@ -72,15 +72,14 @@
 						(number ?nbx&:(or (eq ?nbx ?nb3) (eq ?nbx ?nb4))))
 =>
 	(retract ?cand)
-    (printout t "************ UNIQUENESS RULE UR3-V APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur3*) then
 		(printout t "number " (number-name ?nb3) " : vertical unique rectangle type 3 in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> " (number-name ?nbx) " eliminated from the candidates for ")
-		(printout t (row-name ?rowx) (column-name ?col2) crlf)
+        (printout t ?*implication-sign* (row-name ?rowx) (column-name ?col2) ?*non-equal-sign* (numeral-name ?nbx) crlf)
 	)
 )
 
@@ -117,15 +116,14 @@
 						(number ?nbx&:(or (eq ?nbx ?nb3) (eq ?nbx ?nb4))))
 =>
 	(retract ?cand)
-    (printout t "************ UNIQUENESS RULE UR3-H APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur3*) then
 		(printout t "number " (number-name ?nb3) " : horizontal unique rectangle type 3 in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> " (number-name ?nbx) " eliminated from the candidates for ")
-		(printout t (row-name ?row2) (column-name ?colx) crlf)
+        (printout t ?*implication-sign* (row-name ?row2) (column-name ?colx) ?*non-equal-sign* (numeral-name ?nbx) crlf)
 	)
 )
 

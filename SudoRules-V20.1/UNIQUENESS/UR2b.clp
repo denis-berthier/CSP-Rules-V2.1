@@ -67,15 +67,14 @@
 	?cand <- (candidate (context ?cont) (status cand) (row ?rowx&~?row1&~?row2) (column ?col2) (number ?nb3))
 =>
 	(retract ?cand)
-    (printout t "************ UNIQUENESS RULE UR2b-V APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur2b*) then
 		(printout t "number " (number-name ?nb3) " : vertical unique rectangle type 2b in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> " (number-name ?nb3) " eliminated from the candidates for ")
-		(printout t (row-name ?rowx) (column-name ?col2) crlf)
+        (printout t ?*implication-sign* (row-name ?rowx) (column-name ?col2) ?*non-equal-sign* (numeral-name ?nb3) crlf)
 	)
 )
 
@@ -107,15 +106,14 @@
 	?cand <- (candidate (context ?cont) (status cand) (row ?row2) (column ?colx&~?col1&~?col2) (number ?nb3))
 =>
 	(retract ?cand)
-    (printout t "************ UNIQUENESS RULE UR2b-H APPLIED ******************" crlf)
+    (printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
 	(if (or ?*print-actions* ?*print-ur2b*) then
 		(printout t "number " (number-name ?nb3) " : horizontal unique rectangle type 2b in cells ")
 		(printout t (row-name ?row1) (column-name ?col1) ", ")
 		(printout t (row-name ?row1) (column-name ?col2) ", ")
 		(printout t (row-name ?row2) (column-name ?col1) " and ")
 		(printout t (row-name ?row2) (column-name ?col2))
-		(printout t crlf "                              ==> " (number-name ?nb3) " eliminated from the candidates for ")
-		(printout t (row-name ?row2) (column-name ?colx) crlf)
+        (printout t ?*implication-sign* (row-name ?row2) (column-name ?colx) ?*non-equal-sign* (numeral-name ?nb3) crlf)
 	)
 )
 

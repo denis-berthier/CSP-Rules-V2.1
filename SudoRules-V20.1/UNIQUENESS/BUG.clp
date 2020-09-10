@@ -113,12 +113,12 @@
     ;(test (printout t "OK7: play is activated" crlf))
 =>
     ;(printout t "OK8: rule is activated" crlf)
-	(printout t "************ UNIQUENESS RULE BUG+1 APPLIED ******************" crlf)
+	(printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
     (bind ?lab (nrc-to-label ?nb ?row ?col))
 	(assert (candidate (context ?cont) (status c-value) (label ?lab) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)))
 	(if (or ?*print-actions* ?*print-bug*) then
 		(printout t "bug+1 for number " (number-name ?nb) " in cell " (row-name ?row) (column-name ?col))
-		(printout t " ==> asserting " (row-name ?row) (column-name ?col) " = " (numeral-name ?nb) crlf)
+		(printout t ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)
 )
 

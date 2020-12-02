@@ -114,7 +114,9 @@
     ?*add-grid-to-solved-list* = TRUE
     ?*add-instance-to-solved-list* = TRUE
     ?*solved-list* = (create$)
-    
+    ;;; Variable used to restrict the search for eliminations to a list of candidates
+    ?*focus-list* = (create$)
+
     ?*init-instance-time* = 0
     ?*solve-instance-time* = 0
     ?*total-instance-time* = 0
@@ -159,6 +161,9 @@
     (bind ?*max-depth* 0)
     (bind ?*biTE-context-counter* 0)
 
+    (bind ?*solved-list* (create$))
+    (bind ?*focus-list* (create$))
+
     (bind ?*init-instance-time* 0)
     (bind ?*solve-instance-time* 0)
     (bind ?*total-instance-time* 0)
@@ -168,6 +173,8 @@
 )
 
 
+;;; Each application may have additional global variables.
+;;; In that case, it must redefine the following init-specific-globals function
 (deffunction init-specific-globals () TRUE)
 
 
@@ -181,12 +188,11 @@
 (defglobal ?*simulated-eliminations* = (create$))
 
 
-;;; variable used to avoid testing useless patterns when the solution is already known
+;;; Variable and function used to avoid testing useless patterns when the solution is already known
 (defglobal ?*known-to-be-in-solution* = (create$))
+(deffunction known-to-be-in-solution (?label) (member$ ?label ?*known-to-be-in-solution*))
 
-(deffunction known-to-be-in-solution (?label) 
-    (member$ ?label ?*known-to-be-in-solution*)
-)
+
 
 
 
@@ -286,7 +292,7 @@
 
 (defglobal ?*bivalue-chains-max-length* = 20)
 (defglobal ?*z-chains-max-length* = 20)
-(defglobal ?*oddagons-max-length* = 15)
+(defglobal ?*oddagons-max-length* = 35)
 (defglobal ?*t-whips-max-length* = 36)
 (defglobal ?*whips-max-length* = 36)
 (defglobal ?*braids-max-length* = 36)

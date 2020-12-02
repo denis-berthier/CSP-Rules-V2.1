@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;                              CSP-RULES / GENERIC
-;;;                              ODDAGON[5]
+;;;                              ODDAGON[25]
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -28,22 +28,22 @@
 
 
 
-(defrule activate-oddagon[5]
-   (declare (salience ?*activate-oddagon[5]-salience*))
+(defrule activate-oddagon[25]
+   (declare (salience ?*activate-oddagon[25]-salience*))
    (logical (play) (context (name ?cont)))
    (not (deactivate ?cont oddagon))
 =>
-   (if ?*print-levels* then (printout t Entering_level_O5))
-   (assert (technique ?cont partial-oddagon[4]))
-   (assert (technique ?cont oddagon[5]))
-   (bind ?*technique* O[5])
+   (if ?*print-levels* then (printout t Entering_level_O25))
+   (assert (technique ?cont partial-oddagon[24]))
+   (assert (technique ?cont oddagon[25]))
+   (bind ?*technique* O[25])
 )
 
 
 
-(defrule track-oddagon[5]
-   (declare (salience ?*activate-oddagon[5]-salience*))
-   ?level <- (technique ?cont oddagon[5])
+(defrule track-oddagon[25]
+   (declare (salience ?*activate-oddagon[25]-salience*))
+   ?level <- (technique ?cont oddagon[25])
 =>
    (if ?*print-levels* then (printout t _with_ ?level crlf))
 )
@@ -52,13 +52,13 @@
 
 ;;; partial-oddagon extension rule
 
-(defrule partial-oddagon[4]
-   (declare (salience ?*partial-oddagon[4]-salience*))
+(defrule partial-oddagon[24]
+   (declare (salience ?*partial-oddagon[24]-salience*))
    (logical
       (csp-chain
          (type partial-oddagon)
          (context ?cont)
-         (length 2)
+         (length 22)
          (target ?zzz)
          (first-cand ?cand1)
          (rlcs $?cands)
@@ -66,7 +66,7 @@
          (csp-vars $?csp-vars)
       )
       
-      (technique ?cont partial-oddagon[4])
+      (technique ?cont partial-oddagon[24])
       ;;; First additional csp
       (or
          (bivalue ?cont ?last-rlc ?new-rlc1&:(< ?cand1 ?new-rlc1) ?new-csp1&:(not (member$ ?new-csp1 $?csp-vars)))
@@ -92,7 +92,7 @@
       (csp-chain
          (type partial-oddagon)
          (context ?cont)
-         (length 4)
+         (length 24)
          (target ?zzz)
          (first-cand ?cand1)
          (rlcs $?cands ?new-rlc1 ?new-rlc2)
@@ -103,7 +103,7 @@
       (csp-chain
          (type partial-oddagon)
          (context ?cont)
-         (length 4)
+         (length 24)
          (target ?zzz)
          (first-cand ?cand1)
          (rlcs $?cands ?new-rlc1 ?new-rlc2)
@@ -117,12 +117,12 @@
 
 ;;; oddagon rule
 
-(defrule oddagon[5]
-   (declare (salience ?*oddagon[5]-salience*))
+(defrule oddagon[25]
+   (declare (salience ?*oddagon[25]-salience*))
    (csp-chain
       (type partial-oddagon)
       (context ?cont)
-      (length 4)
+      (length 24)
       (target ?zzz)
       (first-cand ?cand1)
       (rlcs $?rlcs)
@@ -143,8 +143,8 @@
 =>
    (retract ?cand)
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
-   (if (or ?*print-actions* ?*print-L5* ?*print-oddagon* ?*print-oddagon-5*) then
-      (print-oddagon 5 ?zzz (create$ $?rlcs ?cand1) (create$ $?csp-vars ?new-csp))
+   (if (or ?*print-actions* ?*print-L25* ?*print-oddagon* ?*print-oddagon-25*) then
+      (print-oddagon 25 ?zzz (create$ $?rlcs ?cand1) (create$ $?csp-vars ?new-csp))
    )
 )
 

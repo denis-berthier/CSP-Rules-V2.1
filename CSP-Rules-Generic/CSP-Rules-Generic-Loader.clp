@@ -53,7 +53,7 @@
 
 (defglobal ?*dummy-variable-for-setting-generic-rules-dependencies* = (progn
     
-    ;;; 1) Subsets and gSubsets
+    ;;; Subsets and gSubsets
     ;;; Finned Fish have no predefined generic variables, but there are some for g-Subsets
     (if ?*g-Subsets* then (bind ?*g-Subsets[4]* TRUE) (bind ?*Subsets* TRUE))
     (if ?*g-Subsets[4]* then (bind ?*g-Subsets[3]* TRUE) (bind ?*Subsets[3]* TRUE))
@@ -79,6 +79,9 @@
         (bind ?*z-Chains* TRUE)
         (bind ?*t-Whips* TRUE)
     )
+        
+    ;;; Add the relevant part for Bi-Whips, Bi-Braids, ...
+
         
     ;;; Forcing-whips, forcing-gwhips, forcing-braids, forcing-gbraids
     (if ?*Forcing-G-Braids* then
@@ -158,7 +161,6 @@
 
     (printout t "Generic rules dependencies set" crlf)
     
-    ;;; Add the relevant part for Bi-Whips, Bi-Braids, ...
     TRUE
 ))
 
@@ -375,7 +377,7 @@
 )
 
 ;;; Bivalue
-(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*special-TE* ?*special-DFS*) then
+(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*special-TE* ?*special-DFS*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Bivalue.clp"))
 )
 

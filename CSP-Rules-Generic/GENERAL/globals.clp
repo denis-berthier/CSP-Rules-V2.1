@@ -292,7 +292,7 @@
 
 (defglobal ?*bivalue-chains-max-length* = 20)
 (defglobal ?*z-chains-max-length* = 20)
-(defglobal ?*oddagons-max-length* = 35)
+(defglobal ?*oddagons-max-length* = 15)
 (defglobal ?*t-whips-max-length* = 36)
 (defglobal ?*whips-max-length* = 36)
 (defglobal ?*braids-max-length* = 36)

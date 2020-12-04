@@ -679,6 +679,16 @@
     ?*print-oddagon-11* = FALSE
     ?*print-oddagon-13* = FALSE
     ?*print-oddagon-15* = FALSE
+    ?*print-oddagon-17* = FALSE
+    ?*print-oddagon-19* = FALSE
+    ?*print-oddagon-21* = FALSE
+    ?*print-oddagon-23* = FALSE
+    ?*print-oddagon-25* = FALSE
+    ?*print-oddagon-27* = FALSE
+    ?*print-oddagon-29* = FALSE
+    ?*print-oddagon-31* = FALSE
+    ?*print-oddagon-33* = FALSE
+    ?*print-oddagon-35* = FALSE
 )
 
 (defglobal

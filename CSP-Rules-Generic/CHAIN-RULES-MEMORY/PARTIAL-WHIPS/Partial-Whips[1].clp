@@ -41,6 +41,13 @@
         (or (t-Whips)
             (test (not (known-to-be-in-solution ?zzz)))
         )
+        ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+        ;;; t-whips should not be used if the focus list is not empty (this would restrict them too much)
+        (test
+            (or (eq (length$ ?*focus-list*) 0)
+                (member$ ?zzz ?*focus-list*)
+            )
+        )
 
 		(technique ?cont partial-whip[1])
 		(csp-linked ?cont ?llc1 ?rlc1&~?zzz ?csp1)

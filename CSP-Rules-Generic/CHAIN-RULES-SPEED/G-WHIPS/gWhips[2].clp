@@ -98,6 +98,14 @@
         ;;; ?llc1
         (exists-link ?cont ?llc1 ?zzz&:(not (known-to-be-in-solution ?zzz)))
 
+        ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+        ;;; t-whips should not be used if the focus list is not empty (this would restrict them too much)
+        (test
+            (or (eq (length$ ?*focus-list*) 0)
+                (member$ ?zzz ?*focus-list*)
+            )
+        )
+
         ;;; ?rlc1 and ?csp1
         (technique ?cont gwhip[2])
 		;;; because gwhips[2] based on ?zzz (if any) have already been eliminated,

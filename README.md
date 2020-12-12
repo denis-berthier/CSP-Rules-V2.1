@@ -34,7 +34,7 @@ Each application-specific part consists of a specific interfacing with the gener
 
 
 
-## 4. Example<br>
+## 4. Examples<br>
 For making the above more explicit, consider the following (moderately difficult) Sudoku puzzle (created by "Mith"):<br>
 
 ```
@@ -74,7 +74,7 @@ The problem can be given to SudoRules (the part of CSP-Rules that deals with the
     . . .  . 8 9  . . .
  ) 
 ```
-<br>
+
 And here is how the solution of this puzzle will appear (with variants, depending on which resolution rules have been selected by the user).<br>
 The resolution path is a constructive proof of the solution.
 Each line starts with the name of a precise pattern, including its size (as described in detail in [PBCS]); the name is followed by the full details of its instantiation and, after a "==>" sign, by the eliminations it allows:<br>
@@ -148,6 +148,61 @@ naked-pairs-in-a-block: b3{r1c8 r1c9}{n2 n4} ==> r3c7 ≠ 4
 386715492 
 724689153 
 ```
+
+Here is a slightly simpler example (puzzle created by JPF), illustrating another familiar input format for Sudoku: 
+
+```
+(solve-sudoku-grid 
+   +-------+-------+-------+ 
+   ! . . . ! 1 2 3 ! 4 . . ! 
+   ! . . 4 ! . . . ! . 5 . ! 
+   ! . 6 . ! . 4 7 ! . . 8 ! 
+   +-------+-------+-------+ 
+   ! . 4 . ! 9 . . ! 8 . 7 ! 
+   ! . 9 . ! . . . ! 5 . 3 ! 
+   ! . . 7 ! . . 4 ! . . 9 ! 
+   +-------+-------+-------+ 
+   ! . . . ! 2 7 . ! . 8 . ! 
+   ! . 5 . ! . . . ! 9 . . ! 
+   ! . . 6 ! 3 9 5 ! . . . ! 
+   +-------+-------+-------+ 
+) 
+```
+
+and its solution, illustrating various types of generic chains typical of CSP-Rules: <br>
+
+```
+singles ==> r3c4 = 5, r1c9 = 6, r8c4 = 4, r7c9 = 5, r9c9 = 4, r7c1 = 4, r7c3 = 9, r5c8 = 4, r5c4 = 7, r2c6 = 9 
+153 candidates, 801 csp-links and 801 links. Density = 6.89% 
+whip[1]: r9n8{c2 .} ==> r8c3 ≠ 8, r8c1 ≠ 8 
+whip[1]: r1n8{c3 .} ==> r2c2 ≠ 8, r2c1 ≠ 8 
+hidden-pairs-in-a-block: b9{r7c7 r8c8}{n3 n6} ==> r8c8 ≠ 7, r8c8 ≠ 2, r8c8 ≠ 1, r7c7 ≠ 1 
+hidden-single-in-a-row ==> r8c1 = 7 
+hidden-pairs-in-a-column: c5{n3 n5}{r4 r6} ==> r6c5 ≠ 8, r6c5 ≠ 6, r6c5 ≠ 1, r4c5 ≠ 6, r4c5 ≠ 1 
+z-chain[3]: b6n2{r6c8 r6c7} - c2n2{r6 r2} - c9n2{r2 .} ==> r9c8 ≠ 2 
+biv-chain[3]: c9n1{r2 r8} - r9c8{n1 n7} - b3n7{r1c8 r2c7} ==> r2c7 ≠ 1 
+biv-chain[4]: r6c4{n8 n6} - c7n6{r6 r7} - r7c6{n6 n1} - c5n1{r8 r5} ==> r5c5 ≠ 8 
+biv-chain[4]: r7c6{n1 n6} - c7n6{r7 r6} - r6c4{n6 n8} - c6n8{r5 r8} ==> r8c6 ≠ 1 
+z-chain[4]: r6n5{c1 c5} - r6n3{c5 c2} - r7n3{c2 c7} - c7n6{r7 .} ==> r6c1 ≠ 6 
+t-whip[4]: r2c9{n1 n2} - r8n2{c9 c3} - r3n2{c3 c1} - r3n9{c1 .} ==> r3c8 ≠ 1 
+whip[4]: r2c9{n1 n2} - r2c1{n2 n3} - r3c3{n3 n2} - r8n2{c3 .} ==> r2c2 ≠ 1 
+z-chain[2]: r2n1{c1 c9} - b9n1{r8c9 .} ==> r9c1 ≠ 1 
+z-chain[4]: c7n6{r6 r7} - r7c6{n6 n1} - c2n1{r7 r9} - c8n1{r9 .} ==> r6c7 ≠ 1 
+whip[1]: b6n1{r6c8 .} ==> r9c8 ≠ 1 
+singles ==> r9c8 = 7, r1c8 = 9, r3c1 = 9, r2c7 = 7, r1c2 = 7, r3c3 ≠ 3 
+finned-x-wing-in-rows: n2{r8 r2}{c9 c3} ==> r3c3 ≠ 2 
+singles to the end 
+578123496 
+324689751 
+961547238 
+645932817 
+892761543 
+137854629 
+419276385 
+753418962 
+286395174 
+```
+
 <br>
 
 ## 5. License<br>

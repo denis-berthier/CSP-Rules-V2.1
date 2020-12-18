@@ -125,7 +125,7 @@
 
 
 (deffunction compute-current-resolution-state-in-context (?cont)
-    (if (neq ?*segment-size* 3) then (printout t "Currently, this function works only for 9x9 Sudokus" crlf) (return FALSE))
+    (if (> ?*segment-size* 5) then (printout t "Currently, this function works only for grid size ≤ 25" crlf) (return FALSE))
     (bind ?current-rs (create$))
     (foreach ?row ?*rows*
         (foreach ?col ?*columns*
@@ -133,9 +133,14 @@
             (foreach ?nb ?*numbers*
                 (do-for-all-facts ((?cand candidate))
                     (and (= ?cand:context ?cont) (= ?cand:row ?row) (= ?cand:column ?col) (= ?cand:number ?nb))
-                    (bind ?rc-content (sym-cat ?rc-content ?nb))
+                    ;;; add this line for 16x16 or 25x25 puzzles given in hexadecimal notation
+                    (bind ?nb2 ?nb)
+                    ;;; add this line for 16x16 or 25x25 puzzles given in hexadecimal notation
+                    (if (eq ?*grid-size* 16) then (bind ?nb2 (transform-nb-to-hexa ?nb)))
+                    (if (eq ?*grid-size* 25) then (bind ?nb2 (transform-nb-to-25letters ?nb)))
+                   (bind ?rc-content (sym-cat ?rc-content ?nb2))
                 )
-                (if (= ?nb 9) then (bind ?current-rs (create$ ?current-rs ?rc-content)))
+                (if (= ?nb ?*grid-size*) then (bind ?current-rs (create$ ?current-rs ?rc-content)))
             )
         )
     )
@@ -144,18 +149,23 @@
 
 
 (deffunction print-current-resolution-state-in-context (?cont)
-    (if (neq ?*segment-size* 3) then (printout t "Currently, this function works only for 9x9 Sudokus" crlf) (return FALSE))
+    (if (> ?*segment-size* 5) then (printout t "Currently, this function works only for grid size ≤ 25" crlf) (return FALSE))
     (foreach ?row ?*rows*
         (printout t "   ")
         (foreach ?col ?*columns*
             (foreach ?nb ?*numbers*
                 (do-for-all-facts ((?cand candidate))
                     (and (= ?cand:context ?cont) (= ?cand:row ?row) (= ?cand:column ?col) (= ?cand:number ?nb))
-                    (printout t ?nb)
+                    (bind ?nb2 ?nb)
+                    ;;; add this line for 16x16 puzzles given in hexadecimal notation
+                    (if (eq ?*grid-size* 16) then (bind ?nb2 (transform-nb-to-hexa ?nb)))
+                    ;;; add this line for 25x25 puzzles given in alphabetical notation
+                    (if (eq ?*grid-size* 25) then (bind ?nb2 (transform-nb-to-25letters ?nb)))
+                    (printout t ?nb2)
                 )
-                (if (= ?nb 9) then (printout t " "))
+                (if (= ?nb ?*grid-size*) then (printout t " "))
             )
-            (if (= ?col 9) then (printout t crlf))
+            (if (= ?col ?*grid-size*) then (printout t crlf))
         )
     )
     (printout t crlf)
@@ -179,7 +189,7 @@
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*not-solved-list* (union$ ?*not-solved-list* (create$ ?g)))
 	)
-    (if (eq ?*segment-size* 3) then
+    (if (<= ?*segment-size* 5) then
         (printout t "FINAL RESOLUTION STATE:" crlf)
         (print-current-resolution-state-in-context 0)
         

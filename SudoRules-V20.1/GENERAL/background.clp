@@ -539,4 +539,78 @@
 )
 
 
+;;; reverse transformations
+
+(deffunction transform-nb-to-hexa (?nb)
+    (if (eq ?nb 10) then (bind ?nb A))
+    (if (eq ?nb 11) then (bind ?nb B))
+    (if (eq ?nb 12) then (bind ?nb C))
+    (if (eq ?nb 13) then (bind ?nb D))
+    (if (eq ?nb 14) then (bind ?nb E))
+    (if (eq ?nb 15) then (bind ?nb F))
+    (if (eq ?nb 16) then (bind ?nb G))
+    ?nb
+)
+
+(deffunction transform-nb-to-25letters (?nb)
+    (if (eq ?nb 10) then (bind ?nb A))
+    (if (eq ?nb 11) then (bind ?nb B))
+    (if (eq ?nb 12) then (bind ?nb C))
+    (if (eq ?nb 13) then (bind ?nb D))
+    (if (eq ?nb 14) then (bind ?nb E))
+    (if (eq ?nb 15) then (bind ?nb F))
+    (if (eq ?nb 16) then (bind ?nb G))
+    (if (eq ?nb 17) then (bind ?nb H))
+    (if (eq ?nb 18) then (bind ?nb I))
+    (if (eq ?nb 19) then (bind ?nb J))
+    (if (eq ?nb 20) then (bind ?nb K))
+    (if (eq ?nb 21) then (bind ?nb L))
+    (if (eq ?nb 22) then (bind ?nb M))
+    (if (eq ?nb 23) then (bind ?nb N))
+    (if (eq ?nb 24) then (bind ?nb O))
+    (if (eq ?nb 25) then (bind ?nb P))
+    ?nb
+)
+
+
+(deffunction transform-nb-to-36letters (?nb)
+    (if (eq ?nb 10) then (bind ?nb A))
+    (if (eq ?nb 11) then (bind ?nb B))
+    (if (eq ?nb 12) then (bind ?nb C))
+    (if (eq ?nb 13) then (bind ?nb D))
+    (if (eq ?nb 14) then (bind ?nb E))
+    (if (eq ?nb 15) then (bind ?nb F))
+    (if (eq ?nb 16) then (bind ?nb G))
+    (if (eq ?nb 17) then (bind ?nb H))
+    (if (eq ?nb 18) then (bind ?nb I))
+    (if (eq ?nb 19) then (bind ?nb J))
+    (if (eq ?nb 20) then (bind ?nb K))
+    (if (eq ?nb 21) then (bind ?nb L))
+    (if (eq ?nb 22) then (bind ?nb M))
+    (if (eq ?nb 23) then (bind ?nb N))
+    (if (eq ?nb 24) then (bind ?nb O))
+    (if (eq ?nb 25) then (bind ?nb P))
+    (if (eq ?nb 26) then (bind ?nb Q))
+    (if (eq ?nb 27) then (bind ?nb R))
+    (if (eq ?nb 28) then (bind ?nb S))
+    (if (eq ?nb 29) then (bind ?nb T))
+    (if (eq ?nb 30) then (bind ?nb U))
+    (if (eq ?nb 31) then (bind ?nb V))
+    (if (eq ?nb 32) then (bind ?nb W))
+    (if (eq ?nb 33) then (bind ?nb X))
+    (if (eq ?nb 34) then (bind ?nb Y))
+    (if (eq ?nb 35) then (bind ?nb Z))
+    (if (eq ?nb 36) then (bind ?nb 0))
+    ?nb
+)
+
+
+(deffunction test-input-conversions()
+    (loop-for-count (?i 1 36)
+        (bind ?j (transform-36letters-to-nb (transform-nb-to-36letters ?i)))
+        (if (neq ?i ?j) then (printout t "Error: " ?i " => " ?j crlf))
+    )
+    TRUE
+)
+        
 

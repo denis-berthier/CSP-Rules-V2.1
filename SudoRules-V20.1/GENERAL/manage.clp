@@ -119,6 +119,51 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
+;;; COMPUTE OR PRINT CURRENT RESOLUTION STATE AS A LIST
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(deffunction compute-current-resolution-state-in-context (?cont)
+    (if (neq ?*segment-size* 3) then (printout t "Currently, this function works only for 9x9 Sudokus" crlf) (return FALSE))
+    (bind ?current-rs (create$))
+    (foreach ?row ?*rows*
+        (foreach ?col ?*columns*
+            (bind ?rc-content "")
+            (foreach ?nb ?*numbers*
+                (do-for-all-facts ((?cand candidate))
+                    (and (= ?cand:context ?cont) (= ?cand:row ?row) (= ?cand:column ?col) (= ?cand:number ?nb))
+                    (bind ?rc-content (sym-cat ?rc-content ?nb))
+                )
+                (if (= ?nb 9) then (bind ?current-rs (create$ ?current-rs ?rc-content)))
+            )
+        )
+    )
+    ?current-rs
+)
+
+
+(deffunction print-current-resolution-state-in-context (?cont)
+    (if (neq ?*segment-size* 3) then (printout t "Currently, this function works only for 9x9 Sudokus" crlf) (return FALSE))
+    (foreach ?row ?*rows*
+        (printout t "   ")
+        (foreach ?col ?*columns*
+            (foreach ?nb ?*numbers*
+                (do-for-all-facts ((?cand candidate))
+                    (and (= ?cand:context ?cont) (= ?cand:row ?row) (= ?cand:column ?col) (= ?cand:number ?nb))
+                    (printout t ?nb)
+                )
+                (if (= ?nb 9) then (printout t " "))
+            )
+            (if (= ?col 9) then (printout t crlf))
+        )
+    )
+    (printout t crlf)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; PRINT FINAL STATE IF NO SOLUTION FOUND
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -134,7 +179,12 @@
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*not-solved-list* (union$ ?*not-solved-list* (create$ ?g)))
 	)
-	(halt)
+    (if (eq ?*segment-size* 3) then
+        (printout t "FINAL RESOLUTION STATE:" crlf)
+        (print-current-resolution-state-in-context 0)
+        
+    )
+    (halt)
 )
 
 
@@ -165,7 +215,7 @@
 	(printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* crlf)
     (if ?*DFS* then (printout t " rating-type = " DFS ", MAX-DEPTH = " ?*DFS-max-depth* crlf))
 	(if ?*add-instance-to-solved-list* then
-		(bind ?*solved-list* (union$ ?*solved-list* (create$ ?g)))
+		(bind ?*solved-list* (create$ ?*solved-list* ?g))
 	)
 	(assert (solution-found ?cont))
 )

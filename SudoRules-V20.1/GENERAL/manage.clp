@@ -148,22 +148,31 @@
 )
 
 
+(deffunction print-n-spaces (?n)
+    (loop-for-count ?n (printout t " "))
+)
+
+
 (deffunction print-current-resolution-state-in-context (?cont)
     (if (> ?*segment-size* 5) then (printout t "Currently, this function works only for grid size ≤ 25" crlf) (return FALSE))
     (foreach ?row ?*rows*
         (printout t "   ")
         (foreach ?col ?*columns*
+            (bind ?nb-cands 0)
+            (bind ?spaces (+ ?*grid-size* 1))
             (foreach ?nb ?*numbers*
                 (do-for-all-facts ((?cand candidate))
                     (and (= ?cand:context ?cont) (= ?cand:row ?row) (= ?cand:column ?col) (= ?cand:number ?nb))
                     (bind ?nb2 ?nb)
+                    (bind ?nb-cands (+ ?nb-cands 1))
+                    (bind ?spaces (- ?spaces 1))
                     ;;; add this line for 16x16 puzzles given in hexadecimal notation
                     (if (eq ?*grid-size* 16) then (bind ?nb2 (transform-nb-to-hexa ?nb)))
                     ;;; add this line for 25x25 puzzles given in alphabetical notation
                     (if (eq ?*grid-size* 25) then (bind ?nb2 (transform-nb-to-25letters ?nb)))
                     (printout t ?nb2)
                 )
-                (if (= ?nb ?*grid-size*) then (printout t " "))
+                (if (= ?nb ?*grid-size*) then (print-n-spaces ?spaces))
             )
             (if (= ?col ?*grid-size*) then (printout t crlf))
         )

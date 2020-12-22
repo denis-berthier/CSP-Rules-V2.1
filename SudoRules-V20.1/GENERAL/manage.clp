@@ -172,7 +172,7 @@
                     (if (eq ?*grid-size* 25) then (bind ?nb2 (transform-nb-to-25letters ?nb)))
                     (printout t ?nb2)
                 )
-                (if (= ?nb ?*grid-size*) then (print-n-spaces ?spaces))
+                (if (and (= ?*grid-size* 9) (= ?nb ?*grid-size*)) then (print-n-spaces ?spaces))
             )
             (if (= ?col ?*grid-size*) then (printout t crlf))
         )

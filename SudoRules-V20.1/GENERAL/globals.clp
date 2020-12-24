@@ -102,6 +102,8 @@
 (defglobal ?*dummy-for-allowed-csp-types* = (progn (bind ?*allowed-csp-types* (create$ rc rn cn bn)) TRUE))
 
 
+(defglobal ?*Backdoors* = FALSE)
+(defglobal ?*Anti-backdoors* = FALSE)
 
 (defglobal ?*Unique-Rectangles* = FALSE)
 (defglobal ?*BUG* = FALSE)
@@ -302,8 +304,6 @@
 ;;; VARIABLES USED FOR KEEPING TRACK OF SETS OF SOLUTIONS WHEN SOLVING SETS OF PUZZLES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
 ;;; variables used to keep track of special puzzles:
 (defglobal ?*belt-list* = (create$))
 (defglobal ?*J-exocet-list* = (create$))
@@ -312,15 +312,15 @@
 (defglobal ?*has-J-exocet* = FALSE)
 
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; VARIABLES USED FOR KEEPING TRACK OF ONE-STEP CANDIDATES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defglobal ?*one-step-candidates* = (create$))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; VARIABLES USED FOR GOOD-LOOKING FORMATTING OF SUDOKU OR SUKAKU GRIDS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defglobal ?*cosmetic-signs-in-grid* = (create$ "*" ":" "+" "-" "!"))

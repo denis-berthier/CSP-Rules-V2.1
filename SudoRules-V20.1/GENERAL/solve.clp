@@ -588,13 +588,13 @@
 )
 
 
-(deffunction init-tatham (?str)
+(deffunction init-tatham-string (?str)
     (bind ?string (tatham-to-sudoku-string ?str))
     (if (neq (length$ ?string) (* ?*grid-size* ?*grid-size*)) then (printout t "Error in data length" crlf) (return))
     (init-sudoku-string ?string)
 )
 
-(deffunction solve-tatham (?str)
+(deffunction solve-tatham-string (?str)
     (bind ?string (tatham-to-sudoku-string ?str))
     (if (neq (length$ ?string) (* ?*grid-size* ?*grid-size*)) then (printout t "Error in data length" crlf) (return))
     (solve-sudoku-string ?string)

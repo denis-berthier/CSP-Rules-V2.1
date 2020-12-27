@@ -110,12 +110,10 @@
     ?*context-counter* = 0
     ?*max-depth* = 0
     ?*biTE-context-counter* = 0
-    
+
     ?*add-grid-to-solved-list* = TRUE
     ?*add-instance-to-solved-list* = TRUE
     ?*solved-list* = (create$)
-    ;;; Variable used to restrict the search for eliminations to a list of candidates
-    ?*focus-list* = (create$)
 
     ?*init-instance-time* = 0
     ?*solve-instance-time* = 0
@@ -138,7 +136,7 @@
 	(bind ?*nb-csp-variables-solved* 0)
 	(bind ?*nb-candidates* 0)
 	(bind ?*nb-g-candidates* 0)
-    
+
     (bind ?*label-links* (create$))
     (bind ?*label-glabel-glinks* (create$))
     (bind ?*label-in-glabel* (create$))
@@ -148,7 +146,7 @@
 	(bind ?*links-count* 0)
     (bind ?*csp-links* (create$))
     (bind ?*links* (create$))
-    
+
 	(bind ?*csp-glinks-count* 0)
 	(bind ?*glinks-count* 0)
     (bind ?*csp-glinks* (create$))
@@ -162,7 +160,6 @@
     (bind ?*biTE-context-counter* 0)
 
     (bind ?*solved-list* (create$))
-    (bind ?*focus-list* (create$))
 
     (bind ?*init-instance-time* 0)
     (bind ?*solve-instance-time* 0)
@@ -319,6 +316,7 @@
 (defglobal ?*TE1* = FALSE) ;;; by default, there is no Trial and Error at depth 1
 (defglobal ?*TE2* = FALSE) ;;; by default, there is no Trial and Error at depth 2
 (defglobal ?*TE3* = FALSE) ;;; by default, there is no Trial and Error at depth 3
+(defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
 
 (defglobal ?*Templates* = FALSE)
 (defglobal ?*Templates-max-length* = 1)

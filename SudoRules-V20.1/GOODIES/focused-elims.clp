@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - December 2020              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,46 +30,34 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Randomly shuffle a puzzle to get an isomorphic one
+;;; Try to eliminate selected candidates
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction try-to-eliminate-candidates (?string $?list)
-    ;;; puzzle is given in the string format
-    (reset)
-    (if ?*print-actions* then (print-banner))
-    (bind ?time0 (time))
-    ;;; fixed facts and structures common to all the instances are defined here
-    (init-general-application-structures)
-    ;;; puzzle entries are taken into account here
-    (init-grid-from-string ?string)
-    (assert (context (name 0)))
-    (assert (grid 0))
-    (bind ?time1 (time))
-    (bind ?*init-instance-time* (- ?time1 ?time0))
+;;; This function currently restricts only whips, braids, g-whips, g-braids, forcing-whips and forcing-braids.
+;;; It doesn't restrict the other rules.
+;;; It is not compatible with the activation of t-whips.
+;;; It works in the current resolution state of contetxt 0.
 
-    ;;; candidates in the focus list are tried for elimination here
-    (bind ?*focus-list* ?list)
+(deffunction try-to-eliminate-candidates ($?list)
+    (printout t "WARNING: this function is still at an experimental stage." crlf)
+    (if ?*t-whips then
+        (printout t "This function  doesn't work if t-whips are active." crlf
+        (return)
+    )
+    (bind ?time1 (time))
+    ;;; candidates in the focus list are tried for elimination here:
+    (foreach ?cand $?list (assert (candidate-in-focus (label ?cand))))
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
-    (bind ?*total-instance-time* (- ?time2 ?time0))
-    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
-    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
-        (printout t "Puzzle " ?string " :" crlf)
-        (printout t
-            "init-time = " (seconds-to-hours ?*init-instance-time*)
-            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
-            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
-        )
+        (printout t "solve-time = " (seconds-to-hours ?*solve-instance-time*) crlf)
         (printout t "nb-facts=" ?*nb-facts* crlf)
-        ;(printout t "nb rules " ?nb-rules crlf)
-        ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
-        (print-banner)
         (printout t crlf)
     )
-    (bind ?*focus-list* (create$))
+    (print-current-resolution-state-in-context 0)
+    ;;; now clean the focus list:
+    (do-for-all-facts ((?focus candidate-in-focus)) TRUE (retract ?focus))
 )
-
 

@@ -37,19 +37,11 @@
     (declare (salience ?*partial-whip[1]-salience*))
     (logical
         ;;; ?llc1
-        (exists-link ?cont ?llc1 ?zzz)
-        ;;; the following condition implies that, in case t-whips are active,
-        ;;; the fact that the solution (or part of it) is known will not be used to restrict the targets of whips
-        (or (t-Whips)
-            (test (not (known-to-be-in-solution ?zzz)))
-        )
+        (exists-link ?cont ?llc1 ?zzz&:(not (known-to-be-in-solution ?zzz)))
+
         ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
-        ;;; t-whips should not be used if the focus list is not empty (this would restrict them too much)
-        (test
-            (or (eq (length$ ?*focus-list*) 0)
-                (member$ ?zzz ?*focus-list*)
-            )
-        )
+        ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)
+        (or (not (candidate-in-focus)) (candidate-in-focus (label ?zzz)))
 
         ;;; ?rlc1 and ?csp1
         (technique ?cont partial-whip[1])

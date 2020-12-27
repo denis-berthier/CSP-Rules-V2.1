@@ -72,12 +72,8 @@
 	(not (TE2-tried ?par ?ph ?gen-cand))
     
     ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
-    ;;; t-whips should not be used if the focus list is not empty (this would restrict them too much)
-    (test
-        (or (eq (length$ ?*focus-list*) 0)
-            (member$ ?gen-cand ?*focus-list*)
-        )
-    )
+    ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)
+    (or (not (candidate-in-focus)) (candidate-in-focus (label ?zzz)))
 =>
 	;;; choose ?gen-cand as a hypothesis	
 	(bind ?*context-counter* (+ ?*context-counter* 1))

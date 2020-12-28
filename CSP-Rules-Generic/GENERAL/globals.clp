@@ -159,14 +159,12 @@
     (bind ?*max-depth* 0)
     (bind ?*biTE-context-counter* 0)
 
-    (bind ?*solved-list* (create$))
-
     (bind ?*init-instance-time* 0)
     (bind ?*solve-instance-time* 0)
     (bind ?*total-instance-time* 0)
     (bind ?*end-instance-time* 0)
 
-    (bind ?has-oddagon* FALSE)
+    (bind ?*has-oddagon* FALSE)
 )
 
 

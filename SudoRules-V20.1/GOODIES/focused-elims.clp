@@ -41,9 +41,9 @@
 
 (deffunction try-to-eliminate-candidates ($?list)
     (printout t "WARNING: this function is still at an experimental stage." crlf)
-    (if ?*t-whips then
-        (printout t "This function  doesn't work if t-whips are active." crlf
-        (return)
+    (if ?*t-Whips* then
+        (printout t "This function  doesn't work if t-whips are active." crlf)
+        (halt)
     )
     (bind ?time1 (time))
     ;;; candidates in the focus list are tried for elimination here:

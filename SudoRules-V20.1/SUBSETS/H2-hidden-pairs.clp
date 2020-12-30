@@ -169,8 +169,8 @@
 	(if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
 			(printout t "hidden-pairs-in-a-block: "
 				(block-name ?bl)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
 				?*starting-cell-symbol* (row-name ?row1) (column-name ?col1) ?*separation-sign-in-cell* (row-name ?row2) (column-name ?col2) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
 				?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf
 			)
 	)

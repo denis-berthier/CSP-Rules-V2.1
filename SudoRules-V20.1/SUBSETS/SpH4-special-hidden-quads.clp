@@ -167,11 +167,11 @@
 	(if (or ?*print-actions* ?*print-L4* ?*print-hidden-quads* ?*print-exceptional-patterns*) then
 			(printout t "special-hidden-quads-in-a-block: "
 				(block-name ?bl)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2)
+                ?*separation-sign-in-cell* (number-name ?nb3) ?*separation-sign-in-cell* (number-name ?nb4)?*ending-cell-symbol*
 				?*starting-cell-symbol* (row-name ?row1) (column-name ?col1) ?*separation-sign-in-cell* (row-name ?row2) (column-name ?col2) 
 				?*separation-sign-in-cell* (row-name ?row3) (column-name ?col3) 
 				?*separation-sign-in-cell* (row-name ?row4) (column-name ?col4) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) 
-				?*separation-sign-in-cell* (number-name ?nb3) ?*separation-sign-in-cell* (number-name ?nb4)?*ending-cell-symbol*
 				?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf
 			)
 	)

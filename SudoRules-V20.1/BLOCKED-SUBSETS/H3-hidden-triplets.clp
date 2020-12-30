@@ -182,10 +182,10 @@
         (bind ?*blocked-rule-description*
             (str-cat "hidden-triplets-in-a-block: "
 				(block-name ?bl)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2)
+                ?*separation-sign-in-cell* (number-name ?nb3) ?*ending-cell-symbol*
 				?*starting-cell-symbol* (row-name ?row1) (column-name ?col1) ?*separation-sign-in-cell* (row-name ?row2) (column-name ?col2) 
 				?*separation-sign-in-cell* (row-name ?row3) (column-name ?col3) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) 
-				?*separation-sign-in-cell* (number-name ?nb3) ?*ending-cell-symbol*
 			)
         )
 	)

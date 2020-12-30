@@ -190,8 +190,8 @@
         (bind ?*blocked-rule-description*
             (str-cat "hidden-pairs-in-a-block: "
 				(block-name ?bl)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
 				?*starting-cell-symbol* (row-name ?row1) (column-name ?col1) ?*separation-sign-in-cell* (row-name ?row2) (column-name ?col2) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
 			)
         )
 	)

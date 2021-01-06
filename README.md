@@ -210,7 +210,7 @@ The software parts in CSP-Rules V2.1 are distributed under the GNU GPL v3.0 lice
 Of course, the other publications (books, articles, conference proceeddings...) remain protected by their original respctive copyrights. <br><br>
 
 ## 6. Installation<br>
-Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (i.e. delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>
+Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (in particular, delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>
 For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MACOS security rules, you may have to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "Clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br><br>
 
 ## 7. References<br>

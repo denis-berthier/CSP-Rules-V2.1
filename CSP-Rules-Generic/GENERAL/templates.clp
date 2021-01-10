@@ -235,6 +235,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deftemplate candidate-in-focus
+    (slot context (type INTEGER) (default 0))
     (slot label (type INTEGER) (default 0))
 )
 

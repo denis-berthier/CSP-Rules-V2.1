@@ -40,7 +40,7 @@
 ;;; It works in the current resolution state of contetxt 0,
 ;;; which must have been previously initialised by a "solve " or an "init" function.
 
-(deffunction try-to-eliminate-candidates ($?list)
+(deffunction try-to-eliminate-candidates (?cont $?list)
     (printout t "WARNING: this function is still at an experimental stage." crlf
         "It currently restricts only the following types of resolution rules:" crlf
         "whips, braids, g-whips, g-braids, forcing-whips and forcing-braids" crlf
@@ -56,10 +56,10 @@
         (halt)
     )
     ;;; first clean any previous focus list:
-    (do-for-all-facts ((?focus candidate-in-focus)) TRUE (retract ?focus))
+    (do-for-all-facts ((?focus candidate-in-focus)) (= ?focus:context ?cont) (retract ?focus))
     (bind ?time1 (time))
     ;;; candidates in the focus list are tried for elimination here:
-    (foreach ?cand $?list (assert (candidate-in-focus (label ?cand))))
+    (foreach ?cand $?list (assert (candidate-in-focus (context ?cont) (label ?cand))))
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
@@ -68,8 +68,8 @@
         (printout t "nb-facts=" ?*nb-facts* crlf)
         (printout t crlf)
     )
-    (print-current-resolution-state-in-context 0)
+    (if (= ?cont 0) then (print-current-resolution-state-in-context 0))
     ;;; now clean the focus list:
-    (do-for-all-facts ((?focus candidate-in-focus)) TRUE (retract ?focus))
+    (do-for-all-facts ((?focus candidate-in-focus)) (= ?focus:context ?cont) (retract ?focus))
 )
 

@@ -118,9 +118,9 @@
         ;)
 	)
     ;;; avoid counting redundant g-candidates
-    (not (g-candidate (context ?cont) (label ?glab) (csp-var ?csp-var) (type ?csp-var-type)))
+    (not (g-candidate (context ?cont) (label ?glab) (csp-var ?csp-var)))
 =>
-	(assert (g-candidate (context ?cont) (label ?glab) (csp-var ?csp-var) (type ?csp-var-type)))
+	(assert (g-candidate (context ?cont) (label ?glab) (csp-var ?csp-var)))
 	(bind ?*nb-g-candidates* (+ ?*nb-g-candidates* 1))
 )
 

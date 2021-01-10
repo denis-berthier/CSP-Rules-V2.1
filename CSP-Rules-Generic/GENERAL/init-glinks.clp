@@ -107,7 +107,7 @@
 	(declare (salience ?*init-g-candidates-salience*))
 	(logical
 		(technique ?cont g-candidates)
-        (is-csp-variable-for-glabel (csp-var ?csp-var) (glabel ?glab) (csp-var-type ?csp-var-type))
+        (is-csp-variable-for-glabel (csp-var ?csp-var) (glabel ?glab))
         (candidate (context ?cont) (status cand) (label ?lab1&:(label-in-glabel ?lab1 ?glab)))
         (candidate (context ?cont) (status cand) (label ?lab2&:(< ?lab1 ?lab2)&:(label-in-glabel ?lab2 ?glab)))
         ;;; check that there is effectively at least one candidate glinked and not csp-glinked to glab

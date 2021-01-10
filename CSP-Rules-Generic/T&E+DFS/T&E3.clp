@@ -406,7 +406,7 @@
 (defrule TE3-generate-context-level1
 	(declare (salience ?*level1-generate-context-salience*))
     (technique 0 TE3)
-	(context (name ?par) (depth ?depth&0))
+	(context (name ?par&0) (depth ?depth&0))
 	(not (context (name ?cont&~?par) (parent ?par))) ;;; only one context with parent ?par will be considered at a time
 	;;; each remaining cand of ?par will be re-tried in each phase, but not re-tried in the same phase
 	(phase ?par ?ph) 
@@ -415,7 +415,7 @@
     
     ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
     ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)
-    (or (not (candidate-in-focus)) (candidate-in-focus (label ?zzz)))
+    (or (not (candidate-in-focus (context ?par))) (candidate-in-focus (context ?par) (label ?zzz)))
 =>
 	;;; choose ?gen-cand as a hypothesis	
 	(bind ?*context-counter* (+ ?*context-counter* 1))

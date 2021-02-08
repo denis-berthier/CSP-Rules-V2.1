@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;            January 2006 - February 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -69,7 +69,7 @@
 
         (technique ?cont typed-bivalue-chain[2])
         ;;; ?new-llc
-        (exists-link ?cont ?new-llc&~?llc1 ?rlc1)
+        (exists-link ?cont ?rlc1 ?new-llc&~?llc1)
         ;;; ?new-csp
         (is-typed-csp-variable-for-label (csp-var ?new-csp&~?csp1) (label ?new-llc) (csp-var-type ?csp-type))
         ;;; ?new-rlc
@@ -111,6 +111,8 @@
 	(exists-link ?cont ?zzz ?last-rlc)
 	(exists-link ?cont ?zzz ?uuu&:(eq ?uuu (first $?llcs)))
 	?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
+    ;;; if the focus list is not empty, the following condition restricts the search to the bivalue-chains that have a target in it
+    (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 =>
 	(retract ?cand)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))

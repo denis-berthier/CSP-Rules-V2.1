@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;            January 2006 - February 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -66,6 +66,8 @@
    (exists-link ?cont ?zzz ?last-rlc)
    (exists-link ?cont ?zzz ?uuu1&:(eq ?uuu1 (first $?llcs)))
    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
+   ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+   (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 =>
    (retract ?cand)
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
@@ -93,7 +95,7 @@
       
       (technique ?cont bivalue-chain[17])
       ;;; ?new-llc
-      (exists-link ?cont ?new-llc&:(not (member$ ?new-llc $?llcs))&:(not (member$ ?new-llc $?rlcs)) ?last-rlc)
+      (exists-link ?cont ?last-rlc ?new-llc&:(not (member$ ?new-llc $?llcs))&:(not (member$ ?new-llc $?rlcs)))
       ;;; ?new-rlc and ?new-csp
       ;;; the following condition implies that new-csp is not a csp variable for zzz or any of the previous rlcs
       (bivalue

@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;            January 2006 - February 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -66,9 +66,11 @@
 		(csp-vars ?csp1)
 		(last-rlc ?last-rlc)
 	)
-	
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+    (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
+
 	;;; ?new-llc
-	(exists-link ?cont ?new-llc&~?zzz&~?llc1&~?rlc1 ?last-rlc)
+	(exists-link ?cont ?last-rlc ?new-llc&~?zzz&~?llc1&~?rlc1)
 	
 	(is-csp-variable-for-label (csp-var ?new-csp&~?csp1) (label ?new-llc))
 	;;; because, in a partial z-chain, ?zzz cannot be linked to any candidate in $?rlcs

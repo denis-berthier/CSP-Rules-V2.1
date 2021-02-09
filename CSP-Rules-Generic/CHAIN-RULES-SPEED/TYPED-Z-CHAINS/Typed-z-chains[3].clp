@@ -67,7 +67,7 @@
 	)
 	
 	;;; ?new-llc
-	(exists-link ?cont ?new-llc&~?zzz&:(not (member$ ?new-llc $?llcs))&:(not (member$ ?new-llc $?rlcs)) ?last-rlc)
+	(exists-link ?cont ?last-rlc ?new-llc&~?zzz&:(not (member$ ?new-llc $?llcs))&:(not (member$ ?new-llc $?rlcs)))
 	
 	(is-typed-csp-variable-for-label (csp-var ?new-csp&:(not (member$ ?new-csp $?csp-vars))) (label ?new-llc) (csp-var-type ?csp-type))
 	;;; because, in a partial z-chain, ?zzz cannot be linked to any candidate in $?rlcs
@@ -102,9 +102,9 @@
             (csp-vars ?csp1)
             (last-rlc ?last-rlc)
         )
-        
+
         ;;; ?new-llc
-        (exists-link ?cont ?new-llc&~?zzz&~?llc1&~?rlc1 ?last-rlc)
+        (exists-link ?cont ?last-rlc ?new-llc&~?zzz&~?llc1&~?rlc1)
         
         ;;; ?new-rlc and ?new-csp
         (technique ?cont typed-partial-z-chain[2])

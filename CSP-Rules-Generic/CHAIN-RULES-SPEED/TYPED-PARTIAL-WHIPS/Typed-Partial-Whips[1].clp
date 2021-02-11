@@ -42,7 +42,7 @@
 
         ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
         ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)
-        (or (not (candidate-in-focus)) (candidate-in-focus (label ?zzz)))
+        (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 
         ;;; ?rlc1 and ?csp1
         (technique ?cont typed-partial-whip[1])

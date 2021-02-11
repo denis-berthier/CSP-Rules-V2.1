@@ -148,7 +148,7 @@
    (declare (salience ?*partial-g-bivalue-chain[18]-salience-2*))
    (logical
       (chain
-         (type g-bivalue-chain)
+         (type bivalue-chain|g-bivalue-chain)
          (context ?cont)
          (length 17)
          (target ?zzz)
@@ -185,7 +185,7 @@
    ;;; - and the same sequence of rlcs than an already existing one or with a last rlc larger than an existing one
    (not
       (chain
-         (type g-bivalue-chain)
+         (type bivalue-chain|g-bivalue-chain)
          (context ?cont)
          (length 18)
          (target ?zzz)

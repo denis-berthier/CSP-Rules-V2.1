@@ -191,7 +191,7 @@
     ;;; - and the same sequence of rlcs than an already existing one or with no rlc smaller than an existing one
 	(not
 		(chain
-			(type g-bivalue-chain)
+            (type bivalue-chain|g-bivalue-chain)
 			(context ?cont)
 			(length 2)
 			(target ?zzz)

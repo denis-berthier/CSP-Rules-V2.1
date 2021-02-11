@@ -61,6 +61,8 @@
 	(declare (salience ?*partial-g-bivalue-chain[1]-salience*))
 	(logical
         (exists-link ?cont ?zzz&:(not (known-to-be-in-solution ?zzz)) ?llc1)
+        ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+        (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 
         (technique ?cont g-bivalue-chain[2])  ;;; need not be computed unless bivalue-chains[2] are activated
         

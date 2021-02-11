@@ -66,6 +66,9 @@
         (csp-vars ?csp1)
         (last-rlc ?rlc1)
     )
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+    (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
+
     ;;; ?new-llc
     (exists-link ?cont ?new-llc&~?zzz&~?llc1&~?rlc1 ?rlc1)
     

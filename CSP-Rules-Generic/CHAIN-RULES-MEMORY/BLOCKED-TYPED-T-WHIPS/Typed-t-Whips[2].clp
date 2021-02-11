@@ -34,7 +34,7 @@
 (defrule activate-typed-t-whip[2]
     (declare (salience ?*activate-typed-t-whip[2]-salience*))
     (logical (play) (context (name ?cont)))
-    (not (deactivate ?cont whip))
+    (not (deactivate ?cont t-whip))
 =>
     (if ?*print-levels* then (printout t Entering_level_TytW2))
     (assert (technique ?cont typed-partial-whip[1]))

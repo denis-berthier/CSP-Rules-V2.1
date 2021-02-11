@@ -216,7 +216,7 @@
 ;;; the activation of a simpler rule by the first elimination could prevent further potential eliminations.
 ;;; This default behaviour is now changed for Whips[1], bivalue-chains (typed or not), t-Whips (typed or not) and Subsets.
 ;;; But CSP-Rules allows to revert to the previous behaviour,
-;;; independently for Whips[1], for bivalue-chains and t-Whips of any length and for Subsets.
+;;; independently for Whips[1], for bivalue-chains and t-Whips of any length, and for Subsets.
 ;;; Un-comment the relevant line(s) in the configuration file if you want these rules to be "interrupted" as the other rules
 
 (defglobal ?*blocked-Whips[1]* = TRUE)
@@ -225,7 +225,8 @@
 (defglobal ?*blocked-Subsets* = TRUE)
 
 
-;;; Although CSP-Rules doesn't have generic Subsets rules, it provides the general global variables to manage them
+;;; Although CSP-Rules doesn't have generic Subsets or g-Subset rules,
+;;; it provides the general global variables to manage them, up to size 4
 (defglobal ?*Subsets* = FALSE)
 (defglobal ?*Subsets[2]* = FALSE)
 (defglobal ?*Subsets[3]* = FALSE)
@@ -240,15 +241,28 @@
 (defglobal ?*g-Subsets-max-length* = 4)
 
 
-;;; setting ?*All-generic-chain-rules* allows to load all the first level rules
-;;; the first level rules are those defined below
+;;; setting ?*All-generic-chain-rules* allows to load all the "first level" rules.
+;;; The first level rules are those defined below
 (defglobal ?*All-generic-chain-rules* = FALSE)
 
-;;; Whips[1] and ?*Typed-Partial-Whips[1] are special cases because they must be active in many cases
-;;; even when longer Whips or Typed-Whips are not
-;;; These variables are managed by CSP-Rules, not by the user
-(defglobal ?*Whips[1]* = FALSE)
+
+
+;;; Some generic chain rules can now be activated more easily with some length restriction,
+;;; without activating longer rules of the same kind;
+;;; for instance, Whips[1] and ?*Typed-Partial-Whips[1], because they must be active in many cases,
+;;; even when longer Whips or Typed-Whips are not.
+
+;;; Some of the following variables for doing so are managed automatically by CSP-Rules:
 (defglobal ?*Typed-Partial-Whips[1]* = FALSE)
+
+;;; And some may now be also managed by the user:
+;;; - whips[1], because they are the simplest pattern after BRT:
+(defglobal ?*Whips[1]* = FALSE)
+;;; - g-Whips[2] because the are universal among patterns with two CSP-Variables:
+(defglobal ?*g-Whips[2]* = FALSE)
+;;; - g-Braids[3] because they cover some Sudoku specific rules not covered by simpler rules
+(defglobal ?*g-Braids[3]* = FALSE)
+
 
 (defglobal ?*Bivalue-Chains* = FALSE)
 (defglobal ?*z-Chains* = FALSE)
@@ -423,17 +437,19 @@
 ;;; Setting ?*print-init-details* to TRUE allows to trace the initialization of candidate sets (deleted for efficiency).
 
 (defglobal ?*print-initial-state* = TRUE) ; number of values and candidates, csp-links, links, density
-(defglobal ?*print-actions* = TRUE) ; print all the non-ECP rules
+(defglobal ?*print-actions* = TRUE) ; print the singles and all the non-ECP rules
+(defglobal ?*print-levels* = TRUE) ; <<<<<<<<<<<<<<<<<< useful for tracking the advancement of hard instances
+;;; By defautt, the solution (if found) is printed)
 (defglobal ?*print-solution* = TRUE)
 
 (defglobal ?*print-all-details* = FALSE) ; includes any of the following
 (defglobal ?*print-init-details* = FALSE) ; print data about c-values and candidates initialisation
 (defglobal ?*print-ECP-details* = FALSE) ; print all the ECP eliminations
 
-(defglobal ?*print-levels* = TRUE) ; <<<<<<<<<<<<<<<<<< useful for tracking the advancement of hard instances
 
-(defglobal ?*print-hypothesis* = TRUE) ; used only for T&E; by default, hypotheses are printed when T&E is on
-(defglobal ?*print-phase* = TRUE) ; used only for T&E
+;;; The following variables are used only for T&E and similar procedures
+(defglobal ?*print-hypothesis* = TRUE) ; by default, hypotheses are printed when T&E is on
+(defglobal ?*print-phase* = TRUE) ; by default, each phase in T&R is printed
 
 
 
@@ -445,8 +461,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; print rule firings according to length (or "size") of defining pattern
-;;; Lk is the number of CSP-variables involved in the pattern definition
+;;; Print rule firings according to length (or "size") of defining pattern
+;;; Lk is the number of CSP-Variables involved in the pattern definition
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -493,8 +509,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; print rule firings according to type (or type and size) of defining pattern
-;;; very fine grain details (seldom used - but has been useful for debugging)
+;;; Print rule firings according to the type (or type and size) of their defining pattern
+;;; This is very fine grain details (seldom used - but has been useful in early debugging)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

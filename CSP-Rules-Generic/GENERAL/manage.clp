@@ -178,12 +178,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(deffunction print-current-resolution-state-in-context (?cont) TRUE)
+
 (defrule print-unsolved-final-state
 	(declare (salience ?*print-final-state-salience*))
 	(context (name ?cont&0))
 	(not (solution-found ?cont))
 =>
 	(printout t "PUZZLE NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
+    (print-current-resolution-state-in-context ?cont)
 	(halt)
 )
 

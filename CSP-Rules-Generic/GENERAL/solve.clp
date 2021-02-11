@@ -65,10 +65,10 @@
     (printout t crlf)
     (printout t     "***********************************************************************************************" crlf
                     "***  " ?*Application* " " ?*Application-VersionNumber* ?xx
-                    " based on CSP-Rules " ?*CSP-Rules-VersionNumber* ?xx
-                    ", Using " ?*inference-engine* " " ?*inference-engine-version*
-                    ", config = " ?*rating-type* crlf
+                    " based on CSP-Rules " ?*CSP-Rules-VersionNumber* ?xx ", config = " ?*rating-type* crlf
+                    "***  Using " ?*inference-engine* " " ?*inference-engine-version* crlf
                     "***  Copyright Denis Berthier" crlf
+                    "***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1" crlf
                     "***********************************************************************************************" crlf crlf crlf
     )
 )
@@ -88,6 +88,7 @@
                     " based on CSP-Rules " ?*CSP-Rules-VersionNumber* ?xx ", config = " ?*rating-type* crlf
                     "***  Using " ?*inference-engine* " " ?*inference-engine-version* crlf
                     "***  Running on " ?*Computer-description* crlf
+                    "***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1" crlf
                     "***********************************************************************************************" crlf
     )
 )

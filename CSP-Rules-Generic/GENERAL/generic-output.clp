@@ -74,6 +74,12 @@
 (deffunction print-csp-variable (?csp) (printout t (csp-variable-name ?csp)))
 (deffunction print-value (?val) (printout t ?val))
 
+(deffunction print-list-of-labels ($?l)
+    (foreach ?lab $?l
+        (print-label ?lab) (printout t " ")
+    )
+)
+
 
 
 

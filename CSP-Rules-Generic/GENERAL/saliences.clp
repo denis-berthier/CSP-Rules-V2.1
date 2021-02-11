@@ -82,7 +82,7 @@
 ;;; Any strategy is the aggregation of this basic strategy with  one or more techniques
 ;;; such as "whips", "braids", ...
 
-;;; It is generally considered bad style to make use of saliences in a knowledge base and I agree with this in general.
+;;; It is generally considered bad style to make use of mant saliences in a knowledge base and I agree with this in general.
 ;;; But this should not be made into a dogma.
 ;;; In the present case, using saliences (in combination with control facts for activating the complex techniques when and only when necessary)
 ;;; is very efficient and it does not make the knowledge base obscure.
@@ -98,7 +98,7 @@
 ;;; are fully propagated along all the constraints.
 ;;; This precedence order is essential for contradiction detection.
 
-;;; In this version of CSP-Rules, the delayed initialsation of links leads to spectacularly faster solutions for Kakuro. Generally speaking, it leads to fewer csp-links and links.
+;;; In this version of CSP-Rules, the delayed initialsation of links leads to spectacularly faster solutions for Kakuro. Generally speaking, it leads to fewer links and csp-links att the  start of "serious play"
 
 ;;; The following predefined saliences implement these constraints on precedence order.
 
@@ -132,12 +132,16 @@
 ;;; Therefore, the following saliences are the highest of all.
 
 (defglobal ?*init-context-salience* = 0)
+(defglobal ?*init-context-salience-1* = 0)
+(defglobal ?*init-context-salience-2* = 0)
 (defglobal ?*contradiction-in-elim-context-salience* = 0)
 (defglobal ?*contradiction-in-context-salience* = 0)
 (defglobal ?*clean-context-salience* = 0)
 
 (deffunction define-TE1-context-saliences ()
     (bind ?*init-context-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*init-context-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*init-context-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*contradiction-in-elim-context-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*contradiction-in-context-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*clean-context-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -257,6 +261,7 @@
 (deffunction define-specific-constraints-propagation-saliences ())
 
 
+(defglobal ?*special-simple-constraints-propagation-salience* = 0)
 (defglobal ?*csp-variable-constraints-propagation-salience* = 0)
 (defglobal ?*simple-constraints-propagation-salience* = 0)
 (defglobal ?*activate-special-whip-1-salience* = 0)
@@ -283,6 +288,7 @@
     ;;; For efficiency reasons, a specific salience is given to the simplest of the propagation rules,
     ;;; that must apply immediately after any other constraints propagation
 
+    (bind ?*special-simple-constraints-propagation-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*csp-variable-constraints-propagation-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*simple-constraints-propagation-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -329,6 +335,7 @@
 (deffunction define-specific-pre-Singles-saliences ())
 
 
+(defglobal ?*special-single-salience* = 0)
 (defglobal ?*activate-naked-single-salience* = 0)
 (defglobal ?*naked-single-salience* = 0)
 (defglobal ?*activate-hidden-single-salience* = 0)
@@ -337,6 +344,7 @@
 (defglobal ?*single-salience* = 0)
 
 (deffunction define-Singles-saliences ()
+    (bind ?*special-single-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*activate-naked-single-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*naked-single-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*activate-hidden-single-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -459,6 +467,8 @@
     (define-specific-init-links-saliences)
     (define-generic-init-links-saliences)
     ;;; start serious resolution here:
+    ;;; this salience comes after init-links to alllow the number of links and csp-links and the density
+    ;;; to be displayed before "serious play"
     (bind ?*start-serious-play-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 

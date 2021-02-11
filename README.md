@@ -207,7 +207,8 @@ singles to the end
 
 ## 5. License<br>
 The software parts in CSP-Rules V2.1 are distributed under the GNU GPL v3.0 license (see the full text in the Docs folder).<br>
-Of course, the other publications (books, articles, conference proceeddings...) remain protected by their original respctive copyrights. <br><br>
+Of course, the other publications (books, articles, conference proceedings...) remain protected by their original respective copyrights;
+this also applies to the cLIPS software.<br><br>
 
 ## 6. Installation<br>
 Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (in particular, delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>

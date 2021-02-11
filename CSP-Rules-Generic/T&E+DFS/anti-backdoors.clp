@@ -46,7 +46,7 @@
     (bind ?rat (if (eq ?len 0) then "" else (str-cat ?*rating-type* "-")))
     (bind ?len (length$ ?*anti-backdoors*))
     (bind ?back (if (or (eq ?len 0) (eq ?len 1)) then "ANTI-BACKDOOR" else "ANTI-BACKDOORS"))
-    (printout t crlf  (length$ ?*backdoors*) " " (str-cat ?rat ?back " FOUND: "))
+    (printout t crlf  (length$ ?*anti-backdoors*) " " (str-cat ?rat ?back " FOUND: "))
     (print-list-of-labels ?*anti-backdoors*)
     (printout t crlf crlf)
     (printout t "nb-facts=" ?*nb-facts* crlf)

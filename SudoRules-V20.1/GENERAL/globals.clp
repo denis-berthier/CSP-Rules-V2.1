@@ -102,9 +102,6 @@
 (defglobal ?*dummy-for-allowed-csp-types* = (progn (bind ?*allowed-csp-types* (create$ rc rn cn bn)) TRUE))
 
 
-(defglobal ?*Backdoors* = FALSE)
-(defglobal ?*Anti-backdoors* = FALSE)
-
 (defglobal ?*Unique-Rectangles* = FALSE)
 (defglobal ?*BUG* = FALSE)
 

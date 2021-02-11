@@ -386,6 +386,20 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2d) for looking for backdoors or anti-backdoors
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; choose only one of backddors or anti-backdoors:
+; (bind ?*Backdoors* TRUE)
+; (bind ?*Anti-backdoors* TRUE)
+;;; for W1-backdoors or W1-anti-backdoors:
+; (bind ?*Whips[1]* TRUE)
+;;; for S-backdoors or S-anti-backdoors:
+; (bind ?*Subsets* TRUE)
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

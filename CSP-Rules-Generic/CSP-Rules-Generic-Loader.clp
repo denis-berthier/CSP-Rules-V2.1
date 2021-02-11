@@ -181,6 +181,7 @@
 
 (deffunction define-generic-rating-type ()
     (bind ?*generic-rating-type* "")
+    (if ?*Whips[1]* then (bind ?*generic-rating-type* "W1"))
     
     ;;; typed-chains
     (if ?*Typed-Bivalue-Chains* then (bind ?*generic-rating-type* "TyBC"))
@@ -299,6 +300,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;;; utilities allowing to control locally what is printed:
+(defglobal ?*print-actions-backup* = ?*print-actions*)
+(defglobal ?*print-levels-backup* = ?*print-levels*)
+(defglobal ?*print-hypothesis-backup* = ?*print-hypothesis*)
+(defglobal ?*print-phase-backup* = ?*print-phase*)
+(deffunction mute-print-options ()
+    (bind ?*print-actions-backup* ?*print-actions*)
+    (bind ?*print-levels-backup* ?*print-levels*)
+    (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
+    (bind ?*print-phase-backup* ?*print-phase*)
+    (bind ?*print-actions* FALSE)
+    (bind ?*print-levels* FALSE)
+    (bind ?*print-hypothesis* FALSE)
+    (bind ?*print-phase* FALSE)
+)
+(deffunction restore-print-options ()
+    (bind ?*print-actions* ?*print-actions-backup*)
+    (bind ?*print-levels* ?*print-levels-backup*)
+    (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
+    (bind ?*print-phase* ?*print-phase-backup*)
+)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -325,6 +348,7 @@
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "generic-background.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "generic-output.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "solve.clp"))
+(load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "focused-elims.clp"))
 
 
 
@@ -377,7 +401,7 @@
 )
 
 ;;; Bivalue
-(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*special-TE* ?*special-DFS*) then
+(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*Forcing-Whips* ?*special-TE* ?*special-DFS*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Bivalue.clp"))
 )
 
@@ -638,7 +662,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; T&E and DFS
+;;; T&E, Forcing T&E, Backdoors, Anti-Backdoors and DFS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -666,6 +690,12 @@
     )
 )
 
+
+(if ?*Forcing-TE* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "Forcing-TE.clp"))
+)
+
+
 (if ?*DFS* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "DFS.clp"))
     (if ?*special-DFS* then
@@ -674,6 +704,13 @@
 )
 
 
+(if ?*Backdoors* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "backdoors.clp"))
+)
+
+(if ?*Anti-backdoors* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "anti-backdoors.clp"))
+)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -809,7 +846,10 @@
             then ?*generic-rating-type*
             else (if (eq ?*generic-rating-type* "")
                     then ?*application-specific-rating-type*
-                    else (str-cat ?*generic-rating-type* "+" ?*application-specific-rating-type*)
+                    else (if (eq ?*generic-rating-type* "W1")
+                            then ?*application-specific-rating-type*
+                            else (str-cat ?*generic-rating-type* "+" ?*application-specific-rating-type*)
+                        )
                 )
         )
     )
@@ -858,6 +898,8 @@
 
 
 (define-rating-type)
+
+
 (print-start-banner)
 
 

@@ -330,6 +330,9 @@
 (defglobal ?*TE3* = FALSE) ;;; by default, there is no Trial and Error at depth 3
 (defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
 
+(defglobal ?*Backdoors* = FALSE)
+(defglobal ?*Anti-backdoors* = FALSE)
+
 (defglobal ?*Templates* = FALSE)
 (defglobal ?*Templates-max-length* = 1)
 

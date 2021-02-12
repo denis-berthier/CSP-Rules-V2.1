@@ -43,10 +43,10 @@
     ;;; the anti-backdoors are looked for in the current resolution state
     (bind ?n (run))
     (bind ?time2 (time))
-    (bind ?rat (if (eq ?len 0) then "" else (str-cat ?*rating-type* "-")))
     (bind ?len (length$ ?*anti-backdoors*))
+    (bind ?rat (if (eq ?len 0) then "" else (str-cat ?*rating-type* "-")))
     (bind ?back (if (or (eq ?len 0) (eq ?len 1)) then "ANTI-BACKDOOR" else "ANTI-BACKDOORS"))
-    (printout t crlf  (length$ ?*anti-backdoors*) " " (str-cat ?rat ?back " FOUND: "))
+    (printout t crlf  ?len " " (str-cat ?rat ?back " FOUND: "))
     (print-list-of-labels ?*anti-backdoors*)
     (printout t crlf crlf)
     (printout t "nb-facts=" ?*nb-facts* crlf)

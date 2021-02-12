@@ -43,8 +43,8 @@
     ;;; the backdoors are looked for in the current resolution state
     (bind ?n (run))
     (bind ?time2 (time))
-    (bind ?rat (if (eq ?len 0) then "" else (str-cat ?*rating-type* "-")))
     (bind ?len (length$ ?*backdoors*))
+    (bind ?rat (if (eq ?len 0) then "" else (str-cat ?*rating-type* "-")))
     (bind ?back (if (or (eq ?len 0) (eq ?len 1)) then "BACKDOOR" else "BACKDOORS"))
     (printout t crlf  (length$ ?*backdoors*) " " (str-cat ?rat ?back " FOUND: "))
     (print-list-of-labels ?*backdoors*)

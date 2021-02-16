@@ -181,6 +181,11 @@
 )
 
 
+(deffunction print-current-resolution-state ()
+    (print-current-resolution-state-in-context 0)
+)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; PRINT FINAL STATE IF NO SOLUTION FOUND
@@ -199,8 +204,8 @@
 		(bind ?*not-solved-list* (union$ ?*not-solved-list* (create$ ?g)))
 	)
     (if (<= ?*segment-size* 5) then
-        (printout t "FINAL RESOLUTION STATE:" crlf)
-        (print-current-resolution-state-in-context 0)
+        (printout t "CURRENT RESOLUTION STATE:" crlf)
+        (print-current-resolution-state)
         
     )
     (halt)

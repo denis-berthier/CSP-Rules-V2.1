@@ -39,7 +39,7 @@
 
 
 (deffunction print-blocked-rule ()
-    (if (neq (length$ ?*blocked-rule-eliminations*) 0) then
+    (if (and ?*print-actions* (neq (length$ ?*blocked-rule-eliminations*) 0)) then
         (printout t ?*blocked-rule-description* ?*implication-sign* ?*blocked-rule-eliminations* crlf)
     )
     (bind ?*blocked-rule-description* "")
@@ -78,7 +78,7 @@
     ?apply <- (apply-rule-as-a-pseudo-block ?cont)
     ?pseudo-blocked <- (pseudo-blocked ?cont $?)
 =>
-    (printout t crlf)
+    (if ?*print-actions* then (printout t crlf))
     (retract ?pseudo-blocked)
     (retract ?apply)
 )

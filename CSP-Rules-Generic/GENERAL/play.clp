@@ -43,7 +43,11 @@
             " Density = " ?*density* "%" crlf
         )
     )
-    (if ?*print-actions* then (printout t "starting non trivial part of solution" crlf))
+    (if ?*print-actions* then
+        (printout t "RESOLUTION STATE:" crlf)
+        (print-current-resolution-state)
+        (printout t "starting non trivial part of solution" crlf)
+    )
     (assert (play))
     (assert (play-already-asserted))
 )

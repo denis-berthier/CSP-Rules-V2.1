@@ -52,8 +52,10 @@
     (column ?col)
 	(not (candidate (context 0) (row ?row) (column ?col)))
 =>
-	(printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RC-CELL " (row-name ?row) (column-name ?col) crlf)
-	(printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    (if ?*print-actions* then
+        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RC-CELL " (row-name ?row) (column-name ?col) crlf)
+        (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    )
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*no-sol-list* (union$ ?*no-sol-list* (create$ ?g)))
 	)
@@ -71,8 +73,10 @@
     (row ?row)
 	(not (candidate (context 0) (number ?nb) (row ?row)))
 =>
-	(printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RN-CELL " (row-name ?row) (number-name ?nb) crlf)
-	(printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    (if ?*print-actions* then
+        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RN-CELL " (row-name ?row) (number-name ?nb) crlf)
+        (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    )
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*no-sol-list* (union$ ?*no-sol-list* (create$ ?g)))
 	)
@@ -89,8 +93,10 @@
     (column ?col)
 	(not (candidate (context 0) (number ?nb) (column ?col)))
 =>
-	(printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR CN-CELL " (column-name ?col) (number-name ?nb) crlf)
-	(printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    (if ?*print-actions* then
+        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR CN-CELL " (column-name ?col) (number-name ?nb) crlf)
+        (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    )
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*no-sol-list* (union$ ?*no-sol-list* (create$ ?g)))
 	)
@@ -107,8 +113,10 @@
     (block ?blk)
 	(not (candidate (context 0) (number ?nb) (block ?blk)))
 =>
-	(printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR BN-CELL " (block-name ?blk) (number-name ?nb) crlf)
-	(printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    (if ?*print-actions* then
+        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR BN-CELL " (block-name ?blk) (number-name ?nb) crlf)
+        (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    )
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*no-sol-list* (union$ ?*no-sol-list* (create$ ?g)))
 	)
@@ -199,14 +207,15 @@
 	(context (name 0))
 	(not (solution-found 0))
 =>
-	(printout t "PUZZLE " ?g " NOT SOLVED. " (- ?*nb-of-cells*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
-	(if ?*add-instance-to-solved-list* then
-		(bind ?*not-solved-list* (union$ ?*not-solved-list* (create$ ?g)))
-	)
-    (if (<= ?*segment-size* 5) then
+    (if ?*add-instance-to-solved-list* then
+        (bind ?*not-solved-list* (union$ ?*not-solved-list* (create$ ?g)))
+    )
+    (if ?*print-actions* then
+        (printout t "PUZZLE " ?g " NOT SOLVED. " (- ?*nb-of-cells*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
+    )
+    (if (and ?*print-actions* (<= ?*segment-size* 5)) then
         (printout t "CURRENT RESOLUTION STATE:" crlf)
         (print-current-resolution-state)
-        
     )
     (halt)
 )
@@ -235,13 +244,16 @@
 	)
 =>
 	(retract ?pl)
-	(printout t "GRID " ?g " SOLVED.")
-	(printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* crlf)
-    (if ?*DFS* then (printout t " rating-type = " DFS ", MAX-DEPTH = " ?*DFS-max-depth* crlf))
+    (if ?*print-actions* then
+        (printout t "GRID " ?g " SOLVED.")
+        (printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+        (if ?*DFS* then (printout t " rating-type = " DFS ", MAX-DEPTH = " ?*DFS-max-depth* crlf))
+    )
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*solved-list* (create$ ?*solved-list* ?g))
 	)
 	(assert (solution-found ?cont))
+    (bind ?*solution-found* TRUE)
 )
 
 

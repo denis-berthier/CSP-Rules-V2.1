@@ -476,12 +476,11 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
-        (print-banner)
-		(printout t crlf)
-	)
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
 )
 
 ;;; also named solve-sudoku-string for homogeneity with the other function names
@@ -515,6 +514,7 @@
     ;;; and puzzle entries are taken into account here
 	(init-sudoku-string ?puzzle-string)
     ;;; solution entries are taken into account here:
+    (assert (deactivate 0 t-whip))
     (bind ?*known-to-be-in-solution* (sol-string-to-list ?sol-string))
 	(bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
@@ -532,12 +532,11 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
-        (print-banner)
-		(printout t crlf)
-	)
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
 )
 
 
@@ -680,12 +679,11 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
-        (print-banner)
-		(printout t crlf)
-	)
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
 )
 
 ;;; for compatibility with other function names (no upper cases):
@@ -856,14 +854,11 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
-    (if ?*print-actions* then
-        (print-banner)
-		(printout t crlf)
-	)
+    (if ?*print-actions* then (print-banner) (printout t crlf))
 )
 
 
@@ -996,12 +991,11 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
         ;(printout t "nb rules " ?nb-rules crlf)
         ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
-        (print-banner)
-        (printout t crlf)
     )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
 )
 
 
@@ -1110,7 +1104,7 @@
 )
 
 (deffunction solve-sudoku-grid ($?sudoku-grid)
-    (solve-grid-as-list (clean-grid-list $?sudoku-grid))
+    (solve-sudoku-list (clean-grid-list $?sudoku-grid))
 )
 
 

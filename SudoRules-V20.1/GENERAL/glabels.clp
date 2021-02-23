@@ -267,28 +267,6 @@
 
 
 
-;;; now, the type of a glabel (horiz or verti) is implicit in its row and column data
-
-;;; integer overflow problem for ?*segment-size* > 3 :
-;(deffunction nrct-to-glabel (?nb ?row ?col ?type)
-;    (bind ?t
-;        (if (eq ?type horiz) then 1
-;            else (if (eq ?type verti) then 2)
-;        )
-;    )
-;    (+ (* ?*internal-factor-3* ?t) (nrc-to-label ?nb ?row ?col))
-;)
-
-
-
-;(deffunction glabel-type (?glabel)
-;    (bind ?t (div ?glabel ?*internal-factor-3*))
-;    (if (eq ?t 1) then horiz
-;        else (if (eq ?t 2) then verti)
-;    )
-;)
-
-
 (deffunction is-label (?glab)
     (and (<= (label-row ?glab) ?*grid-size*) (<= (label-column ?glab) ?*grid-size*))
 )

@@ -79,7 +79,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
 		(printout t crlf)
@@ -350,7 +350,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
 		(printout t crlf)
@@ -435,7 +435,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
 		(printout t crlf)
@@ -647,7 +647,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
         ;(printout t "nb rules " ?nb-rules crlf)
         ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
         (printout t crlf)

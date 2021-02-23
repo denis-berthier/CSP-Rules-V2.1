@@ -48,6 +48,7 @@
 (defrule hidden-single-in-a-row
 	"if there is a number whose instance in a row has been confined to a unique cell, then assert the c-value"
 	(declare (salience ?*hidden-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont hidden-single)
 	?mod <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?colx&~?col)))
@@ -63,6 +64,7 @@
 (defrule hidden-single-in-a-column
 	"if there is a number whose instance in a column has been confined to a unique cell, then assert the c-value"
 	(declare (salience ?*hidden-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont hidden-single)
 	?mod <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col) (row ?rowx&~?row)))
@@ -78,6 +80,7 @@
 (defrule hidden-single-in-a-block
 	"if there is a number whose instance in a block has been confined to a unique cell, then assert the c-value"
 	(declare (salience ?*hidden-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont hidden-single)
 	?mod <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (block ?blk) (square ?sqx&~?sq)))

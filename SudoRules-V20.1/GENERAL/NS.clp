@@ -58,6 +58,7 @@
 (defrule naked-single
 	"if there is a cell whose candidates have been confined to a unique value, then assert the c-value"
 	(declare (salience ?*naked-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont naked-single)
 	?mod <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq))
 	(not (candidate (context ?cont) (status cand) (row ?row) (column ?col) (number ?nbx&~?nb)))

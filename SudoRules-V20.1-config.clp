@@ -165,6 +165,7 @@
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-solution* FALSE)
+; (bind ?*print-RS-after-Singles* FALSE) ; do not print the resolution state after BRT
 
 
 

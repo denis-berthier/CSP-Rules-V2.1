@@ -53,8 +53,9 @@
 (defrule single
 	"if there is a csp-variable whose candidates have been confined to a unique value ?cand, then assert it as a c-value"
 	(declare (salience ?*single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont single)
-	?mod <- (candidate (context ?cont) (status cand) (label ?cand))
+    ?mod <- (candidate (context ?cont) (status cand) (label ?cand))
     (is-csp-variable-for-label (csp-var ?csp) (label ?cand))
     (forall (is-csp-variable-for-label (csp-var ?csp) (label ?xxx&~?cand))
         (not (candidate (context ?cont) (label ?xxx)))

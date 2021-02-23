@@ -111,6 +111,7 @@
     ?*max-depth* = 0
     ?*biTE-context-counter* = 0
 
+    ?*solution-found* = FALSE
     ?*add-grid-to-solved-list* = TRUE
     ?*add-instance-to-solved-list* = TRUE
     ?*solved-list* = (create$)
@@ -155,6 +156,8 @@
     (bind ?*blocked-rule-description* "")
     (bind ?*blocked-rule-eliminations* "")
 
+    (bind ?*solution-found* FALSE)
+    
     (bind ?*context-counter* 0)
     (bind ?*max-depth* 0)
     (bind ?*biTE-context-counter* 0)
@@ -324,11 +327,12 @@
 (defglobal ?*forcing-gbraids-max-length* = 36)
 
 
-(defglobal ?*special-TE* = FALSE) ;;; by default, there is no Trial and Error at depth 1
+(defglobal ?*special-TE* = FALSE) ;;; by default, there is no priority in T&E for bivalue candidates
 (defglobal ?*TE1* = FALSE) ;;; by default, there is no Trial and Error at depth 1
 (defglobal ?*TE2* = FALSE) ;;; by default, there is no Trial and Error at depth 2
 (defglobal ?*TE3* = FALSE) ;;; by default, there is no Trial and Error at depth 3
 (defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
+(defglobal ?*Forcing{3}-TE* = FALSE) ;;; by default, there is no Forcing{3} Trial and Error
 
 (defglobal ?*Backdoors* = FALSE)
 (defglobal ?*Anti-backdoors* = FALSE)
@@ -448,6 +452,7 @@
 (defglobal ?*print-all-details* = FALSE) ; includes any of the following
 (defglobal ?*print-init-details* = FALSE) ; print data about c-values and candidates initialisation
 (defglobal ?*print-ECP-details* = FALSE) ; print all the ECP eliminations
+(defglobal ?*print-RS-after-Singles* = TRUE) ; print the resolution state after BRT
 
 
 ;;; The following variables are used only for T&E and similar procedures

@@ -260,7 +260,9 @@
     ;;; used only by T&E:
 	(slot generating-cand (type INTEGER) (default 0))
     ;;; used only for bi-Trial-and-Error:
-	(slot generating-cand2 (type INTEGER) (default 0))
+    (slot generating-cand2 (type INTEGER) (default 0))
+    ;;; used only for Forcing3-T&E
+    (slot generating-cand3 (type INTEGER) (default 0))
 )
 
 

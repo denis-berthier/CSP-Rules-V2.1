@@ -38,6 +38,10 @@
 ;;; As a result, rule "end-init-effective-links", which asserts (play),
 ;;; must now be in a separate file ("play.clp"), that is always loaded
 
+;;; Links are computed before (play) is asserted because,
+;;; unless the puzzle is solved in BRT,
+;;; the numbers of csp-links and links are printed when (play) is asserted
+
 
 
 ;;; This is the only place in CSP-Rules and its applications where links are activated

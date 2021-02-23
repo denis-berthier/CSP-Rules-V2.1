@@ -28,7 +28,9 @@
 
 
 
-;;; Whether links have been activated or not, but never before, start "serious" play
+;;; Whether links have been activated or not, but never before (because the numbers of links are printed)
+;;; start "serious" play
+;;; Notice that this rule will never fire is there is a solution in BRT.
 
 
 (defrule enable-rules-beyond-BRT-in-initial-context
@@ -37,16 +39,19 @@
     (not (play-already-asserted))
 =>
     (bind ?*density* (density ?*nb-candidates* ?*links-count*))
+    (if ?*print-actions* then
+        (printout t crlf "Starting non trivial part of solution ")
+        (if ?*print-RS-after-Singles* then
+            (printout t "with the following RESOLUTION STATE:")
+            (printout t crlf)
+            (print-current-resolution-state)
+        )
+    )
     (if ?*print-initial-state* then
         (printout t ?*nb-candidates* " candidates, "
             ?*csp-links-count* " csp-links and " ?*links-count* " links."
-            " Density = " ?*density* "%" crlf
+            " Density = " ?*density* "%" crlf crlf
         )
-    )
-    (if ?*print-actions* then
-        (printout t "RESOLUTION STATE:" crlf)
-        (print-current-resolution-state)
-        (printout t "starting non trivial part of solution" crlf)
     )
     (assert (play))
     (assert (play-already-asserted))

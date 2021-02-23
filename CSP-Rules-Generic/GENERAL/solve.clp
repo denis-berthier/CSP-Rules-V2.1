@@ -137,8 +137,5 @@
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
-    (if ?*print-actions* then
-        (print-banner)
-		(printout t crlf)
-	)
+    (if ?*print-actions* then (print-banner) (printout t crlf))
 )

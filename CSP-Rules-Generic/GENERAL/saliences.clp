@@ -98,7 +98,7 @@
 ;;; are fully propagated along all the constraints.
 ;;; This precedence order is essential for contradiction detection.
 
-;;; In this version of CSP-Rules, the delayed initialsation of links leads to spectacularly faster solutions for Kakuro. Generally speaking, it leads to fewer links and csp-links att the  start of "serious play"
+;;; In this version of CSP-Rules, the delayed initialsation of links leads to spectacularly faster solutions for Kakuro. Generally speaking, it leads to fewer links and csp-links at the  start of "serious play"
 
 ;;; The following predefined saliences implement these constraints on precedence order.
 
@@ -717,7 +717,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; BIVALUE
+;;; BIVALUE AND TRIVALUE
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -725,12 +725,21 @@
 (defglobal ?*activate-bivalue-salience* = 0)
 (defglobal ?*bivalue-salience* = 0)
 
-
 (deffunction define-bivalue-saliences ()
     ;; special bivalue
-	(bind ?*activate-bivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-	(bind ?*bivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-bivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*bivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
+
+;;; used only for Forcing{3}-T&E
+(defglobal ?*activate-trivalue-salience* = 0)
+(defglobal ?*trivalue-salience* = 0)
+
+(deffunction define-trivalue-saliences ()
+    (bind ?*activate-trivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*trivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -8129,6 +8138,7 @@
 	(define-saliences-at-L1)
     (define-bivalue-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L2)
+    (define-trivalue-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L3)
 	(define-saliences-at-L4)
 	(define-saliences-at-L5)

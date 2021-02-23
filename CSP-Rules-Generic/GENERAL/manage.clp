@@ -98,8 +98,10 @@
         (not (candidate (context 0) (label ?lab)))
     )
 =>
-	(printout t crlf "PUZZLE HAS NO SOLUTION : NO CANDIDATE FOR CSP-VARIABLE " (csp-variable-name ?csp) crlf)
-	(printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    (if ?*print-actions* then
+        (printout t crlf "PUZZLE HAS NO SOLUTION : NO CANDIDATE FOR CSP-VARIABLE " (csp-variable-name ?csp) crlf)
+        (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    )
 	;(if ?*add-grid-to-solved-list* then
 	;	(bind ?*no-sol-list* (union$ ?*no-sol-list* (create$ ?g)))
 	;)
@@ -131,10 +133,13 @@
 		;)))
 	)
 =>
-	(printout t "PUZZLE SOLVED.")
-	(printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    (if ?*print-actions* then
+        (printout t "PUZZLE SOLVED.")
+        (printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* crlf)
+    )
 	(retract ?pl)
 	(assert (solution-found ?cont))
+    (bind ?*solution-found* FALSE)
 )
 
 
@@ -189,8 +194,10 @@
 	(context (name ?cont&0))
 	(not (solution-found ?cont))
 =>
-	(printout t "PUZZLE NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
-    (print-current-resolution-state)
+    (if ?*print-actions* then
+        (printout t "PUZZLE NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
+        (print-current-resolution-state)
+    )
 	(halt)
 )
 

@@ -76,6 +76,7 @@
         (bind ?*Forcing-G-Braids* TRUE)
         ;;; add those that are not implied by the previous ones:
         (bind ?*Bivalue-Chains* TRUE)
+        (bind ?*G-Bivalue-Chains* TRUE)
         (bind ?*z-Chains* TRUE)
         (bind ?*t-Whips* TRUE)
     )
@@ -101,7 +102,7 @@
         (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*forcing-whips-max-length* ?*whips-max-length*))
     )
 
-    ;;; Bivalue-chains, whips, gwhips, braids, gbraids
+    ;;; Bivalue-chains, whips, g-bivalue-chains, gwhips, braids, gbraids
     (if ?*G-Braids* then
         (bind ?*G-Whips* TRUE) (bind ?*gwhips-max-length* (max ?*gbraids-max-length* ?*gwhips-max-length*))
         (bind ?*Braids* TRUE) (bind ?*braids-max-length* (max ?*gbraids-max-length* ?*braids-max-length*))
@@ -116,6 +117,11 @@
         (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*braids-max-length* ?*whips-max-length*))
     )
     
+    ;;; (typed or not) z-chains and g-bivalue chains imply (similarly typed or not) bivalue-chains
+    (if ?*z-Chains* then (bind ?*Bivalue-Chains* TRUE))
+    (if ?*G-Bivalue-Chains* then (bind ?*Bivalue-Chains* TRUE))
+    (if ?*Typed-z-Chains* then (bind ?*Typed-Bivalue-Chains* TRUE))
+
     (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*) then (bind ?*G-Labels* TRUE))
     
     ;;; Typed-whips
@@ -154,10 +160,6 @@
             (bind ?*Typed-Chains* TRUE)
             (bind ?*Typed-Partial-Whips[1]* TRUE)
     )
-    
-    ;;; z-chains imply bivalue-chains
-    (if ?*z-Chains* then (bind ?*Bivalue-Chains* TRUE))
-    (if ?*Typed-z-Chains* then (bind ?*Typed-Bivalue-Chains* TRUE))
 
     (printout t "Generic rules dependencies set" crlf)
     
@@ -180,108 +182,73 @@
 ;;; Notice that this generic rating doesn't take into account the application-specific rules
 
 (deffunction define-generic-rating-type ()
+    ;;; typed-chains
+    (bind ?typed-generic-rating-type "")
+    (if ?*Typed-Bivalue-Chains* then (bind ?typed-generic-rating-type "TyBC"))
+    (if ?*Typed-z-Chains* then (bind ?typed-generic-rating-type "TyZ"))
+    (if ?*Typed-t-Whips* then (bind ?typed-generic-rating-type "TytW"))
+    (if (and ?*Typed-z-Chains* ?*Typed-t-Whips*) then (bind ?typed-generic-rating-type "TyZ+TytW"))
+    (if ?*Typed-Whips* then (bind ?typed-generic-rating-type "TyW"))
+    (if ?*Typed-g-Whips* then (bind ?typed-generic-rating-type "TygW"))
+
+    ;;; Untyped-chain-rules with no g-labels
     (bind ?*generic-rating-type* "")
     (if ?*Whips[1]* then (bind ?*generic-rating-type* "W1"))
-    
-    ;;; typed-chains
-    (if ?*Typed-Bivalue-Chains* then (bind ?*generic-rating-type* "TyBC"))
-    (if ?*Typed-z-Chains* then (bind ?*generic-rating-type* "TyZ"))
-    (if ?*Typed-t-Whips* then
-        (bind ?*generic-rating-type*
-            (if (eq ?*generic-rating-type* "") then "TytW" else (str-cat ?*generic-rating-type* "+TytW"))
-        )
-    )
-    (if ?*Typed-Whips* then (bind ?*generic-rating-type* "TyW"))
-    (if ?*Typed-g-Whips* then (bind ?*generic-rating-type* "TygW"))
-
-    ;;; Untyped-chain-rules
-    (if ?*Bivalue-Chains* then
-        (bind ?*generic-rating-type* "BC")
-        (if ?*Typed-z-Chains* then (bind ?*generic-rating-type* "TyZ+BC"))
-        (if ?*Typed-t-Whips* then (bind ?*generic-rating-type* "TytW+BC"))
-        (if ?*Typed-Whips* then (bind ?*generic-rating-type* "TyW+BC"))
-        (if ?*Typed-g-Whips* then (bind ?*generic-rating-type* "TygW+BC"))
-    )
-
-    (if ?*z-Chains* then
-        (bind ?*generic-rating-type* "Z")
-        (if ?*Typed-t-Whips* then (bind ?*generic-rating-type* "TytW+Z"))
-        (if ?*Typed-Whips* then (bind ?*generic-rating-type* "TyW+Z"))
-        (if ?*Typed-g-Whips* then (bind ?*generic-rating-type* "TygW+Z"))
-    )
-
-    (if ?*t-Whips* then
-        (bind ?*generic-rating-type* "tW")
-        (if ?*Typed-Whips* then (bind ?*generic-rating-type* "TyW+tW"))
-        (if ?*Typed-g-Whips* then (bind ?*generic-rating-type* "TygW+tW"))
-    )
-
-    
-    (if ?*Whips* then
-        (bind ?*generic-rating-type* "W")
-        (if ?*Typed-g-Whips* then (bind ?*generic-rating-type* "TygW+W"))
-    )
-    
-    (if ?*G2-Whips* then (bind ?*generic-rating-type* "g2W"))
-    (if ?*G-Whips* then (bind ?*generic-rating-type* "gW"))
-    (if ?*Braids* then
-        (if ?*G2-Whips* then (bind ?*generic-rating-type* "g2W+B")
-            else (if ?*G-Whips* then (bind ?*generic-rating-type* "gW+B")
-                                else (bind ?*generic-rating-type* "B")
-                )
-        )
-    )
+    (if ?*Bivalue-Chains* then (bind ?*generic-rating-type* "BC"))
+    (if ?*z-Chains* then (bind ?*generic-rating-type* "Z"))
+    (if ?*t-Whips* then (bind ?*generic-rating-type* "tW"))
+    (if (and ?*z-Chains* ?*t-Whips*) then (bind ?*generic-rating-type* "Z+tW"))
+    (if ?*Whips* then (bind ?*generic-rating-type* "W"))
+    (if ?*Braids* then (bind ?*generic-rating-type* "B"))
+    ;;; not yet implemented:
     (if ?*Quick-B-Rating* then (bind ?*generic-rating-type* "B-Rating"))
-    
+
+    ;;; chains with g-labels
+    (if ?*G-Bivalue-Chains* then
+        (bind ?*generic-rating-type* "gBC")
+        (if ?*z-Chains* then (bind ?*generic-rating-type* "Z+gBC"))
+        (if ?*t-Whips* then (bind ?*generic-rating-type* "tW+gBC"))
+        (if (and ?*z-Chains* ?*t-Whips*) then (bind ?*generic-rating-type* "Z+tW+gBC"))
+        (if ?*Whips* then (bind ?*generic-rating-type* "W+gBC"))
+        (if ?*Braids* then (bind ?*generic-rating-type* "B+gBC"))
+    )
+    ;;; remember that g2-Whips and g-Whips subsume bivalue-chains, z-chains and t-whips
+    (if ?*G2-Whips* then
+        (bind ?*generic-rating-type* "g2W")
+        (if ?*Braids* then (bind ?*generic-rating-type* "B+g2W"))
+    )
+    (if ?*G-Whips* then
+        (bind ?*generic-rating-type* "gW")
+        (if ?*Braids* then (bind ?*generic-rating-type* "B+gW"))
+    )
     (if ?*G-Braids* then (bind ?*generic-rating-type* "gB"))
     
-    
-    (if ?*Forcing-Whips* then
-        (if (eq ?*generic-rating-type* "W")
-            then (bind ?*generic-rating-type* "FW")
-            else (bind ?*generic-rating-type* (str-cat ?*generic-rating-type* "+FW"))
-        )
-    )
-    ;;; at this point, ?*rating-type* can only be gW, B,gW+B, gB, FW, gW+FW, B+FW, gW+B+FW, gB+FW
-    ;;; Forcing g-whips and g-braids are not supposed to be used with g2-whips
-    (if ?*Forcing-G-Whips* then
-        ;;; ?*Forcing-Whips* and ?*G-Whips* are TRUE
-        (if (eq ?*generic-rating-type* "gW") then (bind ?*generic-rating-type* "FgW"))
-        (if (eq ?*generic-rating-type* "B") then (bind ?*generic-rating-type* "B+FgW"))
-        (if (eq ?*generic-rating-type* "gW+B") then (bind ?*generic-rating-type* "B+FgW"))
-        (if (eq ?*generic-rating-type* "gB")then (bind ?*generic-rating-type* "gB+FgW"))
-        
-        (if (eq ?*generic-rating-type* "FW") then (bind ?*generic-rating-type* "FgW"))
-        (if (eq ?*generic-rating-type* "gW+FW") then (bind ?*generic-rating-type* "FgW"))
-        (if (eq ?*generic-rating-type* "B+FW") then (bind ?*generic-rating-type* "B+FgW"))
-        (if (eq ?*generic-rating-type* "gW+B+FW") then (bind ?*generic-rating-type* "B+FgW"))
-        (if (eq ?*generic-rating-type* "gB+FW") then (bind ?*generic-rating-type* "gB+FgW"))
-    )
-    ;;; at this point, ?*rating-type* can only be
-    ;;; gW, B,gW+B, gB, FW, gW+FW, B+FW, gW+B+FW, gB+FW, FgW, B+FgW, gB+FgW
-    (if ?*Forcing-Braids* then
-        (if (eq ?*generic-rating-type* "FW") then (bind ?*generic-rating-type* "FB"))
-        (if (eq ?*generic-rating-type* "B") then (bind ?*generic-rating-type* "FB"))
-        (if (eq ?*generic-rating-type* "gW+B") then (bind ?*generic-rating-type* "gW+FB"))
-        (if (eq ?*generic-rating-type* "gB") then (bind ?*generic-rating-type* "gB+FB"))
-        (if (eq ?*generic-rating-type* "FW") then (bind ?*generic-rating-type* "FB"))
-        (if (eq ?*generic-rating-type* "gW+FW") then (bind ?*generic-rating-type* "gW+FB"))
-        (if (eq ?*generic-rating-type* "B+FW") then (bind ?*generic-rating-type* "FB"))
-        (if (eq ?*generic-rating-type* "gW+B+FW") then (bind ?*generic-rating-type* "gW+FB"))
-        (if (eq ?*generic-rating-type* "gB+FW") then (bind ?*generic-rating-type* "gB+FB"))
-        (if (eq ?*generic-rating-type* "FgW") then (bind ?*generic-rating-type* "FgW+FB"))
-        (if (eq ?*generic-rating-type* "B+FgW") then (bind ?*generic-rating-type* "FgW+FB"))
-        (if (eq ?*generic-rating-type* "gB+FgW") then (bind ?*generic-rating-type* "gB+FgW+FB"))
-    )
-    (if ?*Forcing-G-Braids* then (bind ?*generic-rating-type* "FgB"))
-
-    ;;; Add the relevant part for Bi-Whips, Bi-Braids, ...
-
+    ;;; exotic chains:
     (if ?*Oddagons* then
         (bind ?*generic-rating-type*
             (if (eq ?*generic-rating-type* "") then "O" else (str-cat ?*generic-rating-type* "+O"))
         )
     )
+
+    ;;; Fuse the typed and untyped ratings:
+    (bind ?*generic-rating-type*
+        (if (eq ?typed-generic-rating-type "")
+            then ?*generic-rating-type*
+            else (str-cat ?typed-generic-rating-type "+" ?*generic-rating-type*)
+        )
+    )
+
+    ;;; Forcing chains
+    (bind ?forcing-type "")
+    (if ?*Forcing-Whips* then (bind ?forcing-type "FW"))
+    (if ?*Forcing-G-Whips* then (bind ?forcing-type "FgW"))
+    (if ?*Forcing-Braids* then (bind ?forcing-type "FB"))
+    (if (and ?*Forcing-G-Whips* ?*Forcing-Braids*) then (bind ?forcing-type "FgW+FB"))
+    (if ?*Forcing-G-Braids* then (bind ?forcing-type "FgB"))
+    (if (neq ?forcing-type "") then (bind ?*generic-rating-type* ?forcing-type))
+
+    ;;; Add the relevant part for Bi-Whips, Bi-Braids, ...
+
     ?*generic-rating-type*
 )
 
@@ -302,21 +269,25 @@
 
 ;;; utilities allowing to control locally what is printed:
 (defglobal ?*print-actions-backup* = ?*print-actions*)
+(defglobal ?*print-RS-after-Singles-backup* = ?*print-RS-after-Singles*)
 (defglobal ?*print-levels-backup* = ?*print-levels*)
 (defglobal ?*print-hypothesis-backup* = ?*print-hypothesis*)
 (defglobal ?*print-phase-backup* = ?*print-phase*)
 (deffunction mute-print-options ()
     (bind ?*print-actions-backup* ?*print-actions*)
+    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
     (bind ?*print-levels-backup* ?*print-levels*)
     (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
     (bind ?*print-phase-backup* ?*print-phase*)
     (bind ?*print-actions* FALSE)
+    (bind ?*print-RS-after-Singles-backup* FALSE)
     (bind ?*print-levels* FALSE)
     (bind ?*print-hypothesis* FALSE)
     (bind ?*print-phase* FALSE)
 )
 (deffunction restore-print-options ()
     (bind ?*print-actions* ?*print-actions-backup*)
+    (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
     (bind ?*print-levels* ?*print-levels-backup*)
     (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
     (bind ?*print-phase* ?*print-phase-backup*)
@@ -376,7 +347,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; init-links
-(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids*) then
+(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids* ?*Forcing-TE* ?*Forcing{3}-TE*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 )
 
@@ -401,7 +372,7 @@
 )
 
 ;;; Bivalue
-(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*Forcing-Whips* ?*special-TE* ?*special-DFS*) then
+(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*Forcing-Whips* ?*special-TE* ?*Forcing-TE* ?*special-DFS*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Bivalue.clp"))
 )
 
@@ -695,6 +666,10 @@
     (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "Forcing-TE.clp"))
 )
 
+(if ?*Forcing{3}-TE* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "Forcing3-TE.clp"))
+)
+
 
 (if ?*DFS* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "DFS.clp"))
@@ -853,6 +828,8 @@
                 )
         )
     )
+    (if (eq ?*rating-type* "") then (bind ?*rating-type* "BRT"))
+
     ;;; deal with T&E
     (if (and ?*TE1* (not ?*TE2*) (not ?*TE3*)) then
         (if (eq ?*rating-type* "")

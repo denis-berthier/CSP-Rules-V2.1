@@ -137,8 +137,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; BACKDOORS AND ANTI-BACKDOORS
-;;; Additional, Sudoku-specific backdoors and anti-backdoors functions
+;;; BACKDOORS, ANTI-BACKDOORS AND ANTI-BACKDOOR PAIRS
+;;; Additional, Sudoku-specific functions for backdoors, anti-backdoors and anti-backdoor-pairs
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -148,6 +148,10 @@
 
 (if ?*Anti-backdoors* then
     (load (str-cat ?*Application-Dir* "T&E" ?*Directory-symbol* "anti-backdoors.clp"))
+)
+
+(if ?*Anti-backdoor-pairs* then
+    (load (str-cat ?*Application-Dir* "T&E" ?*Directory-symbol* "anti-backdoor-pairs.clp"))
 )
 
 

@@ -204,6 +204,8 @@ singles to the end
 ```
 
 <br>
+Notice that more interactive ways of solving a CSP are described in the Basic User Manual
+<br>
 
 ## 5. License<br>
 The software parts in CSP-Rules V2.1 are distributed under the GNU GPL v3.0 license (see the full text in the Docs folder).<br>

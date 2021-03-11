@@ -452,8 +452,13 @@
     (init-sudoku-string ?string)
 )
 
+;;; also named "init" for homogeneity with "solve"
+(deffunction init (?string)
+    (init-sudoku-string ?string)
+)
 
-(deffunction solve (?string)
+
+(deffunction solve-sudoku-string (?string)
 	(if ?*print-actions* then (print-banner))
 	(bind ?time0 (time))
 	;;; fixed facts and structures common to all the instances are defined
@@ -483,9 +488,10 @@
     (if ?*print-actions* then (print-banner) (printout t crlf))
 )
 
-;;; also named solve-sudoku-string for homogeneity with the other function names
-(deffunction solve-sudoku-string (?string)
-    (solve ?string)
+;;; also named "solve" for backwards compatibility
+;;; and because the string representation is the most common one
+(deffunction solve (?string)
+    (solve-sudoku-string ?string)
 )
 
 
@@ -688,10 +694,6 @@
 
 ;;; for compatibility with other function names (no upper cases):
 (deffunction solve-sukaku (?string)
-    (solve-sukaku-string ?string)
-)
-;;; for compatibility with the Basic User Manual:
-(deffunction solve-Sukaku (?string)
     (solve-sukaku-string ?string)
 )
 

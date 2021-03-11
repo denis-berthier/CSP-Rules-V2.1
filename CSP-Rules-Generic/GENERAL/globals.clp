@@ -334,8 +334,15 @@
 (defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
 (defglobal ?*Forcing{3}-TE* = FALSE) ;;; by default, there is no Forcing{3} Trial and Error
 
+
 (defglobal ?*Backdoors* = FALSE)
 (defglobal ?*Anti-backdoors* = FALSE)
+(defglobal ?*Anti-backdoor-pairs* = FALSE)
+(defglobal ?*list-of-backdoors* = (create$))
+(defglobal ?*list-of-anti-backdoors* = (create$))
+(defglobal ?*list-of-anti-backdoor-pairs* = (create$))
+
+
 
 (defglobal ?*Templates* = FALSE)
 (defglobal ?*Templates-max-length* = 1)

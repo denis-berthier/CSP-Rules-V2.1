@@ -165,7 +165,10 @@
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-solution* FALSE)
-; (bind ?*print-RS-after-Singles* FALSE) ; do not print the resolution state after BRT
+
+;;; The resolution state after BRT is printed by default.
+;;; Un-comment this if you do not want to print it.
+; (bind ?*print-RS-after-Singles* FALSE)
 
 
 
@@ -187,6 +190,7 @@
  (bind ?*Subsets* TRUE)
  (bind ?*FinnedFish* TRUE)
 ;;; generic:
+; (bind ?*Whips[1]* TRUE) ; allows to more easily activate only whips[1]
  (bind ?*Bivalue-Chains* TRUE)
  (bind ?*Whips* TRUE)
 
@@ -336,9 +340,9 @@
 ; (bind ?*special-TE* TRUE)
 
 
-;;; For gT&E(k) instead of T&E(k), activate the next two lines:
-; (bind ?*Whips* TRUE)
-; (bind ?*whips-max-length* 1)
+;;; For gT&E(k) instead of T&E(k), activate the next line:
+; (bind ?*Whips[1]* TRUE)
+
 
 
 
@@ -346,11 +350,15 @@
 ;;; 2b) For computing the SpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; choose one of the following forms of T&E(1, Sp or SpFin)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
 ;;; Remember that whips[1] are always activated before Subsets,
 ;;; even if you don’t activate them explicitly here.
 ;;; But you can choose to activate only them, to get gT&E (as in 2a)
-; (bind ?*Whips* TRUE)
-; (bind ?*whips-max-length* 1)
+; (bind ?*Whips[1]* TRUE)
 
 ;;; choose which Subsets[p] and FinnedFish[p] are activated:
 ; (bind ?*Subsets* TRUE)
@@ -363,16 +371,16 @@
 ; (bind ?*FinnedFish[3]* TRUE)
 ; (bind ?*FinnedFish[4]* TRUE)
 
-;;; choose one of the following forms of T&E(1, Sp or SpFin)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 2c) for computing the BpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; choose one of the following forms of T&E(1)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
 
 ;;; choose p (here p = 3):
 ; (bind ?*Whips* TRUE)
@@ -380,23 +388,20 @@
 ; (bind ?*whips-max-length* 3)
 ; (bind ?*braids-max-length* 3)
 
-;;; choose one of the following forms of T&E(1)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 2d) for looking for backdoors or anti-backdoors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose only one of backddors or anti-backdoors:
+;;; choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
 ; (bind ?*Backdoors* TRUE)
 ; (bind ?*Anti-backdoors* TRUE)
-;;; for W1-backdoors or W1-anti-backdoors:
+; (bind ?*Anti-backdoor-pairs* TRUE)
+
+;;; for W1-backdoors, W1-anti-backdoors or W1-anti-backdoor pairs, add the following:
 ; (bind ?*Whips[1]* TRUE)
-;;; for S-backdoors or S-anti-backdoors:
+;;; for S-backdoors, S-anti-backdoors or S-anti-backdoor pairs, add the following:
 ; (bind ?*Subsets* TRUE)
 
 
@@ -414,6 +419,7 @@
 
 ;;; DFS can be used to provide a relatively fast solution
 
+;;; To block all output:
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-ECP-details* TRUE)

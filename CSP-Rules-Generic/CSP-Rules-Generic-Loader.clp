@@ -633,7 +633,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; T&E, Forcing T&E, Backdoors, Anti-Backdoors and DFS
+;;; T&E, Forcing T&E, Backdoors, Anti-Backdoors, Anti-Backdoor pairs and DFS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -685,6 +685,10 @@
 
 (if ?*Anti-backdoors* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "anti-backdoors.clp"))
+)
+
+(if ?*Anti-backdoor-pairs* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "anti-backdoor-pairs.clp"))
 )
 
 

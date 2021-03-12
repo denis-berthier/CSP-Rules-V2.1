@@ -1739,7 +1739,7 @@
 
 
 (deffunction save-all-square-backgrounds ()
-    (loop-for-count (?i 5 15)
+    (loop-for-count (?i 5 20)
         (printout t crlf "GENERATING " ?i "x" ?i " BACKGROUND" crlf)
         (save-background ?i ?i)
     )
@@ -1756,7 +1756,7 @@
     ;;; init puzzle-independent background
     (init-universal-globals)
     (redefine-instance-globals ?nb-rows ?nb-columns)
-    (if (and (eq ?nb-rows ?nb-columns) (>= ?nb-rows 5) (<= ?nb-rows 15))
+    (if (and (eq ?nb-rows ?nb-columns) (>= ?nb-rows 5) (<= ?nb-rows 20))
         then (printout t "Loading pre-computed background" crlf)
             (init-precomputed-background ?nb-rows ?nb-columns)
         else (printout t "Initialising non-pre-computed background" crlf)

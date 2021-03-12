@@ -54,7 +54,7 @@
 		(bind ?*no-sol-list* (union$ ?*no-sol-list* (create$ ?g)))
 	)
     (printout t crlf "BEWARE: before concluding that the grid has indeed no solution, consider the following." crlf)
-    (printout t "For efficiency reasons, the a priori upper bound on the lengths of the loops is 200, " crlf)
+    (printout t "For efficiency reasons, the a priori upper bound on the lengths of the loops is 300, " crlf)
     (printout t "independently of the real upper bound for the given puzzle." crlf)
     (printout t "Check the value of the largest loop found in the above resolution path, say L." crlf)
     (printout t "This loop is probably the solution." crlf)
@@ -78,7 +78,7 @@
     (technique ?cont BRT)
 	(not (solution-found ?cont))
 =>
-	(printout t "GRID " ?g " NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
+	(printout t "PUZZLE " ?g " IS NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*not-solved-list* (union$ ?*not-solved-list* (create$ ?g)))
 	)
@@ -129,7 +129,7 @@
     )
 =>
 	(retract ?brt)
-	(printout t "PUZZLE " ?g " SOLVED.")
+	(printout t crlf "PUZZLE " ?g " IS SOLVED.")
 	(printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* crlf)
 	(if ?*add-instance-to-solved-list* then
 		(bind ?*solved-list* (union$ ?*solved-list* (create$ ?g)))

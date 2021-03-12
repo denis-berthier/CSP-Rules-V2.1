@@ -28,39 +28,7 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; INSTALLATION ONLY:
-;;; Define environment variables: OS, installation directory and inference engine
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; Default setting is for Unix and MacOS, but should also work for Windows:
-(defglobal ?*Directory-symbol* = "/")
-
-
-;;; Define your general CSP-Rules installation directory (including the ending directory symbol /).
-;;; This is the directory in which the CSP-Rules-V2.1 version is installed, not the CSP-Rules-V2.1 directory.
-;;; By defining the path in an absolute way, you will be able to launch CSP-Rules-V2.1 from anywhere.
-;;; You need to write something as follows.
-;;; For Unix (including MacOS):
- (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;;; For Windows:
-; (defglobal ?*CSP-Rules* = "c:/Users/berthier/Documents/Projets/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
-;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r770");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-;;; Description of the computer used for the resolution
-(defglobal ?*Computer-description* =
-    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4"
-)                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-
+(clear)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; INSTALLATION ONLY:
@@ -86,12 +54,12 @@
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r770");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r790");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
 (defglobal ?*Computer-description* =
-    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4"
+    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -201,6 +169,10 @@
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-solution* FALSE)
 
+;;; The resolution state after BRT is printed by default.
+;;; Un-comment this if you do not want to print it.
+; (bind ?*print-RS-after-Singles* FALSE)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -303,6 +275,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following 3 depths of T&E:
+;;; - depth 2 is enough for all the 9x9 Sudokus
+;;; - but deeper T&E is often required for larger Sudokus or for Sukakus
 
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ; (bind ?*TE2* TRUE) ;;; for T&E at level 2
@@ -317,19 +291,16 @@
 ;;; 2b) For computing the SpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Remember that whips[1] are always activated before Subsets,
-;;; even if you don’t activate them explicitly here.
-
-;;; choose which Subsets[p] and FinnedFish[p] are activated:
-; (bind ?*Subsets* TRUE)
-; (bind ?*Subsets[2]* TRUE)
-; (bind ?*Subsets[3]* TRUE)
-; (bind ?*Subsets[4]* TRUE)
-
 ;;; choose one of the following forms of T&E(1, Sp or SpFin)
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ;;; For T&E at level 1, with priority for bivalue variables, add the following:
 ; (bind ?*special-TE* TRUE)
+
+;;; choose which Subsets[p] and FinnedFish[p] are activated:
+; (bind ?*Subsets[2]* TRUE)
+; (bind ?*Subsets[3]* TRUE)
+; (bind ?*Subsets[4]* TRUE)
+; (bind ?*Subsets* TRUE)
 
 
 
@@ -337,24 +308,51 @@
 ;;; 2c) for computing the BpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; choose one of the following forms of T&E(1)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
 ;;; choose p (here p = 3):
 ; (bind ?*Whips* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*whips-max-length* 3)
 ; (bind ?*braids-max-length* 3)
 
-;;; choose one of the following forms of T&E(1)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2d) for looking for backdoors, anti-backdoors or anti-backdoor pairs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
+; (bind ?*Backdoors* TRUE)
+; (bind ?*Anti-backdoors* TRUE)
+; (bind ?*Anti-backdoor-pairs* TRUE)
+
+;;; for S-backdoors, S-anti-backdoors or S-anti-backdoor pairs, add the following:
+; (bind ?*Subsets* TRUE)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2e) for solving with Forcing-T&E
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; For Forcing T&E OR Forcing{3} T&E, activate only one of the following
+;;; The possibility of activating both together is not yet available
+; (bind ?*Forcing-TE* TRUE)
+; (bind ?*Forcing{3}-TE* TRUE)
+
+;;; for Forcing-T&E(S) or Forcing{3}-T&E(S), add:
+; (bind ?*Subsets* TRUE)
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 3) Choose DFS (dept-first search) options
+;;; 3) Choose DFS (depth-first search) options
 ;;;
 ;;; DO NOT FORGET TO DISABLE ALL THE RULES IN THE OTHER SECTIONS BEFORE ACTIVATING DFS
 ;;;

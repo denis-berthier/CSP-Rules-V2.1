@@ -35,6 +35,7 @@
 
 (defrule Xn-single
 	(declare (salience ?*Xn-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont single)
 	?mod <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?col))
 	(forall (candidate (context ?cont) (status cand) (number ?nb) (row ?rowx) (column ?colx))

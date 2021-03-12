@@ -56,6 +56,7 @@
 (defrule H-single
 	"if there is a csp-variable of type H whose candidates have been confined to a unique value ?cand, then assert it as a c-value"
 	(declare (salience ?*H-V-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont special-single)
     (is-csp-variable-for-label (csp-var ?csp) (label ?lab) (csp-var-type H))
 	?cand <- (candidate (context ?cont) (status cand) (label ?lab) (type H) (value ?val) (row ?row) (column ?col))
@@ -74,6 +75,7 @@
 (defrule V-single
 	"if there is a csp-variable of type V whose candidates have been confined to a unique value ?cand, then assert it as a c-value"
 	(declare (salience ?*H-V-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont special-single)
     (is-csp-variable-for-label (csp-var ?csp) (label ?lab) (csp-var-type V))
 	?cand <- (candidate (context ?cont) (status cand) (label ?lab) (type V) (value ?val) (row ?row) (column ?col))
@@ -92,6 +94,7 @@
 (defrule N-single
     "if there is a csp-variable of type N whose candidates have been confined to a unique value ?cand, then assert it as a c-value"
     (declare (salience ?*N-single-salience*))
+    (logical (context (name ?cont)))
     (technique ?cont special-single)
     (is-csp-variable-for-label (csp-var ?csp) (label ?lab) (csp-var-type N))
     ?cand <- (candidate (context ?cont) (status cand) (label ?lab) (type N) (value ?val) (row ?row) (column ?col))
@@ -119,6 +122,7 @@
 (defrule I-single
     "if there is a csp-variable of type I whose candidates have been confined to a unique value ?cand, then assert it as a c-value"
     (declare (salience ?*I-single-salience*))
+    (logical (context (name ?cont)))
     (technique ?cont special-single)
     (is-csp-variable-for-label (csp-var ?csp) (label ?lab) (csp-var-type I))
     ?cand <- (candidate (context ?cont) (status cand) (label ?lab) (type I) (value ?val) (row ?row) (column ?col))
@@ -137,6 +141,7 @@
 (defrule P-single
     "if there is a csp-variable whose candidates have been confined to a unique value ?cand, then assert it as a c-value"
     (declare (salience ?*P-single-salience*))
+    (logical (context (name ?cont)))
     (technique ?cont special-single)
     (is-csp-variable-for-label (csp-var ?csp) (label ?lab) (csp-var-type P))
     ?cand <- (candidate (context ?cont) (status cand) (label ?lab) (type P) (value ?val) (row ?row) (column ?col))
@@ -155,6 +160,7 @@
 (defrule B-single
 	"if there is a csp-variable whose candidates have been confined to a unique value ?cand, then assert it as a c-value"
 	(declare (salience ?*B-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont special-single)
     (is-csp-variable-for-label (csp-var ?csp) (label ?lab) (csp-var-type B))
 	?cand <- (candidate (context ?cont) (status cand) (label ?lab) (type B) (value ?val) (row ?row) (column ?col))

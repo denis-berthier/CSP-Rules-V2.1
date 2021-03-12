@@ -217,8 +217,7 @@
     ;;; even-partial-loops
     (load (str-cat ?*Application-Dir* "EVEN-PARTIAL-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[2].clp"))
     (load (str-cat ?*Application-Dir* "EVEN-PARTIAL-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[3].clp"))
-    (load (str-cat ?*Application-Dir* "EVEN-PARTIAL-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[4].clp"))
-    (bind ?i 6)
+    (bind ?i 4)
     (while (<= ?i 80)
         (if (and (<= ?i ?*loops-max-length*) (evenp ?i)) then
             (load (str-cat ?*Application-Dir* "EVEN-PARTIAL-LOOPS" ?*Directory-symbol* "Even-Partial-Loops[" ?i "].clp"))

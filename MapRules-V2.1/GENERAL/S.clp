@@ -51,6 +51,7 @@
 (defrule single
 	"if there is a country whose candidates have been confined to a unique value, then assert it as a c-value"
 	(declare (salience ?*single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont single)
 	?mod <- (candidate (context ?cont) (status cand) (label ?xxx) (colour ?col) (country ?count))
 	(not (candidate (context ?cont) (country ?count) (label ?yyy&~?xxx)))

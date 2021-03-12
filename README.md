@@ -62,7 +62,7 @@ The problem can be given to SudoRules (the part of CSP-Rules that deals with the
 — using a more visually appealing format: <br>
 
 ```
-(solve-puzzle-as-list 
+(solve-sudoku-list 
     . . .  1 3 .  . . .
     . 1 .  . . 4  5 . .
     . . 2  . . .  . 6 .
@@ -211,9 +211,11 @@ Notice that more interactive ways of solving a CSP are described in the Basic Us
 The software parts in CSP-Rules V2.1 are distributed under the GNU GPL v3.0 license (see the full text in the Docs folder).<br>
 Of course, the other publications (books, articles, conference proceedings...) remain protected by their original respective copyrights; this also applies to the CLIPS software.<br><br>
 
-## 6. Installation<br>
+## 6. Installation and updates<br>
 Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (in particular, delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>
-For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MACOS security rules, you may have to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br><br>
+For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MACOS security rules, you may have to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br>
+Notice that _the installation procedure must be redone every time you download a new release_. In order to avoid re-compiling CLIPS, you can keep a copy of it outside the CSP-Rules-V2.1 folder; you can similarly make a backup copy of your most frequently used config file.
+<br><br>
 
 ## 7. References<br>
 (A copy of  each reference is present in the "Publications" folder)<br>

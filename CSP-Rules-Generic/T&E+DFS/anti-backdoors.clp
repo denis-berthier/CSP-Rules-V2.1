@@ -36,19 +36,16 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defglobal ?*anti-backdoors* = (create$))
-
-
 (deffunction find-anti-backdoors ()
     ;;; the anti-backdoors are looked for in the current resolution state
     (bind ?*anti-backdoors (create$))
     (bind ?n (run))
     (bind ?time2 (time))
-    (bind ?len (length$ ?*anti-backdoors*))
-    (bind ?rat (if (eq ?len 0) then "" else (str-cat ?*rating-type* "-")))
+    (bind ?len (length$ ?*list-of-anti-backdoors*))
+    (bind ?rat (str-cat ?*rating-type* "-"))
     (bind ?back (if (or (eq ?len 0) (eq ?len 1)) then "ANTI-BACKDOOR" else "ANTI-BACKDOORS"))
-    (printout t crlf  ?len " " (str-cat ?rat ?back " FOUND: "))
-    (print-list-of-labels ?*anti-backdoors*)
+    (printout t crlf  ?len " " (str-cat ?rat ?back " FOUND: ") crlf)
+    (print-list-of-labels ?*list-of-anti-backdoors*)
     (printout t crlf crlf)
     (printout t "nb-facts=" ?*nb-facts* crlf)
     ;(printout t "nb rules " ?nb-rules crlf)
@@ -248,8 +245,8 @@
 =>
     (retract ?pl)
     (assert (clean-and-retract ?cont))
-    (bind ?*anti-backdoors* (create$ ?*anti-backdoors* ?gen-cand))
-    (printout t "ANTI-BACKDOOR FOUND: " ?gen-cand crlf)
+    (bind ?*list-of-anti-backdoors* (create$ ?*list-of-anti-backdoors* ?gen-cand))
+    (printout t "ONE ANTI-BACKDOOR FOUND: " ?gen-cand crlf)
 )
 
 

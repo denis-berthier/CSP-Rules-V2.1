@@ -329,6 +329,7 @@
     (assert (context (name 0)))
 	(assert (grid 0))
     ;;; solution entries are taken into account here:
+    (assert (deactivate 0 t-whip))
     (bind ?*known-to-be-in-solution* (sol-string-to-list ?sol-string))
 	(bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
@@ -340,7 +341,7 @@
 	(bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
 	(bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
-        (printout t "Puzzle " ?string " :" crlf)
+        (printout t "Puzzle " ?puzzle-string " :" crlf)
         (printout t
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
@@ -429,7 +430,7 @@
         (printout t
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve time = " (seconds-to-hours ?*solve-instance-time*)
-            ", total-time = " (seconds-to-hours ?*total-instance-time*  crlf
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
         (printout t "nb-facts=" ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
@@ -579,7 +580,7 @@
     (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
     (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
-        (printout t "Puzzle " ?string " :" crlf)
+        (printout t "Puzzle " ?list " :" crlf)
         (printout t
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
@@ -794,7 +795,6 @@
     (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
     (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
-        (printout t "Puzzle " ?string " :" crlf)
         (printout t
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)

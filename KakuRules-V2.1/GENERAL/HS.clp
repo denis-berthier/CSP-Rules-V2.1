@@ -48,6 +48,7 @@
      and this number belongs to the unique combination of this sector,
      then assert the c-value"
 	(declare (salience ?*magic-hidden-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont hidden-single)
 
     (horizontal-magic-sector ?comb ?row ?ctr-col)
@@ -68,6 +69,7 @@
      and this number belongs to the unique combination of this sector,
      then assert the c-value"
 	(declare (salience ?*magic-hidden-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont hidden-single)
 
     (vertical-magic-sector ?comb ?ctr-row ?col)
@@ -90,6 +92,7 @@
 	"if there is a pseudo magic number in a horizontal sector, whose instance in this sector has been confined to a unique white cell, 
      then assert the c-value"
 	(declare (salience ?*pseudo-magic-hidden-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont hidden-single)
 
     (magic-digit-in-horizontal-sector ?nb ?row ?ctr-col)
@@ -109,6 +112,7 @@
 	"if there is a pseudo magic number in a vertical sector, whose instance in this sector has been confined to a unique white cell, 
      then assert the c-value"
 	(declare (salience ?*pseudo-magic-hidden-single-salience*))
+    (logical (context (name ?cont)))
 	(technique ?cont hidden-single)
 
     (magic-digit-in-vertical-sector ?nb ?ctr-row ?col)

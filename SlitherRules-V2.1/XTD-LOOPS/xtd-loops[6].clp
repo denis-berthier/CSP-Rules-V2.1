@@ -75,7 +75,7 @@
    )
    (test (and
       (combinable-lines ?rowp ?colp ?typep ?rowq ?colq ?typeq ?row12 ?col12 ?type12)
-      (touching-lines ?rowp2 ?colp2 ?typep2 ?row1 ?col1 ?type1)
+      (combinable-lines ?rowp2 ?colp2 ?typep2 ?row1 ?col1 ?type1 ?row2 ?col2 ?type2)
    ))
 =>
    (bind ?*QL-max* (max 6 ?*QL-max*))

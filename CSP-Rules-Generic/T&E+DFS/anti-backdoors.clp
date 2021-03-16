@@ -38,7 +38,7 @@
 
 (deffunction find-anti-backdoors ()
     ;;; the anti-backdoors are looked for in the current resolution state
-    (bind ?*anti-backdoors (create$))
+    (bind ?*list-of-anti-backdoors* (create$))
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?len (length$ ?*list-of-anti-backdoors*))

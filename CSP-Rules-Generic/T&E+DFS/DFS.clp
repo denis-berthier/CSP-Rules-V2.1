@@ -95,21 +95,41 @@
 )
 
 
+;;; This rule specific to DFS is intended to palliate the necessary restriction
+;;; of the generic rule to context 0
+;;; The forall part of this rule may be re-written in application-specific ways,
+;;; but the rest shoudln't be changed.
 
 (defrule DFS-detect-solution-in-context
     (declare (salience ?*solution-found-salience*))
-    (context (name ?cont))
-    (technique ?cont BRT)
+    (logical (context (name ?cont)))
+    ?brt <- (technique ?cont BRT)
     ;;; in any context ?cont, the presence of a c-value for all the csp-variables (of some type) means that a solution has been found in ?cont
-    (forall (csp-variable (name ?csp)) ; (type ?type&:(is-basic-csp-variable-type ?type))
+    (forall (csp-variable (name ?csp))
         (exists (is-csp-variable-for-label (csp-var ?csp) (label ?lab))
             (candidate (context ?cont) (status c-value) (label ?lab))
         )
     )
 =>
-    (printout t "PUZZLE SOLVED.")
-    (printout t " rating-type = " ?*rating-type* ", MAX-DEPTH = " ?*DFS-max-depth* crlf)
+    (if ?*print-actions* then
+        (printout t "CSP IS SOLVED.")
+        (printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* ", DFS MAX-DEPTH = " ?*DFS-max-depth* crlf)
+    )
+    (retract ?brt)
     (assert (solution-found ?cont))
+    (bind ?*solution-found* TRUE)
+)
+
+
+(defrule print-solution
+    (declare (salience ?*solution-found-salience*))
+    ?sol <- (solution-found ?cont)
+=>
+    (if (or ?*print-solution* ?*save-solutions*) then
+        (print-solution-in-context ?cont)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
+    )
+    (halt)
 )
 
 

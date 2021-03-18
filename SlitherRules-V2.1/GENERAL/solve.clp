@@ -1632,6 +1632,7 @@
 ;;; Old version of init-instance, before the inroduction of pre-computed backgrounds.
 ;;; It will be over-written by the next definitions.
 (deffunction init-instance (?nb-rows ?nb-columns $?givens)
+    (reset)
 	(if ?*print-actions* then (print-slitherlink-list-as-a-puzzle ?nb-rows ?nb-columns $?givens))
     (bind ?start-init-time (time))
     (init-universal-globals)
@@ -1751,6 +1752,8 @@
 
 
 (deffunction init-instance (?nb-rows ?nb-columns $?givens)
+    (reset)
+    (release-mem)
     (if ?*print-actions* then (print-slitherlink-list-as-a-puzzle ?nb-rows ?nb-columns $?givens))
     (bind ?start-init-time (time))
     ;;; init puzzle-independent background
@@ -1770,15 +1773,17 @@
 )
 
 
+(deffunction init (?nb-rows ?nb-columns $?givens)
+    (init-instance ?nb-rows ?nb-columns $?givens)
+)
+
 
 
 (deffunction solve (?nb-rows ?nb-columns $?givens)
-	(reset)
 	(if ?*print-actions* then (print-banner))
     (if ?*only-HV-whips* then (printout t "       *****              Only HV-whips               *****" crlf))
     (if (neq (length$ $?givens) (* ?nb-rows ?nb-columns)) then (printout t "ERROR IN DATA LENGTH." crlf) (halt))
 
-	(release-mem)
     (bind ?time0 (time))
 	;;; fixed facts and structures common to all the instances are defined here
 	;;; puzzle entries are also taken into account here

@@ -103,7 +103,6 @@
 (defglobal ?*special-Whips[1]* = FALSE)
 
 (defglobal ?*Colours* = FALSE)
-(defglobal ?*Final-fill* = FALSE)
 
 (defglobal ?*Allow-direct-PP-links* = FALSE)
 

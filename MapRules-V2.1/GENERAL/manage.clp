@@ -102,7 +102,7 @@
 )
 
 
-(defrule record-number-of-facts
+(defrule prepare-printing-of-solution
 	(declare (salience ?*solution-found-salience*))
 	(grid ?g)
 	?sol <- (solution-found ?cont)

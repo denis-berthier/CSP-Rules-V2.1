@@ -1,5 +1,5 @@
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -28,7 +28,6 @@
 
 
 
-(clear)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; INSTALLATION ONLY:
@@ -36,7 +35,9 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Default setting is for Unix and MacOS, but should also work for Windows:
+(clear)
+;;; Default setting is for Unix and MacOS,
+;;; but it should also work for recent versions of Windows:
 (defglobal ?*Directory-symbol* = "/")
 
 
@@ -45,20 +46,20 @@
 ;;; By defining the path in an absolute way, you will be able to launch CSP-Rules-V2.1 from anywhere.
 ;;; You need to write something as follows.
 ;;; For Unix (including MacOS):
-; (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;;; For Windows:
 ; (defglobal ?*CSP-Rules* = "c:/Users/berthier/Documents/Projets/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r770");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r790");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
 (defglobal ?*Computer-description* =
-    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4"
-)                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7"
+)                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 
@@ -72,12 +73,12 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; an ?*Application* must be defined as the name of the application (here, SudoRules), not as the name of the puzzle (Sudoku)
-;;; this name must coincide with the leading part of the name of the directory for the application inside the CSP-Rules-V2.1 directory
-;;; the version number of the ?*Application* must also be defined
-;;; this allows to have several versions of the same application based on the same version of CSP-Rules
-;;; for historical reasons, SudoRules version number inside CSP-Rules-V2.1 is not 2.1 but 20.1
-;;; (there were many versions of SudoRules before the development of a generic CSP-Rules core)
+;;; An ?*Application* must be defined as the name of the application (here, SudoRules), not as the name of the puzzle (Sudoku).
+;;; This name must coincide with the leading part of the name of the directory for the application inside the CSP-Rules-V2.1 directory.
+;;; The version number of the ?*Application* must also be defined.
+;;; This allows to have several versions of the same application based on the same version of CSP-Rules.
+;;; For historical reasons, SudoRules version number inside CSP-Rules-V2.1 is not 2.1 but 20.1
+;;; (there were many versions of SudoRules before the development of a generic CSP-Rules core).
 (defglobal ?*Application* = "SudoRules")
 (defglobal ?*Application-VersionNumber* = 20.1)
 
@@ -148,9 +149,9 @@
 ;;; In the previous standard behaviour of CSP-Rules, when a pattern could have produced more than one elimination,
 ;;; the activation of a simpler rule by the first elimination could prevent further potential eliminations.
 ;;; This default behaviour is now changed for Whips[1], bivalue-chains (typed or not), t-Whips (typed or not) and Subsets.
-;;; But CSP-Rules allows to revert to the previous behaviour,
+;;; However, CSP-Rules allows to revert to the previous behaviour,
 ;;; independently for Whips[1], for bivalue-chains and t-Whips of any length and for Subsets.
-;;; Un-comment the relevant line(s) below if you want these rules to be "interrupted" as the other chain rules:
+;;; Un-comment the relevant line(s) below if you want these rules to be "interrupted" as all the other chain rules:
 ; (bind ?*blocked-Whips[1]* FALSE)
 ; (bind ?*blocked-bivalue-chains* FALSE)
 ; (bind ?*blocked-t-Whips* FALSE)
@@ -181,9 +182,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; My standard config and its usual variants
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; My most usual rules (config = W+S+Fin, with unrestricted lengths):
 ;;; Sudoku-specific:
@@ -245,10 +246,10 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Sudoku-specific rules (besdes Subsets):
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Sudoku-specific rules (besides Subsets):
 ;;; uniqueness and "exotic" patterns
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; U-resolution rules for uniqueness.
 ;;; BEWARE: don't activate the following uniqueness rules,
@@ -273,9 +274,9 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Change the default maximal lengths of the chain patterns
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Don't change these lengths unless you have some reason:
 
@@ -324,9 +325,9 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 2a) for checking membership in T&E(k) or gT&E(k), k = 1,2,3
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following 3 depths of T&E:
 ;;; - depth 2 is enough for all the 9x9 Sudokus
@@ -339,18 +340,16 @@
 ;;; In addition to the previous choice, you can give priority to bivalue candidates:
 ; (bind ?*special-TE* TRUE)
 
-
-;;; For gT&E(k) instead of T&E(k), activate the next line:
+;;; For gT&E(k) instead of T&E(k), activate the additional next line:
 ; (bind ?*Whips[1]* TRUE)
 
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 2b) For computing the SpB classification
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose one of the following forms of T&E(1, Sp or SpFin)
+;;; Choose one of the following forms of T&E(1, Sp or SpFin)
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ;;; For T&E at level 1, with priority for bivalue variables, add the following:
 ; (bind ?*special-TE* TRUE)
@@ -361,28 +360,28 @@
 ; (bind ?*Whips[1]* TRUE)
 
 ;;; choose which Subsets[p] and FinnedFish[p] are activated:
-; (bind ?*Subsets* TRUE)
 ; (bind ?*Subsets[2]* TRUE)
 ; (bind ?*Subsets[3]* TRUE)
 ; (bind ?*Subsets[4]* TRUE)
+; (bind ?*Subsets* TRUE)
 
-; (bind ?*FinnedFish* TRUE)
 ; (bind ?*FinnedFish[2]* TRUE)
 ; (bind ?*FinnedFish[3]* TRUE)
 ; (bind ?*FinnedFish[4]* TRUE)
+; (bind ?*FinnedFish* TRUE)
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 2c) for computing the BpB classification
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose one of the following forms of T&E(1)
+;;; Choose one of the following forms of T&E(1)
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ;;; For T&E at level 1, with priority for bivalue variables, add the following:
 ; (bind ?*special-TE* TRUE)
 
-;;; choose p (here p = 3):
+;;; Choose p (here p = 3):
 ; (bind ?*Whips* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*whips-max-length* 3)
@@ -390,11 +389,11 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2d) for looking for backdoors or anti-backdoors
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2d) for looking for backdoors, anti-backdoors or anti-backdoor pairs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
+;;; Choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
 ; (bind ?*Backdoors* TRUE)
 ; (bind ?*Anti-backdoors* TRUE)
 ; (bind ?*Anti-backdoor-pairs* TRUE)
@@ -406,11 +405,26 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2e) for solving with Forcing-T&E
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; For Forcing T&E OR Forcing{3} T&E, activate only one of the following
+;;; The possibility of activating both together is not yet available
+; (bind ?*Forcing-TE* TRUE)
+; (bind ?*Forcing{3}-TE* TRUE)
+
+;;; for Forcing-T&E(W1) or Forcing{3}-T&E(W1), add:
+; (bind ?*Whips[1]* TRUE)
+;;; for Forcing-T&E(S) or Forcing{3}-T&E(S), add:
+; (bind ?*Subsets* TRUE)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 3) Choose DFS (dept-first search) options
+;;; 3) Choose DFS (depth-first search) options
 ;;;
 ;;; DO NOT FORGET TO DISABLE ALL THE RULES IN THE OTHER SECTIONS BEFORE ACTIVATING DFS
 ;;;
@@ -419,7 +433,6 @@
 
 ;;; DFS can be used to provide a relatively fast solution
 
-;;; To block all output:
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-ECP-details* TRUE)

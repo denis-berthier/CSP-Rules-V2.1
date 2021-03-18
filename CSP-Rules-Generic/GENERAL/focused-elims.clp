@@ -65,12 +65,11 @@
 
 (deffunction try-to-eliminate-candidates ($?list)
     (if (or ?*t-Whips* ?*Typed-t-Whips*) then
-        (printout t "This function  doesn't work if t-whips or typed-t-whips are active." crlf)
+        (printout t "WARNING: this function  doesn't work if t-whips or typed-t-whips are active." crlf)
         (halt)
     )
-    (printout t "WARNING: this function is still at an experimental stage." crlf
-        "It works in the current resolution state of contetxt 0," crlf
-        "which must have been previously initialised by a "solve " or an "init" function." crlf
+    (printout t "This function works in the current resolution state," crlf
+        "which must have been previously initialised by some solve or init function." crlf
     )
     (try-to-eliminate-candidates-from-context 0 $?list)
 )

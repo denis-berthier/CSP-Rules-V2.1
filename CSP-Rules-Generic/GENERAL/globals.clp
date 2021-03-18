@@ -453,19 +453,21 @@
 (defglobal ?*print-initial-state* = TRUE) ; number of values and candidates, csp-links, links, density
 (defglobal ?*print-actions* = TRUE) ; print the singles and all the non-ECP rules
 (defglobal ?*print-levels* = TRUE) ; <<<<<<<<<<<<<<<<<< useful for tracking the advancement of hard instances
-;;; By defautt, the solution (if found) is printed)
-(defglobal ?*print-solution* = TRUE)
 
 (defglobal ?*print-all-details* = FALSE) ; includes any of the following
 (defglobal ?*print-init-details* = FALSE) ; print data about c-values and candidates initialisation
 (defglobal ?*print-ECP-details* = FALSE) ; print all the ECP eliminations
-(defglobal ?*print-RS-after-Singles* = TRUE) ; print the resolution state after BRT
+
+
+;;; By default, the solution (if found) is printed:
+(defglobal ?*print-solution* = TRUE)
+;;; ; By default, the resolution state after BRT is printed:
+(defglobal ?*print-RS-after-Singles* = TRUE)
 
 
 ;;; The following variables are used only for T&E and similar procedures
 (defglobal ?*print-hypothesis* = TRUE) ; by default, hypotheses are printed when T&E is on
 (defglobal ?*print-phase* = TRUE) ; by default, each phase in T&R is printed
-
 
 
 (defglobal ?*print-exceptional-patterns* = TRUE)

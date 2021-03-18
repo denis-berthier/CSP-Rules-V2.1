@@ -72,11 +72,6 @@
     (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 )
 
-(if ?*Final-fill* then 
-    (if (and ?*Colours* ?*print-IO-solution*) then (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "complete-partial-sol-IO.clp")))
-    (if ?*print-HV-solution* then (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "complete-partial-sol-HV.clp")))
-)
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

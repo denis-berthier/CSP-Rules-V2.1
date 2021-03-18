@@ -36,7 +36,8 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Default setting is for Unix and MacOS, but should also work for Windows:
+;;; Default setting is for Unix and MacOS,
+;;; but it should also work for recent versions of Windows:
 (defglobal ?*Directory-symbol* = "/")
 
 
@@ -45,19 +46,19 @@
 ;;; By defining the path in an absolute way, you will be able to launch CSP-Rules-V2.1 from anywhere.
 ;;; You need to write something as follows.
 ;;; For Unix (including MacOS):
-; (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ (defglobal ?*CSP-Rules* = "/Users/berthier/Documents/Projets/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;;; For Windows:
 ; (defglobal ?*CSP-Rules* = "c:/Users/berthier/Documents/Projets/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r770");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r790");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
 (defglobal ?*Computer-description* =
-    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4"
+    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -173,13 +174,6 @@
  (bind ?*print-HV-solution* TRUE)
 
 
-;;; Deal with partailly solved puzzles
-;;; Global variable ?*Final-fill* is used to add dummy values in the undecided cells
-;;; when it has not found a solution, so as to be able to print the final state
-;;; It is FALSE by default, but it can be changed here:
- (bind ?*Final-fill* TRUE)
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -214,6 +208,10 @@
  (bind ?*non-W1-equiv-patterns* TRUE)
 
 ;;; generic:
+; (bind ?*Whips[1]* TRUE) ; allows to more easily activate only whips[1]
+;;; Beware that, for large puzzles, the whips maximum length may have to be reduced
+;;; due to the high branchiung factor of Slitherlink and resulting potential memory overflow
+ (bind ?*Whips[1]* TRUE)
  (bind ?*Bivalue-Chains* TRUE)
  (bind ?*bivalue-chains-max-length* 5)
  (bind ?*Whips* TRUE)
@@ -264,22 +262,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; In Slitherlink, only the H or V candidates are used as hypotheses.
-;;; Choose one of the following 3 depths of T&E:
+;;; Choose one of the following 2 depths of T&E:
 
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ; (bind ?*TE2* TRUE) ;;; for T&E at level 2
 
 ;;; For Slitherlink, it is recommended to use whips[1], i.e. to use gT&E instead of T&E
-; (bind ?*Whips* TRUE)
-; (bind ?*whips-max-length* 1)
+; (bind ?*Whips[1]* TRUE)
 ; (bind ?*Loops* TRUE)
 ; (bind ?*xtd-Loops* TRUE)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 3) Choose DFS (dept-first search) options
+;;; 3) Choose DFS (depth-first search) options
 ;;;
 ;;; DO NOT FORGET TO DISABLE ALL THE RULES IN THE OTHER SECTIONS BEFORE ACTIVATING DFS
 ;;;
@@ -296,16 +294,16 @@
 ; (bind ?*print-solution* FALSE)
 ; (bind ?*print-phase* TRUE)
 
-; (bind ?*Loops* TRUE)
-
 ;;; To activate DFS:
 ; (bind ?*DFS* TRUE)
 ;;; To activate priority for bivalue cells, activate this line, in addition to the above line:
 ; (bind ?*special-DFS* TRUE)
 
-;;; Activate short whips for combining whips[1] with DFS:
-; (bind ?*Whips* TRUE)
-; (bind ?*whips-max-length* 1)
+;;; In Slitherlink, it is almost always necessary to activate whips[1] and Loops with DFS:
+; (bind ?*Whips[1]* TRUE)
+; (bind ?*Loops* TRUE)
+;;; Extended-Loops are an option
+; (bind ?*xtd-Loops* TRUE)
 
 
 

@@ -219,7 +219,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following 3 depths of T&E:
-
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ; (bind ?*TE2* TRUE) ;;; for T&E at level 2
 ; (bind ?*TE3* TRUE) ;;; for T&E at level 3
@@ -233,16 +232,16 @@
 ;;; 2c) for computing the BpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose p (here p = 3):
+;;; Choose one of the following forms of T&E(1)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
+;;; Choose p (here p = 3):
 ; (bind ?*Whips* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*whips-max-length* 3)
 ; (bind ?*braids-max-length* 3)
-
-;;; choose one of the following forms of T&E(1)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
 
 
 

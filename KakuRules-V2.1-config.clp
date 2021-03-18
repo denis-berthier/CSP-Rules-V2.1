@@ -189,7 +189,7 @@
 
 ;;; Some optional intermediary Typed Chains, allowing more varied resolution paths:
 ;;; (remember that whips[1] cannot be type-restricted)
-;;; In KakuRules, TYped-Chains are restricted to a single sector
+;;; In KakuRules, Typed-Chains are restricted to a single sector
 ; (bind ?*Typed-Bivalue-Chains* TRUE)
 ; (bind ?*Typed-z-Chains* TRUE)
 ; (bind ?*Typed-t-Whips* TRUE)
@@ -272,7 +272,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following 3 depths of T&E:
-
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ; (bind ?*TE2* TRUE) ;;; for T&E at level 2
 ; (bind ?*TE3* TRUE) ;;; for T&E at level 3
@@ -281,9 +280,8 @@
 ; (bind ?*special-TE* TRUE)
 
 
-;;; For gT&E(k) instead of T&E(k), activate the next two lines:
-; (bind ?*Whips* TRUE)
-; (bind ?*whips-max-length* 1)
+;;; For gT&E(k) instead of T&E(k), activate the next line:
+; (bind ?*Whips[1]* TRUE)
 
 
 
@@ -291,13 +289,18 @@
 ;;; 2b) For computing the SpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Choose one of the following forms of T&E(1, Sp or SpFin)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
+
 ;;; Remember that whips[1] are always activated before Subsets,
 ;;; even if you don’t activate them explicitly here.
 ;;; But you can choose to activate only them, to get gT&E (as in 2a)
-; (bind ?*Whips* TRUE)
-; (bind ?*whips-max-length* 1)
+; (bind ?*Whips[1]* TRUE)
 
-;;; choose which Subsets[p] and FinnedFish[p] are activated:
+;;; Choose which Subsets[p] and FinnedFish[p] are activated:
 ; (bind ?*Subsets* TRUE)
 ; (bind ?*Subsets[2]* TRUE)
 ; (bind ?*Subsets[3]* TRUE)
@@ -308,27 +311,22 @@
 ; (bind ?*FinnedFish[3]* TRUE)
 ; (bind ?*FinnedFish[4]* TRUE)
 
-;;; choose one of the following forms of T&E(1, Sp or SpFin)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 2c) for computing the BpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose p (here p = 3):
+;;; Choose one of the following forms of T&E(1, Sp or SpFin)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
+;;; Choose p (here p = 3):
 ; (bind ?*Whips* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*whips-max-length* 3)
 ; (bind ?*braids-max-length* 3)
-
-;;; choose one of the following forms of T&E(1)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
 
 
 
@@ -358,8 +356,8 @@
 ;;; To activate priority for bivalue cells, activate this line, in addition to the above line:
 ; (bind ?*special-DFS* TRUE)
 
-;;; Activate short whips for combining whips[1] or whips[2] with DFS:
-;;; this often gives a faster result (but not with larger whips)
+;;; Activate short whips for combining whips[1] or whips[2] with DFS.
+;;; This often gives a faster result (but not with larger whips)
 ; (bind ?*Whips* TRUE)
 ; (bind ?*whips-max-length* 1)
 ; (bind ?*whips-max-length* 2)

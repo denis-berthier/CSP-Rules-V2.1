@@ -241,7 +241,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following 3 depths of T&E:
-
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ; (bind ?*TE2* TRUE) ;;; for T&E at level 2
 ; (bind ?*TE3* TRUE) ;;; for T&E at level 3
@@ -255,19 +254,19 @@
 ;;; 2b) For computing the SpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Choose one of the following forms of T&E(1, Sp or SpFin)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
 ;;; Remember that whips[1] are always activated before Subsets,
 ;;; even if you don’t activate them explicitly here.
 
-;;; choose which Subsets[p] are activated:
+;;; Choose which Subsets[p] are activated:
 ; (bind ?*Subsets* TRUE)
 ; (bind ?*Subsets[2]* TRUE)
 ; (bind ?*Subsets[3]* TRUE)
 ; (bind ?*Subsets[4]* TRUE)
-
-;;; choose one of the following forms of T&E(1, Sp or SpFin)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
 
 
 
@@ -275,16 +274,16 @@
 ;;; 2c) for computing the BpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Choose one of the following forms of T&E(1)
+; (bind ?*TE1* TRUE) ;;; for T&E at level 1
+;;; For T&E at level 1, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
 ;;; choose p (here p = 3):
 ; (bind ?*Whips* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*whips-max-length* 3)
 ; (bind ?*braids-max-length* 3)
-
-;;; choose one of the following forms of T&E(1)
-; (bind ?*TE1* TRUE) ;;; for T&E at level 1
-;;; For T&E at level 1, with priority for bivalue variables, add the following:
-; (bind ?*special-TE* TRUE)
 
 
 
@@ -299,7 +298,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; DFS can be used to provide a relatively fast solution
+;;; DFS works but it is very slow; it is not recommended to use it for Hidato.
+;;; T&E is much faster.
 
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* FALSE)
@@ -315,7 +315,7 @@
 ; (bind ?*special-DFS* TRUE)
 
 ;;; Activate short whips for combining whips[2] with DFS:
-;;; this often gives a faster result (but not with larger whips)
+;;; the result is often less slow
 ; (bind ?*Whips* TRUE)
 ; (bind ?*whips-max-length* 2)
 

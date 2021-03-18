@@ -291,12 +291,12 @@
 ;;; 2b) For computing the SpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose one of the following forms of T&E(1, Sp or SpFin)
+;;; Choose one of the following forms of T&E(1, Sp or SpFin)
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ;;; For T&E at level 1, with priority for bivalue variables, add the following:
 ; (bind ?*special-TE* TRUE)
 
-;;; choose which Subsets[p] and FinnedFish[p] are activated:
+;;; Choose which Subsets[p] and FinnedFish[p] are activated:
 ; (bind ?*Subsets[2]* TRUE)
 ; (bind ?*Subsets[3]* TRUE)
 ; (bind ?*Subsets[4]* TRUE)
@@ -308,12 +308,12 @@
 ;;; 2c) for computing the BpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose one of the following forms of T&E(1)
+;;; Choose one of the following forms of T&E(1)
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ;;; For T&E at level 1, with priority for bivalue variables, add the following:
 ; (bind ?*special-TE* TRUE)
 
-;;; choose p (here p = 3):
+;;; Choose p (here p = 3):
 ; (bind ?*Whips* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*whips-max-length* 3)
@@ -325,7 +325,7 @@
 ;;; 2d) for looking for backdoors, anti-backdoors or anti-backdoor pairs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
+;;; Choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
 ; (bind ?*Backdoors* TRUE)
 ; (bind ?*Anti-backdoors* TRUE)
 ; (bind ?*Anti-backdoor-pairs* TRUE)
@@ -344,7 +344,7 @@
 ; (bind ?*Forcing-TE* TRUE)
 ; (bind ?*Forcing{3}-TE* TRUE)
 
-;;; for Forcing-T&E(S) or Forcing{3}-T&E(S), add:
+;;; For Forcing-T&E(S) or Forcing{3}-T&E(S), add:
 ; (bind ?*Subsets* TRUE)
 
 

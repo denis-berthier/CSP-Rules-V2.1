@@ -100,7 +100,7 @@
 )
 
 
-(defrule record-number-of-facts
+(defrule prepare-printing-of-solution
 	(declare (salience ?*solution-found-salience*))
 	(grid ?g)
 	?sol <- (solution-found ?cont)
@@ -110,7 +110,12 @@
 		then (assert (fill-gaps ?cont ?*grid-size*))
 		else (halt)
 	)
-)	
+)
+
+
+;;; cancel the generic rule
+(defrule print-solution =>)
+
 
 
 (defrule complete-black-cells

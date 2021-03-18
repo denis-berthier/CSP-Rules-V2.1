@@ -97,7 +97,11 @@
 		then (assert (fill-gaps ?cont ?*grid-size*))
 		else (halt)
 	)
-)	
+)
+
+
+;;; cancel the default rule for printing the solution
+(defrule print-solution =>)
 
 
 (defrule complete-black-cells

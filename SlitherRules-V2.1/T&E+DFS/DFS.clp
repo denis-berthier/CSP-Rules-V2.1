@@ -41,7 +41,7 @@
         )
     )
 =>
-    (printout t "PUZZLE SOLVED.")
+    (printout t "PUZZLE IS SOLVED.")
     (printout t " rating-type = " ?*rating-type* ", MAX-DEPTH = " ?*DFS-max-depth* crlf)
     (retract ?pl0)
     (retract ?brt0)

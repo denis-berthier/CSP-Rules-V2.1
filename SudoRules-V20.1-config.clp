@@ -1,5 +1,5 @@
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -35,7 +35,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(clear)
+(clear) ; clean CLIPS of anything it may have had before.
 ;;; Default setting is for Unix and MacOS,
 ;;; but it should also work for recent versions of Windows:
 (defglobal ?*Directory-symbol* = "/")
@@ -51,8 +51,8 @@
 ; (defglobal ?*CSP-Rules* = "c:/Users/berthier/Documents/Projets/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
-;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
+;;; CLIPS is the underlying inference engine.
+;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
 (defglobal ?*Clips-version* = "6.32-r790");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -69,7 +69,7 @@
 ;;; Define useful directories and load all the globals
 ;;; (they must be available before choosing the configuration of rules)
 ;;;
-;;; do NOT change any of the following
+;;; Do NOT change any of the following
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -103,7 +103,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; because ordinary Sudoku puzzles are 9x9 (i.e. segment-size = 3),
+;;; Because ordinary Sudoku puzzles are 9x9 (i.e. segment-size = 3),
 ;;; SudoRules has its own way of dealing with the size of puzzles
 ;;; and this can only be done here; maximum segment size is 9
 ;;; you don't need do change anything for the standard 9x9 puzzles
@@ -433,6 +433,7 @@
 
 ;;; DFS can be used to provide a relatively fast solution
 
+;;; To block all output:
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-ECP-details* TRUE)

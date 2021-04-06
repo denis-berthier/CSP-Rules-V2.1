@@ -72,7 +72,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;; the next function is deprecated:
 
 (deffunction same-sets (?l1 ?l2)
@@ -95,7 +94,6 @@
 )
 
 
-
 (deffunction combination (?n ?p)
     ;;; the standard function C(n, p), number of combinations of p elements among n
     ;;; the result is real because of limitations on integers in CLIPS
@@ -109,12 +107,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; set operations
+;;; list and set operations
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; sets are represented as lists
 ;;; no check is made for non repetition of elements in the lists
+;;; use "list-to-non-redundant-list" to eliminate duplicates
 
 (deffunction set-union (?l1 ?l2)
     ;;; sets are represented as lists
@@ -147,6 +146,15 @@
         (if (not (member$ ?x ?l2)) then (bind ?diff (create$ ?diff ?x)))
     )
     ?diff
+)
+
+
+(deffunction list-to-non-redundant-list ($?list)
+    (bind ?nodup-list (create$))
+    (foreach ?x ?list
+        (if (not (member$ ?x ?nodup-list)) then (bind ?nodup-list (create$ ?nodup-list ?x)))
+    )
+    ?nodup-list
 )
 
 

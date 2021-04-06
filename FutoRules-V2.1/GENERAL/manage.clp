@@ -44,11 +44,6 @@
         (exists (candidate (context ?cont) (status c-value) (label ?lab))
 			(is-csp-variable-for-label (csp-var ?csp) (label ?lab))
 		)
-        ;;; rewritten for JESS:
-		;(not (not (and
-        ;(candidate (context 0) (status c-value) (label ?lab))
-		;	(is-csp-variable-for-label (csp-var ?csp) (label ?lab))
-		;)))
 	)
 =>
     (retract ?brt)

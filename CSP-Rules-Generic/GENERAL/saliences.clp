@@ -93,7 +93,7 @@
 ;;; so that complex techniques are activated progressively, when nothing easier is applicable.
 ;;; This allows to keep reasonable computing times for easy grids.
 
-;;; Assertion of new c-values (and simultaneous retraction of candidates - via the modify CLIPS or JESS primitive)
+;;; Assertion of new c-values (and simultaneous retraction of candidates - via the modify CLIPS primitive)
 ;;; should not occur before simple constraints resulting from assertion of previous c-values
 ;;; are fully propagated along all the constraints.
 ;;; This precedence order is essential for contradiction detection.

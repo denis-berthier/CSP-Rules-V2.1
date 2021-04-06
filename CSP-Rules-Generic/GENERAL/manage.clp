@@ -200,17 +200,34 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; PRINT CURRENT RESOLUTION STATE
+;;; COMPUTE OR PRINT CURRENT RESOLUTION STATE
+;;; INIT AN INSTANCE FROM A RESOLUTION STATE
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; These generic functions are place-holders for application-specific ones.
+;;; These generic functions and rules are place-holders for application-specific ones.
+;;; If they are not redefined by an application, they will do nothing,
+;;; but their existence makes it easier to define other functions in generic form.
+
+(deffunction compute-current-resolution-state-in-context (?cont) TRUE)
+
+(deffunction compute-current-resolution-state ()
+    (compute-current-resolution-state-in-context 0)
+)
 
 (deffunction print-current-resolution-state-in-context (?cont) TRUE)
 
 (deffunction print-current-resolution-state ()
     (print-current-resolution-state-in-context 0)
 )
+
+(deffunction init-resolution-state ($?list) TRUE)
+
+;;; Allow abbreviations:
+(deffunction compute-RS () (compute-current-resolution-state))
+(deffunction print-RS () (print-current-resolution-state))
+(deffunction init-RS ($?list) (init-resolution-state ?RS))
+
 
 
 (defrule print-unsolved-final-state

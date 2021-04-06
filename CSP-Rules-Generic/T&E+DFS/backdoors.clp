@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;           January 2006 - December 2020             ;;;
+               ;;;             January 2006 - April 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -39,14 +39,18 @@
 (deffunction find-backdoors ()
     ;;; the backdoors are looked for in the current resolution state
     (bind ?*list-of-backdoors* (create$))
+    (bind ?time1 (time))
+    (assert (find-backdoors 0))
     (bind ?n (run))
     (bind ?time2 (time))
+    (bind ?solve-time (- ?time2 ?time1))
     (bind ?len (length$ ?*list-of-backdoors*))
     (bind ?rat (str-cat ?*rating-type* "-"))
     (bind ?back (if (or (eq ?len 0) (eq ?len 1)) then "BACKDOOR" else "BACKDOORS"))
     (printout t crlf  (length$ ?*list-of-backdoors*) " " (str-cat ?rat ?back " FOUND: ") crlf)
     (print-list-of-labels ?*list-of-backdoors*)
     (printout t crlf crlf)
+    (printout t "computation time = " (seconds-to-hours ?solve-time) crlf)
     (printout t "nb-facts=" ?*nb-facts* crlf)
     ;(printout t "nb rules " ?nb-rules crlf)
     ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
@@ -60,6 +64,7 @@
     (declare (salience ?*activate-TE-salience*))
     (logical (play) (context (name ?cont&0)))
     (not (deactivate ?cont backdoors))
+    (find-backdoors ?cont)
 =>
     (if ?*print-levels* then (printout t Entering_level_BD))
     (assert (technique ?cont backdoors))
@@ -79,10 +84,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; CONTEXT INITIALIZATION
+;;; CONTEXT INITIALISATION
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defrule Backdoors-init-non-first-context-c-values
     "copy all the c-values from the parent context"
@@ -118,7 +122,6 @@
 ;;; CLEANING OF TRIED CONTEXT
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;; should use (do-for-all-facts ...)
 
@@ -199,7 +202,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defrule Backdoors-no-contradiction-in-non-first-context
     (declare (salience ?*level1-no-contrad-found-in-context-salience*))
     ;;; after all the resolution rules have been applied
@@ -225,7 +227,6 @@
 
 (defrule detect-backdoor
     (declare (salience ?*solution-found-salience*))
-    (grid ?g)
     (context (name ?cont&~0) (parent ?par&0) (generating-cand ?gen-cand))
     ?pl <- (technique ?cont BRT)
     ;;; the presence of a c-value for all the csp-variables (of some type) means that a solution has been found in context ?cont
@@ -233,11 +234,6 @@
         (exists (is-csp-variable-for-label (csp-var ?csp) (label ?lab))
             (candidate (context ?cont) (status c-value) (label ?lab))
         )
-        ;;; rewritten for JESS:
-        ;(not (not (and
-        ;(candidate (context 0) (status c-value) (label ?lab))
-        ;    (is-csp-variable-for-label (csp-var ?csp) (label ?lab))
-        ;)))
     )
 =>
     (retract ?pl)
@@ -278,5 +274,36 @@
 )
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; CLEAN WHAT'S LEFT BY BACKDOORS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrule Backdoors-clean-1
+    (declare (salience ?*TE-clean-salience*))
+    ?f <- (technique 0 backdoors)
+=>
+    (retract ?f)
+)
+
+
+(defrule Anti-backdoor-pairs-clean-2a
+    (declare (salience ?*TE-clean-salience*))
+    (not (technique 0 backdoors))
+    ?f <- (find-backdoors 0)
+=>
+    (retract ?f)
+)
+
+
+(defrule Anti-backdoors-clean-3
+    (declare (salience ?*TE-clean-salience*))
+    (not (technique 0 backdoors))
+    ?f <- (backdoors-tried 0 ?)
+=>
+    (retract ?f)
+)
 
 

@@ -49,6 +49,7 @@
     (assert (grid 0))
 
     ;;; the backdoors are looked for here
+    (assert (find-backdoors 0))
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?len (length$ ?*list-of-backdoors*))
@@ -88,6 +89,7 @@
     (bind ?*init-instance-time* (- ?time1 ?time0))
 
     ;;; the backdoors are looked for here
+    (assert (find-backdoors 0))
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?rat (if (eq (length$ ?*rating-type*) 0) then "" else (str-cat ?*rating-type* "-")))
@@ -135,6 +137,6 @@
     (retract ?pl)
     (assert (clean-and-retract ?cont))
     (bind ?*list-of-backdoors* (create$ ?*list-of-backdoors* ?gen-cand))
-    (printout t "BACKDOOR FOUND: " ?gen-cand crlf)
+    (printout t "ONE BACKDOOR FOUND: " ?gen-cand crlf)
 )
 

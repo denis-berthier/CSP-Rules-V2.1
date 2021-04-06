@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - April 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -39,14 +39,18 @@
 (deffunction find-anti-backdoors ()
     ;;; the anti-backdoors are looked for in the current resolution state
     (bind ?*list-of-anti-backdoors* (create$))
+    (bind ?time1 (time))
+    (assert (find-anti-backdoors 0))
     (bind ?n (run))
     (bind ?time2 (time))
+    (bind ?solve-time (- ?time2 ?time1))
     (bind ?len (length$ ?*list-of-anti-backdoors*))
     (bind ?rat (str-cat ?*rating-type* "-"))
     (bind ?back (if (or (eq ?len 0) (eq ?len 1)) then "ANTI-BACKDOOR" else "ANTI-BACKDOORS"))
     (printout t crlf  ?len " " (str-cat ?rat ?back " FOUND: ") crlf)
     (print-list-of-labels ?*list-of-anti-backdoors*)
     (printout t crlf crlf)
+    (printout t "computation time = " (seconds-to-hours ?solve-time) crlf)
     (printout t "nb-facts=" ?*nb-facts* crlf)
     ;(printout t "nb rules " ?nb-rules crlf)
     ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
@@ -63,6 +67,7 @@
     (declare (salience ?*activate-TE-salience*))
     (logical (play) (context (name ?cont&0)))
     (not (deactivate ?cont anti-backdoors))
+    (find-anti-backdoors ?cont)
 =>
     (if ?*print-levels* then (printout t Entering_level_ABD))
     (assert (technique ?cont anti-backdoors))
@@ -82,10 +87,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; CONTEXT INITIALIZATION
+;;; CONTEXT INITIALISATION
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defrule Anti-backdoors-init-non-first-context-c-values
     "copy all the c-values from the parent context"
@@ -121,7 +125,6 @@
 ;;; CLEANING OF TRIED CONTEXT
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;; should use (do-for-all-facts ...)
 
@@ -202,7 +205,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defrule Anti-backdoors-no-contradiction-in-non-first-context
     (declare (salience ?*level1-no-contrad-found-in-context-salience*))
     ;;; after all the resolution rules have been applied
@@ -228,7 +230,6 @@
 
 (defrule detect-anti-backdoor
     (declare (salience ?*solution-found-salience*))
-    (grid ?g)
     (context (name ?cont&~0) (parent ?par&0) (generating-cand ?gen-cand))
     ?pl <- (technique ?cont BRT)
     ;;; the presence of a c-value for all the csp-variables (of some type) means that a solution has been found in context ?cont
@@ -236,11 +237,6 @@
         (exists (is-csp-variable-for-label (csp-var ?csp) (label ?lab))
             (candidate (context ?cont) (status c-value) (label ?lab))
         )
-        ;;; rewritten for JESS:
-        ;(not (not (and
-        ;(candidate (context 0) (status c-value) (label ?lab))
-        ;    (is-csp-variable-for-label (csp-var ?csp) (label ?lab))
-        ;)))
     )
 =>
     (retract ?pl)
@@ -262,7 +258,7 @@
     (technique 0 anti-backdoors)
     ;;; only one context other than 0 is considered at a time:
     (not (context (name ?cont&~?par) (parent ?par)))
-    ?gen <- (candidate (context ?par) (status cand) (label ?gen-cand))
+    (candidate (context ?par) (status cand) (label ?gen-cand))
     (not (anti-backdoors-tried ?par ?gen-cand))
 =>
     ;;; choose ?gen-cand as a hypothesis
@@ -276,6 +272,38 @@
     (assert (technique ?*context-counter* BRT))
     ;;; remember that ?gen-cand was tried in ?par at phase ?ph
     (assert (anti-backdoors-tried ?par ?gen-cand))
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; CLEAN WHAT'S LEFT BY ANTI-BACKDOORS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrule Anti-backdoors-clean-1
+    (declare (salience ?*TE-clean-salience*))
+    ?f <- (technique 0 anti-backdoors)
+=>
+    (retract ?f)
+)
+
+
+(defrule Anti-backdoor-pairs-clean-2a
+    (declare (salience ?*TE-clean-salience*))
+    (not (technique 0 anti-backdoors))
+    ?f <- (find-anti-backdoors 0)
+=>
+    (retract ?f)
+)
+
+
+(defrule Anti-backdoors-clean-3
+    (declare (salience ?*TE-clean-salience*))
+    (not (technique 0 anti-backdoors))
+    ?f <- (anti-backdoors-tried 0 ?)
+=>
+    (retract ?f)
 )
 
 

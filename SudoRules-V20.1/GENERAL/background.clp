@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;                              CSP-RULES / SUDORULES
-;;;                              BACKGROUND
+;;;                                   BACKGROUND
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - April 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -225,7 +225,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (deffunction row-column-to-rc-variable (?row ?col)
     (+ (* ?*internal-factor-2* 1) (* ?*internal-factor* ?row) ?col)
 )
@@ -277,7 +276,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;; notice that, thanks to the redefinition of the internal-factors when g-labels are used,
 ;;; the following functions work also for g-labels (i.e. if ?r or ?c are segments)
 
@@ -316,6 +314,50 @@
 )
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; CONVERSION FUNCTIONS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Added March 2021:
+;;; Convert the printed representation of a candidate or a list of candidates
+;;; (i.e. nirjck, where n, r and c are fixed symbols and i, j, k are the corresponding components)
+;;; to an internal label compatible with the current set of rules.
+
+(deffunction nirjck-to-nrc-triplet (?str)
+    (bind ?len (length$ ?str))
+    (bind ?list (create$))
+    (bind ?i 1)
+    (while (<= ?i ?len)
+        (bind ?x (sub-string ?i ?i ?str))
+        (if (and (neq ?x "n") (neq ?x "r") (neq ?x "c")) then
+            (bind ?list (create$ ?list (string-to-field ?x)))
+        )
+        (bind ?i (+ ?i 1))
+    )
+    ?list
+)
+
+
+(deffunction nirjck-to-label (?str)
+    (bind ?list (nirjck-to-nrc-triplet ?str))
+    (nrc-to-label (nth$ 1 ?list) (nth$ 2 ?list) (nth$ 3 ?list))
+)
+
+
+(deffunction list-of-nirjck-to-list-of-labels ($?list)
+    ;(funcall nirjck-to-label ?list); doesn't work
+    (bind ?len (length$ ?list))
+    (bind ?res (create$))
+    (bind ?i 1)
+    (while (<= ?i ?len)
+        (bind ?x (nth$ ?i ?list))
+        (bind ?res (create$ ?res (nirjck-to-label ?x)))
+        (bind ?i (+ ?i 1))
+    )
+    ?res
+)
 
 
 
@@ -324,7 +366,6 @@
 ;;; LINKS BETWEEN LABELS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (deffunction nrc-linked (?nb1 ?row1 ?col1 ?bl1 ?nb2 ?row2 ?col2 ?bl2)
 	(if (neq ?nb1 ?nb2)

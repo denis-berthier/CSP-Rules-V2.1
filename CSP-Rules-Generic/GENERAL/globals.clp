@@ -32,7 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GENERAL CLIPS or JESS VARIABLES AND GENERAL BEHAVIOUR
+;;; GENERAL CLIPS VARIABLES AND GENERAL BEHAVIOUR
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -41,21 +41,14 @@
 
 (defglobal ?*CSP-Rules-VersionNumber* = 2.1)
 
-;;; Decide whether to use Clips or Jess
+;;; compatibility with JESS has been given up
 (defglobal ?*inference-engine* = CLIPS)
-; or (but there is no longer any guarantee of full compatibility with JESS):
-; (defglobal ?*inference-engine* = JESS)
-
-(defglobal ?*Jess-version* = "8.0a1")
 
 (defglobal ?*inference-engine-version* =
-    (if (eq ?*inference-engine* CLIPS) then ?*Clips-version*
-        else (if (eq ?*inference-engine* JESS) then ?*Jess-version*
-            else "ERROR")
-    )
+    (if (eq ?*inference-engine* CLIPS) then ?*Clips-version* else "ERROR")
 )
 
-;;; CLIPS/JESS default strategy is depth-first; keep it so
+;;; CLIPS default strategy is depth-first; keep it so
 ;;; All the global variables will be kept by a reset.
 ;;; This is important for a good loading of rules and for keeping track of lists of solved instances
 (defglobal ?*dummy-for-setting-CLIPS-behaviour* = (progn

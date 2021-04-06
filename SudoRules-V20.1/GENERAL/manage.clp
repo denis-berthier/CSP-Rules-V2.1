@@ -163,6 +163,16 @@
 )
 
 
+(deffunction compute-current-resolution-state ()
+    (compute-current-resolution-state-in-context 0)
+)
+
+
+(deffunction compute-RS ()
+    (compute-current-resolution-state-in-context 0)
+)
+
+
 (deffunction print-current-resolution-state-in-context (?cont)
     (if (> ?*segment-size* 5) then
         (printout t "print-current-resolution-state works only for grid size ≤ 25" crlf)

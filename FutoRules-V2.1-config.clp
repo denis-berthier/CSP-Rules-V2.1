@@ -273,6 +273,9 @@
 ;;; In addition to the previous choice, you can give priority to bivalue candidates:
 ; (bind ?*special-TE* TRUE)
 
+;;; For gT&E(k) instead of T&E(k), activate the additional next line:
+; (bind ?*Whips[1]* TRUE)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

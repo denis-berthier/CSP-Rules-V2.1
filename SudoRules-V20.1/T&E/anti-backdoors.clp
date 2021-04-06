@@ -34,7 +34,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction find-sudoku-anti-backdoors (?string)
+(deffunction find-sudoku-anti-backdoors (?sudoku-string)
     ;;; the puzzle is supposed to be given as a string
     (reset) (reset)
     (if ?*print-actions* then (print-banner))
@@ -44,11 +44,12 @@
     ;;; fixed facts and structures common to all the instances are defined here
     (init-general-application-structures)
     ;;; puzzle entries are taken into account here
-    (init-grid-from-string ?string)
+    (init-grid-from-string ?sudoku-string)
     (assert (context (name 0)))
     (assert (grid 0))
 
     ;;; the anti-backddors are looked for here
+    (assert (find-anti-backdoors 0))
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?len (length$ ?*list-of-anti-backdoors*))
@@ -58,7 +59,7 @@
     (print-list-of-labels ?*list-of-anti-backdoors*)
     (printout t crlf crlf)
     (if ?*print-time* then
-        (printout t "Puzzle " ?string " :" crlf)
+        (printout t "Puzzle " ?sudoku-string " :" crlf)
         (printout t
             "total-time = " (seconds-to-hours (- ?time2 ?time0))  crlf
         )
@@ -72,7 +73,7 @@
 
 
 
-(deffunction find-sukaku-anti-backdoors (?list)
+(deffunction find-sukaku-anti-backdoors ($?sukaku-list)
     (reset) (reset)
     (if ?*print-actions* then (print-banner))
     (bind ?*list-of-anti-backdoors* (create$))
@@ -81,21 +82,22 @@
     ;;; fixed facts and structures common to all the instances are defined here
     (init-general-application-structures)
     ;;; puzzle entries are taken into account here
-    (init-sukaku-list $?list)
+    (init-sukaku-list ?sukaku-list)
     (assert (context (name 0)))
     (assert (grid 0))
     (bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
 
     ;;; the anti-backddors are looked for here
+    (assert (find-anti-backdoors 0))
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?rat (if (eq (length$ ?*rating-type*) 0) then "" else (str-cat ?*rating-type* "-")))
-    (printout t crlf  (length$ ?*list-of-anti-backdoors*) " " (str-cat ?rat "ANTI-BACKDOORS FOUND: "))
+    (printout t crlf  (length$ ?*list-of-anti-backdoors*) " " (str-cat ?rat "ONE ANTI-BACKDOORS FOUND: "))
     (print-list-of-labels ?*list-of-anti-backdoors*)
     (printout t crlf crlf)
     (if ?*print-time* then
-        (printout t "Puzzle " ?list " :" crlf)
+        (printout t "Puzzle " ?sukaku-list " :" crlf)
         (printout t
             "total-time = " (seconds-to-hours (- ?time2 ?time0))  crlf
         )
@@ -135,7 +137,7 @@
     (retract ?pl)
     (assert (clean-and-retract ?cont))
     (bind ?*list-of-anti-backdoors* (create$ ?*list-of-anti-backdoors* ?gen-cand))
-    (printout t "ANTI-BACKDOOR FOUND: " ?gen-cand crlf)
+    (printout t "ONE ANTI-BACKDOOR FOUND: " ?gen-cand crlf)
 )
 
 

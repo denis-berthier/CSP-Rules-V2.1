@@ -41,11 +41,9 @@
     (bind ?*density* (density ?*nb-candidates* ?*links-count*))
     (if ?*print-actions* then
         (printout t crlf "Starting non trivial part of solution ")
-        (if ?*print-RS-after-Singles* then
-            (printout t "with the following RESOLUTION STATE:")
-            (printout t crlf)
-            (print-current-resolution-state)
-        )
+        (if ?*print-RS-after-Singles* then (printout t "with the following RESOLUTION STATE:"))
+        (printout t crlf)
+        (if ?*print-RS-after-Singles* then (print-current-resolution-state))
     )
     (if ?*print-initial-state* then
         (printout t ?*nb-candidates* " candidates, "

@@ -968,6 +968,12 @@
     (if ?*print-initial-state* then (printout t ", " ?*nb-candidates* " candidates" crlf))
 )
 
+;;; redefine the generic function "init-resolution-state" as:
+(deffunction init-resolution-state ($?RS)
+    (init-sukaku-list ?RS)
+)
+
+
  
  
 (deffunction solve-sukaku-list ($?list)

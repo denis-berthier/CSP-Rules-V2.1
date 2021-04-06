@@ -3,6 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
+;;;                              CSP-RULES / GENERIC
 ;;;                              DFS (Depth First Search)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -15,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;              January 2006 - June 2020              ;;;
+               ;;;             January 2006 - April 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -27,12 +28,13 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; CONTEXT INITIALIZATION
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; CONTEXT INITIALISATION
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule DFS-init-non-first-context-c-values
 	"copy all the c-values from the parent context"
@@ -65,10 +67,88 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
+;;; CONTEXT CLEANING
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrule DFS-dummy-rule
+    (init-context 0)
+    (technique 0)
+    (csp-linked 0)
+    (exists-link 0)
+=>
+)
+
+
+(defrule DFS-clean-context
+    (declare (salience ?*clean-context-salience*))
+    (technique 0 DFS)
+    (context (name ?cont&~0))
+    (clean-and-retract ?cont)
+=>
+    (do-for-all-facts
+        ((?f candidate))
+        (eq ?f:context ?cont)
+        (retract ?f)
+    )
+    (do-for-all-facts
+        ((?f chain))
+        (eq ?f:context ?cont)
+        (retract ?f)
+    )
+    (do-for-all-facts
+        ((?f init-context))
+        (eq (nth$ 1 ?f:implied) ?cont)
+        (retract ?f)
+    )
+    (do-for-all-facts
+        ((?f technique))
+        (eq (nth$ 1 ?f:implied) ?cont)
+        (retract ?f)
+    )
+    (do-for-all-facts
+        ((?f csp-linked))
+        (eq (nth$ 1 ?f:implied) ?cont)
+        (retract ?f)
+    )
+    (do-for-all-facts
+        ((?f exists-link))
+        (eq (nth$ 1 ?f:implied) ?cont)
+        (retract ?f)
+    )
+)
+
+
+
+
+(defrule DFS-clean-context-end
+    (declare (salience ?*clean-context-salience*))
+    ?dfs <- (technique ?cont DFS)
+    ?ctx <- (context (name ?cont&~0) (parent ?par&0))
+    ?rr <- (clean-and-retract ?cont)
+    (not (init-context ?cont))
+    (not (candidate (context ?cont)))
+    (not (csp-linked ?cont $?))
+    (not (exists-link ?cont $?))
+    (not (chain (context ?cont)))
+    (not (typed-chain (context ?cont)))
+=>
+    (retract ?rr)
+    (retract ?ctx)
+    (retract ?dfs)
+    (if (or ?*print-actions* ?*print-hypothesis*) then
+        (printout t "BACK IN CONTEXT " ?par " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining." crlf crlf)
+    )
+)
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; DETECTION OF CONTRADICTION OR SOLUTION IN CONTEXT
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    
 
 (defrule DFS-detect-contradiction-in-non-first-context
 	(declare (salience ?*contradiction-in-context-salience*))
@@ -136,102 +216,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; CLEANING OF CONTRADICTORY CONTEXT 
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;; should use (do-for-all-facts ...)
-
-(defrule DFS-clean-context-technique
-	(declare (salience ?*clean-context-salience*))
-    (technique ?cont DFS)
-	(clean-and-retract ?cont)
-	?xx <- (technique ?cont ?tec&~DFS)
-=>
-	(retract ?xx)
-)
-
-
-(defrule DFS-clean-context-candidates
-	(declare (salience ?*clean-context-salience*))
-    (technique ?cont DFS)
-	(clean-and-retract ?cont)
-	?cand <- (candidate (context ?cont))
-=>
-	(retract ?cand)
-)
-
-
-(defrule DFS-clean-context-csp-linked
-	(declare (salience ?*clean-context-salience*))
-    (technique ?cont DFS)
-	(clean-and-retract ?cont)
-	?xx <- (csp-linked ?cont $?)
-=>
-	(retract ?xx)
-)
-
-
-(defrule DFS-clean-context-exists-link
-	(declare (salience ?*clean-context-salience*))
-    (technique ?cont DFS)
-	(clean-and-retract ?cont)
-	?xx <- (exists-link ?cont $?)
-=>
-	(retract ?xx)
-)
-
-
-(defrule DFS-clean-context-chains
-    (declare (salience ?*clean-context-salience*))
-    (technique ?cont DFS)
-    (clean-and-retract ?cont)
-    ?xx <- (chain (context ?cont))
-=>
-    (retract ?xx)
-)
-
-
-(defrule DFS-clean-context-typed-chains
-    (declare (salience ?*clean-context-salience*))
-    (technique ?cont DFS)
-    (clean-and-retract ?cont)
-    ?xx <- (typed-chain (context ?cont))
-=>
-    (retract ?xx)
-)
-
-
-(defrule DFS-clean-context-end
-	(declare (salience ?*clean-context-salience*))
-    ?dfs <- (technique ?cont DFS)
-	?ctx <- (context (name ?cont&~0) (parent ?par&0))
-	?rr <- (clean-and-retract ?cont)
-	(not (init-context ?cont))
-	(not (candidate (context ?cont)))
-    (not (csp-linked ?cont $?))
-    (not (exists-link ?cont $?))
-    (not (chain (context ?cont)))
-    (not (typed-chain (context ?cont)))
-=>
-	(retract ?rr)
-    (retract ?ctx)
-    (retract ?dfs)
-	(if (or ?*print-actions* ?*print-hypothesis*) then
-		(printout t "BACK IN CONTEXT " ?par " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining." crlf crlf)
-	)
-)
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
 ;;; START DFS, CONTEXT GENERATION AND PHASE ITERATION IN A CONTEXT
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defrule DFS-start-after-BRT-in-any-context
     (declare (salience ?*DFS-generate-context-salience*))

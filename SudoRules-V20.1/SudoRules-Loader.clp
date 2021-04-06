@@ -44,6 +44,8 @@
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "manage.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "NS.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "HS.clp"))
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "focused-elims.clp"))
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "1or2-step-solutions.clp"))
 
 ;;; now loaded only if W1 is active:
 (if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids*) then
@@ -201,6 +203,7 @@
 
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "goodies.clp"))
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "shuffle.clp"))
+(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "pretty-print.clp"))
 
 
 

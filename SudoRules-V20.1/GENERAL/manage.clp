@@ -208,6 +208,17 @@
     (print-current-resolution-state-in-context 0)
 )
 
+;;; Redefine this function so that it cab use pretty-print
+;;; first define a place-holder function; it will be redefined in "goodies"
+(deffunction pretty-print-sukaku-list ($?list) ?list)
+
+(deffunction print-current-resolution-state ()
+    (pretty-print-sukaku-list (compute-current-resolution-state))
+)
+
+
+
+
 
 (deffunction print-current-resolution-state-in-context-rn-view (?cont)
     (if (> ?*segment-size* 5) then

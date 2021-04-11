@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - Avril 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -45,20 +45,26 @@
 
 	
 	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col1) (block ?bl11))
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col2&:(< ?col1 ?col2)) (block ?bl12))
+	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col2&~?col1) (block ?bl12))
 
-	(candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?row2&:(< ?row1 ?row2)) (block ?bl22))
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (column ?col3&~?col1&~?col2) (block ?bl23&~?bl22))
+	(candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?row2&~?row1) (block ?bl22))
+	(candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (column ?col3&~?col1&~?col2) (block ?bl23))
 
 	(not (candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?colx&~?col1&~?col2&~?col3)))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (column ?colx&~?col1&~?col2&~?col3)))
 
-	(candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?row3&~?row1&~?row2) (block ?bl31&~?bl11))
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?row3) (column ?colx) (block ?bl33&~?bl23&:(eq ?bl33 (block ?row3 ?col3))))
+	(candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?row3&~?row1&~?row2) (block ?bl31))
+    (candidate (context ?cont) (status cand) (number ?nb) (row ?row3) (column ?colx) (block ?bl33&:(eq ?bl33 (block ?row3 ?col3))))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (row ?row3) (column ?coly&~?col1&~?col2) (block ?bly&~?bl33)))
 		
-	;;; then the candidature of this number for any cell outside row3 in the intersection of column 3 wih block 33 can be retracted
-	?cand <- (candidate (context ?cont) (status cand) (number ?nb) (column ?col3) (block ?bl33) (row ?rowz&~?row3))
+	;;; then the candidature of this number for any cell in block b33
+    ;;; and in any of the 3 columns but not in any of the 3 rows
+    ;;; can be retracted
+	?cand <- (candidate (context ?cont) (status cand) (number ?nb)
+                (block ?bl33)
+                (column ?colz&:(or (eq ?colz ?col1) (eq ?colz ?col2) (eq ?colz ?col3)))
+                (row ?rowz&~?row1&~?row2&~?row3)
+            )
 =>
 	(retract ?cand)	
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
@@ -69,7 +75,7 @@
 				?*separation-sign-in-cell* (row-name ?row3) ?*ending-cell-symbol*
 				?*starting-cell-symbol* (column-name ?col1) ?*separation-sign-in-cell* (column-name ?col2) 
 				?*separation-sign-in-cell* (column-name ?col3) ?*ending-cell-symbol*
-				?*implication-sign* (row-name ?rowz) (column-name ?col3) ?*non-equal-sign* (numeral-name ?nb) crlf
+				?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nb) crlf
 			)
 	)
 )
@@ -82,21 +88,26 @@
 	(technique ?cont finned-swordfish)
 	
 	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col1) (block ?bl11))
-	(candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?row2&:(< ?row1 ?row2)) (block ?bl21))
+	(candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?row2&~?row1) (block ?bl21))
 
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (column ?col2&:(< ?col1 ?col2)) (block ?bl22))
-	(candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?row3&~?row1&~?row2) (block ?bl32&~?bl22))
+	(candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (column ?col2&~?col1) (block ?bl22))
+	(candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?row3&~?row1&~?row2) (block ?bl32))
 
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?rowx&~?row1&~?row2&~?row3)))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?rowx&~?row1&~?row2&~?row3)))
 
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col3&~?col1&~?col2) (block ?bl13&~?bl11))
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?rowx) (column ?col3) (block ?bl33&~?bl32&:(eq ?bl33 (block ?row3 ?col3))))
+	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col3&~?col1&~?col2) (block ?bl13))
+    (candidate (context ?cont) (status cand) (number ?nb) (row ?rowx) (column ?col3) (block ?bl33&:(eq ?bl33 (block ?row3 ?col3))))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col3) (row ?rowy&~?row1&~?row2) (block ?bly&~?bl33)))
 		
-	;;; then the candidature of this number for any cell outside col3 in the intersection of row 3 wih block 33 can be retracted
-	?cand <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row3) (block ?bl33) (column ?colz&~?col3))
-
+    ;;; then the candidature of this number for any cell in block b33
+    ;;; and in any of the 3 rows but not in any of the 3 columns
+    ;;; can be retracted
+	?cand <- (candidate (context ?cont) (status cand) (number ?nb)
+                (block ?bl33)
+                (row ?rowz&:(or (eq ?rowz ?row1) (eq ?rowz ?row2) (eq ?rowz ?row3)))
+                (column ?colz&~?col1&~?col2&~?col3)
+            )
 =>
 	(retract ?cand)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
@@ -107,7 +118,7 @@
 				?*separation-sign-in-cell* (column-name ?col3) ?*ending-cell-symbol*
 				?*starting-cell-symbol* (row-name ?row1) ?*separation-sign-in-cell* (row-name ?row2) 
 				?*separation-sign-in-cell* (row-name ?row3) ?*ending-cell-symbol*
-				?*implication-sign* (row-name ?row3) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nb) crlf
+				?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nb) crlf
 			)
 	)
 )

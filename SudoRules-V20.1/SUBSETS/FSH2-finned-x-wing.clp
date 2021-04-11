@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - Avril 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -47,12 +47,12 @@
 	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col2&~?col1) (block ?bl12&~?bl11))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?colx&~?col1&~?col2)))
 	
-	(candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?row2&~?row1) (block ?bl21&~?bl11))
+	(candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?row2&~?row1))
 	(candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (column ?colx) (block ?bl22&:(eq ?bl22 (block ?row2 ?col2))))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (column ?coly&~?col1) (block ?bly&~?bl22)))
 	
-	;;; then the candidature of this number for any cell outside row2 in the intersection of column 2 wih block 22 can be retracted
-	?cand <- (candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (block ?bl22) (row ?rowz&~?row2))
+	;;; then the candidature of this number for any cell outside row1 and row2 in the intersection of column 2 wih block 22 can be retracted
+	?cand <- (candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (block ?bl22) (row ?rowz&~?row1&~?row2))
 =>
 	(retract ?cand)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
@@ -77,12 +77,12 @@
 	(candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?row2&~?row1) (block ?bl21&~?bl11))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col1) (row ?rowx&~?row1&~?row2)))
 	
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col2&~?col1) (block ?bl12&~?bl11))
+	(candidate (context ?cont) (status cand) (number ?nb) (row ?row1) (column ?col2&~?col1))
 	(candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?rowx) (block ?bl22&:(eq ?bl22 (block ?row2 ?col2))))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?rowy&~?row1) (block ?bly&~?bl22)))
 	
-	;;; then the candidature of this number for any cell outside col2 in the intersection of row2 wih block 22 can be retracted
-	?cand <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (block ?bl22) (column ?colz&~?col2))
+	;;; then the candidature of this number for any cell outside col1 and col2 in the intersection of row2 wih block 22 can be retracted
+	?cand <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row2) (block ?bl22) (column ?colz&~?col1&~?col2))
 =>
 	(retract ?cand)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))

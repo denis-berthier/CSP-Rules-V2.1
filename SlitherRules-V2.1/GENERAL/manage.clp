@@ -207,17 +207,19 @@
 
 ;;; print both representations
 
-(deffunction print-RS ()
+(deffunction print-current-resolution-state ()
     (printout t crlf)
     (if ?*print-IO-solution* then (print-RS-IO))
     (printout t crlf)
     (if ?*print-HV-solution* then (print-RS-HV))
 )
 
-(deffunction print-current-resolution-state ()
-    (print-RS)
+(deffunction print-RS ()
+    (print-current-resolution-state)
 )
 
+
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; PRINT SOLUTION

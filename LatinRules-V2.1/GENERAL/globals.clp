@@ -97,6 +97,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*has-whips[1]* = FALSE)
+
 (defglobal ?*print-naked-single* = FALSE)
 (defglobal ?*print-hidden-single* = FALSE)
 

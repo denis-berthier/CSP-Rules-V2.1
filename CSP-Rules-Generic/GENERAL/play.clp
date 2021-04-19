@@ -41,18 +41,18 @@
 =>
     (bind ?*density* (density ?*nb-candidates* ?*links-count*))
     (if ?*print-actions* then
-        (printout t crlf "Starting non trivial part of solution." crlf)
         (if ?*print-RS-after-Singles* then
-            (printout t "Resolution state after Singles:" crlf)
-            (print-current-resolution-state)
+            (printout t crlf "Resolution state after Singles:" crlf)
+            (pretty-print-current-resolution-state)
         )
     )
     (if ?*print-initial-state* then
         (printout t ?*nb-candidates* " candidates, "
             ?*csp-links-count* " csp-links and " ?*links-count* " links."
-            " Density = " ?*density* "%" crlf crlf
+            " Density = " ?*density* "%" crlf
         )
     )
+    (if ?*print-actions* then (printout t crlf "Starting non trivial part of solution." crlf))
     (assert (play))
     (assert (play-already-asserted))
 )

@@ -167,9 +167,20 @@
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-solution* FALSE)
 
+;;; Note that the following print options are time consuming.
+;;; De-activate them for a faster solution.
 ;;; The resolution state after BRT is printed by default.
-;;; Un-comment this if you do not want to print it.
+;;; Un-comment this if you do not want to print it:
 ; (bind ?*print-RS-after-Singles* FALSE)
+
+;;; The resolution state after Singles and whips[1] is printed by default.
+;;; Un-comment this if you do not want to print it:
+; (bind ?*print-RS-after-whips[1]* FALSE)
+
+;;; The resolution state is printed by default at the end of resolution
+;;; if the solution has not been found.
+;;; Un-comment this if you do not want to print it:
+; (bind ?*print-final-RS* FALSE)
 
 
 
@@ -315,13 +326,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Un-comment the proper line below to change the level of details you want to be printed:
+;;; Un-comment the proper line(s) below to change the level of details you want to be printed.
+;;; This can make T&E faster.
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-solution* FALSE)
 ; (bind ?*print-hypothesis* FALSE)
 ; (bind ?*print-phase* TRUE)
+; (bind ?*print-RS-after-Singles* FALSE)
+; (bind ?*print-RS-after-whips[1]* FALSE)
+; (bind ?*print-final-RS* FALSE)
 
 
 
@@ -441,6 +456,9 @@
 ; (bind ?*print-hypothesis* FALSE)
 ; (bind ?*print-solution* FALSE)
 ; (bind ?*print-phase* TRUE)
+; (bind ?*print-RS-after-Singles* FALSE)
+; (bind ?*print-RS-after-whips[1]* FALSE)
+; (bind ?*print-final-RS* FALSE)
 
 ;;; To activate DFS:
 ; (bind ?*DFS* TRUE)
@@ -452,6 +470,10 @@
 ; (bind ?*Whips* TRUE)
 ; (bind ?*whips-max-length* 1)
 ; (bind ?*whips-max-length* 2)
+
+
+
+
 
 
 

@@ -603,6 +603,7 @@
 (defglobal ?*blocked-whip[1]-salience* = 0)
 (defglobal ?*activate-whip[1]-salience* = 0)
 (defglobal ?*whip[1]-salience* = 0)
+(defglobal ?*end-whip[1]-salience* = 0)
 
 (defglobal ?*activate-g2whip[1]-salience* = 0)
 (defglobal ?*g2whip[1]-salience* = 0)
@@ -663,6 +664,7 @@
     (bind ?*blocked-whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*activate-whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*end-whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
 	(bind ?*activate-g2whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 	(bind ?*g2whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))

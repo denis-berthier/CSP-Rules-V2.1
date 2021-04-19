@@ -210,23 +210,25 @@
 ;;; but their existence makes it easier to define other functions in generic form.
 
 (deffunction compute-current-resolution-state-in-context (?cont) TRUE)
-
-(deffunction compute-current-resolution-state ()
-    (compute-current-resolution-state-in-context 0)
-)
+(deffunction compute-current-resolution-state () (compute-current-resolution-state-in-context 0))
 
 (deffunction print-current-resolution-state-in-context (?cont) TRUE)
+(deffunction print-current-resolution-state () (print-current-resolution-state-in-context 0))
+(deffunction print-RS () (print-current-resolution-state))
 
-(deffunction print-current-resolution-state ()
-    (print-current-resolution-state-in-context 0)
-)
+;;; allow for smarter printing
+(deffunction pretty-print-current-resolution-state-in-context (?cont) (print-current-resolution-state-in-context ?cont))
+(deffunction pretty-print-current-resolution-state () (print-current-resolution-state))
+(deffunction pretty-print-RS () (print-current-resolution-state))
+
 
 (deffunction init-resolution-state ($?list) TRUE)
 
 ;;; Allow abbreviations:
 (deffunction compute-RS () (compute-current-resolution-state))
 (deffunction print-RS () (print-current-resolution-state))
-(deffunction init-RS ($?list) (init-resolution-state ?RS))
+(deffunction pretty-print-RS () (pretty-print-current-resolution-state))
+(deffunction init-RS ($?RS) (init-resolution-state ?RS))
 
 
 
@@ -237,9 +239,28 @@
 =>
     (if ?*print-actions* then
         (printout t "CSP IS NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
-        (print-current-resolution-state)
+        (if ?*print-final-RS* then (print-current-resolution-state))
     )
 	(halt)
 )
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; PRINT RESOLUTION STATE AFTER WHIPS[1], in case whips[1] are active
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrule print-RS-after-whips[1]
+    (declare (salience ?*end-whip[1]-salience*))
+    (play)
+    (context (name ?cont&0))
+    (technique ?cont whip[1])
+=>
+    (if (and ?*has-whips[1]* ?*print-RS-after-whips[1]*) then
+        (printout t crlf "Resolution state after Singles and whips[1]:" crlf)
+        (pretty-print-current-resolution-state)
+        (printout t ?*nb-candidates* " candidates." crlf crlf)
+    )
+)
 

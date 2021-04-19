@@ -456,6 +456,11 @@
 (defglobal ?*print-solution* = TRUE)
 ;;; ; By default, the resolution state after BRT is printed:
 (defglobal ?*print-RS-after-Singles* = TRUE)
+;;; ; By default, the resolution state after whips[1] is printed, if there the CSP has whips[1]
+(defglobal ?*has-whips[1]* = TRUE)
+(defglobal ?*print-RS-after-whips[1]* = TRUE)
+;;; By default, the resolution state at the end of resolution (if a solution is not found) is printed:
+(defglobal ?*print-final-RS* = TRUE)
 
 
 ;;; The following variables are used only for T&E and similar procedures

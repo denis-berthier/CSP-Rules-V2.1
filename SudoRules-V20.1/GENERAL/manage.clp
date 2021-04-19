@@ -168,11 +168,6 @@
 )
 
 
-(deffunction compute-RS ()
-    (compute-current-resolution-state-in-context 0)
-)
-
-
 (deffunction print-current-resolution-state-in-context (?cont)
     (if (> ?*segment-size* 5) then
         (printout t "print-current-resolution-state works only for grid size ≤ 25" crlf)
@@ -207,16 +202,6 @@
 (deffunction print-current-resolution-state ()
     (print-current-resolution-state-in-context 0)
 )
-
-;;; Redefine this function so that it cab use pretty-print
-;;; first define a place-holder function; it will be redefined in "goodies"
-(deffunction pretty-print-sukaku-list ($?list) ?list)
-
-(deffunction print-current-resolution-state ()
-    (pretty-print-sukaku-list (compute-current-resolution-state))
-)
-
-
 
 
 
@@ -356,12 +341,24 @@
 
 
 ;;; abbreviations:
+(deffunction compute-RS () (compute-current-resolution-state))
 (deffunction print-RS () (print-current-resolution-state))
 (deffunction print-RS-rc () (print-current-resolution-state))
 (deffunction print-RS-rn () (print-current-resolution-state-rn-view))
 (deffunction print-RS-cn () (print-current-resolution-state-cn-view))
 (deffunction print-RS-bn () (print-current-resolution-state-bn-view))
 (deffunction print-RS-all () (print-current-resolution-state-all-views))
+
+
+;;; Define a similar function that uses pretty-print
+;;; first define a place-holder function; it will be redefined in "goodies"
+(deffunction pretty-print-sukaku-list ($?list) ?list)
+
+(deffunction pretty-print-current-resolution-state ()
+    (pretty-print-sukaku-list (compute-current-resolution-state))
+)
+(deffunction pretty-print-RS () (pretty-print-current-resolution-state))
+
 
 
 
@@ -384,7 +381,7 @@
     (if ?*print-actions* then
         (printout t "PUZZLE " ?g " IS NOT SOLVED. " (- ?*nb-of-cells*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
     )
-    (if (and ?*print-actions* (<= ?*segment-size* 5)) then
+    (if (and ?*print-actions* ?*print-final-RS* (<= ?*segment-size* 5)) then
         (printout t "CURRENT RESOLUTION STATE:" crlf)
         (print-current-resolution-state)
     )

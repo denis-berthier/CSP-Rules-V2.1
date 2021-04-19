@@ -1,7 +1,7 @@
 
 This is puzzle Magictour #1. It is very difficult (SER 9.0, W10), but still very far from the hardest known puzzles.
 
-I have added it to the CLIPS examples, but the Sudoku app of CLIPS is unable to solve it. See the Magictout folder for a CSP-Rules solution.
+I have added it to the CLIPS examples, but the Sudoku app of CLIPS is unable to solve it. See the Magictour folder for a CSP-Rules solution.
 
 4...3....
 ...6..8..

@@ -7,12 +7,15 @@ GENERAL WARNINGS AND REMINDERS:
 
 
 <> The Subset-Examples come from various sources, most of which I have forgotten. Those marked SE come from SudokuExplainer.
-I've put a large variety of Subset examples, so as to cover almost all the possible classical cases, including finned fish (excluding however the more exotic fishes that are not programmed in SudoRules). See in particular the wonderful ones by Mith (each including many Subsets).
+I've put a large variety of Subset examples, so as to cover almost all the possible classical cases.
 To re-run these examples, activate only the following rules:
 ;;; Sudoku-specific:
  (bind ?*Subsets* TRUE)
- (bind ?*FinnedFish* TRUE) (optionally)
+;;; and optionally
+ (bind ?*FinnedFish* TRUE)
 
+
+<> The Mith puzzles are exceptional in the sense that they have lots of Subsets and Finned-Fish
 
 
 <>The HLS2-Examples contain a few examples from HLS2, illustrating how the 2D chain-rules defined in HLS2 can be reproduced in SudoRules using typed-chains.
@@ -32,6 +35,10 @@ As the CLIPS Sudoku application doesn't output any resolution path, it's not ver
 <> The Oddagons folder gives six examples of Oddagons, only one of which is useful to lower the W rating, some of which merely disappear when whips are active. 
 Some exercises are left to the reader in the latter case: find if there is a combination of rules (not including whips) enough to solve the puzzle without destroying all the oddagons.
 "Usefulness" of an Oddagon is not related to its size: the only "useful" one has length 5.
+
+
+<> The lightning-8.2 puzzle is a good example go using z-chains.
+It is also an illustration of computing 2-step solutions
 
 
 

@@ -55,6 +55,7 @@
             (bind ?i (cell-index ?row ?col))
             ;;; read the content of the cell from the entries
             (bind ?nb (nth$ 1 (explode$ (sub-string ?i ?i ?sudoku-string))))
+            (if (eq ?nb 0) then (bind ?nb .))
             (printout t ?nb " ")
         )
         (printout t ?tower-separator crlf)

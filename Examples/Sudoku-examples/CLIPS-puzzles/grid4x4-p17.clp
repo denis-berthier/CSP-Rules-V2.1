@@ -1,11 +1,4 @@
-
-(load "puzzles/grid4x4-p17.clp")
-(reset)
-(progn
-    (bind ?t0 (time))
-    (run)
-    (printout t (- (time) ?t0)))
-)
+(CLIPS-solve "grid4x4-p17")
 
  The puzzle is:
 
@@ -68,12 +61,13 @@
     Forced Chain Convergence
     Forced Chain XY
 
- 3.88661003112793
+CLIPS time = 4.17216897010803
+
 
 
 SudoRules solution:
 
-(solve-grid-as-list
+(solve-sudoku-list
      .  .  2  .   .  .  .  .   . 11  .  9   . 10  6  4
      7  5  6  9   .  2  . 14   .  4 13  .   .  .  .  .
      . 12  . 10   1  7  9  .   3  .  . 15  16  .  .  5

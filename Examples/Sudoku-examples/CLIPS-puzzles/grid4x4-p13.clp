@@ -1,11 +1,4 @@
-
-(load "puzzles/grid4x4-p13.clp")
-(reset)
-(progn
-    (bind ?t0 (time))
-    (run)
-    (printout t (- (time) ?t0))
-)
+(CLIPS-solve "grid4x4-p13")
 
 The puzzle is:
 
@@ -65,11 +58,12 @@ Rules used:
    Swordfish
    Color Conjugate Pairs
 
-2.7153639793396
+CLIPS time = 2.95408892631531
 
 
 
-(solve-grid-as-list
+
+(solve-sudoku-list
  7 16  8  3  12 13  .  .   .  .  .  .   .  9 14  .
  .  1  . 13   .  .  .  .   8  3  .  .  16 12  . 11
 12  . 15  .   .  5  6  .  13  4 11  .   .  .  .  3

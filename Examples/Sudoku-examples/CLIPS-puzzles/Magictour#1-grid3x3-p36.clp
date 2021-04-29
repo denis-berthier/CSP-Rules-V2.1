@@ -16,18 +16,6 @@ I have added it to the CLIPS examples, but the Sudoku app of CLIPS is unable to 
 (solve "4...3.......6..8..........1....5..9..8....6...7.2........1.27..5.3....4.9........")
 
 
-4.. .3. ...
-... 6.. 8..
-... ... ..1
-
-... .5. .9.
-.8. ... 6..
-.7. 2.. ...
-
-... 1.2 7..
-5.3 ... .4.
-9.. ... ...
-
 
 Copy this rule into CLIPS after loading its Sudoku rules.
 
@@ -135,12 +123,6 @@ Copy this rule into CLIPS after loading its Sudoku rules.
 )
 
 
-(progn
-    (bind ?t0 (time))
-    (run)
-    (printout t (- (time) ?t0))
-)
-
 The puzzle is:
 
    4 * *  * 3 *  * * *
@@ -182,3 +164,7 @@ Rules used:
 0.297332048416138
 
 SOLUTION NOT FOUND !
+
+
+
+See the Magictour-top1465 for the SudoRules solution.

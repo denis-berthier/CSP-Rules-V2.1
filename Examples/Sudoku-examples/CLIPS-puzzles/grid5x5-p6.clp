@@ -1,11 +1,5 @@
+(CLIPS-solve "grid5x5-p6")
 
-(load "puzzles/grid5x5-p6.clp")
-(reset)
-(progn
-    (bind ?t0 (time))
-    (run)
-    (printout t (- (time) ?t0) crlf)
-)
 
 The puzzle is:
 
@@ -80,12 +74,12 @@ Rules used:
    Naked Pairs
    Hidden Pairs
 
-3.12679195404053
+CLIPS time = 233.252021074295
 
 
 
 With SudoRules:
-(solve-grid-as-list
+(solve-sudoku-list
  3 11 10 22  8   .  1 25  .  6  17 18  .  .  4   .  .  .  5 20   9  .  7 21 24
  .  .  6  .  .   .  .  .  .  .  16  .  5 24  .   .  3  4 11 22   .  . 19  .  .
  . 17  . 15  5  11 22  .  .  .   7  .  1  3  .   .  6  . 12 16  13  .  .  . 23

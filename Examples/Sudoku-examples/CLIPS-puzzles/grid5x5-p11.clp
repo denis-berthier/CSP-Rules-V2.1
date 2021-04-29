@@ -1,11 +1,5 @@
 
-(load "puzzles/grid5x5-p11.clp")
-(reset)
-(progn
-    (bind ?t0 (time))
-    (run)
-    (printout t (- (time) ?t0)))
-)
+(CLIPS-solve "grid5x5-p11")
 
 
 The puzzle is:
@@ -88,20 +82,14 @@ Rules used:
    XY-Wing
    Swordfish
 
-159.026204109192
-
-This is a long computation time.
-As it seemed the problem was with the output-frills, I re-started the computations with output-simple, with no meaningful difference. So I did it with output-none. Again, the difference is not meaningful.
-
-154.119117975235
-1.3 GB
-
+CLIPS time = 175.812818050385
+1.47 GB
 
 
 
 SudoRules solution:
 
-(solve-grid-as-list
+(solve-sudoku-list
     10 11  .  .  4  19  .  1  .  .   .  . 15  . 22   7  .  . 16  6   8  . 21  . 25
     17  3 20  .  .   . 21 13  .  .   .  8 19 23  .   .  .  4  1 25   2  .  6  .  .
     14 18  2 25  .   .  .  . 22  .   . 21  .  .  .  13  . 12 19  9   .  7 23  3 24

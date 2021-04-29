@@ -1,12 +1,4 @@
-
-(load "puzzles/grid5x5-p9.clp")
-(reset)
-(progn
-    (bind ?t0 (time))
-    (run)
-    (printout t (- (time) ?t0) crlf)
-)
-
+(CLIPS-solve "grid5x5-p9")
 
 The puzzle is:
 
@@ -84,14 +76,15 @@ Rules used:
    Naked Triples
    Hidden Triples
 
-241.648947000504
+CLIPS time = 233.252021074295
 
 1,35 GB
 
 
+
 with SudoRules:
 
-(solve-grid-as-list
+(solve-sudoku-list
  . 13  . 18  .   .  5  1  9  .   .  . 19  2  3   .  .  . 12  .  20 22  .  . 24
  .  . 22 12  .   4 11  .  .  .   5 17  .  . 15  18 21  1  . 19   .  .  .  .  2
  .  9  .  .  2   .  . 15 22  .   .  .  .  .  6   .  .  5  . 16   .  3  . 11  4

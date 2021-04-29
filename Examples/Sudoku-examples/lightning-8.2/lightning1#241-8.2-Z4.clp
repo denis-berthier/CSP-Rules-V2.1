@@ -279,7 +279,8 @@ computation time = 1m 37.25s
 ))
 (init-sukaku-list ?*RS*)
 (defglobal ?*erasable-cands* = (list-of-nirjck-to-list-of-labels (create$
-n4r1c6 n6r1c6 n4r1c9 n5r1c9 n4r2c1 n5r2c1 n7r2c1 n8r2c1 n7r2c4 n6r2c5 n8r2c5 n2r2c6 n6r2c6 n7r2c6 n5r2c8 n1r2c9 n5r2c9 n1r3c1 n4r3c1 n5r3c1 n7r3c1 n5r3c5 n4r3c9 n5r3c9 n7r3c9 n6r4c4 n5r6c1 n8r6c1 n6r6c4 n7r7c2 n6r7c6 n3r8c1 n8r8c1 n2r8c6 n7r8c6 n3r8c8 n3r9c1 n7r9c4 n3r9c5 n6r9c5 n2r9c8 n6r9c8 n7r9c8 n9r9c8)))
+    n4r1c6 n6r1c6 n4r1c9 n5r1c9 n4r2c1 n5r2c1 n7r2c1 n8r2c1 n7r2c4 n6r2c5 n8r2c5 n2r2c6 n6r2c6 n7r2c6 n5r2c8 n1r2c9 n5r2c9 n1r3c1 n4r3c1 n5r3c1 n7r3c1 n5r3c5 n4r3c9 n5r3c9 n7r3c9 n6r4c4 n5r6c1 n8r6c1 n6r6c4 n7r7c2 n6r7c6 n3r8c1 n8r8c1 n2r8c6 n7r8c6 n3r8c8 n3r9c1 n7r9c4 n3r9c5 n6r9c5 n2r9c8 n6r9c8 n7r9c8 n9r9c8
+)))
 
 (find-anti-backdoor-pairs-with-one-cand-in-list ?*erasable-cands*)
 
@@ -303,7 +304,7 @@ computation time = 12m 46.79s
    3789      4         1789      267       1368      5         267       23679     2679
 ))
 (init-sukaku-list ?*RS*)
-(load "/Users/berthier/Documents/Projets/CSP-Rules-Results/SudoRules-Results/Pattern-generated-puzzles/lightning/lightning1#241-W1-antibackdoor-pairs-forW8.txt")
+(load  (str-cat ?*CSP-Rules-current-version* "Examples/Sudoku-examples/lightning1#241-W1-antibackdoor-pairs-for-W8.txt"))
 
 (find-sukaku-2-steppers-among-pairs ?*RS* ?*W1-anti-backdoor-pairs-for-W8* )
 Total computation time = 96.7292859554291
@@ -319,7 +320,7 @@ no 2-steppers found in W8
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 
-FTE in 3 steps
+FTE(W1) in 3 steps:
 
 (solve "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
 ***********************************************************************************************
@@ -383,6 +384,8 @@ nb-facts = 0
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
 
+
+
 CLIPS> (apply-FTE-to-all-bivalue-pairs TRUE)
 
 FORCING-T&E(W1) applied to bivalue candidates n8r2c6 and n8r8c6 :
@@ -401,6 +404,8 @@ CURRENT RESOLUTION STATE:
    357       2357      157       9         136       267       8         4         2567
    3579      235789    6         247       38        48        1         23579     2579
    3789      4         1789      267       1368      5         267       23679     2679
+
+
 
 CLIPS> (apply-FTE-to-all-bivalue-pairs TRUE)
 
@@ -477,7 +482,8 @@ nb-facts = <Fact-1481965>
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 
-F3TE in 1 step
+F3TE(W1) in 1 step
+
 CLIPS> (solve "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = W1

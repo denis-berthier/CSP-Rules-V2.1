@@ -31,7 +31,7 @@
 ;;; this file allows to print all the targets of a rule on the same line
 
 (deffunction add-elimination-to-blocked-rule (?elim)
-    (if (eq (length$ ?*blocked-rule-eliminations*) 0)
+    (if (eq (str-length ?*blocked-rule-eliminations*) 0)
         then (bind ?*blocked-rule-eliminations* ?elim)
         else (bind ?*blocked-rule-eliminations* (str-cat ?*blocked-rule-eliminations* ", " ?elim))
     )
@@ -39,7 +39,7 @@
 
 
 (deffunction print-blocked-rule ()
-    (if (and ?*print-actions* (neq (length$ ?*blocked-rule-eliminations*) 0)) then
+    (if (and ?*print-actions* (neq (str-length ?*blocked-rule-eliminations*) 0)) then
         (printout t ?*blocked-rule-description* ?*implication-sign* ?*blocked-rule-eliminations* crlf)
     )
     (bind ?*blocked-rule-description* "")

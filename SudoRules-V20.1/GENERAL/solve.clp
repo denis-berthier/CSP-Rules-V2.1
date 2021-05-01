@@ -554,7 +554,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction tatham-to-sudoku-string (?str)
-    (bind ?len (length$ ?str))
+    (bind ?len (str-length ?str))
     (bind ?string "")
     (bind ?i 1)
     (while (<= ?i ?len)
@@ -595,13 +595,13 @@
 
 (deffunction init-tatham-string (?str)
     (bind ?string (tatham-to-sudoku-string ?str))
-    (if (neq (length$ ?string) (* ?*grid-size* ?*grid-size*)) then (printout t "Error in data length" crlf) (return))
+    (if (neq (str-length ?string) (* ?*grid-size* ?*grid-size*)) then (printout t "Error in data length" crlf) (return))
     (init-sudoku-string ?string)
 )
 
 (deffunction solve-tatham-string (?str)
     (bind ?string (tatham-to-sudoku-string ?str))
-    (if (neq (length$ ?string) (* ?*grid-size* ?*grid-size*)) then (printout t "Error in data length" crlf) (return))
+    (if (neq (str-length ?string) (* ?*grid-size* ?*grid-size*)) then (printout t "Error in data length" crlf) (return))
     (solve-sudoku-string ?string)
 )
 
@@ -1089,7 +1089,7 @@
 (deffunction cosmetic-sign-in-grid (?x)
     (bind ?cosmetic FALSE)
     (bind ?str (implode$ (create$ ?x)))
-    (bind ?len (length$ ?str))
+    (bind ?len (str-length ?str))
     (bind ?i 1)
     (while (<= ?i ?len)
         (if (member$ (sub-string ?i ?i ?str) ?*cosmetic-signs-in-grid*) then (bind ?cosmetic TRUE))
@@ -1097,6 +1097,7 @@
     )
     ?cosmetic
 )
+
 
 (deffunction clean-grid-list ($?data)
     (bind ?real-data (create$))

@@ -326,7 +326,7 @@
 ;;; to an internal label compatible with the current set of rules.
 
 (deffunction nirjck-to-nrc-triplet (?str)
-    (bind ?len (length$ ?str))
+    (bind ?len (str-length ?str))
     (bind ?list (create$))
     (bind ?i 1)
     (while (<= ?i ?len)

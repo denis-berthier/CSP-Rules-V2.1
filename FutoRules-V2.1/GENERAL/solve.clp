@@ -460,7 +460,7 @@
 ;;; BEWARE : THIS IS HIGHLY NON-OPTIMISED
 
 (deffunction tatham-to-digit-ineq-strings (?k ?str)
-    (bind ?len (length$ ?str))
+    (bind ?len (str-length ?str))
     (bind ?digits "")
     (bind ?tatham-horiz "")
     (bind ?tatham-verti "")
@@ -482,7 +482,7 @@
 
 
 (deffunction split-tatham-horiz (?k ?tatham-horiz)
-    (bind ?len (length$ ?tatham-horiz))
+    (bind ?len (str-length ?tatham-horiz))
     (bind ?list (create$))
     (bind ?current-row "")
     (bind ?kth-comma 0)
@@ -498,7 +498,7 @@
 
 
 (deffunction split-tatham-verti (?k ?tatham-verti)
-    (bind ?len (length$ ?tatham-verti))
+    (bind ?len (str-length ?tatham-verti))
     (bind ?list (create$))
     (loop-for-count (?i 1 ?k) (bind ?list (create$ ?list "")))
     (bind ?kth-comma 0)
@@ -530,7 +530,7 @@
 
 (deffunction translate-tatham-row (?k ?str)
     ;;; all RL sequences must have been replaced by LR in Tatham's data
-    (bind ?len (length$ ?str))
+    (bind ?len (str-length ?str))
     (bind ?str (permute-symbols-in-string R L ?str))
     (bind ?new-str "")
     (bind ?step 0)
@@ -550,7 +550,7 @@
 
 (deffunction translate-tatham-col (?k ?str)
     ;; all DU sequences must have been replaced by UD in Tatham's data; but it's not enough to do it in the initial data
-    (bind ?len (length$ ?str))
+    (bind ?len (str-length ?str))
     (bind ?str (permute-symbols-in-string D U ?str))
     (bind ?new-str "")
     (bind ?step 0)
@@ -605,9 +605,9 @@
     (bind ?digits (nth$ 1 ?list))
     (bind ?horiz (nth$ 2 ?list))
     (bind ?verti (nth$ 3 ?list))
-    (if (neq (length$ ?digits) (* ?k ?k)) then (printout t "Error in digits length " ?digits crlf) (return))
-    (if (neq (length$ ?horiz) (* ?k (- ?k 1))) then (printout t "Error in horiz length " ?horiz crlf) (return))
-    (if (neq (length$ ?verti) (* ?k (- ?k 1))) then (printout t "Error in verti length " ?verti crlf) (return))
+    (if (neq (str-length ?digits) (* ?k ?k)) then (printout t "Error in digits length " ?digits crlf) (return))
+    (if (neq (str-length ?horiz) (* ?k (- ?k 1))) then (printout t "Error in horiz length " ?horiz crlf) (return))
+    (if (neq (str-length ?verti) (* ?k (- ?k 1))) then (printout t "Error in verti length " ?verti crlf) (return))
 
     (solve ?k ?digits ?horiz ?verti)
 )

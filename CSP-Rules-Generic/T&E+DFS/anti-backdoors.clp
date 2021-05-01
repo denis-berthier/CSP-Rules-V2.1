@@ -46,7 +46,7 @@
     (bind ?solve-time (- ?time2 ?time1))
     (bind ?len (length$ ?*list-of-anti-backdoors*))
     (bind ?rat (str-cat ?*rating-type* "-"))
-    (bind ?back (if (or (eq ?len 0) (eq ?len 1)) then "ANTI-BACKDOOR" else "ANTI-BACKDOORS"))
+    (bind ?back (if (eq ?len 1) then "ANTI-BACKDOOR" else "ANTI-BACKDOORS"))
     (printout t crlf  ?len " " (str-cat ?rat ?back " FOUND: ") crlf)
     (print-list-of-labels ?*list-of-anti-backdoors*)
     (printout t crlf crlf)

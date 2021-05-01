@@ -78,7 +78,7 @@
     ;;; find the largest element in the list
     (bind ?max-size 0)
     (foreach ?datum ?sukaku-list
-        (bind ?max-size (max ?max-size (length$ (implode$ (create$ ?datum)))))
+        (bind ?max-size (max ?max-size (str-length (implode$ (create$ ?datum)))))
     )
     ; (printout t "max-data-length = " ?max-size crlf)
     ;;; one column (1 + ?max-size)
@@ -103,7 +103,7 @@
             (bind ?i (cell-index ?row ?col))
             ;;; read the content of the cell from the entries and turn it into a string:
             (bind ?cand-string (implode$ (create$ (nth$ ?i ?sukaku-list))))
-            (bind ?missing-spaces (- ?max-size (length$ ?cand-string)))
+            (bind ?missing-spaces (- ?max-size (str-length ?cand-string)))
             ;;; print the content of this cell + one space
             (printout t ?cand-string)
             (loop-for-count (+ ?missing-spaces 1) do (printout t " "))

@@ -28,14 +28,6 @@
 
 
 
-;;; Notice that "while" is used everywhere instead of more advanced control structures.
-;;; This is not very elegant.
-;;; But "while" is the only iterative control structure common to CLIPS and JESS.
-
-
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; functions for computing statistics
 ;;; on a series of puzzles written as a text file
@@ -69,9 +61,9 @@
 	(while (< ?i (+ ?p ?n 1))
 		(solve-grid-from-text-file "file-symb" ?i)
 		(printout "levels-file" ?*technique* crlf)
-		(printout "times-file" ?*puzzle-time* crlf)
+		(printout "times-file" ?*total-instance-time* crlf)
 		(printout "nb-facts-file" ?*nb-facts* crlf)
-		(printout t ?i " " ?*technique* " " ?*puzzle-time* " " ?*nb-facts* crlf crlf)
+		(printout t ?i " " ?*technique* " " ?*total-instance-time* " " ?*nb-facts* crlf crlf)
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
@@ -113,9 +105,9 @@
 	(while (< ?i (+ ?p ?n 1))
 		(solve-grid-from-text-file "file-symb" ?i)
 		(printout "levels-file" ?*technique* crlf)
-		(printout "times-file" ?*puzzle-time* crlf)
+		(printout "times-file" ?*total-instance-time* crlf)
 		(printout "nb-facts-file" ?*nb-facts* crlf)
-		(printout t ?i " " ?*technique* " " ?*puzzle-time* " " ?*nb-facts* crlf crlf)
+		(printout t ?i " " ?*technique* " " ?*total-instance-time* " " ?*nb-facts* crlf crlf)
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
@@ -1529,9 +1521,12 @@
 ;;; (one line per puzzle)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; No rule other than BRT is supposed to be loaded
 
-(deffunction density-of-n-grids-after-first-p-from-text-file (?file-name ?p ?n ?density-file)
-	(if ?*print-actions* then (print-banner))
+(deffunction density-of-n-grids-after-first-p-from-text-file (?puzzles-file ?p ?n ?density-file)
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "play.clp"))
+    (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 	(bind ?*add-instance-to-solved-list* TRUE)
 	(bind ?*solved-list* (create$))
 	(bind ?*no-sol-list* (create$))
@@ -1543,17 +1538,18 @@
 	(bind ?*max-time* 0)
 	(bind ?*total-outer-time* (time))
 	(close)
-	(open ?file-name "file-symb" "r")
+	(open ?puzzles-file "puzzles-file" "r")
 	(open ?density-file "density-file" "w")
 	(bind ?i 1)
-	(while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+	(while (<= ?i ?p) (readline "puzzles-file") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
-		(solve-grid-from-text-file "file-symb" ?i)
+		(solve-grid-from-text-file "puzzles-file" ?i)
+        (bind ?*density* (density ?*nb-candidates* ?*links-count*))
 		(printout "density-file" ?*density* crlf)
 		(bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file")
 	(close "density-file")
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
 	(printout t ";;; TOTAL OUTER TIME = " ?*total-outer-time* crlf)

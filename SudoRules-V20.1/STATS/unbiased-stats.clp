@@ -28,15 +28,7 @@
 
 
 
-;;; Notice that "while" is used everywhere instead of more advanced control structures.
-;;; This is not very elegant.
-;;; But "while" is the only iterative control structure common to CLIPS and JESS.
-
-
-
-
-
-;;; the functions in this file provide unbiased statistics when applied to collection of puzzles
+;;; The functions in this file provide unbiased statistics when applied to collection of puzzles
 ;;; produced by the top-down controlled-bias generator.
 
 
@@ -72,7 +64,7 @@
 )
 
 
-;;; new version has cf(26) = 1
+;;; new version has cf(26) = 1 (same results, but nicer computations)
 (defglobal ?*cf-sequence-17-35* =
 	(progn
 		(bind ?cf26 1)
@@ -561,7 +553,7 @@
 	(bind ?N26 (/ (* 81.0 80 79 78 77 76 75 74 73 72 71 70 69 68 67 66 65 64 63 62 61 60 59 58 57 56) 
 				  (* 26.0 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2)
 			   )
-	) ; 81! / (81-26)! / 26! (error if computed with exp function in Clips or Jess)
+	) ; 81! / (81-26)! / 26! (error if computed with exp function in CLIPS)
 	(bind ?NN26 (* ?N ?N26)) ; number of singly-indexed puzzles with 26 clues.
 	
 	(bind ?T (* ?nb-puzzles ?mean-number-of-grids)) ; number of tries
@@ -605,7 +597,7 @@
 	(bind ?N26 (/ (* 81.0 80 79 78 77 76 75 74 73 72 71 70 69 68 67 66 65 64 63 62 61 60 59 58 57 56) 
 				  (* 26.0 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2)
 			   )
-	) ; 81! / (81-26)! / 26! (error if computed with exp function in Clips or Jess)
+	) ; 81! / (81-26)! / 26! (error if computed with exp function in CLIPS)
 	;;; (bind ?NN26 (* ?N ?N26)) ; number of singly-indexed puzzles with 26 clues.
 	(bind ?NN26 ?N26) ; mean number of singly-indexed puzzles with 26 clues per grid.
 	(bind ?T (* ?nb-puzzles ?mean-number-of-grids)) ; number of tries

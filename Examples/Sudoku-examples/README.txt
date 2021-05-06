@@ -55,8 +55,8 @@ As a more serious comparison requires to compare harder puzzles than those provi
 
 <> The new cbg-000 folder contains the 21375 first series of puzzles in the controlled-bias collection (the full collection can be found here: https://github.com/denis-berthier/Controlled-bias_Sudoku_generator_and_collection).
 It explains how to compute the various ratings (in file "launch.txt")
-It has the detailed results for all of these possible ratings.
-It has a detailed comparison of them (in file "comparisons.txt"), showing that they differ only in rare cases. It is the most precise comparison ever made of the different ratings (more precise than what I previously published in [PBCS]).
+It has the detailed results for all of these possible ratings based on CSP-Rules (plus their SER — Sudoku Explainer Rating).
+It has a detailed comparison of them (in file "comparisons.txt" or "comparisons.rtf"), showing that they differ only in rare cases. It is the most precise comparison ever made of the different CSP-Rules ratings (more precise than what I previously published in [PBCS]).
 
 
 

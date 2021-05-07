@@ -1,0 +1,128 @@
+
+
+(solve 4 30
+"Y.GB..R.....YB...R....R.G..RRB"
+
+1 2 3 14 : 
+2 3 4 : 
+3 4 5 14 : 
+4 5 6 : 
+5 6 14 15 : 
+6 7 8 9 15 16 : 
+8 9 16 17 18 19 : 
+9 10 19 : 
+10 11 12 13 19 20 : 
+11 12 20 : 
+12 13 20 29 : 
+14 15 21 22 : 
+15 16 17 22 : 
+16 17 : 
+17 18 19 22 26 27 : 
+18 19 : 
+19 20 27 : 
+20 29 : 
+21 22 23 24 : 
+22 23 24 26 28 : 
+23 24 : 
+24 25 : 
+26 27 28 29 : 
+27 29 : 
+28 30 : 
+29 30
+
+)
+
+***********************************************************************************************
+***  MapRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************
+12 givens and 72 candidates
+entering BRT
+single ==> X2 = R
+Starting_init_links_with_<Fact-785>
+49 candidates, 48 csp-links and 129 links. Density = 10.97%
+starting non trivial part of solution
+Entering_level_W1_with_<Fact-1142>
+Entering_relation_bivalue_with_<Fact-1143>
+Entering_level_BC2_with_<Fact-1156>
+biv-chain[2]: X21{Y G} - X22{G Y} ==> X24 ≠ Y
+single ==> X24 = B
+Entering_level_W2_with_<Fact-1167>
+Entering_level_BC3_with_<Fact-1196>
+Entering_level_W3_with_<Fact-1198>
+whip[3]: X6{G Y} - X15{Y R} - X5{R .} ==> X16 ≠ G
+Entering_level_BC4_with_<Fact-1232>
+Entering_level_W4_with_<Fact-1234>
+Entering_level_BC5_with_<Fact-1259>
+Entering_level_W5_with_<Fact-1261>
+Entering_level_BC6_with_<Fact-1281>
+Entering_level_W6_with_<Fact-1283>
+whip[6]: X22{Y G} - X15{G R} - X16{R B} - X8{B G} - X6{G Y} - X5{Y .} ==> X17 ≠ Y
+whip[3]: X17{B G} - X22{G Y} - X26{Y .} ==> X27 ≠ B
+whip[3]: X17{B G} - X27{G Y} - X19{Y .} ==> X8 ≠ B
+biv-chain[2]: X8{G Y} - X6{Y G} ==> X9 ≠ G
+biv-chain[2]: X6{Y G} - X8{G Y} ==> X9 ≠ Y, X16 ≠ Y
+Entering_level_BC7_with_<Fact-1533>
+Entering_level_W7_with_<Fact-1535>
+whip[7]: X6{G Y} - X8{Y G} - X17{G B} - X19{B Y} - X27{Y G} - X26{G Y} - X22{Y .} ==> X15 ≠ G
+biv-chain[2]: X5{Y R} - X15{R Y} ==> X6 ≠ Y
+single ==> X6 = G
+single ==> X8 = Y
+biv-chain[2]: X19{G B} - X17{B G} ==> X27 ≠ G
+single ==> X27 = Y
+biv-chain[2]: X26{G B} - X17{B G} ==> X22 ≠ G
+single ==> X22 = Y
+single ==> X15 = R
+single ==> X5 = Y
+single ==> X16 = B
+single ==> X17 = G
+single ==> X19 = B
+single ==> X9 = R
+single ==> X10 = G
+single ==> X12 = B
+single ==> X20 = Y
+single ==> X11 = R
+single ==> X26 = B
+single ==> X21 = G
+GRID 0 SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = W[7]
+X1 = Y
+X2 = R
+X3 = G
+X4 = B
+X5 = Y
+X6 = G
+X7 = R
+X8 = Y
+X9 = R
+X10 = G
+X11 = R
+X12 = B
+X13 = Y
+X14 = B
+X15 = R
+X16 = B
+X17 = G
+X18 = R
+X19 = B
+X20 = Y
+X21 = G
+X22 = Y
+X23 = R
+X24 = B
+X25 = G
+X26 = B
+X27 = Y
+X28 = R
+X29 = R
+X30 = B
+Puzzle :
+init-time = 0.01s, solve time = 0.02s, total-time = 0.03s
+nb-facts=<Fact-1592>
+***********************************************************************************************
+***  MapRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r768
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.4
+***********************************************************************************************
+
+"YRGBYGRYRGRBYBRBGRBYGYRBGBYRRB"

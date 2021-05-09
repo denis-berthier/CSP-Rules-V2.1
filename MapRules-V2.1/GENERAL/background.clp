@@ -35,10 +35,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Map is generally formulated in terms of colours of countries, but one could use any symbols.
-
 ;;; Internally, all objects of any type are represented by integers
-
-;;; colours-names are used for displaying colours of countries
+;;; colour-names are used for displaying colours of countries
+;;; Whatever their number (generally 4 for planar maps), colours used in the givens MUST be the first ones in the list of colours defined below.
 
 
 

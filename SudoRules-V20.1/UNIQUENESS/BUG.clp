@@ -38,7 +38,7 @@
 =>
 	(assert (technique ?cont bug))
 	(bind ?*level* Uniqueness)
-	(bind ?*technique* BUG)
+	(bind ?*technique* (sym-cat ?*technique* +BUG))
 )
 
 
@@ -114,6 +114,7 @@
 =>
     ;(printout t "OK8: rule is activated" crlf)
 	(printout t "************ BEWARE: ASSUMPTION OF UNIQUENESS USED ******************" crlf)
+    (print-current-resolution-state-all-views)
     (bind ?lab (nrc-to-label ?nb ?row ?col))
 	(assert (candidate (context ?cont) (status c-value) (label ?lab) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)))
 	(if (or ?*print-actions* ?*print-bug*) then

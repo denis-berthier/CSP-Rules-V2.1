@@ -37,7 +37,7 @@
 =>
 	(assert (technique ?cont ur2))
 	(bind ?*level* Uniqueness)
-	(bind ?*technique* UR2)
+    (bind ?*technique* (sym-cat ?*technique* +UR2))
 )
 
 

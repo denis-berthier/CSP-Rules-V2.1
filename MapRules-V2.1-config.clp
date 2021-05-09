@@ -53,7 +53,7 @@
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r790");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r801");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
@@ -157,6 +157,21 @@
 ; (bind ?*print-levels* FALSE)
 ; (bind ?*print-solution* FALSE)
 
+;;; Note that the following print options are time consuming.
+;;; De-activate them for a faster solution.
+;;; The resolution state after BRT is printed by default.
+;;; Un-comment this if you do not want to print it:
+; (bind ?*print-RS-after-Singles* FALSE)
+
+;;; The resolution state after Singles and whips[1] is printed by default.
+;;; This is un-comment in MapRules, because there are no whips[1]:
+ (bind ?*print-RS-after-whips[1]* FALSE)
+
+;;; The resolution state is printed by default at the end of resolution
+;;; if the solution has not been found.
+;;; Un-comment this if you do not want to print it:
+; (bind ?*print-final-RS* FALSE)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -179,8 +194,8 @@
  
 
 ;;; Some additional rules I use frequently:
-; (bind ?*tz-chains* TRUE)
-; (bind ?*t-Whips* TRUE)
+ (bind ?*z-chains* TRUE)
+ (bind ?*t-Whips* TRUE)
 
 ;;; Some additional rules I use occasionally:
 ; (bind ?*Braids* TRUE)

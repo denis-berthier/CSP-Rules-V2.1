@@ -35,7 +35,7 @@
 =>
    (if ?*print-levels* then (printout t Entering_level_FB3))
    (assert (technique ?cont forcing-gbraid[3]))
-   (bind ?*technique* FB[3])
+   (bind ?*technique* FgB[3])
 )
 
 

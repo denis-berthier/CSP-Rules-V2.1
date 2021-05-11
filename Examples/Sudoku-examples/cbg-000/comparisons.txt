@@ -530,9 +530,6 @@ Note that one must always have W ≥ Exo+W
 In reality, there are no differences.
 
 
-No difference upto # 11642
-
-
 
 
 ----------------------------------------------------------------------------------------------------------------

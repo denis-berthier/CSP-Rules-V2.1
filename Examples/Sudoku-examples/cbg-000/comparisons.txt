@@ -18,6 +18,26 @@ Differences between ratings > 1 are marked with symbol " <<<<<<<<"
 Differences between ratings > 2 are marked with symbol " <<<<<<<< <<<<<<<<"
 
 
+Function used:
+(deffunction compare(?r1 ?r2 ?file1 ?file2 ?nb)
+	;;; ?r1 and ?r2 are the two ratings, e.g. W and B
+	;;; ?file1 ?file2 are the full paths to the ratings files
+	;;; ?nb is the length of the ratings files (here 21375)
+	(open ?file1 "file1" "r")
+	(open ?file2 "file2" "r")
+	(bind ?i 1)
+	(while (<= ?i ?nb) 
+		(bind ?rating1 (read-number "file1"))
+		(bind ?rating2 (read-number "file2") )
+		(if (neq ?rating1 ?rating2) then (printout t "#" ?i "; " ?r1 ?rating1 "; " ?r2 ?rating2 crlf))
+		(bind ?i (+ ?i 1))
+	)
+	(close "file2")
+	(close "file1")
+)
+
+
+
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
@@ -26,7 +46,7 @@ Differences between ratings > 2 are marked with symbol " <<<<<<<< <<<<<<<<"
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-W vs B: diff W-ratings-000.txt B-ratings-000.txt (in only 21375)
+W vs B: 
 
 Note that one must always have W ≥ B
 In reality, there are only 65 differences, i.e. a proportion of 0,30% differences.
@@ -108,7 +128,7 @@ And there are only 4 cases with difference > 1 (0,019%) and none with difference
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-W vs gW: diff W-ratings-000.txt gW-ratings-000.txt
+W vs gW: 
 
 Note that one must always have W ≥ gW
 In reality, there are only 48 differences, i.e. a proportion of 0,22% differences.
@@ -171,7 +191,7 @@ And there are only 5 cases with difference > 1 (0,023%) and only one with differ
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-W vs FW: diff W-ratings-000.txt FW-ratings-000.txt
+W vs FW: 
 
 Note that one must always have W ≥ FW
 In reality, there are no differences.
@@ -188,7 +208,7 @@ In reality, there are no differences.
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-W vs S+W: diff W-ratings-000.txt S+W-ratings-000.txt
+W vs S+W: 
 
 Note that one must always have W ≥ S+W
 In reality, there are only 18 differences, i.e. a proportion of 0,084% differences
@@ -220,7 +240,7 @@ And there are only 2 cases with difference >1 (0,009%) and only one with differe
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-gW vs S+gW: diff gW-ratings-000.txt S+gW-ratings-000.txt
+gW vs S+gW: 
 
 Note that one must always have gW ≥ S+gW
 In reality, there are only 16 differences, i.e. a proportion of 0,075% differences
@@ -253,7 +273,7 @@ For all these differences (i.e. not including the above 2), W = gW. The 'W vs gW
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-S+W vs gW: diff S+W-ratings-000.txt gW-ratings-000.txt
+S+W vs gW: 
 
 Note that there  is no a priori relation between S+W and gW.
 In reality, there are only 62 differences, i.e. a proportion of 0,29% differences.
@@ -330,7 +350,7 @@ And there are only 6 cases with difference > 1 (0,028%) and only 2 with differen
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-S+W vs S+gW: diff S+W-ratings-000.txt S+gW-ratings-000.txt
+S+W vs S+gW: 
 
 Note that one must always have S+W ≥ S+gW
 In reality, there are only 47 differences, i.e. a proportion of 0,22% differences
@@ -391,7 +411,7 @@ And there are only 4 cases with difference > 1 (0,019%) and no case with differe
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-W vs S+gW: diff W-ratings-000.txt S+gW-ratings-000.txt
+W vs S+gW: 
 
 Note that one must always have W ≥ S+gW
 In reality, there are only 62 differences, i.e. a proportion of 0,29% differences.
@@ -481,12 +501,87 @@ There are only 6 cases with difference > 1 (0,028%) and none with difference > 2
 ----------------------------------------------------------------------------------------------------------------
 
 
-S+W vs SFin+W: diff S+W-ratings-000.txt SFin+W-ratings-000.txt
+S+W vs SFin+W: 
 Note that one must always have S+W ≥ SFin+W
 In reality, there are no differences.
 
 
 
-S+gW vs SFin+gW: diff S+gW-ratings-000.txt SFin+gW-ratings-000.txt
+S+gW vs SFin+gW: 
 Note that one must always have S+gW ≥ SFin+gW
 In reality, there are no differences.
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+4) COMPARISONS INVOLVING EXOTIC PATTERNS
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+Here, exotic pattern means sk-loop, J-Exocet or oddagon
+
+W vs Exo+W: 
+Note that one must always have W ≥ Exo+W
+In reality, there are no differences.
+
+
+No difference upto # 11642
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+5) COMPARISONS INVOLVING UNIQUENESS
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+Here, Uniqueness means UR1, UR2, UR2b, UR3, UR4 and BUG+1
+Notice that, due to non-confluence of the rules for Uniqueness, they have to be applied as soon as  they are available. 
+Nevertheless, their rating doesn't have to be 0. 
+For URs, it is naturally 4 (because they rely on 4 CSP-Variables).
+For BUG+1, it's more arbitrary, as it can rely on any number of bivalue cells, but we shall consider it uses at least 5 cells (a clear under-rating). In all the cases in this file, it is applied after W4 and it appears in the U+W ratings file as 4+BUG.
+
+
+Function used:
+(deffunction compareU(?file1 ?file2 ?nb)
+	;;; ?r1 and ?r2 are the two ratings,  here. W and U+W
+	;;; ?file1 ?file2 are the full paths to the ratings files
+	;;; ?nb is the length of the ratings files (here 21375)
+	(open ?file1 "file1" "r")
+	(open ?file2 "file2" "r")
+	(bind ?i 1)
+	(while (<= ?i ?nb) 
+		(bind ?rating1 (read-number "file1"))
+		(bind ?rating2 (read-number "file2") )
+		(if 	(and (> ?rating1 5) 
+				(or (not (numberp ?rating2)) (neq ?rating1 ?rating2))
+			)
+			then (printout t "#" ?i "; " ?r1 ?rating1 "; " ?r2 ?rating2 crlf)
+		)
+		(bind ?i (+ ?i 1))
+	)
+	(close "file2")
+	(close "file1")
+)
+
+W vs U+W: 
+Note that one must always have W ≥ U+W
+In  reality, there are only 8 differences, i.e. a proportion of 0,27% differences.
+There are only 3 cases with difference > 1 (0,014%) and 2 cases with difference > 2  (0,0094%).
+
+#4918; W10; U+W4 <<<<<<<< <<<<<<<<
+#5189; W6; U+W5
+#6427; W7; U+W3 <<<<<<<< <<<<<<<<
+#7035; W6; U+W5
+#10720; W6; U+W4 <<<<<<<<
+#10971; W6; U+W5
+#16004; W6; U+W5
+#18740; W6; U+W5

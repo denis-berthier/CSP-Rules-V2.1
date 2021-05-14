@@ -85,7 +85,7 @@
 
 (deffunction CLIPS-general-init ()
     (reset)
-    ;;; initialise techniques
+    ;;; initialise techniques (copied from CLIPS-Sudoku)
     (assert (technique (name Naked-Single) (rank 1)))
     (assert (technique (name Hidden-Single) (rank 2)))
     (assert (technique (name Locked-Candidate-Single-Line) (rank 3)))
@@ -105,7 +105,7 @@
     (assert (technique (name Forced-Chain-XY) (rank 17)))
     (assert (technique (name Unique-Rectangle) (rank 18)))
 
-    ;;; initialise
+    ;;; initialise (copied from CLIPS-Sudoku)
     (assert (size-value (size 1) (value 1)))
     (assert (size-value (size 2) (value 2)))
     (assert (size-value (size 2) (value 3)))

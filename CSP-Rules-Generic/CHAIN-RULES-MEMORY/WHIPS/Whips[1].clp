@@ -34,7 +34,7 @@
 (defrule activate-whip[1]
 	(declare (salience ?*activate-whip[1]-salience*))
 	(logical (play) (context (name ?cont)))
-	(not (deactivate ?cont whip))
+	(not (deactivate ?cont whip[1]))
 =>
 	(if ?*print-levels* then (printout t Entering_level_W1))
 	(assert (technique ?cont whip[1]))

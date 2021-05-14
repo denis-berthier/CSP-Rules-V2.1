@@ -34,7 +34,7 @@
 (defrule activate-typed-bivalue-chain[2]
 	(declare (salience ?*activate-typed-bivalue-chain[2]-salience*))
 	(logical (play) (context (name ?cont)))
-	(not (deactivate typed-bivalue-chain))
+	(not (deactivate ?cont typed-bivalue-chain))
 =>
 	(if ?*print-levels* then (printout t Entering_level_TyBC2))
 	(assert (technique ?cont typed-bivalue-chain[2]))

@@ -34,7 +34,7 @@
 (defrule activate-bivalue-chain[2]
 	(declare (salience ?*activate-bivalue-chain[2]-salience*))
 	(logical (play) (context (name ?cont)))
-	(not (deactivate bivalue-chain))
+	(not (deactivate ?cont bivalue-chain))
 =>
 	(if ?*print-levels* then (printout t Entering_level_BC2))
 	(assert (technique ?cont bivalue-chain[2]))

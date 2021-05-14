@@ -33,8 +33,6 @@
 ;;; even-partial-loops have the same extension rule as odd ones,
 ;;; but the saliences are lower
 
-;;; extension of an existing partial-loop
-
 (defrule partial-loop[2]
    (declare (salience ?*partial-loop[2]-salience*))
    (logical

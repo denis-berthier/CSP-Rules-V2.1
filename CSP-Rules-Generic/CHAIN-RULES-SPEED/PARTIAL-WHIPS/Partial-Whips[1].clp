@@ -36,7 +36,7 @@
 (defrule partial-whip[1]
     (declare (salience ?*partial-whip[1]-salience*))
     (logical
-        ;;; ?llc1
+        ;;; ?zzz and ?llc1
         (exists-link ?cont ?llc1 ?zzz&:(not (known-to-be-in-solution ?zzz)))
 
         ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it

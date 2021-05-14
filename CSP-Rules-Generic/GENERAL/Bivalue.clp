@@ -31,7 +31,7 @@
 (defrule activate-bivalue
 	(declare (salience ?*activate-bivalue-salience*))
 	(logical (play) (context (name ?cont)))
-	(not (deactivate bivalue))
+	(not (deactivate ?cont bivalue))
 =>
 	(if ?*print-levels* then (printout t Entering_relation_bivalue))
 	(assert (technique ?cont bivalue))

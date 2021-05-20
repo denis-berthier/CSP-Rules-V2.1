@@ -64,7 +64,10 @@
         (not (candidate (context ?cont) (label ?xxx)))
     )
 =>
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (and (or ?*print-actions* ?*print-L0*) ?*print-HV-single*) then
 		(printout t "H-single: H" (row-name ?row) (column-name ?col) ?*equal-sign* (H-value-name ?val)  crlf)
 	)
@@ -83,7 +86,10 @@
         (not (candidate (context ?cont) (label ?xxx)))
     )
 =>
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
     (if (and (or ?*print-actions* ?*print-L0*) ?*print-HV-single*) then
 		(printout t "V-single: V" (row-name ?row) (column-name ?col) ?*equal-sign* (V-value-name ?val)  crlf)
 	)
@@ -102,7 +108,10 @@
         (not (candidate (context ?cont) (label ?xxx)))
     )
 =>
-    (if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
     (if (or ?*print-actions* ?*print-L0* ?*print-single*) then
         (printout t "N-single: N" (row-name ?row) (column-name ?col) ?*equal-sign* (V-value-name ?val)  crlf)
     )
@@ -130,7 +139,10 @@
         (not (candidate (context ?cont) (label ?xxx)))
     )
 =>
-    (if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
     (if (and (or ?*print-actions* ?*print-L0*) ?*print-I-single*) then
         (printout t "I-single: I" (row-name ?row) (column-name ?col) ?*equal-sign* (I-value-name ?val) crlf)
     )
@@ -149,7 +161,10 @@
         (not (candidate (context ?cont) (label ?xxx)))
     )
 =>
-    (if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
     (if (and (or ?*print-actions* ?*print-L0*) ?*print-P-single*) then
         (printout t "P-single: P" (row-name ?row) (column-name ?col) ?*equal-sign* (P-value-name ?val) crlf)
     )
@@ -168,7 +183,10 @@
         (not (candidate (context ?cont) (label ?xxx)))
     )
 =>
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
     (if (and (or ?*print-actions* ?*print-L0*) ?*print-B-single*) then
 		(printout t "B-single: B" (row-name ?row) (column-name ?col) ?*equal-sign* (B-value-name ?val) crlf)
 	)

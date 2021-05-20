@@ -43,7 +43,10 @@
     )
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 2)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-single*) then
 		(printout t "hidden-single: " (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)
@@ -57,7 +60,10 @@
 	(not (candidate (context ?cont) (status cand) (row ?row) (column ?col) (number ?nbx&~?nb)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 2)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-single*) then
 		(printout t "naked-single: " (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)

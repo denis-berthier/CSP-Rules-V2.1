@@ -50,7 +50,10 @@
 	?mod <- (candidate (context ?cont) (status cand) (type horiz-comb) (number ?comb) (row ?row) (column ?col))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-naked-single*) then
 		(printout t "horizontal-magic-sector: h" (row-name ?row) (column-name ?col) ?*equal-sign* ?comb crlf)
 	)
@@ -65,7 +68,10 @@
 	?mod <- (candidate (context ?cont) (status cand) (type verti-comb) (number ?comb) (row ?row) (column ?col))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-naked-single*) then
 		(printout t "vertical-magic-sector: v" (row-name ?row) (column-name ?col) ?*equal-sign* ?comb crlf)
 	)
@@ -105,7 +111,10 @@
 	(not (candidate (context ?cont) (row ?row) (column ?col) (number ?nbx&~?nb)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-naked-single*) then
 		(printout t "naked-single" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
     )
@@ -121,7 +130,10 @@
 	(not (candidate (context ?cont) (type horiz-comb) (row ?row) (column ?col) (number ?nbx&~?nb)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-naked-single*) then
 		(printout t "naked-single" ?*implication-sign* "h" (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)
@@ -137,7 +149,10 @@
 	(not (candidate (context ?cont) (type verti-comb) (row ?row) (column ?col) (number ?nbx&~?nb)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-naked-single*) then
 		(printout t "naked-single" ?*implication-sign* "v" (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)

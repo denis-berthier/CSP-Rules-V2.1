@@ -57,7 +57,10 @@
 	(not (candidate (context ?cont) (type white) (number ?nb) (row ?row) (column ?colx&~?col) (column-of-horizontal-controller ?ctr-col)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-hidden-single*) then
 		(printout t "hidden-single-in-magic-horiz-sector" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
     )
@@ -78,7 +81,10 @@
 	(not (candidate (context ?cont) (type white) (number ?nb) (column ?col) (row ?rowx&~?row) (row-of-vertical-controller ?ctr-row)))
 =>
     (modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-hidden-single*) then
 		(printout t "hidden-single-in-magic-verti-sector" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)
@@ -101,7 +107,10 @@
 	(not (candidate (context ?cont) (type white) (number ?nb) (row ?row) (column ?colx&~?col) (column-of-horizontal-controller ?ctr-col)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-hidden-single*) then
 		(printout t "hidden-single-for-magic-digit-in-horiz-sector" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)
@@ -121,7 +130,10 @@
 	(not (candidate (context ?cont) (type white) (number ?nb) (column ?col) (row ?rowx&~?row) (row-of-vertical-controller ?ctr-row)))
 =>
     (modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-hidden-single*) then
 		(printout t "hidden-single-for-magic-digit-in-verti-sector" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)

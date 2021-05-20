@@ -47,8 +47,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 
-;;; DUMMY VERSIONS OF APPLICATION SPECIFIC FUNCTIONS
-;;; (TO BE REDEFINED BY EACH APPLICATION)
+;;; DEFAULT GENERIC VERSIONS OF OUTPUT FUNCTIONS
+;;; (CAN BE REDEFINED BY EACH APPLICATION)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -60,8 +60,6 @@
 ;;; printing of labels and csp variables
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; provisoire
 
 (deffunction label-name (?lab) ?lab)
 (deffunction csp-variable-name (?csp) ?csp)
@@ -80,6 +78,18 @@
     )
 )
 
+(deffunction print-list-of-label-pairs ($?list)
+    ;;; the length of ?list is supposed to be even
+    (bind ?len (length$ ?list))
+    (bind ?i 1)
+    (while (<= ?i ?len)
+        (printout t (print-label (nth$ ?i ?list)) " ")
+        (bind ?i (+ ?i 1))
+        (printout t (print-label (nth$ ?i ?list)))
+        (printout t "     ")
+        (bind ?i (+ ?i 1))
+    )
+)
 
 
 

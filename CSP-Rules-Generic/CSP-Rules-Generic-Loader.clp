@@ -267,33 +267,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;; utilities allowing to control locally what is printed:
-(defglobal ?*print-actions-backup* = ?*print-actions*)
-(defglobal ?*print-RS-after-Singles-backup* = ?*print-RS-after-Singles*)
-(defglobal ?*print-levels-backup* = ?*print-levels*)
-(defglobal ?*print-hypothesis-backup* = ?*print-hypothesis*)
-(defglobal ?*print-phase-backup* = ?*print-phase*)
-(deffunction mute-print-options ()
-    (bind ?*print-actions-backup* ?*print-actions*)
-    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
-    (bind ?*print-levels-backup* ?*print-levels*)
-    (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
-    (bind ?*print-phase-backup* ?*print-phase*)
-    (bind ?*print-actions* FALSE)
-    (bind ?*print-RS-after-Singles-backup* FALSE)
-    (bind ?*print-levels* FALSE)
-    (bind ?*print-hypothesis* FALSE)
-    (bind ?*print-phase* FALSE)
-)
-(deffunction restore-print-options ()
-    (bind ?*print-actions* ?*print-actions-backup*)
-    (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
-    (bind ?*print-levels* ?*print-levels-backup*)
-    (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
-    (bind ?*print-phase* ?*print-phase-backup*)
-)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; basic parameters, structures and functions

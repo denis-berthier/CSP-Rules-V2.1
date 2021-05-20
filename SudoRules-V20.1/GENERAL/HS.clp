@@ -54,7 +54,10 @@
 	(not (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?colx&~?col)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L1* ?*print-hidden-single*) then
 		(printout t "hidden-single-in-a-row" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)
@@ -70,7 +73,10 @@
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col) (row ?rowx&~?row)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L1* ?*print-hidden-single*) then
 		(printout t "hidden-single-in-a-column" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)
@@ -86,7 +92,10 @@
 	(not (candidate (context ?cont) (status cand) (number ?nb) (block ?blk) (square ?sqx&~?sq)))
 =>
 	(modify ?mod (status c-value))
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+    (if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L1* ?*print-hidden-single*) then
 		(printout t "hidden-single-in-a-block" ?*implication-sign* (row-name ?row) (column-name ?col) ?*equal-sign* (numeral-name ?nb) crlf)
 	)

@@ -61,7 +61,10 @@
         (not (candidate (context ?cont) (label ?xxx)))
     )
 =>
-	(if (eq ?cont 0) then (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1)))
+	(if (eq ?cont 0) then
+        (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+        (bind ?*nb-candidates* (- ?*nb-candidates* 1))
+    )
 	(if (or ?*print-actions* ?*print-L0* ?*print-single*) then
 		(printout t "single" ?*implication-sign*) (print-asserted-candidate ?cand) (printout t crlf)
 	)

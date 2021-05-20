@@ -454,9 +454,9 @@
 
 ;;; By default, the solution (if found) is printed:
 (defglobal ?*print-solution* = TRUE)
-;;; ; By default, the resolution state after BRT is printed:
+;;; By default, the resolution state after BRT is printed:
 (defglobal ?*print-RS-after-Singles* = TRUE)
-;;; ; By default, the resolution state after whips[1] is printed, if there the CSP has whips[1]
+;;; By default, the resolution state after whips[1] is printed, if the CSP has whips[1]
 (defglobal ?*has-whips[1]* = TRUE)
 (defglobal ?*print-RS-after-whips[1]* = TRUE)
 ;;; By default, the resolution state at the end of resolution (if a solution is not found) is printed:
@@ -471,6 +471,40 @@
 (defglobal ?*print-exceptional-patterns* = TRUE)
 (defglobal ?*debug* = FALSE)
 (defglobal ?*g-debug* = FALSE)
+
+
+;;; Utilities allowing to change locally the control of what is printed:
+(defglobal ?*print-actions-backup* = ?*print-actions*)
+(defglobal ?*print-RS-after-Singles-backup* = ?*print-RS-after-Singles*)
+(defglobal ?*print-RS-after-whips[1]-backup* = ?*print-RS-after-whips[1]*)
+(defglobal ?*print-levels-backup* = ?*print-levels*)
+(defglobal ?*print-hypothesis-backup* = ?*print-hypothesis*)
+(defglobal ?*print-phase-backup* = ?*print-phase*)
+
+(deffunction mute-print-options ()
+    (bind ?*print-actions-backup* ?*print-actions*)
+    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
+    (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
+    (bind ?*print-levels-backup* ?*print-levels*)
+    (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
+    (bind ?*print-phase-backup* ?*print-phase*)
+    
+    (bind ?*print-actions* FALSE)
+    (bind ?*print-RS-after-Singles* FALSE)
+    (bind ?*print-RS-after-whips[1]* FALSE)
+    (bind ?*print-levels* FALSE)
+    (bind ?*print-hypothesis* FALSE)
+    (bind ?*print-phase* FALSE)
+)
+
+(deffunction restore-print-options ()
+    (bind ?*print-actions* ?*print-actions-backup*)
+    (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
+    (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+    (bind ?*print-levels* ?*print-levels-backup*)
+    (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
+    (bind ?*print-phase* ?*print-phase-backup*)
+)
 
 
 

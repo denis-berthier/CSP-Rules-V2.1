@@ -368,7 +368,7 @@
 			)
 		)
 	)
-	(if ?*print-initial-state* then (printout t ?*nb-csp-variables-solved* " givens"))
+	; (if ?*print-initial-state* then (printout t ?*nb-csp-variables-solved* " givens") crlf)
 )
 
 
@@ -426,7 +426,7 @@
 			)
 		)
 	)
-	(if ?*print-initial-state* then (printout t ", " ?*nb-candidates* " candidates" crlf))
+	; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
 )
 
 
@@ -481,7 +481,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
@@ -538,7 +538,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
@@ -647,7 +647,7 @@
 			)
 		)
 	)
-	(if ?*print-initial-state* then (printout t ", " ?*nb-candidates* " candidates" crlf))
+	; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
 )
 
 
@@ -685,7 +685,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
@@ -756,7 +756,7 @@
 			)
 		)
 	)
-	(if ?*print-initial-state* then (printout t ?*nb-csp-variables-solved* " givens"))
+	; (if ?*print-initial-state* then (printout t ?*nb-csp-variables-solved* " givens") crlf)
 )
 
 
@@ -811,7 +811,7 @@
 			)
 		)
 	)
-	(if ?*print-initial-state* then (printout t ", " ?*nb-candidates* " candidates" crlf))
+	; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
 )
 
 
@@ -856,7 +856,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb-facts = " ?*nb-facts* crlf)
 		;(printout t "nb rules " ?nb-rules crlf)
 		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
@@ -965,7 +965,7 @@
     )
     (assert (context (name 0)))
     (assert (grid 0))
-    (if ?*print-initial-state* then (printout t ", " ?*nb-candidates* " candidates" crlf))
+    ; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
 )
 
 ;;; redefine the generic function "init-resolution-state" as:
@@ -999,7 +999,7 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        (printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb-facts = " ?*nb-facts* crlf)
         ;(printout t "nb rules " ?nb-rules crlf)
         ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )

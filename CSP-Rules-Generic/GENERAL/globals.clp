@@ -445,7 +445,7 @@
 
 (defglobal ?*print-initial-state* = TRUE) ; number of values and candidates, csp-links, links, density
 (defglobal ?*print-actions* = TRUE) ; print the singles and all the non-ECP rules
-(defglobal ?*print-levels* = TRUE) ; <<<<<<<<<<<<<<<<<< useful for tracking the advancement of hard instances
+(defglobal ?*print-levels* = FALSE) ; <<<<<<<<<<<<<<<<<< useful for tracking the advancement of hard instances
 
 (defglobal ?*print-all-details* = FALSE) ; includes any of the following
 (defglobal ?*print-init-details* = FALSE) ; print data about c-values and candidates initialisation
@@ -477,7 +477,9 @@
 (defglobal ?*print-actions-backup* = ?*print-actions*)
 (defglobal ?*print-RS-after-Singles-backup* = ?*print-RS-after-Singles*)
 (defglobal ?*print-RS-after-whips[1]-backup* = ?*print-RS-after-whips[1]*)
+(defglobal ?*print-final-RS-backup* = ?*print-final-RS*)
 (defglobal ?*print-levels-backup* = ?*print-levels*)
+(defglobal ?*print-time-backup* = ?*print-time*)
 (defglobal ?*print-hypothesis-backup* = ?*print-hypothesis*)
 (defglobal ?*print-phase-backup* = ?*print-phase*)
 
@@ -485,23 +487,30 @@
     (bind ?*print-actions-backup* ?*print-actions*)
     (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
     (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
+    (bind ?*print-final-RS-backup* ?*print-final-RS*)
     (bind ?*print-levels-backup* ?*print-levels*)
+    (bind ?*print-time-backup* ?*print-time*)
     (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
     (bind ?*print-phase-backup* ?*print-phase*)
     
     (bind ?*print-actions* FALSE)
     (bind ?*print-RS-after-Singles* FALSE)
     (bind ?*print-RS-after-whips[1]* FALSE)
+    (bind ?*print-final-RS* FALSE)
     (bind ?*print-levels* FALSE)
+    (bind ?*print-time* FALSE)
     (bind ?*print-hypothesis* FALSE)
     (bind ?*print-phase* FALSE)
+
 )
 
 (deffunction restore-print-options ()
     (bind ?*print-actions* ?*print-actions-backup*)
     (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
     (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+    (bind ?*print-final-RS* ?*print-final-RS-backup*)
     (bind ?*print-levels* ?*print-levels-backup*)
+    (bind ?*print-time* ?*print-time-backup*)
     (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
     (bind ?*print-phase* ?*print-phase-backup*)
 )

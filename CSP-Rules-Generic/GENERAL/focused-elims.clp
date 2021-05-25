@@ -56,10 +56,10 @@
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (if ?*print-time* then
         (printout t "solve-time = " (seconds-to-hours ?*solve-instance-time*) crlf)
-        (printout t "nb-facts=" ?*nb-facts* crlf)
+        (printout t "nb-facts = " ?*nb-facts* crlf)
         (printout t crlf)
     )
-    (if (= ?cont 0) then (print-current-resolution-state-in-context 0))
+    (if (and (eq ?cont 0) ?*print-final-RS*) then (print-current-resolution-state-in-context 0))
     ;;; now clean the focus list:
     (do-for-all-facts ((?focus candidate-in-focus)) (= ?focus:context ?cont) (retract ?focus))
 )
@@ -67,7 +67,7 @@
 
 (deffunction try-to-eliminate-candidates ($?list)
     (if (or ?*t-Whips* ?*Typed-t-Whips*) then
-        (printout t "WARNING: this function  doesn't work if t-whips or typed-t-whips are active." crlf)
+        (printout t "WARNING: this function  does not work if t-whips or typed-t-whips are active." crlf)
         (halt)
     )
     (try-to-eliminate-candidates-from-context 0 $?list)

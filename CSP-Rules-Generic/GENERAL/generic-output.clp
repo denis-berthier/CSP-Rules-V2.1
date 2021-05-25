@@ -89,6 +89,7 @@
         (printout t "     ")
         (bind ?i (+ ?i 1))
     )
+    TRUE
 )
 
 

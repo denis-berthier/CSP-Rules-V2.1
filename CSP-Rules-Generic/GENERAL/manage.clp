@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;              January 2006 - May 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -232,15 +232,23 @@
 
 
 
-(defrule print-unsolved-final-state
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; DETECT AND PRINT FINAL STATE IF NO SOLUTION FOUND
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrule detetct-and-print-unsolved-final-state
 	(declare (salience ?*print-final-state-salience*))
 	(context (name ?cont&0))
 	(not (solution-found ?cont))
 =>
-    (if ?*print-actions* then
+    (if ?*print-final-RS* then
         (printout t "CSP IS NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
-        (if ?*print-final-RS* then (print-current-resolution-state))
+        (printout t "Final resolution state:" crlf)
+        (print-current-resolution-state)
     )
+    (bind ?*solution-found* FALSE)
 	(halt)
 )
 

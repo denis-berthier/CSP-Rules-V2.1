@@ -365,6 +365,40 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; CLEAN WHAT'S LEFT BY T&E
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrule TE2-clean-1
+    (declare (salience ?*TE-clean-salience*))
+    ?t <- (technique 0 TE2)
+=>
+    (retract ?t)
+)
+
+
+(defrule TE2-clean-2
+    (declare (salience ?*TE-clean-salience*))
+    (not (technique 0 TE2))
+    ?ph <- (phase ?x ?y)
+=>
+    (retract ?ph)
+)
+
+
+(defrule TE2-clean-3
+    (declare (salience ?*TE-clean-salience*))
+    (not (technique 0 TE2))
+    (not (phase ? ?))
+    ?b <- (TE1-tried ?par&0 ?ph ?gen-cand)
+=>
+    (retract ?b)
+)
+
+
+
 
 
 

@@ -37,17 +37,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction print-list-of-label-pairs ($?list)
-    (bind ?len (length$ ?list))
-    (bind ?i 1)
-    (while (<= ?i ?len)
-        (printout t (print-label (nth$ ?i ?list)) " ")
-        (bind ?i (+ ?i 1))
-        (printout t (print-label (nth$ ?i ?list)))
-        (printout t "     ")
-        (bind ?i (+ ?i 1))
-    )
-)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

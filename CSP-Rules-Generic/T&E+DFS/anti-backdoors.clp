@@ -228,7 +228,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defrule detect-anti-backdoor
+(defrule Anti-backdoor-pairs-detect-anti-backdoor
     (declare (salience ?*solution-found-salience*))
     (context (name ?cont&~0) (parent ?par&0) (generating-cand ?gen-cand))
     ?pl <- (technique ?cont BRT)

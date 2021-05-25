@@ -225,7 +225,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defrule detect-backdoor
+(defrule Backdoors-detect-backdoor
     (declare (salience ?*solution-found-salience*))
     (context (name ?cont&~0) (parent ?par&0) (generating-cand ?gen-cand))
     ?pl <- (technique ?cont BRT)
@@ -289,7 +289,7 @@
 )
 
 
-(defrule Anti-backdoor-pairs-clean-2a
+(defrule Backdoors-clean-2a
     (declare (salience ?*TE-clean-salience*))
     (not (technique 0 backdoors))
     ?f <- (find-backdoors 0)
@@ -298,7 +298,7 @@
 )
 
 
-(defrule Anti-backdoors-clean-3
+(defrule Backdoors-clean-3
     (declare (salience ?*TE-clean-salience*))
     (not (technique 0 backdoors))
     ?f <- (backdoors-tried 0 ?)

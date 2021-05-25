@@ -164,7 +164,7 @@
 ; (bind ?*print-init-details* TRUE)
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-actions* FALSE)
-; (bind ?*print-levels* FALSE)
+; (bind ?*print-levels* TRUE)
 ; (bind ?*print-solution* FALSE)
 
 ;;; Note that the following print options are time consuming.
@@ -329,7 +329,7 @@
 ;;; Un-comment the proper line(s) below to change the level of details you want to be printed.
 ;;; This can make T&E faster.
 ; (bind ?*print-actions* FALSE)
-; (bind ?*print-levels* FALSE)
+; (bind ?*print-levels* TRUE)
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-solution* FALSE)
 ; (bind ?*print-hypothesis* FALSE)
@@ -450,7 +450,7 @@
 
 ;;; To block all output:
 ; (bind ?*print-actions* FALSE)
-; (bind ?*print-levels* FALSE)
+; (bind ?*print-levels* TRUE)
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-solution* FALSE)
 ; (bind ?*print-hypothesis* FALSE)

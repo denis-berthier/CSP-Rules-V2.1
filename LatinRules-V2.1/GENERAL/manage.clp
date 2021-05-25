@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;              January 2006 - May 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -266,12 +266,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; PRINT FINAL STATE IF NO SOLUTION FOUND
+;;; DETECT AND PRINT FINAL STATE IF NO SOLUTION FOUND
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defrule print-unsolved-final-state
+(defrule detetct-and-print-unsolved-final-state
 	(declare (salience ?*print-final-state-salience*))
 	(grid ?g)
 	(context (name 0))
@@ -283,10 +283,11 @@
     (if ?*print-actions* then
         (printout t "PUZZLE " ?g " IS NOT SOLVED. " (- ?*nb-of-cells*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
     )
-    (if (and ?*print-actions* (<= ?*grid-size* 25)) then
-        (printout t "CURRENT RESOLUTION STATE:" crlf)
+    (if (and ?*print-final-RS* (<= ?*grid-size* 25)) then
+        (printout t "Final resolution state:" crlf)
         (print-current-resolution-state)
     )
+    (bind ?*solution-found* FALSE)
     (halt)
 )
 

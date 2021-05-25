@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;              January 2006 - May 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -289,15 +289,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; PRINT FINAL STATE IF NO SOLUTION FOUND
+;;; DETECT AND PRINT FINAL STATE IF NO SOLUTION FOUND
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(defrule deal-with-unsolved-final-state
+(defrule detetct-and-print-unsolved-final-state
     (declare (salience ?*print-unsolved-final-state-salience*))
-    (logical (context (name ?cont&0)))
+    (context (name ?cont&0))
     (grid ?g)
     (technique ?cont BRT)
     (not (solution-found ?cont))
@@ -306,8 +305,11 @@
     (if ?*add-instance-to-solved-list* then
         (bind ?*not-solved-list* (union$ ?*not-solved-list* (create$ ?g)))
     )
-    (if (and ?*Colours* ?*print-IO-solution*) then (print-RS-IO))
-    (if ?*print-HV-solution* then (print-RS-HV))
+    (if ?*print-final-RS* then
+        (if (and ?*Colours* ?*print-IO-solution*) then (print-RS-IO))
+        (if ?*print-HV-solution* then (print-RS-HV))
+    )
+    (bind ?*solution-found* FALSE)
     (halt)
 )
 

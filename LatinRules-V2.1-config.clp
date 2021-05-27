@@ -192,17 +192,12 @@
  (bind ?*Bivalue-Chains* TRUE)
  (bind ?*Whips* TRUE)
 
-; (bind ?*bivalue-chains-max-length* 20)
-; (bind ?*whips-max-length* 36)
-; (bind ?*braids-max-length* 36)
-
-
 ;;; Some additional rules I use frequently:
+; (bind ?*z-Chains* TRUE)
 ; (bind ?*t-Whips* TRUE)
 
 
 ;;; Some additional rules I use occasionally:
-; (bind ?*z-Chains* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*Oddagons* TRUE)
 
@@ -232,8 +227,12 @@
 ;;; Change the default maximal lengths of the chain patterns
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Don't change these lengths unless you have some reason:
+;;; Don't change these lengths unless you have some reason.
 
+;;; The maximum length of all the generic chains can be lowered at once:
+; (defglobal ?*all-chains-max-length* = 36)
+
+;;; Maximum lengths can also be lowered individually:
 ; (bind ?*bivalue-chains-max-length* 20)
 ; (bind ?*t-whips-max-length* 36)
 ; (bind ?*whips-max-length* 36)

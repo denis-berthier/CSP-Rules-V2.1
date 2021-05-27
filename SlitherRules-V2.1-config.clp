@@ -213,25 +213,23 @@
 ;;; due to the high branchiung factor of Slitherlink and resulting potential memory overflow
  (bind ?*Whips[1]* TRUE)
  (bind ?*Bivalue-Chains* TRUE)
- (bind ?*bivalue-chains-max-length* 5)
  (bind ?*Whips* TRUE)
- (bind ?*whips-max-length* 5)
  
 
 
 ;;; Some additional rules I use frequently:
 ; (bind ?*z-Chains* TRUE)
-; (bind ?*z-chains-max-length* 5)
 ; (bind ?*t-Whips* TRUE)
-; (bind ?*t-whips-max-length* 5)
 
 ;;; Some rules I use occasionally:
 ; (bind ?*G2-Whips* = TRUE)
-; (bind ?*g2whips-max-length* 5)
 
-;;; Some rules I almost never:
+;;; Some rules I almost never use:
 ; (bind ?*Braids* TRUE)
-; (bind ?*braids-max-length* 5)
+
+
+;;; The maximum length of all the generic chains can be lowered at once:
+; (defglobal ?*all-chains-max-length* = 5)
 
 
 

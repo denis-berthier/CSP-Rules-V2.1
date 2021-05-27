@@ -202,7 +202,13 @@
 ; (bind ?*Oddagons* TRUE)
 
 
+;;; The maximum length of all the generic chains can be lowered at once:
+; (defglobal ?*all-chains-max-length* = 36)
+
+;;; Maximum lengths can also be lowered individually:
 ; (bind ?*bivalue-chains-max-length* 20)
+; (bind ?*z-chains-max-length* 20)
+; (bind ?*t-whips-max-length* 36)
 ; (bind ?*whips-max-length* 36)
 ; (bind ?*braids-max-length* 36)
 

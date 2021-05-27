@@ -292,32 +292,38 @@
 (defglobal ?*Forcing-G-Braids* = FALSE)
 
 
-;;; by default, all the chain rules of any coded length are loaded when their pattern is activated,
-;;; but this can be changed by the user
+;;; By default, all the chain rules of any coded length are loaded when their pattern is activated,
+;;; but this can be changed by the user.
 
-(defglobal ?*bivalue-chains-max-length* = 20)
-(defglobal ?*z-chains-max-length* = 20)
-(defglobal ?*oddagons-max-length* = 15)
-(defglobal ?*t-whips-max-length* = 36)
-(defglobal ?*whips-max-length* = 36)
-(defglobal ?*braids-max-length* = 36)
+;;; The maximaum length of all the chains can be lowered at once:
+(defglobal ?*all-chains-max-length* = 36)
 
-(defglobal ?*g-bivalue-chains-max-length* = 20)
-(defglobal ?*g2whips-max-length* = 36)
-(defglobal ?*gwhips-max-length* = 36)
-(defglobal ?*g2braids-max-length* = 36)
-(defglobal ?*gbraids-max-length* = 36)
+;;; Maximum lengths can also be lowered individually
 
-(defglobal ?*typed-bivalue-chains-max-length* = 20)
-(defglobal ?*typed-z-chains-max-length* = 20)
-(defglobal ?*typed-t-whips-max-length* = 36)
-(defglobal ?*typed-whips-max-length* = 36)
-(defglobal ?*typed-gwhips-max-length* = 36)
+(defglobal ?*bivalue-chains-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*z-chains-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*oddagons-max-length* = (min 15 ?*all-chains-max-length*))
+(defglobal ?*t-whips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*whips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*braids-max-length* = (min 36 ?*all-chains-max-length*))
 
-(defglobal ?*forcing-whips-max-length* = 36)
-(defglobal ?*forcing-gwhips-max-length* = 36)
-(defglobal ?*forcing-braids-max-length* = 36)
-(defglobal ?*forcing-gbraids-max-length* = 36)
+(defglobal ?*g-bivalue-chains-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*g2whips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*gwhips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*g2braids-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*gbraids-max-length* = (min 36 ?*all-chains-max-length*))
+
+(defglobal ?*typed-bivalue-chains-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*typed-z-chains-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*typed-t-whips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*typed-whips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*typed-gwhips-max-length* = (min 36 ?*all-chains-max-length*))
+
+(defglobal ?*forcing-whips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*forcing-gwhips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*forcing-braids-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*forcing-gbraids-max-length* = (min 36 ?*all-chains-max-length*))
+
 
 
 (defglobal ?*special-TE* = FALSE) ;;; by default, there is no priority in T&E for bivalue candidates
@@ -1426,8 +1432,8 @@
 (defglobal ?*pre-computed-all-bi-braid-contrads* = FALSE)
 
 ;;; if bi-braids are used, bi-whips of minimum length up to 2 must be used
-(defglobal ?*biwhips-max-length* = 36)
-(defglobal ?*bibraids-max-length* = 36)
+(defglobal ?*biwhips-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*bibraids-max-length* = (min 36 ?*all-chains-max-length*))
 
 ;;; When W*-Whips or B*-Braids are used, ?*ECP** is automatically set to True
 ;;; but it can be used independently of W*-Whips or B*-Braids

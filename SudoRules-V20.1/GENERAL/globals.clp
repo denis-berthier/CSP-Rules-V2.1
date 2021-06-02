@@ -67,7 +67,11 @@
 (deffunction redefine-internal-factors ()
     (bind ?*internal-factor-0*  (if (or (eq ?*segment-size* 2) (eq ?*segment-size* 3))then 10 else 100))
     (bind ?*internal-factor* ?*internal-factor-0*)
-    (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*) then
+    (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*
+            ?*Typed-g-Whips*
+            ?*Forcing-G-Whips* ?*Forcing-G-Braids*
+            ?*All-generic-chain-rules*
+        ) then
         (bind ?*internal-factor* ?*internal-factor-0*)
         (bind ?i 1)
         (while (< ?i ?*segment-size*)

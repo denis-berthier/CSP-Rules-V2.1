@@ -46,6 +46,9 @@
 (deffunction print-block (?x) (printout t (block-name ?x)))
 (deffunction print-square (?x) (printout t (square-name ?x)))
 (deffunction print-square-2 (?r ?c) (print-row ?r) (print-column ?c)))
+(deffunction print-diagonal (?x) (printout t (diagonal-name ?x)))
+(deffunction print-anti-diagonal (?x) (printout t (anti-diagonal-name ?x)))
+
 
 (deffunction print-label (?l)
 	(bind ?n (label-number ?l))

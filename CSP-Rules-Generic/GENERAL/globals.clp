@@ -292,37 +292,64 @@
 (defglobal ?*Forcing-G-Braids* = FALSE)
 
 
+
 ;;; By default, all the chain rules of any coded length are loaded when their pattern is activated,
 ;;; but this can be changed by the user.
 
-;;; The maximaum length of all the chains can be lowered at once:
+(defglobal ?*bivalue-chains-max-length* = 20)
+(defglobal ?*z-chains-max-length* = 20)
+(defglobal ?*oddagons-max-length* = 15)
+(defglobal ?*t-whips-max-length* = 36)
+(defglobal ?*whips-max-length* = 36)
+(defglobal ?*braids-max-length* = 36)
+
+(defglobal ?*g-bivalue-chains-max-length* = 20)
+(defglobal ?*g2whips-max-length* = 36)
+(defglobal ?*gwhips-max-length* = 36)
+(defglobal ?*g2braids-max-length* = 36)
+(defglobal ?*gbraids-max-length* = 36)
+
+(defglobal ?*typed-bivalue-chains-max-length* = 20)
+(defglobal ?*typed-z-chains-max-length* = 20)
+(defglobal ?*typed-t-whips-max-length* = 36)
+(defglobal ?*typed-whips-max-length* = 36)
+(defglobal ?*typed-gwhips-max-length* = 36)
+
+(defglobal ?*forcing-whips-max-length* = 36)
+(defglobal ?*forcing-gwhips-max-length* = 36)
+(defglobal ?*forcing-braids-max-length* = 36)
+(defglobal ?*forcing-gbraids-max-length* = 36)
+
+
+;;; Maximum lengths can be lowered individually in the application configuration file
+;;; The maximaum length can also be lowered at once for all the chains:
 (defglobal ?*all-chains-max-length* = 36)
 
-;;; Maximum lengths can also be lowered individually
+(deffunction redefine-all-chains-max-length ()
+    (bind ?*bivalue-chains-max-length* (min ?*bivalue-chains-max-length* ?*all-chains-max-length*))
+    (bind ?*z-chains-max-length* (min ?*z-chains-max-length* ?*all-chains-max-length*))
+    (bind ?*oddagons-max-length* (min ?*oddagons-max-length* ?*all-chains-max-length*))
+    (bind ?*t-whips-max-length* (min ?*t-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*whips-max-length* (min ?*whips-max-length* ?*all-chains-max-length*))
+    (bind ?*braids-max-length* (min ?*braids-max-length* ?*all-chains-max-length*))
 
-(defglobal ?*bivalue-chains-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*z-chains-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*oddagons-max-length* = (min 15 ?*all-chains-max-length*))
-(defglobal ?*t-whips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*whips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*braids-max-length* = (min 36 ?*all-chains-max-length*))
+    (bind ?*g-bivalue-chains-max-length* (min ?*g-bivalue-chains-max-length* ?*all-chains-max-length*))
+    (bind ?*g2whips-max-length* (min ?*g2whips-max-length* ?*all-chains-max-length*))
+    (bind ?*gwhips-max-length* (min ?*gwhips-max-length* ?*all-chains-max-length*))
+    (bind ?*g2braids-max-length* (min ?*g2braids-max-length* ?*all-chains-max-length*))
+    (bind ?*gbraids-max-length* (min ?*gbraids-max-length* ?*all-chains-max-length*))
 
-(defglobal ?*g-bivalue-chains-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*g2whips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*gwhips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*g2braids-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*gbraids-max-length* = (min 36 ?*all-chains-max-length*))
+    (bind ?*typed-bivalue-chains-max-length* (min ?*typed-bivalue-chains-max-length* ?*all-chains-max-length*))
+    (bind ?*typed-z-chains-max-length* (min ?*typed-z-chains-max-length* ?*all-chains-max-length*))
+    (bind ?*typed-t-whips-max-length* (min ?*typed-t-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*typed-whips-max-length* (min ?*typed-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*typed-gwhips-max-length* (min ?*typed-gwhips-max-length* ?*all-chains-max-length*))
 
-(defglobal ?*typed-bivalue-chains-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*typed-z-chains-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*typed-t-whips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*typed-whips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*typed-gwhips-max-length* = (min 36 ?*all-chains-max-length*))
-
-(defglobal ?*forcing-whips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*forcing-gwhips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*forcing-braids-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*forcing-gbraids-max-length* = (min 36 ?*all-chains-max-length*))
+    (bind ?*forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*forcing-gwhips-max-length* (min ?*forcing-gwhips-max-length* ?*all-chains-max-length*))
+    (bind ?*forcing-braids-max-length* (min ?*forcing-braids-max-length* ?*all-chains-max-length*))
+    (bind ?*forcing-gbraids-max-length* (min ?*forcing-gbraids-max-length* ?*all-chains-max-length*))
+)
 
 
 

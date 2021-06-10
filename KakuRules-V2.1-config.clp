@@ -392,6 +392,7 @@
 
 ;;; now, load all
 ;;; Notice that the generic loader also loads the application-specific files
+(redefine-all-chains-max-length)
 (batch ?*CSP-Rules-Generic-Loader*)
 
 

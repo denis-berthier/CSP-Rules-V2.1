@@ -412,7 +412,7 @@
 							)
 						)
 					)
-					;;; if it is not forbidden, then assert its candidature and the csp-variables to which it belongs
+					;;; if it is not forbidden, then assert its candidature 
 					(if ?nbx-allowed
 						then 
 							(bind ?labx (nrc-to-label ?nbx ?row ?col))

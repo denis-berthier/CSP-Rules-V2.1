@@ -34,7 +34,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction shuffle-floors-9x9 (?puzzle ?f1 ?f2 ?f3)
+(deffunction permute-floors-9x9 (?puzzle ?f1 ?f2 ?f3)
     ;;; ?puzzle is supposed to be 9x9 and to be given as a string of 81 characters
     ;;; (?f1, ?f2, ?f3) is supposed to be a permutation of (1, 2, 3)
     (if (eq ?f1 1) then
@@ -52,7 +52,7 @@
 )
 
 
-(deffunction shuffle-rows-in-floor-9x9 (?floor ?r1 ?r2 ?r3)
+(deffunction permute-rows-in-floor-9x9 (?floor ?r1 ?r2 ?r3)
     ;;; ?floor is supposed to be given as a string of 27 characters
     ;;; (?r1, ?r2, ?r3) is supposed to be a permutation of (1, 2, 3)
     ;;; i.e. ?r1, ?r2 and ?r3 are supposed to be pairwise different and equal to 1, 2 or 3
@@ -86,14 +86,14 @@
 (deffunction horizontal-random-shuffle-9x9 (?puzzle)
     ;;; shuffle floors
     (bind ?perm (random-permutation-3))
-    (bind ?puzzle (shuffle-floors-9x9 ?puzzle (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    (bind ?puzzle (permute-floors-9x9 ?puzzle (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
     ;;; shuffle rows within each floor
     (bind ?perm (random-permutation-3))
-    (bind ?floor1 (shuffle-rows-in-floor-9x9 (sub-string 1 27 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    (bind ?floor1 (permute-rows-in-floor-9x9 (sub-string 1 27 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
     (bind ?perm (random-permutation-3))
-    (bind ?floor2 (shuffle-rows-in-floor-9x9 (sub-string 28 54 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    (bind ?floor2 (permute-rows-in-floor-9x9 (sub-string 28 54 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
     (bind ?perm (random-permutation-3))
-    (bind ?floor3 (shuffle-rows-in-floor-9x9 (sub-string 55 81 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    (bind ?floor3 (permute-rows-in-floor-9x9 (sub-string 55 81 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
     (bind ?puzzle (str-cat ?floor1 ?floor2 ?floor3))
     ?puzzle
 )

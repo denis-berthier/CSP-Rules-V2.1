@@ -32,7 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; INSTALLATION ONLY:
-;;; Define environment variables: OS, installation directory and inference engine
+;;; Define environment variables: OS and installation directory
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -98,19 +98,23 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; General application-specific choices
 ;;; Definition of grid size and related parameters
+;;; Choice of variants
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; by default, gird size is 9, as in Sudoku
-;;; if needed, change grid size here
-;;; contrary to Sudoku, grid-size doesn't have to be a square
+;;; By default, gird size is 9, as in Sudoku.
+;;; If needed, change grid size here (grid-size can be any integer)
 
-; (bind ?*grid-size* 12) ;                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ (bind ?*grid-size* 13) ;                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
+;;; By default, Latin Squares is the classical version. But Pandiagonal constraints can be added.
+;;; Notice that, in this case, ?*grid-size* may not be divisible by 2 or 3.
+ (bind ?*Pandiagonal* TRUE) ;                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 
@@ -130,6 +134,7 @@
 ;;;                                                                                                      ;;;
 
 ;;; Remember that there are no g-whips or g-braids in Latin Squares
+;;; But there are in the Pandiagonal variant. However, g-labels are not (yet?) coded 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -166,7 +171,7 @@
 ; (bind ?*print-init-details* TRUE)
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-actions* FALSE)
-; (bind ?*print-levels* TRUE)
+ (bind ?*print-levels* TRUE)
 ; (bind ?*print-solution* FALSE)
 
 ;;; The resolution state after BRT is printed by default.
@@ -188,13 +193,17 @@
 ;;; My standard config and its usual variants
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Because there are so many Subsets in the Pandiagonal variant,
+;;; it may be useful to allow only Subsets[3] in this case.
+; (bind ?*Subsets[2]* TRUE)
+ (bind ?*Subsets[3]* TRUE)
  (bind ?*Subsets* TRUE)
  (bind ?*Bivalue-Chains* TRUE)
  (bind ?*Whips* TRUE)
 
 ;;; Some additional rules I use frequently:
-; (bind ?*z-Chains* TRUE)
-; (bind ?*t-Whips* TRUE)
+ (bind ?*z-Chains* TRUE)
+ (bind ?*t-Whips* TRUE)
 
 
 ;;; Some additional rules I use occasionally:
@@ -407,5 +416,8 @@
 
 ;;; now, load all
 ;;; Notice that the generic loader also loads the application-specific files
-(redefine-all-chains-max-length)
-(batch ?*CSP-Rules-Generic-Loader*)
+(if (and ?*Pandiagonal* (or (evenp ?*grid-size*) (eq (mod ?*grid-size* 3) 0)))
+    then (printout t "Pandiagonal Latin Squares can only be defined on grids of size not divisible by 2 or 3" crlf crlf)
+    else (redefine-all-chains-max-length)
+         (batch ?*CSP-Rules-Generic-Loader*)
+)

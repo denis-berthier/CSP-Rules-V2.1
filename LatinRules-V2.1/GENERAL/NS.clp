@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - July 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -54,7 +54,7 @@
 	(declare (salience ?*naked-single-salience*))
     (logical (context (name ?cont)))
 	(technique ?cont naked-single)
-	?mod <- (candidate (context ?cont) (status cand) (label ?xxx) (number ?nb) (row ?row) (column ?col))
+	?mod <- (candidate (context ?cont) (status cand) (number ?nb) (row ?row) (column ?col))
 	(not (candidate (context ?cont) (status cand) (row ?row) (column ?col) (number ?nbx&~?nb)))
 =>
 	(modify ?mod (status c-value))

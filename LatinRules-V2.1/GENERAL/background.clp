@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - July 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -38,7 +38,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Sudoku is generally formulated in terms of numbers in cells, but one could use any symbols.
+;;; Latin Squares puzzles are generally formulated in terms of numbers in cells, but one could use any symbols.
 ;;; It would suffice to use global variable ?*numeral-names*
 ;;; to set up the correspondence between outer symbols and their internal representation by numbers.
 ;;; We discard  this obvious matter.
@@ -99,6 +99,9 @@
 	?*potential-numerals* = ?*potential-numbers*
 	?*potential-rows* = ?*potential-numbers*
 	?*potential-columns* = ?*potential-numbers*
+    ;;; used for Pandiagonal Latin Squares
+    ?*potential-diagonals* = ?*potential-numbers*
+    ?*potential-anti-diagonals* = ?*potential-numbers*
 )
 
 
@@ -107,18 +110,20 @@
 	?*numerals* = (subseq$ ?*potential-numerals* 1 ?*grid-size*)
 	?*rows* = (subseq$ ?*potential-rows* 1 ?*grid-size*)
 	?*columns* = (subseq$ ?*potential-columns* 1 ?*grid-size*)
+    ;;; used for Pandiagonal Latin Squares
+    ?*diagonals* = (subseq$ ?*potential-numbers* 1 ?*grid-size*)
+    ?*anti-diagonals* = (subseq$ ?*potential-numbers* 1 ?*grid-size*)
 )
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; ROWS, COLUMNS, CELLS
+;;; ROWS, COLUMNS AND CELLS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Coordinates
-;;; (row, col) and (block, square) define two different coordinate systems for cells on the grid.
 ;;; Two cells defined in (row, col) coordinates are the same iff :
 
 (deffunction same-cell (?row1 ?col1 ?row2 ?col2)
@@ -129,13 +134,13 @@
 )
 
 
-;;; a cell can also be given a global index, ranging from 1 to 81:
+;;; a cell can also be given a global index, ranging from 1 to ?*grid-size* * ?*grid-size*:
 
 (deffunction cell-index (?row ?col)
 	(+ (* ?*grid-size* (- ?row 1)) ?col)
 )
 
-;;; from the cell-index, row, column, block and square coordinates are obtained by:
+;;; from the cell-index, row and column coordinates are obtained by:
 
 (deffunction row-from-cell-index (?ind)
 	(+	1
@@ -147,6 +152,94 @@
 	(+ 1
 	   (mod (- ?ind 1) ?*grid-size*)
 	)
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; DIAGONALS AND ANTI-DIAGONALS (FOR PANDIAGONAL VARIANT)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Diagonals and anti-diagonals are numbered 1 to ?*grid-size*:
+;;; - diagonals are printed as /1, /2, /3 .... (with /n starting at cell (rn, c1) and going eastwards and upwards
+;;; - anti-diagonals are printed as \1, \2, \3 .... (with \n starting at cell (r1, cn) and going westwards and downwards
+
+
+;;; row-col to diag and anti-diag:
+
+(deffunction row-col-to-diag (?row ?col)
+    (+ 1
+        (mod (- (+ ?row ?col) 2) ?*grid-size*)
+    )
+)
+
+(deffunction row-col-to-anti-diag (?row ?col)
+    (+ 1
+        (mod (+ (- ?col ?row) ?*grid-size*) ?*grid-size*)
+    )
+)
+
+(deffunction test-row-col-to-diags ()
+    (foreach ?row ?*rows*
+        (foreach ?col ?*columns*
+            (bind ?diag (row-col-to-diag ?row ?col))
+            (bind ?anti-diag (row-col-to-anti-diag ?row ?col))
+            (printout t ?row ?col ", " ?diag ?anti-diag crlf)
+        )
+    )
+)
+
+
+;;; inverse transformations:
+
+(deffunction diags-to-row (?diag ?anti-diag)
+    (bind ?diff (- ?diag ?anti-diag))
+    (if (< ?diff 0) then (bind ?diff (+ ?diff ?*grid-size*)))
+    (bind ?med (if (evenp ?diff)
+                    then (div ?diff 2)
+                    else (div (+ ?diff ?*grid-size*) 2)
+                )
+    )
+    (+ 1 ?med)
+)
+
+(deffunction diags-to-col (?diag ?anti-diag)
+    (bind ?sum (+ ?diag ?anti-diag))
+    (bind ?med (if (evenp ?sum)
+                    then (div ?sum 2)
+                    else (+ 1 (mod (div (- (+ ?sum ?*grid-size*) 2) 2) ?*grid-size*))
+                )
+    )
+    ?med
+)
+
+(deffunction test-diags-to-row-col ()
+    (foreach ?diag ?*diagonals*
+        (foreach ?anti-diag ?*anti-diagonals*
+            (bind ?row (diags-to-row ?diag ?anti-diag))
+            (bind ?col (diags-to-col ?diag ?anti-diag))
+            (printout t ?diag ?anti-diag ", " ?row ?col crlf)
+        )
+    )
+)
+
+;;; test row-col to diags and backwards
+
+(deffunction test-diags ()
+    (bind ?error FALSE)
+    (foreach ?row ?*rows*
+        (foreach ?col ?*columns*
+            (bind ?diag (row-col-to-diag ?row ?col))
+            (bind ?anti-diag (row-col-to-anti-diag ?row ?col))
+            (bind ?row2 (diags-to-row ?diag ?anti-diag))
+            (bind ?col2 (diags-to-col ?diag ?anti-diag))
+            (printout t ?row ?col ", " ?row2 ?col2 crlf)
+            (if (or (neq ?row2 ?row) (neq ?col2 ?col)) then (bind ?error TRUE))
+        )
+    )
+    (if ?error then (printout t "There is an error" crlf))
 )
 
 
@@ -171,6 +264,18 @@
     (+ (* ?*internal-factor-2* 3) (* ?*internal-factor* ?col) ?nb)
 )
 
+;;; 4 is arbitrarily skipped because used for blocks in Sudoku
+
+(deffunction diagonal-number-to-dn-variable (?diag ?nb)
+    (+ (* ?*internal-factor-2* 5) (* ?*internal-factor* ?diag) ?nb)
+)
+
+(deffunction anti-diagonal-number-to-an-variable (?anti-diag ?nb)
+    (+ (* ?*internal-factor-2* 6) (* ?*internal-factor* ?anti-diag) ?nb)
+)
+
+
+
 
 
 (deffunction csp-var-type (?csp-var)
@@ -178,6 +283,9 @@
     (if (eq ?type 1) then (return rc))
     (if (eq ?type 2) then (return rn))
     (if (eq ?type 3) then (return cn))
+    ;;; 4 is arbitrarily skipped because used for blocks in Sudoku
+    (if (eq ?type 5) then (return dn))
+    (if (eq ?type 6) then (return an))
 )
 
 
@@ -192,6 +300,14 @@
 (deffunction cn-cell-of-cn-variable (?csp) (mod ?csp ?*internal-factor-2*))
 (deffunction column-of-cn-variable (?csp) (div (mod ?csp ?*internal-factor-2*) ?*internal-factor-1*))
 (deffunction number-of-cn-variable (?csp) (mod ?csp ?*internal-factor-1*))
+
+(deffunction dn-cell-of-dn-variable (?csp) (mod ?csp ?*internal-factor-2*))
+(deffunction diagonal-of-dn-variable (?csp) (div (mod ?csp ?*internal-factor-2*) ?*internal-factor-1*))
+(deffunction number-of-dn-variable (?csp) (mod ?csp ?*internal-factor-1*))
+
+(deffunction an-cell-of-an-variable (?csp) (mod ?csp ?*internal-factor-2*))
+(deffunction anti-diagonal-of-an-variable (?csp) (div (mod ?csp ?*internal-factor-2*) ?*internal-factor-1*))
+(deffunction number-of-an-variable (?csp) (mod ?csp ?*internal-factor-1*))
 
 
     
@@ -237,6 +353,10 @@
 )
 
 
+;;; It is also useful to be able to define labels from the diag anti-diag coordinates
+(deffunction nda-to-label (?nb ?diag ?anti-diag)
+    (nrc-to-label ?nb (diags-to-row ?diag ?anti-diag) (diags-to-col ?diag ?anti-diag))
+)
 
 
 
@@ -252,6 +372,18 @@
 		then (and (eq ?row1 ?row2) (eq ?col1 ?col2)) ; same rc-cell
 		else (or (and (eq ?row1 ?row2) (neq ?col1 ?col2)) ; same row but not same rc-cell
 				 (and (eq ?col1 ?col2) (neq ?row1 ?row2)) ; same column but not same rc-cell
+                 (and ?*Pandiagonal*
+                    (or
+                        ; same diag but not same anti-diag
+                        (and (eq (row-col-to-diag ?row1 ?col1) (row-col-to-diag ?row2 ?col2))
+                            (neq (row-col-to-anti-diag ?row1 ?col1) (row-col-to-anti-diag ?row2 ?col2))
+                        )
+                        ; same anti-diag but not same diag
+                        (and (eq (row-col-to-anti-diag ?row1 ?col1) (row-col-to-anti-diag ?row2 ?col2))
+                            (neq (row-col-to-diag ?row1 ?col1) (row-col-to-diag ?row2 ?col2))
+                        )
+                    )
+                )
 			 )
 	)
 )
@@ -267,6 +399,20 @@
 
 (deffunction cn-linked (?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
 	(and (eq ?col1 ?col2) (eq ?nb1 ?nb2) (neq ?row1 ?row2))
+)
+
+(deffunction dn-linked (?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+    (and (eq ?nb1 ?nb2)
+        (eq (row-col-to-diag ?row1 ?col1) (row-col-to-diag ?row2 ?col2))
+        (neq (row-col-to-anti-diag ?row1 ?col1) (row-col-to-anti-diag ?row2 ?col2))
+    )
+)
+
+(deffunction an-linked (?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+    (and (eq ?nb1 ?nb2)
+        (eq (row-col-to-anti-diag ?row1 ?col1) (row-col-to-anti-diag ?row2 ?col2))
+        (neq (row-col-to-diag ?row1 ?col1) (row-col-to-diag ?row2 ?col2))
+    )
 )
 
 
@@ -289,6 +435,10 @@
     (if (eq ?lk rc) then (return (rc-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)))
     (if (eq ?lk rn) then (return (rn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)))
     (if (eq ?lk cn) then (return (cn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)))
+    
+    (if (eq ?lk dn) then (return (dn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)))
+    (if (eq ?lk an) then (return (an-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)))
+
     (return FALSE)
 )
 
@@ -308,6 +458,11 @@
         (rc-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
         (rn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
         (cn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+        (and ?*Pandiagonal*
+            (or (dn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+                (an-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+            )
+        )
     )
 )
 
@@ -328,6 +483,11 @@
                 (rc-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
                 (rn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
                 (cn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+                (and ?*Pandiagonal*
+                    (or (dn-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+                        (an-linked ?nb1 ?row1 ?col1 ?nb2 ?row2 ?col2)
+                    )
+                )
             )
             then (return TRUE)
         )
@@ -345,108 +505,44 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; utility for transforming 16x16, 25x25 and 36x36 puzzles given in hexadecimal form into ones given in number form:
+;;; utility for transforming larger puzzles (upto 36x36) given in letter form into number form:
 ;;; in the latter case, number 0 is used as the representation for 36
 
-(deffunction transform-hexa-to-nb (?nb)
-    (if (or (eq ?nb A) (eq ?nb a)) then (bind ?nb 10))
-    (if (or (eq ?nb B) (eq ?nb b)) then (bind ?nb 11))
-    (if (or (eq ?nb C) (eq ?nb c)) then (bind ?nb 12))
-    (if (or (eq ?nb D) (eq ?nb d)) then (bind ?nb 13))
-    (if (or (eq ?nb E) (eq ?nb e)) then (bind ?nb 14))
-    (if (or (eq ?nb F) (eq ?nb f)) then (bind ?nb 15))
-    (if (or (eq ?nb G) (eq ?nb g)) then (bind ?nb 16))
-    ?nb
-)
-
-(deffunction transform-25letters-to-nb (?nb)
-    (if (or (eq ?nb A) (eq ?nb a)) then (bind ?nb 10))
-    (if (or (eq ?nb B) (eq ?nb b)) then (bind ?nb 11))
-    (if (or (eq ?nb C) (eq ?nb c)) then (bind ?nb 12))
-    (if (or (eq ?nb D) (eq ?nb d)) then (bind ?nb 13))
-    (if (or (eq ?nb E) (eq ?nb e)) then (bind ?nb 14))
-    (if (or (eq ?nb F) (eq ?nb f)) then (bind ?nb 15))
-    (if (or (eq ?nb G) (eq ?nb g)) then (bind ?nb 16))
-    (if (or (eq ?nb H) (eq ?nb h)) then (bind ?nb 17))
-    (if (or (eq ?nb I) (eq ?nb i)) then (bind ?nb 18))
-    (if (or (eq ?nb J) (eq ?nb j)) then (bind ?nb 19))
-    (if (or (eq ?nb K) (eq ?nb k)) then (bind ?nb 20))
-    (if (or (eq ?nb L) (eq ?nb l)) then (bind ?nb 21))
-    (if (or (eq ?nb M) (eq ?nb m)) then (bind ?nb 22))
-    (if (or (eq ?nb N) (eq ?nb n)) then (bind ?nb 23))
-    (if (or (eq ?nb O) (eq ?nb o)) then (bind ?nb 24))
-    (if (or (eq ?nb P) (eq ?nb p)) then (bind ?nb 25))
-    ?nb
-)
-
-
-(deffunction transform-36letters-to-nb (?nb)
-    (if (or (eq ?nb A) (eq ?nb a)) then (bind ?nb 10))
-    (if (or (eq ?nb B) (eq ?nb b)) then (bind ?nb 11))
-    (if (or (eq ?nb C) (eq ?nb c)) then (bind ?nb 12))
-    (if (or (eq ?nb D) (eq ?nb d)) then (bind ?nb 13))
-    (if (or (eq ?nb E) (eq ?nb e)) then (bind ?nb 14))
-    (if (or (eq ?nb F) (eq ?nb f)) then (bind ?nb 15))
-    (if (or (eq ?nb G) (eq ?nb g)) then (bind ?nb 16))
-    (if (or (eq ?nb H) (eq ?nb h)) then (bind ?nb 17))
-    (if (or (eq ?nb I) (eq ?nb i)) then (bind ?nb 18))
-    (if (or (eq ?nb J) (eq ?nb j)) then (bind ?nb 19))
-    (if (or (eq ?nb K) (eq ?nb k)) then (bind ?nb 20))
-    (if (or (eq ?nb L) (eq ?nb l)) then (bind ?nb 21))
-    (if (or (eq ?nb M) (eq ?nb m)) then (bind ?nb 22))
-    (if (or (eq ?nb N) (eq ?nb n)) then (bind ?nb 23))
-    (if (or (eq ?nb O) (eq ?nb o)) then (bind ?nb 24))
-    (if (or (eq ?nb P) (eq ?nb p)) then (bind ?nb 25))
-    (if (or (eq ?nb Q) (eq ?nb q)) then (bind ?nb 26))
-    (if (or (eq ?nb R) (eq ?nb r)) then (bind ?nb 27))
-    (if (or (eq ?nb S) (eq ?nb s)) then (bind ?nb 28))
-    (if (or (eq ?nb T) (eq ?nb t)) then (bind ?nb 29))
-    (if (or (eq ?nb U) (eq ?nb u)) then (bind ?nb 30))
-    (if (or (eq ?nb V) (eq ?nb v)) then (bind ?nb 31))
-    (if (or (eq ?nb W) (eq ?nb w)) then (bind ?nb 32))
-    (if (or (eq ?nb X) (eq ?nb x)) then (bind ?nb 33))
-    (if (or (eq ?nb Y) (eq ?nb y)) then (bind ?nb 34))
-    (if (or (eq ?nb Z) (eq ?nb z)) then (bind ?nb 35))
-    (if (or (eq ?nb 0) (eq ?nb 0)) then (bind ?nb 36))
+(deffunction transform-letter-to-nb (?nb)
+    (if (or (eq ?nb A) (eq ?nb a) (eq ?nb "A") (eq ?nb "a")) then (bind ?nb 10))
+    (if (or (eq ?nb B) (eq ?nb b) (eq ?nb "B") (eq ?nb "b")) then (bind ?nb 11))
+    (if (or (eq ?nb C) (eq ?nb c) (eq ?nb "C") (eq ?nb "c")) then (bind ?nb 12))
+    (if (or (eq ?nb D) (eq ?nb d) (eq ?nb "D") (eq ?nb "d")) then (bind ?nb 13))
+    (if (or (eq ?nb E) (eq ?nb e) (eq ?nb "E") (eq ?nb "e")) then (bind ?nb 14))
+    (if (or (eq ?nb F) (eq ?nb f) (eq ?nb "F") (eq ?nb "f")) then (bind ?nb 15))
+    (if (or (eq ?nb G) (eq ?nb g) (eq ?nb "G") (eq ?nb "g")) then (bind ?nb 16))
+    (if (or (eq ?nb H) (eq ?nb h) (eq ?nb "H") (eq ?nb "h")) then (bind ?nb 17))
+    (if (or (eq ?nb I) (eq ?nb i) (eq ?nb "I") (eq ?nb "i")) then (bind ?nb 18))
+    (if (or (eq ?nb J) (eq ?nb j) (eq ?nb "J") (eq ?nb "j")) then (bind ?nb 19))
+    (if (or (eq ?nb K) (eq ?nb k) (eq ?nb "K") (eq ?nb "k")) then (bind ?nb 20))
+    (if (or (eq ?nb L) (eq ?nb l) (eq ?nb "L") (eq ?nb "l")) then (bind ?nb 21))
+    (if (or (eq ?nb M) (eq ?nb m) (eq ?nb "M") (eq ?nb "m")) then (bind ?nb 22))
+    (if (or (eq ?nb N) (eq ?nb n) (eq ?nb "N") (eq ?nb "n")) then (bind ?nb 23))
+    (if (or (eq ?nb O) (eq ?nb o) (eq ?nb "O") (eq ?nb "o")) then (bind ?nb 24))
+    (if (or (eq ?nb P) (eq ?nb p) (eq ?nb "P") (eq ?nb "p")) then (bind ?nb 25))
+    (if (or (eq ?nb Q) (eq ?nb q) (eq ?nb "Q") (eq ?nb "q")) then (bind ?nb 26))
+    (if (or (eq ?nb R) (eq ?nb r) (eq ?nb "R") (eq ?nb "r")) then (bind ?nb 27))
+    (if (or (eq ?nb S) (eq ?nb s) (eq ?nb "S") (eq ?nb "s")) then (bind ?nb 28))
+    (if (or (eq ?nb T) (eq ?nb t) (eq ?nb "T") (eq ?nb "t")) then (bind ?nb 29))
+    (if (or (eq ?nb U) (eq ?nb u) (eq ?nb "U") (eq ?nb "u")) then (bind ?nb 30))
+    (if (or (eq ?nb V) (eq ?nb v) (eq ?nb "V") (eq ?nb "v")) then (bind ?nb 31))
+    (if (or (eq ?nb W) (eq ?nb w) (eq ?nb "W") (eq ?nb "w")) then (bind ?nb 32))
+    (if (or (eq ?nb X) (eq ?nb x) (eq ?nb "X") (eq ?nb "x")) then (bind ?nb 33))
+    (if (or (eq ?nb Y) (eq ?nb y) (eq ?nb "Y") (eq ?nb "y")) then (bind ?nb 34))
+    (if (or (eq ?nb Z) (eq ?nb z) (eq ?nb "Z") (eq ?nb "z")) then (bind ?nb 35))
+    (if (eq ?nb 0) then (bind ?nb 36))
     ?nb
 )
 
 
 ;;; reverse transformations
 
-(deffunction transform-nb-to-hexa (?nb)
-    (if (eq ?nb 10) then (bind ?nb A))
-    (if (eq ?nb 11) then (bind ?nb B))
-    (if (eq ?nb 12) then (bind ?nb C))
-    (if (eq ?nb 13) then (bind ?nb D))
-    (if (eq ?nb 14) then (bind ?nb E))
-    (if (eq ?nb 15) then (bind ?nb F))
-    (if (eq ?nb 16) then (bind ?nb G))
-    ?nb
-)
-
-(deffunction transform-nb-to-25letters (?nb)
-    (if (eq ?nb 10) then (bind ?nb A))
-    (if (eq ?nb 11) then (bind ?nb B))
-    (if (eq ?nb 12) then (bind ?nb C))
-    (if (eq ?nb 13) then (bind ?nb D))
-    (if (eq ?nb 14) then (bind ?nb E))
-    (if (eq ?nb 15) then (bind ?nb F))
-    (if (eq ?nb 16) then (bind ?nb G))
-    (if (eq ?nb 17) then (bind ?nb H))
-    (if (eq ?nb 18) then (bind ?nb I))
-    (if (eq ?nb 19) then (bind ?nb J))
-    (if (eq ?nb 20) then (bind ?nb K))
-    (if (eq ?nb 21) then (bind ?nb L))
-    (if (eq ?nb 22) then (bind ?nb M))
-    (if (eq ?nb 23) then (bind ?nb N))
-    (if (eq ?nb 24) then (bind ?nb O))
-    (if (eq ?nb 25) then (bind ?nb P))
-    ?nb
-)
-
-
-(deffunction transform-nb-to-36letters (?nb)
+(deffunction transform-nb-to-letter (?nb)
     (if (eq ?nb 10) then (bind ?nb A))
     (if (eq ?nb 11) then (bind ?nb B))
     (if (eq ?nb 12) then (bind ?nb C))
@@ -480,7 +576,7 @@
 
 (deffunction test-input-conversions()
     (loop-for-count (?i 1 36)
-        (bind ?j (transform-36letters-to-nb (transform-nb-to-36letters ?i)))
+        (bind ?j (transform-letter-to-nb (transform-nb-to-letter ?i)))
         (if (neq ?i ?j) then (printout t "Error: " ?i " => " ?j crlf))
     )
     TRUE

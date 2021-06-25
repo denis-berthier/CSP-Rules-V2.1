@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - July 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -80,7 +80,6 @@
     (assert (exists-link ?cont ?cand1 ?cand2))
     (assert (exists-link ?cont ?cand2 ?cand1))
 	(if (eq ?cont 0) then (bind ?*links-count* (+ ?*links-count* 1)))
-    ;(add-link ?cand1 ?cand2)
 )
 
 
@@ -90,7 +89,7 @@
     ;;; csp-links between a c-value and a candidate are useless because such candidates would be eliminated by ECP
     (declare (salience ?*init-csp-links-salience-2*))
 	(logical
-	(init-links ?cont)
+        (init-links ?cont)
 		(candidate (context ?cont) (status cand) (number ?nb) (row ?row) (label ?cand1))
 		(candidate (context ?cont) (status cand) (number ?nb) (row ?row) (label ?cand2&:(< ?cand1 ?cand2)))
 	)
@@ -104,7 +103,6 @@
     (assert (exists-link ?cont ?cand1 ?cand2))
     (assert (exists-link ?cont ?cand2 ?cand1))
 	(if (eq ?cont 0) then (bind ?*links-count* (+ ?*links-count* 1)))
-    ;(add-link ?cand1 ?cand2)
 )
 
 
@@ -114,6 +112,7 @@
     ;;; csp-links between a c-value and a candidate are useless because such candidates would be eliminated by ECP
     (declare (salience ?*init-csp-links-salience-3*))
 	(logical
+        (init-links ?cont)
 		(candidate (context ?cont) (status cand) (number ?nb) (column ?col) (label ?cand1))
 		(candidate (context ?cont) (status cand) (number ?nb) (column ?col) (label ?cand2&:(< ?cand1 ?cand2)))
 	)
@@ -128,7 +127,54 @@
     (assert (exists-link ?cont ?cand1 ?cand2))
     (assert (exists-link ?cont ?cand2 ?cand1))
 	(if (eq ?cont 0) then (bind ?*links-count* (+ ?*links-count* 1)))
-    ;(add-link ?cand1 ?cand2)
+)
+
+
+
+(defrule init-effective-links-dn
+    ;;; csp-links can only be created at init time (new candidates cannot be asserted)
+    ;;; csp-links between a c-value and a candidate are useless because such candidates would be eliminated by ECP
+    (declare (salience ?*init-csp-links-salience-2*))
+    (logical
+        (Pandiagonal)
+        (init-links ?cont)
+        (candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag) (label ?cand1))
+        (candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag) (label ?cand2&:(< ?cand1 ?cand2)))
+    )
+=>
+    (bind ?csp (diagonal-number-to-dn-variable ?diag ?nb))
+    ;;; assert the csp-links
+    (assert (csp-linked ?cont ?cand1 ?cand2 ?csp))
+    (assert (csp-linked ?cont ?cand2 ?cand1 ?csp))
+    (if (eq ?cont 0) then (bind ?*csp-links-count* (+ ?*csp-links-count* 1)))
+    ;;; assert the non-csp-links
+    (assert (exists-link ?cont ?cand1 ?cand2))
+    (assert (exists-link ?cont ?cand2 ?cand1))
+    (if (eq ?cont 0) then (bind ?*links-count* (+ ?*links-count* 1)))
+)
+
+
+
+(defrule init-effective-links-an
+    ;;; csp-links can only be created at init time (new candidates cannot be asserted)
+    ;;; csp-links between a c-value and a candidate are useless because such candidates would be eliminated by ECP
+    (declare (salience ?*init-csp-links-salience-2*))
+    (logical
+        (Pandiagonal)
+        (init-links ?cont)
+        (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag) (label ?cand1))
+        (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag) (label ?cand2&:(< ?cand1 ?cand2)))
+    )
+=>
+    (bind ?csp (anti-diagonal-number-to-an-variable ?anti-diag ?nb))
+    ;;; assert the csp-links
+    (assert (csp-linked ?cont ?cand1 ?cand2 ?csp))
+    (assert (csp-linked ?cont ?cand2 ?cand1 ?csp))
+    (if (eq ?cont 0) then (bind ?*csp-links-count* (+ ?*csp-links-count* 1)))
+    ;;; assert the non-csp-links
+    (assert (exists-link ?cont ?cand1 ?cand2))
+    (assert (exists-link ?cont ?cand2 ?cand1))
+    (if (eq ?cont 0) then (bind ?*links-count* (+ ?*links-count* 1)))
 )
 
 

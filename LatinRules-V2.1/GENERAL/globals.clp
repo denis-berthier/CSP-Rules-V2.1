@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - July 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -42,8 +42,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; like SudoRules, LatinRules has its own way of dealing with the size of  puzzles
-;;; grid size is 9 by default, but it can be redefined in the configuration file
+;;; Like SudoRules, LatinRules has its own way of dealing with the size of  puzzles.
+;;; Grid size is 9 by default, but it can be redefined in the configuration file
 (defglobal ?*grid-size* = 9)
 (defglobal ?*nb-of-cells* = (* ?*grid-size* ?*grid-size*))
 (defglobal ?*nb-csp-variables* = ?*nb-of-cells*)
@@ -56,7 +56,6 @@
 (defglobal ?*internal-factor-2* = (* ?*internal-factor* ?*internal-factor*))
 (defglobal ?*internal-factor-3* = (* ?*internal-factor-2* ?*internal-factor*))
 ;;; grid size:
-(defglobal ?*grid-size* = (* ?*segment-size* ?*segment-size*))
 (defglobal ?*nb-of-cells* = (* ?*grid-size* ?*grid-size*))
 (defglobal ?*nb-csp-variables* = ?*nb-of-cells*)
 
@@ -82,7 +81,23 @@
     (bind ?*nb-of-cells* (* ?*grid-size* ?*grid-size*))
     (bind ?*nb-csp-variables* ?*nb-of-cells*)
 )
-    
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; GLOBAL VARIABLES FOR CONTROLLING THE VARIANTS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defglobal ?*Pandiagonal* = FALSE)
+
 
 
 

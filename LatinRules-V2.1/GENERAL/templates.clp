@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - July 2021               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -40,7 +40,10 @@
     ;;; additional LatinSquares specific slots
 	(slot number (type INTEGER))
 	(slot row (type INTEGER))
-	(slot column (type INTEGER))
+    (slot column (type INTEGER))
+    ;;; additional slots for the Pandiagonal variant
+    (slot diagonal (type INTEGER))
+    (slot anti-diagonal (type INTEGER))
 )
 
 

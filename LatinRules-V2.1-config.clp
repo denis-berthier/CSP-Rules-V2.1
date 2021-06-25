@@ -110,11 +110,11 @@
 ;;; By default, gird size is 9, as in Sudoku.
 ;;; If needed, change grid size here (grid-size can be any integer)
 
- (bind ?*grid-size* 13) ;                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; (bind ?*grid-size* 9) ;                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 ;;; By default, Latin Squares is the classical version. But Pandiagonal constraints can be added.
 ;;; Notice that, in this case, ?*grid-size* may not be divisible by 2 or 3.
- (bind ?*Pandiagonal* TRUE) ;                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; (bind ?*Pandiagonal* TRUE) ;                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 

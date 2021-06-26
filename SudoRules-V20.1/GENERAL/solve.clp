@@ -903,8 +903,8 @@
 ;       7 8 24   1    6   49    29   3   5
 ;       5 6 1    89   2   3     89   4   7
 ;       9 3 24   578  78  458   1    28  6
-;       6 7 89   589  3   2     58  1   4
-;       4 5 3    6789 1   689   678 789 2
+;       6 7 89   589  3   2     58   1   4
+;       4 5 3    6789 1   689   678  789 2
 ;       2 1 89   4    78  56    56   789 3
 ; )
  
@@ -927,7 +927,7 @@
             ;;; transform this string into a list of candidates:
             (bind ?cand-list (create$))
             (loop-for-count (?j 1 (str-length ?cand-str))
-                (bind ?nb (explode$ (sub-string ?j ?j ?cand-str)))
+                (bind ?nb (nth$ 1 (explode$ (sub-string ?j ?j ?cand-str))))
                 ;;; add these two lines for 16x16 or 25x25 puzzles given in hexadecimal notation
                 (if (eq ?*grid-size* 16) then (bind ?nb (transform-hexa-to-nb ?nb)))
                 (if (eq ?*grid-size* 25) then (bind ?nb (transform-25letters-to-nb ?nb)))
@@ -968,7 +968,8 @@
     ; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
 )
 
-;;; redefine the generic function "init-resolution-state" as:
+
+;;; another generic-like name for the same function:
 (deffunction init-resolution-state ($?RS)
     (init-sukaku-list ?RS)
 )
@@ -1013,6 +1014,11 @@
 )
 (deffunction solve-sukaku-as-list ($?list)
     (solve-sukaku-list ?list)
+)
+
+;;; another generic-like name for the same function:
+(deffunction solve-resolution-state ($?RS)
+    (solve-sukaku-list ?RS)
 )
 
 

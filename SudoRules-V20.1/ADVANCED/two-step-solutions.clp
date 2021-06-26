@@ -202,9 +202,15 @@
     (bind ?time1 (time))
     (assert (technique 0 ABDP))
     (bind ?*list-of-anti-backdoor-pairs* (create$))
-    (printout t crlf crlf "===> LOOKING FOR THE RELEVANT ANTI-BACKDOOR-PAIRS (BE PATIENT):" crlf)
     (bind ?nb-erasable-cands (length$ ?erasable-cands))
     (bind ?nb-cands-after-RT (length$ ?all-candidates-after-RT))
+    (bind ?nb-relevant-pairs (+ (div (* ?nb-erasable-cands (- ?nb-erasable-cands 1)) 2)
+                                (* ?nb-erasable-cands (- ?nb-cands-after-RT ?nb-erasable-cands))
+                            )
+    )
+    (printout t crlf crlf "===> CHECKING " ?nb-relevant-pairs
+        " RELEVANT PAIRS AS POSSIBLE ANTI-BACKDOOR-PAIRS (BE PATIENT):" crlf
+    )
     (bind ?i 1)
     (while (<= ?i ?nb-erasable-cands)
         (bind ?cand (nth$ ?i ?erasable-cands))

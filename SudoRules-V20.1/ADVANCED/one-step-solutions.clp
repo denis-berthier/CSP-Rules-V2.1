@@ -364,4 +364,22 @@
 )
 
 
+;;; Abbreviations:
+(deffunction find-sudoku-1-steppers-wrt-BRT (?sudoku-string)
+    (find-sudoku-1-steppers-wrt-resolution-theory BRT ?sudoku-string)
+)
+
+(deffunction find-sudoku-1-steppers-wrt-W1 (?sudoku-string)
+    (find-sudoku-1-steppers-wrt-resolution-theory W1 ?sudoku-string)
+)
+
+(deffunction find-sukaku-1-steppers-wrt-BRT ($?sukaku-list)
+    (find-sukaku-1-steppers-wrt-resolution-theory BRT ?sukaku-list)
+)
+
+(deffunction find-sukaku-1-steppers-wrt-W1 ($?sukaku-list)
+    (find-sukaku-1-steppers-wrt-resolution-theory W1 ?sukaku-list)
+)
+
+
 

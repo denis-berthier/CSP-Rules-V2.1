@@ -508,6 +508,7 @@
 
 ;;; Utilities allowing to change locally the control of what is printed:
 (defglobal ?*print-actions-backup* = ?*print-actions*)
+(defglobal ?*print-solution-backup* = ?*print-solution*)
 (defglobal ?*print-RS-after-Singles-backup* = ?*print-RS-after-Singles*)
 (defglobal ?*print-RS-after-whips[1]-backup* = ?*print-RS-after-whips[1]*)
 (defglobal ?*print-final-RS-backup* = ?*print-final-RS*)
@@ -518,6 +519,7 @@
 
 (deffunction mute-print-options ()
     (bind ?*print-actions-backup* ?*print-actions*)
+    (bind ?*print-solution-backup* ?*print-solution*)
     (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
     (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
     (bind ?*print-final-RS-backup* ?*print-final-RS*)
@@ -527,6 +529,7 @@
     (bind ?*print-phase-backup* ?*print-phase*)
     
     (bind ?*print-actions* FALSE)
+    (bind ?*print-solution* FALSE)
     (bind ?*print-RS-after-Singles* FALSE)
     (bind ?*print-RS-after-whips[1]* FALSE)
     (bind ?*print-final-RS* FALSE)
@@ -539,6 +542,7 @@
 
 (deffunction restore-print-options ()
     (bind ?*print-actions* ?*print-actions-backup*)
+    (bind ?*print-solution* ?*print-solution-backup*)
     (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
     (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
     (bind ?*print-final-RS* ?*print-final-RS-backup*)

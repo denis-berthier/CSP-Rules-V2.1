@@ -106,11 +106,17 @@
         (bind ?*print-RS-after-whips[1]* FALSE)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
         (bind ?*print-final-RS* FALSE)
+        (bind ?*print-solution-backup* ?*print-solution*)
+        (bind ?*print-solution* FALSE)
    )
     (run)
     (bind ?RS-after-RT (compute-current-resolution-state))
     (if ?*print-actions* then
-        (printout t crlf "Resolution state after rules in " ?RT ":" crlf)
+        (switch ?RT
+            (case BRT then (printout t crlf "Resolution state after Singles:" crlf))
+            (case W1 then (printout t crlf "Resolution state after Singles and whips[1]:" crlf))
+            (default (printout t crlf "Resolution state after rules in " ?RT ":" crlf))
+        )
         (pretty-print-sukaku-list ?RS-after-RT)
     )
     ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied;
@@ -131,11 +137,17 @@
         (bind ?*print-RS-after-whips[1]* FALSE)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
         (bind ?*print-final-RS* FALSE)
+        (bind ?*print-solution-backup* ?*print-solution*)
+        (bind ?*print-solution* FALSE)
    )
     (run)
     (bind ?RS-after-RT (compute-current-resolution-state))
     (if ?*print-actions* then
-        (printout t crlf "Resolution state after rules in " ?RT ":" crlf)
+        (switch ?RT
+            (case BRT then (printout t crlf "Resolution state after Singles:" crlf))
+            (case W1 then (printout t crlf "Resolution state after Singles and whips[1]:" crlf))
+            (default (printout t crlf "Resolution state after rules in " ?RT ":" crlf))
+        )
         (pretty-print-sukaku-list ?RS-after-RT)
     )
     ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied;

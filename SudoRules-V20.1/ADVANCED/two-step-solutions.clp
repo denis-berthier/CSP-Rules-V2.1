@@ -321,15 +321,21 @@
     (re-enable-disabled-rules-not-in-RT 0 ?RT)
     (restore-print-options)
     (printout t crlf crlf "===> CHECKING WHICH OF THE ANTI-BACKDOOR-PAIRS LEAD TO 2-STEP SOLUTIONS:" crlf)
-    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
-    (bind ?*print-RS-after-Singles* FALSE)
+    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+        (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
+        (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
+        (bind ?*print-final-RS-backup* ?*print-final-RS*)
+        (bind ?*print-RS-after-Singles* FALSE)
+        (bind ?*print-RS-after-whips[1]* FALSE)
+        (bind ?*print-final-RS* FALSE)
+    )
     (bind ?nb-anti-backdoor-pairs (div (length$ ?*list-of-anti-backdoor-pairs*) 2))
     (bind ?list-of-2-steppers (create$))
     (bind ?i 1)
     (while (<= ?i ?nb-anti-backdoor-pairs)
         (bind ?cand (nth$ (- (* 2 ?i) 1) ?*list-of-anti-backdoor-pairs*))
         (bind ?cand2 (nth$ (* 2 ?i) ?*list-of-anti-backdoor-pairs*))
-        (printout t "=> Testing if candidate pair " (print-label-pair ?cand  ?cand2) " is a 2-stepper:" crlf)
+        (printout t crlf "===> Testing if candidate pair " (print-label-pair ?cand  ?cand2) " is a 2-stepper:" crlf)
         (try-to-eliminate-candidates ?cand ?cand2)
         ;;; test if ?cand and ?cand2 have been eliminated
         (if (not (any-factp
@@ -344,7 +350,11 @@
         (init-sukaku-list ?RS-after-RT)
         (bind ?i (+ ?i 1))
     )
-    (restore-print-options)
+    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+        (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
+        (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+        (bind ?*print-final-RS* ?*print-final-RS-backup*)
+    )
     ?list-of-2-steppers
 )
 

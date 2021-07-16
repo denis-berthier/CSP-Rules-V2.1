@@ -287,9 +287,17 @@
         (printout t "===> Testing each of the " (length$ ?*list-of-anti-backdoors*) " "
             ?RT "-anti-backdoors for a single step solution:" crlf crlf)
     )
+    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+        (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
+        (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
+        (bind ?*print-final-RS-backup* ?*print-final-RS*)
+        (bind ?*print-RS-after-Singles* FALSE)
+        (bind ?*print-RS-after-whips[1]* FALSE)
+        (bind ?*print-final-RS* FALSE)
+    )
     (bind ?list-of-1-steppers (create$))
     (foreach ?cand ?*list-of-anti-backdoors*
-        (printout t "Testing if candidate " (print-label ?cand) " is a 1-stepper:" crlf)
+        (printout t crlf crlf "===> Testing if candidate " (print-label ?cand) " is a 1-stepper:" crlf)
         (init-sukaku-list ?RS-after-RT)
         (try-to-eliminate-candidates ?cand)
         ;;; test if ?cand has been eliminated

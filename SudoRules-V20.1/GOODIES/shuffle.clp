@@ -74,6 +74,7 @@
 (defglobal ?*permutations-3* = (create$ "123" "231" "312" "321" "213" "132"))
 
 (deffunction random-permutation-3 ()
+    (seed (integer (time)))
     (bind ?perm (nth$ (random 1 6) ?*permutations-3*))
     (create$
         (string-to-field (sub-string 1 1 ?perm))
@@ -118,6 +119,7 @@
 (deffunction random-shuffle-9x9-puzzle (?puzzle)
     ;;; ?puzzle is supposed to be 9x9 and to be given as a string of 81 characters
     ;;; shuffle the floors and rows
+    (seed (integer (time)))
     (bind ?puzzle (horizontal-random-shuffle-9x9 ?puzzle))
     ;;; shuffle the towers and columns
     (bind ?puzzle (diagonal-symmetry-9x9 ?puzzle))

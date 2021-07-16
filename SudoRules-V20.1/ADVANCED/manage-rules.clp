@@ -96,9 +96,9 @@
 
 (deffunction compute-state-after-RT-sudoku-string (?RT ?sudoku-string)
     ;;; BEWARE: for efficiency purposes,
-    ;;; this rule has the side-effect of leaving the rules not in ?RT de-activated
+    ;;; this function has the side-effect of leaving the rules not in ?RT de-activated
     (init-sudoku-string ?sudoku-string)
-        ;;; Find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
+    ;;; Find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
     (disable-rules-not-in-RT 0 ?RT)
     (if (or (eq ?RT BRT) (eq ?RT W1)) then
@@ -119,15 +119,19 @@
         )
         (pretty-print-sukaku-list ?RS-after-RT)
     )
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied;
-    ;;; return it:
+    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+        (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+        (bind  ?*print-final-RS* ?*print-final-RS-backup*)
+        (bind  ?*print-solution* ?*print-solution-backup*)
+   )
+    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied; return it:
     ?RS-after-RT
 )
 
 
 (deffunction compute-state-after-RT-sukaku-list (?RT ?sukaku-list)
     ;;; BEWARE: for efficiency purposes,
-    ;;; this rule has the side-effect of leaving the rules not in ?RT de-activated
+    ;;; this function has the side-effect of leaving the rules not in ?RT de-activated
     (init-sukaku-list ?sukaku-list)
     ;;; Find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
@@ -150,8 +154,12 @@
         )
         (pretty-print-sukaku-list ?RS-after-RT)
     )
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied;
-    ;;; return it:
+    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+        (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+        (bind  ?*print-final-RS* ?*print-final-RS-backup*)
+        (bind  ?*print-solution* ?*print-solution-backup*)
+   )
+    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied; return it:
     ?RS-after-RT
 )
 

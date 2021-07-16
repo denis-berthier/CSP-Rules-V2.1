@@ -38,7 +38,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction check-conditions-for-resolution-theory-in-1or2-steppers (?RT)
+(deffunction check-conditions-on-nostep-resolution-theory (?RT)
     (if (not (or (eq ?RT BRT) (eq ?RT W1) (eq ?RT S2) (eq ?RT S3) (eq ?RT S4) (eq ?RT S))) then
         (printout t "Only BRT, W1, S2, S3, S4 or S are allowed as the second argument to this function" crlf)
         (return FALSE)

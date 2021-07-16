@@ -59,7 +59,7 @@
         (bind ?len (length$ ?cand-list))
     )
     ;;; Find the candidates in ?cand-list that can be eliminated by the current set of rules
-    (printout t crlf crlf "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
+    (printout t crlf "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
     (bind ?list-of-cands-with-elim (create$))
     (bind ?i 1)
     (while (<= ?i ?len)
@@ -103,7 +103,7 @@
     )
     ;;; Find the candidates in ?cand-list that can be eliminated
     ;;; from the sukaku list by the current set of rules
-    (printout t crlf crlf "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
+    (printout t crlf "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
     (bind ?list-of-cands-with-elim (create$))
     (bind ?i 1)
     (while (<= ?i ?len)

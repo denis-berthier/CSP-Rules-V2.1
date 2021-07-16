@@ -293,18 +293,7 @@
     (printout t "There remains " ?nb-cands-after-RT " candidates after the rules in " ?RT " have been applied." crlf)
     
     ;;; block printing
-    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
-    (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
-    (bind ?*print-final-RS-backup* ?*print-final-RS*)
-    (bind ?*print-levels-backup* ?*print-levels*)
-    (bind ?*print-actions-backup* ?*print-actions*)
-    (bind ?*print-time-backup* ?*print-time*)
-    (bind ?*print-RS-after-Singles* FALSE)
-    (bind ?*print-RS-after-whips[1]* FALSE)
-    (bind ?*print-final-RS* FALSE)
-    (bind ?*print-levels* FALSE)
-    (bind ?*print-actions* FALSE)
-    (bind ?*print-time* FALSE)
+    (mute-print-options)
 
     ;;; ===> First step:
     ;;; Find the candidates erasable in ?RS-after-RT with all the rules originally activated:
@@ -362,7 +351,7 @@
 
 
 (deffunction find-sudoku-2-steppers-wrt-resolution-theory (?RT ?sudoku-string)
-    (if (not (check-conditions-for-resolution-theory-in-1or2-steppers ?RT)) then (return FALSE))
+    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
     (bind ?time0 (time))
     ;;; ===> First step:
     ;;; Init the puzzle and find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
@@ -391,7 +380,7 @@
 
 
 (deffunction find-sukaku-2-steppers-wrt-resolution-theory (?RT ?sukaku-list)
-    (if (not (check-conditions-for-resolution-theory-in-1or2-steppers ?RT)) then (return FALSE))
+    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
     (bind ?time0 (time))
     ;;; ===> First step:
     ;;; Init the puzzle and find the resolution state ?RS-after-RT after the rules in ?RT have been applied;

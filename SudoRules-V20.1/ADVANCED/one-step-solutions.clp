@@ -313,7 +313,7 @@
 
 
 (deffunction find-sudoku-1-steppers-wrt-resolution-theory (?RT ?sudoku-string)
-    (if (not (check-conditions-for-resolution-theory-in-1or2-steppers ?RT)) then (return FALSE))
+    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
     (bind ?time0 (time))
     ;;; ===> First step:
     ;;; Find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
@@ -339,7 +339,7 @@
 
 
 (deffunction find-sukaku-1-steppers-wrt-resolution-theory (?RT $?sukaku-list)
-    (if (not (check-conditions-for-resolution-theory-in-1or2-steppers ?RT)) then (return FALSE))
+    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
     (bind ?time0 (time))
     ;;; ===> First step:
     ;;; Find the resolution state ?RS-after-RT after the rules in ?RT have been applied;

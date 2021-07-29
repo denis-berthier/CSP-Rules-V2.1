@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - August 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -50,7 +50,7 @@
                           ?bl2 ?r2 ?c2 ?c21 ?c22 ?r21 ?r22 ?h21 ?h22 ?v21 ?v22 ?i21 ?i22
                           ?bl3 ?r3 ?c3 ?c31 ?c32 ?r31 ?r32 ?h31 ?h32 ?v31 ?v32 ?i31 ?i32
                           ?bl4 ?r4 ?c4 ?c41 ?c42 ?r41 ?r42 ?h41 ?h42 ?v41 ?v42 ?i41 ?i42)
-    (printout t "belt[4] made of crosses:" crlf)
+    (printout t "belt[4] (= sk-loop) made of 4 crosses:" crlf)
     (print-cross ?bl1 ?r1 ?c1 ?c11 ?c12 ?r11 ?r12 ?h11 ?h12 ?v11 ?v12 ?i11 ?i12)
     (print-cross ?bl2 ?r2 ?c2 ?h21 ?c21 ?c22 ?r21 ?r22 ?h22 ?v21 ?v22 ?i21 ?i22)
     (print-cross ?bl3 ?r3 ?c3 ?c31 ?c32 ?r31 ?r32 ?h31 ?h32 ?v31 ?v32 ?i31 ?i32)
@@ -208,7 +208,7 @@
 	(retract ?candz)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-belts*) then
-			(printout t ?*implication-sign* " eliminations in rows: " (row-name ?rowz) (column-name ?colz) " <> " (numeral-name ?nbz) crlf)
+			(printout t ?*implication-sign* " eliminations in rows: " (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf)
 	)
 )
 
@@ -237,7 +237,7 @@
 	(retract ?candz)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-belts*) then
-			(printout t ?*implication-sign* " eliminations in columns: " (row-name ?rowz) (column-name ?colz) " <> " (numeral-name ?nbz) crlf)
+			(printout t ?*implication-sign* " eliminations in columns: " (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf)
 	)
 )
 
@@ -297,7 +297,7 @@
 	(retract ?candz)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-belts*) then
-			(printout t ?*implication-sign* " eliminations in blocks: " (row-name ?rowz) (column-name ?colz) " <> " (numeral-name ?nbz) crlf)
+			(printout t ?*implication-sign* " eliminations in blocks: " (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf)
 	)
 )
 

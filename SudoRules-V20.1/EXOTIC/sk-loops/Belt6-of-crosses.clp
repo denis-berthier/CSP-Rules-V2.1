@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - August 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -39,7 +39,7 @@
                           ?bl4 ?r4 ?c4 ?c41 ?c42 ?r41 ?r42 ?h41 ?h42 ?v41 ?v42 ?i41 ?i42
                           ?bl5 ?r5 ?c5 ?c51 ?c52 ?r51 ?r52 ?h51 ?h52 ?v51 ?v52 ?i51 ?i52
                           ?bl6 ?r6 ?c6 ?c61 ?c62 ?r61 ?r62 ?h61 ?h62 ?v61 ?v62 ?i61 ?i62)
-    (printout t "belt[6] made of crosses:" crlf)
+    (printout t "belt[6] (= sk-loop) made of 6 crosses:" crlf)
     (print-cross ?bl1 ?r1 ?c1 ?c11 ?c12 ?r11 ?r12 ?h11 ?h12 ?v11 ?v12 ?i11 ?i12)
     (print-cross ?bl2 ?r2 ?c2 ?h21 ?c21 ?c22 ?r21 ?r22 ?h22 ?v21 ?v22 ?i21 ?i22)
     (print-cross ?bl3 ?r3 ?c3 ?c31 ?c32 ?r31 ?r32 ?h31 ?h32 ?v31 ?v32 ?i31 ?i32)
@@ -109,7 +109,7 @@
 
 (defrule belt6-eliminate-rows
 	(declare (salience ?*belt6-elim-rows-salience*))
-	(technique ?cont belts6)
+	(technique ?cont belt6)
     (belt6 ?cont ?bl1 ?r1 ?c1 ?c11 ?c12 ?r11 ?r12 ?h11 ?h12 ?v11 ?v12 ?i11 ?i12 
                  ?bl2 ?r2 ?c2 ?c21 ?c22 ?r21 ?r22 ?h21 ?h22 ?v21 ?v22 ?i21 ?i22
                  ?bl3 ?r3 ?c3 ?c31 ?c32 ?r31 ?r32 ?h31 ?h32 ?v31 ?v32 ?i31 ?i32
@@ -134,7 +134,7 @@
 	(retract ?candz)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-belts*) then
-			(printout t ?*implication-sign* (row-name ?rowz) (column-name ?colz) " <> " (numeral-name ?nbz) crlf)
+			(printout t ?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf)
 	)
 )
 
@@ -143,7 +143,7 @@
 
 (defrule belt6-eliminate-columns
 	(declare (salience ?*belt6-elim-columns-salience*))
-	(technique ?cont belts6)
+	(technique ?cont belt6)
     (belt6 ?cont ?bl1 ?r1 ?c1 ?c11 ?c12 ?r11 ?r12 ?h11 ?h12 ?v11 ?v12 ?i11 ?i12 
                  ?bl2 ?r2 ?c2 ?c21 ?c22 ?r21 ?r22 ?h21 ?h22 ?v21 ?v22 ?i21 ?i22
                  ?bl3 ?r3 ?c3 ?c31 ?c32 ?r31 ?r32 ?h31 ?h32 ?v31 ?v32 ?i31 ?i32
@@ -168,7 +168,7 @@
 	(retract ?candz)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-belts*) then
-			(printout t ?*implication-sign* (row-name ?rowz) (column-name ?colz) " <> " (numeral-name ?nbz) crlf)
+			(printout t ?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf)
 	)
 )
 
@@ -177,7 +177,7 @@
 
 (defrule belt6-eliminate-blocks
 	(declare (salience ?*belt6-elim-blocks-salience*))
-	(technique ?cont belts6)
+	(technique ?cont belt6)
     (belt6 ?cont ?bl1 ?r1 ?c1 ?c11 ?c12 ?r11 ?r12 ?h11 ?h12 ?v11 ?v12 ?i11 ?i12 
                  ?bl2 ?r2 ?c2 ?c21 ?c22 ?r21 ?r22 ?h21 ?h22 ?v21 ?v22 ?i21 ?i22
                  ?bl3 ?r3 ?c3 ?c31 ?c32 ?r31 ?r32 ?h31 ?h32 ?v31 ?v32 ?i31 ?i32
@@ -248,7 +248,7 @@
 	(retract ?candz)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-belts*) then
-			(printout t ?*implication-sign* (row-name ?rowz) (column-name ?colz) " <> " (numeral-name ?nbz) crlf)
+			(printout t ?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf)
 	)
 )
 

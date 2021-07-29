@@ -27,20 +27,30 @@ http://forum.enjoysudoku.com/lightning-8-2-t38909.html
 ...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5... #  1903 FNBTHWXY C22.m
 SER = 8.2
 
+
+
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Simplest-first solution, using only reversible chains
+
+Load with:
+ (bind ?*Subsets* TRUE)
+ (bind ?*FinnedFish* TRUE)
+ (bind ?*Bivalue-Chains* TRUE)
+ (bind ?*z-Chains* TRUE)
+
+
 (solve "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = Z+SFin
-***  Using CLIPS 6.32-r790
+***  Using CLIPS 6.32-r779
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
 ...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...
-22 givens, 239 candidates
-entering BRT
 hidden-single-in-a-row ==> r5c6 = 1
 hidden-single-in-a-row ==> r1c7 = 3
-Starting_init_links_with_<Fact-3695>
-
 Resolution state after Singles:
    +-------------------------+-------------------------+-------------------------+
    ! 4579    579     4579    ! 1       569     24679   ! 3       8       24567   !
@@ -56,10 +66,8 @@ Resolution state after Singles:
    ! 13789   4       1789    ! 2367    1368    5       ! 267     23679   2679    !
    +-------------------------+-------------------------+-------------------------+
 
-230 candidates, 1589 csp-links and 1589 links. Density = 6.03%
-
+228 candidates, 1589 csp-links and 1589 links. Density = 6.14%
 Starting non trivial part of solution.
-Entering_level_W1_with_<Fact-9590>
 whip[1]: c5n3{r9 .} ==> r9c4 ≠ 3, r8c4 ≠ 3
 whip[1]: c3n1{r9 .} ==> r9c1 ≠ 1, r7c1 ≠ 1
 whip[1]: r5n6{c8 .} ==> r6c9 ≠ 6, r4c7 ≠ 6, r4c8 ≠ 6, r4c9 ≠ 6, r6c7 ≠ 6
@@ -81,9 +89,8 @@ Resolution state after Singles and whips[1]:
    ! 3789    4       1789    ! 267     1368    5       ! 267     23679   2679    !
    +-------------------------+-------------------------+-------------------------+
 
+216 candidates.
 
-Entering_relation_bivalue_with_<Fact-9600>
-Entering_level_S2_with_<Fact-9697>
 naked-pairs-in-a-column: c6{r4 r6}{n6 n9} ==> r7c6 ≠ 6, r2c6 ≠ 6, r1c6 ≠ 6
 whip[1]: c6n6{r6 .} ==> r4c4 ≠ 6, r6c4 ≠ 6
 hidden-pairs-in-a-row: r3{n8 n9}{c1 c5} ==> r3c5 ≠ 5, r3c1 ≠ 7, r3c1 ≠ 5, r3c1 ≠ 4, r3c1 ≠ 1
@@ -94,21 +101,13 @@ whip[1]: b1n4{r1c3 .} ==> r1c6 ≠ 4, r1c9 ≠ 4
 naked-pairs-in-a-column: c6{r1 r7}{n2 n7} ==> r8c6 ≠ 7, r8c6 ≠ 2, r2c6 ≠ 7, r2c6 ≠ 2
 x-wing-in-rows: n6{r1 r7}{c5 c9} ==> r9c9 ≠ 6, r9c5 ≠ 6, r2c9 ≠ 6, r2c5 ≠ 6
 finned-x-wing-in-rows: n8{r3 r9}{c5 c1} ==> r8c1 ≠ 8
-Entering_level_BC2_with_<Fact-9893>
-Entering_level_Z2_with_<Fact-10320>
-Entering_level_S3_with_<Fact-10879>
-Entering_level_BC3_with_<Fact-10955>
 biv-chain[3]: c1n6{r6 r4} - r4n3{c1 c4} - b5n5{r4c4 r6c4} ==> r6c1 ≠ 5
 biv-chain[3]: c4n6{r9 r2} - b2n2{r2c4 r1c6} - c6n7{r1 r7} ==> r9c4 ≠ 7
 biv-chain[3]: r7c6{n7 n2} - r9c4{n2 n6} - r7n6{c5 c9} ==> r7c9 ≠ 7
-Entering_level_Z3_with_<Fact-12012>
 z-chain[3]: r9c4{n2 n6} - r2n6{c4 c8} - c8n2{r2 .} ==> r9c9 ≠ 2
 z-chain[3]: r9c4{n2 n6} - r2n6{c4 c8} - c8n2{r2 .} ==> r9c7 ≠ 2
 hidden-single-in-a-column ==> r6c7 = 2
-Entering_level_S4_with_<Fact-13704>
-Entering_level_BC4_with_<Fact-13780>
 biv-chain[4]: r3n8{c1 c5} - r2c6{n8 n4} - c9n4{r2 r4} - b6n8{r4c9 r6c9} ==> r6c1 ≠ 8
-Entering_level_Z4_with_<Fact-16009>
 z-chain[4]: c8n3{r8 r9} - r9n2{c8 c4} - b8n6{r9c4 r7c5} - r7n3{c5 .} ==> r8c2 ≠ 3
 z-chain[4]: c8n3{r8 r9} - r9n2{c8 c4} - b8n6{r9c4 r7c5} - r7n3{c5 .} ==> r8c1 ≠ 3
 z-chain[4]: r2n6{c4 c8} - r2n2{c8 c9} - b3n4{r2c9 r3c7} - r3c4{n4 .} ==> r2c4 ≠ 7
@@ -189,8 +188,7 @@ PUZZLE 0 IS SOLVED. rating-type = Z+SFin, MOST COMPLEX RULE TRIED = z-chain[4]
 
 nb-facts = <Fact-25582>
 Puzzle ...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5... :
-init-time = 0.19s, solve-time = 2.01s, total-time = 2.21s
-nb-facts = <Fact-25582>
+init-time = 0.2s, solve-time = 2.16s, total-time = 2.35s
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = Z+SFin
 ***  Using CLIPS 6.32-r779
@@ -205,33 +203,155 @@ nb-facts = <Fact-25582>
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
-1-steppers in W12? No
+Looking for 1-steppers in W12. There are none.
 
-in W1:
-(solve "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
+Load with:
+ (defglobal ?*all-chains-max-length* = 12)
+ (bind ?*Bivalue-Chains* TRUE)
+ (bind ?*Whips* TRUE)
+
+
+(find-sudoku-1-steppers-wrt-resolution-theory W1 "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
+
+...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...
 hidden-single-in-a-row ==> r5c6 = 1
 hidden-single-in-a-row ==> r1c7 = 3
+Resolution state after Singles:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     24679   ! 3       8       24567   !
+   ! 14578   578     3       ! 24567   568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 457     589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 4567    5679    456789  !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 2567    1       256789  !
+   +-------------------------+-------------------------+-------------------------+
+   ! 1357    2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 2347    38      2478    ! 1       23579   2579    !
+   ! 13789   4       1789    ! 2367    1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
+
+228 candidates, 1589 csp-links and 1589 links. Density = 6.14%
+Starting non trivial part of solution.
 whip[1]: c5n3{r9 .} ==> r9c4 ≠ 3, r8c4 ≠ 3
 whip[1]: c3n1{r9 .} ==> r9c1 ≠ 1, r7c1 ≠ 1
 whip[1]: r5n6{c8 .} ==> r6c9 ≠ 6, r4c7 ≠ 6, r4c8 ≠ 6, r4c9 ≠ 6, r6c7 ≠ 6
 whip[1]: c5n5{r3 .} ==> r3c4 ≠ 5, r2c4 ≠ 5
 whip[1]: c5n9{r3 .} ==> r1c6 ≠ 9
-CURRENT RESOLUTION STATE:
-   4579      579       4579      1         569       2467      3         8         24567
-   14578     578       3         2467      568       24678     9         2567      124567
-   145789    6         2         47        589       3         457       57        1457
-   3456789   1         45789     356       2         69        457       579       45789
-   2         59        459       8         7         1         456       569       3
-   356789    35789     5789      356       4         69        257       1         25789
-   357       2357      157       9         136       267       8         4         2567
-   35789     235789    6         247       38        2478      1         23579     2579
-   3789      4         1789      267       1368      5         267       23679     2679
+PUZZLE 0 IS NOT SOLVED. 57 VALUES MISSING.
 
-(find-anti-backdoors)
+Resolution state after rules in W1:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     2467    ! 3       8       24567   !
+   ! 14578   578     3       ! 2467    568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 47      589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 457     579     45789   !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 257     1       25789   !
+   +-------------------------+-------------------------+-------------------------+
+   ! 357     2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 247     38      2478    ! 1       23579   2579    !
+   ! 3789    4       1789    ! 267     1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
 
-4 W1-ANTI-BACKDOORS FOUND:
-n4r8c6 n9r3c5 n8r3c1 n8r2c6
-computation time = 14.07s
+===> Looking for the W1-anti-backdoors:
+anti-backdoors computation time = 26.26s
+===> There are 4 W1-anti-backdoors:
+n8r2c6 n8r3c1 n9r3c5 n4r8c6
+
+===> Testing each of the 4 W1-anti-backdoors for a single step solution:
+
+Testing if candidate n8r2c6 is a 1-stepper:
+Resolution state after Singles:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     2467    ! 3       8       24567   !
+   ! 14578   578     3       ! 2467    568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 47      589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 457     579     45789   !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 257     1       25789   !
+   +-------------------------+-------------------------+-------------------------+
+   ! 357     2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 247     38      2478    ! 1       23579   2579    !
+   ! 3789    4       1789    ! 267     1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
+
+216 candidates, 1428 csp-links and 1428 links. Density = 6.15%
+Starting non trivial part of solution.
+PUZZLE 0 IS NOT SOLVED. 57 VALUES MISSING.
+solve-time = 0.21s
+nb-facts = 0
+
+=> Testing if candidate n8r3c1 is a 1-stepper:
+Resolution state after Singles:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     2467    ! 3       8       24567   !
+   ! 14578   578     3       ! 2467    568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 47      589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 457     579     45789   !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 257     1       25789   !
+   +-------------------------+-------------------------+-------------------------+
+   ! 357     2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 247     38      2478    ! 1       23579   2579    !
+   ! 3789    4       1789    ! 267     1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
+
+216 candidates, 1428 csp-links and 1428 links. Density = 6.15%
+Starting non trivial part of solution.
+PUZZLE 0 IS NOT SOLVED. 57 VALUES MISSING.
+solve-time = 0.18s
+nb-facts = 0
+
+=> Testing if candidate n9r3c5 is a 1-stepper:
+Resolution state after Singles:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     2467    ! 3       8       24567   !
+   ! 14578   578     3       ! 2467    568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 47      589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 457     579     45789   !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 257     1       25789   !
+   +-------------------------+-------------------------+-------------------------+
+   ! 357     2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 247     38      2478    ! 1       23579   2579    !
+   ! 3789    4       1789    ! 267     1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
+
+216 candidates, 1428 csp-links and 1428 links. Density = 6.15%
+Starting non trivial part of solution.
+PUZZLE 0 IS NOT SOLVED. 57 VALUES MISSING.
+solve-time = 0.22s
+nb-facts = 0
+
+=> Testing if candidate n4r8c6 is a 1-stepper:
+Resolution state after Singles:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     2467    ! 3       8       24567   !
+   ! 14578   578     3       ! 2467    568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 47      589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 457     579     45789   !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 257     1       25789   !
+   +-------------------------+-------------------------+-------------------------+
+   ! 357     2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 247     38      2478    ! 1       23579   2579    !
+   ! 3789    4       1789    ! 267     1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
+
+216 candidates, 1428 csp-links and 1428 links. Density = 6.15%
+Starting non trivial part of solution.
+PUZZLE 0 IS NOT SOLVED. 57 VALUES MISSING.
+solve-time = 0.22s
+nb-facts = 0
+
+Total computation time = 30.02s
+===> There are 0 1-step solutions, based on the following anti-backdoors:
 
 No 1-steppers with whips[≤12]
 
@@ -242,7 +362,10 @@ No 1-steppers with whips[≤12]
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 
-2-steppers in W8???
+Looking for 2-steppers in W8. There are none.
+
+
+First method:
 
 1) First step in W8:
 (defglobal ?*RS* = (create$
@@ -311,8 +434,88 @@ Total computation time = 96.7292859554291
 no 2-steppers found in W8
 
 
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+
+Looking for 2-steppers in W8. There are none.
 
 
+New method:
+
+load with:
+(defglobal ?*all-chains-max-length* = 8)
+ (bind ?*Bivalue-Chains* TRUE)
+ (bind ?*Whips* TRUE)
+ (bind ?*z-Chains* TRUE)
+ (bind ?*Typed-Bivalue-Chains* TRUE)
+ (bind ?*Typed-z-Chains* TRUE)
+ (bind ?*Typed-Whips* TRUE)
+
+
+
+(find-sudoku-2-steppers-wrt-resolution-theory W1 "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
+...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...
+hidden-single-in-a-row ==> r5c6 = 1
+hidden-single-in-a-row ==> r1c7 = 3
+Resolution state after Singles:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     24679   ! 3       8       24567   !
+   ! 14578   578     3       ! 24567   568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 457     589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 4567    5679    456789  !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 2567    1       256789  !
+   +-------------------------+-------------------------+-------------------------+
+   ! 1357    2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 2347    38      2478    ! 1       23579   2579    !
+   ! 13789   4       1789    ! 2367    1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
+
+228 candidates, 1589 csp-links and 1589 links. Density = 6.14%
+Starting non trivial part of solution.
+whip[1]: c5n3{r9 .} ==> r9c4 ≠ 3, r8c4 ≠ 3
+whip[1]: c3n1{r9 .} ==> r9c1 ≠ 1, r7c1 ≠ 1
+whip[1]: r5n6{c8 .} ==> r6c9 ≠ 6, r4c7 ≠ 6, r4c8 ≠ 6, r4c9 ≠ 6, r6c7 ≠ 6
+whip[1]: c5n5{r3 .} ==> r3c4 ≠ 5, r2c4 ≠ 5
+whip[1]: c5n9{r3 .} ==> r1c6 ≠ 9
+PUZZLE 0 IS NOT SOLVED. 57 VALUES MISSING.
+
+Resolution state after rules in W1:
+   +-------------------------+-------------------------+-------------------------+
+   ! 4579    579     4579    ! 1       569     2467    ! 3       8       24567   !
+   ! 14578   578     3       ! 2467    568     24678   ! 9       2567    124567  !
+   ! 145789  6       2       ! 47      589     3       ! 457     57      1457    !
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 1       45789   ! 356     2       69      ! 457     579     45789   !
+   ! 2       59      459     ! 8       7       1       ! 456     569     3       !
+   ! 356789  35789   5789    ! 356     4       69      ! 257     1       25789   !
+   +-------------------------+-------------------------+-------------------------+
+   ! 357     2357    157     ! 9       136     267     ! 8       4       2567    !
+   ! 35789   235789  6       ! 247     38      2478    ! 1       23579   2579    !
+   ! 3789    4       1789    ! 267     1368    5       ! 267     23679   2679    !
+   +-------------------------+-------------------------+-------------------------+
+
+There remains 216 candidates after the rules in W1 have been applied.
+
+
+===> CHECKING WHICH OF THE 216 CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES.
+........................................................................................................................................................................................................................
+erasable candidates computation time = 2m 55.99s
+===> 44 candidates can be eliminated:
+n4r1c6 n6r1c6 n4r1c9 n5r1c9 n4r2c1 n5r2c1 n7r2c1 n8r2c1 n7r2c4 n6r2c5 n8r2c5 n2r2c6 n6r2c6 n7r2c6 n5r2c8 n1r2c9 n5r2c9 n1r3c1 n4r3c1 n5r3c1 n7r3c1 n5r3c5 n4r3c9 n5r3c9 n7r3c9 n6r4c4 n5r6c1 n8r6c1 n6r6c4 n7r7c2 n6r7c6 n3r8c1 n8r8c1 n2r8c6 n7r8c6 n3r8c8 n3r9c1 n7r9c4 n3r9c5 n6r9c5 n2r9c8 n6r9c8 n7r9c8 n9r9c8
+
+
+===> LOOKING FOR THE RELEVANT ANTI-BACKDOOR-PAIRS.
+anti-backdoor-pairs computation time = 18m 12.4s
+===> There are 179 W1-anti-backdoor-pairs for the current set of rules:
+n4r1c6 n8r2c6     n4r1c6 n8r3c1     n4r1c6 n9r3c5     n4r1c6 n4r8c6     n6r1c6 n8r2c6     n6r1c6 n8r3c1     n6r1c6 n9r3c5     n6r1c6 n4r8c6     n4r1c9 n8r2c6     n4r1c9 n8r3c1     n4r1c9 n9r3c5     n4r1c9 n4r8c6     n5r1c9 n8r2c6     n5r1c9 n8r3c1     n5r1c9 n9r3c5     n5r1c9 n4r8c6     n4r2c1 n8r2c6     n4r2c1 n8r3c1     n4r2c1 n9r3c5     n4r2c1 n4r8c6     n5r2c1 n8r2c6     n5r2c1 n8r3c1     n5r2c1 n9r3c5     n5r2c1 n4r8c6     n7r2c1 n8r2c6     n7r2c1 n8r3c1     n7r2c1 n9r3c5     n7r2c1 n4r8c6     n8r2c1 n8r2c6     n8r2c1 n8r3c1     n8r2c1 n9r3c5     n8r2c1 n4r8c6     n7r2c4 n8r2c6     n7r2c4 n8r3c1     n7r2c4 n9r3c5     n7r2c4 n4r8c6     n6r2c5 n8r2c6     n6r2c5 n8r3c1     n6r2c5 n9r3c5     n6r2c5 n4r8c6     n8r2c5 n8r2c6     n8r2c5 n8r3c1     n8r2c5 n9r3c5     n8r2c5 n4r8c6     n2r2c6 n8r2c6     n2r2c6 n8r3c1     n2r2c6 n9r3c5     n2r2c6 n4r8c6     n6r2c6 n8r2c6     n6r2c6 n8r3c1     n6r2c6 n9r3c5     n6r2c6 n4r8c6     n7r2c6 n8r2c6     n7r2c6 n8r3c1     n7r2c6 n9r3c5     n7r2c6 n4r8c6     n5r2c8 n8r2c6     n5r2c8 n8r3c1     n5r2c8 n9r3c5     n5r2c8 n4r8c6     n1r2c9 n8r2c6     n1r2c9 n8r3c1     n1r2c9 n9r3c5     n1r2c9 n4r8c6     n5r2c9 n8r2c6     n5r2c9 n8r3c1     n5r2c9 n9r3c5     n5r2c9 n4r8c6     n1r3c1 n8r2c6     n1r3c1 n8r3c1     n1r3c1 n9r3c5     n1r3c1 n4r8c6     n4r3c1 n8r2c6     n4r3c1 n8r3c1     n4r3c1 n9r3c5     n4r3c1 n4r8c6     n5r3c1 n8r2c6     n5r3c1 n8r3c1     n5r3c1 n9r3c5     n5r3c1 n4r8c6     n7r3c1 n8r2c6     n7r3c1 n8r3c1     n7r3c1 n9r3c5     n7r3c1 n4r8c6     n5r3c5 n8r2c6     n5r3c5 n8r3c1     n5r3c5 n9r3c5     n5r3c5 n4r8c6     n4r3c9 n8r2c6     n4r3c9 n8r3c1     n4r3c9 n9r3c5     n4r3c9 n4r8c6     n5r3c9 n8r2c6     n5r3c9 n8r3c1     n5r3c9 n9r3c5     n5r3c9 n4r8c6     n7r3c9 n8r2c6     n7r3c9 n8r3c1     n7r3c9 n9r3c5     n7r3c9 n4r8c6     n6r4c4 n8r2c6     n6r4c4 n8r3c1     n6r4c4 n9r3c5     n6r4c4 n4r8c6     n5r6c1 n8r2c6     n5r6c1 n8r3c1     n5r6c1 n9r3c5     n5r6c1 n4r8c6     n8r6c1 n8r2c6     n8r6c1 n8r3c1     n8r6c1 n9r3c5     n8r6c1 n4r8c6     n6r6c4 n8r2c6     n6r6c4 n8r3c1     n6r6c4 n9r3c5     n6r6c4 n4r8c6     n7r7c2 n8r2c6     n7r7c2 n8r3c1     n7r7c2 n9r3c5     n7r7c2 n4r8c6     n6r7c6 n8r2c6     n6r7c6 n6r2c8     n6r7c6 n8r3c1     n6r7c6 n9r3c5     n6r7c6 n6r5c7     n6r7c6 n6r7c9     n6r7c6 n4r8c6     n3r8c1 n8r2c6     n3r8c1 n8r3c1     n3r8c1 n9r3c5     n3r8c1 n4r8c6     n8r8c1 n8r2c6     n8r8c1 n8r3c1     n8r8c1 n9r3c5     n8r8c1 n4r8c6     n2r8c6 n8r2c6     n2r8c6 n8r3c1     n2r8c6 n9r3c5     n2r8c6 n4r8c6     n7r8c6 n8r2c6     n7r8c6 n8r3c1     n7r8c6 n9r3c5     n7r8c6 n4r8c6     n3r8c8 n8r2c6     n3r8c8 n8r3c1     n3r8c8 n9r3c5     n3r8c8 n4r8c6     n3r9c1 n8r2c6     n3r9c1 n8r3c1     n3r9c1 n9r3c5     n3r9c1 n4r8c6     n7r9c4 n8r2c6     n7r9c4 n8r3c1     n7r9c4 n9r3c5     n7r9c4 n4r8c6     n3r9c5 n8r2c6     n3r9c5 n8r3c1     n3r9c5 n9r3c5     n3r9c5 n4r8c6     n6r9c5 n8r2c6     n6r9c5 n8r3c1     n6r9c5 n9r3c5     n6r9c5 n4r8c6     n2r9c8 n8r2c6     n2r9c8 n8r3c1     n2r9c8 n9r3c5     n2r9c8 n4r8c6     n6r9c8 n8r2c6     n6r9c8 n8r3c1     n6r9c8 n9r3c5     n6r9c8 n4r8c6     n7r9c8 n8r2c6     n7r9c8 n8r3c1     n7r9c8 n9r3c5     n7r9c8 n4r8c6     n9r9c8 n8r2c6     n9r9c8 n8r3c1     n9r9c8 n9r3c5     n9r9c8 n4r8c6
+
+
+CHECKING WHICH OF THE ANTI-BACKDOOR-PAIRS LEAD TO 2-STEP SOLUTIONS:
+Total computation time = 23m 22.49s
+===> There are 0 2-step solutions, based on the following pairs:
 
 
 
@@ -320,7 +523,12 @@ no 2-steppers found in W8
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 
-FTE(W1) in 3 steps:
+Using Forcing-T&E: solution in 3 steps
+
+Load with settings:
+(bind ?*Forcing-TE* TRUE)
+(bind ?*Whips[1]* TRUE)
+
 
 (solve "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
 ***********************************************************************************************
@@ -386,7 +594,7 @@ nb-facts = 0
 
 
 
-CLIPS> (apply-FTE-to-all-bivalue-pairs TRUE)
+(apply-FTE-to-all-bivalue-pairs TRUE)
 
 FORCING-T&E(W1) applied to bivalue candidates n8r2c6 and n8r8c6 :
 .... 6 values decided by n8r2c6 : n8r2c6 n8r3c1 n9r3c5 n1r2c1 n1r3c9 n4r8c6
@@ -407,7 +615,7 @@ CURRENT RESOLUTION STATE:
 
 
 
-CLIPS> (apply-FTE-to-all-bivalue-pairs TRUE)
+(apply-FTE-to-all-bivalue-pairs TRUE)
 
 FORCING-T&E(W1) applied to bivalue candidates n3r8c5 and n8r8c5 :
 .... 2 values decided by n3r8c5 : n3r8c5 n3r9c8
@@ -426,7 +634,8 @@ CURRENT RESOLUTION STATE:
    579       235789    6         247       38        48        1         2579      2579
    789       4         1789      267       168       5         267       3         2679
 
-CLIPS> (apply-FTE-to-all-bivalue-pairs TRUE)
+
+(apply-FTE-to-all-bivalue-pairs TRUE)
 
 FORCING-T&E(W1) applied to bivalue candidates n2r2c8 and n2r8c8 :
 .... 50 values decided by n2r2c8 : n2r2c8 n2r1c6 n7r7c6 n6r5c8 n6r9c7 n2r9c4 n4r8c4 n8r8c6 n1r9c5 n3r8c5 n6r7c5 n5r2c5 n9r1c5 n8r3c5 n9r3c1 n4r2c6 n7r3c4 n5r3c8 n4r3c7 n5r5c7 n9r5c2 n4r5c3 n7r4c7 n2r6c7 n9r4c8 n7r8c8 n9r9c9 n5r8c1 n2r8c9 n5r7c9 n1r7c3 n3r7c1 n2r7c2 n6r4c1 n7r6c1 n8r9c1 n7r9c3 n5r1c3 n8r6c3 n7r1c2 n8r2c2 n6r1c9 n7r2c9 n4r1c1 n6r2c4 n6r6c6 n8r4c9 n5r6c2 n3r6c4 n5r4c4
@@ -482,9 +691,14 @@ nb-facts = <Fact-1481965>
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 
-F3TE(W1) in 1 step
+Using Forcing-T&E: solution in 1 step
 
-CLIPS> (solve "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
+load with settings:
+(bind ?*Forcing{3}-TE* TRUE)
+(bind ?*Whips[1]* TRUE)
+
+
+(solve "...1...8...3...9...62..3....1..2....2..87...3....4..1....9..84...6...1...4...5...")
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = W1
 ***  Using CLIPS 6.32-r779
@@ -532,7 +746,7 @@ nb-facts = 0
 
 
 
-CLIPS> (apply-F3TE-to-all-trivalue-triplets TRUE)
+(apply-F3TE-to-all-trivalue-triplets TRUE)
 
 FORCING[3]-T&E(W1) applied to trivalue candidates n8r8c5, n8r8c6 and n8r9c5 :
 .... 43 values decided by n8r8c5 : n8r8c5 n8r2c6 n8r3c1 n8r9c3 n1r7c3 n1r9c5 n3r7c5 n8r6c2 n8r4c9 n3r8c2 n3r9c8 n2r7c2 n9r3c5 n1r2c1 n1r3c9 n4r3c4 n4r8c6 n2r1c6 n7r2c4 n2r8c4 n6r9c4 n7r7c6 n5r7c1 n6r7c9 n5r2c2 n9r5c2 n7r1c2 n6r2c5 n2r2c8 n4r2c9 n5r1c9 n7r3c8 n5r8c8 n6r5c8 n9r4c8 n6r4c6 n9r6c6 n6r6c1 n3r4c1 n5r4c4 n3r6c4 n4r1c1 n9r1c3

@@ -71,6 +71,14 @@ It is also an example of using Forcing-T&E or Forcing{3}-T&E.
 
 
 
+<> The Urhegyi-8.5 puzzle is the example of 2-step solutions discussed in sections 6.13 to 6.16 of the Basic User Manual, with all the details.
+
+
+
+<> The pisces2#523-9.0-W7.clp puzzle is an example of trying to reduce the number of steps in a resolution path (as described in section 6.17 of the Basic User Manual).
+
+
+
 
 <> Metcalf-B7B is an example where T&E is used in oder to determine the B?B classification. It's one of the 3 hardest known puzzles; it is in B7B.
 You can see that 89 hypotheses are tried (which is a relatively small number for T&E) and that only one phase is necessary (also rare for T&E: in general some candidates must be tried several times).

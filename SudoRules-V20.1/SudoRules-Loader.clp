@@ -60,6 +60,7 @@
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "manage-rules.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "one-step-solutions.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "two-step-solutions.clp"))
+(load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "fewer-step-solutions.clp"))
 
 
 

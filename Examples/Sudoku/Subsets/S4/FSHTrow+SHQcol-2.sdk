@@ -1,0 +1,140 @@
+.........
+....1....
+.123.456.
+.........
+.35...78.
+.81.2.35.
+.........
+.57...63.
+.638.721.
+
+
+(solve ".............1.....123.456...........35...78..81.2.35...........57...63..638.721.")
+
+
+***********************************************************************************************
+***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
+***  Using CLIPS 6.32-r779
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
+***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
+***********************************************************************************************
+.............1.....123.456...........35...78..81.2.35...........57...63..638.721.
+Resolution state after Singles:
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 479     4689    ! 25679   56789   25689   ! 1489    2479    1234789 !
+   ! 3456789 479     4689    ! 25679   1       25689   ! 489     2479    234789  !
+   ! 789     1       2       ! 3       789     4       ! 5       6       789     !
+   +-------------------------+-------------------------+-------------------------+
+   ! 24679   2479    469     ! 145679  3456789 135689  ! 149     249     12469   !
+   ! 2469    3       5       ! 1469    469     169     ! 7       8       12469   !
+   ! 4679    8       1       ! 4679    2       69      ! 3       5       469     !
+   +-------------------------+-------------------------+-------------------------+
+   ! 12489   249     489     ! 124569  34569   123569  ! 489     479     45789   !
+   ! 12489   5       7       ! 1249    49      129     ! 6       3       489     !
+   ! 49      6       3       ! 8       459     7       ! 2       1       459     !
+   +-------------------------+-------------------------+-------------------------+
+
+228 candidates, 1739 csp-links and 1739 links. Density = 6.72%
+Starting non trivial part of solution.
+
+Resolution state after Singles and whips[1]:
+   +-------------------------+-------------------------+-------------------------+
+   ! 3456789 479     4689    ! 25679   56789   25689   ! 1489    2479    1234789 !
+   ! 3456789 479     4689    ! 25679   1       25689   ! 489     2479    234789  !
+   ! 789     1       2       ! 3       789     4       ! 5       6       789     !
+   +-------------------------+-------------------------+-------------------------+
+   ! 24679   2479    469     ! 145679  3456789 135689  ! 149     249     12469   !
+   ! 2469    3       5       ! 1469    469     169     ! 7       8       12469   !
+   ! 4679    8       1       ! 4679    2       69      ! 3       5       469     !
+   +-------------------------+-------------------------+-------------------------+
+   ! 12489   249     489     ! 124569  34569   123569  ! 489     479     45789   !
+   ! 12489   5       7       ! 1249    49      129     ! 6       3       489     !
+   ! 49      6       3       ! 8       459     7       ! 2       1       459     !
+   +-------------------------+-------------------------+-------------------------+
+
+228 candidates.
+
+hidden-pairs-in-a-row: r4{n3 n8}{c5 c6} ==> r4c6 ≠ 9, r4c6 ≠ 6, r4c6 ≠ 5, r4c6 ≠ 1, r4c5 ≠ 9, r4c5 ≠ 7, r4c5 ≠ 6, r4c5 ≠ 5, r4c5 ≠ 4
+hidden-single-in-a-block ==> r4c4 = 5
+hidden-single-in-a-block ==> r6c4 = 7
+whip[1]: b5n4{r5c5 .} ==> r5c1 ≠ 4, r5c9 ≠ 4
+whip[1]: r4n1{c9 .} ==> r5c9 ≠ 1
+hidden-pairs-in-a-column: c1{n3 n5}{r1 r2} ==> r2c1 ≠ 9, r2c1 ≠ 8, r2c1 ≠ 7, r2c1 ≠ 6, r2c1 ≠ 4, r1c1 ≠ 9, r1c1 ≠ 8, r1c1 ≠ 7, r1c1 ≠ 6, r1c1 ≠ 4
+whip[1]: c1n6{r6 .} ==> r4c3 ≠ 6
+finned-swordfish-in-rows: n9{r9 r3 r8}{c9 c1 c5} ==> r7c5 ≠ 9
+finned-swordfish-in-rows: n9{r9 r3 r6}{c9 c1 c5} ==> r5c5 ≠ 9
+finned-swordfish-in-rows: n4{r6 r9 r8}{c9 c1 c5} ==> r7c5 ≠ 4
+jellyfish-in-columns: n9{c2 c8 c3 c7}{r7 r4 r2 r1} ==> r7c9 ≠ 9, r7c6 ≠ 9, r7c4 ≠ 9, r7c1 ≠ 9, r4c9 ≠ 9, r4c1 ≠ 9, r2c9 ≠ 9, r2c6 ≠ 9, r2c4 ≠ 9, r1c9 ≠ 9, r1c6 ≠ 9, r1c5 ≠ 9, r1c4 ≠ 9
+hidden-single-in-a-block ==> r3c5 = 9
+naked-single ==> r8c5 = 4
+naked-single ==> r5c5 = 6
+naked-single ==> r6c6 = 9
+naked-single ==> r5c6 = 1
+naked-single ==> r5c4 = 4
+naked-single ==> r8c6 = 2
+naked-single ==> r9c5 = 5
+naked-single ==> r7c5 = 3
+naked-single ==> r4c5 = 8
+naked-single ==> r1c5 = 7
+naked-single ==> r4c6 = 3
+naked-single ==> r7c6 = 6
+naked-single ==> r7c4 = 1
+naked-single ==> r8c4 = 9
+naked-single ==> r8c9 = 8
+naked-single ==> r3c9 = 7
+naked-single ==> r3c1 = 8
+naked-single ==> r8c1 = 1
+hidden-single-in-a-column ==> r7c3 = 8
+hidden-single-in-a-column ==> r7c8 = 7
+hidden-single-in-a-row ==> r2c2 = 7
+hidden-single-in-a-block ==> r4c1 = 7
+hidden-single-in-a-block ==> r6c1 = 6
+naked-single ==> r6c9 = 4
+naked-single ==> r7c9 = 5
+naked-single ==> r9c9 = 9
+naked-single ==> r5c9 = 2
+naked-single ==> r2c9 = 3
+naked-single ==> r1c9 = 1
+naked-single ==> r4c9 = 6
+naked-single ==> r2c1 = 5
+naked-single ==> r1c1 = 3
+naked-single ==> r2c6 = 8
+naked-single ==> r1c6 = 5
+naked-single ==> r4c8 = 9
+naked-single ==> r4c3 = 4
+naked-single ==> r4c2 = 2
+naked-single ==> r4c7 = 1
+naked-single ==> r5c1 = 9
+naked-single ==> r7c7 = 4
+naked-single ==> r2c7 = 9
+naked-single ==> r1c7 = 8
+naked-single ==> r2c3 = 6
+naked-single ==> r1c3 = 9
+naked-single ==> r1c2 = 4
+naked-single ==> r1c8 = 2
+naked-single ==> r1c4 = 6
+naked-single ==> r2c8 = 4
+naked-single ==> r2c4 = 2
+naked-single ==> r7c1 = 2
+naked-single ==> r7c2 = 9
+naked-single ==> r9c1 = 4
+PUZZLE 0 IS SOLVED. rating-type = SFin, MOST COMPLEX RULE TRIED = SHQ
+   349675821
+   576218943
+   812394567
+   724583196
+   935461782
+   681729354
+   298136475
+   157942638
+   463857219
+
+nb-facts = <Fact-10332>
+Puzzle .............1.....123.456...........35...78..81.2.35...........57...63..638.721. :
+init-time = 0.19s, solve-time = 0.45s, total-time = 0.64s
+***********************************************************************************************
+***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = SFin
+***  Using CLIPS 6.32-r779
+***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
+***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
+***********************************************************************************************

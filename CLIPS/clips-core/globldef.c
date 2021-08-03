@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.30  01/25/15            */
+   /*             CLIPS Version 6.32  07/23/21            */
    /*                                                     */
    /*                  DEFGLOBAL MODULE                   */
    /*******************************************************/
@@ -42,6 +42,9 @@
 /*            Changed find construct functionality so that   */
 /*            imported modules are search when locating a    */
 /*            named construct.                               */
+/*                                                           */
+/*      6.32: Fixed issue with optimized join network        */
+/*            expression evaluation.                         */
 /*                                                           */
 /*************************************************************/
 
@@ -587,6 +590,10 @@ static intBool GetDefglobalValue2(
    /*=================================*/
 
    QGetDefglobalValue(theEnv,theGlobal,vPtr);
+   
+   if ((vPtr->type == SYMBOL) &&
+       (vPtr->value == EnvFalseSymbol(theEnv)))
+     { return FALSE; }
 
    return(TRUE);
   }
@@ -623,6 +630,10 @@ globle int QGetDefglobalValue(
                                 &((struct multifield *) vPtr->value)->theFields[0],
                                 &((struct multifield *) theGlobal->current.value)->theFields[theGlobal->current.begin]);
      }
+     
+   if ((vPtr->type == SYMBOL) &&
+       (vPtr->value == EnvFalseSymbol(theEnv)))
+     { return FALSE; }
 
    return(TRUE);
   }

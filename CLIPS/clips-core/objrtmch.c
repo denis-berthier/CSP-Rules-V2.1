@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*               CLIPS Version 6.31  05/09/19          */
+   /*               CLIPS Version 6.32  07/12/21          */
    /*                                                     */
    /*          OBJECT PATTERN MATCHER MODULE              */
    /*******************************************************/
@@ -44,6 +44,10 @@
 /*      6.31: Optimization for marking relevant alpha nodes  */
 /*            in the object pattern network.                 */
 /*                                                           */
+/*      6.32: Fixed instance redefinition crash with rules   */      
+/*            in JNSimpleCompareFunction1 when deleted       */
+/*            instance slots are referenced.                 */
+/*                                                           */
 /**************************************************************/
 
 /* =========================================
@@ -60,8 +64,10 @@
 #include "drive.h"
 #include "engine.h"
 #include "envrnmnt.h"
+#include "insfun.h"
 #include "lgcldpnd.h"
 #include "multifld.h"
+#include "objrtfnx.h"
 
 #if (! RUN_TIME) && (! BLOAD_ONLY)
 #include "incrrset.h"
@@ -1415,6 +1421,13 @@ static void ObjectRetractAction(
          ins->header.dependents = saveDependents;
         }
      }
+     
+   if (ins->dataRemovalDeferred)
+     {
+      ins->dataRemovalDeferred = FALSE;
+      RemoveInstanceData(theEnv,ins);
+     }
+     
    ins->reteSynchronized = TRUE;
   }
 

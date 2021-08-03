@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*              CLIPS Version 6.32  10/28/20           */
+   /*              CLIPS Version 6.32  07/12/21           */
    /*                                                     */
    /*                INSTANCE COMMAND MODULE              */
    /*******************************************************/
@@ -51,6 +51,10 @@
 /*            to constructs, DanglingConstructs.             */
 /*                                                           */
 /*      6.32: Fixed embedded reset of error flags.           */
+/*                                                           */
+/*            Fixed instance redefinition crash with rules   */      
+/*            in JNSimpleCompareFunction1 when deleted       */
+/*            instance slots are referenced.                 */
 /*                                                           */
 /*************************************************************/
 
@@ -152,7 +156,7 @@ globle void SetupInstances(
                                                 };
                                                 
    INSTANCE_TYPE dummyInstance = { { NULL, NULL, 0, 0L }, 
-                                   NULL, NULL, 0, 1, 0, 0, 0, 
+                                   NULL, NULL, 0, 1, 0, 0, 0, 0,
                                    NULL,  0, 0, NULL, NULL, NULL, NULL,
                                    NULL, NULL, NULL, NULL, NULL };
 

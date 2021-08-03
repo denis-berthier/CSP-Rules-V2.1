@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*               CLIPS Version 6.32  02/19/20          */
+   /*               CLIPS Version 6.32  07/12/21          */
    /*                                                     */
    /*                OBJECT SYSTEM DEFINITIONS            */
    /*******************************************************/
@@ -26,6 +26,10 @@
 /*                                                           */
 /*      6.32: Fixed compilation issue with OBJECT_SYSTEM     */
 /*            set to 0.                                      */
+/*                                                           */
+/*            Fixed instance redefinition crash with rules   */      
+/*            in JNSimpleCompareFunction1 when deleted       */
+/*            instance slots are referenced.                 */
 /*                                                           */
 /*************************************************************/
 
@@ -203,6 +207,7 @@ struct instance
    unsigned initSlotsCalled      : 1;
    unsigned initializeInProgress : 1;
    unsigned reteSynchronized     : 1;
+   unsigned dataRemovalDeferred  : 1;
    SYMBOL_HN *name;
    unsigned hashTableIndex;
    unsigned busy;

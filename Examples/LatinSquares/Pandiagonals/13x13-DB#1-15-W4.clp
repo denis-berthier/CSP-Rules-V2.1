@@ -17,10 +17,12 @@
 
 (Generated from an acyclic grid)
 
+With Subsets[3] and generic chains activated:
+
 (solve "1234567..A.CD.......ACD9.B.B........CD...8......................8........................................................................................................ # A")
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = S3+W
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -29,19 +31,19 @@
 entering BRT
 Starting_init_links_with_<Fact-13316>
 Resolution state after Singles:
-1           2           3           4           5           6           7           89B         9B          A           8B          C           D           
-34567       45678       1567        12678       1237        12348       123458      A           C           D           9           12345678    B           
-2456789A    B           24679A      13579A      124689A     1235789A    1234689     12345789    12345689    12345678    C           D           1345679A    
-235679ACD   134679AD    8           23569ABCD   134679ABCD  124579BCD   123569BD    1234679BC   123457ABD   1234569B    234567A     1345679AB   124567C     
-23467BC     134579ACD   124569AD    1235679AC   234679BCD   134579BD    124569ABC   123567BD    1234679AB   234579C     13456BD     1245679AB   8           
-234579AB    134568C     1245679ABCD 12356789D   1234679     2345789ABC  134568ABD   12456789B   2356789A    1346789BC   124578ABD   123569      1234679A    
-2345689ABD  1345679A    124567BC    12356789BD  12346789A   123457A     2345689AB   3456789C    1456789ABD  1256789BC   12367AD     1234789AB   123459C     
-2345689BCD  13456789D   1245679B    1235678BC   1234678ABD  12345789A   234569AC    3456789BCD  1456789ABD  125679C     123678ABD   123479AB    123459AC    
-2345789BCD  1345689D    1245679AB   123567AB    1234678B    2345789AC   1345689AD   1245679C    235679AD    1346789BC   12457ABD    1235689AB   1234679AC   
-2346789BD   1345789AC   12456BD     12356789AB  234679A     134578BC    1245689ABCD 1235679D    1234679A    234579BC    134568ABD   12456789AB  1235679C    
-2356789ABC  134678AD    124579AB    235689C     1346789ABD  124579AB    12356C      12346789BCD 1234579AD   1234569C    2345678ABD  13456789B   1245679     
-245678ABD   1356789A    24679AC     135789ABCD  124689BCD   123579AD    123469AB    123457BC    12345689ABD 123456789   1234567     23456789B   1345679AC   
-3456789AB   456789AC    15679ABCD   126789ABCD  12379ACD    123489BCD   123459ABD   1234569B    12345678B   123456789BC 12345678D   12345679A   234567A     
+1           2           3           4           5           6           7           89B         9B          A           8B          C           D
+34567       45678       1567        12678       1237        12348       123458      A           C           D           9           12345678    B
+2456789A    B           24679A      13579A      124689A     1235789A    1234689     12345789    12345689    12345678    C           D           1345679A
+235679ACD   134679AD    8           23569ABCD   134679ABCD  124579BCD   123569BD    1234679BC   123457ABD   1234569B    234567A     1345679AB   124567C
+23467BC     134579ACD   124569AD    1235679AC   234679BCD   134579BD    124569ABC   123567BD    1234679AB   234579C     13456BD     1245679AB   8
+234579AB    134568C     1245679ABCD 12356789D   1234679     2345789ABC  134568ABD   12456789B   2356789A    1346789BC   124578ABD   123569      1234679A
+2345689ABD  1345679A    124567BC    12356789BD  12346789A   123457A     2345689AB   3456789C    1456789ABD  1256789BC   12367AD     1234789AB   123459C
+2345689BCD  13456789D   1245679B    1235678BC   1234678ABD  12345789A   234569AC    3456789BCD  1456789ABD  125679C     123678ABD   123479AB    123459AC
+2345789BCD  1345689D    1245679AB   123567AB    1234678B    2345789AC   1345689AD   1245679C    235679AD    1346789BC   12457ABD    1235689AB   1234679AC
+2346789BD   1345789AC   12456BD     12356789AB  234679A     134578BC    1245689ABCD 1235679D    1234679A    234579BC    134568ABD   12456789AB  1235679C
+2356789ABC  134678AD    124579AB    235689C     1346789ABD  124579AB    12356C      12346789BCD 1234579AD   1234569C    2345678ABD  13456789B   1245679
+245678ABD   1356789A    24679AC     135789ABCD  124689BCD   123579AD    123469AB    123457BC    12345689ABD 123456789   1234567     23456789B   1345679AC
+3456789AB   456789AC    15679ABCD   126789ABCD  12379ACD    123489BCD   123459ABD   1234569B    12345678B   123456789BC 12345678D   12345679A   234567A
 
 1222 candidates, 23160 csp-links and 23160 links. Density = 3.1%
 Starting non trivial part of solution.
@@ -50,19 +52,19 @@ whip[1]: r1n8{c11 .} ==> r11c8 ≠ 8, r11c11 ≠ 8
 whip[1]: r1n9{c9 .} ==> r8c2 ≠ 9, r7c2 ≠ 9, r13c8 ≠ 9
 
 Resolution state after Singles and whips[1]:
-1           2           3           4           5           6           7           89B         9B          A           8B          C           D           
-34567       45678       1567        12678       1237        12348       123458      A           C           D           9           12345678    B           
-2456789A    B           24679A      13579A      124689A     1235789A    1234689     12345789    12345689    12345678    C           D           1345679A    
-235679ACD   134679AD    8           23569ABCD   134679ABCD  124579BCD   123569BD    1234679BC   123457ABD   1234569B    234567A     1345679AB   124567C     
-23467BC     134579ACD   124569AD    1235679AC   234679BCD   134579BD    124569ABC   123567BD    1234679AB   234579C     13456BD     1245679AB   8           
-234579AB    134568C     1245679ABCD 12356789D   1234679     2345789ABC  134568ABD   12456789B   2356789A    1346789BC   124578ABD   123569      1234679A    
-2345689ABD  134567A     124567BC    12356789BD  12346789A   123457A     2345689AB   3456789C    1456789ABD  1256789BC   12367AD     1234789AB   123459C     
-2345689BCD  1345678D    1245679B    1235678BC   1234678ABD  12345789A   234569AC    3456789BCD  1456789ABD  125679C     123678ABD   123479AB    123459AC    
-2345789BCD  1345689D    1245679AB   123567AB    1234678B    2345789AC   1345689AD   1245679C    235679AD    1346789BC   12457ABD    1235689AB   1234679AC   
-2346789BD   1345789AC   12456BD     12356789AB  234679A     134578BC    1245689ABCD 1235679D    1234679A    234579BC    134568ABD   12456789AB  1235679C    
-2356789ABC  134678AD    124579AB    235689C     1346789ABD  124579AB    12356C      1234679BCD  1234579AD   1234569C    234567ABD   13456789B   1245679     
-245678ABD   1356789A    24679AC     135789ABCD  124689BCD   123579AD    123469AB    123457BC    12345689ABD 123456789   1234567     23456789B   1345679AC   
-3456789AB   456789AC    15679ABCD   126789ABCD  12379ACD    123489BCD   123459ABD   123456B     12345678B   123456789BC 12345678D   12345679A   234567A     
+1           2           3           4           5           6           7           89B         9B          A           8B          C           D
+34567       45678       1567        12678       1237        12348       123458      A           C           D           9           12345678    B
+2456789A    B           24679A      13579A      124689A     1235789A    1234689     12345789    12345689    12345678    C           D           1345679A
+235679ACD   134679AD    8           23569ABCD   134679ABCD  124579BCD   123569BD    1234679BC   123457ABD   1234569B    234567A     1345679AB   124567C
+23467BC     134579ACD   124569AD    1235679AC   234679BCD   134579BD    124569ABC   123567BD    1234679AB   234579C     13456BD     1245679AB   8
+234579AB    134568C     1245679ABCD 12356789D   1234679     2345789ABC  134568ABD   12456789B   2356789A    1346789BC   124578ABD   123569      1234679A
+2345689ABD  134567A     124567BC    12356789BD  12346789A   123457A     2345689AB   3456789C    1456789ABD  1256789BC   12367AD     1234789AB   123459C
+2345689BCD  1345678D    1245679B    1235678BC   1234678ABD  12345789A   234569AC    3456789BCD  1456789ABD  125679C     123678ABD   123479AB    123459AC
+2345789BCD  1345689D    1245679AB   123567AB    1234678B    2345789AC   1345689AD   1245679C    235679AD    1346789BC   12457ABD    1235689AB   1234679AC
+2346789BD   1345789AC   12456BD     12356789AB  234679A     134578BC    1245689ABCD 1235679D    1234679A    234579BC    134568ABD   12456789AB  1235679C
+2356789ABC  134678AD    124579AB    235689C     1346789ABD  124579AB    12356C      1234679BCD  1234579AD   1234569C    234567ABD   13456789B   1245679
+245678ABD   1356789A    24679AC     135789ABCD  124689BCD   123579AD    123469AB    123457BC    12345689ABD 123456789   1234567     23456789B   1345679AC
+3456789AB   456789AC    15679ABCD   126789ABCD  12379ACD    123489BCD   123459ABD   123456B     12345678B   123456789BC 12345678D   12345679A   234567A
 
 1217 candidates.
 
@@ -125,12 +127,12 @@ hidden-single-in-an-anti-diagonal ==> r6c3 = 13
 hidden-single-in-a-row ==> r11c2 = 13
 hidden-single-in-an-anti-diagonal ==> r10c8 = 13
 Entering_level_S3_with_<Fact-107632>
-Entering_level_BC3_with_<Fact-107655>
-Entering_level_Z3_with_<Fact-111152>
-Entering_level_tW3_with_<Fact-114141>
+Entering_level_BC3_with_<Fact-107635>
+Entering_level_Z3_with_<Fact-111132>
+Entering_level_tW3_with_<Fact-114121>
 t-whip[3]: a1n8{r12c12 r6c6} - r1n8{c11 c8} - a10n8{r13c9 .} ==> r12c2 ≠ 8, r2c12 ≠ 8
 t-whip[3]: r2n8{c6 c7} - r1n8{c8 c11} - d5n8{r8c11 .} ==> r13c4 ≠ 8
-Entering_level_W3_with_<Fact-117157>
+Entering_level_W3_with_<Fact-117137>
 whip[3]: d12n8{r12c1 r6c7} - c8n8{r6 r1} - c9n8{r13 .} ==> r3c5 ≠ 8
 whip[3]: r1n8{c11 c8} - d7n8{r7c1 r10c11} - r13n8{c11 .} ==> r9c6 ≠ 8
 whip[3]: a10n8{r10c6 r13c9} - d1n8{r13c2 r7c8} - r11n8{c12 .} ==> r10c4 ≠ 8
@@ -231,9 +233,9 @@ whip[1]: a4n9{r9c12 .} ==> r3c5 ≠ 9
 whip[1]: c5n9{r12 .} ==> r9c2 ≠ 9
 whip[1]: a7n9{r12c5 .} ==> r12c10 ≠ 9
 whip[1]: c2n9{r5 .} ==> r4c1 ≠ 9
-hidden-pairs-in-a-diagonal: d7{n9 n11}{a1 a4} ==> d7a4 ≠ 10, d7a4 ≠ 6, d7a4 ≠ 5, d7a4 ≠ 3, d7a4 ≠ 2, d7a4 ≠ 1, d7a1 ≠ 10, d7a1 ≠ 6, d7a1 ≠ 5, d7a1 ≠ 3, d7a1 ≠ 2
+hidden-pairs-in-a-diagonal: d7{n9 n11}{a1 a4} ==> r9c12 ≠ 10, r9c12 ≠ 6, r9c12 ≠ 5, r9c12 ≠ 3, r9c12 ≠ 2, r9c12 ≠ 1, r4c4 ≠ 10, r4c4 ≠ 6, r4c4 ≠ 5, r4c4 ≠ 3, r4c4 ≠ 2
 hidden-pairs-in-a-column: c4{n9 n11}{r4 r13} ==> r13c4 ≠ 10, r13c4 ≠ 7, r13c4 ≠ 6, r13c4 ≠ 2, r13c4 ≠ 1
-hidden-pairs-in-an-anti-diagonal: a1{n9 n11}{d6 d7} ==> d6a1 ≠ 7, d6a1 ≠ 5, d6a1 ≠ 4, d6a1 ≠ 3, d6a1 ≠ 2
+hidden-pairs-in-an-anti-diagonal: a1{n9 n11}{d6 d7} ==> r10c10 ≠ 7, r10c10 ≠ 5, r10c10 ≠ 4, r10c10 ≠ 3, r10c10 ≠ 2
 z-chain[2]: d3n10{r11c6 r5c12} - c4n10{r10 .} ==> r6c1 ≠ 10
 t-whip[2]: c1n10{r12 r13} - c4n10{r10 .} ==> r8c5 ≠ 10, r4c9 ≠ 10
 whip[1]: a6n10{r8c13 .} ==> r6c13 ≠ 10
@@ -275,10 +277,10 @@ hidden-single-in-a-column ==> r4c5 = 10
 whip[3]: c1n5{r13 r6} - c4n5{r3 r8} - c7n5{r11 .} ==> r2c12 ≠ 5
 whip[3]: d7n3{r13c8 r10c11} - d10n3{r13c11 r9c2} - d4n3{r6c12 .} ==> r11c8 ≠ 3
 whip[3]: d7n3{r12c9 r13c8} - a2n3{r10c11 r3c4} - a4n3{r2c5 .} ==> r12c11 ≠ 3
-Entering_level_BC4_with_<Fact-132128>
-Entering_level_Z4_with_<Fact-132129>
-Entering_level_tW4_with_<Fact-132139>
-Entering_level_W4_with_<Fact-132203>
+Entering_level_BC4_with_<Fact-132062>
+Entering_level_Z4_with_<Fact-132063>
+Entering_level_tW4_with_<Fact-132073>
+Entering_level_W4_with_<Fact-132137>
 whip[4]: r2n2{c12 c5} - r10n2{c13 c1} - a3n2{r10c12 r8c10} - d13n2{r4c10 .} ==> r7c12 ≠ 2
 whip[4]: r2n4{c12 c1} - c6n4{r10 r9} - d5n4{r11c8 r6c13} - c2n4{r8 .} ==> r7c7 ≠ 4
 whip[4]: d6n4{r13c7 r11c9} - a3n4{r11c13 r10c12} - d13n4{r2c12 r4c10} - d10n4{r9c2 .} ==> r13c8 ≠ 4
@@ -447,13 +449,13 @@ PUZZLE 0 IS SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = W[4]
    A5CD69B431287
    4769CD12B83A5
 
-nb-facts = <Fact-135778>
+nb-facts = <Fact-135712>
 Puzzle 1234567..A.CD.......ACD9.B.B........CD...8......................8........................................................................................................ # A :
-init-time = 2.46s, solve-time = 1m 20.01s, total-time = 1m 22.48s
-nb-facts=<Fact-135778>
+init-time = 3.37s, solve-time = 1m 8.73s, total-time = 1m 12.1s
+nb-facts=<Fact-135712>
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = S3+W
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************

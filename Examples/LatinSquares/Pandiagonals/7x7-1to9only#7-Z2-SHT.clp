@@ -17,8 +17,8 @@ Solution when only Subset rules are active:
 
 (solve "................4.7...5.126...................... ED=7.7/7.7/2.9")
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W1
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -27,13 +27,13 @@ Solution when only Subset rules are active:
 entering BRT
 Starting_init_links_with_<Fact-2240>
 Resolution state after Singles:
-3567   1347   1235   234567 136    12347  23456  
-123457 2367   13567  23     13456  2345   13467  
-1236   1236   4      356    7      135    1235   
-347    5      37     1      2      6      347    
-12367  123467 236    34567  35     13457  12345  
-12345  2346   13567  2347   13456  2357   1367   
-3456   134    12357  234567 1346   1237   23567  
+3567   1347   1235   234567 136    12347  23456
+123457 2367   13567  23     13456  2345   13467
+1236   1236   4      356    7      135    1235
+347    5      37     1      2      6      347
+12367  123467 236    34567  35     13457  12345
+12345  2346   13567  2347   13456  2357   1367
+3456   134    12357  234567 1346   1237   23567
 
 181 candidates, 1563 csp-links and 1563 links. Density = 9.59%
 Starting non trivial part of solution.
@@ -55,23 +55,23 @@ whip[1]: d5n2{r2c4 .} ==> r2c1 ≠ 2
 whip[1]: r2n2{c6 .} ==> r7c4 ≠ 2
 
 Resolution state after Singles and whips[1]:
-3567  1347  1235  23567 136   1237  23456 
-137   2367  13567 23    13456 2345  137   
-1236  1236  4     356   7     135   1235  
-347   5     37    1     2     6     347   
-12367 12367 236   34567 35    1345  1235  
-12345 236   13567 2347  1356  2357  1367  
-35    134   12357 3567  1346  1237  236   
+3567  1347  1235  23567 136   1237  23456
+137   2367  13567 23    13456 2345  137
+1236  1236  4     356   7     135   1235
+347   5     37    1     2     6     347
+12367 12367 236   34567 35    1345  1235
+12345 236   13567 2347  1356  2357  1367
+35    134   12357 3567  1346  1237  236
 
 163 candidates.
 
 Entering_relation_bivalue_with_<Fact-8526>
 Entering_level_S2_with_<Fact-8583>
-Entering_level_S3_with_<Fact-8610>
-swordfish-in-anti-diags-w-transv-columns: n2{a1 a5 a7}{c7 c6 c2} ==> a4c2 ≠ 2, a3c7 ≠ 2, a6c6 ≠ 2
-swordfish-in-anti-diags-w-transv-rows: n7{a1 a2 a6}{r6 r2 r1} ==> r6a5 ≠ 7, r2a7 ≠ 7, r1a4 ≠ 7
-swordfish-in-anti-diags-w-transv-rows: n5{a1 a3 a7}{r6 r5 r1} ==> r6a5 ≠ 5, r5a2 ≠ 5, r1a4 ≠ 5
-swordfish-in-diags-w-transv-rows: n6{d1 d5 d7}{r6 r5 r1} ==> r6d3 ≠ 6, r5d6 ≠ 6, r1d4 ≠ 6
+Entering_level_S3_with_<Fact-8586>
+swordfish-in-anti-diags-w-transv-columns: n2{a1 a5 a7}{c7 c6 c2} ==> a4c2 ≠ 2, r5c7 ≠ 2, r1c6 ≠ 2
+swordfish-in-anti-diags-w-transv-rows: n7{a1 a2 a6}{r6 r2 r1} ==> r6a5 ≠ 7, r2c1 ≠ 7, r1c4 ≠ 7
+swordfish-in-anti-diags-w-transv-rows: n5{a1 a3 a7}{r6 r5 r1} ==> r6a5 ≠ 5, r5c6 ≠ 5, r1c4 ≠ 5
+swordfish-in-diags-w-transv-rows: n6{d1 d5 d7}{r6 r5 r1} ==> r6d3 ≠ 6, r5c2 ≠ 6, r1c4 ≠ 6
 naked-pairs-in-a-column: c4{r1 r2}{n2 n3} ==> r7c4 ≠ 3, r6c4 ≠ 3, r6c4 ≠ 2, r5c4 ≠ 3, r3c4 ≠ 3
 whip[1]: c4n3{r2 .} ==> r1c3 ≠ 3, r1c5 ≠ 3, r5c7 ≠ 3, r5c1 ≠ 3, r2c3 ≠ 3, r2c5 ≠ 3
 whip[1]: c5n3{r7 .} ==> r6c6 ≠ 3
@@ -80,7 +80,7 @@ whip[1]: r7n2{c6 .} ==> r5c1 ≠ 2
 whip[1]: r5n2{c3 .} ==> r2c6 ≠ 2
 whip[1]: c6n2{r7 .} ==> r3c2 ≠ 2
 whip[1]: d7n2{r5c3 .} ==> r1c3 ≠ 2
-naked-pairs-in-an-anti-diagonal: a3{d3 d4}{n1 n5} ==> d1a3 ≠ 1, d6a3 ≠ 5, d6a3 ≠ 1
+naked-pairs-in-an-anti-diagonal: a3{d3 d4}{n1 n5} ==> r7c2 ≠ 1, r6c1 ≠ 5, r6c1 ≠ 1
 whip[1]: r6n1{c7 .} ==> r1c5 ≠ 1
 naked-single ==> r1c5 = 6
 hidden-single-in-a-diagonal ==> r5c4 = 6
@@ -125,7 +125,7 @@ naked-single ==> r6c2 = 6
 naked-single ==> r7c2 = 4
 naked-single ==> r7c7 = 6
 naked-single ==> r7c4 = 7
-PUZZLE 0 IS SOLVED. rating-type = W1, MOST COMPLEX RULE TRIED = SHT
+PUZZLE 0 IS SOLVED. rating-type = S, MOST COMPLEX RULE TRIED = SHT
    5712634
    1263457
    6345712
@@ -134,13 +134,13 @@ PUZZLE 0 IS SOLVED. rating-type = W1, MOST COMPLEX RULE TRIED = SHT
    2634571
    3457126
 
-nb-facts = <Fact-8844>
+nb-facts = <Fact-8728>
 Puzzle ................4.7...5.126...................... ED=7.7/7.7/2.9 :
-init-time = 0.05s, solve-time = 0.24s, total-time = 0.29s
-nb-facts=<Fact-8844>
+init-time = 0.05s, solve-time = 0.26s, total-time = 0.31s
+nb-facts=<Fact-8728>
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W1
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -154,11 +154,11 @@ nb-facts=<Fact-8844>
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-Solution when all the chain rules are active:
+Solution when Subsets and chain rules are active:
 (solve "................4.7...5.126...................... ED=7.7/7.7/2.9")
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -167,13 +167,13 @@ Solution when all the chain rules are active:
 entering BRT
 Starting_init_links_with_<Fact-2241>
 Resolution state after Singles:
-3567   1347   1235   234567 136    12347  23456  
-123457 2367   13567  23     13456  2345   13467  
-1236   1236   4      356    7      135    1235   
-347    5      37     1      2      6      347    
-12367  123467 236    34567  35     13457  12345  
-12345  2346   13567  2347   13456  2357   1367   
-3456   134    12357  234567 1346   1237   23567  
+3567   1347   1235   234567 136    12347  23456
+123457 2367   13567  23     13456  2345   13467
+1236   1236   4      356    7      135    1235
+347    5      37     1      2      6      347
+12367  123467 236    34567  35     13457  12345
+12345  2346   13567  2347   13456  2357   1367
+3456   134    12357  234567 1346   1237   23567
 
 181 candidates, 1563 csp-links and 1563 links. Density = 9.59%
 Starting non trivial part of solution.
@@ -195,20 +195,20 @@ whip[1]: d5n2{r2c4 .} ==> r2c1 ≠ 2
 whip[1]: r2n2{c6 .} ==> r7c4 ≠ 2
 
 Resolution state after Singles and whips[1]:
-3567  1347  1235  23567 136   1237  23456 
-137   2367  13567 23    13456 2345  137   
-1236  1236  4     356   7     135   1235  
-347   5     37    1     2     6     347   
-12367 12367 236   34567 35    1345  1235  
-12345 236   13567 2347  1356  2357  1367  
-35    134   12357 3567  1346  1237  236   
+3567  1347  1235  23567 136   1237  23456
+137   2367  13567 23    13456 2345  137
+1236  1236  4     356   7     135   1235
+347   5     37    1     2     6     347
+12367 12367 236   34567 35    1345  1235
+12345 236   13567 2347  1356  2357  1367
+35    134   12357 3567  1346  1237  236
 
 163 candidates.
 
 Entering_relation_bivalue_with_<Fact-8527>
 Entering_level_S2_with_<Fact-8584>
-Entering_level_BC2_with_<Fact-8611>
-Entering_level_Z2_with_<Fact-9044>
+Entering_level_BC2_with_<Fact-8587>
+Entering_level_Z2_with_<Fact-9020>
 z-chain[2]: r7n5{c3 c1} - a3n5{r6c1 .} ==> r1c4 ≠ 5
 whip[1]: c4n5{r7 .} ==> r5c6 ≠ 5
 whip[1]: c6n5{r6 .} ==> r6c3 ≠ 5
@@ -226,7 +226,7 @@ whip[1]: r7n2{c6 .} ==> r5c1 ≠ 2
 whip[1]: c1n2{r6 .} ==> r1c3 ≠ 2, r1c6 ≠ 2
 whip[1]: r1n2{c7 .} ==> r5c7 ≠ 2, r3c2 ≠ 2, r6c2 ≠ 2
 whip[1]: c2n2{r5 .} ==> r2c6 ≠ 2
-naked-pairs-in-an-anti-diagonal: a3{d3 d4}{n1 n5} ==> d1a3 ≠ 1, d6a3 ≠ 5, d6a3 ≠ 1
+naked-pairs-in-an-anti-diagonal: a3{d3 d4}{n1 n5} ==> r7c2 ≠ 1, r6c1 ≠ 5, r6c1 ≠ 1
 whip[1]: r6n1{c7 .} ==> r1c5 ≠ 1
 naked-single ==> r1c5 = 6
 hidden-single-in-a-diagonal ==> r5c4 = 6
@@ -271,7 +271,7 @@ naked-single ==> r6c2 = 6
 naked-single ==> r7c2 = 4
 naked-single ==> r7c7 = 6
 naked-single ==> r7c4 = 7
-PUZZLE 0 IS SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = z-chain[2]
+PUZZLE 0 IS SOLVED. rating-type = W+S, MOST COMPLEX RULE TRIED = z-chain[2]
    5712634
    1263457
    6345712
@@ -280,13 +280,13 @@ PUZZLE 0 IS SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = z-chain[2]
    2634571
    3457126
 
-nb-facts = <Fact-9873>
+nb-facts = <Fact-9849>
 Puzzle ................4.7...5.126...................... ED=7.7/7.7/2.9 :
-init-time = 0.05s, solve-time = 0.89s, total-time = 0.94s
-nb-facts=<Fact-9873>
+init-time = 0.05s, solve-time = 1.0s, total-time = 1.05s
+nb-facts=<Fact-9849>
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************

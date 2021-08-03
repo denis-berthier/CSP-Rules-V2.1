@@ -19,6 +19,8 @@ D 1 . . . . . . . . . 2 .
 
 (Generated from a fully cyclic grid)
 
+With Subsets[3] and generic chains activated:
+
 
 (solve-list
 . 3 C B 9 . . . . 8 . 1 A 
@@ -36,8 +38,8 @@ D 1 . . . . . . . . . 2 .
 . . . . A . . . . 9 . . . 
 )
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -54,19 +56,19 @@ hidden-single-in-a-diagonal ==> r13c1 = 2
 hidden-single-in-a-column ==> r1c9 = 2
 Starting_init_links_with_<Fact-13130>
 Resolution state after Singles:
-5          3          C          B          9          467D       467D       467D       2          8          467D       1          A          
-7          6          4          2          8          35BCD      1          A          359BCD     35BCD      359BCD     35BCD      39BC       
-D          1          378AB      567AC      34567B     345679C    34567BC    345679BC   345679BC   34567BC    3456789BC  2          4568BC     
-36C        57BC       9          1347ACD    567BCD     134567BD   2          8          34567BCD   134567BCD  13467ABCD  456ABCD    1357B      
-4          2          35678B     356CD      137BCD     15679ABCD  35679ABD   35679CD    13567BCD   367BCD     1569BCD    3579AB     356789CD   
-136ABC     579BCD     3567BD     34567C     3456BCD    13479ABCD  5679BCD    1345679BD  134679ACD  12456BCD   2345789B   35679CD    135678BCD  
-1369ABC    4579BCD    13567BD    134567ACD  2          8          3479BCD    1679BCD    14569ABD   13457      3567CD     3567BCD    134567BCD  
-8          457BCD     13567ABD   135679ACD  34567BCD   345679BC   346BCD     1249BCD    1579AB     3567D      13567ACD   34567BCD   2345679BCD 
-36BC       4579BCD    13567ABD   345679CD   13567BCD   13467ABCD  45689BC    2345B      3789CD     1567BCD    134567ABD  345679ACD  234567BCD  
-136BC      4579BCD    2          13456789CD 13467BCD   1569ABCD   34578AB    35679C     356BCD     1347BCD    15679ABCD  345679BD   134567CD   
-1369C      A          3567BD     134679CD   1456BCD    134579B    35679CD    13567BCD   34567BC    23456BCD   23479BCD   8          1345679BD  
-369B       4579CD     1367BD     45689CD    13457B     2          35678BCD   13567BCD   1345678BCD A          3456BCD    3479BCD    15679BCD   
-2          8          156D       13457      A          13567BCD   34567BCD   134567BCD  3567BCD    9          34567BC    3456BCD    347BCD     
+5          3          C          B          9          467D       467D       467D       2          8          467D       1          A
+7          6          4          2          8          35BCD      1          A          359BCD     35BCD      359BCD     35BCD      39BC
+D          1          378AB      567AC      34567B     345679C    34567BC    345679BC   345679BC   34567BC    3456789BC  2          4568BC
+36C        57BC       9          1347ACD    567BCD     134567BD   2          8          34567BCD   134567BCD  13467ABCD  456ABCD    1357B
+4          2          35678B     356CD      137BCD     15679ABCD  35679ABD   35679CD    13567BCD   367BCD     1569BCD    3579AB     356789CD
+136ABC     579BCD     3567BD     34567C     3456BCD    13479ABCD  5679BCD    1345679BD  134679ACD  12456BCD   2345789B   35679CD    135678BCD
+1369ABC    4579BCD    13567BD    134567ACD  2          8          3479BCD    1679BCD    14569ABD   13457      3567CD     3567BCD    134567BCD
+8          457BCD     13567ABD   135679ACD  34567BCD   345679BC   346BCD     1249BCD    1579AB     3567D      13567ACD   34567BCD   2345679BCD
+36BC       4579BCD    13567ABD   345679CD   13567BCD   13467ABCD  45689BC    2345B      3789CD     1567BCD    134567ABD  345679ACD  234567BCD
+136BC      4579BCD    2          13456789CD 13467BCD   1569ABCD   34578AB    35679C     356BCD     1347BCD    15679ABCD  345679BD   134567CD
+1369C      A          3567BD     134679CD   1456BCD    134579B    35679CD    13567BCD   34567BC    23456BCD   23479BCD   8          1345679BD
+369B       4579CD     1367BD     45689CD    13457B     2          35678BCD   13567BCD   1345678BCD A          3456BCD    3479BCD    15679BCD
+2          8          156D       13457      A          13567BCD   34567BCD   134567BCD  3567BCD    9          34567BC    3456BCD    347BCD
 
 925 candidates, 15338 csp-links and 15338 links. Density = 3.59%
 Starting non trivial part of solution.
@@ -82,33 +84,33 @@ whip[1]: d3n10{r10c7 .} ==> r10c11 ≠ 10
 whip[1]: r10n10{c7 .} ==> r9c6 ≠ 10
 
 Resolution state after Singles and whips[1]:
-5          3          C          B          9          467D       467D       467D       2          8          467D       1          A          
-7          6          4          2          8          35BCD      1          A          359BCD     35BCD      359BCD     35BCD      39BC       
-D          1          A          567C       34567B     345679C    34567BC    345679BC   345679BC   34567BC    3456789BC  2          4568BC     
-36C        57BC       9          1347CD     567BCD     134567BD   2          8          34567BCD   134567BCD  13467ABCD  456ABCD    1357B      
-4          2          8          356CD      137BCD     15679ABCD  35679ABD   35679CD    13567BCD   367BCD     1569BCD    3579B      35679CD    
-136ABC     579BCD     3567BD     34567C     3456BCD    13479BCD   5679BCD    1345679BD  134679ACD  12456BCD   2345789B   35679CD    135678BCD  
-1369ABC    4579BCD    13567BD    134567ACD  2          8          3479BCD    1679BCD    14569ABD   13457      3567CD     3567BCD    134567BCD  
-8          457BCD     13567BD    135679ACD  34567BCD   345679BC   346BCD     1249BCD    1579AB     3567D      13567CD    34567BCD   2345679BCD 
-36BC       4579BCD    13567BD    345679CD   13567BCD   13467BCD   4569BC     2345B      8          1567BCD    134567ABD  345679ACD  234567BCD  
-136BC      4579BCD    2          13456789CD 13467BCD   1569ABCD   34578AB    35679C     356BCD     1347BCD    15679BCD   345679BD   134567CD   
-1369C      A          3567BD     134679CD   1456BCD    134579B    35679CD    13567BCD   34567BC    23456BCD   23479BCD   8          1345679BD  
-369B       4579CD     1367BD     45689CD    13457B     2          35678BCD   13567BCD   134567BCD  A          3456BCD    3479BCD    15679BCD   
-2          8          156D       13457      A          13567BCD   34567BCD   134567BCD  3567BCD    9          34567BC    3456BCD    347BCD     
+5          3          C          B          9          467D       467D       467D       2          8          467D       1          A
+7          6          4          2          8          35BCD      1          A          359BCD     35BCD      359BCD     35BCD      39BC
+D          1          A          567C       34567B     345679C    34567BC    345679BC   345679BC   34567BC    3456789BC  2          4568BC
+36C        57BC       9          1347CD     567BCD     134567BD   2          8          34567BCD   134567BCD  13467ABCD  456ABCD    1357B
+4          2          8          356CD      137BCD     15679ABCD  35679ABD   35679CD    13567BCD   367BCD     1569BCD    3579B      35679CD
+136ABC     579BCD     3567BD     34567C     3456BCD    13479BCD   5679BCD    1345679BD  134679ACD  12456BCD   2345789B   35679CD    135678BCD
+1369ABC    4579BCD    13567BD    134567ACD  2          8          3479BCD    1679BCD    14569ABD   13457      3567CD     3567BCD    134567BCD
+8          457BCD     13567BD    135679ACD  34567BCD   345679BC   346BCD     1249BCD    1579AB     3567D      13567CD    34567BCD   2345679BCD
+36BC       4579BCD    13567BD    345679CD   13567BCD   13467BCD   4569BC     2345B      8          1567BCD    134567ABD  345679ACD  234567BCD
+136BC      4579BCD    2          13456789CD 13467BCD   1569ABCD   34578AB    35679C     356BCD     1347BCD    15679BCD   345679BD   134567CD
+1369C      A          3567BD     134679CD   1456BCD    134579B    35679CD    13567BCD   34567BC    23456BCD   23479BCD   8          1345679BD
+369B       4579CD     1367BD     45689CD    13457B     2          35678BCD   13567BCD   134567BCD  A          3456BCD    3479BCD    15679BCD
+2          8          156D       13457      A          13567BCD   34567BCD   134567BCD  3567BCD    9          34567BC    3456BCD    347BCD
 
 896 candidates.
 
 Entering_relation_bivalue_with_<Fact-74501>
 Entering_level_S2_with_<Fact-74614>
-Entering_level_BC2_with_<Fact-74665>
-Entering_level_Z2_with_<Fact-75666>
-Entering_level_tW2_with_<Fact-76587>
-Entering_level_W2_with_<Fact-76588>
+Entering_level_BC2_with_<Fact-74617>
+Entering_level_Z2_with_<Fact-75618>
+Entering_level_tW2_with_<Fact-76539>
+Entering_level_W2_with_<Fact-76540>
 whip[2]: c1n9{r7 r11} - d8n9{r3c6 .} ==> r7c9 ≠ 9
 whip[2]: d8n9{r11c11 r10c12} - d4n9{r6c12 .} ==> r11c6 ≠ 9
-Entering_level_S3_with_<Fact-76600>
-Entering_level_BC3_with_<Fact-76611>
-Entering_level_Z3_with_<Fact-81540>
+Entering_level_S3_with_<Fact-76552>
+Entering_level_BC3_with_<Fact-76555>
+Entering_level_Z3_with_<Fact-81484>
 z-chain[3]: d3n9{r8c9 r5c12} - c1n9{r7 r12} - r2n9{c11 .} ==> r6c9 ≠ 9
 z-chain[2]: d1n9{r11c4 r7c8} - c1n9{r7 .} ==> r11c13 ≠ 9
 z-chain[2]: a3n9{r12c1 r10c12} - d3n9{r5c12 .} ==> r6c7 ≠ 9
@@ -120,12 +122,12 @@ whip[1]: c13n9{r5 .} ==> r10c8 ≠ 9
 z-chain[2]: a8n9{r10c4 r2c9} - a12n9{r2c13 .} ==> r7c7 ≠ 9
 z-chain[2]: r7n9{c2 c8} - d3n9{r8c9 .} ==> r6c2 ≠ 9
 whip[1]: d7n9{r9c12 .} ==> r11c1 ≠ 9
-hidden-pairs-in-a-diagonal: d7{n9 n10}{a4 a8} ==> d7a4 ≠ 13, d7a4 ≠ 12, d7a4 ≠ 7, d7a4 ≠ 6, d7a4 ≠ 5, d7a4 ≠ 4, d7a4 ≠ 3, d7a8 ≠ 12, d7a8 ≠ 11, d7a8 ≠ 6, d7a8 ≠ 3, d7a8 ≠ 1
+hidden-pairs-in-a-diagonal: d7{n9 n10}{a4 a8} ==> r9c12 ≠ 13, r9c12 ≠ 12, r9c12 ≠ 7, r9c12 ≠ 6, r9c12 ≠ 5, r9c12 ≠ 4, r9c12 ≠ 3, r7c1 ≠ 12, r7c1 ≠ 11, r7c1 ≠ 6, r7c1 ≠ 3, r7c1 ≠ 1
 biv-chain[2]: a12n9{r2c13 r9c7} - d7n9{r9c12 r7c1} ==> r2c9 ≠ 9, r7c8 ≠ 9
 whip[1]: c9n9{r8 .} ==> r8c4 ≠ 9
-hidden-pairs-in-an-anti-diagonal: a2{n9 n10}{d3 d10} ==> d3a2 ≠ 11, d3a2 ≠ 7, d3a2 ≠ 5, d3a2 ≠ 1, d10a2 ≠ 13, d10a2 ≠ 12, d10a2 ≠ 11, d10a2 ≠ 7, d10a2 ≠ 6, d10a2 ≠ 5, d10a2 ≠ 1
+hidden-pairs-in-an-anti-diagonal: a2{n9 n10}{d3 d10} ==> r8c9 ≠ 11, r8c9 ≠ 7, r8c9 ≠ 5, r8c9 ≠ 1, r5c6 ≠ 13, r5c6 ≠ 12, r5c6 ≠ 11, r5c6 ≠ 7, r5c6 ≠ 6, r5c6 ≠ 5, r5c6 ≠ 1
 whip[2]: c9n1{r12 r7} - d10n1{r11c13 .} ==> r12c3 ≠ 1
-hidden-triplets-in-a-diagonal: d3{n8 n9 n10}{a11 a6 a2} ==> d3a11 ≠ 11, d3a11 ≠ 7, d3a11 ≠ 5, d3a11 ≠ 4, d3a11 ≠ 3, d3a6 ≠ 11, d3a6 ≠ 7, d3a6 ≠ 5, d3a6 ≠ 4, d3a6 ≠ 3, d3a6 ≠ 2
+hidden-triplets-in-a-diagonal: d3{n8 n9 n10}{a11 a6 a2} ==> r10c7 ≠ 11, r10c7 ≠ 7, r10c7 ≠ 5, r10c7 ≠ 4, r10c7 ≠ 3, r6c11 ≠ 11, r6c11 ≠ 7, r6c11 ≠ 5, r6c11 ≠ 4, r6c11 ≠ 3, r6c11 ≠ 2
 hidden-single-in-an-anti-diagonal ==> r8c13 = 2
 hidden-single-in-an-anti-diagonal ==> r11c11 = 2
 hidden-single-in-a-diagonal ==> r6c10 = 2
@@ -161,8 +163,8 @@ hidden-single-in-a-column ==> r13c4 = 1
 hidden-single-in-an-anti-diagonal ==> r12c7 = 8
 hidden-single-in-a-row ==> r3c13 = 8
 z-chain[3]: d3n4{r12c5 r11c6} - c10n4{r11 r3} - a5n4{r3c7 .} ==> r7c13 ≠ 4
-Entering_level_tW3_with_<Fact-92770>
-Entering_level_W3_with_<Fact-93975>
+Entering_level_tW3_with_<Fact-92684>
+Entering_level_W3_with_<Fact-93889>
 whip[3]: r7n4{c10 c4} - r6n4{c5 c6} - d3n4{r11c6 .} ==> r12c2 ≠ 4
 whip[3]: a5n4{r8c12 r9c13} - c2n4{r9 r10} - r1n4{c6 .} ==> r13c7 ≠ 4
 whip[2]: a8n4{r11c5 r3c10} - d13n4{r4c10 .} ==> r8c8 ≠ 4
@@ -195,17 +197,16 @@ hidden-single-in-a-row ==> r6c9 = 4
 whip[3]: r1n6{c11 c6} - r7n6{c12 c3} - a4n6{r13c3 .} ==> r5c11 ≠ 6
 whip[3]: r1n6{c11 c6} - a8n6{r13c7 r11c5} - c12n6{r4 .} ==> r3c9 ≠ 6
 whip[3]: r1n13{c11 c7} - d4n13{r11c7 r5c13} - c10n13{r2 .} ==> r9c11 ≠ 13
-Entering_level_S4_with_<Fact-99572>
-Entering_level_BC4_with_<Fact-99697>
-Entering_level_Z4_with_<Fact-104978>
+Entering_level_BC4_with_<Fact-99430>
+Entering_level_Z4_with_<Fact-104711>
 z-chain[4]: a3n1{r4c6 r9c11} - a3n4{r9c11 r3c5} - c10n4{r11 r4} - r4n1{c10 .} ==> r4c6 ≠ 13
 z-chain[4]: a3n1{r4c6 r9c11} - a3n4{r9c11 r3c5} - c10n4{r11 r4} - r4n1{c10 .} ==> r4c6 ≠ 11
 z-chain[4]: a3n1{r4c6 r9c11} - a3n4{r9c11 r3c5} - c10n4{r11 r4} - r4n1{c10 .} ==> r4c6 ≠ 7
 z-chain[4]: a3n1{r4c6 r9c11} - a3n4{r9c11 r3c5} - c10n4{r11 r4} - r4n1{c10 .} ==> r4c6 ≠ 6
 z-chain[4]: a3n1{r4c6 r9c11} - a3n4{r9c11 r3c5} - c10n4{r11 r4} - r4n1{c10 .} ==> r4c6 ≠ 5
 z-chain[4]: a3n1{r4c6 r9c11} - a3n4{r9c11 r3c5} - c10n4{r11 r4} - r4n1{c10 .} ==> r4c6 ≠ 3
-Entering_level_tW4_with_<Fact-116948>
-Entering_level_W4_with_<Fact-125421>
+Entering_level_tW4_with_<Fact-116681>
+Entering_level_W4_with_<Fact-125154>
 whip[4]: r1n6{c11 c6} - r7n6{c12 c3} - r3n6{c7 c10} - a4n6{r5c8 .} ==> r10c11 ≠ 6
 whip[4]: r1n6{c7 c11} - c12n6{r13 r4} - a8n6{r11c5 r3c10} - d7n6{r11c10 .} ==> r7c13 ≠ 6
 whip[3]: r7n6{c12 c11} - d10n6{r13c11 r6c5} - r8n6{c5 .} ==> r11c3 ≠ 6
@@ -309,7 +310,7 @@ z-chain[3]: a11n7{r11c8 r1c11} - c9n7{r3 r13} - d3n7{r4c13 .} ==> r5c8 ≠ 7
 whip[4]: c8n6{r6 r11} - a11n13{r11c8 r1c11} - a11n7{r1c11 r8c5} - a11n5{r8c5 .} ==> r6c8 ≠ 5
 whip[4]: d11n7{r9c3 r1c11} - d5n7{r11c8 r7c12} - a8n7{r5c12 r13c7} - d12n7{r6c7 .} ==> r9c2 ≠ 7
 z-chain[3]: d3n7{r7c10 r4c13} - d10n7{r11c13 r13c11} - r1n7{c11 .} ==> r7c12 ≠ 7
-hidden-pairs-in-an-anti-diagonal: a6{n7 n13}{d6 d12} ==> d12a6 ≠ 12, d12a6 ≠ 11, d12a6 ≠ 5, d12a6 ≠ 3
+hidden-pairs-in-an-anti-diagonal: a6{n7 n13}{d6 d12} ==> r4c9 ≠ 12, r4c9 ≠ 11, r4c9 ≠ 5, r4c9 ≠ 3
 whip[2]: a6n7{r1c6 r4c9} - a2n7{r6c7 .} ==> r10c10 ≠ 7
 z-chain[3]: d6n7{r3c4 r13c7} - d3n7{r5c12 r4c13} - a6n7{r4c9 .} ==> r3c6 ≠ 7
 z-chain[2]: a4n7{r10c13 r12c2} - d8n7{r7c2 .} ==> r4c13 ≠ 7
@@ -413,7 +414,7 @@ hidden-single-in-an-anti-diagonal ==> r11c3 = 5
 hidden-single-in-a-row ==> r5c12 = 7
 hidden-single-in-a-row ==> r3c9 = 7
 hidden-single-in-a-diagonal ==> r4c4 = 7
-x-wing-in-diags-w-transv-columns: n12{d7 d12}{c8 c11} ==> d2c8 ≠ 12, d4c11 ≠ 12
+x-wing-in-diags-w-transv-columns: n12{d7 d12}{c8 c11} ==> r8c8 ≠ 12, r7c11 ≠ 12
 naked-single ==> r7c11 = 3
 naked-single ==> r4c1 = 12
 naked-single ==> r4c2 = 11
@@ -450,7 +451,7 @@ naked-single ==> r8c6 = 3
 naked-single ==> r7c12 = 12
 naked-single ==> r9c2 = 12
 naked-single ==> r8c8 = 11
-PUZZLE 0 IS SOLVED. rating-type = W+S, MOST COMPLEX RULE TRIED = W[4]
+PUZZLE 0 IS SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = W[4]
    53CB976428D1A
    76428D1A53CB9
    D1A53CB976428
@@ -465,13 +466,13 @@ PUZZLE 0 IS SOLVED. rating-type = W+S, MOST COMPLEX RULE TRIED = W[4]
    B976428D1A53C
    28D1A53CB9764
 
-nb-facts = <Fact-183246>
+nb-facts = <Fact-182893>
 Puzzle (. 3 C B 9 . . . . 8 . 1 A 7 6 4 . 8 . 1 A . . . . . D 1 . . . . . . . . . 2 . . . 9 . . . 2 8 . . . . . 4 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . A . . . . . . . . . 8 . . . . . . 2 . . . A . . . . . . . A . . . . 9 . . .) :
-init-time = 2.85s, solve-time = 3m 1.54s, total-time = 3m 4.39s
-nb-facts=<Fact-183246>
+init-time = 2.99s, solve-time = 3m 0.64s, total-time = 3m 3.63s
+nb-facts=<Fact-182893>
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************

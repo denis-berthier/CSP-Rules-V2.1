@@ -17,8 +17,8 @@ Using only Subsets:
 
 (solve ".1.....4.........3..5..........6......2.......... ED=3.6/3.6/2.9")
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W1
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -65,8 +65,8 @@ Resolution state after Singles and whips[1]:
 
 Entering_relation_bivalue_with_<Fact-8522>
 Entering_level_S2_with_<Fact-8577>
-Entering_level_S3_with_<Fact-8592>
-naked-triplets-in-a-diagonal: d7{a2 a5 a7}{n7 n2 n3} ==> d7a4 ≠ 7, d7a4 ≠ 3, d7a6 ≠ 7, d7a6 ≠ 3, d7a1 ≠ 7, d7a3 ≠ 7, d7a3 ≠ 2
+Entering_level_S3_with_<Fact-8580>
+naked-triplets-in-a-diagonal: d7{a2 a5 a7}{n7 n2 n3} ==> r6c2 ≠ 7, r6c2 ≠ 3, r5c3 ≠ 7, r5c3 ≠ 3, r4c4 ≠ 7, r3c5 ≠ 7, r3c5 ≠ 2
 whip[1]: r3n2{c6 .} ==> r7c6 ≠ 2
 whip[1]: r7n2{c7 .} ==> r1c1 ≠ 2
 whip[1]: d7n7{r7c1 .} ==> r7c6 ≠ 7
@@ -120,7 +120,7 @@ naked-single ==> r7c1 = 7
 naked-single ==> r2c5 = 2
 naked-single ==> r6c5 = 3
 naked-single ==> r7c5 = 4
-PUZZLE 0 IS SOLVED. rating-type = W1, MOST COMPLEX RULE TRIED = NT
+PUZZLE 0 IS SOLVED. rating-type = S, MOST COMPLEX RULE TRIED = NT
    3145672
    4567231
    6723145
@@ -129,13 +129,13 @@ PUZZLE 0 IS SOLVED. rating-type = W1, MOST COMPLEX RULE TRIED = NT
    5672314
    7231456
 
-nb-facts = <Fact-8658>
+nb-facts = <Fact-8646>
 Puzzle .1.....4.........3..5..........6......2.......... ED=3.6/3.6/2.9 :
-init-time = 0.06s, solve-time = 0.18s, total-time = 0.24s
-nb-facts=<Fact-8658>
+init-time = 0.06s, solve-time = 0.25s, total-time = 0.3s
+nb-facts=<Fact-8646>
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W1
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -146,13 +146,13 @@ nb-facts=<Fact-8658>
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 
-Using only generic chains:
+Using Subsets and generic chains:
 
 
 (solve ".1.....4.........3..5..........6......2.......... ED=3.6/3.6/2.9")
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
@@ -198,8 +198,9 @@ Resolution state after Singles and whips[1]:
 163 candidates.
 
 Entering_relation_bivalue_with_<Fact-8523>
-Entering_level_BC2_with_<Fact-8578>
-Entering_level_Z2_with_<Fact-9011>
+Entering_level_S2_with_<Fact-8578>
+Entering_level_BC2_with_<Fact-8581>
+Entering_level_Z2_with_<Fact-9014>
 z-chain[2]: r1n3{c3 c7} - r6n3{c5 .} ==> r7c2 ≠ 3
 whip[1]: c2n3{r6 .} ==> r4c7 ≠ 3
 whip[1]: c7n3{r5 .} ==> r5c3 ≠ 3
@@ -213,68 +214,66 @@ whip[1]: c2n4{r6 .} ==> r5c3 ≠ 4
 z-chain[2]: r2n1{c5 c7} - c3n1{r5 .} ==> r6c1 ≠ 1
 whip[1]: d6n1{r7c7 .} ==> r4c7 ≠ 1
 whip[1]: c7n1{r7 .} ==> r7c5 ≠ 1
-Entering_level_tW2_with_<Fact-9848>
-Entering_level_W2_with_<Fact-9849>
+Entering_level_tW2_with_<Fact-9851>
+Entering_level_W2_with_<Fact-9852>
 whip[2]: d2n7{r4c6 r7c3} - a7n7{r4c3 .} ==> r3c5 ≠ 7
 z-chain[2]: r3n7{c3 c6} - c4n7{r1 .} ==> r2c2 ≠ 7
 whip[2]: d2n7{r7c3 r4c6} - r2n7{c6 .} ==> r7c5 ≠ 7
-Entering_level_BC3_with_<Fact-9860>
-Entering_level_Z3_with_<Fact-12669>
-z-chain[3]: r3n7{c6 c2} - r1n7{c7 c6} - d2n7{r4c6 .} ==> r5c1 ≠ 7
-z-chain[3]: r3n7{c6 c1} - a3n7{r6c1 r5c7} - d2n7{r5c5 .} ==> r7c6 ≠ 7
-z-chain[3]: r6c1{n7 n5} - r7c2{n5 n2} - r3c2{n2 .} ==> r6c2 ≠ 7
-z-chain[2]: c2n7{r5 r7} - c4n7{r2 .} ==> r4c1 ≠ 7
-whip[2]: c1n7{r7 r3} - c2n7{r4 .} ==> r7c7 ≠ 7
-z-chain[3]: c2n7{r7 r4} - a2n7{r4c5 r7c1} - d2n7{r7c3 .} ==> r5c7 ≠ 7
-z-chain[3]: r6c1{n7 n5} - r7c2{n5 n2} - r3c2{n2 .} ==> r5c2 ≠ 7
-z-chain[2]: c2n7{r4 r7} - d2n7{r4c6 .} ==> r3c3 ≠ 7
-z-chain[2]: r3n7{c2 c6} - d6n7{r1c6 .} ==> r6c5 ≠ 7
-z-chain[2]: a1n7{r5c5 r6c6} - c2n7{r3 .} ==> r4c5 ≠ 7
-z-chain[2]: a2n7{r6c7 r7c1} - r3n7{c1 .} ==> r6c6 ≠ 7
-naked-single ==> r6c6 = 1
-hidden-single-in-a-diagonal ==> r2c7 = 1
-hidden-single-in-an-anti-diagonal ==> r3c5 = 1
-hidden-single-in-an-anti-diagonal ==> r4c6 = 6
-hidden-single-in-an-anti-diagonal ==> r3c1 = 6
-hidden-single-in-an-anti-diagonal ==> r7c7 = 6
-hidden-single-in-an-anti-diagonal ==> r2c3 = 6
-hidden-single-in-a-diagonal ==> r1c5 = 6
-hidden-single-in-a-row ==> r6c2 = 6
-hidden-single-in-a-diagonal ==> r4c4 = 4
-naked-single ==> r3c3 = 2
-naked-single ==> r3c2 = 7
-naked-single ==> r1c4 = 5
-naked-single ==> r2c4 = 7
-naked-single ==> r2c5 = 2
-naked-single ==> r2c6 = 3
-naked-single ==> r1c7 = 2
-naked-single ==> r7c1 = 7
-naked-single ==> r1c1 = 3
-naked-single ==> r1c3 = 4
-naked-single ==> r1c6 = 7
-naked-single ==> r5c7 = 3
-naked-single ==> r7c5 = 4
-naked-single ==> r6c3 = 7
-naked-single ==> r5c1 = 1
+Entering_level_S3_with_<Fact-9863>
+naked-triplets-in-a-diagonal: d7{a2 a5 a7}{n7 n2 n3} ==> r6c2 ≠ 7, r6c2 ≠ 3, r5c3 ≠ 7, r4c4 ≠ 7, r3c5 ≠ 2
+whip[1]: r3n2{c6 .} ==> r7c6 ≠ 2
+whip[1]: r7n2{c7 .} ==> r1c1 ≠ 2
+whip[1]: c4n7{r7 .} ==> r1c5 ≠ 7
+whip[1]: d7n7{r7c1 .} ==> r7c6 ≠ 7
+whip[1]: r6n3{c5 .} ==> r1c3 ≠ 3
+whip[1]: r1n3{c7 .} ==> r2c7 ≠ 3
+whip[1]: d1n3{r6c3 .} ==> r4c1 ≠ 3
+whip[1]: r4n3{c6 .} ==> r7c6 ≠ 3
+whip[1]: r7n3{c5 .} ==> r5c5 ≠ 3
 naked-single ==> r5c5 = 7
-naked-single ==> r5c3 = 5
-naked-single ==> r4c3 = 1
-naked-single ==> r5c6 = 2
-naked-single ==> r7c3 = 3
-naked-single ==> r2c2 = 5
-naked-single ==> r6c5 = 3
-naked-single ==> r7c2 = 2
-naked-single ==> r4c1 = 2
+naked-single ==> r6c6 = 1
 naked-single ==> r7c6 = 5
+naked-single ==> r6c5 = 3
+naked-single ==> r7c5 = 4
+hidden-single-in-a-column ==> r4c4 = 4
+naked-single ==> r3c3 = 2
+naked-single ==> r1c3 = 4
+naked-single ==> r5c6 = 2
 naked-single ==> r4c5 = 5
-naked-single ==> r4c7 = 7
-naked-single ==> r5c2 = 4
-naked-single ==> r6c1 = 5
+naked-single ==> r1c1 = 3
+naked-single ==> r5c1 = 1
+naked-single ==> r2c4 = 7
+naked-single ==> r1c4 = 5
+naked-single ==> r6c2 = 6
+naked-single ==> r2c2 = 5
+naked-single ==> r3c5 = 1
 naked-single ==> r6c7 = 4
-naked-single ==> r7c4 = 1
+naked-single ==> r7c3 = 3
+naked-single ==> r4c6 = 6
+naked-single ==> r1c6 = 7
+naked-single ==> r1c7 = 2
+naked-single ==> r3c1 = 6
 naked-single ==> r3c6 = 4
+naked-single ==> r4c3 = 1
+naked-single ==> r2c3 = 6
+naked-single ==> r2c6 = 3
+naked-single ==> r2c7 = 1
 naked-single ==> r4c2 = 3
-PUZZLE 0 IS SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = z-chain[3]
+naked-single ==> r6c1 = 5
+naked-single ==> r7c2 = 2
+naked-single ==> r7c4 = 1
+naked-single ==> r2c5 = 2
+naked-single ==> r5c3 = 5
+naked-single ==> r4c7 = 7
+naked-single ==> r4c1 = 2
+naked-single ==> r5c2 = 4
+naked-single ==> r5c7 = 3
+naked-single ==> r7c1 = 7
+naked-single ==> r6c3 = 7
+naked-single ==> r1c5 = 6
+naked-single ==> r3c2 = 7
+naked-single ==> r7c7 = 6
+PUZZLE 0 IS SOLVED. rating-type = W+S, MOST COMPLEX RULE TRIED = NT
    3145672
    4567231
    6723145
@@ -283,13 +282,13 @@ PUZZLE 0 IS SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = z-chain[3]
    5672314
    7231456
 
-nb-facts = <Fact-15946>
+nb-facts = <Fact-9927>
 Puzzle .1.....4.........3..5..........6......2.......... ED=3.6/3.6/2.9 :
-init-time = 0.05s, solve-time = 2.19s, total-time = 2.24s
-nb-facts=<Fact-15946>
+init-time = 0.06s, solve-time = 0.98s, total-time = 1.04s
+nb-facts=<Fact-9927>
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************

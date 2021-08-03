@@ -39,17 +39,19 @@ A . 8 . . 5 . . . . . . .
 ..........D.....2.........A.8..5..............2......A......1.............3......4........1..........CD.....9..........D...........6.............A.6..............B......
 
 
+Solution with Subsets[3] and generic chains. Computation time is much longer if Subsets[4] (including all the Pandiags Fishes) are activated.
+
 (solve "..........D.....2.........A.8..5..............2......A......1.............3......4........1..........CD.....9..........D...........6.............A.6..............B......; #3/1/2/8")
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************
 ..........D.....2.........A.8..5..............2......A......1.............3......4........1..........CD.....9..........D...........6.............A.6..............B......; #3/1/2/8
 19 givens, 1226 candidates
 entering BRT
-Starting_init_links_with_<Fact-13293>
+Starting_init_links_with_<Fact-13319>
 Resolution state after Singles:
 12345679BC  1245789BC   134579BC    136789AB    457B        2346789C    2345789AC   1346789AC   23456789ABC 125678ABC   D           12345789BC  2345678ABC
 1456789BCD  134579BCD   1345679BC   2           3478        4789BC      1346789ACD  345789ABC   356789ACD   1456789ABC  134578AB    35678BC     3456789BCD
@@ -67,7 +69,7 @@ A           123479BCD   8           3679C       1347BCD     5           479C    
 
 1226 candidates, 23260 csp-links and 23260 links. Density = 3.1%
 Starting non trivial part of solution.
-Entering_level_W1_with_<Fact-106336>
+Entering_level_W1_with_<Fact-106362>
 whip[1]: r3n13{c8 .} ==> r6c5 ≠ 13, r13c5 ≠ 13
 
 Resolution state after Singles and whips[1]:
@@ -87,21 +89,21 @@ A           123479BCD   8           3679C       1347BCD     5           479C    
 
 1224 candidates.
 
-Entering_relation_bivalue_with_<Fact-106339>
-Entering_level_S2_with_<Fact-106340>
-Entering_level_BC2_with_<Fact-106343>
-Entering_level_Z2_with_<Fact-106344>
+Entering_relation_bivalue_with_<Fact-106365>
+Entering_level_S2_with_<Fact-106366>
+Entering_level_BC2_with_<Fact-106369>
+Entering_level_Z2_with_<Fact-106370>
 z-chain[2]: r3n13{c8 c2} - c6n13{r12 .} ==> r11c13 ≠ 13
 z-chain[2]: r8n10{c13 c10} - r9n10{c10 .} ==> r4c4 ≠ 10
-Entering_level_tW2_with_<Fact-106400>
+Entering_level_tW2_with_<Fact-106426>
 t-whip[2]: c13n13{r6 r5} - c6n13{r5 .} ==> r4c2 ≠ 13
 t-whip[2]: d13n13{r13c1 r7c7} - a4n13{r7c10 .} ==> r13c2 ≠ 13
-Entering_level_W2_with_<Fact-106413>
+Entering_level_W2_with_<Fact-106439>
 whip[2]: c11n10{r11 r10} - r9n10{c10 .} ==> r13c13 ≠ 10
 whip[2]: c11n10{r11 r10} - a4n10{r9c12 .} ==> r11c7 ≠ 10
-Entering_level_S3_with_<Fact-106418>
-Entering_level_BC3_with_<Fact-106421>
-Entering_level_Z3_with_<Fact-106422>
+Entering_level_S3_with_<Fact-106444>
+Entering_level_BC3_with_<Fact-106447>
+Entering_level_Z3_with_<Fact-106448>
 z-chain[3]: r13n13{c8 c9} - d10n13{r2c9 r4c7} - d13n13{r12c2 .} ==> r7c8 ≠ 13
 z-chain[2]: d1n13{r5c10 r6c9} - a12n13{r6c4 .} ==> r2c7 ≠ 13
 whip[2]: d1n13{r5c10 r6c9} - a10n13{r13c9 .} ==> r5c13 ≠ 13
@@ -123,8 +125,8 @@ whip[1]: r6n13{c8 .} ==> r13c8 ≠ 13, r12c2 ≠ 13
 whip[1]: c2n13{r6 .} ==> r11c7 ≠ 13, r11c10 ≠ 13
 whip[1]: r11n13{c6 .} ==> r12c6 ≠ 13
 whip[1]: a8n13{r11c5 .} ==> r7c9 ≠ 13
-Entering_level_tW3_with_<Fact-110235>
-Entering_level_W3_with_<Fact-112318>
+Entering_level_tW3_with_<Fact-110253>
+Entering_level_W3_with_<Fact-112336>
 whip[3]: c11n10{r11 r2} - d10n10{r2c9 r11c13} - c10n10{r1 .} ==> r4c5 ≠ 10
 z-chain[2]: a2n10{r11c12 r6c7} - c11n10{r2 .} ==> r11c10 ≠ 10
 whip[3]: r7n10{c12 c7} - a2n10{r6c7 r11c12} - d2n10{r4c12 .} ==> r10c9 ≠ 10
@@ -146,12 +148,10 @@ z-chain[2]: a10n10{r8c4 r13c9} - r9n10{c9 .} ==> r2c10 ≠ 10
 whip[1]: c10n10{r9 .} ==> r9c9 ≠ 10
 biv-chain[2]: c10n10{r8 r9} - a9n10{r9c4 r4c12} ==> r10c12 ≠ 10, r7c9 ≠ 10
 whip[1]: c9n10{r13 .} ==> r1c8 ≠ 10, r2c7 ≠ 10, r2c11 ≠ 10
-whip[1]: c11n10{r11 .} ==> r11c12 ≠ 10       <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-biv-chain[2]: a3n10{r8c10 r6c8} - d9n10{r2c8 r10c13} ==> r8c13 ≠ 10, r1c4 ≠ 10
-whip[1]: r1n10{c13 .} ==> r7c7 ≠ 10
-whip[1]: r7n10{c12 .} ==> r13c6 ≠ 10
-whip[1]: c6n10{r7 .} ==> r6c5 ≠ 10
-whip[1]: c13n10{r10 .} ==> r10c4 ≠ 10
+whip[1]: c11n10{r11 .} ==> r11c12 ≠ 10
+x-wing-in-diags-w-transv-columns: n10{d11 d12}{c4 c6} ==> r13c6 ≠ 10, r10c4 ≠ 10, r1c4 ≠ 10
+whip[1]: r1n10{c13 .} ==> r8c13 ≠ 10, r7c7 ≠ 10
+whip[1]: d13n10{r6c8 .} ==> r6c5 ≠ 10
 biv-chain[3]: r4n10{c7 c12} - r9n10{c4 c10} - d5n13{r9c10 r12c7} ==> r4c7 ≠ 13
 hidden-single-in-an-anti-diagonal ==> r7c10 = 13
 hidden-single-in-an-anti-diagonal ==> r11c5 = 13
@@ -211,11 +211,10 @@ whip[3]: d6n2{r1c6 r10c10} - d12n2{r13c13 r8c5} - c13n2{r3 .} ==> r1c9 ≠ 2
 whip[3]: d12n2{r13c13 r1c12} - d6n2{r11c9 r6c1} - d8n2{r8c1 .} ==> r13c10 ≠ 2
 whip[3]: d6n2{r1c6 r11c9} - r13n2{c11 c3} - a10n2{r7c3 .} ==> r1c1 ≠ 2
 whip[3]: c1n2{r9 r6} - c9n2{r11 r13} - c3n2{r6 .} ==> r8c13 ≠ 2
-Entering_level_S4_with_<Fact-123072>
-Entering_level_BC4_with_<Fact-123075>
-Entering_level_Z4_with_<Fact-123100>
-Entering_level_tW4_with_<Fact-125310>
-Entering_level_W4_with_<Fact-128478>
+Entering_level_BC4_with_<Fact-123082>
+Entering_level_Z4_with_<Fact-123107>
+Entering_level_tW4_with_<Fact-125317>
+Entering_level_W4_with_<Fact-128485>
 whip[4]: c13n2{r5 r13} - c5n2{r5 r10} - a4n2{r6c9 r9c12} - a8n2{r5c12 .} ==> r3c2 ≠ 2
 whip[3]: d3n2{r10c7 r5c12} - r3n2{c12 c13} - d12n2{r13c13 .} ==> r10c11 ≠ 2
 whip[3]: c5n2{r10 r5} - r10n2{c10 c6} - a2n2{r5c6 .} ==> r8c7 ≠ 2
@@ -353,9 +352,11 @@ hidden-single-in-a-column ==> r12c9 = 3
 hidden-single-in-an-anti-diagonal ==> r7c5 = 3
 hidden-single-in-a-diagonal ==> r3c4 = 3
 hidden-pairs-in-a-column: c2{n1 n3}{r2 r8} ==> r8c2 ≠ 9, r8c2 ≠ 8, r8c2 ≠ 7, r8c2 ≠ 5, r2c2 ≠ 12, r2c2 ≠ 11, r2c2 ≠ 9, r2c2 ≠ 7, r2c2 ≠ 5, r2c2 ≠ 4
-hidden-pairs-in-a-row: r4{n1 n3}{c7 c11} ==> r4c11 ≠ 9, r4c11 ≠ 8, r4c11 ≠ 7, r4c11 ≠ 5, r4c11 ≠ 4, r4c7 ≠ 9, r4c7 ≠ 8, r4c7 ≠ 7
+hidden-pairs-in-an-anti-diagonal: a1{n1 n3}{d1 d3} ==> r1c1 ≠ 12, r1c1 ≠ 11, r1c1 ≠ 9, r1c1 ≠ 7, r1c1 ≠ 5, r1c1 ≠ 4
+hidden-pairs-in-a-diagonal: d9{n1 n3}{a6 a8} ==> r9c1 ≠ 12, r9c1 ≠ 11, r9c1 ≠ 8, r9c1 ≠ 7, r9c1 ≠ 5, r9c1 ≠ 4
+hidden-pairs-in-a-diagonal: d1{n1 n3}{a1 a8} ==> r4c11 ≠ 9, r4c11 ≠ 8, r4c11 ≠ 7, r4c11 ≠ 5, r4c11 ≠ 4
+hidden-pairs-in-a-row: r4{n1 n3}{c7 c11} ==> r4c7 ≠ 9, r4c7 ≠ 8, r4c7 ≠ 7
 hidden-pairs-in-a-row: r8{n1 n3}{c2 c3} ==> r8c3 ≠ 11, r8c3 ≠ 9, r8c3 ≠ 7, r8c3 ≠ 5
-hidden-pairs-in-a-column: c1{n1 n3}{r1 r9} ==> r9c1 ≠ 12, r9c1 ≠ 11, r9c1 ≠ 8, r9c1 ≠ 7, r9c1 ≠ 5, r9c1 ≠ 4, r1c1 ≠ 12, r1c1 ≠ 11, r1c1 ≠ 9, r1c1 ≠ 7, r1c1 ≠ 5, r1c1 ≠ 4
 z-chain[2]: d8n9{r6c3 r7c2} - d5n9{r4c2 .} ==> r6c11 ≠ 9
 z-chain[2]: d8n9{r7c2 r2c7} - c6n9{r2 .} ==> r6c1 ≠ 9
 t-whip[2]: d8n9{r6c3 r7c2} - d5n9{r7c12 .} ==> r6c7 ≠ 9
@@ -507,7 +508,7 @@ naked-single ==> r13c10 = 5
 naked-single ==> r13c11 = 7
 naked-single ==> r12c11 = 8
 naked-single ==> r5c12 = 8
-PUZZLE 0 IS SOLVED. rating-type = W+S, MOST COMPLEX RULE TRIED = W[4]
+PUZZLE 0 IS SOLVED. rating-type = W, MOST COMPLEX RULE TRIED = W[4]
    127849A6BCD53
    53127849A6BCD
    A483157DC926B
@@ -522,13 +523,13 @@ PUZZLE 0 IS SOLVED. rating-type = W+S, MOST COMPLEX RULE TRIED = W[4]
    4BAC62D531897
    DC69A3B485712
 
-nb-facts = <Fact-198497>
+nb-facts = <Fact-198472>
 Puzzle ..........D.....2.........A.8..5..............2......A......1.............3......4........1..........CD.....9..........D...........6.............A.6..............B......; #3/1/2/8 :
-init-time = 2.52s, solve-time = 4m 0.44s, total-time = 4m 2.95s
-nb-facts=<Fact-198497>
+init-time = 3.6s, solve-time = 3m 32.15s, total-time = 3m 35.75s
+nb-facts=<Fact-198472>
 ***********************************************************************************************
-***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W+S
-***  Using CLIPS 6.32-r801
+***  LatinRules 2.1.s based on CSP-Rules 2.1.s, config = W
+***  Using CLIPS 6.32-r813
 ***  Running on MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7
 ***  Download from: https://github.com/denis-berthier/CSP-Rules-V2.1
 ***********************************************************************************************

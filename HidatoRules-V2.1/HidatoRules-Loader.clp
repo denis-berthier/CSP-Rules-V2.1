@@ -50,29 +50,22 @@
 
 ;;; SUBSETS
 
-;;; when a Subset is detected, in the default behaviour of LatinRules,
-;;; application of the rule can be interrupted if a simpler rule is applicable
-;;; LatinRules now allows to modify this behaviour (blocked Subsets)
-;;; as a result, different versions of the Subset rules, will be loaded by the LatinRules loader
-(defglobal ?*Subsets-Directory* =
-    (if ?*blocked-Subsets*
-        then "BLOCKED-SUBSETS"
-        else "SUBSETS"
-    )
-)
-
+;;; In the original behaviour of CSP-Rules, when a Subset was detected,
+;;; its application could be interrupted if a simpler rule became applicable after some of its elimination(s).
+;;; CSP-Rules now has a new default behaviour (blocked Subsets) - which can be reverted to the old one.
+;;; There is now a single version of the Subset rules, encompassing both behaviours.
 
 (if (or ?*Subsets* ?*Subsets[4]* ?*Subsets[3]* ?*Subsets[2]*) then
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "N2-pairs.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "N2-pairs.clp"))
 )
 
 (if (or ?*Subsets* ?*Subsets[4]* ?*Subsets[3]*) then
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "N3-triplets.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "N3-triplets.clp"))
 )
 
 (if (or ?*Subsets* ?*Subsets[4]*) then
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "N4-quads.clp"))
-;   (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "SpN4-special-naked-quads.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "N4-quads.clp"))
+;   (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "SpN4-special-naked-quads.clp"))
 )
 
 

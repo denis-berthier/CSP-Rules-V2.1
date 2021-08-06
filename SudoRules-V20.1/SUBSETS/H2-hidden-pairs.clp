@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - August 2021              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-hidden-pairs
 	(declare (salience ?*hidden-pairs-salience*))
-	(logical (play) (context (name ?cont)))
-    (not (deactivate ?cont pair))
+    (logical
+        (play)
+        (context (name ?cont))
+        (not (deactivate ?cont pair))
+    )
 =>
 	(assert (technique ?cont hidden-pairs))
 	(bind ?*technique* HP)
@@ -65,22 +68,46 @@
 	(candidate (context ?cont) (status cand) (row ?row) (column ?col1) (number ?nb2&:(< ?nb1 ?nb2)))
 	(candidate (context ?cont) (status cand) (row ?row) (column ?col2) (number ?nb2))
 	(not (candidate (context ?cont) (status cand) (row ?row) (number ?nb2) (column ?colx&~?col1&~?col2)))
-	
-	;;; then any other number should be eliminated from the candidates for these two cells
-	?cand <- (candidate (context ?cont) (status cand) (row ?row)
-						(column ?colz&:(or (eq ?colz ?col1) (eq ?colz ?col2)))
-						(number ?nbz&~?nb1&~?nb2))
+    
+    ;;; then any other number should be eliminated from the candidates for these two cells
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz) (row ?row)
+                        (column ?colz&:(or (eq ?colz ?col1) (eq ?colz ?col2)))
+                        (number ?nbz&~?nb1&~?nb2))
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+    (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 =>
-	(retract ?cand)
-	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
-	(if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
-			(printout t "hidden-pairs-in-a-row: "
-				(row-name ?row)
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (column-name ?col1) ?*separation-sign-in-cell* (column-name ?col2) ?*ending-cell-symbol*
-				?*implication-sign* (row-name ?row) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf
-			)
-	)
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
+            (printout t "hidden-pairs-in-a-row: "
+                (row-name ?row)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
+                ?*starting-cell-symbol* (column-name ?col1) ?*separation-sign-in-cell* (column-name ?col2) ?*ending-cell-symbol*
+                ?*implication-sign* (row-name ?row) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz)
+            )
+            (if (not ?*blocked-Subsets*) then  (printout t crlf))
+    )
+    (if ?*blocked-Subsets* then
+        (assert (apply-rule-as-a-pseudo-block ?cont))
+        (assert (pseudo-blocked ?cont hidden-pairs-in-a-row ?zzz ?row ?col1 ?col2 ?nb1 ?nb2))
+    )
+)
+
+
+(defrule apply-to-more-targets-L2-hidden-pairs-in-a-row
+    (declare (salience ?*apply-a-blocked-rule-salience*))
+    (pseudo-blocked ?cont hidden-pairs-in-a-row ?zzz ?row ?col1 ?col2 ?nb1 ?nb2)
+    ;;; identify the targets, i.e.  any other number in these two cells
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz2&~?zzz) (row ?row)
+                        (column ?colz&:(or (eq ?colz ?col1) (eq ?colz ?col2)))
+                        (number ?nbz&~?nb1&~?nb2))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz2)
+    )
 )
 
 
@@ -111,22 +138,46 @@
 	(candidate (context ?cont) (status cand) (column ?col) (row ?row1) (number ?nb2&:(< ?nb1 ?nb2)))
 	(candidate (context ?cont) (status cand) (column ?col) (row ?row2) (number ?nb2))
 	(not (candidate (context ?cont) (status cand) (column ?col) (number ?nb2) (row ?rowx&~?row1&~?row2)))
-	
-	;;; then any other number should be eliminated from the candidates for these two cells
-	?cand <- (candidate (context ?cont) (status cand) (column ?col)
-						(row ?rowz&:(or (eq ?rowz ?row1) (eq ?rowz ?row2)))
-						(number ?nbz&~?nb1&~?nb2))
+    
+    ;;; then any other number should be eliminated from the candidates for these two cells
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz) (column ?col)
+                        (row ?rowz&:(or (eq ?rowz ?row1) (eq ?rowz ?row2)))
+                        (number ?nbz&~?nb1&~?nb2))
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+    (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 =>
-	(retract ?cand)
-	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
-	(if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
-			(printout t "hidden-pairs-in-a-column: "
-				(column-name ?col)
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (row-name ?row1) ?*separation-sign-in-cell* (row-name ?row2) ?*ending-cell-symbol*
-				?*implication-sign* (row-name ?rowz) (column-name ?col) ?*non-equal-sign* (numeral-name ?nbz) crlf
-			)
-	)
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
+            (printout t "hidden-pairs-in-a-column: "
+                (column-name ?col)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
+                ?*starting-cell-symbol* (row-name ?row1) ?*separation-sign-in-cell* (row-name ?row2) ?*ending-cell-symbol*
+                ?*implication-sign* (row-name ?rowz) (column-name ?col) ?*non-equal-sign* (numeral-name ?nbz)
+            )
+            (if (not ?*blocked-Subsets*) then  (printout t crlf))
+    )
+    (if ?*blocked-Subsets* then
+        (assert (apply-rule-as-a-pseudo-block ?cont))
+        (assert (pseudo-blocked ?cont hidden-pairs-in-a-column ?zzz ?col ?row1 ?row2 ?nb1 ?nb2))
+    )
+)
+
+(defrule apply-to-more-targets-L2-hidden-pairs-in-a-column
+    (declare (salience ?*apply-a-blocked-rule-salience*))
+    (pseudo-blocked ?cont hidden-pairs-in-a-column ?zzz ?col ?row1 ?row2 ?nb1 ?nb2)
+    
+    ;;; identify the targets, i.e.  any other number in these two cells
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz2&~?zzz) (column ?col)
+                        (row ?rowz&:(or (eq ?rowz ?row1) (eq ?rowz ?row2)))
+                        (number ?nbz&~?nb1&~?nb2))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz2)
+    )
 )
 
 
@@ -157,22 +208,48 @@
 	(candidate (context ?cont) (status cand) (block ?bl) (square ?sq1) (number ?nb2&:(< ?nb1 ?nb2)))
 	(candidate (context ?cont) (status cand) (block ?bl) (number ?nb2) (square ?sq2))
 	(not (candidate (context ?cont) (status cand) (block ?bl) (number ?nb2) (square ?sqx&~?sq1&~?sq2)))
-	
-	;;; then any other number should be eliminated from the candidates for these two cells
-	?cand <- (candidate (context ?cont) (status cand) (block ?bl)
-						(square ?sqz&:(or (eq ?sqz ?sq1) (eq ?sqz ?sq2)))
-						(number ?nbz&~?nb1&~?nb2)
-						(row ?rowz) (column ?colz))
+    
+    ;;; then any other number should be eliminated from the candidates for these two cells
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz) (block ?bl)
+                        (square ?sqz&:(or (eq ?sqz ?sq1) (eq ?sqz ?sq2)))
+                        (number ?nbz&~?nb1&~?nb2)
+                        (row ?rowz) (column ?colz))
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+    (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 =>
-	(retract ?cand)
-	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
-	(if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
-			(printout t "hidden-pairs-in-a-block: "
-				(block-name ?bl)
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
+            (printout t "hidden-pairs-in-a-block: "
+                (block-name ?bl)
                 ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (row-name ?row1) (column-name ?col1) ?*separation-sign-in-cell* (row-name ?row2) (column-name ?col2) ?*ending-cell-symbol*
-				?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf
-			)
-	)
+                ?*starting-cell-symbol* (row-name ?row1) (column-name ?col1) ?*separation-sign-in-cell* (row-name ?row2) (column-name ?col2) ?*ending-cell-symbol*
+                ?*implication-sign* (row-name ?rowz) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz)
+            )
+            (if (not ?*blocked-Subsets*) then  (printout t crlf))
+    )
+    (if ?*blocked-Subsets* then
+        (assert (apply-rule-as-a-pseudo-block ?cont))
+        (assert (pseudo-blocked ?cont hidden-pairs-in-a-block ?zzz ?bl ?sq1 ?sq2 ?nb1 ?nb2))
+    )
+)
+
+
+(defrule apply-to-more-targets-L2-hidden-pairs-in-a-block
+    (declare (salience ?*apply-a-blocked-rule-salience*))
+    (pseudo-blocked ?cont hidden-pairs-in-a-block ?zzz ?bl ?sq1 ?sq2 ?nb1 ?nb2)
+
+    ;;; identify the targets, i.e.  any other number in these two cells
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz2&~?zzz) (block ?bl)
+                        (square ?sqz&:(or (eq ?sqz ?sq1) (eq ?sqz ?sq2)))
+                        (number ?nbz&~?nb1&~?nb2)
+                        (row ?rowz) (column ?colz))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L2* ?*print-hidden-pairs*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz2)
+    )
 )
 

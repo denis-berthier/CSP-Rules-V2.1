@@ -63,63 +63,50 @@
 
 ;;; SUBSETS
 
-;;; when a Subset is detected, in the default behaviour of LatinRules,
-;;; application of the rule can be interrupted if a simpler rule is applicable
-;;; LatinRules now allows to modify this behaviour (blocked Subsets)
-;;; as a result, different versions of the Subset rules, will be loaded by the LatinRules loader
-(defglobal ?*Subsets-Directory* =
-    (if ?*blocked-Subsets*
-        then "BLOCKED-SUBSETS"
-        else "SUBSETS"
-    )
-)
-(defglobal ?*Subsets-Directory-Pandiag* =
-    (if ?*blocked-Subsets*
-        then "BLOCKED-SUBSETS-PANDIAG"
-        else "SUBSETS-PANDIAG"
-    )
-)
-
+;;; In the original behaviour of CSP-Rules, when a Subset was detected,
+;;; its application could be interrupted if a simpler rule became applicable after some of its elimination(s).
+;;; CSP-Rules now has a new default behaviour (blocked Subsets) - which can be reverted to the old one.
+;;; There is now a single version of the Subset rules, encompassing both behaviours.
 
 (if (or ?*Subsets* ?*Subsets[4]* ?*Subsets[3]* ?*Subsets[2]*) then
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "N2-naked-pairs.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "H2-hidden-pairs.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "SH2-x-wing.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "N2-naked-pairs.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "H2-hidden-pairs.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "SH2-x-wing.clp"))
     (if ?*Pandiagonal* then
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "N2-naked-pairs-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "H2-hidden-pairs-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "SH2-x-wing-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "N2-naked-pairs-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "H2-hidden-pairs-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "SH2-x-wing-diags.clp"))
     )
 )
 
 
 (if (or ?*Subsets* ?*Subsets[4]* ?*Subsets[3]*) then
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "N3-naked-triplets.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "H3-hidden-triplets.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "SH3-swordfish.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "N3-naked-triplets.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "H3-hidden-triplets.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "SH3-swordfish.clp"))
     (if ?*Pandiagonal* then
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "N3-naked-triplets-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "H3-hidden-triplets-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "SH3-swordfish-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "N3-naked-triplets-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "H3-hidden-triplets-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "SH3-swordfish-diags.clp"))
 
     )
 )
 
 
 (if (or ?*Subsets* ?*Subsets[4]*) then
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "N4-naked-quads.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "H4-hidden-quads.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "SH4-jellyfish.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "SpN4-special-naked-quads.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "SpH4-special-hidden-quads.clp"))
-    (load (str-cat ?*Application-Dir* ?*Subsets-Directory* ?*Directory-symbol* "SpSH4-special-jellyfish.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "N4-naked-quads.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "H4-hidden-quads.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "SH4-jellyfish.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "SpN4-special-naked-quads.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "SpH4-special-hidden-quads.clp"))
+    (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "SpSH4-special-jellyfish.clp"))
     (if ?*Pandiagonal* then
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "N4-naked-quads-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "H4-hidden-quads-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "SH4-jellyfish-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "SpN4-special-naked-quads-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "SpH4-special-hidden-quads-diags.clp"))
-        (load (str-cat ?*Application-Dir* ?*Subsets-Directory-Pandiag* ?*Directory-symbol* "SpSH4-special-jellyfish-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "N4-naked-quads-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "H4-hidden-quads-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "SH4-jellyfish-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "SpN4-special-naked-quads-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "SpH4-special-hidden-quads-diags.clp"))
+        (load (str-cat ?*Application-Dir* "SUBSETS-PANDIAG" ?*Directory-symbol* "SpSH4-special-jellyfish-diags.clp"))
     )
 )
 

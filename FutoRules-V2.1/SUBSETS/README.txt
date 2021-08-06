@@ -1,0 +1,1 @@
+The Subsets of FutoRules are an exact copy of those of LatinRules

@@ -30,8 +30,11 @@
 
 (defrule activate-hidden-triplets
 	(declare (salience ?*hidden-triplets-salience*))
-	(logical (play) (context (name ?cont)))
-    (not (deactivate ?cont triplet))
+    (logical
+        (play)
+        (context (name ?cont))
+        (not (deactivate ?cont triplet))
+    )
 =>
 	(assert (technique ?cont hidden-triplets))
 	(bind ?*technique* HT)
@@ -40,6 +43,8 @@
 
 
 
+
+;;; rows
 
 (defrule L3-hidden-triplets-in-a-row
 	(declare (salience ?*hidden-triplets-salience*))
@@ -60,26 +65,52 @@
 	(candidate (context ?cont) (status cand) (type white) (row ?row) (number ?nb3) (column ?col3))
 	(candidate (context ?cont) (status cand) (type white) (row ?row) (number ?nb3) (column ?col1))
 	(not (candidate (context ?cont) (status cand) (type white) (column-of-horizontal-controller ?ctr-col) (row ?row) (number ?nb3) (column ?colx&~?col1&~?col2&~?col3)))
-		
-	?cand <- (candidate (context ?cont) (status cand) (type white) (row ?row)
-						(column ?colz&:(or (eq ?colz ?col1) (eq ?colz ?col2) (eq ?colz ?col3)))
-						(number ?nbz&~?nb1&~?nb2&~?nb3))
+    
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz) (type white) (row ?row)
+                        (column ?colz&:(or (eq ?colz ?col1) (eq ?colz ?col2) (eq ?colz ?col3)))
+                        (number ?nbz&~?nb1&~?nb2&~?nb3))
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+   (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 =>
-	(retract ?cand)
-	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
-	(if (or ?*print-actions* ?*print-L3* ?*print-hidden-triplets*) then
-			(printout t "hidden-triplets-in-horiz-sector: "
-				(row-name ?row)
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) 
-				?*separation-sign-in-cell* (number-name ?nb3) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (column-name ?col1) ?*separation-sign-in-cell* (column-name ?col2) 
-				?*separation-sign-in-cell* (column-name ?col3) ?*ending-cell-symbol*
-				?*implication-sign* (row-name ?row) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz) crlf
-			)
-	)
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L3* ?*print-hidden-triplets*) then
+            (printout t "hidden-triplets-in-horiz-sector: "
+                (row-name ?row)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2)
+                ?*separation-sign-in-cell* (number-name ?nb3) ?*ending-cell-symbol*
+                ?*starting-cell-symbol* (column-name ?col1) ?*separation-sign-in-cell* (column-name ?col2)
+                ?*separation-sign-in-cell* (column-name ?col3) ?*ending-cell-symbol*
+                ?*implication-sign* (row-name ?row) (column-name ?colz) ?*non-equal-sign* (numeral-name ?nbz)
+            )
+            (if (not ?*blocked-Subsets*) then  (printout t crlf))
+    )
+    (if ?*blocked-Subsets* then
+        (assert (apply-rule-as-a-pseudo-block ?cont))
+        (assert (pseudo-blocked ?cont hidden-triplets-in-horizontal-sector ?zzz ?row ?nb1 ?nb2 ?nb3 ?col1 ?col2 ?col3))
+    )
 )
 
 
+(defrule apply-to-more-targets-L3-hidden-triplets-in-a-row
+    (declare (salience ?*apply-a-blocked-rule-salience-1*))
+    (pseudo-blocked ?cont hidden-triplets-in-horizontal-sector ?zzz ?row ?nb1 ?nb2 ?nb3 ?col1 ?col2 ?col3)
+    ;;; identify the targets
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz2&~?zzz) (type white) (row ?row)
+                        (column ?colz&:(or (eq ?colz ?col1) (eq ?colz ?col2) (eq ?colz ?col3)))
+                        (number ?nbz&~?nb1&~?nb2&~?nb3))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L3* ?*print-hidden-triplets*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz2)
+    )
+)
+
+
+
+;;; columns
 
 (defrule L3-hidden-triplets-in-a-column
 	(declare (salience ?*hidden-triplets-salience*))
@@ -100,24 +131,49 @@
 	(candidate (context ?cont) (status cand) (type white) (column ?col) (number ?nb3) (row ?row3))
 	(candidate (context ?cont) (status cand) (type white) (column ?col) (number ?nb3) (row ?row1))
 	(not (candidate (context ?cont) (status cand) (type white) (row-of-vertical-controller ?ctr-row) (column ?col) (number ?nb3) (row ?rowx&~?row1&~?row2&~?row3)))
-
-	?cand <- (candidate (context ?cont) (status cand) (type white) (column ?col)
-						(row ?rowz&:(or (eq ?rowz ?row1) (eq ?rowz ?row2) (eq ?rowz ?row3)))
-						(number ?nbz&~?nb1&~?nb2&~?nb3))
+    
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz) (type white) (column ?col)
+                        (row ?rowz&:(or (eq ?rowz ?row1) (eq ?rowz ?row2) (eq ?rowz ?row3)))
+                        (number ?nbz&~?nb1&~?nb2&~?nb3))
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+   (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 =>
-	(retract ?cand)
-	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
-	(if (or ?*print-actions* ?*print-L3* ?*print-hidden-triplets*) then
-			(printout t "hidden-triplets-in-verti-sector: "
-				(column-name ?col)
-				?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2) 
-				?*separation-sign-in-cell* (number-name ?nb3) ?*ending-cell-symbol*
-				?*starting-cell-symbol* (row-name ?row1) ?*separation-sign-in-cell* (row-name ?row2) 
-				?*separation-sign-in-cell* (row-name ?row3) ?*ending-cell-symbol*
-				?*implication-sign* (row-name ?rowz) (column-name ?col) ?*non-equal-sign* (numeral-name ?nbz) crlf
-			)
-	)
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L3* ?*print-hidden-triplets*) then
+            (printout t "hidden-triplets-in-verti-sector: "
+                (column-name ?col)
+                ?*starting-cell-symbol* (number-name ?nb1) ?*separation-sign-in-cell* (number-name ?nb2)
+                ?*separation-sign-in-cell* (number-name ?nb3) ?*ending-cell-symbol*
+                ?*starting-cell-symbol* (row-name ?row1) ?*separation-sign-in-cell* (row-name ?row2)
+                ?*separation-sign-in-cell* (row-name ?row3) ?*ending-cell-symbol*
+                ?*implication-sign* (row-name ?rowz) (column-name ?col) ?*non-equal-sign* (numeral-name ?nbz) 
+            )
+            (if (not ?*blocked-Subsets*) then  (printout t crlf))
+    )
+    (if ?*blocked-Subsets* then
+        (assert (apply-rule-as-a-pseudo-block ?cont))
+        (assert (pseudo-blocked ?cont hidden-triplets-in-vertical-sector ?zzz ?col ?nb1 ?nb2 ?nb3 ?row1 ?row2 ?row3))
+    )
 )
+
+
+(defrule apply-to-more-targets-L3-hidden-triplets-in-a-column
+    (declare (salience ?*apply-a-blocked-rule-salience-1*))
+    (pseudo-blocked ?cont hidden-triplets-in-vertical-sector ?zzz ?col ?nb1 ?nb2 ?nb3 ?row1 ?row2 ?row3)
+    ;;; identify the targets
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz2&~?zzz) (type white) (column ?col)
+                        (row ?rowz&:(or (eq ?rowz ?row1) (eq ?rowz ?row2) (eq ?rowz ?row3)))
+                        (number ?nbz&~?nb1&~?nb2&~?nb3))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L3* ?*print-hidden-triplets*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz2)
+    )
+)
+
 
 
 

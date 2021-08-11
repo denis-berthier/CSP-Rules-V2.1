@@ -36,8 +36,8 @@
 
 (defglobal ?*CSP-Rules-LevelSymbol* = "") 
 
-(defglobal ?*equal-sign* = " = ")
-(defglobal ?*non-equal-sign* = " ≠ ")
+(defglobal ?*equal-sign* = "=")
+(defglobal ?*non-equal-sign* = "≠")
 (defglobal ?*implication-sign* = " ==> ")
 
 (defglobal ?*link-symbol* = " - ")

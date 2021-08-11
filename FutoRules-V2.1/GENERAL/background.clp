@@ -384,42 +384,88 @@
 ;;; UTILITIES FOR LARGE PUZZLES
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
+;;; utility for transforming larger puzzles (upto 36x36) given in letter form into number form:
+;;; in the latter case, number 0 is used as the representation for 36
 
-
-;;; utility for transforming large puzzles given in digit+letter form into ones given in number form
-;;; this allows to deal with Futoshikis of size up to 35
-(deffunction transform-letters-to-digits (?nb)
-	(if (or (eq ?nb A) (eq ?nb a)) then (bind ?nb 10))
-	(if (or (eq ?nb B) (eq ?nb b)) then (bind ?nb 11))
-	(if (or (eq ?nb C) (eq ?nb c)) then (bind ?nb 12))
-	(if (or (eq ?nb D) (eq ?nb d)) then (bind ?nb 13))
-	(if (or (eq ?nb E) (eq ?nb e)) then (bind ?nb 14))
-	(if (or (eq ?nb F) (eq ?nb f)) then (bind ?nb 15))
-	(if (or (eq ?nb G) (eq ?nb g)) then (bind ?nb 16))
-	(if (or (eq ?nb H) (eq ?nb h)) then (bind ?nb 17))
-	(if (or (eq ?nb I) (eq ?nb i)) then (bind ?nb 18))
-	(if (or (eq ?nb J) (eq ?nb j)) then (bind ?nb 19))
-	(if (or (eq ?nb K) (eq ?nb k)) then (bind ?nb 20))
-	(if (or (eq ?nb L) (eq ?nb l)) then (bind ?nb 21))
-	(if (or (eq ?nb M) (eq ?nb m)) then (bind ?nb 22))
-	(if (or (eq ?nb N) (eq ?nb n)) then (bind ?nb 23))
-	(if (or (eq ?nb O) (eq ?nb o)) then (bind ?nb 24))
-	(if (or (eq ?nb P) (eq ?nb p)) then (bind ?nb 25))
-	(if (or (eq ?nb Q) (eq ?nb p)) then (bind ?nb 26))
-	(if (or (eq ?nb R) (eq ?nb p)) then (bind ?nb 27))
-	(if (or (eq ?nb S) (eq ?nb p)) then (bind ?nb 28))
-	(if (or (eq ?nb T) (eq ?nb p)) then (bind ?nb 29))
-	(if (or (eq ?nb U) (eq ?nb p)) then (bind ?nb 30))
-	(if (or (eq ?nb V) (eq ?nb p)) then (bind ?nb 31))
-	(if (or (eq ?nb W) (eq ?nb p)) then (bind ?nb 32))
-	(if (or (eq ?nb X) (eq ?nb p)) then (bind ?nb 33))
-	(if (or (eq ?nb Y) (eq ?nb p)) then (bind ?nb 34))
-	(if (or (eq ?nb Z) (eq ?nb p)) then (bind ?nb 35))
-	?nb
+(deffunction transform-letter-to-nb (?nb)
+    (if (or (eq ?nb A) (eq ?nb a) (eq ?nb "A") (eq ?nb "a")) then (bind ?nb 10))
+    (if (or (eq ?nb B) (eq ?nb b) (eq ?nb "B") (eq ?nb "b")) then (bind ?nb 11))
+    (if (or (eq ?nb C) (eq ?nb c) (eq ?nb "C") (eq ?nb "c")) then (bind ?nb 12))
+    (if (or (eq ?nb D) (eq ?nb d) (eq ?nb "D") (eq ?nb "d")) then (bind ?nb 13))
+    (if (or (eq ?nb E) (eq ?nb e) (eq ?nb "E") (eq ?nb "e")) then (bind ?nb 14))
+    (if (or (eq ?nb F) (eq ?nb f) (eq ?nb "F") (eq ?nb "f")) then (bind ?nb 15))
+    (if (or (eq ?nb G) (eq ?nb g) (eq ?nb "G") (eq ?nb "g")) then (bind ?nb 16))
+    (if (or (eq ?nb H) (eq ?nb h) (eq ?nb "H") (eq ?nb "h")) then (bind ?nb 17))
+    (if (or (eq ?nb I) (eq ?nb i) (eq ?nb "I") (eq ?nb "i")) then (bind ?nb 18))
+    (if (or (eq ?nb J) (eq ?nb j) (eq ?nb "J") (eq ?nb "j")) then (bind ?nb 19))
+    (if (or (eq ?nb K) (eq ?nb k) (eq ?nb "K") (eq ?nb "k")) then (bind ?nb 20))
+    (if (or (eq ?nb L) (eq ?nb l) (eq ?nb "L") (eq ?nb "l")) then (bind ?nb 21))
+    (if (or (eq ?nb M) (eq ?nb m) (eq ?nb "M") (eq ?nb "m")) then (bind ?nb 22))
+    (if (or (eq ?nb N) (eq ?nb n) (eq ?nb "N") (eq ?nb "n")) then (bind ?nb 23))
+    (if (or (eq ?nb O) (eq ?nb o) (eq ?nb "O") (eq ?nb "o")) then (bind ?nb 24))
+    (if (or (eq ?nb P) (eq ?nb p) (eq ?nb "P") (eq ?nb "p")) then (bind ?nb 25))
+    (if (or (eq ?nb Q) (eq ?nb q) (eq ?nb "Q") (eq ?nb "q")) then (bind ?nb 26))
+    (if (or (eq ?nb R) (eq ?nb r) (eq ?nb "R") (eq ?nb "r")) then (bind ?nb 27))
+    (if (or (eq ?nb S) (eq ?nb s) (eq ?nb "S") (eq ?nb "s")) then (bind ?nb 28))
+    (if (or (eq ?nb T) (eq ?nb t) (eq ?nb "T") (eq ?nb "t")) then (bind ?nb 29))
+    (if (or (eq ?nb U) (eq ?nb u) (eq ?nb "U") (eq ?nb "u")) then (bind ?nb 30))
+    (if (or (eq ?nb V) (eq ?nb v) (eq ?nb "V") (eq ?nb "v")) then (bind ?nb 31))
+    (if (or (eq ?nb W) (eq ?nb w) (eq ?nb "W") (eq ?nb "w")) then (bind ?nb 32))
+    (if (or (eq ?nb X) (eq ?nb x) (eq ?nb "X") (eq ?nb "x")) then (bind ?nb 33))
+    (if (or (eq ?nb Y) (eq ?nb y) (eq ?nb "Y") (eq ?nb "y")) then (bind ?nb 34))
+    (if (or (eq ?nb Z) (eq ?nb z) (eq ?nb "Z") (eq ?nb "z")) then (bind ?nb 35))
+    (if (eq ?nb 0) then (bind ?nb 36))
+    ?nb
 )
 
 
-	
-	
+;;; reverse transformations
+
+(deffunction transform-nb-to-letter (?nb)
+    (if (eq ?nb 10) then (bind ?nb A))
+    (if (eq ?nb 11) then (bind ?nb B))
+    (if (eq ?nb 12) then (bind ?nb C))
+    (if (eq ?nb 13) then (bind ?nb D))
+    (if (eq ?nb 14) then (bind ?nb E))
+    (if (eq ?nb 15) then (bind ?nb F))
+    (if (eq ?nb 16) then (bind ?nb G))
+    (if (eq ?nb 17) then (bind ?nb H))
+    (if (eq ?nb 18) then (bind ?nb I))
+    (if (eq ?nb 19) then (bind ?nb J))
+    (if (eq ?nb 20) then (bind ?nb K))
+    (if (eq ?nb 21) then (bind ?nb L))
+    (if (eq ?nb 22) then (bind ?nb M))
+    (if (eq ?nb 23) then (bind ?nb N))
+    (if (eq ?nb 24) then (bind ?nb O))
+    (if (eq ?nb 25) then (bind ?nb P))
+    (if (eq ?nb 26) then (bind ?nb Q))
+    (if (eq ?nb 27) then (bind ?nb R))
+    (if (eq ?nb 28) then (bind ?nb S))
+    (if (eq ?nb 29) then (bind ?nb T))
+    (if (eq ?nb 30) then (bind ?nb U))
+    (if (eq ?nb 31) then (bind ?nb V))
+    (if (eq ?nb 32) then (bind ?nb W))
+    (if (eq ?nb 33) then (bind ?nb X))
+    (if (eq ?nb 34) then (bind ?nb Y))
+    (if (eq ?nb 35) then (bind ?nb Z))
+    (if (eq ?nb 36) then (bind ?nb 0))
+    ?nb
+)
+
+
+(deffunction test-input-conversions()
+    (loop-for-count (?i 1 36)
+        (bind ?j (transform-letter-to-nb (transform-nb-to-letter ?i)))
+        (if (neq ?i ?j) then (printout t "Error: " ?i " => " ?j crlf))
+    )
+    TRUE
+)
+        
+
+
+
+
+
     
 

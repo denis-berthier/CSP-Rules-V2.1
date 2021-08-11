@@ -254,7 +254,7 @@
 			;;; read the content of the cell from the entries
 			(bind ?nb (nth$ 1 (explode$ (sub-string ?i ?i ?givens)))) ;;; supposes there is only one symbol per entry
             ;;; add this line for puzzles given in hexadecimal notation
-			(if (> ?*grid-size* 9) then (bind ?nb (transform-letters-to-digits ?nb)))
+			(if (> ?*grid-size* 9) then (bind ?nb (transform-letter-to-nb ?nb)))
 			;;; if the content is a Number from ?*numbers* (i.e. there is an entry for the cell)
 			;;; then assert (the value and) the corresponding c-value
 			(if (member$ ?nb ?*numbers*) then
@@ -282,7 +282,7 @@
 			;;; read the content of the cell from the entries
 			(bind ?nb (nth$ 1 (explode$ (sub-string ?i ?i ?givens)))) ;;; supposes there is only one symbol per entry
             ;;; add this line for puzzles given in hexadecimal notation
-			(if (> ?*grid-size* 9) then (bind ?nb (transform-letters-to-digits ?nb)))
+			(if (> ?*grid-size* 9) then (bind ?nb (transform-letter-to-nb ?nb)))
 			;;; if the content is not a number (i.e. there is no entry for the cell)
 			;;; then assert the possible candidates for the cell
 			(if (not (member$ ?nb ?*numbers*)) then
@@ -300,7 +300,7 @@
 							(bind ?iy (cell-index ?rowy ?coly))
 							(bind ?nby (nth$ 1 (explode$ (sub-string ?iy ?iy ?givens)))) ;;; supposes there is only one symbol per entry
                             ;;; add this line for puzzles given in hexadecimal notation
-                            (if (> ?*grid-size* 9) then (bind ?nby (transform-letters-to-digits ?nby)))
+                            (if (> ?*grid-size* 9) then (bind ?nby (transform-letter-to-nb ?nby)))
 							(if (and (member$ ?nby ?*numbers*) (eq ?nby ?nbx)) then
 								(if (rc-linked ?rowy ?coly ?row ?col) then (bind ?nbx-allowed FALSE))
 							)

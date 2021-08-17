@@ -54,7 +54,7 @@
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r801");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r813");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
@@ -110,7 +110,7 @@
 ;;; By default, gird size is 9, as in Sudoku.
 ;;; If needed, change grid size here (grid-size can be any integer)
 
-; (bind ?*grid-size* 9) ;                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; (bind ?*grid-size* 13) ;                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 ;;; By default, Latin Squares is the classical version. But Pandiagonal constraints can be added.
 ;;; Notice that, in this case, ?*grid-size* may not be divisible by 2 or 3.
@@ -196,7 +196,7 @@
 ;;; Because there are so many Subsets in the Pandiagonal variant,
 ;;; it may be useful to allow only Subsets[3] in this case.
 ; (bind ?*Subsets[2]* TRUE)
- (bind ?*Subsets[3]* TRUE)
+; (bind ?*Subsets[3]* TRUE)
  (bind ?*Subsets* TRUE)
  (bind ?*Bivalue-Chains* TRUE)
  (bind ?*Whips* TRUE)
@@ -243,12 +243,13 @@
 
 ;;; Maximum lengths can also be lowered individually:
 ; (bind ?*bivalue-chains-max-length* 20)
+; (bind ?*z-chains-max-length* 20)
 ; (bind ?*t-whips-max-length* 36)
 ; (bind ?*whips-max-length* 36)
-; (bind ?*g2whips-max-length* 36)
 ; (bind ?*braids-max-length* 36)
 
 ; (bind ?*typed-bivalue-chains-max-length* 20)
+; (bind ?*typed-z-chains-max-length* 20)
 ; (bind ?*typed-t-whips-max-length* 36)
 ; (bind ?*typed-whips-max-length* 36)
 

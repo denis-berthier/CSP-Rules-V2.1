@@ -31,7 +31,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; INSTALLATION ONLY:
-;;; Define environment variables: OS, installation directory and inference engine
+;;; Define environment variables: OS and installation directory
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -53,7 +53,7 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r790");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r813");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
@@ -292,7 +292,7 @@
 ;;; Don't change these lengths unless you have some reason.
 
 ;;; The maximum length of all the generic chains can be lowered at once:
-; (defglobal ?*all-chains-max-length* = 36)
+; (bind ?*all-chains-max-length* 36)
 
 ;;; Maximum lengths can also be lowered individually:
 ; (bind ?*bivalue-chains-max-length* 20)
@@ -466,7 +466,7 @@
 
 ;;; To activate DFS:
 ; (bind ?*DFS* TRUE)
-;;; To activate priority for bivalue cells, activate this line, in addition to the above line:
+;;; To activate priority for bivalue candidates, activate this line, in addition to the above line:
 ; (bind ?*special-DFS* TRUE)
 
 ;;; Activate short whips for combining whips[1] or whips[2] with DFS:
@@ -474,11 +474,6 @@
 ; (bind ?*Whips* TRUE)
 ; (bind ?*whips-max-length* 1)
 ; (bind ?*whips-max-length* 2)
-
-
-
-
-
 
 
 
@@ -504,7 +499,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; because grid size may have been changed in this file,
+;;; Because grid size may have been changed in this file,
 ;;; redefine the associated internal factors;
 ;;; this has to be done BEFORE loading
 (redefine-internal-factors)

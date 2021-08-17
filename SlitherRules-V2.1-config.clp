@@ -53,7 +53,7 @@
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r801");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r813");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
@@ -230,6 +230,13 @@
 
 ;;; The maximum length of all the generic chains can be lowered at once:
 ; (defglobal ?*all-chains-max-length* = 5)
+
+;;; Maximum lengths can also be lowered individually:
+; (bind ?*bivalue-chains-max-length* 20)
+; (bind ?*z-chains-max-length* 20)
+; (bind ?*t-whips-max-length* 36)
+; (bind ?*whips-max-length* 36)
+; (bind ?*g2whips-max-length* 36)
 
 
 

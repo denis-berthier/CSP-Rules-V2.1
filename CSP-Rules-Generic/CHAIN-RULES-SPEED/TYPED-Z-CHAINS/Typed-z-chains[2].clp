@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,13 +30,16 @@
 
 (defrule activate-typed-z-chain[2]
 	(declare (salience ?*activate-typed-z-chain[2]-salience*))
-	(logical (play) (context (name ?cont)))
-	(not (deactivate ?cont typed-z-chain))
+    (logical
+       (play)
+       (context (name ?cont))
+       (not (deactivate ?cont typed-z-chain))
+    )
 =>
 	(if ?*print-levels* then (printout t Entering_level_TyZ2))
     (assert (technique ?cont typed-z-chain[2]))
     (assert (technique ?cont typed-partial-whip[1]))
-	(bind ?*technique* typed-z-chain[2])
+	(bind ?*technique* TyZ[2])
 )
 
 

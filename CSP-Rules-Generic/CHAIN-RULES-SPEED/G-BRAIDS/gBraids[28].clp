@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-gbraid[28]
    (declare (salience ?*activate-gbraid[28]-salience*))
-   (logical (play) (context (name ?cont)))
-   (not (deactivate ?cont gbraid))
+   (logical
+      (play)
+      (context (name ?cont))
+      (not (deactivate ?cont gbraid))
+   )
 =>
    (if ?*print-levels* then (printout t Entering_level_gB28))
    (assert (technique ?cont gbraid[28]))

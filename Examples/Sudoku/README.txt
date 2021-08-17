@@ -40,7 +40,7 @@ Obviously, solutions with g-whips and braids will take more time and memory than
 
 
 <> The CLIPS inference engine is delivered with a toy Sudoku solver and a few examples.
-The CLIPS-puzzles folder contains a subset of the 9x9 Sudoku examples provided with CLIPS. Each example comes with both the CLIPS solution and the SudoRules solution.
+The CLIPS-puzzles folder contains a subset of the "hardest" 9x9 Sudoku examples provided with CLIPS. Each example comes with both the CLIPS solution and the SudoRules solution.
 As puzzles, they are very easy and of no particular interest for Sudoku.
 As the CLIPS Sudoku application doesn't output any resolution path, it's not very interesting as a Sudoku solver either. (Notice that this was not the goal: these rules were originally developed only as a test bench for JRules.)
 
@@ -59,8 +59,6 @@ It has the detailed results for all of these possible ratings based on CSP-Rules
 It has a detailed comparison of them (in file "comparisons.txt" or "comparisons.rtf"), showing that they differ only in rare cases. It is the most precise comparison ever made of the different CSP-Rules ratings (more precise than what I previously published in [PBCS]).
 
 
-
-
 <> Puzzle "cbg-000/#2862-W7-S+W3-gW2.clp" is one of the very rare examples in the cbg-000 collection where the various ratings are significantly different. It is also an excellent examples of g-whips[2].
 
 
@@ -71,12 +69,11 @@ It is also an example of using Forcing-T&E or Forcing{3}-T&E.
 
 
 
-<> The Urhegyi-8.5 puzzle is the example of 2-step solutions discussed in sections 6.13 to 6.16 of the Basic User Manual, with all the details.
+<> The Urhegyi-8.5 puzzle is the example of 2-step solutions discussed in sections 6.15 to 6.18 of the Basic User Manual, with all the details.
 
 
 
-<> The pisces2#523-9.0-W7.clp puzzle is an example of trying to reduce the number of steps in a resolution path (as described in section 6.17 of the Basic User Manual).
-
+<> The Fewer-steps folder includes the two examples of how to reduce the number of steps in a resolution path (as described in section 6.19 of the Basic User Manual): one using mainly chain rules (the pisces2#523-9.0-W7.clp puzzle) and one using mainly Subset rules (the "Tatooine-Tosche-Station.clp" puzzle).
 
 
 

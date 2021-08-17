@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-g-bivalue-chain[8]
    (declare (salience ?*activate-g-bivalue-chain[8]-salience*))
-   (logical (play) (context (name ?cont)))
-   (not (deactivate ?cont g-bivalue-chain))
+   (logical
+      (play)
+      (context (name ?cont))
+      (not (deactivate ?cont g-bivalue-chain))
+   )
 =>
    (if ?*print-levels* then (printout t Entering_level_gBC8))
    (assert (technique ?cont g-bivalue-chain[8]))

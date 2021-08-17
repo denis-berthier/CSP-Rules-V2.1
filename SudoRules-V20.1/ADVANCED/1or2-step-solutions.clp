@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - April 2021              ;;;
+               ;;;              January 2006 - August 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -37,21 +37,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(deffunction check-conditions-on-nostep-resolution-theory (?RT)
-    (if (not (or (eq ?RT BRT) (eq ?RT W1) (eq ?RT S2) (eq ?RT S3) (eq ?RT S4) (eq ?RT S))) then
-        (printout t "Only BRT, W1, S2, S3, S4 or S are allowed as the second argument to this function" crlf)
-        (return FALSE)
-    )
-    (if (or ?*t-Whips* ?*Typed-t-Whips*) then
-        (printout t
-            "t-Whips, typed or not, are not allowed in the search for 1-steppers." crlf
-        )
-        (return FALSE)
-    )
-    TRUE
-)
-
 
 ;;; Generally, these functions will be applied supposing that we have:
 ;;; - the list of anti-backdoors (that we shall use as $?cand-list)

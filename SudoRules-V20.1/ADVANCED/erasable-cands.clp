@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - April 2021              ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -29,6 +29,9 @@
 
 
 
+
+;;; Notice that all the computations are done in context 0.
+;;; This is possible at the cost of re-initialising context 0 many times.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -59,7 +62,7 @@
         (bind ?len (length$ ?cand-list))
     )
     ;;; Find the candidates in ?cand-list that can be eliminated by the current set of rules
-    (printout t crlf "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
+    (printout t "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
     (bind ?list-of-cands-with-elim (create$))
     (bind ?i 1)
     (while (<= ?i ?len)
@@ -103,7 +106,7 @@
     )
     ;;; Find the candidates in ?cand-list that can be eliminated
     ;;; from the sukaku list by the current set of rules
-    (printout t crlf "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
+    (printout t "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
     (bind ?list-of-cands-with-elim (create$))
     (bind ?i 1)
     (while (<= ?i ?len)
@@ -131,4 +134,5 @@
 
 ;;; Also available: generic functions find-erasable-candidates and find-erasable-pairs,
 ;;; because init-resolution-state has been redefined in SudoRules/GENERAL/solve
+
 

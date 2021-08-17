@@ -30,7 +30,6 @@
 
 
 
-(defglobal ?*sequence-of-eliminations* = (create$)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -78,9 +77,9 @@
     ;;; after all the resolution rules have been applied
     (technique 0 FEWST)
     (context (name ?cont&~0) (parent ?cont0) (generating-cand ?gen-cand))
-    ?pl <- (technique ?cont BRT)
+    ?brt <- (technique ?cont BRT)
 =>
-    (retract ?pl)
+    (retract ?brt)
     (halt)
 )
 
@@ -123,72 +122,19 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Auxiliary functions for finding fewer step solutions
+;;; Auxiliary function for finding the most promising next step
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction FEWST-use-cont-to-evaluate-candidate-wrt-RT (?cont ?RT ?cand  ?all-cands)
-    ;;; When this functions is called, it is supposed that:
-    ;;; - the rules in ?RT have already been applied in context 0;
-    ;;; - the rules not in ?RT have been kept disabled in context 0.
-    ;;; Firstly, allow only the rules of ?RT in the new context:
-    (disable-rules-not-in-RT ?cont ?RT)
-    (mute-print-options)
-    ;;; Secondly, init the new context with ?RS, but supposing ?cand has been deleted, and apply the rules of ?RT in it
-    (assert (context (name ?cont) (parent 0) (generating-cand ?cand)))
-    (assert (technique ?cont BRT))
-    ;;; and run the rules of ?RT in it (they will not run in context 0, in which they have already been used)
-    (run)
-    ;;; At this point all the consequences in ?RT of having deleted ?cand are visible in ?cont.
-    ;;; Find the candidates in context 0 that have been deleted in ?cont
-    (bind ?value 0)
-    (foreach ?cand2 ?all-cands
-        (if (not (any-factp ((?f candidate)) (and (eq ?f:context ?cont) (eq ?f:status cand) (eq ?f:label ?cand2))))
-            then (bind ?value (+ ?value 1))
-        )
-    )
-    (FEWST-clean-new-context ?cont)
-    (restore-print-options)
-    ?value
-)
-
-
-
-(deffunction FEWST-evaluate-candidates-for-RT (?RT ?cands-to-evaluate ?all-cands)
-    ;;; When this functions is called, it is supposed that:
-    ;;; - the rules in ?RT have already been applied in context 0;
-    ;;; - the rules not in ?RT have been kept disabled in context 0.
-    ;;; Evaluate each of the erasable candidates (i.e. count how many candidates it allows to eliminate in ?RT).
-    (bind ?time1 (time))
-    (assert (technique 0 FEWST))
-    (bind ?nb-cands-to-evaluate (length$ ?cands-to-evaluate))
-    (bind ?nb-cands (length$ ?all-cands))
-    (bind ?cands-to-evaluate-values (create$))
-    (if ?*debug* then (printout t crlf "===> Evaluating " ?nb-cands-to-evaluate " candidates." crlf))
-    (bind ?i 1)
-    (while (<= ?i ?nb-cands-to-evaluate)
-        (bind ?cand (nth$ ?i ?cands-to-evaluate))
-        ;;; Evaluate ?cand
-        (bind ?*solution-found* FALSE)
-        (bind ?*context-counter* (+ ?*context-counter* 1))
-        (bind ?cont ?*context-counter*)
-        ;;; use ?cont to evaluate ?cand wrt ?RT in context 0
-        (bind ?value (FEWST-use-cont-to-evaluate-candidate-wrt-RT ?cont ?RT ?cand  ?all-cands))
-        (bind ?cands-to-evaluate-values (create$ ?cands-to-evaluate-values ?value))
-        (bind ?i (+ ?i 1))
-    )
-    (if ?*debug* then (printout t crlf "Evaluation time = " (seconds-to-hours (- (time) ?time1)) crlf))
-    ?cands-to-evaluate-values
-)
-
-
-
-(deffunction find-and-apply-best-step-wrt-RT (?RT)
+(deffunction FEWST-find-and-apply-best-step-wrt-RT0 (?RT0 ?sequence-of-eliminations)
     ;;; This function applies to the current resolution state in context 0.
-    ;;; When it is called, it is supposed that
-    ;;; - the rules in ?RT have already been applied in context 0;
-    ;;; - the rules not in ?RT have been kept disabled in context 0.
-    ;;; Upon leaving this function, the rules not in ?RT are still disabled in context 0.
+    ;;; When it is called, it is supposed that:
+    ;;; - the rules not in ?RT0 are disabled in context 0.
+    ;;; - the rules in ?RT0 have already been applied in context 0;
+    ;;; Upon leaving this function:
+    ;;; - the rules not in ?RT0 are disabled in context 0,
+    ;;; - the rules in ?RT0 have been applied in context 0.
+    ;;; It returns a sequence of eliminations with the chosen candidate added to it.
     (bind ?time1 (time))
     (bind ?RS (compute-current-resolution-state))
 
@@ -200,50 +146,39 @@
         (bind ?all-cands (create$ ?all-cands ?f:label))
     )
     (bind ?nb-cands (length$ ?all-cands))
-    (printout t "There remains " ?nb-cands " candidates after the rules in " ?RT " have been applied." crlf)
+    (printout t "There remains " ?nb-cands " candidates after the rules in " ?RT0 " have been applied." crlf)
 
     ;;; ===> First step:
-    ;;; Find the candidates erasable in ?RS with all the rules originally activated:
+    ;;; Find and evaluate the candidates erasable in ?RS with all the rules originally activated:
     (mute-print-options)
-    ;;; because the rules not in ?RT are disabled upon entering this function, re-enable them
-    (re-enable-disabled-rules-not-in-RT 0 ?RT)
-    (bind ?erasable-cands (find-erasable-candidates-sukaku-list ?RS ?all-cands))
-    (bind ?nb-erasable-cands (length$ ?erasable-cands))
+    ;;; Because the rules not in ?RT0 are disabled when entering this function, re-enable them
+    (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
+    (bind ?erasable-cands-and-values (find-erasable-candidates-sukaku-list-and-eval-wrt-RT0 ?RT0 ?RS ?all-cands))
+    (bind ?nb-erasable-cands (div (- (length$ ?erasable-cands-and-values) 1) 2))
     (restore-print-options)
     ;;; At this point,
     ;;; - context 0 has been re-initialised with the same state ?RS as at the start of this function,
-    ;;; - the list of erasable candidates has been found,
+    ;;; - the list of erasable candidates, their values and their max value is in ?erasable-cands-and-values,
     ;;; - all the original rules are enabled.
     
-    ;;; ===> Second step:
-    ;;; Evaluate each of the erasable candidates.
-    ;;; Disable the rules not in ?RT in context 0, in order to prevent them from firing when other contexts are tested.
-    (disable-rules-not-in-RT 0 ?RT)
-    ;;; Find the values of all the erasable candidates
-    (bind ?erasable-cands-values (FEWST-evaluate-candidates-for-RT ?RT ?erasable-cands ?all-cands))
-    ;;; Put an end to the search for the best elimination step
-    (do-for-all-facts ((?f technique)) (and (eq (nth$ 1 ?f:implied) 0) (eq (nth$ 2 ?f:implied) FEWST)) (retract ?f))
-    ;;; At this point,
-    ;;; - context 0 is still representing the same state ?RS as at the start of this function
-    ;;; - the list of respective values of ?erasable-cands is in ?erasable-cands-values
-
-    ;;; ===> Third step: randomly select one of the best erasable candidates
-    ;;; Find the best score
-    (bind ?best-score (funcall max (expand$ ?erasable-cands-values)))
+    ;;; ===> Second step: randomly select one of the best erasable candidates
+    ;;; Find the best score:
+    (bind ?best-score (nth$ 1 ?erasable-cands-and-values))
     ;;; Find all the erasable candidates with the best score:
     (bind ?best-cands (create$))
-    (bind ?i 1)
-    (while (<= ?i ?nb-erasable-cands)
-        (if (eq (nth$ ?i ?erasable-cands-values) ?best-score)
-            then (bind ?best-cands (create$ ?best-cands (nth$ ?i ?erasable-cands)))
+    (bind ?i 2)
+    (while (<= ?i (* 2 ?nb-erasable-cands))
+        (if (eq (nth$ (+ ?i 1) ?erasable-cands-and-values) ?best-score)
+            then (bind ?best-cands (create$ ?best-cands (nth$ ?i ?erasable-cands-and-values)))
         )
-        (bind ?i (+ ?i 1))
+        (bind ?i (+ ?i 2))
     )
     (bind ?nb-best-cands (length$ ?best-cands))
     (if (eq ?nb-best-cands 1)
-        then (printout t "===> Among these, there is only one candidate with the best score (" ?best-score ")." crlf)
-        else (printout t "===> Among these, there are " ?nb-best-cands " candidates with the best score (" ?best-score ")." crlf)
+        then (printout t "===> Among these, there is only one candidate with this best score: ")
+        else (printout t "===> Among these, there are " ?nb-best-cands " candidates with this best score: ")
     )
+    (printout t (print-list-of-labels ?best-cands) crlf)
     ;;; Randomly choose one of the erasable candidates with the best score
     (bind ?chosen-cand
         (if (eq ?nb-best-cands 1)
@@ -253,21 +188,38 @@
     )
     (if ?*debug* then (printout t "chosen cand = " ?chosen-cand " , value = " ?best-score crlf))
 
-    ;;; ===> Fourth step: re-enable the rules not in ?RT and apply the best step
-    (re-enable-disabled-rules-not-in-RT 0 ?RT)
+    ;;; ===> Third step: apply the best step
+    ; (re-enable-disabled-rules-not-in-RT0 0 ?RT0); useless; they have already been re-enabled
     (restore-print-options)
     (if (eq ?nb-best-cands 1)
         then (printout t "===> Eliminating candidate " (print-label ?chosen-cand))
         else (printout t "===> Eliminating randomly chosen candidate " (print-label ?chosen-cand))
     )
-    (printout t " and applying rules in " ?RT ", considered as \"zero-step\"" crlf)
+    (printout t " and applying rules in " ?RT0 ", considered as \"zero-step\":" crlf)
+    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
+    (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
+    (bind ?*print-final-RS-backup* ?*print-final-RS*)
+    (bind ?*print-RS-after-Singles* FALSE)
+    (bind ?*print-RS-after-whips[1]* FALSE)
+    (bind ?*print-final-RS* FALSE)
+    ;;; Notice that, in case blocked versions of rules are chosen,
+    ;;; the following function will eliminate not only ?chosen-cand,
+    ;;; but also all those that can be eliminated by the same pattern
     (try-to-eliminate-candidates ?chosen-cand)
-    (bind ?*sequence-of-eliminations* (create$ ?*sequence-of-eliminations* ?chosen-cand))
-    ;;; The sequence of eliminations up to this point is now in ?*sequence-of-eliminations*
+    ;;; The following two functions will:
+    ;;; - leave all the rules not in ?RT0 disabled;
+    ;;; - apply the rules of ?RT0 in context 0 before leaving.
+    (disable-rules-not-in-RT0 0 ?RT0)
+    (run)
+    (if (not ?*solution-found*) then (pretty-print-current-resolution-state))
+    (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
+    (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+    (bind ?*print-final-RS* ?*print-final-RS-backup*)
     (bind ?best-step-computation-time (- (time) ?time1))
     (printout t "best-step-computation-time = " (seconds-to-hours ?best-step-computation-time) crlf)
+    ;;; Update the sequence of eliminations and return it:
+    (create$ ?sequence-of-eliminations ?chosen-cand)
 )
-
 
 
 
@@ -277,78 +229,67 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(deffunction solve-sudoku-with-fewer-steps-wrt-resolution-theory (?RT ?sudoku-string)
-    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
+(deffunction solve-sudoku-with-fewer-steps-wrt-resolution-theory (?RT0 ?sudoku-string)
+    (if (not (check-conditions-on-no-step-RT0 ?RT0)) then (return FALSE))
     (bind ?time0 (time))
     ;;; initialise the seed of the random numbers generator
     (seed (integer ?time0))
-    (bind ?*sequence-of-eliminations* (create$))
+    (bind ?sequence-of-eliminations (create$))
 
     ;;; ===> First step:
-    ;;; Init the puzzle and find the resolution state ?RS after the rules in ?RT have been applied;
+    ;;; Init the puzzle and apply the rules in ?RT0;
     ;;; it will be the starting point for all the subsequent calculations.
-    (bind ?RS (compute-state-after-RT-sudoku-string ?RT ?sudoku-string))
+    (compute-state-after-RT0-sudoku-string ?RT0 ?sudoku-string)
     ;;; At this point:
-    ;;; - context 0 is initialised with the state after the rules in ?RT have been applied;
-    ;;; - the rules not in ?RT have been kept disabled.
-    
-    ;;; ===> Second step:
-    (bind ?step 1)
-    (printout t "===> STEP #" ?step crlf)
-    (find-and-apply-best-step-wrt-RT ?RT)
-    (printout t crlf crlf)
+    ;;; - the rules not in ?RT0 are disabled in context 0;
+    ;;; - the rules in ?RT0 have been applied in context 0.
 
-    ;;; ===> Third step: if solution not found, iterate
+    ;;; ===> Second step: iterate until solution found
+    (bind ?step 0)
     (while (not ?*solution-found*)
         (bind ?step (+ ?step 1))
-        (printout t "===> STEP #" ?step crlf)
-        (disable-rules-not-in-RT 0 ?RT)
-        (find-and-apply-best-step-wrt-RT ?RT)
         (printout t crlf crlf)
+        (printout t "=====> STEP #" ?step crlf)
+        (bind ?sequence-of-eliminations (FEWST-find-and-apply-best-step-wrt-RT0 ?RT0 ?sequence-of-eliminations))
     )
+    (printout t crlf)
     (printout t "Total computation time = " (seconds-to-hours (- (time) ?time0)) crlf)
     (printout t "sequence of " ?step " eliminations = ")
-    (print-list-of-labels ?*sequence-of-eliminations*)
+    (print-list-of-labels ?sequence-of-eliminations)
     (printout t crlf)
-    (printout t crlf)
+    ?sequence-of-eliminations
 )
 
 
-(deffunction solve-sukaku-with-fewer-steps-wrt-resolution-theory (?RT $?sukaku-list)
-    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
+(deffunction solve-sukaku-with-fewer-steps-wrt-resolution-theory (?RT0 $?sukaku-list)
+    (if (not (check-conditions-on-no-step-RT0 ?RT0)) then (return FALSE))
     (bind ?time0 (time))
     ;;; initialise the seed of the random numbers generator
     (seed (integer ?time0))
-    (bind ?*sequence-of-eliminations* (create$))
+    (bind ?sequence-of-eliminations (create$))
 
     ;;; ===> First step:
-    ;;; Init the puzzle and find the resolution state ?RS after the rules in ?RT have been applied;
+    ;;; Init the puzzle and apply the rules in ?RT0;
     ;;; it will be the starting point for all the subsequent calculations.
-    (bind ?RS (compute-state-after-RT-sukaku-list ?RT ?sukaku-list))
+    (compute-state-after-RT0-sukaku-list ?RT0 ?sukaku-list)
     ;;; At this point:
-    ;;; - context 0 is initialised with the state after rules in ?RT have been applied;
-    ;;; - the rules not in ?RT have been kept disabled.
-    
-    ;;; ===> Second step:
-    (bind ?step 1)
-    (printout t "===> STEP #" ?step crlf)
-    (find-and-apply-best-step-wrt-RT ?RT)
-    (printout t crlf crlf)
+    ;;; - the rules not in ?RT0 are disabled in context 0;
+    ;;; - the rules in ?RT0 have been applied in context 0.
 
-    ;;; ===> Third step: if solution not found, iterate
+    ;;; ===> Second step: iterate until solution found
+    (bind ?step 0)
     (while (not ?*solution-found*)
-        (bind ?step (+ ?step 1))
-        (printout t "===> STEP #" ?step crlf)
-        (disable-rules-not-in-RT 0 ?RT)
-        (find-and-apply-best-step-wrt-RT ?RT)
         (printout t crlf crlf)
+        (bind ?step (+ ?step 1))
+        (printout t "=====> STEP #" ?step crlf)
+        (bind ?sequence-of-eliminations (FEWST-find-and-apply-best-step-wrt-RT0 ?RT0 ?sequence-of-eliminations))
     )
+    (printout t crlf)
     (printout t "Total computation time = " (seconds-to-hours (- (time) ?time0)) crlf)
     (printout t "sequence of " ?step " eliminations = ")
-    (print-list-of-labels ?*sequence-of-eliminations*)
+    (print-list-of-labels ?sequence-of-eliminations)
     (printout t crlf)
-    (printout t crlf)
+    ?sequence-of-eliminations
 )
 
 
@@ -369,6 +310,127 @@
     (solve-sukaku-with-fewer-steps-wrt-resolution-theory W1 ?sukaku-list)
 )
 
+;;; Iterations and their abbreviations:
+(deffunction solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory (?ntimes ?RT0 ?sudoku-string)
+    (loop-for-count (?i 1 ?ntimes)
+        (printout t crlf crlf "************************* TRY # " ?i " *************************" crlf crlf)
+        (solve-sudoku-with-fewer-steps-wrt-resolution-theory ?RT0 ?sudoku-string)
+    )
+)
+
+(deffunction solve-ntimes-sukaku-with-fewer-steps-wrt-resolution-theory (?ntimes ?RT0 $?sukaku-list)
+    (loop-for-count (?i 1 ?ntimes)
+        (printout t crlf crlf "************************* TRY # " ?i " *************************" crlf crlf)
+        (solve-sukaku-with-fewer-steps-wrt-resolution-theory ?RT0 ?sukaku-list)
+    )
+)
+
+(deffunction solve-ntimes-sudoku-with-fewer-steps-wrt-BRT (?ntimes ?sudoku-string)
+    (solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes BRT ?sudoku-string)
+)
+
+(deffunction solve-ntimes-sudoku-with-fewer-steps-wrt-W1 (?ntimes ?sudoku-string)
+    (solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes W1 ?sudoku-string)
+)
+
+(deffunction solve-ntimes-sukaku-with-fewer-steps-wrt-BRT (?ntimes $?sukaku-list)
+    (solve-ntimes-sukaku-with-fewer-steps-wrt-resolution-theory ?ntimes BRT ?sukaku-list)
+)
+
+(deffunction solve-ntimes-sukaku-with-fewer-steps-wrt-W1 (?ntimes $?sukaku-list)
+    (solve-ntimes-sukaku-with-fewer-steps-wrt-resolution-theory ?ntimes W1 ?sukaku-list)
+)
 
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; USER FUNCTIONS FOR ITERATING THE SEARCH OF A FEWER STEPS SOLUTION
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction solve-sukaku-with-restricted-fewer-steps-wrt-resolution-theory (?max-nb-steps ?RT0 ?RS0)
+    (bind ?time0 (time))
+    (bind ?sequence-of-eliminations (create$))
+
+    ;;; Iterate until solution found or nb-steps exceeded
+    (bind ?step 0)
+    (while (and (not ?*solution-found*) (< ?step ?max-nb-steps))
+        (printout t crlf crlf)
+        (bind ?step (+ ?step 1))
+        (printout t "=====> STEP #" ?step crlf)
+        (bind ?sequence-of-eliminations (FEWST-find-and-apply-best-step-wrt-RT0 ?RT0 ?sequence-of-eliminations))
+    )
+    (printout t crlf)
+    (printout t "Total computation time = " (seconds-to-hours (- (time) ?time0)) crlf)
+    (printout t "Sequence of " ?step " eliminations = ")
+    (print-list-of-labels ?sequence-of-eliminations)
+    (if (not ?*solution-found*) then (printout t "Stopped before solution is found." crlf))
+    (printout t crlf)
+    ?sequence-of-eliminations
+)
+
+
+(deffunction smart-solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory (?ntimes ?RT0 ?sudoku-string)
+    (if (not (check-conditions-on-no-step-RT0 ?RT0)) then (return FALSE))
+    (bind ?time0 (time))
+    ;;; initialise the seed of the random numbers generator
+    (seed (integer ?time0))
+    (bind ?best-try 0)
+    (bind ?best-try-nb-steps 1000)
+    (bind ?best-try-sequence-of-eliminations (create$))
+
+    ;;; ===> First step:
+    ;;; Init the puzzle and apply the rules in ?RT0;
+    ;;; it will be the starting point for all the subsequent calculations.
+    (bind ?RS0 (compute-state-after-RT0-sudoku-string ?RT0 ?sudoku-string))
+    ;;; At this point:
+    ;;; - the rules not in ?RT0 are disabled in context 0;
+    ;;; - the rules in ?RT0 have been applied in context 0.
+    (if ?*solution-found* then (return))
+    
+    ;;; The first step should be given special treatment
+    ;;; The list of erasable candidates at the start should be kept for all paths.
+    ;;; If a 1-step solution is obtained, a special case should be set
+    ;;; and function find-sudoku-1-steppers should be called.
+
+    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
+    (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
+    (bind ?*print-RS-after-Singles* FALSE)
+    (bind ?*print-RS-after-whips[1]* FALSE)
+    (bind ?nb-try 0)
+    (while (< ?nb-try ?ntimes)
+        (printout t crlf crlf crlf)
+        (bind ?nb-try (+ ?nb-try 1))
+        (printout t "************************* TRY # " ?nb-try " *************************" crlf crlf)
+        (bind ?RS0 (compute-state-after-RT0-sudoku-string ?RT0 ?sudoku-string)) ; should be simplified
+        ;;; At this point:
+        ;;; - the rules not in ?RT0 are disabled in context 0;
+        ;;; - the rules in ?RT0 have been applied in context 0.
+        (bind ?seq-elim (solve-sukaku-with-restricted-fewer-steps-wrt-resolution-theory ?best-try-nb-steps ?RT0 ?RS0))
+        (bind ?len (length$ ?seq-elim))
+        (if (and ?*solution-found* (< ?len ?best-try-nb-steps)) then
+            (bind ?best-try ?nb-try)
+            (bind ?best-try-nb-steps ?len)
+            (bind ?best-try-sequence-of-eliminations ?seq-elim)
+        )
+    )
+    (printout t crlf crlf)
+    (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
+    (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+    (printout t "************************* SUMMARY of " ?ntimes " TRIES *************************" crlf)
+    (printout t "Total computation time for all the tries = " (seconds-to-hours (- (time) ?time0)) crlf)
+    (printout t "Best sequence is # " ?best-try " and has " ?best-try-nb-steps " eliminations: ")
+    (print-list-of-labels ?best-try-sequence-of-eliminations)
+    (printout t crlf crlf)
+    (internal-reconstruct-sudoku-resolution-path-wrt-RT0 ?RT0 ?sudoku-string ?best-try-sequence-of-eliminations)
+)
+
+
+(deffunction smart-solve-ntimes-sudoku-with-fewer-steps-wrt-BRT (?ntimes ?sudoku-string)
+    (smart-solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes BRT ?sudoku-string)
+)
+(deffunction smart-solve-ntimes-sudoku-with-fewer-steps-wrt-W1 (?ntimes ?sudoku-string)
+    (smart-solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes W1 ?sudoku-string)
+)

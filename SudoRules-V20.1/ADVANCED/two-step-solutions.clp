@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - May 2021              ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -182,30 +182,30 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction ABDP-use-cont-to-test-candidate-pair-as-anti-backdoor-pair-for-RT-in-cont0 (?cont0 ?cont ?RT ?cand ?cand2)
+(deffunction ABDP-use-cont-to-test-candidate-pair-as-RT0-anti-backdoor-pair-in-cont0 (?cont0 ?cont ?RT0 ?cand ?cand2)
     ;;; This function has the side effect of updating global variable ?*list-of-anti-backdoor-pairs*
-    ;;; Firstly, allow only the rules of ?RT in the new context:
-    (disable-rules-not-in-RT ?cont ?RT)
+    ;;; Firstly, allow only the rules of ?RT0 in the new context:
+    (disable-rules-not-in-RT0 ?cont ?RT0)
     ;;; Secondly, init the new context with ?RS, but supposing ?cand and ?cand2 are deleted,
-    ;;; and apply the rules of ?RT in it
+    ;;; and apply the rules of ?RT0 in it
     (assert (context (name ?cont) (parent ?cont0) (generating-cand ?cand) (generating-cand2 ?cand2)))
     (assert (technique ?cont BRT))
     (run)
-    ;;; If a solution was found in ?RT, the pair (?cand ?cand2) had been added to ?*list-of-anti-backdoor-pairs*
+    ;;; If a solution was found in ?RT0, the pair (?cand ?cand2) had been added to ?*list-of-anti-backdoor-pairs*
     (ABDP-clean-new-context ?cont)
 )
 
 
-(deffunction ABDP-find-anti-backdoor-pairs-for-RT-in-cont0 (?cont0 ?RT ?erasable-cands ?all-candidates-after-RT)
-    ;;; Try all the relevant candidate pairs in order to find the ?RT anti-backdoor pairs.
+(deffunction ABDP-find-anti-backdoor-pairs-wrt-RT0-in-cont0 (?cont0 ?RT0 ?erasable-cands ?all-candidates-after-RT0)
+    ;;; Try all the relevant candidate pairs in order to find the ?RT0 anti-backdoor pairs.
     ;;; Notice that the two candidates in each pair are different: anti-backdoors are not looked for.
     (bind ?time1 (time))
     (assert (technique 0 ABDP))
     (bind ?*list-of-anti-backdoor-pairs* (create$))
     (bind ?nb-erasable-cands (length$ ?erasable-cands))
-    (bind ?nb-cands-after-RT (length$ ?all-candidates-after-RT))
+    (bind ?nb-cands-after-RT0 (length$ ?all-candidates-after-RT0))
     (bind ?nb-relevant-pairs (+ (div (* ?nb-erasable-cands (- ?nb-erasable-cands 1)) 2)
-                                (* ?nb-erasable-cands (- ?nb-cands-after-RT ?nb-erasable-cands))
+                                (* ?nb-erasable-cands (- ?nb-cands-after-RT0 ?nb-erasable-cands))
                             )
     )
     (printout t crlf crlf "===> CHECKING " ?nb-relevant-pairs
@@ -228,13 +228,13 @@
             (bind ?*solution-found* FALSE)
             (bind ?*context-counter* (+ ?*context-counter* 1))
             (bind ?cont ?*context-counter*)
-            (ABDP-use-cont-to-test-candidate-pair-as-anti-backdoor-pair-for-RT-in-cont0 0 ?cont ?RT ?cand ?cand2)
+            (ABDP-use-cont-to-test-candidate-pair-as-RT0-anti-backdoor-pair-in-cont0 0 ?cont ?RT0 ?cand ?cand2)
             (bind ?j (+ ?j 1))
         )
         ;;; Secondly, try all the pairs containing ?cand and a non erasable candidates
         (bind ?j 1)
-        (while (<= ?j ?nb-cands-after-RT)
-            (bind ?cand2 (nth$ ?j ?all-candidates-after-RT))
+        (while (<= ?j ?nb-cands-after-RT0)
+            (bind ?cand2 (nth$ ?j ?all-candidates-after-RT0))
             (if (not (member$ ?cand2 ?erasable-cands)) then
                 (if ?*debug*
                     then (printout t crlf "Trying candidate pair " (print-label-pair ?cand ?cand2) crlf)
@@ -243,7 +243,7 @@
                 (bind ?*solution-found* FALSE)
                 (bind ?*context-counter* (+ ?*context-counter* 1))
                 (bind ?cont ?*context-counter*)
-                (ABDP-use-cont-to-test-candidate-pair-as-anti-backdoor-pair-for-RT-in-cont0 0 ?cont ?RT ?cand ?cand2)
+                (ABDP-use-cont-to-test-candidate-pair-as-RT0-anti-backdoor-pair-in-cont0 0 ?cont ?RT0 ?cand ?cand2)
             )
             (bind ?j (+ ?j 1))
         )
@@ -258,11 +258,11 @@
     (if (not ?*debug*) then (printout t crlf))
     (bind ?anti-backdoor-pairs-computation-time (- (time) ?time1))
     (printout t crlf "anti-backdoor-pairs computation time = " (seconds-to-hours ?anti-backdoor-pairs-computation-time) crlf)
-    ;;; The ?RT anti-backdoor-pairs are now in ?*list-of-anti-backdoor-pairs*
+    ;;; The ?RT0 anti-backdoor-pairs are now in ?*list-of-anti-backdoor-pairs*
     (bind ?nb-anti-backdoor-pairs (div (length$ ?*list-of-anti-backdoor-pairs*) 2))
     ;;; print the list of anti-backdoor-pairs in the output format
     (bind ?back (if (eq ?nb-anti-backdoor-pairs 1) then "-anti-backdoor-pair" else "-anti-backdoor-pairs"))
-    (printout t  "===> There are " ?nb-anti-backdoor-pairs " " (str-cat ?RT ?back " for the current set of rules: ") crlf)
+    (printout t  "===> There are " ?nb-anti-backdoor-pairs " " (str-cat ?RT0 ?back " for the current set of rules: ") crlf)
     (print-list-of-label-pairs ?*list-of-anti-backdoor-pairs*)
     (printout t crlf )
     ?*list-of-anti-backdoor-pairs*
@@ -277,51 +277,53 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction find-2-steppers-for-RT-in-RS-after-RT (?RT ?RS-after-RT)
+(deffunction find-2-steppers-wrt-RT0-in-RS-after-RT0 (?RT0 ?RS-after-RT0)
     ;;; Remember that, when this functions is called:
-    ;;; - the rules not in ?RT have been disabled in context 0;
-    ;;; - the rules in ?RT have been applied in context 0;
-    ;;; - the resolution state of context 0 is ?RS-after-RT.
-    ;;; Find the list of all the candidates in ?RS-after-RT:
-    (bind ?all-candidates-after-RT (create$))
+    ;;; - the rules not in ?RT0 have been disabled in context 0;
+    ;;; - the rules in ?RT0 have been applied in context 0;
+    ;;; - the resolution state of context 0 is ?RS-after-RT0.
+    ;;; Find the list of all the candidates in ?RS-after-RT0:
+    (bind ?all-candidates-after-RT0 (create$))
     (do-for-all-facts
         ((?f candidate))
         (and (eq ?f:context 0) (eq ?f:status cand))
-        (bind ?all-candidates-after-RT (create$ ?all-candidates-after-RT ?f:label))
+        (bind ?all-candidates-after-RT0 (create$ ?all-candidates-after-RT0 ?f:label))
     )
-    (bind ?nb-cands-after-RT (length$ ?all-candidates-after-RT))
-    (printout t "There remains " ?nb-cands-after-RT " candidates after the rules in " ?RT " have been applied." crlf)
+    (bind ?nb-cands-after-RT0 (length$ ?all-candidates-after-RT0))
+    (printout t "There remains " ?nb-cands-after-RT0 " candidates after the rules in " ?RT0 " have been applied." crlf)
     
     ;;; block printing
     (mute-print-options)
 
     ;;; ===> First step:
-    ;;; Find the candidates erasable in ?RS-after-RT with all the rules originally activated:
-    (re-enable-disabled-rules-not-in-RT 0 ?RT)
+    ;;; Find the candidates erasable in ?RS-after-RT0 with all the rules originally activated:
+    (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
     (bind ?erasable-cands
-        (find-erasable-candidates-sukaku-list ?RS-after-RT ?all-candidates-after-RT)
+        (find-erasable-candidates-sukaku-list ?RS-after-RT0 ?all-candidates-after-RT0)
     )
-    ;;; At this point,
-    ;;; - context 0 has been re-initialised with ?RS-after-RT
+    ;;; At this point:
+    ;;; - context 0 has been re-initialised with ?RS-after-RT0;
+    ;;; - no rule is activated in ?context 0;
     ;;; - the list of erasable candidates and their computation time have been printed.
     
     ;;; ===> Second step:
-    ;;; Disable the rules not in ?RT in context 0, in order to prevent them from firing when other contexts are tested.
-    (disable-rules-not-in-RT 0 ?RT)
-    ;;; Try all the relevant candidate pairs in order to find the ?RT anti-backdoor pairs.
+    ;;; Disable the rules not in ?RT0 in context 0, in order to prevent them from firing when other contexts are tested.
+    (disable-rules-not-in-RT0 0 ?RT0)
+    ;;; Try all the relevant candidate pairs in order to find the ?RT0 anti-backdoor pairs.
     ;;; Notice that the two candidates in each pair are different: anti-backdoors are not looked for.
-    (ABDP-find-anti-backdoor-pairs-for-RT-in-cont0 0 ?RT ?erasable-cands ?all-candidates-after-RT)
-    ;;; At this point,
-    ;;; - context 0 is still representing ?RS-after-RT
-    ;;; - the list of ?RT anti-backdoor-pairs and their computation time have been printed.
+    (ABDP-find-anti-backdoor-pairs-wrt-RT0-in-cont0 0 ?RT0 ?erasable-cands ?all-candidates-after-RT0)
+    ;;; At this point:
+    ;;; - context 0 is still representing ?RS-after-RT0;
+    ;;; - no rule is activated in ?context 0;
+    ;;; - the list of ?RT0 anti-backdoor-pairs and their computation time have been printed.
 
     ;;; ===> Third step:
-    ;;; Find which of these ?RT anti-backdoor-pairs can be eliminated with the original set of rules,
-    ;;; i.e. which of these candidate-pairs are indeed ?RT 2-steppers:
-    (re-enable-disabled-rules-not-in-RT 0 ?RT)
+    ;;; Find which of these ?RT0 anti-backdoor-pairs can be eliminated with the original set of rules,
+    ;;; i.e. which of these candidate-pairs are indeed ?RT0 2-steppers:
+    (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
     (restore-print-options)
     (printout t crlf crlf "===> CHECKING WHICH OF THE ANTI-BACKDOOR-PAIRS LEAD TO 2-STEP SOLUTIONS:" crlf)
-    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
         (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
@@ -346,11 +348,11 @@
                  (if ?*debug* then (printout t "one 2-stepper found for pair : " (print-label-pair ?cand  ?cand2) crlf))
             else (if ?*debug* then (printout t "no 2-stepper found with pair : " (print-label-pair ?cand  ?cand2) crlf))
         )
-        ;;; restore the state after ?RT
-        (init-sukaku-list ?RS-after-RT)
+        ;;; restore the state after ?RT0
+        (init-sukaku-list ?RS-after-RT0)
         (bind ?i (+ ?i 1))
     )
-    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
         (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind ?*print-final-RS* ?*print-final-RS-backup*)
@@ -360,18 +362,18 @@
 
 
 
-(deffunction find-sudoku-2-steppers-wrt-resolution-theory (?RT ?sudoku-string)
-    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
+(deffunction find-sudoku-2-steppers-wrt-resolution-theory (?RT0 ?sudoku-string)
+    (if (not (check-conditions-on-no-step-RT0 ?RT0)) then (return FALSE))
     (bind ?time0 (time))
     ;;; ===> First step:
-    ;;; Init the puzzle and find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
+    ;;; Init the puzzle and find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
-    (bind ?RS-after-RT (compute-state-after-RT-sudoku-string ?RT ?sudoku-string))
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied.
+    (bind ?RS-after-RT0 (compute-state-after-RT0-sudoku-string ?RT0 ?sudoku-string))
+    ;;; At this point, context 0 is initialised with the state after rules from ?RT0 have been applied.
     
     ;;; ===> Second step:
     ;;; Find the 2-steppers
-    (bind ?list-of-2-steppers (find-2-steppers-for-RT-in-RS-after-RT ?RT ?RS-after-RT))
+    (bind ?list-of-2-steppers (find-2-steppers-wrt-RT0-in-RS-after-RT0 ?RT0 ?RS-after-RT0))
     (bind ?nb-2-steppers (div (length$ ?list-of-2-steppers) 2))
 
     (printout t crlf "Total computation time = " (seconds-to-hours (- (time) ?time0)) crlf)
@@ -389,18 +391,18 @@
 )
 
 
-(deffunction find-sukaku-2-steppers-wrt-resolution-theory (?RT ?sukaku-list)
-    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
+(deffunction find-sukaku-2-steppers-wrt-resolution-theory (?RT0 ?sukaku-list)
+    (if (not (check-conditions-on-no-step-RT0 ?RT0)) then (return FALSE))
     (bind ?time0 (time))
     ;;; ===> First step:
-    ;;; Init the puzzle and find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
+    ;;; Init the puzzle and find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
-    (bind ?RS-after-RT (compute-state-after-RT-sukaku-list ?RT ?sukaku-list))
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied.
+    (bind ?RS-after-RT0 (compute-state-after-RT0-sukaku-list ?RT0 ?sukaku-list))
+    ;;; At this point, context 0 is initialised with the state after rules from ?RT0 have been applied.
     
     ;;; ===> Second step:
     ;;; Find the 2-steppers
-    (bind ?list-of-2-steppers (find-2-steppers-for-RT-in-RS-after-RT ?RT ?RS-after-RT))
+    (bind ?list-of-2-steppers (find-2-steppers-wrt-RT0-in-RS-after-RT0 ?RT0 ?RS-after-RT0))
     (bind ?nb-2-steppers (div (length$ ?list-of-2-steppers) 2))
 
     (printout t crlf "Total computation time = " (seconds-to-hours (- (time) ?time0)) crlf)

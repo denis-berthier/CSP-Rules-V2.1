@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;              January 2006 - May 2021               ;;;
+               ;;;              January 2006 - August 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -118,9 +118,9 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction ABD-init-new-context-for-RT-from-cand (?cont0 ?cont ?RT ?cand)
-    ;;; Firstly, allow only the rules in ?RT in the new context:
-    (disable-rules-not-in-RT ?cont ?RT)
+(deffunction ABD-init-new-context-for-RT-from-cand (?cont0 ?cont ?RT0 ?cand)
+    ;;; Firstly, allow only the rules in ?RT0 in the new context:
+    (disable-rules-not-in-RT0 ?cont ?RT0)
     ;;; Secondly, init the new context with ?RS, but supposing ?cand is deleted
     (assert (context (name ?cont) (parent ?cont0) (generating-cand ?cand)))
     (assert (technique ?cont BRT))
@@ -201,18 +201,18 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction ABD-use-cont-to-test-candidate-as-anti-backdoor-for-RT-in-cont0 (?cont0 ?cont ?RT ?cand)
+(deffunction ABD-use-cont-to-test-candidate-as-RT0-anti-backdoor-in-cont0 (?cont0 ?cont ?RT0 ?cand)
     ;;; this function has the side effect of updating global variable ?*list-of-anti-backdoors*
-    (ABD-init-new-context-for-RT-from-cand ?cont0 ?cont ?RT ?cand)
+    (ABD-init-new-context-for-RT-from-cand ?cont0 ?cont ?RT0 ?cand)
     (run)
     (ABD-clean-new-context ?cont)
 )
 
 
-(deffunction ABD-find-anti-backdoors-for-resolution-theory-RT-in-current-resolution-state (?RT)
+(deffunction ABD-find-anti-backdoors-wrt-RT0-in-current-resolution-state (?RT0)
     ;;; the anti-backdoors are looked for in the current resolution state
     (bind ?time1 (time))
-    (if ?*print-actions* then (printout t "===> Looking for the " ?RT "-anti-backdoors:" crlf))
+    (if ?*print-actions* then (printout t "===> Looking for the " ?RT0 "-anti-backdoors:" crlf))
     ;;; find the list of all candidates
     (bind ?cand-list (create$))
     (do-for-all-facts
@@ -229,11 +229,11 @@
         (bind ?*context-counter* (+ ?*context-counter* 1))
         (bind ?cont ?*context-counter*)
         (if ?*debug*
-            then (printout t "=> Testing " (print-label ?cand) " as a possible " ?RT "-anti-backdoor." crlf)
+            then (printout t "=> Testing " (print-label ?cand) " as a possible " ?RT0 "-anti-backdoor." crlf)
             else (printout t ".")
         )
         (mute-print-options)
-        (ABD-use-cont-to-test-candidate-as-anti-backdoor-for-RT-in-cont0 0 ?cont ?RT ?cand)
+        (ABD-use-cont-to-test-candidate-as-RT0-anti-backdoor-in-cont0 0 ?cont ?RT0 ?cand)
         (restore-print-options)
     )
     (if (not ?*debug*) then (printout t crlf))
@@ -249,7 +249,7 @@
     (printout t "anti-backdoors computation time = " (seconds-to-hours ?anti-backdoors-computation-time) crlf)
     (bind ?len (length$ ?*list-of-anti-backdoors*))
     (bind ?back (if (eq ?len 1) then "-anti-backdoor" else "-anti-backdoors"))
-    (printout t  "===> There are " ?len " " (str-cat ?RT ?back ": ") crlf)
+    (printout t  "===> There are " ?len " " (str-cat ?RT0 ?back ": ") crlf)
     (print-list-of-labels ?*list-of-anti-backdoors*)
     (printout t crlf crlf)
     ;;; return the list of anti-backdoors (in the internal format compatible with ?*rating-type*)
@@ -263,31 +263,32 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction find-1-steppers-for-RT-in-RS-after-RT (?RT ?RS-after-RT)
-    ;;; Remember that the rules in ?RS-after-RT have been disabled in the calculation of ?RS-after-RT
-    ;;; and that context 0 represents this state.
+(deffunction find-1-steppers-wrt-RT0-in-RS-after-RT0 (?RT0 ?RS-after-RT0)
+    ;;; Remember that:
+    ;;; - the rules not in ?RT0 have been disabled in the calculation of ?RS-after-RT0;
+    ;;; - context 0 represents this state.
     
     ;;; ===> First step:
-    ;;; Do not re-activate yet the rules not in ?RT, so that they continue not to apply in ?cont0
-    ;;; Look for the ?RT anti-backdoors in the current resolution state (?RS-after-RT)
-    (ABD-find-anti-backdoors-for-resolution-theory-RT-in-current-resolution-state ?RT)
+    ;;; Do not re-activate yet the rules not in ?RT0, so that they continue not to apply in ?cont0
+    ;;; Look for the ?RT0 anti-backdoors in the current resolution state (?RS-after-RT0)
+    (ABD-find-anti-backdoors-wrt-RT0-in-current-resolution-state ?RT0)
     ;;; Put an end to the search for anti-backdoors
     (do-for-all-facts
         ((?f technique))
         (and (eq (nth$ 1 ?f:implied) 0) (eq (nth$ 2 ?f:implied) ABD))
         (retract ?f)
     )
-    ;;; The ?RT anti-backdoors are now in ?*list-of-anti-backdoors*
+    ;;; The ?RT0 anti-backdoors are now in ?*list-of-anti-backdoors*
     
     ;;; ===> Second step:
-    ;;; Find which of these ?RT anti-backdoors can be eliminated with the original set of rules,
-    ;;; i.e. find which of these candidates are indeed ?RT 1-steppers
-    (re-enable-disabled-rules-not-in-RT 0 ?RT)
+    ;;; Find which of these ?RT0 anti-backdoors can be eliminated with the original set of rules,
+    ;;; i.e. find which of these candidates are indeed ?RT0 1-steppers
+    (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
     (if ?*print-actions* then
         (printout t "===> Testing each of the " (length$ ?*list-of-anti-backdoors*) " "
-            ?RT "-anti-backdoors for a single step solution:" crlf crlf)
+            ?RT0 "-anti-backdoors for a single step solution:" crlf crlf)
     )
-    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
         (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
@@ -298,7 +299,7 @@
     (bind ?list-of-1-steppers (create$))
     (foreach ?cand ?*list-of-anti-backdoors*
         (printout t crlf crlf "===> Testing if candidate " (print-label ?cand) " is a 1-stepper:" crlf)
-        (init-sukaku-list ?RS-after-RT)
+        (init-sukaku-list ?RS-after-RT0)
         (try-to-eliminate-candidates ?cand)
         ;;; test if ?cand has been eliminated
         (if (not (any-factp
@@ -309,7 +310,7 @@
         )
     )
 
-    (if (or (eq ?RT BRT) (eq ?RT W1)) then
+    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
         (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind ?*print-final-RS* ?*print-final-RS-backup*)
@@ -320,16 +321,20 @@
 
 
 
-(deffunction find-sudoku-1-steppers-wrt-resolution-theory (?RT ?sudoku-string)
-    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
+(deffunction find-sudoku-1-steppers-wrt-resolution-theory (?RT0 ?sudoku-string)
+    (if (not (check-conditions-on-no-step-RT0 ?RT0)) then (return FALSE))
     (bind ?time0 (time))
+    
     ;;; ===> First step:
-    ;;; Find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
+    ;;; Find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
-    (bind ?RS-after-RT (compute-state-after-RT-sudoku-string ?RT ?sudoku-string))
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied.
+    (bind ?RS-after-RT0 (compute-state-after-RT0-sudoku-string ?RT0 ?sudoku-string))
+    ;;; At this point:
+    ;;; - context 0 is initialised with the state after rules in ?RT0 have been applied;
+    ;;; - the rules not in ?RT0 are kept disabled.
+    
     ;;; ===> Second step:
-    (bind ?list-of-1-steppers (find-1-steppers-for-RT-in-RS-after-RT ?RT ?RS-after-RT))
+    (bind ?list-of-1-steppers (find-1-steppers-wrt-RT0-in-RS-after-RT0 ?RT0 ?RS-after-RT0))
     (bind ?len (length$ ?list-of-1-steppers))
     (printout t "Total computation time = " (seconds-to-hours (- (time) ?time0)) crlf)
     (if (eq ?len 0) then (printout t "===> There is no 1-step solution for the current set of rules." crlf))
@@ -346,16 +351,20 @@
 )
 
 
-(deffunction find-sukaku-1-steppers-wrt-resolution-theory (?RT $?sukaku-list)
-    (if (not (check-conditions-on-nostep-resolution-theory ?RT)) then (return FALSE))
+(deffunction find-sukaku-1-steppers-wrt-resolution-theory (?RT0 $?sukaku-list)
+    (if (not (check-conditions-on-no-step-RT0 ?RT0)) then (return FALSE))
     (bind ?time0 (time))
+    
     ;;; ===> First step:
-    ;;; Find the resolution state ?RS-after-RT after the rules in ?RT have been applied;
+    ;;; Find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
-    (bind ?RS-after-RT (compute-state-after-RT-sukaku-list ?RT ?sukaku-list))
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT have been applied.
+    (bind ?RS-after-RT0 (compute-state-after-RT0-sukaku-list ?RT0 ?sukaku-list))
+    ;;; At this point:
+    ;;; - context 0 is initialised with the state after rules in ?RT0 have been applied;
+    ;;; - the rules not in ?RT0 are kept disabled.
+
     ;;; ===> Second step:
-    (bind ?list-of-1-steppers (find-1-steppers-for-RT-in-RS-after-RT ?RT ?RS-after-RT))
+    (bind ?list-of-1-steppers (find-1-steppers-wrt-RT0-in-RS-after-RT0 ?RT0 ?RS-after-RT0))
     (bind ?len (length$ ?list-of-1-steppers))
     (printout t "Total computation time = " (seconds-to-hours (- (time) ?time0)) crlf)
     (if (eq ?len 0) then (printout t "===> There is no 1-step solution for the current set of rules." crlf))

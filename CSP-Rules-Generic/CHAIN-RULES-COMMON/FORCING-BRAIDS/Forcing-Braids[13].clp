@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-forcing-braid[13]
    (declare (salience ?*activate-forcing-braid[13]-salience*))
-   (logical (play) (context (name ?cont)))
-   (not (deactivate ?cont forcing-braid))
+   (logical
+      (play)
+      (context (name ?cont))
+      (not (deactivate ?cont forcing-braid))
+   )
 =>
    (if ?*print-levels* then (printout t Entering_level_FB13))
    (assert (technique ?cont forcing-braid[13]))

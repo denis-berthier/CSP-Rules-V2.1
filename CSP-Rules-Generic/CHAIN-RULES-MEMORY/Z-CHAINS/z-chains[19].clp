@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - February 2021            ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,13 +30,16 @@
 
 (defrule activate-z-chain[19]
    (declare (salience ?*activate-z-chain[19]-salience*))
-   (logical (play) (context (name ?cont)))
-   (not (deactivate ?cont z-chain))
+   (logical
+      (play)
+      (context (name ?cont))
+      (not (deactivate ?cont z-chain))
+   )
 =>
    (if ?*print-levels* then (printout t Entering_level_Z19))
    (assert (technique ?cont z-chain[19]))
    (assert (technique ?cont partial-z-chain[18]))
-   (bind ?*technique* z-chain[19])
+   (bind ?*technique* Z[19])
 )
 
 

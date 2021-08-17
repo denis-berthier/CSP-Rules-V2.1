@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-forcing-gbraid[10]
    (declare (salience ?*activate-forcing-gbraid[10]-salience*))
-   (logical (play) (context (name ?cont)))
-   (not (deactivate ?cont forcing-gbraid))
+   (logical
+      (play)
+      (context (name ?cont))
+      (not (deactivate ?cont forcing-gbraid))
+   )
 =>
    (if ?*print-levels* then (printout t Entering_level_FB10))
    (assert (technique ?cont forcing-gbraid[10]))

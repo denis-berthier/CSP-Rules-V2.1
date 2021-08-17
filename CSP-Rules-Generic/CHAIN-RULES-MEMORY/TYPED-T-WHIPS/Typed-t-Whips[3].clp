@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-typed-t-whip[3]
 	(declare (salience ?*activate-typed-t-whip[3]-salience*))
-	(logical (play) (context (name ?cont)))
-	(not (deactivate ?cont typed-t-whip))
+    (logical
+       (play)
+       (context (name ?cont))
+       (not (deactivate ?cont typed-t-whip))
+    )
 =>
 	(if ?*print-levels* then (printout t Entering_level_TytW3))
     (assert (technique ?cont typed-partial-whip[2]))

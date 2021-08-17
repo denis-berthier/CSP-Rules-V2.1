@@ -661,6 +661,7 @@
 	(init-candidates-from-string-of-candidates ?string)
     (assert (context (name 0)))
     (assert (grid 0))
+    (if ?*print-actions* then (pretty-print-current-resolution-state))
 )
 
 

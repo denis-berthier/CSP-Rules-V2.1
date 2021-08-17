@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - February 2021            ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-bivalue-chain[19]
    (declare (salience ?*activate-bivalue-chain[19]-salience*))
-   (logical (play) (context (name ?cont)))
-   (not (deactivate ?cont bivalue-chain))
+   (logical
+      (play)
+      (context (name ?cont))
+      (not (deactivate ?cont bivalue-chain))
+   )
 =>
    (if ?*print-levels* then (printout t Entering_level_BC19))
    (assert (technique ?cont bivalue-chain[19]))

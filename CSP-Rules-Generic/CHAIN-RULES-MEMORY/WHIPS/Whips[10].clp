@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2020             ;;;
+               ;;;             January 2006 - August 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,8 +30,11 @@
 
 (defrule activate-whip[10]
    (declare (salience ?*activate-whip[10]-salience*))
-   (logical (play) (context (name ?cont)))
-   (not (deactivate ?cont whip))
+   (logical
+      (play)
+      (context (name ?cont))
+      (not (deactivate ?cont whip))
+   )
 =>
    (if ?*print-levels* then (printout t Entering_level_W10))
    (assert (technique ?cont partial-whip[9]))

@@ -40,11 +40,9 @@
     (not (play-already-asserted))
 =>
     (bind ?*density* (density ?*nb-candidates* ?*links-count*))
-    (if ?*print-actions* then
-        (if ?*print-RS-after-Singles* then
-            (printout t "Resolution state after Singles:" crlf)
-            (pretty-print-current-resolution-state)
-        )
+    (if (and ?*print-actions* ?*print-RS-after-Singles*) then
+        (printout t "Resolution state after Singles:" crlf)
+        (pretty-print-current-resolution-state)
         (printout t ?*nb-candidates* " candidates, "
             ?*csp-links-count* " csp-links and " ?*links-count* " links."
             " Density = " ?*density* "%" crlf

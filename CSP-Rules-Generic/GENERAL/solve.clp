@@ -28,33 +28,14 @@
 
 
 
-;;; All the functions below (except print-banner) must be redefined in application-specific ways
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; INITIALISE AND SOLVE INSTANCES
+;;; UTILITIES
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(deffunction redefine-instance-globals (?size) TRUE)
-(deffunction init-general-application-structures (?size) TRUE)
-(deffunction init-instance-specific-structures (?size $?l) TRUE)
-
-
-(deffunction init-instance (?size $?l)
-    (init-universal-globals)
-    (redefine-instance-globals ?size)
-    (init-general-application-structures ?size)
-    (init-instance-specific-structures ?size $?l)
-    (assert (context (name 0)))
-	(assert (grid 0))
-)
-
 
 (deffunction print-start-banner ()
-    (bind ?xx 
+    (bind ?xx
         (if (eq ?*chain-rules-optimisation-type* MEMORY) then .m
             else (if (eq ?*chain-rules-optimisation-type* SPEED) then .s
                     else (printout t "ERROR IN chain-rules-optimisation-type" crlf) (halt)
@@ -75,7 +56,7 @@
 
 
 (deffunction print-banner ()
-    (bind ?xx 
+    (bind ?xx
         (if (eq ?*chain-rules-optimisation-type* MEMORY) then .m
             else (if (eq ?*chain-rules-optimisation-type* SPEED) then .s
                     else (printout t "ERROR IN chain-rules-optimisation-type" crlf) (halt)
@@ -108,8 +89,39 @@
     )
 )
 
-    
-    
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; MOST BASIC USER FUNCTIONS: INIT AND SOLVE INSTANCES
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; All the functions below (except print-banner) must be redefined in application-specific ways.
+;;; "init-instance" and "solve" as given here are only models for application-specific functions.
+
+(deffunction redefine-instance-globals (?size) TRUE)
+(deffunction init-general-application-structures (?size) TRUE)
+(deffunction init-instance-specific-structures (?size $?l) TRUE)
+
+
+(deffunction init-instance (?size $?l)
+    (init-universal-globals)
+    (redefine-instance-globals ?size)
+    (init-general-application-structures ?size)
+    (init-instance-specific-structures ?size $?l)
+    ;;; This is what will allow to activate the rules of BRT in context 0:
+    (assert (context (name 0)))
+    ;;; At some point in the development if CSP-Rules, this was useful; it is no longer needed
+	(assert (grid 0))
+)
+
+;;; abbreviated as:
+(deffunction init (?size $?l) (init-instance ?size ?l))
+
+
+
 (deffunction solve (?size $?l)
 	(reset) (reset)  
 	(if ?*print-actions* then (print-banner))

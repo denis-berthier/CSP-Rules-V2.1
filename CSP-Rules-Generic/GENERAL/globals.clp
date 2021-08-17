@@ -248,16 +248,17 @@
 ;;; for instance, Whips[1] and ?*Typed-Partial-Whips[1], because they must be active in many cases,
 ;;; even when longer Whips or Typed-Whips are not.
 
-;;; Some of the following variables for doing so are managed automatically by CSP-Rules:
-(defglobal ?*Typed-Partial-Whips[1]* = FALSE)
+;;; Some of the following variables for doing so are managed automatically by CSP-Rules
+;;; and some may now be also managed by the user:
 
-;;; And some may now be also managed by the user:
+;;; - Typed-Partial-Whips[1] could be used in conjunction with type restrictions (currently not used)
+(defglobal ?*Typed-Partial-Whips[1]* = FALSE)
 ;;; - whips[1], because they are the simplest pattern after BRT:
 (defglobal ?*Whips[1]* = FALSE)
-;;; - g-Whips[2] because the are universal among patterns with two CSP-Variables:
-(defglobal ?*g-Whips[2]* = FALSE)
+;;; - G-Whips[2] because the are universal among patterns with two CSP-Variables:
+(defglobal ?*G-Whips[2]* = FALSE)
 ;;; - g-Braids[3] because they cover some Sudoku specific rules not covered by simpler rules
-(defglobal ?*g-Braids[3]* = FALSE)
+(defglobal ?*G-Braids[3]* = FALSE)
 
 
 (defglobal ?*Bivalue-Chains* = FALSE)

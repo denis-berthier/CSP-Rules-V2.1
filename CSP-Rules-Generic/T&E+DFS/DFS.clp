@@ -97,6 +97,11 @@
         (retract ?f)
     )
     (do-for-all-facts
+        ((?f typed-chain))
+        (eq ?f:context ?cont)
+        (retract ?f)
+    )
+    (do-for-all-facts
         ((?f init-context))
         (eq (nth$ 1 ?f:implied) ?cont)
         (retract ?f)
@@ -201,18 +206,6 @@
 )
 
 
-(defrule print-solution
-    (declare (salience ?*solution-found-salience*))
-    ?sol <- (solution-found ?cont)
-=>
-    (if (or ?*print-solution* ?*save-solutions*) then
-        (print-solution-in-context ?cont)
-        (printout t "nb-facts = " ?*nb-facts* crlf)
-    )
-    (halt)
-)
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -271,7 +264,8 @@
     (retract ?t)
 )
 
-
+(defrule DFS-clean-1
+=>)
 
 
 

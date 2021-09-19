@@ -399,4 +399,9 @@
 )
 
 
+;;; Also add this abbreviation for the most usual case:
+
+(deffunction find-1-steppers (?sudoku-string)
+    (find-sudoku-1-steppers-wrt-resolution-theory W1 ?sudoku-string)
+)
 

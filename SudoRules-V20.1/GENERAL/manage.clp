@@ -331,9 +331,14 @@
         "Physical rows are rows, physical columns are columns. Data are digits." crlf
     )
     (print-current-resolution-state)
-    (printout t "The following representations may be used e.g. to more easily spot" crlf
-        "rn-, cn- or bn- bivalue pairs (also named bilocal pairs), mono-typed-chains," crlf
-        "hidden subsets and fishes (which will appear as naked subsets in the proper space)." crlf crlf)
+    (printout t
+        "The following representations, first introduced in the \"Hidden Logic of Sudoku\"  (HLS, 2007)," crlf
+        "may be used e.g. to more easily spot:" crlf
+        "rn-, cn- or bn- bivalue pairs (also named bilocal pairs)," crlf
+        "mono-typed-chains (the 2D-chains of HLS)," crlf
+        "Hidden Subsets and Fishes (which will appear as Naked Subsets in the proper space)."
+        crlf crlf
+    )
     (print-current-resolution-state-rn-view)
     (print-current-resolution-state-cn-view)
     (print-current-resolution-state-bn-view)

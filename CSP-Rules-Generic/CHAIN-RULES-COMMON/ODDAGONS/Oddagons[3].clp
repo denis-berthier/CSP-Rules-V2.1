@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2021             ;;;
+               ;;;            January 2006 - October 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -56,7 +56,7 @@
 
 
 
-;;; oddagon elimination rule
+;;; partial oddagon extension rule
 
 (defrule partial-oddagon[2]
 	(declare (salience ?*partial-oddagon[2]-salience*))
@@ -71,8 +71,8 @@
         (forall (csp-linked ?cont ?cand1 ?xxx&~?cand2 ?csp1) (exists-link ?cont ?xxx ?zzz))
        
        ;;; Second csp
-       (csp-linked ?cont ?cand2 ?cand3&:(< ?cand1 ?cand3) ?csp2&~?csp1)
-        (forall (csp-linked ?cont ?cand2 ?xxx&~?cand3 ?csp2) (exists-link ?cont ?xxx ?zzz))
+       (csp-linked ?cont ?cand2 ?cand3&~?cand2&:(< ?cand1 ?cand3) ?csp2&~?csp1)
+       (forall (csp-linked ?cont ?cand2 ?xxx&~?cand3 ?csp2) (exists-link ?cont ?xxx ?zzz))
     )
 
     ;;; do not assert different partial oddagons with the same sequences of rlc's
@@ -103,6 +103,8 @@
 
 
 
+;;; oddagon elimination rule
+
 (defrule oddagon[3]
     (declare (salience ?*oddagon[3]-salience*))
     (csp-chain
@@ -123,9 +125,92 @@
     (retract ?cand)
     (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
     (if (or ?*print-actions* ?*print-L3* ?*print-oddagon* ?*print-oddagon-3*) then
-        (print-oddagon 3 ?zzz (create$ $?rlcs ?cand1) (create$ $?csp-vars ?new-csp))
+        (print-oddagon-without-crlf 3 ?zzz (create$ $?rlcs ?cand1) (create$ $?csp-vars ?new-csp))
+    )
+    
+    (if (not ?*blocked-oddagons*)
+       then (printout t crlf)
+       else ; find the z-candidates
+          (bind ?z-cands (create$))
+          (bind ?cand2 (nth$ 1 ?rlcs))
+          (bind ?csp1 (nth$ 1 ?csp-vars))
+          (do-for-all-facts
+              ((?f csp-linked))
+              (and (eq (nth$ 1 ?f:implied) ?cont)
+                  (eq (nth$ 2 ?f:implied) ?cand1)
+                  (neq (nth$ 3 ?f:implied) ?cand2)
+                  (eq (nth$ 4 ?f:implied) ?csp1)
+              )
+              (bind ?new-z-cand (nth$ 3 ?f:implied))
+              (if (not (member$ ?new-z-cand ?z-cands)) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
+          )
+          (bind ?cand3 (nth$ 2 ?rlcs))
+          (bind ?csp2 (nth$ 2 ?csp-vars))
+          (do-for-all-facts
+              ((?f csp-linked))
+              (and (eq (nth$ 1 ?f:implied) ?cont)
+                  (eq (nth$ 2 ?f:implied) ?cand2)
+                  (neq (nth$ 3 ?f:implied) ?cand3)
+                  (eq (nth$ 4 ?f:implied) ?csp2)
+              )
+              (bind ?new-z-cand (nth$ 3 ?f:implied))
+              (if (not (member$ ?new-z-cand ?z-cands)) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
+          )
+          ;;; complete the list of z-candidates
+          (do-for-all-facts
+              ((?f csp-linked))
+              (and (eq (nth$ 1 ?f:implied) ?cont)
+                  (eq (nth$ 2 ?f:implied) ?last-rlc)
+                  (neq (nth$ 3 ?f:implied) ?cand1)
+                  (eq (nth$ 4 ?f:implied) ?new-csp)
+              )
+              (bind ?z-cands (create$ ?z-cands (nth$ 3 ?f:implied)))
+          )
+          ;;; prepare for finding more targets
+          (assert (apply-rule-as-a-pseudo-block ?cont))
+          (assert (pseudo-blocked ?cont oddagon[3] ?zzz $?z-cands))
     )
 )
+
+
+
+;;; elimination of more targets
+
+(defrule apply-oddagon[3]-to-more-targets
+    (declare (salience ?*apply-a-blocked-rule-salience-1*))
+    (apply-rule-as-a-pseudo-block ?cont)
+    (pseudo-blocked ?cont oddagon[3] ?zzz $?z-cands)
+
+    ;;; identify one more target
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz-bis&~?zzz))
+    (forall (candidate (context ?cont) (label ?cz&:(member$ ?cz ?z-cands)))
+        (exists-link ?cont ?cz ?zzz-bis)
+    )
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L3* ?*print-oddagon* ?*print-oddagon-3*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz-bis)
+    )
+)
+
+
+
+;;; print the z-candidates
+
+(defrule oddagon[3]-print-z-candidates
+    (declare (salience ?*apply-a-blocked-rule-salience-2*))
+    (pseudo-blocked ?cont oddagon[3] ?zzz $?z-cands)
+
+=>
+    (if (or ?*print-actions* ?*print-L3* ?*print-oddagon* ?*print-oddagon-3*) then
+        (if ?*print-z-candidates-of-oddagons* then
+           (printout t crlf "     with z-candidates = ")
+           (print-list-of-labels $?z-cands)
+        )
+     )
+  )
 
 
 

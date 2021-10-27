@@ -168,7 +168,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; printing of reversible chains (bivalue-chains and z-chains)
+;;; printing of reversible chains (bivalue-chains, z-chains and oddagons)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -190,22 +190,23 @@
     (print-deleted-candidate ?zzz)
 )
 
-(deffunction print-bivalue-chain-without-crlf (?len ?zzz ?llcs ?rlcs ?csps)
-    (print-reversible-chain-without-crlf biv-chain ?len ?zzz ?llcs ?rlcs ?csps)
-)
-
-(deffunction print-g-bivalue-chain-without-crlf (?len ?zzz ?llcs ?rlcs ?csps)
-    (print-reversible-chain-without-crlf g-biv-chain ?len ?zzz ?llcs ?rlcs ?csps)
-)
-
-
 (deffunction print-reversible-chain (?chain-type ?len ?zzz ?llcs ?rlcs ?csps)
     (print-reversible-chain-without-crlf ?chain-type ?len ?zzz ?llcs ?rlcs ?csps)
     (printout t crlf)
 )
 
+
+(deffunction print-bivalue-chain-without-crlf (?len ?zzz ?llcs ?rlcs ?csps)
+    (print-reversible-chain-without-crlf biv-chain ?len ?zzz ?llcs ?rlcs ?csps)
+)
+
 (deffunction print-bivalue-chain (?len ?zzz ?llcs ?rlcs ?csps)
     (print-reversible-chain biv-chain ?len ?zzz ?llcs ?rlcs ?csps)
+)
+
+
+(deffunction print-g-bivalue-chain-without-crlf (?len ?zzz ?llcs ?rlcs ?csps)
+    (print-reversible-chain-without-crlf g-biv-chain ?len ?zzz ?llcs ?rlcs ?csps)
 )
 
 (deffunction print-g-bivalue-chain (?len ?zzz ?llcs ?rlcs ?csps)
@@ -213,7 +214,7 @@
 )
 
 
-(deffunction print-oddagon (?len ?zzz ?rlcs ?csps)
+(deffunction print-oddagon-without-crlf (?len ?zzz ?rlcs ?csps)
     (if (or (neq (length$ ?rlcs) ?len) (neq (length$ ?csps) ?len))
         then (printout t "length error for " ?zzz crlf)
     )
@@ -235,16 +236,20 @@
 
     (printout t ?*implication-sign*)
     (print-deleted-candidate ?zzz)
+)
+
+
+(deffunction print-oddagon (?len ?zzz ?rlcs ?csps)
+    (print-oddagon-without-crlf ?len ?zzz ?rlcs ?csps)
     (printout t crlf)
 )
 
 
 
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; printing of typed reversible chains (typed-bivalue-chains)
+;;; printing of typed reversible chains
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -266,24 +271,23 @@
     (print-deleted-candidate ?zzz)
 )
 
-(deffunction print-typed-bivalue-chain-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
-    (print-typed-reversible-chain-without-crlf biv-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
-)
-
-(deffunction print-typed-g-bivalue-chain-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
-    (print-typed-reversible-chain-without-crlf g-biv-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
-)
-
-
 (deffunction print-typed-reversible-chain (?chain-type ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
     (print-typed-reversible-chain-without-crlf ?chain-type ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
     (printout t crlf)
 )
 
+
+(deffunction print-typed-bivalue-chain-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
+    (print-typed-reversible-chain-without-crlf biv-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
+)
 (deffunction print-typed-bivalue-chain (?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
     (print-typed-reversible-chain biv-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
 )
 
+
+(deffunction print-typed-g-bivalue-chain-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
+    (print-typed-reversible-chain-without-crlf g-biv-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
+)
 (deffunction print-typed-g-bivalue-chain (?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
     (print-typed-reversible-chain g-biv-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps)
 )
@@ -301,7 +305,10 @@
 	(if (neq (length$ ?llcs) (- ?len 1)) then (printout t "length error for " ?zzz " in " ?llcs crlf))
 	(if (neq (length$ ?rlcs) (- ?len 1)) then (printout t "length error for " ?zzz " in " ?rlcs crlf))
 	(if (neq (length$ ?csps) (- ?len 1)) then (printout t "length error for " ?zzz " in " ?csps crlf))
-    (printout t ?chain-type "[" ?len "]: ")
+    (if (or (eq ?chain-type w-whip) (eq ?chain-type b-braid) (eq ?chain-type w*-whip) (eq ?chain-type b*-braid))
+        then (printout t ?chain-type "[[" ?len "]]: ")
+        else (printout t ?chain-type "[" ?len "]: ")
+    )
 	(bind ?k 1)
 	(while (< ?k ?len)
 		(bind ?llc (nth$ ?k ?llcs))
@@ -316,39 +323,42 @@
 	(print-deleted-candidate ?zzz)
 )
 
-
-(deffunction print-t-whip-without-crlf (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-    (print-chain-without-crlf t-whip ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-)
-
-(deffunction print-whip-without-crlf (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-    (print-chain-without-crlf whip ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-)
-
-
-
 (deffunction print-chain (?chain-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-chain-without-crlf ?chain-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (printout t crlf)
 )
 
-;;; although z-chains are reversible, it's easier to use the following function:
+;;; although z-chains are reversible, it's easier to use the following two functions without the final rlc:
 
-(deffunction print-z-chain (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-	(print-chain z-chain ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+(deffunction print-z-chain-without-crlf (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-chain-without-crlf z-chain ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
+(deffunction print-z-chain (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-chain z-chain ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+)
+
 
 (deffunction print-t-chain (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-	(print-chain t-chain ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-chain t-chain ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
 
+
+(deffunction print-t-whip-without-crlf (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-chain-without-crlf t-whip ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+)
 (deffunction print-t-whip (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-chain t-whip ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
 
+
+(deffunction print-whip-without-crlf (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-chain-without-crlf whip ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+)
 (deffunction print-whip (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-chain whip ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
+
+
 
 (deffunction print-gwhip (?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-chain g-whip ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
@@ -394,37 +404,41 @@
     (print-deleted-candidate ?zzz)
 )
 
-
-(deffunction print-typed-t-whip-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-    (print-typed-chain-without-crlf t-whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-)
-
-(deffunction print-typed-whip-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-    (print-typed-chain-without-crlf whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-)
-
-(deffunction print-typed-g-whip-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-    (print-typed-chain-without-crlf g-whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
-)
-
-
-
 (deffunction print-typed-chain (?chain-type ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-typed-chain-without-crlf ?chain-type ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (printout t crlf)
 )
 
+
+;;; although z-chains are reversible, it's easier to use the following two functions without the final rlc:
+
 (deffunction print-typed-z-chain (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-typed-chain z-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+)
+(deffunction print-typed-z-chain-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-typed-chain-without-crlf z-chain ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+)
+
+
+(deffunction print-typed-t-whip-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-typed-chain-without-crlf t-whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
 (deffunction print-typed-t-whip (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-typed-chain t-whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
 
+
+(deffunction print-typed-whip-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-typed-chain-without-crlf whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+)
 (deffunction print-typed-whip (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-typed-chain whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
 
+
+(deffunction print-typed-g-whip-without-crlf (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+    (print-typed-chain-without-crlf g-whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
+)
 (deffunction print-typed-g-whip (?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
     (print-typed-chain g-whip ?csp-type ?len ?zzz ?llcs ?rlcs ?csps ?new-llc ?dot ?new-csp)
 )
@@ -620,7 +634,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; printing of w-whips, b-braids, w*-whips and b$-braids
+;;; printing of w-whips, b-braids, w*-whips and b*-braids
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

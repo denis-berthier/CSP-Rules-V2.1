@@ -28,19 +28,19 @@
 
 
 
-;;; Due to salience definitions, links are now only activated after all the rules in BRT and pre-BRT
-;;; Rules in BRT no longer depend on (play) being already asserted
+;;; Due to salience definitions, links are now only activated after all the rules in BRT and pre-BRT.
+;;; Rules in BRT no longer depend on (play) being already asserted.
 ;;; This leads to density calculations different from those in the previous versions of CSP-Rules,
 ;;; because these calculations are now done after the rules in BRT have been applied,
-;;; which I consider more meaningful
+;;; which I consider more meaningful.
 
 ;;; Links are activated, and this file is loaded, only if at least whips[1], Bi-Whips or Bi-Braids are active
 ;;; As a result, rule "end-init-effective-links", which asserts (play),
-;;; must now be in a separate file ("play.clp"), that is always loaded
+;;; must now be in a separate file ("play.clp"), that is always loaded.
 
 ;;; Links are computed before (play) is asserted because,
 ;;; unless the puzzle is solved in BRT,
-;;; the numbers of csp-links and links are printed when (play) is asserted
+;;; the numbers of csp-links and links are printed when (play) is asserted.
 
 
 
@@ -73,8 +73,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;; This is intended only as an example of what must be done
-;;; We suppose that function "labels-linked" has been defined in background.clp
+;;; This is intended only as an example of what must be done.
+;;; It is supposed that function "labels-linked" has been defined in background.clp.
 
 ;;; csp-links are based on predicate is-csp-variable-for-label
 ;;; links are based on the application-specific function labels-linked
@@ -89,11 +89,11 @@
 ;;; init-effective-non-csp-links asserts all the exists-link facts, including those associated with csp-links
 ;;; (the latter must not be counted twice by add-link)
 
-;;; for efficiency reasons, all the rules below may be redefined in application-specific ways
+;;; For efficiency reasons, all the rules below may be redefined in application-specific ways,
 ;;; e.g. by using application-specific slots of predicate "candidate"
 
-;;; notice that no csp-type information is provided in the generic csp-links for use by typed-chains
-;;; this has to be done in each application-specifi init-links file
+;;; Notice that no csp-type information is provided in the generic csp-links for use by typed-chains;
+;;; this has to be done in each application-specific init-links file.
 
 (defrule init-effective-csp-links
     (declare (salience ?*init-csp-links-salience-1*))

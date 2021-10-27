@@ -208,17 +208,28 @@
 (defglobal ?*Context-restriction* = FALSE)
 
 
-;;; in the previous standard behaviour of CSP-Rules, when a pattern could have produced more than one elimination,
+;;; In the previous standard behaviour of CSP-Rules, when a pattern could have produced more than one elimination,
 ;;; the activation of a simpler rule by the first elimination could prevent further potential eliminations.
-;;; This default behaviour is now changed for Whips[1], bivalue-chains (typed or not), t-Whips (typed or not) and Subsets.
-;;; But CSP-Rules allows to revert to the previous behaviour,
-;;; independently for Whips[1], for bivalue-chains and t-Whips of any length, and for Subsets.
-;;; Un-comment the relevant line(s) in the configuration file if you want these rules to be "interrupted" as the other rules
+;;; This default behaviour is now changed:
+;;; - for Whips[1],
+;;; - for Subsets,
+;;; - for bivalue-chains (typed or not), z-chains (typed or not) and t-Whips (typed or not),
+;;; - for Oddagons.
+;;; However, CSP-Rules allows to revert to the previous behaviour,
+;;; independently for each of the above four groups of rules.
+;;; Un-comment the relevant line(s) in the configuration file if you want these rules to be "interrupted" as the other rules.
 
 (defglobal ?*blocked-Whips[1]* = TRUE)
-(defglobal ?*blocked-bivalue-chains* = TRUE) ; this applies to both the typed and untyped versions
-(defglobal ?*blocked-t-Whips* = TRUE) ; this applies to both the typed and untyped versions
 (defglobal ?*blocked-Subsets* = TRUE)
+(defglobal ?*blocked-chains* = TRUE) ; this applies to both the typed and untyped versions
+(defglobal ?*blocked-oddagons* = TRUE)
+;;; secondary variables
+(defglobal ?*blocked-bivalue-chains* = TRUE)
+(defglobal ?*blocked-z-chains* = TRUE)
+(defglobal ?*blocked-t-Whips* = TRUE)
+
+;;; The globally "unblocked" behaviour can be reset by setting the following variable to TRUE in the configuration file
+(defglobal ?*unblocked-behaviour* = FALSE)
 
 
 ;;; Although CSP-Rules doesn't have generic Subsets or g-Subset rules,
@@ -245,20 +256,23 @@
 
 ;;; Some generic chain rules can now be activated more easily with some length restriction,
 ;;; without activating longer rules of the same kind;
-;;; for instance, Whips[1] and ?*Typed-Partial-Whips[1], because they must be active in many cases,
+;;; for instance, Whips[1] and ?*Typed-Partial-Whips[1]*, because they must be active in many cases,
 ;;; even when longer Whips or Typed-Whips are not.
 
 ;;; Some of the following variables for doing so are managed automatically by CSP-Rules
-;;; and some may now be also managed by the user:
-
-;;; - Typed-Partial-Whips[1] could be used in conjunction with type restrictions (currently not used)
+;;; - Typed-Partial-Whips[1] and Typed-Whips[1] are required by several kinds of rules
 (defglobal ?*Typed-Partial-Whips[1]* = FALSE)
+;;; - Partial-Whips[1] could be used in conjunction with type restrictions (currently not used)
+(defglobal ?*Partial-Whips[1]* = FALSE)
+
+;;; and some may now be also managed by the user:
 ;;; - whips[1], because they are the simplest pattern after BRT:
 (defglobal ?*Whips[1]* = FALSE)
 ;;; - G-Whips[2] because the are universal among patterns with two CSP-Variables:
 (defglobal ?*G-Whips[2]* = FALSE)
 ;;; - g-Braids[3] because they cover some Sudoku specific rules not covered by simpler rules
 (defglobal ?*G-Braids[3]* = FALSE)
+
 
 
 (defglobal ?*Bivalue-Chains* = FALSE)
@@ -359,6 +373,7 @@
 (defglobal ?*TE2* = FALSE) ;;; by default, there is no Trial and Error at depth 2
 (defglobal ?*TE3* = FALSE) ;;; by default, there is no Trial and Error at depth 3
 (defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
+(defglobal ?*Forcing{2}-TE* = FALSE) ;;; by default, there is no Forcing{2} Trial and Error
 (defglobal ?*Forcing{3}-TE* = FALSE) ;;; by default, there is no Forcing{3} Trial and Error
 
 
@@ -423,6 +438,7 @@
 
 ;;; variables used to keep track of special patterns:
 (defglobal
+    ?*exotic-list* = (create$)
     ?*oddagon-list* = (create$)
     ?*special-list* = (create$)
     ?*special-list1* = (create$)
@@ -495,6 +511,11 @@
 (defglobal ?*print-RS-after-whips[1]* = TRUE)
 ;;; By default, the resolution state at the end of resolution (if a solution is not found) is printed:
 (defglobal ?*print-final-RS* = TRUE)
+;;; By default, the z-candidates of z-chains are not printed:
+(defglobal ?*print-z-candidates* = FALSE)
+;;; By default, the z-candidates of oddagons are printed:
+(defglobal ?*print-z-candidates-of-oddagons* = TRUE)
+
 
 
 ;;; The following variables are used only for T&E and similar procedures

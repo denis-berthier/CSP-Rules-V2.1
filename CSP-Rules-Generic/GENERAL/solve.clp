@@ -113,7 +113,7 @@
     (init-instance-specific-structures ?size $?l)
     ;;; This is what will allow to activate the rules of BRT in context 0:
     (assert (context (name 0)))
-    ;;; At some point in the development if CSP-Rules, this was useful; it is no longer needed
+    ;;; At some point in the development of CSP-Rules, this was useful; it is no longer needed
 	(assert (grid 0))
 )
 

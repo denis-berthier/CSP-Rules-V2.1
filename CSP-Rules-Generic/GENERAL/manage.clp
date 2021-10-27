@@ -33,13 +33,13 @@
 ;;; This is the generic version.
 ;;; For efficiency reasons, some of the rules below may be redefined in application-specific ways,
 ;;; e.g. by using application-specific slots of predicate "candidate".
-;;; When no more the rule in BRT can be applied, the following happens:
+;;; When no more rule in BRT can be applied, the following happens:
 ;;; - if a solution has been found, CSP-Rules prints it (if the print options require it) and halts
 ;;; - otherwise, if no other rule has been enabled,
-;;; ---- then CSP-Rules prints it and prints the final resolution state
+;;; ---- then CSP-Rules prints that the solution has not been found and then prints the final resolution state
 ;;; ---- else, there are two possibilities:
 ;;; ------- at least whips[1] have been enabled: in this case, links are computed and (play) is asserted,
-;;;         which starts the application of the other rules (including possibly rules for T&E or DGS)
+;;;         which starts the application of the other rules (including possibly rules for T&E or DFS)
 ;;; ------- or some form of T&E or DFS has been activated: in this case, only (play) is asserted,
 ;;;         which starts the application of the selecetd form of T&E, DFS,...
 

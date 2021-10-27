@@ -128,6 +128,38 @@
 
    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
 =>
+   (if ?*blocked-oddagons* then
+      ;;; find the z-candidates
+      (bind ?z-cands (create$))
+      (bind ?candi1 ?cand1)
+      (loop-for-count (?i 1 24)
+         (bind ?candi2 (nth$ ?i ?rlcs))
+         (bind ?cspi (nth$ ?i ?csp-vars))
+         (do-for-all-facts
+            ((?f csp-linked))
+            (and (eq (nth$ 1 ?f:implied) ?cont)
+               (eq (nth$ 2 ?f:implied) ?candi1)
+               (neq (nth$ 3 ?f:implied) ?candi2)
+               (eq (nth$ 4 ?f:implied) ?cspi)
+            )
+            (bind ?new-z-cand (nth$ 3 ?f:implied))
+            (if (not (integerp (member$ ?new-z-cand ?z-cands))) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
+         )
+         (bind ?candi1 ?candi2)
+      )
+      ;;; complete the list of z-candidates
+      (do-for-all-facts
+         ((?f csp-linked))
+         (and (eq (nth$ 1 ?f:implied) ?cont)
+            (eq (nth$ 2 ?f:implied) ?last-rlc)
+            (neq (nth$ 3 ?f:implied) ?cand1)
+            (eq (nth$ 4 ?f:implied) ?new-csp)
+         )
+         (bind ?new-z-cand (nth$ 3 ?f:implied))
+         (if (not (integerp (member$ ?new-z-cand ?z-cands))) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
+      )
+   )
+   ;;; do the elimination(s)
    (retract ?cand)
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L25* ?*print-oddagon* ?*print-oddagon-25*) then
@@ -136,36 +168,7 @@
    
    (if (not ?*blocked-oddagons*)
       then (printout t crlf)
-      else ; find the z-candidates
-         (bind ?z-cands (create$))
-         (bind ?candi1 ?cand1)
-         (loop-for-count (?i 1 24 )
-            (bind ?candi2 (nth$ ?i ?rlcs))
-            (bind ?cspi (nth$ ?i ?csp-vars))
-            (do-for-all-facts
-               ((?f csp-linked))
-               (and (eq (nth$ 1 ?f:implied) ?cont)
-                  (eq (nth$ 2 ?f:implied) ?candi1)
-                  (neq (nth$ 3 ?f:implied) ?candi2)
-                  (eq (nth$ 4 ?f:implied) ?cspi)
-               )
-               (bind ?new-z-cand (nth$ 3 ?f:implied))
-               (if (not (member$ ?new-z-cand ?z-cands)) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
-            )
-            (bind ?candi1 ?candi2)
-         )
-         ;;; complete the list of z-candidates
-         (do-for-all-facts
-            ((?f csp-linked))
-            (and (eq (nth$ 1 ?f:implied) ?cont)
-               (eq (nth$ 2 ?f:implied) ?last-rlc)
-               (neq (nth$ 3 ?f:implied) ?cand1)
-               (eq (nth$ 4 ?f:implied) ?new-csp)
-            )
-            (bind ?new-z-cand (nth$ 3 ?f:implied))
-            (if (not (member$ ?new-z-cand ?z-cands)) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
-         )
-         ;;; prepare for finding more targets
+      else ; prepare for finding more targets
          (assert (apply-rule-as-a-pseudo-block ?cont))
          (assert (pseudo-blocked ?cont oddagon[25] ?zzz $?z-cands))
    )

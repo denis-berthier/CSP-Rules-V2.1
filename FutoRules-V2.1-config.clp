@@ -128,14 +128,17 @@
 
 ;;; In the previous standard behaviour of CSP-Rules, when a pattern could have produced more than one elimination,
 ;;; the activation of a simpler rule by the first elimination could prevent further potential eliminations.
-;;; This default behaviour is now changed for Whips[1], bivalue-chains (typed or not), t-Whips (typed or not) and Subsets.
-;;; But CSP-Rules allows to revert to the previous behaviour,
-;;; independently for Whips[1], for bivalue-chains and t-Whips of any length and for Subsets.
-;;; Un-comment the relevant line(s) below if you want these rules to be "interrupted" as the other chain rules:
-; (bind ?*blocked-Whips[1]* FALSE)
-; (bind ?*blocked-bivalue-chains* FALSE)
-; (bind ?*blocked-t-Whips* FALSE)
+;;; This default behaviour is now changed for Whips[1], bivalue-chains (typed or not),
+;;; z-chains (typed or not), t-Whips (typed or not), Oddagons and Subsets.
+;;; However, CSP-Rules allows to revert to the previous behaviour,
+;;; independently for Subsets, for chains that allow this behaviour and for Oddagons.
+;;; Un-comment the relevant line(s) below if you want these rules to be "interrupted" as all the other chain rules:
+; (bind ?*blocked-chains* FALSE)
+; (bind ?*blocked-oddagons* FALSE)
 ; (bind ?*blocked-Subsets* FALSE)
+;;; The old interrupted behaviour can be globally selected by a single choice;
+;;; (equivalent to selecting all the above values):
+; (bind ?*unblocked-behaviour* TRUE)
 
 
 ;;; Choose what's printed as the output.

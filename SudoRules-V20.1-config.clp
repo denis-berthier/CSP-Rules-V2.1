@@ -148,14 +148,23 @@
 
 ;;; In the previous standard behaviour of CSP-Rules, when a pattern could have produced more than one elimination,
 ;;; the activation of a simpler rule by the first elimination could prevent further potential eliminations.
-;;; This default behaviour is now changed for Whips[1], bivalue-chains (typed or not), t-Whips (typed or not) and Subsets.
+;;; This default behaviour is now changed:
+;;; - for Whips[1],
+;;; - for Subsets,
+;;; - for bivalue-chains (typed or not), z-chains (typed or not) and t-Whips (typed or not),
+;;; - for Oddagons.
 ;;; However, CSP-Rules allows to revert to the previous behaviour,
-;;; independently for Whips[1], for bivalue-chains and t-Whips of any length and for Subsets.
-;;; Un-comment the relevant line(s) below if you want these rules to be "interrupted" as all the other chain rules:
+;;; independently for each of the above four groups of rules.
+;;; Un-comment the relevant line(s) below if you want these rules to be "interrupted" as all the other rules.
+;;; Notice that ?*blocked-Subsets* = TRUE, ?*blocked-chains* = TRUE or ?*blocked-oddagons* = TRUE
+;;; will imply ?*blocked-Whips[1]* = TRUE
 ; (bind ?*blocked-Whips[1]* FALSE)
-; (bind ?*blocked-bivalue-chains* FALSE)
-; (bind ?*blocked-t-Whips* FALSE)
 ; (bind ?*blocked-Subsets* FALSE)
+; (bind ?*blocked-chains* FALSE) ; i.e. bivalue-chains, z-chains and t-Whips (typed or not)
+; (bind ?*blocked-oddagons* FALSE)
+;;; The old interrupted behaviour can be globally selected by ?*unblocked-behaviour* to TRUE;
+;;; (equivalent to setting the above four values to FALSE):
+; (bind ?*unblocked-behaviour* TRUE)
 
 
 ;;; Choose what's printed as the output.
@@ -201,7 +210,7 @@
 ;;; Sudoku-specific:
  (bind ?*Subsets* TRUE)
  (bind ?*FinnedFish* TRUE)
-;;; generic:
+;;; Generic:
 ; (bind ?*Whips[1]* TRUE) ; allows to more easily activate only whips[1]
  (bind ?*Bivalue-Chains* TRUE)
  (bind ?*Whips* TRUE)
@@ -237,6 +246,7 @@
 ; (bind ?*G-Braids* TRUE)
 ; (bind ?*Quick-B-Rating* TRUE)
 
+;;; Exotic generic rules:
 ; (bind ?*Oddagons* TRUE)
 
 

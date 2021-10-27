@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;                              CSP-RULES / GENERIC
-;;;                              TYPED-T-WHIP[3]
+;;;                              BLOCKED-TYPED-T-WHIP[3]
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,6 +26,9 @@
 
 
 
+
+
+;;; SPECIAL CASE. DO NOT USE THE AUTOMATIC GENERATOR
 
 
 (defrule activate-typed-t-whip[3]
@@ -58,7 +61,7 @@
 (defrule typed-t-whip[3]
 	(declare (salience ?*typed-t-whip[3]-salience*))
 	(typed-chain
-        (type typed-partial-whip)
+		(type typed-partial-whip)
         (csp-type ?csp-type)
 		(context ?cont)
 		(length 2)
@@ -71,13 +74,13 @@
 	
 	;;; front part
 	(typed-chain
-        (type typed-partial-whip)
+		(type typed-partial-whip)
         (csp-type ?csp-type)
 		(context ?cont)
 		(length 1)
 		(target ?zzz&~?zzz1&:(not (member$ ?zzz $?llcs))&:(not (member$ ?zzz $?rlcs)))
 		(llcs ?llc0&~?zzz1&:(not (member$ ?llc0 $?llcs))&:(not (member$ ?llc0 $?rlcs)))
-		(rlcs ?zzz1) ; ?rlc0 = ?zzz1 makes the junction between the two partial-whips
+		(rlcs ?zzz1) ; ?rlc0 = ?zzz1 makes the junction between the two typed-partial-whips
 		(csp-vars ?csp0&:(not (member$ ?csp0 $?csp-vars)))
 		(last-rlc ?zzz1)
 	)
@@ -87,13 +90,50 @@
 	(retract ?cand)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-L3* ?*print-typed-t-whip* ?*print-typed-t-whip-3*) then
-		(print-typed-t-whip ?csp-type 3 ?zzz
+		(print-typed-t-whip-without-crlf ?csp-type 3 ?zzz
 			(create$ ?llc0 (first$ $?llcs))
 			(create$ ?zzz1 (first$ $?rlcs))
 			(create$ ?csp0 (first$ $?csp-vars))
 			(nth$ 2 $?llcs) . (nth$ 2 $?csp-vars)
 		)
 	)
+    
+    (if (not ?*blocked-t-Whips*)
+       then (printout t crlf)
+       else
+          ;;; prepare for finding more targets
+          (assert (apply-rule-as-a-pseudo-block ?cont))
+          (assert (pseudo-blocked ?cont typed-t-whip[3] ?zzz ?zzz1 - $?csp-vars - $?llcs - $?rlcs - ?last-rlc ?csp0 ?llc0))
+    )
+)
+
+
+
+(defrule apply-typed-t-whip[3]-to-more-targets
+    (declare (salience ?*apply-a-blocked-rule-salience-1*))
+    (pseudo-blocked ?cont typed-t-whip[3] ?zzz ?zzz1 - $?csp-vars - $?llcs - $?rlcs - ?last-rlc ?csp0 ?llc0)
+
+    ;;; identify the other targets ?zzz-bis
+    (typed-chain
+        (type typed-partial-whip)
+        (csp-type ?csp-type)
+        (context ?cont)
+        (length 1)
+        (target ?zzz-bis&~?zzz&~?zzz1&:(not (member$ ?zzz-bis $?llcs))&:(not (member$ ?zzz-bis $?rlcs)))
+        (llcs ?llc0&~?zzz1&:(not (member$ ?llc0 $?llcs))&:(not (member$ ?llc0 $?rlcs)))
+        (rlcs ?zzz1) ; ?rlc0 = ?zzz1 makes the junction between the two typed-partial-whips
+        (csp-vars ?csp0&:(not (member$ ?csp0 $?csp-vars)))
+        (last-rlc ?zzz1)
+    )
+
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz-bis&:(linked ?zzz-bis ?last-rlc)))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L2* ?*print-typed-t-whip* ?*print-typed-t-whip-3*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz-bis)
+    )
 )
 
 

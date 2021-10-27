@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2021             ;;;
+               ;;;            January 2006 - November 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -52,36 +52,7 @@
 
 
 
-;;; bivalue-chain elimination rule
-
-(defrule bivalue-chain[18]
-   (declare (salience ?*bivalue-chain[18]-salience*))
-   (chain
-      (type bivalue-chain)
-      (context ?cont)
-      (length 18)
-      (llcs $?llcs)
-      (rlcs $?rlcs)
-      (csp-vars $?csp-vars)
-      (last-rlc ?last-rlc)
-   )
-   
-   (exists-link ?cont ?zzz ?last-rlc)
-   (exists-link ?cont ?zzz ?uuu1&:(eq ?uuu1 (first $?llcs)))
-   ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
-   ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
-   (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
-=>
-   (retract ?cand)
-   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
-   (if (or ?*print-actions* ?*print-L18* ?*print-bivalue-chain* ?*print-bivalue-chain-18*) then
-      (print-bivalue-chain 18 ?zzz $?llcs $?rlcs $?csp-vars)
-   )
-)
-
-
-
-;;; extension of an existing bivalue-chain with a pair of candidates
+;;; extension of an existing bivalue-chain with a bivalue pair of candidates
 
 (defrule partial-bivalue-chain[18]
    (declare (salience ?*partial-bivalue-chain[18]-salience*))
@@ -119,6 +90,73 @@
          (csp-vars $?csp-vars ?new-csp)
          (last-rlc ?new-rlc)
       )
+   )
+)
+
+
+
+;;; bivalue-chain elimination rule
+
+(defrule bivalue-chain[18]
+   (declare (salience ?*bivalue-chain[18]-salience*))
+   (chain
+      (type bivalue-chain)
+      (context ?cont)
+      (length 18)
+      (llcs $?llcs)
+      (rlcs $?rlcs)
+      (csp-vars $?csp-vars)
+      (last-rlc ?last-rlc)
+   )
+   
+   ;;; identify a first target
+   (exists-link ?cont ?zzz ?last-rlc)
+   (exists-link ?cont ?zzz ?uuu1&:(eq ?uuu1 (first $?llcs)))
+   ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
+   ;;; if the focus list is not empty, the following condition restricts the search to the bivalue-chains that have a target in it
+   (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
+=>
+   (retract ?cand)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+   (if (or ?*print-actions* ?*print-L18* ?*print-bivalue-chain* ?*print-bivalue-chain-18*) then
+      (print-bivalue-chain-without-crlf 18 ?zzz $?llcs $?rlcs $?csp-vars)
+   )
+   (if (not ?*blocked-bivalue-chains*)
+      then (printout t crlf)
+      else ; prepare for finding more targets
+         (assert (apply-rule-as-a-pseudo-block ?cont))
+         (assert (pseudo-blocked ?cont bivalue-chain[18] 18 ?zzz $?llcs $?rlcs $?csp-vars))
+   )
+)
+
+
+
+;;; apply bivalue-chain to more targets
+
+(defrule apply-bivalue-chain-to-more-targets[18]
+   (declare (salience ?*apply-a-blocked-rule-salience*))
+   (chain
+      (type bivalue-chain)
+      (context ?cont)
+      (length 18)
+      (llcs $?llcs)
+      (rlcs $?rlcs)
+      (csp-vars $?csp-vars)
+      (last-rlc ?last-rlc)
+   )
+   
+   (apply-rule-as-a-pseudo-block ?cont)
+   (pseudo-blocked ?cont bivalue-chain[18] 18 ?zzz $?llcs $?rlcs $?csp-vars)
+   ;;; identify one more target
+   (exists-link ?cont ?zzz2&~?zzz ?last-rlc)
+   (exists-link ?cont ?zzz2 ?uuu1&:(eq ?uuu1 (first $?llcs)))
+   ?cand <- (candidate (context ?cont) (status cand) (label ?zzz2))
+=>
+   (retract ?cand)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+   (if (or ?*print-actions* ?*print-L18* ?*print-bivalue-chain* ?*print-bivalue-chain-18*) then
+      (printout t ", ")
+      (print-deleted-candidate ?zzz2)
    )
 )
 

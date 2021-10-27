@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - November 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -132,6 +132,7 @@
     
     ;;; All the resolution theories, apart from BRT, must have Whips[1]
     ;;; There is a special global variable ?*Whips[1]* to take this into account
+    ;;; Whips[1] are required by any other resilution theory
     (if (or ?*Subsets[2]*
             ?*Typed-Bivalue-Chains*
             ?*Bivalue-Chains*
@@ -162,6 +163,25 @@
     )
 
     (printout t "Generic rules dependencies set" crlf)
+    
+    ;;; Check consitency of the blocked choices
+    (if (or ?*blocked-Subsets* ?*blocked-chains* ?*blocked-oddagons*)
+        then (bind ?*blocked-Whips[1]* TRUE)
+    )
+    ;;; define values of secondary variables:
+    (bind ?*blocked-bivalue-chains* ?*blocked-chains*)
+    (bind ?*blocked-z-chains* ?*blocked-chains*)
+    (bind ?*blocked-t-Whips* ?*blocked-chains*)
+
+    ;;; If unblocked-behaviour is selected in the configuration file, reset the global unblocked behaviour:
+    (if ?*unblocked-behaviour* then
+        (bind ?*blocked-Whips[1]* FALSE)
+        (bind ?*blocked-bivalue-chains* FALSE)
+        (bind ?*blocked-z-chains* FALSE)
+        (bind ?*blocked-t-Whips* FALSE)
+        (bind ?*blocked-Subsets* FALSE)
+        (bind ?*blocked-oddagons* FALSE)
+    )
     
     TRUE
 ))
@@ -320,7 +340,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; init-links
-(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids* ?*Forcing-TE* ?*Forcing{3}-TE*) then
+(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids* ?*Forcing{2}-TE* ?*Forcing{3}-TE*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 )
 
@@ -331,21 +351,14 @@
 ;;; Whips[1]
 (if ?*Whips[1]* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-            ?*Directory-symbol* "WHIPS" ?*Directory-symbol*
-            (if ?*blocked-Whips[1]* then "Blocked-Whips" else "Whips") "[1].clp"
+            ?*Directory-symbol* "WHIPS" ?*Directory-symbol* "Whips[1].clp"
         )
     )
 )
 
-;;; typed-partial-whips[1]
-(if ?*Typed-Partial-Whips[1]* then
-    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-        ?*Directory-symbol* "TYPED-PARTIAL-WHIPS" ?*Directory-symbol* "Typed-Partial-Whips[" 1 "].clp")
-    )
-)
 
 ;;; Bivalue
-(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*Forcing-Whips* ?*special-TE* ?*Forcing-TE* ?*special-DFS*) then
+(if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*Forcing-Whips* ?*special-TE* ?*Forcing{2}-TE* ?*special-DFS*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Bivalue.clp"))
 )
 
@@ -365,49 +378,68 @@
 
 ;;; for JESS compatibility "loop-for-count" is avoided
 
-;;; different versions of (typed or untyped) bivalue chains will be loaded, depending on variable ?*blocked-bivalue-chains*
-(defglobal ?*typed-bivalue-chains-directory* =
-    (if ?*blocked-bivalue-chains* then "BLOCKED-TYPED-BIVALUE-CHAINS" else "TYPED-BIVALUE-CHAINS")
+;;; typed-partial-whips[1], used by typed-z-chains ≥ 2, typed-t-whips ≥ 2 and typed-whips ≥ 2
+(if (or
+        (and ?*Typed-z-Chains* (<= 2 ?*typed-z-chains-max-length*))
+        (and ?*Typed-t-Whips* (<= 2 ?*typed-t-whips-max-length*))
+        (and ?*Typed-Whips* (<= 2 ?*typed-whips-max-length*))
+    ) then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                ?*Directory-symbol* "TYPED-PARTIAL-WHIPS"
+                ?*Directory-symbol* "Typed-Partial-Whips[1].clp")
+    )
 )
-(defglobal ?*bivalue-chains-directory* =
-    (if ?*blocked-bivalue-chains* then "BLOCKED-BIVALUE-CHAINS" else "BIVALUE-CHAINS")
+
+;;; partial-whips[1], used by z-chains ≥ 2, t-whips ≥ 2 and whips ≥ 2
+(if (or
+        (and ?*z-Chains* (<= 2 ?*z-chains-max-length*))
+        (and ?*t-Whips* (<= 2 ?*t-whips-max-length*))
+        (and ?*Whips* (<= 2 ?*whips-max-length*))
+    ) then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+            ?*Directory-symbol* "PARTIAL-WHIPS"
+            ?*Directory-symbol* "Partial-Whips[1].clp")
+    )
 )
 
 
-(bind ?i 1)
+(bind ?i 2)
 (while (<= ?i 36)
 
     ;;; typed-bivalue-chains ≥ 2
-    (if (and ?*Typed-Bivalue-Chains* (>= ?i 2) (<= ?i ?*typed-bivalue-chains-max-length*)) then
+    (if (and ?*Typed-Bivalue-Chains* (<= ?i ?*typed-bivalue-chains-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
-            ?*Directory-symbol* ?*typed-bivalue-chains-directory*
+            ?*Directory-symbol* "TYPED-BIVALUE-CHAINS"
             ?*Directory-symbol* "Typed-Bivalue-Chains[" ?i "].clp")
         )
     )
     ;;; bivalue-chains ≥ 2
-    (if (and ?*Bivalue-Chains* (>= ?i 2) (<= ?i ?*bivalue-chains-max-length*)) then
+    (if (and ?*Bivalue-Chains* (<= ?i ?*bivalue-chains-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
-            ?*Directory-symbol* ?*bivalue-chains-directory*
+            ?*Directory-symbol* "BIVALUE-CHAINS"
             ?*Directory-symbol* "Bivalue-Chains[" ?i "].clp")
         )
     )
     
 
     ;;; typed-z-chains ≥ 2
-    (if (and ?*Typed-z-Chains* (>= ?i 2) (<= ?i ?*typed-z-chains-max-length*)) then
+    (if (and ?*Typed-z-Chains* (<= ?i ?*typed-z-chains-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                ?*Directory-symbol* "TYPED-Z-CHAINS" ?*Directory-symbol* "Typed-z-chains[" ?i "].clp")
+                ?*Directory-symbol* "TYPED-Z-CHAINS"
+                ?*Directory-symbol* "Typed-z-chains[" ?i "].clp")
         )
     )
 
     ;;; z-chains ≥ 2
-    (if (and ?*z-Chains* (>= ?i 2) (<= ?i ?*z-chains-max-length*)) then
+    (if (and ?*z-Chains* (<= ?i ?*z-chains-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                ?*Directory-symbol* "Z-CHAINS" ?*Directory-symbol* "z-chains[" ?i "].clp")
+                ?*Directory-symbol* "Z-CHAINS"
+                ?*Directory-symbol* "z-chains[" ?i "].clp")
         )
     )
     
-    ;;; oddagons
+    
+    ;;; oddagons (?i odd ≥ 3)
     (if (and ?*Oddagons* (>= ?i 3) (oddp ?i) (<= ?i ?*oddagons-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
             ?*Directory-symbol* "ODDAGONS"
@@ -416,93 +448,58 @@
     )
 
     
-    ;;; typed-partial-whips >= 1, used by both typed-t-whips ≥ 2 and typed-whips ≥ 2
-    (if (or
-            (and ?*Typed-t-Whips* (> ?i 2) (<= ?i ?*typed-t-whips-max-length*))
-            (and ?*Typed-Whips* (> ?i 2) (<= ?i ?*typed-whips-max-length*))
+    ;;; typed-partial-whips ≥ 2, used by typed-t-whips and typed-whips
+    (if (and (or ?*Typed-t-Whips* ?*Typed-Whips*)
+            (or (< ?i ?*typed-t-whips-max-length*)
+                (< ?i ?*typed-whips-max-length*)
+            )
         ) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                     ?*Directory-symbol* "TYPED-PARTIAL-WHIPS"
-                    ?*Directory-symbol* "Typed-Partial-Whips[" (- ?i 1) "].clp")
+                    ?*Directory-symbol* "Typed-Partial-Whips[" ?i "].clp")
         )
     )
     
-    ;;; partial-whips[1], used by both z-chains, t-whips ≥ 2 and whips ≥ 2
-    (if (or
-            (and ?*z-Chains* (= ?i 2))
-            (and ?*t-Whips* (= ?i 2) (<= ?i ?*t-whips-max-length*))
-            (and ?*Whips* (= ?i 2) (<= ?i ?*whips-max-length*))
+    ;;; partial-whips ≥ 2, used by t-whips and whips
+    (if (and (or ?*t-Whips* ?*Whips*)
+            (or (< ?i ?*t-whips-max-length*)
+                (< ?i ?*whips-max-length*)
+            )
         ) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "PARTIAL-WHIPS"
-                ?*Directory-symbol* "Partial-Whips[" (- ?i 1) "].clp")
+                ?*Directory-symbol* "Partial-Whips[" ?i "].clp")
         )
     )
-    
-    ;;; partial-whips > 1, used by both t-whips ≥ 2 and whips ≥ 2
-    (if (or
-            (and ?*t-Whips* (> ?i 2) (<= ?i ?*t-whips-max-length*))
-            (and ?*Whips* (> ?i 2) (<= ?i ?*whips-max-length*))
-        ) then
+
+
+    ;;; typed-t-whips ≥ 2
+    (if (and ?*Typed-t-Whips* (<= ?i ?*typed-t-whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                ?*Directory-symbol* "PARTIAL-WHIPS"
-                ?*Directory-symbol* "Partial-Whips[" (- ?i 1) "].clp")
+                    ?*Directory-symbol* "TYPED-T-WHIPS"
+                    ?*Directory-symbol* "Typed-t-Whips[" ?i "].clp")
         )
     )
     
-    ;;; typed-t-whips
-    (if (and ?*Typed-t-Whips* (>= ?i 2) (<= ?i ?*typed-t-whips-max-length*)) then
-        (if ?*blocked-t-Whips*
-            then (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                    ?*Directory-symbol* "BLOCKED-TYPED-T-WHIPS" ?*Directory-symbol* "Typed-t-Whips[" ?i "].clp")
-                )
-            else (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                    ?*Directory-symbol* "TYPED-T-WHIPS" ?*Directory-symbol* "Typed-t-Whips[" ?i "].clp")
-                )
-        )
-    )
-    
-    ;;; t-whips
-    (if (and ?*t-Whips* (>= ?i 2) (<= ?i ?*t-whips-max-length*)) then
-        (if ?*blocked-t-Whips*
-            then (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                    ?*Directory-symbol* "BLOCKED-T-WHIPS" ?*Directory-symbol* "T-Whips[" ?i "].clp")
-                )
-            else (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                    ?*Directory-symbol* "T-WHIPS" ?*Directory-symbol* "T-Whips[" ?i "].clp")
-                )
+    ;;; t-whips ≥ 2
+    (if (and ?*t-Whips* (<= ?i ?*t-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                    ?*Directory-symbol* "T-WHIPS"
+                    ?*Directory-symbol* "T-Whips[" ?i "].clp")
         )
     )
 
     
-    ;;; typed-whips[2]
-    (if (and ?*Typed-Whips* (eq ?i 2) (<= ?i ?*typed-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                ?*Directory-symbol* "TYPED-WHIPS"
-                ?*Directory-symbol* (if ?*blocked-Whips[1]* then "Blocked-Typed-Whips" else "Typed-Whips")
-                "[2].clp")
-        )
-    )
-    
-    ;;; whips[2]
-    (if (and ?*Whips* (eq ?i 2) (<= ?i ?*whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                ?*Directory-symbol* "WHIPS" ?*Directory-symbol*
-                (if ?*blocked-Whips[1]* then "Blocked-Whips" else "Whips")
-                "[2].clp")
-        )
-    )
-
-    ;;; typed-whips ≥ 3
-    (if (and ?*Typed-Whips* (>= ?i 3) (<= ?i ?*typed-whips-max-length*)) then
+    ;;; typed-whips ≥ 2
+    (if (and ?*Typed-Whips* (<= ?i ?*typed-whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "TYPED-WHIPS"
                 ?*Directory-symbol* "Typed-Whips[" ?i "].clp")
         )
     )
-
-    ;;; whips ≥ 3
-    (if (and ?*Whips* (>= ?i 3) (<= ?i ?*whips-max-length*)) then
+    
+    ;;; whips ≥ 2
+    (if (and ?*Whips* (<= ?i ?*whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "WHIPS"
                 ?*Directory-symbol* "Whips[" ?i "].clp")
@@ -520,7 +517,7 @@
 
 
     ;;; B-rating ≥ 2
-    (if (and ?*Quick-B-Rating* (>= ?i 2) (<= ?i ?*braids-max-length*)) then ;;; start at 2
+    (if (and ?*Quick-B-Rating* (<= ?i ?*braids-max-length*)) then ;;; start at 2
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-SPEED"
                 ?*Directory-symbol* "RATING-BRAIDS"
                 ?*Directory-symbol* "Rating-Braids[" ?i "].clp")
@@ -537,7 +534,7 @@
     )
 
     ;;; G2-Whips always use the memory version
-    (if (and ?*G2-Whips* (>= ?i 2) (<= ?i ?*g2whips-max-length*)) then
+    (if (and ?*G2-Whips* (<= ?i ?*g2whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-MEMORY"
                 ?*Directory-symbol* "G2-WHIPS"
                 ?*Directory-symbol* "g2Whips[" ?i "].clp")
@@ -545,14 +542,14 @@
     )
 
     ;;; typed-g-whips
-    ;(if (and ?*Typed-g-Whips* (>= ?i 2) (<= ?i ?*typed-gwhips-max-length*)) then
+    ;(if (and ?*Typed-g-Whips* (<= ?i ?*typed-gwhips-max-length*)) then
     ;    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
     ;         ?*Directory-symbol* "TYPED-G-WHIPS" ?*Directory-symbol* "Typed-gWhips[" ?i "].clp")
     ;    )
     ;)
 
     ;;; g-whips
-    (if (and ?*G-Whips* (>= ?i 2) (<= ?i ?*gwhips-max-length*)) then
+    (if (and ?*G-Whips* (<= ?i ?*gwhips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "G-WHIPS" ?*Directory-symbol* "gWhips[" ?i "].clp")
         )
@@ -635,8 +632,8 @@
 )
 
 
-(if ?*Forcing-TE* then
-    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "Forcing-TE.clp"))
+(if ?*Forcing{2}-TE* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "Forcing2-TE.clp"))
 )
 
 (if ?*Forcing{3}-TE* then
@@ -707,7 +704,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; These are special cases of W*-Whips[1], but their total length is controlled
+;;; These are special cases of W*-Whips[[1]], but their total length is controlled
 
 (if ?*Forcing-Bi-Whips* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
@@ -734,7 +731,7 @@
 (if ?*W*-Whips* then ;;; start at 1
     (bind ?i 1)
     (while (<= ?i ?*w*-whips-max-length*)
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type* ?*Directory-symbol* "W*-WHIPS" ?*Directory-symbol* "W*-Whips[" ?i "].clp"))
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type* ?*Directory-symbol* "W*-WHIPS" ?*Directory-symbol* "W*-Whips[[" ?i "]].clp"))
         (bind ?i (+ ?i 1))
     )
 )
@@ -743,19 +740,7 @@
 (if ?*B*-Braids* then ;;; start at 2
     (bind ?i 2)
     (while (<= ?i ?*b*-braids-max-length*)
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type* ?*Directory-symbol* "B*-BRAIDS" ?*Directory-symbol* "B*-Braids[" ?i "].clp"))
-        (bind ?i (+ ?i 1))
-    )
-)
-
-
-
-(if ?*W-Whips* then 
-    (load (str-cat ?*CSP-Rules-Generic-Dir* "W-WHIPS" ?*Directory-symbol* "restart-W-Whips.clp"))
-    ;;; start at 1
-    (bind ?i 1)
-    (while (<= ?i ?*w-whips-max-length*) 
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "W-WHIPS" ?*Directory-symbol* "W-Whips[" ?i "].clp"))
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type* ?*Directory-symbol* "B*-BRAIDS" ?*Directory-symbol* "B*-Braids[[" ?i "]].clp"))
         (bind ?i (+ ?i 1))
     )
 )

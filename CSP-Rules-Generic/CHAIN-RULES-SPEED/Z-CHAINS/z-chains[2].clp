@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2021              ;;;
+               ;;;           January 2006 - November 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -85,9 +85,78 @@
 	(retract ?cand)
 	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-L2* ?*print-z-chain* ?*print-z-chain-2*) then
-		(print-z-chain 2 ?zzz (create$ ?llc1) (create$ ?rlc1) (create$ ?csp1) ?new-llc . ?new-csp)
+		(print-z-chain-without-crlf 2 ?zzz (create$ ?llc1) (create$ ?rlc1) (create$ ?csp1) ?new-llc . ?new-csp)
 	)
+    
+    (if (not ?*blocked-z-chains*)
+       then (printout t crlf)
+       else
+         ;;; compute the list of z-candidates
+         (bind ?z-cands (create$))
+         (do-for-all-facts
+             ((?f csp-linked))
+             (and (eq (nth$ 1 ?f:implied) ?cont)
+                 (eq (nth$ 2 ?f:implied) ?llc1)
+                 (neq (nth$ 3 ?f:implied) ?rlc1)
+                 (eq (nth$ 4 ?f:implied) ?csp1)
+             )
+             (bind ?new-z-cand (nth$ 3 ?f:implied))
+             (if (not (member$ ?new-z-cand ?z-cands)) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
+         )
+         ;;; complete the list of z-candidates
+         (do-for-all-facts
+             ((?f csp-linked))
+             (and (eq (nth$ 1 ?f:implied) ?cont)
+                 (eq (nth$ 2 ?f:implied) ?new-llc)
+                 (eq (nth$ 4 ?f:implied) ?new-csp)
+             )
+             (bind ?new-z-cand (nth$ 3 ?f:implied))
+             (if (not (member$ ?new-z-cand ?z-cands)) then (bind ?z-cands (create$ ?z-cands ?new-z-cand)))
+         )
+         ;;; prepare for finding more targets
+         (assert (apply-rule-as-a-pseudo-block ?cont))
+         (assert (pseudo-blocked ?cont z-chain[2] ?zzz ?llc1 $?z-cands))
+    )
 )
+
+
+
+;;; apply z-chain to more targets
+
+(defrule apply-z-chain[2]-to-more-targets
+   (declare (salience ?*apply-a-blocked-rule-salience*))
+   (apply-rule-as-a-pseudo-block ?cont)
+   (pseudo-blocked ?cont z-chain[2] ?zzz ?llc1 $?z-cands)
+   ;;; identify one more target
+   ?cand <- (candidate (context ?cont) (status cand) (label ?zzz-bis&~?zzz))
+   (exists-link ?cont ?llc1 ?zzz-bis)
+   (forall (candidate (context ?cont) (label ?cz&:(member$ ?cz ?z-cands)))
+      (exists-link ?cont ?cz ?zzz-bis)
+   )
+=>
+   (retract ?cand)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+   (if (or ?*print-actions* ?*print-L2* ?*print-z-chain* ?*print-z-chain-2*) then
+      (printout t ", ")
+      (print-deleted-candidate ?zzz-bis)
+   )
+)
+
+
+
+;;; print z-candidates
+
+(defrule z-chain[2]-print-z-candidates
+   (declare (salience ?*apply-a-blocked-rule-salience-2*))
+   (pseudo-blocked ?cont z-chain[2] ?zzz ?llc1 $?z-cands)
+=>
+   (if (or ?*print-actions* ?*print-L2* ?*print-z-chain* ?*print-z-chain-2*) then
+       (if ?*print-z-candidates* then
+          (printout t crlf "     with z-candidates = ")
+          (print-list-of-labels $?z-cands)
+       )
+    )
+ )
 
 
 

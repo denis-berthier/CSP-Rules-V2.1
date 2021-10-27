@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2021             ;;;
+               ;;;            January 2006 - November 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -86,12 +86,49 @@
    (retract ?cand)
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L24* ?*print-t-whip* ?*print-t-whip-24*) then
-      (print-t-whip 24 ?zzz 
+      (print-t-whip-without-crlf 24 ?zzz 
          (create$ ?llc0 (subseq$ $?llcs 1 22))
          (create$ ?zzz1 (subseq$ $?rlcs 1 22))
          (create$ ?csp0 (subseq$ $?csp-vars 1 22))
          (nth$ 23 $?llcs) . (nth$ 23 $?csp-vars)
       )
+   )
+   
+   (if (not ?*blocked-t-Whips*)
+      then (printout t crlf)
+      else
+         ;;; prepare for finding more targets
+         (assert (apply-rule-as-a-pseudo-block ?cont))
+         (assert (pseudo-blocked ?cont t-whip[24] ?zzz ?zzz1 - $?csp-vars - $?llcs - $?rlcs ?last-rlc ?csp0 ?llc0))
+   )
+)
+
+
+
+;;; apply-t-whip[24]-to-more-targets
+
+(defrule apply-t-whip[24]-to-more-targets
+   (declare (salience ?*apply-a-blocked-rule-salience-1*))
+   (pseudo-blocked ?cont t-whip[24] ?zzz ?zzz1 - $?csp-vars - $?llcs - $?rlcs ?last-rlc ?csp0 ?llc0)
+   ;;; identify the other targets ?zzz-bis
+   (chain
+      (type partial-whip)
+      (context ?cont)
+      (length 1)
+      (target ?zzz-bis&~?zzz&~?zzz1&:(not (member$ ?zzz-bis $?llcs))&:(not (member$ ?zzz-bis $?rlcs)))
+      (llcs ?llc0&~?zzz-bis&~?zzz1&:(not (member$ ?llc0 $?llcs))&:(not (member$ ?llc0 $?rlcs)))
+      (rlcs ?zzz1) ; ?rlc0 = ?zzz1 makes the junction between the two partial-whips
+      (csp-vars ?csp0)
+      (last-rlc ?zzz1)
+   )
+   (exists-link ?cont ?zzz-bis ?last-rlc)
+   ?cand <- (candidate (context ?cont) (status cand) (label ?zzz-bis))
+=>
+   (retract ?cand)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))n
+   (if (or ?*print-actions* ?*print-L24* ?*print-t-whip* ?*print-t-whip-24*) then
+      (printout t ", ")
+      (print-deleted-candidate ?zzz-bis)
    )
 )
 

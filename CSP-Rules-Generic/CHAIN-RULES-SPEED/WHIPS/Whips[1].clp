@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2021             ;;;
+               ;;;            January 2006 - October 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -71,9 +71,36 @@
 
     ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
 =>
-	(retract ?cand)
-	(if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-L1* ?*print-whip* ?*print-whip-1*) then
-			(print-whip 1 ?zzz (create$) (create$) (create$) ?llc1 . ?csp1)
+        (print-whip-without-crlf 1 ?zzz (create$) (create$) (create$) ?llc1 . ?csp1)
 	)
+    (if (not ?*blocked-Whips[1]*)
+        then (printout t crlf)
+        else (assert (apply-rule-as-a-pseudo-block ?cont))
+            (assert (pseudo-blocked ?cont whip[1] ?zzz ?csp1 ?llc1))
+    )
+)
+
+
+
+(defrule apply-whip[1]-to-more-targets
+    (declare (salience ?*apply-a-blocked-rule-salience-1*))
+    (pseudo-blocked ?cont whip[1] ?zzz ?csp1 ?llc1)
+
+    ;;; identify the other targets ?zzz2
+    ;;; the following condition implies that ?zzz2 is not csp-linked to ?llc1 by ?csp1
+    ;;; i.e. that ?csp1 is not a csp-variable for ?zzz2
+    (exists-link ?cont ?llc1 ?zzz2&~?zzz)
+    (forall (csp-linked ?cont ?llc1 ?xxx ?csp1) (exists-link ?cont ?xxx ?zzz2))
+
+    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz2))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L1* ?*print-whip* ?*print-whip-1*) then
+        (printout t ", ")
+        (print-deleted-candidate ?zzz2)
+    )
 )

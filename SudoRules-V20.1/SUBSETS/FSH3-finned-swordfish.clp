@@ -95,7 +95,7 @@
 
 (defrule apply-to-more-targets-L3-finned-swordfish-in-rows
     (declare (salience ?*apply-a-blocked-rule-salience*))
-    (pseudo-blocked ?cont finned-swordfish-in-rows ?nb ?zzz ?row1 ?row2 ?row3 ?col1 ?col2 ?col3)
+    (pseudo-blocked ?cont finned-swordfish-in-rows ?zzz ?nb ?row1 ?row2 ?row3 ?col1 ?col2 ?col3)
     ;;; then the candidature of this number for any cell in block b33
     ;;; and in any of the 3 columns but not in any of the 3 rows
     ;;; can be retracted

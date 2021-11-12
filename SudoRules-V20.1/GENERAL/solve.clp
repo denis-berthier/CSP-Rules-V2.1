@@ -315,6 +315,7 @@
 
 
 (deffunction init-general-application-structures ()
+    ;;; This defines the general background common to all the instances
     (init-universal-globals)
     (bind ?*one-step-candidates* (create$))
 	(init-variables-scopes)
@@ -368,7 +369,6 @@
 			)
 		)
 	)
-	; (if ?*print-initial-state* then (printout t ?*nb-csp-variables-solved* " givens") crlf)
 )
 
 
@@ -426,7 +426,6 @@
 			)
 		)
 	)
-	; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
 )
 
 
@@ -434,8 +433,9 @@
 (deffunction init-sudoku-string (?string)
 	(if ?*print-actions* then (printout t ?string crlf))
     (reset) (reset)
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; General background is defined here (fixed facts and structures common to all the instances)
     (init-general-application-structures)
+    ;;; Data specific to the instance are defined here
 	;;; This function could be simplified (and initialization time shortened)
 	;;; by combining the following two calls into a single function,
 	;;; but, for easier navigation in the facts base, I prefer asserting all the c-values first and then all the candidates.
@@ -448,6 +448,7 @@
 )
 
 ;;; also named init-grid-from-string for homogeneity with previous versions
+;;; demoted
 (deffunction init-grid-from-string (?string)
     (init-sudoku-string ?string)
 )
@@ -461,13 +462,12 @@
 (deffunction solve-sudoku-string (?string)
 	(if ?*print-actions* then (print-banner))
 	(bind ?time0 (time))
-	;;; fixed facts and structures common to all the instances are defined
-    ;;; and puzzle entries are taken into account here
+	;;; General background plus puzzle entries are taken into account here
     (init-sudoku-string ?string)
 	(bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
 
-    ;;; the puzzle is solved here
+    ;;; The puzzle is solved here
 	(bind ?n (run))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
@@ -481,9 +481,6 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        ;(printout t "nb-facts = " ?*nb-facts* crlf)
-		;(printout t "nb rules " ?nb-rules crlf)
-		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
     (if ?*print-actions* then (print-banner) (printout t crlf))
 )
@@ -516,15 +513,14 @@
 (deffunction solve-knowing-solution (?puzzle-string ?sol-string)
 	(if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
-    ;;; fixed facts and structures common to all the instances are defined
-    ;;; and puzzle entries are taken into account here
+    ;;; General background plus puzzle entries are taken into account here
 	(init-sudoku-string ?puzzle-string)
-    ;;; solution entries are taken into account here:
+    ;;; Solution entries are taken into account here:
     (assert (deactivate 0 t-whip))
     (bind ?*known-to-be-in-solution* (sol-string-to-list ?sol-string))
 	(bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
-    ;;; the grid is solved here:
+    ;;; The puzzle is solved here
 	(bind ?nb-rules (run))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
@@ -668,11 +664,11 @@
 (deffunction solve-sukaku-string (?string)
 	(if ?*print-actions* then (print-banner))
 	(bind ?time0 (time))
-	;;; puzzle entries are taken into account here
+    ;;; General background plus puzzle entries are taken into account here
     (init-sukaku-string ?string)
 	(bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
-    ;;; the grid is solved here
+    ;;; The puzzle is solved here
 	(bind ?n (run))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
@@ -686,9 +682,6 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        ;(printout t "nb-facts = " ?*nb-facts* crlf)
-		;(printout t "nb rules " ?nb-rules crlf)
-		;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
     (if ?*print-actions* then (print-banner) (printout t crlf))
 )
@@ -821,8 +814,9 @@
 (deffunction init-sudoku-list ($?list)
 	(if ?*print-actions* then (printout t $?list crlf))
     (reset) (reset)
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; General background is defined here (fixed facts and structures common to all the instances)
     (init-general-application-structures)
+    ;;; Puzzle entries are taken into account here
 	;;; This function could be simplified (and initialization time shortened)
 	;;; by combining the following two calls into a single function,
 	;;; but, for easier navigation in the facts base, I prefer asserting all the c-values first and then all the candidates.
@@ -839,11 +833,11 @@
 (deffunction solve-sudoku-list ($?list)
 	(if ?*print-actions* then (print-banner))
 	(bind ?time0 (time))
-	;;; puzzle entries are taken into account here
+    ;;; General background plus puzzle entries are taken into account here
     (init-sudoku-list $?list)
 	(bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
-    ;;; the grid is solved here
+    ;;; The puzzle is solved here
 	(bind ?n (run))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
@@ -912,9 +906,9 @@
 
 (deffunction init-sukaku-list ($?list)
     (reset) (reset)
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; General background is defined here (fixed facts and structures common to all the instances)
     (init-general-application-structures)
-    ;;; Initialize values and candidates for all the cells
+    ;;; Puzzle entries are taken into account here
     (bind ?*nb-csp-variables-solved* 0)
     (bind ?*nb-candidates* 0)
     ;;; For every cell,
@@ -977,17 +971,15 @@
 
 
  
- 
 (deffunction solve-sukaku-list ($?list)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
-    ;;; fixed facts and structures common to all the instances
-    ;;; and puzzle entries are taken into account here
+    ;;; General background plus puzzle entries are taken into account here
     (init-sukaku-list $?list)
     (bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
 
-    ;;; the puzzle is solved here
+    ;;; The puzzle is solved here
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
@@ -1001,9 +993,6 @@
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
-        ;(printout t "nb-facts = " ?*nb-facts* crlf)
-        ;(printout t "nb rules " ?nb-rules crlf)
-        ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
     )
     (if ?*print-actions* then (print-banner) (printout t crlf))
 )
@@ -1090,7 +1079,7 @@
 ;;;    +-------+-------+-------+
 ;;; )
 ;;;
-;;; The + signs can also be * signs and both signs can be mixes withput restriction
+;;; The + signs can also be * signs and both signs can be mixed withput restriction
 
 
 (deffunction cosmetic-sign-in-grid (?x)

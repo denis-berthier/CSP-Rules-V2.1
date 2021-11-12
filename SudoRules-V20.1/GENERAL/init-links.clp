@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;           January 2006 - December 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -26,27 +26,6 @@
 
 
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; FUNCTIONS "LINKED" AND "LINKED-OR"
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;; instead of using the generic version of functions "linked" and "linked-or" (based on global variable ?*links*)
-;;; we redefine them respectively as "labels-linked" and "labels-linked-or"
-;;; (using the generic version would be slower)
-
-(deffunction linked (?lab1 ?lab2) (labels-linked ?lab1 ?lab2))
-
-(deffunction linked-or (?lab $?labs) (labels-linked-or ?lab $?labs))
-
-;;; for using the generic version, the above redefinitions must be deleted and
-;;; (if (eq ?cont 0) then (bind ?*links-count* (+ ?*links-count* 1))) 
-;;; must be replaced by
-;;; (if (eq ?cont 0) then (add-link ?cand1 ?cand2)) 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -47,6 +47,7 @@
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "solve.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "solve-files.clp"))
 
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "compute-RS.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "manage.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "NS.clp")) ;;; LatinSquare specific version
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "HS.clp")) ;;; LatinSquare specific version

@@ -116,6 +116,7 @@
 
     ?*DFS-max-depth* = 0
 
+    ?*has-exotic-pattern* = FALSE
     ?*has-oddagon* = FALSE
 )
 
@@ -160,6 +161,7 @@
     (bind ?*total-instance-time* 0)
     (bind ?*end-instance-time* 0)
 
+    (bind ?*has-exotic-pattern* FALSE)
     (bind ?*has-oddagon* FALSE)
 )
 
@@ -529,6 +531,7 @@
 
 
 ;;; Utilities allowing to change locally the control of what is printed:
+(defglobal ?*print-options-muted* = FALSE)
 (defglobal ?*print-actions-backup* = ?*print-actions*)
 (defglobal ?*print-solution-backup* = ?*print-solution*)
 (defglobal ?*print-RS-after-Singles-backup* = ?*print-RS-after-Singles*)
@@ -540,38 +543,43 @@
 (defglobal ?*print-phase-backup* = ?*print-phase*)
 
 (deffunction mute-print-options ()
-    (bind ?*print-actions-backup* ?*print-actions*)
-    (bind ?*print-solution-backup* ?*print-solution*)
-    (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
-    (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
-    (bind ?*print-final-RS-backup* ?*print-final-RS*)
-    (bind ?*print-levels-backup* ?*print-levels*)
-    (bind ?*print-time-backup* ?*print-time*)
-    (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
-    (bind ?*print-phase-backup* ?*print-phase*)
-    
-    (bind ?*print-actions* FALSE)
-    (bind ?*print-solution* FALSE)
-    (bind ?*print-RS-after-Singles* FALSE)
-    (bind ?*print-RS-after-whips[1]* FALSE)
-    (bind ?*print-final-RS* FALSE)
-    (bind ?*print-levels* FALSE)
-    (bind ?*print-time* FALSE)
-    (bind ?*print-hypothesis* FALSE)
-    (bind ?*print-phase* FALSE)
-
+    (if (not ?*print-options-muted*) then
+        (bind ?*print-actions-backup* ?*print-actions*)
+        (bind ?*print-solution-backup* ?*print-solution*)
+        (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
+        (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
+        (bind ?*print-final-RS-backup* ?*print-final-RS*)
+        (bind ?*print-levels-backup* ?*print-levels*)
+        (bind ?*print-time-backup* ?*print-time*)
+        (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
+        (bind ?*print-phase-backup* ?*print-phase*)
+        
+        (bind ?*print-actions* FALSE)
+        (bind ?*print-solution* FALSE)
+        (bind ?*print-RS-after-Singles* FALSE)
+        (bind ?*print-RS-after-whips[1]* FALSE)
+        (bind ?*print-final-RS* FALSE)
+        (bind ?*print-levels* FALSE)
+        (bind ?*print-time* FALSE)
+        (bind ?*print-hypothesis* FALSE)
+        (bind ?*print-phase* FALSE)
+        (bind ?*print-options-muted* TRUE)
+    )
 )
 
 (deffunction restore-print-options ()
-    (bind ?*print-actions* ?*print-actions-backup*)
-    (bind ?*print-solution* ?*print-solution-backup*)
-    (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
-    (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
-    (bind ?*print-final-RS* ?*print-final-RS-backup*)
-    (bind ?*print-levels* ?*print-levels-backup*)
-    (bind ?*print-time* ?*print-time-backup*)
-    (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
-    (bind ?*print-phase* ?*print-phase-backup*)
+    (if ?*print-options-muted* then
+        (bind ?*print-actions* ?*print-actions-backup*)
+        (bind ?*print-solution* ?*print-solution-backup*)
+        (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
+        (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
+        (bind ?*print-final-RS* ?*print-final-RS-backup*)
+        (bind ?*print-levels* ?*print-levels-backup*)
+        (bind ?*print-time* ?*print-time-backup*)
+        (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
+        (bind ?*print-phase* ?*print-phase-backup*)
+        (bind ?*print-options-muted* FALSE)
+    )
 )
 
 

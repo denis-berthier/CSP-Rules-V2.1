@@ -128,11 +128,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; These two generic functions are place-holders for application-specific ones
-(deffunction print-solution-in-context (?cont) TRUE)
-(deffunction print-solution () (print-solution-in-context 0))
-
-
 ;;; The forall part of this rule may be re-written in application-specific ways,
 ;;; but the rest shoudln't be changed.
 ;;; Notice also that this rule must be restricted to context 0.
@@ -196,40 +191,6 @@
     )
     (halt)
 )
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; AUXILLIARY USER FUNCTIONS:
-;;; - COMPUTE OR PRINT CURRENT RESOLUTION STATE
-;;; - INIT AN INSTANCE FROM A RESOLUTION STATE
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; These generic functions and rules are place-holders for application-specific ones.
-;;; If they are not redefined by an application, they will do nothing,
-;;; but their existence makes it easier to define other functions in generic form.
-
-;;; Compute or print current resolution state in some context:
-(deffunction compute-current-resolution-state-in-context (?cont) TRUE)
-(deffunction print-current-resolution-state-in-context (?cont) TRUE)
-;;; Allow smarter printing:
-(deffunction pretty-print-current-resolution-state-in-context (?cont) (print-current-resolution-state-in-context ?cont))
-;;; Allow initialisation from any resolution state:
-(deffunction init-context-with-resolution-state (?cont $?RS) TRUE)
-
-;;; Define specific functions for context 0:
-(deffunction compute-current-resolution-state () (compute-current-resolution-state-in-context 0))
-(deffunction print-current-resolution-state () (print-current-resolution-state-in-context 0))
-(deffunction pretty-print-current-resolution-state () (print-current-resolution-state))
-(deffunction init-resolution-state ($?RS) (init-context-with-resolution-state 0 ?RS))
-
-;;; Allow abbreviations in context 0:
-(deffunction compute-RS () (compute-current-resolution-state))
-(deffunction print-RS () (print-current-resolution-state))
-(deffunction pretty-print-RS () (pretty-print-current-resolution-state))
-(deffunction init-RS ($?RS) (init-resolution-state ?RS))
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -751,6 +751,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L2-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[2]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[2]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[2]-salience* = 0)
@@ -1060,6 +1061,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L3-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[3]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[3]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[3]-salience* = 0)
@@ -1285,6 +1287,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L4-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[4]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[4]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[4]-salience* = 0)
@@ -1502,6 +1505,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L5-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[5]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[5]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[5]-salience* = 0)
@@ -1727,6 +1731,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L6-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[6]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[6]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[6]-salience* = 0)
@@ -1944,6 +1949,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L7-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[7]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[7]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[7]-salience* = 0)
@@ -2169,6 +2175,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L8-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[8]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[8]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[8]-salience* = 0)
@@ -2386,6 +2393,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L9-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[9]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[9]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[9]-salience* = 0)
@@ -2611,6 +2619,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L10-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[10]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[10]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[10]-salience* = 0)
@@ -2828,6 +2837,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L11-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[11]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[11]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[11]-salience* = 0)
@@ -3053,6 +3063,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L12-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[12]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[12]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[12]-salience* = 0)
@@ -3270,6 +3281,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L13-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[13]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[13]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[13]-salience* = 0)
@@ -3495,6 +3507,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L14-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[14]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[14]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[14]-salience* = 0)
@@ -3712,6 +3725,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L15-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[15]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[15]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[15]-salience* = 0)
@@ -3937,6 +3951,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L16-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[16]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[16]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[16]-salience* = 0)
@@ -4154,6 +4169,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L17-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[17]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[17]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[17]-salience* = 0)
@@ -4371,6 +4387,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L18-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[18]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[18]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[18]-salience* = 0)
@@ -4588,6 +4605,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L19-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[19]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[19]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[19]-salience* = 0)
@@ -4805,6 +4823,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L20-salience* = 0)
 (defglobal ?*activate-typed-bivalue-chain[20]-salience* = 0)
 (defglobal ?*typed-bivalue-chain[20]-salience* = 0)
 (defglobal ?*typed-partial-bivalue-chain[20]-salience* = 0)
@@ -5022,10 +5041,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[21]-salience* = 0)
-(defglobal ?*oddagon[21]-salience* = 0)
-(defglobal ?*partial-oddagon[20]-salience* = 0)
-
+(defglobal ?*first-L21-salience* = 0)
 (defglobal ?*activate-typed-t-whip[21]-salience* = 0)
 (defglobal ?*typed-t-whip[21]-salience* = 0)
 
@@ -5093,10 +5109,6 @@
 (defglobal ?*partial-bibraid[20]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L21 ()
-   (bind ?*activate-oddagon[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -5189,6 +5201,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L22-salience* = 0)
 (defglobal ?*activate-typed-t-whip[22]-salience* = 0)
 (defglobal ?*typed-t-whip[22]-salience* = 0)
 
@@ -5348,10 +5361,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[23]-salience* = 0)
-(defglobal ?*oddagon[23]-salience* = 0)
-(defglobal ?*partial-oddagon[22]-salience* = 0)
-
+(defglobal ?*first-L23-salience* = 0)
 (defglobal ?*activate-typed-t-whip[23]-salience* = 0)
 (defglobal ?*typed-t-whip[23]-salience* = 0)
 
@@ -5419,10 +5429,6 @@
 (defglobal ?*partial-bibraid[22]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L23 ()
-   (bind ?*activate-oddagon[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -5515,6 +5521,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L24-salience* = 0)
 (defglobal ?*activate-typed-t-whip[24]-salience* = 0)
 (defglobal ?*typed-t-whip[24]-salience* = 0)
 
@@ -5674,10 +5681,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[25]-salience* = 0)
-(defglobal ?*oddagon[25]-salience* = 0)
-(defglobal ?*partial-oddagon[24]-salience* = 0)
-
+(defglobal ?*first-L25-salience* = 0)
 (defglobal ?*activate-typed-t-whip[25]-salience* = 0)
 (defglobal ?*typed-t-whip[25]-salience* = 0)
 
@@ -5745,10 +5749,6 @@
 (defglobal ?*partial-bibraid[24]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L25 ()
-   (bind ?*activate-oddagon[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -5841,6 +5841,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L26-salience* = 0)
 (defglobal ?*activate-typed-t-whip[26]-salience* = 0)
 (defglobal ?*typed-t-whip[26]-salience* = 0)
 
@@ -6000,10 +6001,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[27]-salience* = 0)
-(defglobal ?*oddagon[27]-salience* = 0)
-(defglobal ?*partial-oddagon[26]-salience* = 0)
-
+(defglobal ?*first-L27-salience* = 0)
 (defglobal ?*activate-typed-t-whip[27]-salience* = 0)
 (defglobal ?*typed-t-whip[27]-salience* = 0)
 
@@ -6071,10 +6069,6 @@
 (defglobal ?*partial-bibraid[26]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L27 ()
-   (bind ?*activate-oddagon[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -6167,6 +6161,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L28-salience* = 0)
 (defglobal ?*activate-typed-t-whip[28]-salience* = 0)
 (defglobal ?*typed-t-whip[28]-salience* = 0)
 
@@ -6326,10 +6321,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[29]-salience* = 0)
-(defglobal ?*oddagon[29]-salience* = 0)
-(defglobal ?*partial-oddagon[28]-salience* = 0)
-
+(defglobal ?*first-L29-salience* = 0)
 (defglobal ?*activate-typed-t-whip[29]-salience* = 0)
 (defglobal ?*typed-t-whip[29]-salience* = 0)
 
@@ -6397,10 +6389,6 @@
 (defglobal ?*partial-bibraid[28]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L29 ()
-   (bind ?*activate-oddagon[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -6493,6 +6481,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L30-salience* = 0)
 (defglobal ?*activate-typed-t-whip[30]-salience* = 0)
 (defglobal ?*typed-t-whip[30]-salience* = 0)
 
@@ -6652,10 +6641,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[31]-salience* = 0)
-(defglobal ?*oddagon[31]-salience* = 0)
-(defglobal ?*partial-oddagon[30]-salience* = 0)
-
+(defglobal ?*first-L31-salience* = 0)
 (defglobal ?*activate-typed-t-whip[31]-salience* = 0)
 (defglobal ?*typed-t-whip[31]-salience* = 0)
 
@@ -6723,10 +6709,6 @@
 (defglobal ?*partial-bibraid[30]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L31 ()
-   (bind ?*activate-oddagon[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -6819,6 +6801,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L32-salience* = 0)
 (defglobal ?*activate-typed-t-whip[32]-salience* = 0)
 (defglobal ?*typed-t-whip[32]-salience* = 0)
 
@@ -6978,10 +6961,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[33]-salience* = 0)
-(defglobal ?*oddagon[33]-salience* = 0)
-(defglobal ?*partial-oddagon[32]-salience* = 0)
-
+(defglobal ?*first-L33-salience* = 0)
 (defglobal ?*activate-typed-t-whip[33]-salience* = 0)
 (defglobal ?*typed-t-whip[33]-salience* = 0)
 
@@ -7049,10 +7029,6 @@
 (defglobal ?*partial-bibraid[32]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L33 ()
-   (bind ?*activate-oddagon[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -7145,6 +7121,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L34-salience* = 0)
 (defglobal ?*activate-typed-t-whip[34]-salience* = 0)
 (defglobal ?*typed-t-whip[34]-salience* = 0)
 
@@ -7304,10 +7281,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*activate-oddagon[35]-salience* = 0)
-(defglobal ?*oddagon[35]-salience* = 0)
-(defglobal ?*partial-oddagon[34]-salience* = 0)
-
+(defglobal ?*first-L35-salience* = 0)
 (defglobal ?*activate-typed-t-whip[35]-salience* = 0)
 (defglobal ?*typed-t-whip[35]-salience* = 0)
 
@@ -7375,10 +7349,6 @@
 (defglobal ?*partial-bibraid[34]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L35 ()
-   (bind ?*activate-oddagon[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*oddagon[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*partial-oddagon[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-typed-t-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*typed-t-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
@@ -7471,6 +7441,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*first-L36-salience* = 0)
 (defglobal ?*activate-typed-t-whip[36]-salience* = 0)
 (defglobal ?*typed-t-whip[36]-salience* = 0)
 
@@ -7538,87 +7509,87 @@
 (defglobal ?*partial-bibraid[35]-salience* = 0)
 
 (deffunction define-generic-saliences-at-L36 ()
-    (bind ?*activate-typed-t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*typed-t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-typed-t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*typed-t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*typed-partial-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*typed-partial-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    ;;; in case Typed-Whips and Typed-t-Whips are both active, lower the salience of Typed-Whips,
-    ;;; so that no typed-whip[36] can be applied before all the typed-t-whips[36] have had their chance
-    ;;; Beware: this makes typed-whips less efficient
-    (if (and ?*Typed-Whips* ?*Typed-t-Whips* (<= 36 ?*typed-t-whips-max-length*)) then
-        (bind ?*activate-typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-        (bind ?*typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    )
+   ;;; in case Typed-Whips and Typed-t-Whips are both active, lower the salience of Typed-Whips,
+   ;;; so that no typed-whip[36] can be applied before all the typed-t-whips[36] have had their chance
+   ;;; Beware: this makes typed-whips less efficient
+   (if (and ?*Typed-Whips* ?*Typed-t-Whips* (<= 36 ?*typed-t-whips-max-length*)) then
+      (bind ?*activate-typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+      (bind ?*typed-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   )
 
-    (bind ?*activate-t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*t-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    ;;; in case Whips and t-Whips are both active, lower the salience of Whips,
-    ;;; so that no whip[36] can be applied before all the t-whips[36] have had their chance
-    ;;; Beware: this makes whips less efficient
-    (if (and ?*Whips* ?*t-Whips* (<= 36 ?*t-whips-max-length*)) then
-        (bind ?*activate-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-        (bind ?*whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    )
+   ;;; in case Whips and t-Whips are both active, lower the salience of Whips,
+   ;;; so that no whip[36] can be applied before all the t-whips[36] have had their chance
+   ;;; Beware: this makes whips less efficient
+   (if (and ?*Whips* ?*t-Whips* (<= 36 ?*t-whips-max-length*)) then
+      (bind ?*activate-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+      (bind ?*whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   )
 
-    (bind ?*activate-g2whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*g2whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-g2whip[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-g2whip[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-g2whip[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-g2whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*g2whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-g2whip[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-g2whip[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-g2whip[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-typed-gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?typed-*gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*typed-partial-gwhip[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*typed-partial-gwhip[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*typed-partial-gwhip[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-typed-gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?typed-*gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*typed-partial-gwhip[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*typed-partial-gwhip[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*typed-partial-gwhip[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-gwhip[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-gwhip[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-gwhip[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-gwhip[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-gwhip[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-gwhip[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-braid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*braid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-braid[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-braid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*braid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-braid[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-gbraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*gbraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-gbraid[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-gbraid[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-gbraid[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-gbraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*gbraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-gbraid[35]-salience-1* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-gbraid[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-gbraid[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-whip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-whip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-forcing-gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-gwhip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-gwhip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-forcing-gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-gwhip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-gwhip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-forcing-braid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-braid[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-braid[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-forcing-braid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-braid[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-braid[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-forcing-gbraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-gbraid[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*forcing-gbraid[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-forcing-gbraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-gbraid[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-gbraid[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-biwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*biwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-biwhip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-biwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*biwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-biwhip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-    (bind ?*activate-bibraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*bibraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*partial-bibraid[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*activate-bibraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*bibraid[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*partial-bibraid[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
 )
 
@@ -7897,9 +7868,46 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(deffunction define-first-L2-salience ()    (bind ?*first-L2-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L3-salience ()    (bind ?*first-L3-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L4-salience ()    (bind ?*first-L4-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L5-salience ()    (bind ?*first-L5-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L6-salience ()    (bind ?*first-L6-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L7-salience ()    (bind ?*first-L7-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L8-salience ()    (bind ?*first-L8-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L9-salience ()    (bind ?*first-L9-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L10-salience ()    (bind ?*first-L10-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L11-salience ()    (bind ?*first-L11-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L12-salience ()    (bind ?*first-L12-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L13-salience ()    (bind ?*first-L13-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L14-salience ()    (bind ?*first-L14-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L15-salience ()    (bind ?*first-L15-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L16-salience ()    (bind ?*first-L16-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L17-salience ()    (bind ?*first-L17-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L18-salience ()    (bind ?*first-L18-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L19-salience ()    (bind ?*first-L19-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L20-salience ()    (bind ?*first-L20-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L21-salience ()    (bind ?*first-L21-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L22-salience ()    (bind ?*first-L22-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L23-salience ()    (bind ?*first-L23-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L24-salience ()    (bind ?*first-L24-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L25-salience ()    (bind ?*first-L25-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L26-salience ()    (bind ?*first-L26-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L27-salience ()    (bind ?*first-L27-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L28-salience ()    (bind ?*first-L28-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L29-salience ()    (bind ?*first-L29-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L30-salience ()    (bind ?*first-L30-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L31-salience ()    (bind ?*first-L31-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L32-salience ()    (bind ?*first-L32-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L33-salience ()    (bind ?*first-L33-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L34-salience ()    (bind ?*first-L34-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L35-salience ()    (bind ?*first-L35-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
+(deffunction define-first-L36-salience ()    (bind ?*first-L36-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
 
-;;; at each level, there are application-specific (pre-generic), generic and post-generic saliences
-;;; post-generic saliences may be e.g. set-covers
+
+;;; At each level, there is a first-level salience plus:
+;;; application-specific (pre-generic), generic and post-generic saliences
+;;; (post-generic saliences may be e.g. set-covers)
 
 (deffunction define-saliences-at-L1 ()
     (define-specific-saliences-at-L1)
@@ -7907,180 +7915,216 @@
     (define-post-generic-saliences-at-L1)
 )
 (deffunction define-saliences-at-L2 ()
-    (define-specific-saliences-at-L2)
-    (define-generic-saliences-at-L2)
-    (define-post-generic-saliences-at-L2)
+   (define-first-L2-salience)
+   (define-specific-saliences-at-L2)
+   (define-generic-saliences-at-L2)
+   (define-post-generic-saliences-at-L2)
 )
 (deffunction define-saliences-at-L3 ()
-    (define-specific-saliences-at-L3)
-    (define-generic-saliences-at-L3)
-    (define-post-generic-saliences-at-L3)
+   (define-first-L3-salience)
+   (define-specific-saliences-at-L3)
+   (define-generic-saliences-at-L3)
+   (define-post-generic-saliences-at-L3)
 )
 (deffunction define-saliences-at-L4 ()
-    (define-specific-saliences-at-L4)
-    (define-generic-saliences-at-L4)
-    (define-post-generic-saliences-at-L4)
+   (define-first-L4-salience)
+   (define-specific-saliences-at-L4)
+   (define-generic-saliences-at-L4)
+   (define-post-generic-saliences-at-L4)
 )
 (deffunction define-saliences-at-L5 ()
-    (define-specific-saliences-at-L5)
-    (define-generic-saliences-at-L5)
-    (define-post-generic-saliences-at-L5)
+   (define-first-L5-salience)
+   (define-specific-saliences-at-L5)
+   (define-generic-saliences-at-L5)
+   (define-post-generic-saliences-at-L5)
 )
 (deffunction define-saliences-at-L6 ()
-    (define-specific-saliences-at-L6)
-    (define-generic-saliences-at-L6)
-    (define-post-generic-saliences-at-L6)
+   (define-first-L6-salience)
+   (define-specific-saliences-at-L6)
+   (define-generic-saliences-at-L6)
+   (define-post-generic-saliences-at-L6)
 )
 (deffunction define-saliences-at-L7 ()
-    (define-specific-saliences-at-L7)
-    (define-generic-saliences-at-L7)
-    (define-post-generic-saliences-at-L7)
+   (define-first-L7-salience)
+   (define-specific-saliences-at-L7)
+   (define-generic-saliences-at-L7)
+   (define-post-generic-saliences-at-L7)
 )
 (deffunction define-saliences-at-L8 ()
-    (define-specific-saliences-at-L8)
-    (define-generic-saliences-at-L8)
-    (define-post-generic-saliences-at-L8)
+   (define-first-L8-salience)
+   (define-specific-saliences-at-L8)
+   (define-generic-saliences-at-L8)
+   (define-post-generic-saliences-at-L8)
 )
 (deffunction define-saliences-at-L9 ()
-    (define-specific-saliences-at-L9)
-    (define-generic-saliences-at-L9)
-    (define-post-generic-saliences-at-L9)
+   (define-first-L9-salience)
+   (define-specific-saliences-at-L9)
+   (define-generic-saliences-at-L9)
+   (define-post-generic-saliences-at-L9)
 )
 (deffunction define-saliences-at-L10 ()
-    (define-specific-saliences-at-L10)
-    (define-generic-saliences-at-L10)
-    (define-post-generic-saliences-at-L10)
+   (define-first-L10-salience)
+   (define-specific-saliences-at-L10)
+   (define-generic-saliences-at-L10)
+   (define-post-generic-saliences-at-L10)
 )
 (deffunction define-saliences-at-L11 ()
-    (define-specific-saliences-at-L11)
-    (define-generic-saliences-at-L11)
-    (define-post-generic-saliences-at-L11)
+   (define-first-L11-salience)
+   (define-specific-saliences-at-L11)
+   (define-generic-saliences-at-L11)
+   (define-post-generic-saliences-at-L11)
 )
 (deffunction define-saliences-at-L12 ()
-    (define-specific-saliences-at-L12)
-    (define-generic-saliences-at-L12)
-    (define-post-generic-saliences-at-L12)
+   (define-first-L12-salience)
+   (define-specific-saliences-at-L12)
+   (define-generic-saliences-at-L12)
+   (define-post-generic-saliences-at-L12)
 )
 (deffunction define-saliences-at-L13 ()
-    (define-specific-saliences-at-L13)
-    (define-generic-saliences-at-L13)
-    (define-post-generic-saliences-at-L13)
+   (define-first-L13-salience)
+   (define-specific-saliences-at-L13)
+   (define-generic-saliences-at-L13)
+   (define-post-generic-saliences-at-L13)
 )
 (deffunction define-saliences-at-L14 ()
-    (define-specific-saliences-at-L14)
-    (define-generic-saliences-at-L14)
-    (define-post-generic-saliences-at-L14)
+   (define-first-L14-salience)
+   (define-specific-saliences-at-L14)
+   (define-generic-saliences-at-L14)
+   (define-post-generic-saliences-at-L14)
 )
 (deffunction define-saliences-at-L15 ()
-    (define-specific-saliences-at-L15)
-    (define-generic-saliences-at-L15)
-    (define-post-generic-saliences-at-L15)
+   (define-first-L15-salience)
+   (define-specific-saliences-at-L15)
+   (define-generic-saliences-at-L15)
+   (define-post-generic-saliences-at-L15)
 )
 (deffunction define-saliences-at-L16 ()
-    (define-specific-saliences-at-L16)
-    (define-generic-saliences-at-L16)
-    (define-post-generic-saliences-at-L16)
+   (define-first-L16-salience)
+   (define-specific-saliences-at-L16)
+   (define-generic-saliences-at-L16)
+   (define-post-generic-saliences-at-L16)
 )
 (deffunction define-saliences-at-L17 ()
-    (define-specific-saliences-at-L17)
-    (define-generic-saliences-at-L17)
-    (define-post-generic-saliences-at-L17)
+   (define-first-L17-salience)
+   (define-specific-saliences-at-L17)
+   (define-generic-saliences-at-L17)
+   (define-post-generic-saliences-at-L17)
 )
 (deffunction define-saliences-at-L18 ()
-    (define-specific-saliences-at-L18)
-    (define-generic-saliences-at-L18)
-    (define-post-generic-saliences-at-L18)
+   (define-first-L18-salience)
+   (define-specific-saliences-at-L18)
+   (define-generic-saliences-at-L18)
+   (define-post-generic-saliences-at-L18)
 )
 (deffunction define-saliences-at-L19 ()
-    (define-specific-saliences-at-L19)
-    (define-generic-saliences-at-L19)
-    (define-post-generic-saliences-at-L19)
+   (define-first-L19-salience)
+   (define-specific-saliences-at-L19)
+   (define-generic-saliences-at-L19)
+   (define-post-generic-saliences-at-L19)
 )
 (deffunction define-saliences-at-L20 ()
-    (define-specific-saliences-at-L20)
-    (define-generic-saliences-at-L20)
-    (define-post-generic-saliences-at-L20)
+   (define-first-L20-salience)
+   (define-specific-saliences-at-L20)
+   (define-generic-saliences-at-L20)
+   (define-post-generic-saliences-at-L20)
 )
 (deffunction define-saliences-at-L21 ()
-    (define-specific-saliences-at-L21)
-    (define-generic-saliences-at-L21)
-    (define-post-generic-saliences-at-L21)
+   (define-first-L21-salience)
+   (define-specific-saliences-at-L21)
+   (define-generic-saliences-at-L21)
+   (define-post-generic-saliences-at-L21)
 )
 (deffunction define-saliences-at-L22 ()
-    (define-specific-saliences-at-L22)
-    (define-generic-saliences-at-L22)
-    (define-post-generic-saliences-at-L22)
+   (define-first-L22-salience)
+   (define-specific-saliences-at-L22)
+   (define-generic-saliences-at-L22)
+   (define-post-generic-saliences-at-L22)
 )
 (deffunction define-saliences-at-L23 ()
-    (define-specific-saliences-at-L23)
-    (define-generic-saliences-at-L23)
-    (define-post-generic-saliences-at-L23)
+   (define-first-L23-salience)
+   (define-specific-saliences-at-L23)
+   (define-generic-saliences-at-L23)
+   (define-post-generic-saliences-at-L23)
 )
 (deffunction define-saliences-at-L24 ()
-    (define-specific-saliences-at-L24)
-    (define-generic-saliences-at-L24)
-    (define-post-generic-saliences-at-L24)
+   (define-first-L24-salience)
+   (define-specific-saliences-at-L24)
+   (define-generic-saliences-at-L24)
+   (define-post-generic-saliences-at-L24)
 )
 (deffunction define-saliences-at-L25 ()
-    (define-specific-saliences-at-L25)
-    (define-generic-saliences-at-L25)
-    (define-post-generic-saliences-at-L25)
+   (define-first-L25-salience)
+   (define-specific-saliences-at-L25)
+   (define-generic-saliences-at-L25)
+   (define-post-generic-saliences-at-L25)
 )
 (deffunction define-saliences-at-L26 ()
-    (define-specific-saliences-at-L26)
-    (define-generic-saliences-at-L26)
-    (define-post-generic-saliences-at-L26)
+   (define-first-L26-salience)
+   (define-specific-saliences-at-L26)
+   (define-generic-saliences-at-L26)
+   (define-post-generic-saliences-at-L26)
 )
 (deffunction define-saliences-at-L27 ()
-    (define-specific-saliences-at-L27)
-    (define-generic-saliences-at-L27)
-    (define-post-generic-saliences-at-L27)
+   (define-first-L27-salience)
+   (define-specific-saliences-at-L27)
+   (define-generic-saliences-at-L27)
+   (define-post-generic-saliences-at-L27)
 )
 (deffunction define-saliences-at-L28 ()
-    (define-specific-saliences-at-L28)
-    (define-generic-saliences-at-L28)
-    (define-post-generic-saliences-at-L28)
+   (define-first-L28-salience)
+   (define-specific-saliences-at-L28)
+   (define-generic-saliences-at-L28)
+   (define-post-generic-saliences-at-L28)
 )
 (deffunction define-saliences-at-L29 ()
-    (define-specific-saliences-at-L29)
-    (define-generic-saliences-at-L29)
-    (define-post-generic-saliences-at-L29)
+   (define-first-L29-salience)
+   (define-specific-saliences-at-L29)
+   (define-generic-saliences-at-L29)
+   (define-post-generic-saliences-at-L29)
 )
 (deffunction define-saliences-at-L30 ()
-    (define-specific-saliences-at-L30)
-    (define-generic-saliences-at-L30)
-    (define-post-generic-saliences-at-L30)
+   (define-first-L30-salience)
+   (define-specific-saliences-at-L30)
+   (define-generic-saliences-at-L30)
+   (define-post-generic-saliences-at-L30)
 )
 (deffunction define-saliences-at-L31 ()
-    (define-specific-saliences-at-L31)
-    (define-generic-saliences-at-L31)
-    (define-post-generic-saliences-at-L31)
+   (define-first-L31-salience)
+   (define-specific-saliences-at-L31)
+   (define-generic-saliences-at-L31)
+   (define-post-generic-saliences-at-L31)
 )
 (deffunction define-saliences-at-L32 ()
-    (define-specific-saliences-at-L32)
-    (define-generic-saliences-at-L32)
-    (define-post-generic-saliences-at-L32)
+   (define-first-L32-salience)
+   (define-specific-saliences-at-L32)
+   (define-generic-saliences-at-L32)
+   (define-post-generic-saliences-at-L32)
 )
 (deffunction define-saliences-at-L33 ()
-    (define-specific-saliences-at-L33)
-    (define-generic-saliences-at-L33)
-    (define-post-generic-saliences-at-L33)
+   (define-first-L33-salience)
+   (define-specific-saliences-at-L33)
+   (define-generic-saliences-at-L33)
+   (define-post-generic-saliences-at-L33)
 )
 (deffunction define-saliences-at-L34 ()
-    (define-specific-saliences-at-L34)
-    (define-generic-saliences-at-L34)
-    (define-post-generic-saliences-at-L34)
+   (define-first-L34-salience)
+   (define-specific-saliences-at-L34)
+   (define-generic-saliences-at-L34)
+   (define-post-generic-saliences-at-L34)
 )
 (deffunction define-saliences-at-L35 ()
-    (define-specific-saliences-at-L35)
-    (define-generic-saliences-at-L35)
-    (define-post-generic-saliences-at-L35)
+   (define-first-L35-salience)
+   (define-specific-saliences-at-L35)
+   (define-generic-saliences-at-L35)
+   (define-post-generic-saliences-at-L35)
 )
 (deffunction define-saliences-at-L36 ()
-    (define-specific-saliences-at-L36)
-    (define-generic-saliences-at-L36)
-    (define-post-generic-saliences-at-L36)
+   (define-first-L36-salience)
+   (define-specific-saliences-at-L36)
+   (define-generic-saliences-at-L36)
+   (define-post-generic-saliences-at-L36)
 )
+
 
 (deffunction define-template-saliences ()
 	(define-specific-template-saliences)

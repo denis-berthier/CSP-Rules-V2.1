@@ -55,7 +55,8 @@
 
 
 (deffunction disable-rules-not-in-RT0 (?cont ?RT0)
-    ;;; disable the generic rules:
+    ;;; The conditions on RT0 are not checked; they are supposed to be satisfied.
+    ;;; Disable the generic rules:
     (assert (deactivate ?cont bivalue))
     (assert (deactivate ?cont bivalue-chain))
     (assert (deactivate ?cont z-chain))
@@ -67,7 +68,7 @@
     (assert (deactivate ?cont gbraid))
     (assert (deactivate ?cont oddagon))
 
-    ;;; disable the typed generic rules:
+    ;;; Disable the typed generic rules:
     (assert (deactivate ?cont typed-bivalue-chain))
     (assert (deactivate ?cont typed-z-chain))
     (assert (deactivate ?cont typed-t-whip))
@@ -92,6 +93,7 @@
 
 
 (deffunction re-enable-disabled-rules-not-in-RT0 (?cont ?RT0)
+    ;;; The conditions on RT0 are not checked; they are supposed to be satisfied.
     ;;; Re-enable all the de-activated rules, except t-whips (typed or not)
     (do-for-all-facts
         ((?fact deactivate))
@@ -101,7 +103,7 @@
         )
         (retract ?fact)
     )
-    ;;; make sure global variable ?*technique* is properly re-initialisd for further solving
+    ;;; Make sure global variable ?*technique* is properly re-initialisd for further solving
     (bind ?*technique* 0)
 )
 
@@ -113,10 +115,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction compute-state-after-RT0-sudoku-string (?RT0 ?sudoku-string)
+    ;;; The conditions on RT0 are not checked; they are supposed to be satisfied.
     ;;; BEWARE: for efficiency purposes,
     ;;; this function has the side-effect of leaving the rules not in ?RT0 de-activated
     (init-sudoku-string ?sudoku-string)
-    ;;; Find the resolution state ?RS-after-RT after the rules in ?RT0 have been applied;
+    ;;; Find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
     (disable-rules-not-in-RT0 0 ?RT0)
     (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
@@ -128,22 +131,23 @@
         (bind ?*print-solution* FALSE)
     )
     (run)
-    (bind ?RS-after-RT (compute-current-resolution-state))
+    (bind ?RS-after-RT0 (compute-current-resolution-state))
     (if ?*print-actions* then
         (switch ?RT0
             (case BRT then (printout t crlf "Resolution state after Singles:" crlf))
             (case W1 then (printout t crlf "Resolution state after Singles and whips[1]:" crlf))
             (default (printout t crlf "Resolution state after rules in " ?RT0 ":" crlf))
         )
-        (pretty-print-sukaku-list ?RS-after-RT)
+        (pretty-print-sukaku-list ?RS-after-RT0)
     )
     (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind  ?*print-final-RS* ?*print-final-RS-backup*)
         (bind  ?*print-solution* ?*print-solution-backup*)
    )
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT0 have been applied; return it:
-    ?RS-after-RT
+    ;;; At this point, context 0 is initialised with the state after rules from ?RT0 have been applied.
+    ;;; Return this state
+    ?RS-after-RT0
 )
 
 
@@ -151,7 +155,7 @@
     ;;; BEWARE: for efficiency purposes,
     ;;; this function has the side-effect of leaving the rules not in ?RT0 de-activated
     (init-sukaku-list ?sukaku-list)
-    ;;; Find the resolution state ?RS-after-RT after the rules in ?RT0 have been applied;
+    ;;; Find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
     (disable-rules-not-in-RT0 0 ?RT0)
     (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
@@ -163,22 +167,23 @@
         (bind ?*print-solution* FALSE)
    )
     (run)
-    (bind ?RS-after-RT (compute-current-resolution-state))
+    (bind ?RS-after-RT0 (compute-current-resolution-state))
     (if ?*print-actions* then
         (switch ?RT0
             (case BRT then (printout t crlf "Resolution state after Singles:" crlf))
             (case W1 then (printout t crlf "Resolution state after Singles and whips[1]:" crlf))
             (default (printout t crlf "Resolution state after rules in " ?RT0 ":" crlf))
         )
-        (pretty-print-sukaku-list ?RS-after-RT)
+        (pretty-print-sukaku-list ?RS-after-RT0)
     )
     (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind  ?*print-final-RS* ?*print-final-RS-backup*)
         (bind  ?*print-solution* ?*print-solution-backup*)
    )
-    ;;; At this point, context 0 is initialised with the state after rules from ?RT0 have been applied; return it:
-    ?RS-after-RT
+    ;;; At this point, context 0 is initialised with the state after rules from ?RT0 have been applied.
+    ;;; Return this state
+    ?RS-after-RT0
 )
 
 
@@ -318,7 +323,7 @@
         (if (and ?*Forcing-G-Whips* (<= ?n ?*forcing-gwhips-max-length*)) then (bind ?list (create$ ?list (sym-cat FgW[ ?n ]))))
         (if (and ?*Forcing-Braids* (<= ?n ?*forcing-braids-max-length*)) then (bind ?list (create$ ?list (sym-cat FB[ ?n ]))))
         (if (and ?*Forcing-G-Braids* (<= ?n ?*forcing-gbraids-max-length*))  then (bind ?list (create$ ?list (sym-cat FgB[ ?n ]))))
-        (bind ?list (create$ ?list MAX-TECH))
+        (bind ?list (create$ ?list (sym-cat MAX-TECH[ ?n ])))
     )
     ?list
 )
@@ -336,4 +341,5 @@
 (deffunction highest-technique (?tech1 ?tech2)
     (if (technique-harder-than ?tech1 ?tech2) then ?tech1 else ?tech2)
 )
+
 

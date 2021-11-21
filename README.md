@@ -225,11 +225,13 @@ Notice that _the installation procedure must be redone every time you download a
 * [Berthier 2009]: BERTHIER D., Unbiased Statistics of a CSP - A Controlled-Bias Generator, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 09), December 4-12, 2009, Springer. Published as a chapter of Innovations in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 11-17, Springer, 2010.<br><br>
 
 ### Books<br>
-* [BUM]: BERTHIER D., Basic User Manual for CSP-Rules V2.1, Lulu.com Publishers, August 2020.<br>
-* [CRT]: BERTHIER D., Constraint Resolution Theories, Lulu.com Publishers, October 2011.<br>
-* [HLS1]: BERTHIER D., The Hidden Logic of Sudoku, First Edition, Lulu.com Publishers, May 2007.<br>
-* [HLS2]: BERTHIER D., The Hidden Logic of Sudoku, Second Edition, Lulu.com Publishers, November 2007.<br>
+* [BUM1]: BERTHIER D., Basic User Manual for CSP-Rules V2.1, Lulu Press, August 2020.<br>
+* [BUM2]: BERTHIER D., Basic User Manual for CSP-Rules V2.1 (Second Edition), Lulu Press, November 2021.<br>
+* [CRT]: BERTHIER D., Constraint Resolution Theories, Lulu Press, October 2011.<br>
+* [HLS1]: BERTHIER D., The Hidden Logic of Sudoku, First Edition, Lulu Press, May 2007.<br>
+* [HLS2]: BERTHIER D., The Hidden Logic of Sudoku, Second Edition, Lulu Press, November 2007.<br>
 * [HLS]: any of [HLS1] or [HLS2]<br>
-* [PBCS1]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles, Lulu.com Publishers, July 2012.<br>
-* [PBCS2]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Second Edition), Lulu.com Publishers, November 2015.<br>
-* [PBCS]: any of [PBCS1] or [PBCS2].<br><br>
+* [PBCS1]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles, Lulu Press, July 2012.<br>
+* [PBCS2]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Second Edition), Lulu Press, November 2015.<br>
+* [PBCS3]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Third Edition), Lulu Press, November 2021.<br>
+* [PBCS]: any of [PBCS1], [PBCS2] or [PBCS3].<br><br>

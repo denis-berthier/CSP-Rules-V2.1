@@ -1759,7 +1759,9 @@
     ;;; init puzzle-independent background
     (init-universal-globals)
     (redefine-instance-globals ?nb-rows ?nb-columns)
-    (if (and (eq ?nb-rows ?nb-columns) (>= ?nb-rows 5) (<= ?nb-rows 20))
+    (if (or (and (eq ?nb-rows ?nb-columns) (>= ?nb-rows 5) (<= ?nb-rows 20))
+            (and (eq ?nb-rows 7) (eq ?nb-columns 36)) ; special case for [PBCS]
+        )
         then (printout t "Loading pre-computed background" crlf)
             (init-precomputed-background ?nb-rows ?nb-columns)
         else (printout t "Initialising non-pre-computed background" crlf)

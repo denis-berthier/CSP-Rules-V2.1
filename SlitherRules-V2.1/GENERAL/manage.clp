@@ -279,7 +279,7 @@
 
 (deffunction print-solution ()
     (printout t crlf)
-    (if ?*print-IO-solution* then (print-RS-IO))
+    (if (and ?*Colours* ?*print-IO-solution*) then (print-RS-IO))
     (printout t crlf)
     (if ?*print-HV-solution* then (print-solution-HV))
 )

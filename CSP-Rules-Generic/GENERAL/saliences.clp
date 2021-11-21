@@ -430,6 +430,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*enter-module-salience* = 0)
 (defglobal ?*activate-BRT-salience* = 0)
 (defglobal ?*start-serious-play-salience* = 0)
 
@@ -451,8 +452,9 @@
     (define-blocked-rule-saliences)
 
     ;;; start easy resolution here
+    (bind ?*enter-module-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*activate-BRT-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    
+
     (define-specific-constraints-propagation-saliences)
     (define-generic-constraints-propagation-and-management-saliences)
     (define-specific-post-solution-found-saliences)

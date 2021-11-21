@@ -124,7 +124,7 @@
         )
         (bind ?len (length$ ?cand-list))
     )
-    (printout t "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED BY THE CURRENT SET OF RULES:" crlf)
+    (printout t "===> CHECKING WHICH OF THE " ?len " CANDIDATES CAN BE ELIMINATED IN A SINGLE STEP BY THE CURRENT SET OF RULES:" crlf)
     ;;; Find which candidates in ?cand-list can be eliminated in a single step by the current set of rules
     (bind ?list-of-erasable-cands (create$))
     (bind ?i 1)

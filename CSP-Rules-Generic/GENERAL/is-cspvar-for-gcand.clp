@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;                              CSP-RULES / GENERIC
-;;;                              IS-CSP-VAR-FOR-CAND
+;;;                              IS-CSP-VAR-FOR-GCAND
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -31,24 +31,24 @@
 ;;; IN THE CURRENT VERSION, THIS FILE IS NOT USED
 
 
-;;; restrict predicate is-csp-variable-for-label so that it is only true of actual non-decided candidates
+;;; restrict predicate is-csp-variable-for-glabel so that it is only true of actual g-candidates
 
-(defrule is-csp-variable-for-candidate
-	(declare (salience ?*is-csp-variable-for-candidate-salience*))
+(defrule is-csp-variable-for-g-candidate
+	(declare (salience ?*is-csp-variable-for-g-candidate-salience*))
 	(logical
         (play)
-        (candidate (context ?cont) (status cand) (label ?cand))
+        (g-candidate (context ?cont) (label ?gcand))
     )
-    (is-csp-variable-for-label
+    (is-csp-variable-for-glabel
         (csp-var ?csp-var)
-        (label ?cand)
+        (glabel ?gcand)
         (csp-var-type ?csp-var-type)
     )
 =>
     (assert
-        (is-csp-variable-for-candidate
+        (is-csp-variable-for-g-candidate
             (csp-var ?csp-var)
-            (label ?cand)
+            (glabel ?gcand)
             (csp-var-type ?csp-var-type)
         )
     )

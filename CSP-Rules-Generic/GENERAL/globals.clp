@@ -486,6 +486,9 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; This will prevent the printing of entry in module MAIN until modules are used
+(defglobal ?*modules-used* = FALSE)
+
 ;;; The variables defined below allow a very fine tuning of what's printed.
 ;;; Application of particular techniques can be traced when some of the following variables are set to TRUE.
 ;;; The detailed correct message can be found in the rhs of each rule.

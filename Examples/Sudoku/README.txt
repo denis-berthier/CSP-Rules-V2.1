@@ -63,9 +63,14 @@ It has a detailed comparison of them (in file "comparisons.txt" or "comparisons.
 
 
 
-<> The lightning-8.2 puzzle is a good example of using bivalue-chains and z-chains.
-It is also an illustration of computing 2-step solutions.
-It is also an example of using Forcing-T&E or Forcing{3}-T&E.
+<> The z-chains folder provides example of bivalue-chains and z-chains.
+z-chains can be compared to both bivalue-chains and oddagons:
+- like both: they have no t-candidate (at least none that is not also a z-candidate);
+- like bivalue-chains but unlike oddagons: they alternate between links and csp-variables (oddagons use only csp-variables);
+- like oddagons but unlike bivalue-chains: they have z-candidates.
+
+The cbg-000#36-Z6-W6 puzzle provides an example of solving with z-chains. It also an example of function "solve-w-preferences" and of looking for 2-sep solutions.
+The lightning-8.2 puzzle is also an illustration of computing 2-step solutions. It is also an example of using Forcing-T&E or Forcing{3}-T&E.
 
 
 

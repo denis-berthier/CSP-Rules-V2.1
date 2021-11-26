@@ -649,4 +649,101 @@ There are only 3 cases with difference > 1 (0,014%) and 2 cases with difference 
 #10971; W6; U+W5\
 #16004; W6; U+W5\
 #18740; W6; U+W5\
+\
+\
+\
+\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+
+\f1\b\fs36 6) COMPARISONS INVOLVING TYPED WHIPS
+\f0\b0\fs28 \
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+;;; to compute the stats for the TyW-rating:\
+\
+ (bind ?*print-actions* FALSE)\
+ (bind ?*print-levels* FALSE)\
+ (bind ?*print-solution* FALSE)\
+ (bind ?*print-RS-after-Singles* FALSE) ; do not print the resolution state after BRT\
+ (bind ?*print-RS-after-whips[1]* FALSE)\
+ (bind ?*print-final-RS* FALSE)\
+ (bind ?*Typed-Whips* TRUE)\
+\
+\
+Function used for comparison:\
+(deffunction compare(?r1 ?r2 ?file1 ?file2 ?nb)\
+	;;; ?r1 and ?r2 are the two ratings, e.g. W and TyW\
+	;;; ?file1 ?file2 are the full paths to the ratings files\
+	;;; ?nb is the length of the ratings files (here 21375)\
+	(bind ?nb-diff 0)\
+	(bind ?nb-diff1 0)\
+	(bind ?nb-diff2 0)\
+	(bind ?nb-diff3 0)\
+	(bind ?nb-diff4 0)\
+	(bind ?nb-diff5 0)\
+	(bind ?nb-diff10 0)\
+	(bind ?nb-diff15 0)\
+	(open ?file1 "file1" "r")\
+	(open ?file2 "file2" "r")\
+	(bind ?i 1)\
+	(while (<= ?i ?nb) \
+		(bind ?rating1 (read-number "file1"))\
+		(bind ?rating2 (read-number "file2") )\
+		(bind ?diff (- ?rating2 ?rating1))\
+		(if (neq ?rating1 ?rating2) then (bind  ?nb-diff (+  ?nb-diff  1)) (printout t "#" ?i "; " ?r1 ?rating1 "; " ?r2 ?rating2 ";  diff = " ?diff)\
+			(if (> ?diff 1) then (bind  ?nb-diff1 (+  ?nb-diff1 1)) (printout t  " <<<<<<<<"))\
+			(if (> ?diff 2) then (bind  ?nb-diff2 (+  ?nb-diff2 1)) (printout t  " <<<<<<<<"))\
+			(if (> ?diff 3) then (bind  ?nb-diff3 (+  ?nb-diff3 1)) (printout t  " <<<<<<<<"))\
+			(if (> ?diff 4) then (bind  ?nb-diff4 (+  ?nb-diff4 1)) (printout t  " <<<<<<<<"))\
+			(if (> ?diff 5) then (bind  ?nb-diff5 (+  ?nb-diff5 1)) (printout t  " <<<<<<<<"))\
+			(if (> ?diff 10) then (bind  ?nb-diff10 (+  ?nb-diff10 1)) (printout t  " <<<<<<<<"))\
+			(if (and (> ?diff 15) (neq ?rating2 36)) then (bind  ?nb-diff15 (+  ?nb-diff15 1)) (printout t  " ########"))\
+			(printout t crlf)\
+		)\
+\
+		(bind ?i (+ ?i 1))\
+	)\
+	(close "file2")\
+	(close "file1")\
+	(printout t "nb-diff = " ?nb-diff crlf)\
+	(printout t "nb-diff>1 = " ?nb-diff1 crlf)\
+	(printout t "nb-diff>2 = " ?nb-diff2 crlf)\
+	(printout t "nb-diff>3 = " ?nb-diff3 crlf)\
+	(printout t "nb-diff>4 = " ?nb-diff4 crlf)\
+	(printout t "nb-diff>5 = " ?nb-diff5 crlf)\
+	(printout t "nb-diff>10 = " ?nb-diff10 crlf)\
+	(printout t "nb-diff>15 = " ?nb-diff15 crlf)\
+)\
+\
+(compare W TyW \
+	(str-cat ?*CSP-Rules-current-version* ?*Directory-symbol* "Examples/Sudoku/cbg-000/" "W-ratings-000.txt")\
+	(str-cat ?*CSP-Rules-current-version* ?*Directory-symbol* "Examples/Sudoku/cbg-000/" "TyW-ratings-000.txt")\
+21375\
+)\
+\
+\
+nb-diff = 5950\
+nb-diff>1 = 2248\
+nb-diff>2 = 867\
+nb-diff>3 = 386\
+nb-diff>4 = 218\
+nb-diff>5 = 140\
+nb-diff>10 = 46\
+nb-diff>15 = 3\
+\
+\
+The 3 puzzles with diff > 15:\
+#9899; W6; TyW24;  diff = 18 ; 123.....9.5..8..366....25......93.18.......7...4.....53..94.....4.76......6....5.\
+#10373; W5; TyW21;  diff = 16 ; .2........5.189.3.6....34......94.....8..569.........836.....5..91.7..4.........1\
+#14800; W5; TyW29;  diff = 24 ; ...4.6.8..5.....3..9....14...9.7.......2..8..7....3.625.........34..5.7..7.8.1...\
+The latter also happens to have gW<W (gW=4) and to be the largest TyW rating in the collection (see file "#14800-W5-TyW29.clp" for details)\
+\
+\
 }

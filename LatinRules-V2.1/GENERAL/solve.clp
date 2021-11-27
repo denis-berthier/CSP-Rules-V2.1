@@ -213,7 +213,7 @@
 	(init-variables-scopes)
 	(init-csp-variables)
 	(init-is-csp-variable-for-label)
-    (assert (Pandiagonal))
+    (if ?*Pandiagonal* then (assert (Pandiagonal)))
 )
 
 
@@ -657,7 +657,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Functions for initialising and solving a puzzle given as a list of candidates
+;;; Functions for initialising and solving a partly solved puzzle given as a list of candidates
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

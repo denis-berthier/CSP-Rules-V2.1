@@ -463,10 +463,8 @@
 
     
     ;;; typed-partial-whips ≥ 2, used by typed-t-whips and typed-whips
-    (if (and (or ?*Typed-t-Whips* ?*Typed-Whips*)
-            (or (< ?i ?*typed-t-whips-max-length*)
-                (< ?i ?*typed-whips-max-length*)
-            )
+    (if (or (and ?*Typed-t-Whips* (< ?i ?*typed-t-whips-max-length*))
+            (and ?*Typed-Whips* (< ?i ?*typed-whips-max-length*))
         ) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                     ?*Directory-symbol* "TYPED-PARTIAL-WHIPS"
@@ -475,10 +473,8 @@
     )
     
     ;;; partial-whips ≥ 2, used by t-whips and whips
-    (if (and (or ?*t-Whips* ?*Whips*)
-            (or (< ?i ?*t-whips-max-length*)
-                (< ?i ?*whips-max-length*)
-            )
+    (if (or (and ?*t-Whips* (< ?i ?*t-whips-max-length*))
+            (and ?*Whips* (< ?i ?*whips-max-length*))
         ) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "PARTIAL-WHIPS"

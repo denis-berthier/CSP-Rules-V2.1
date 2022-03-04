@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;                              CSP-RULES / GENERIC
-;;;                              TRIAL & ERROR depth 2
+;;;                              TRIAL & ERROR, DEPTH 2
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -206,7 +206,7 @@
 	(printout t crlf "*** STARTING T&E IN CONTEXT " ?cont  " at depth " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf)
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
-        (printout t "        STARTING PHASE " 1 " IN CONTEXT " ?cont " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (printout t "        STARTING PHASE 1 IN CONTEXT " ?cont " AT DEPTH 1, with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 )
@@ -258,7 +258,7 @@
 =>
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
-        (printout t "        STARTING PHASE " (+ ?ph 1) " IN CONTEXT " ?par " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (printout t "        STARTING PHASE " (+ ?ph 1) " IN CONTEXT " ?par " AT DEPTH " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 	(assert (phase ?par (+ ?ph 1)))
@@ -299,7 +299,7 @@
 	(printout t crlf "*** STARTING T&E IN CONTEXT " 0  " at depth " 1 " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf)
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
-        (printout t "        STARTING PHASE " 1 " IN CONTEXT " 0 " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (printout t "        STARTING PHASE 1 IN CONTEXT 0 with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 )
@@ -355,7 +355,7 @@
 =>
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
-        (printout t "        STARTING PHASE " (+ ?ph 1) " IN CONTEXT " ?par " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (printout t "        STARTING PHASE " (+ ?ph 1) " IN CONTEXT 0 with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 	(assert (phase ?par (+ ?ph 1)))

@@ -70,7 +70,12 @@ Resolution state after Singles and whips[1]:
 205 candidates.
 
 hidden-pairs-in-a-column: c4{n2 n3}{r4 r5} ==> r5c4≠9, r5c4≠5, r5c4≠4, r4c4≠9, r4c4≠5, r4c4≠4, r4c4≠1
-tridagon in blocks b5(target), b4, b8 and b7 for digits 4, 5 and 9 ==> r6c4≠4,5,9
+tridagon for digits 4, 5 and 9 in blocks:
+        b5, cells: r6c4 (target cell), r5c6, r4c5
+        b4, cells: r6c3, r5c1, r4c2
+        b8, cells: r7c4, r9c6, r8c5
+        b7, cells: r7c3, r9c2, r8c1
+ ==> r6c4≠4,5,9
 naked-single ==> r6c4=1
 hidden-single-in-a-block ==> r3c6=1
 naked-single ==> r3c2=9
@@ -157,7 +162,7 @@ PUZZLE 0 IS SOLVED. rating-type = W+O+SFin, MOST COMPLEX RULE TRIED = tridagon
 
 nb-facts = <Fact-50776>
 Puzzle ........1.....2.......3..45..6.......71.8....32..67..8.6..23....837..1..7.281.6.. :
-init-time = 0.2s, solve-time = 14.15s, total-time = 14.35s
+init-time = 0.2s, solve-time = 14.31s, total-time = 14.5s
 ***********************************************************************************************
 ***  SudoRules 20.1.s based on CSP-Rules 2.1.s, config = W+O+SFin
 ***  Using CLIPS 6.32-r815

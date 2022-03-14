@@ -154,8 +154,11 @@
 =>
     (if ?*print-actions* then
         (printout t
-            "tridagon in blocks " (block-name ?b11) "(target), " (block-name ?b12) ", " (block-name ?b21) " and " (block-name ?b22)
-            " for digits " ?nb1 ", " ?nb2 " and " ?nb3
+            "tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "        " (block-name ?b11) ", cells: " (row-name ?row1) (column-name ?col1)  " (target cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
+            "        " (block-name ?b12) ", cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
+            "        " (block-name ?b21) ", cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
+            "        " (block-name ?b22) ", cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i) crlf
             ?*implication-sign* (row-name ?row1) (column-name ?col1) ?*non-equal-sign* ?nb1 "," ?nb2 "," ?nb3 crlf
         )
     )

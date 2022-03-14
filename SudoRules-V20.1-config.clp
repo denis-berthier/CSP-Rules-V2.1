@@ -53,7 +53,7 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r813");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r815");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
@@ -246,8 +246,7 @@
 ; (bind ?*G-Braids* TRUE)
 ; (bind ?*Quick-B-Rating* TRUE)
 
-;;; Exotic generic rules:
-; (bind ?*Oddagons* TRUE)
+ (bind ?*Oddagons* TRUE)
 
 
 
@@ -292,6 +291,8 @@
 ; (bind ?*J3-Exocet* TRUE)
 ; (bind ?*J4-Exocet* TRUE)
 ; (bind ?*J5-Exocet* TRUE)
+
+; (bind ?*Tridagon* TRUE)
 
 
 
@@ -438,14 +439,15 @@
 ;;; 2e) for solving with Forcing-T&E
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; For Forcing T&E OR Forcing{3} T&E, activate only one of the following
-;;; The possibility of activating both together is not yet available
-; (bind ?*Forcing-TE* TRUE)
+;;; For Forcing-T&E OR Forcing{3}-T&E OR Forcing{4}-T&E, activate any of the following
+;;; (Several can be activated at the same time.)
+; (bind ?*Forcing{2}-TE* TRUE)
 ; (bind ?*Forcing{3}-TE* TRUE)
+; (bind ?*Forcing{4}-TE* TRUE)
 
-;;; for Forcing-T&E(W1) or Forcing{3}-T&E(W1), add:
+;;; for Forcing-T&E(W1) or Forcing{3}-T&E(W1) or Forcing{4}-T&E(W1), add:
 ; (bind ?*Whips[1]* TRUE)
-;;; for Forcing-T&E(S) or Forcing{3}-T&E(S), add:
+;;; for Forcing-T&E(S) or Forcing{3}-T&E(S) or Forcing{4}-T&E(S), add:
 ; (bind ?*Subsets* TRUE)
 
 

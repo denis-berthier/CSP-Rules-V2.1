@@ -234,7 +234,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; EXOCETS
+;;; EXOCETS AND TRIDAGON
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -257,6 +257,10 @@
 (defglobal ?*J5-Exocet-detection-salience* = 0)
 
 
+(defglobal ?*activate-tridagon-salience* = 0)
+(defglobal ?*tridagon-salience* = 0)
+
+
 
 (deffunction define-specific-saliences-at-L6 ()
     (bind ?*activate-J2-Exocet-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
@@ -271,6 +275,9 @@
 )
 
 (deffunction define-specific-saliences-at-L12 ()
+    (bind ?*activate-tridagon-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    (bind ?*tridagon-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    
     (bind ?*activate-J4-Exocet-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J4-Exocet-elimination-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J4-Exocet-detection-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS

@@ -119,6 +119,8 @@
 (defglobal ?*J4-Exocet* = FALSE)
 (defglobal ?*J5-Exocet* = FALSE)
 
+(defglobal ?*Tridagon* = FALSE)
+
 (defglobal ?*FinnedFish* = FALSE)
 (defglobal ?*FinnedFish[2]* = FALSE)
 (defglobal ?*FinnedFish[3]* = FALSE)

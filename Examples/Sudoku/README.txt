@@ -32,6 +32,15 @@ Some exercises are left to the reader in the latter case: find if there is a com
 "Usefulness" of an Oddagon is not related to its size: the only "useful" one has length 5.
 
 
+<> The Tridagons folder gives examples of Tridagons, a recently found exotic pattern.
+The two examples are from "mith". They are the first two examples of 9x9 puzzles that cannot be solved in T&E(2)
+They are not even solvable in gT&E(2) = T&E(W1, 2), nor in T&E(S2, 2)
+They are solvable in T&E(W2, 2) and therefore in T&E(3).
+The tridagon rule (also named "trivalue oddagons" or "Thor's Hammer") makes it much easier to solve them.
+
+
+
+
 
 <> Magictour-top1465 is  one of the most famous collections of puzzles that were, in the early 2000s, among the hardest known ones. As such, they are obviously exceptional and unlikely to be found in any newspaper or magasine. My selection here is a few of the hardest ones in this collection. Don' try to re-run them if you don't have at least 16GB of RAM or, for some of them, if you're in a hurry.
 Obviously, solutions with g-whips and braids will take more time and memory than solutions obtainable with whips.
@@ -63,7 +72,7 @@ It has a detailed comparison of them (in file "comparisons.txt" or "comparisons.
 
 
 
-<> The z-chains folder provides example of bivalue-chains and z-chains.
+<> The z-chains folder provides examples of bivalue-chains and z-chains.
 z-chains can be compared to both bivalue-chains and oddagons:
 - like both: they have no t-candidate (at least none that is not also a z-candidate);
 - like bivalue-chains but unlike oddagons: they alternate between links and csp-variables (oddagons use only csp-variables);
@@ -71,6 +80,10 @@ z-chains can be compared to both bivalue-chains and oddagons:
 
 The cbg-000#36-Z6-W6 puzzle provides an example of solving with z-chains. It also an example of function "solve-w-preferences" and of looking for 2-sep solutions.
 The lightning-8.2 puzzle is also an illustration of computing 2-step solutions. It is also an example of using Forcing-T&E or Forcing{3}-T&E.
+
+
+
+<> The g-whips folder provides examples of g-whips.
 
 
 
@@ -82,7 +95,7 @@ The lightning-8.2 puzzle is also an illustration of computing 2-step solutions. 
 
 
 
-<> Metcalf-B7B is an example where T&E is used in oder to determine the B?B classification. It's one of the 3 hardest known puzzles; it is in B7B.
+<> Metcalf-B7B is an example where T&E is used in order to determine the B?B classification. It's one of the 3 hardest known puzzles; it is in B7B.
 You can see that 89 hypotheses are tried (which is a relatively small number for T&E) and that only one phase is necessary (also rare for T&E: in general some candidates must be tried several times).
 To re-run this example, activate only the following rules:
  (bind ?*TE1* TRUE) ;;; for T&E at level 1

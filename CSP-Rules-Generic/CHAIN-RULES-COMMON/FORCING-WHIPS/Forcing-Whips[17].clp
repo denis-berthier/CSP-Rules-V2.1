@@ -61,8 +61,8 @@
       (context ?cont)
       (length ?p1&:(< ?p1 16))
       (target ?zzz1)
-      (llcs $llcs1)
-      (rlcs $rlcs1)
+      (llcs $?llcs1)
+      (rlcs $?rlcs1)
       (csp-vars $?csps1)
       (last-rlc ?cand)
    )
@@ -71,8 +71,8 @@
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 16))
       (target ?zzz2)
-      (llcs $llcs2)
-      (rlcs $rlcs2)
+      (llcs $?llcs2)
+      (rlcs $?rlcs2)
       (csp-vars $?csps2)
       (last-rlc ?cand)
    )
@@ -81,8 +81,8 @@
    (modify ?mod (status c-value))
    (if (or ?*print-actions* ?*print-L17* ?*print-forcing-whip* ?*print-forcing-whip-17*) then
       (print-forcing-whip-assert-value 
-         ?p1 ?zzz1 $llcs1 $rlcs1 $?csps1
-         ?p2 ?zzz2 $llcs2 $rlcs2 $?csps2
+         ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1
+         ?p2 ?zzz2 $?llcs2 $?rlcs2 $?csps2
          ?cand
       )
    )
@@ -99,8 +99,8 @@
       (context ?cont)
       (length ?p1&:(< ?p1 16))
       (target ?zzz1)
-      (llcs $llcs1)
-      (rlcs $rlcs1)
+      (llcs $?llcs1)
+      (rlcs $?rlcs1)
       (csp-vars $?csps1)
       (last-rlc ?last-rlc1)
    )
@@ -109,20 +109,20 @@
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 16))
       (target ?zzz2)
-      (llcs $llcs2)
-      (rlcs $rlcs2)
+      (llcs $?llcs2)
+      (rlcs $?rlcs2)
       (csp-vars $?csps2)
       (last-rlc ?last-rlc2)
    )
    ?ret <- (candidate (context ?cont) (status cand) (label ?cand))
    (exists-link ?cont ?last-rlc1 ?cand)
-   (exists-link ?cont last-rlc2 ?cand)
+   (exists-link ?cont ?last-rlc2 ?cand)
 =>
    (retract ?ret)
    (if (or ?*print-actions* ?*print-L17* ?*print-forcing-whip* ?*print-forcing-whip-17*) then
       (print-forcing-whip-elim-candidate 
-         ?p1 ?zzz1 $llcs1 $rlcs1 $?csps1
-         ?p2 ?zzz2 $llcs2 $rlcs2 $?csps2
+         ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1
+         ?p2 ?zzz2 $?llcs2 $?rlcs2 $?csps2
          ?cand
       )
    )

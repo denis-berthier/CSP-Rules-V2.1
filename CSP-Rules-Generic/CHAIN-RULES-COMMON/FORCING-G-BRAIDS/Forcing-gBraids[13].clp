@@ -61,8 +61,8 @@
       (context ?cont)
       (length ?p1&:(< ?p1 12))
       (target ?zzz1)
-      (llcs $llcs1)
-      (rlcs $rlcs1)
+      (llcs $?llcs1)
+      (rlcs $?rlcs1)
       (csp-vars $?csps1)
       (last-rlc ?cand)
    )
@@ -71,8 +71,8 @@
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 12))
       (target ?zzz2)
-      (llcs $llcs2)
-      (rlcs $rlcs2)
+      (llcs $?llcs2)
+      (rlcs $?rlcs2)
       (csp-vars $?csps2)
       (last-rlc ?cand)
    )
@@ -81,8 +81,8 @@
    (modify ?mod (status c-value))
    (if (or ?*print-actions* ?*print-L13* ?*print-forcing-gbraid* ?*print-forcing-gbraid-13*) then
       (print-forcing-gbraid-assert-value 
-         ?type1 ?p1 ?zzz1 $llcs1 $rlcs1 $?csps1
-         ?type2 ?p2 ?zzz2 $llcs2 $rlcs2 $?csps2
+         ?type1 ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1
+         ?type2 ?p2 ?zzz2 $?llcs2 $?rlcs2 $?csps2
          ?cand
       )
    )
@@ -99,8 +99,8 @@
       (context ?cont)
       (length ?p1&:(< ?p1 12))
       (target ?zzz1)
-      (llcs $llcs1)
-      (rlcs $rlcs1)
+      (llcs $?llcs1)
+      (rlcs $?rlcs1)
       (csp-vars $?csps1)
       (last-rlc ?last-rlc1)
    )
@@ -109,8 +109,8 @@
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 12))
       (target ?zzz2)
-      (llcs $llcs2)
-      (rlcs $rlcs2)
+      (llcs $?llcs2)
+      (rlcs $?rlcs2)
       (csp-vars $?csps2)
       (last-rlc ?last-rlc2)
    )
@@ -121,8 +121,8 @@
    (retract ?ret)
    (if (or ?*print-actions* ?*print-L13* ?*print-forcing-gbraid* ?*print-forcing-gbraid-13*) then
       (print-forcing-gbraid-elim-candidate 
-         ?type1 ?p1 ?zzz1 $llcs1 $rlcs1 $?csps1
-         ?type2 ?p2 ?zzz2 $llcs2 $rlcs2 $?csps2
+         ?type1 ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1
+         ?type2 ?p2 ?zzz2 $?llcs2 $?rlcs2 $?csps2
          ?cand
       )
    )

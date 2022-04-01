@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;             January 2006 - April 2022              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,7 +30,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; general purpose functions 
+;;; General purpose functions
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -68,7 +68,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; maths
+;;; Maths
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -105,19 +105,20 @@
 )
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; list and set operations
+;;; List and set operations
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; sets are represented as lists
-;;; no check is made for non repetition of elements in the lists
-;;; use "list-to-non-redundant-list" to eliminate duplicates
+;;; Sets are represented as lists
+;;; No check is made for non repetition of elements in the lists
+;;; Use "list-to-non-redundant-list" to eliminate duplicates
 
 (deffunction set-union (?l1 ?l2)
-    ;;; sets are represented as lists
-    ;;; no check is made for non repetition of elements in the lists
+    ;;; Sets are represented as lists
+    ;;; No check is made for non repetition of elements in the given lists
     (bind ?union ?l1)
     (foreach ?x ?l2
         (if (not (member$ ?x ?l1)) then (bind ?union (create$ ?union ?x)))
@@ -127,8 +128,8 @@
 
 
 (deffunction set-intersection (?l1 ?l2)
-    ;;; sets are represented as lists
-    ;;; no check is made for non repetition of elements in the lists
+    ;;; Sets are represented as lists
+    ;;; No check is made for non repetition of elements in the given lists
     (bind ?diff (create$))
     (foreach ?x ?l1
         (if (member$ ?x ?l2) then (bind ?diff (create$ ?diff ?x)))
@@ -138,8 +139,8 @@
 
 
 (deffunction set-difference (?l1 ?l2)
-    ;;; sets are represented as lists
-    ;;; no check is made for non repetition of elements in the lists
+    ;;; Sets are represented as lists
+    ;;; No check is made for non repetition of elements in the given lists
     ;;; ?l1 minus ?l2
     (bind ?diff (create$))
     (foreach ?x ?l1
@@ -161,11 +162,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; graphs
+;;; Graphs
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; this is the standrad definition of density for an undirected graph
+;;; This is the standard definition of density for an undirected graph
 
 (deffunction density (?n-cands ?n-links)
     (bind ?dens (if (eq ?n-cands ?n-links) then 1 else (/ (* 200 ?n-links) (* ?n-cands (- ?n-cands 1)))))
@@ -176,7 +177,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; functions for combining and printing lists of solved puzzles
+;;; Functions for combining and printing lists of solved puzzles
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -190,6 +191,20 @@
 		(bind ?i (+ ?i 1))
 	)
 	?result
+)
+
+
+
+(deffunction not-in-list$ (?list ?l)
+    ;;; ?l is the number of puzzles in some original list of puzzles to be solved
+    (bind ?result (create$))
+    (bind ?i 1)
+    (while (<= ?i ?l)
+        (if (not (member$ ?i ?list)) then
+            (bind ?result (union$ ?result (create$ ?i))))
+        (bind ?i (+ ?i 1))
+    )
+    ?result
 )
 
 

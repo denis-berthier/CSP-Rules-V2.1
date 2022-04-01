@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;           January 2006 - December 2021             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -721,7 +721,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; BIVALUE AND TRIVALUE
+;;; BIVALUE, TRIVALUE AND QUADRIVALUE
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -742,6 +742,15 @@
 (deffunction define-trivalue-saliences ()
     (bind ?*activate-trivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*trivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+;;; used only for Forcing{4}-T&E
+(defglobal ?*activate-quadrivalue-salience* = 0)
+(defglobal ?*quadrivalue-salience* = 0)
+
+(deffunction define-quadrivalue-saliences ()
+    (bind ?*activate-quadrivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*quadrivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 
 
@@ -8172,6 +8181,7 @@
 	(define-saliences-at-L2)
     (define-trivalue-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L3)
+    (define-quadrivalue-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L4)
 	(define-saliences-at-L5)
 	(define-saliences-at-L6)

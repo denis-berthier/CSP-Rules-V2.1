@@ -377,6 +377,7 @@
 (defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
 (defglobal ?*Forcing{2}-TE* = FALSE) ;;; by default, there is no Forcing{2} Trial and Error
 (defglobal ?*Forcing{3}-TE* = FALSE) ;;; by default, there is no Forcing{3} Trial and Error
+(defglobal ?*Forcing{4}-TE* = FALSE) ;;; by default, there is no Forcing{4} Trial and Error
 
 
 (defglobal ?*Backdoors* = FALSE)
@@ -1496,8 +1497,8 @@
 (defglobal ?*pre-computed-all-bi-braid-contrads* = FALSE)
 
 ;;; if bi-braids are used, bi-whips of minimum length up to 2 must be used
-(defglobal ?*biwhips-max-length* = (min 36 ?*all-chains-max-length*))
-(defglobal ?*bibraids-max-length* = (min 36 ?*all-chains-max-length*))
+(defglobal ?*biwhips-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*bibraids-max-length* = (min 20 ?*all-chains-max-length*))
 
 ;;; When W*-Whips or B*-Braids are used, ?*ECP** is automatically set to True
 ;;; but it can be used independently of W*-Whips or B*-Braids
@@ -1505,9 +1506,9 @@
 
 
 (defglobal ?*W*-Whips* = FALSE)
-(defglobal ?*w*-whips-max-length* = 20)
+(defglobal ?*w*-whips-max-length* = (min 20 ?*all-chains-max-length*))
 (defglobal ?*B*-Braids* = FALSE)
-(defglobal ?*b*-braids-max-length* = 20)
+(defglobal ?*b*-braids-max-length* = (min 20 ?*all-chains-max-length*))
 
 
 (defglobal ?*simple-bi-TE* = FALSE)
@@ -1896,8 +1897,8 @@
 
 (defglobal ?*W-Whips* = FALSE)
 (defglobal ?*B-Braids* = FALSE)
-(defglobal ?*w-whips-max-length* = 20)
-(defglobal ?*b-braids-max-length* = 20)
+(defglobal ?*w-whips-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*b-braids-max-length* = (min 20 ?*all-chains-max-length*))
 
 
 

@@ -278,22 +278,33 @@
 ; (bind ?*Unique-Rectangles* TRUE)
 ; (bind ?*BUG* TRUE)
 
+
+
 ;;; Exotic patterns
-;;; Belt (sk-loop) and J-Exocet rules fall under the category of what I called exotic patterns,
+;;; Belt (sk-loop), J-Exocet and Tridagon rules fall under the category of what I called exotic patterns,
 ;;; because they are very specialised and rarely present in a puzzle -
 ;;; a name that has immediately been adopted on the Sudoku forums
 
+;;; sk-loops:
 ; (bind ?*Belt4* TRUE)
 ; (bind ?*Belt6* TRUE)
 
+;;; J-Exocets:
 ; (bind ?*J-Exocet* TRUE)
 ; (bind ?*J2-Exocet* TRUE)
 ; (bind ?*J3-Exocet* TRUE)
 ; (bind ?*J4-Exocet* TRUE)
 ; (bind ?*J5-Exocet* TRUE)
 
-; (bind ?*Tridagon* TRUE)
-
+;;; Tridagons:
+; (bind ?*Tridagons* TRUE)
+; (bind ?*Tridagon-Forcing-Whips* TRUE)
+; (bind ?*tridagon-forcing-whips-max-length* 36
+; When Tridagon-Forcing-Whips are active, you may want to restrict the max length of all the chains:
+; (bind ?*all-chains-max-length* 12)
+;;; If you plan to give preferences to Tridagon-Forcing-Whips, it is reasonable to put an upper bound on their length;
+;;; try to increase it progressively:
+; (bind ?*tridagon-forcing-whips-max-length* 15)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -342,7 +353,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Un-comment the proper line(s) below to change the level of details you want to be printed.
-;;; This can make T&E faster.
+;;; Less printing can make T&E faster.
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* TRUE)
 ; (bind ?*print-ECP-details* TRUE)
@@ -360,7 +371,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following 3 depths of T&E:
-;;; - depth 2 is enough for all the 9x9 Sudokus
+;;; - depth 1 is enough for almost all the 9x9 Sudokus
+;;; - depth 2 is enough except for extremely rare 9x9 Sudokus
 ;;; - but deeper T&E is often required for larger Sudokus or for Sukakus
 
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
@@ -379,7 +391,7 @@
 ;;; 2b) For computing the SpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Choose one of the following forms of T&E(1, Sp or SpFin)
+;;; Choose one of the following forms of T&E(Sp or SpFin, 1)
 ; (bind ?*TE1* TRUE) ;;; for T&E at level 1
 ;;; For T&E at level 1, with priority for bivalue variables, add the following:
 ; (bind ?*special-TE* TRUE)
@@ -389,16 +401,16 @@
 ;;; But you can choose to activate only them, to get gT&E (as in 2a)
 ; (bind ?*Whips[1]* TRUE)
 
-;;; choose which Subsets[p] and FinnedFish[p] are activated:
+;;; Choose which Subsets[p] and FinnedFish[p] are activated:
 ; (bind ?*Subsets[2]* TRUE)
 ; (bind ?*Subsets[3]* TRUE)
 ; (bind ?*Subsets[4]* TRUE)
-; (bind ?*Subsets* TRUE)
+; (bind ?*Subsets* TRUE) ; same as ?*Subsets[4]*
 
 ; (bind ?*FinnedFish[2]* TRUE)
 ; (bind ?*FinnedFish[3]* TRUE)
 ; (bind ?*FinnedFish[4]* TRUE)
-; (bind ?*FinnedFish* TRUE)
+; (bind ?*FinnedFish* TRUE) ; same as?*FinnedFish[4]*
 
 
 
@@ -420,7 +432,27 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2d) for looking for backdoors, anti-backdoors or anti-backdoor pairs
+;;; 2d) for computing the BpBB classification for puzzles in T&E(3)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Added after the discovery that there are (extremely rare) Sudoku puzzles in T&E(3).
+;;; Beware that computation times can be very long for puzzles not in T&E(Bp, 2).
+;;; Choose one of the following forms of T&E(2):
+; (bind ?*TE2* TRUE) ;;; for T&E at level 2
+;;; For T&E at level 2, with priority for bivalue variables, add the following:
+; (bind ?*special-TE* TRUE)
+
+;;; Choose p (here p = 2) (larger values of p should not be necessary for 9x9 Sudoku
+; (bind ?*Whips* TRUE)
+; (bind ?*Braids* TRUE)
+; (bind ?*whips-max-length* 2)
+; (bind ?*braids-max-length* 2)
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2e) for looking for backdoors, anti-backdoors or anti-backdoor pairs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
@@ -436,7 +468,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2e) for solving with Forcing-T&E
+;;; 2f) for solving with Forcing-T&E
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; For Forcing-T&E OR Forcing{3}-T&E OR Forcing{4}-T&E, activate any of the following
@@ -478,7 +510,7 @@
 
 ;;; To activate DFS:
 ; (bind ?*DFS* TRUE)
-;;; To activate priority for bivalue candidates, activate this line, in addition to the above line:
+;;; To activate priority for bivalue candidates, also activate this line:
 ; (bind ?*special-DFS* TRUE)
 
 ;;; Activate short whips for combining whips[1] or whips[2] with DFS:
@@ -512,19 +544,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Because grid size may have been changed in this file,
-;;; redefine the associated internal factors;
-;;; this has to be done BEFORE loading
+;;; redefine the associated internal factors; (this has to be done BEFORE loading):
 (redefine-internal-factors)
 
 
-;;; now, load all
-;;; Notice that the generic loader also loads the application-specific files
+;;; Now, load all. The generic loader also loads the application-specific files:
 (if (and (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*) (> ?*segment-size* 4))
     then (printout t
         "BEWARE: g-labels, g-bivalue-chains, g-whips and g-braids are not managed” crlf
         “for segment size larger than 4, i.e. grid size larger than 16" crlf)
     else (redefine-all-chains-max-length)
-         (batch ?*CSP-Rules-Generic-Loader*)
+        (batch ?*CSP-Rules-Generic-Loader*)
 )
 
 	

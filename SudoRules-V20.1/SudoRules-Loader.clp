@@ -142,9 +142,13 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; sk-loops:
 (if ?*Belt4* then (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "sk-loops" ?*Directory-symbol* "Belt4-of-crosses.clp")))
 (if ?*Belt6* then (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "sk-loops" ?*Directory-symbol* "Belt6-of-crosses.clp")))
 
+
+
+;;; J-Exocets:
 (defglobal ?*J-Exocet-variant* = (if ?*Blue-J-Exocets* then (str-cat "Blue" ?*Directory-symbol*) else ""))
 
 (if (or ?*J-Exocet* ?*J2-Exocet*) then (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "J-Exocets" ?*Directory-symbol* ?*J-Exocet-variant* "J2-Exocet.clp")))
@@ -152,7 +156,28 @@
 (if (or ?*J-Exocet* ?*J4-Exocet*) then (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "J-Exocets" ?*Directory-symbol* ?*J-Exocet-variant* "J4-Exocet.clp")))
 (if (or ?*J-Exocet* ?*J5-Exocet*) then (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "J-Exocets" ?*Directory-symbol* ?*J-Exocet-variant* "J5-Exocet.clp")))
 
-(if ?*Tridagon* then (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagon.clp")))
+
+
+;;; Tridagons
+(if ?*Tridagon-Forcing-Whips* then (bind ?*Tridagons* TRUE))
+
+(if ?*Tridagons* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Tridagon[12].clp"))
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Tridagon-links[12].clp"))
+)
+
+(if ?*Tridagon-Forcing-Whips* then
+    (if (and (not ?*t-Whips*) (not ?*Whips*)) then
+        (loop-for-count (?i 1 (- ?*tridagon-forcing-whips-max-length* 12))
+            (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                ?*Directory-symbol* "PARTIAL-WHIPS" ?*Directory-symbol* "Partial-Whips[" ?i "].clp"))
+        )
+    )
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "TRIDAGON-FORCING-WHIPS" ?*Directory-symbol* "Print-functions.clp"))
+    (loop-for-count (?i 13 ?*tridagon-forcing-whips-max-length*)
+        (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "TRIDAGON-FORCING-WHIPS" ?*Directory-symbol* "Tridagon-Forcing-Whips[" ?i "].clp"))
+    )
+)
 
 
 
@@ -261,6 +286,18 @@
     (if ?*J-Exocet* then
         (bind ?*application-specific-rating-type*
             (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "JE") else "JE")
+        )
+    )
+    
+    (if (and ?*Tridagons* (not ?*Tridagon-Forcing-Whips*)) then
+        (bind ?*application-specific-rating-type*
+            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "Trid") else "Trid")
+        )
+    )
+    
+    (if ?*Tridagon-Forcing-Whips* then
+        (bind ?*application-specific-rating-type*
+            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "TridFW") else "TridFW")
         )
     )
     ?*application-specific-rating-type*

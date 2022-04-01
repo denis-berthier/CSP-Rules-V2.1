@@ -257,8 +257,60 @@
 (defglobal ?*J5-Exocet-detection-salience* = 0)
 
 
-(defglobal ?*activate-tridagon-salience* = 0)
-(defglobal ?*tridagon-salience* = 0)
+(defglobal ?*activate-tridagon[12]-salience* = 0)
+(defglobal ?*tridagon[12]-salience* = 0)
+(defglobal ?*activate-tridagon-link[12]-salience* = 0)
+(defglobal ?*tridagon-link[12]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[12]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[12]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[13]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[13]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[14]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[14]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[15]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[15]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[16]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[16]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[17]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[17]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[18]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[18]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[19]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[19]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[20]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[20]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[21]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[21]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[22]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[22]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[23]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[23]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[24]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[24]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[25]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[25]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[26]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[26]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[27]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[27]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[28]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[28]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[29]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[29]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[30]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[30]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[31]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[31]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[32]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[32]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[33]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[33]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[34]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[34]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[35]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[35]-salience* = 0)
+(defglobal ?*activate-tridagon-forcing-whip[36]-salience* = 0)
+(defglobal ?*tridagon-forcing-whip[36]-salience* = 0)
 
 
 
@@ -275,19 +327,144 @@
 )
 
 (deffunction define-specific-saliences-at-L12 ()
-    (bind ?*activate-tridagon-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*tridagon-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    
     (bind ?*activate-J4-Exocet-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J4-Exocet-elimination-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J4-Exocet-detection-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
+
+    (bind ?*activate-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+
+    (bind ?*activate-tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    (bind ?*tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+
+    (bind ?*activate-tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L13 ()
+    (bind ?*activate-tridagon-forcing-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L14 ()
+    (bind ?*activate-tridagon-forcing-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 
 (deffunction define-specific-saliences-at-L15 ()
     (bind ?*activate-J5-Exocet-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J5-Exocet-elimination-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J5-Exocet-detection-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
+
+    (bind ?*activate-tridagon-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
+
+(deffunction define-specific-saliences-at-L16 ()
+    (bind ?*activate-tridagon-forcing-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L17 ()
+    (bind ?*activate-tridagon-forcing-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L18 ()
+    (bind ?*activate-tridagon-forcing-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L19 ()
+    (bind ?*activate-tridagon-forcing-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L20 ()
+    (bind ?*activate-tridagon-forcing-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L21 ()
+    (bind ?*activate-tridagon-forcing-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L22 ()
+    (bind ?*activate-tridagon-forcing-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L23 ()
+    (bind ?*activate-tridagon-forcing-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L24 ()
+    (bind ?*activate-tridagon-forcing-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L25 ()
+    (bind ?*activate-tridagon-forcing-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L26 ()
+    (bind ?*activate-tridagon-forcing-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L27 ()
+    (bind ?*activate-tridagon-forcing-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L28 ()
+    (bind ?*activate-tridagon-forcing-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L29 ()
+    (bind ?*activate-tridagon-forcing-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L30 ()
+    (bind ?*activate-tridagon-forcing-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L31 ()
+    (bind ?*activate-tridagon-forcing-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L32 ()
+    (bind ?*activate-tridagon-forcing-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L33 ()
+    (bind ?*activate-tridagon-forcing-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L34 ()
+    (bind ?*activate-tridagon-forcing-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L35 ()
+    (bind ?*activate-tridagon-forcing-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-specific-saliences-at-L36 ()
+    (bind ?*activate-tridagon-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*tridagon-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
 
 
 

@@ -119,12 +119,17 @@
 (defglobal ?*J4-Exocet* = FALSE)
 (defglobal ?*J5-Exocet* = FALSE)
 
-(defglobal ?*Tridagon* = FALSE)
+(defglobal ?*Tridagons* = FALSE)
+(defglobal ?*Tridagon-Forcing-Whips* = FALSE)
+(defglobal ?*tridagon-forcing-whips-max-length* = 36)
+
 
 (defglobal ?*FinnedFish* = FALSE)
 (defglobal ?*FinnedFish[2]* = FALSE)
 (defglobal ?*FinnedFish[3]* = FALSE)
 (defglobal ?*FinnedFish[4]* = FALSE)
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -286,6 +291,33 @@
 
 
 
+(defglobal ?*print-tridagon-link-12* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-12* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-13* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-14* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-15* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-16* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-17* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-18* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-19* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-20* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-21* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-22* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-23* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-24* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-25* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-26* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-27* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-28* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-29* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-30* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-31* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-32* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-33* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-34* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-35* = FALSE)
+(defglobal ?*print-tridagon-forcing-whip-36* = FALSE)
 
 
 
@@ -309,10 +341,14 @@
 
 ;;; variables used to keep track of special puzzles:
 (defglobal ?*belt-list* = (create$))
-(defglobal ?*J-exocet-list* = (create$))
 (defglobal ?*has-belt* = FALSE)
 (defglobal ?*has-belt6* = FALSE)
+
+(defglobal ?*J-exocet-list* = (create$))
 (defglobal ?*has-J-exocet* = FALSE)
+
+(defglobal ?*tridagon-list* = (create$))
+(defglobal ?*has-tridagon* = FALSE)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

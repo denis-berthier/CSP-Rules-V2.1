@@ -29,7 +29,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; printing of cells
+;;; Printing of cells
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction print-starting-cell-symbol() (printout t ?*starting-cell-symbol*))
@@ -129,7 +129,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; printing of deleted and contradictory candidates
+;;; Printing of deleted and contradictory candidates
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction print-deleted-candidate (?zzz)
@@ -167,3 +167,42 @@
     (print-deleted-candidate ?zzz)
     (printout t crlf)
 )
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Printing of a csp-variable
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction print-csp-var (?csp-var)
+    (bind ?csp-type (csp-var-type ?csp-var))
+    (switch ?csp-type
+        (case rc then
+            (bind ?rc (rc-cell-of-rc-variable ?csp-var))
+            (bind ?r (row-of-rc-variable ?rc))
+            (bind ?c (column-of-rc-variable ?rc))
+            (print-row ?r) (print-column ?c)
+        )
+        (case rn then
+            (bind ?rn (rn-cell-of-rn-variable ?csp-var))
+            (bind ?r (row-of-rn-variable ?rn))
+            (bind ?n (number-of-rn-variable ?rn))
+            (print-row ?r) (print-number ?n)
+        )
+        (case cn then
+            (bind ?cn (cn-cell-of-cn-variable ?csp-var))
+            (bind ?c (column-of-cn-variable ?cn))
+            (bind ?n (number-of-cn-variable ?cn))
+            (print-column ?c) (print-number ?n)
+        )
+        (case bn then
+            (bind ?bn (bn-cell-of-bn-variable ?csp-var))
+            (bind ?b (block-of-bn-variable ?bn))
+            (bind ?n (number-of-bn-variable ?bn))
+            (print-block ?b) (print-number ?n)
+        )
+        (default TRUE)
+    )
+)
+

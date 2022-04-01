@@ -298,8 +298,7 @@
 
 ;;; Tridagons:
 ; (bind ?*Tridagons* TRUE)
-; (bind ?*Tridagon-Forcing-Whips* TRUE)
-; (bind ?*tridagon-forcing-whips-max-length* 36
+; (bind ?*Tridagon-Forcing-Whips* TRUE) ; not yet available
 ; When Tridagon-Forcing-Whips are active, you may want to restrict the max length of all the chains:
 ; (bind ?*all-chains-max-length* 12)
 ;;; If you plan to give preferences to Tridagon-Forcing-Whips, it is reasonable to put an upper bound on their length;

@@ -37,6 +37,7 @@
 (deffunction permute-floors-9x9 (?puzzle ?f1 ?f2 ?f3)
     ;;; ?puzzle is supposed to be 9x9 and to be given as a string of 81 characters
     ;;; (?f1, ?f2, ?f3) is supposed to be a permutation of (1, 2, 3)
+    ;;; the new floors are the ?f1 ?f2 ?f3 floors of the given puzzle
     (if (eq ?f1 1) then
         (if (eq ?f2 3) then (bind ?puzzle (str-cat (sub-string 1 27 ?puzzle) (sub-string 55 81 ?puzzle) (sub-string 28 54 ?puzzle))))
     )
@@ -56,6 +57,7 @@
     ;;; ?floor is supposed to be given as a string of 27 characters
     ;;; (?r1, ?r2, ?r3) is supposed to be a permutation of (1, 2, 3)
     ;;; i.e. ?r1, ?r2 and ?r3 are supposed to be pairwise different and equal to 1, 2 or 3
+    ;;; the new rows are the ?r1 ?r2 ?r3 rows of the given floor
     (if (eq ?r1 1) then
         (if (eq ?r2 3) then (bind ?floor (str-cat (sub-string 1 9 ?floor) (sub-string 19 27 ?floor) (sub-string 10 18 ?floor))))
     )
@@ -69,6 +71,32 @@
     )
     ?floor
 )
+
+
+(deffunction permute-rows-in-nth-floor-9x9 (?puzzle ?nth ?r1 ?r2 ?r3)
+    ;;; ?puzzle is supposed to be given as a string of 81 characters
+    ;;; ?nth is the floor in which row permutations will occur
+    ;;; (?r1, ?r2, ?r3) is supposed to be a permutation of (1, 2, 3), to occur within ?nth floor
+    ;;; i.e. ?r1, ?r2 and ?r3 are supposed to be pairwise different and belong to 1, 2 or 3
+    ;;; the new rows of the ?nth floor are the ?r1 ?r2 ?r3 rows of the given floor
+    (switch ?nth
+        (case 1 then
+            (str-cat (permute-rows-in-floor-9x9 (sub-string 1 27 ?puzzle) ?r1 ?r2 ?r3) (sub-string 28 81 ?puzzle))
+        )
+        (case 2 then
+            (str-cat (sub-string 1 27 ?puzzle) (permute-rows-in-floor-9x9 (sub-string 28 54 ?puzzle) ?r1 ?r2 ?r3) (sub-string 55 81 ?puzzle))
+        )
+        (case 3 then
+            (str-cat (sub-string 1 54 ?puzzle) (permute-rows-in-floor-9x9 (sub-string 54 81 ?puzzle) ?r1 ?r2 ?r3))
+        )
+        (default ?puzzle)
+    )
+)
+;;; Other name for same function:
+(deffunction permute-rows-in-nth-band-9x9 (?puzzle ?nth ?r1 ?r2 ?r3)
+    (permute-rows-in-nth-floor-9x9 ?puzzle ?nth ?r1 ?r2 ?r3)
+)
+
 
 
 (defglobal ?*permutations-3* = (create$ "123" "231" "312" "321" "213" "132"))
@@ -113,6 +141,23 @@
         (bind ?col (+ ?col 1))
     )
     ?sym
+)
+
+
+(deffunction permute-columns-in-nth-tower-9x9 (?puzzle ?nth ?c1 ?c2 ?c3)
+    ;;; ?puzzle is supposed to be given as a string of 81 characters
+    ;;; ?nth is the tower in which column permutations will occur
+    ;;; (?r1, ?r2, ?r3) is supposed to be a permutation of (1, 2, 3), to occur within ?nth tower
+    ;;; i.e. ?c1, ?c2 and ?c3 are supposed to be pairwise different and belong to 1, 2 or 3
+    (diagonal-symmetry-9x9
+        (permute-rows-in-nth-floor-9x9
+            (diagonal-symmetry-9x9 ?puzzle) ?nth ?c1 ?c2 ?c3
+        )
+    )
+)
+;;; Other name for same function:
+(deffunction permute-columns-in-nth-stack-9x9 (?puzzle ?nth ?c1 ?c2 ?c3)
+    (permute-columns-in-nth-tower-9x9 ?puzzle ?nth ?c1 ?c2 ?c3)
 )
 
 

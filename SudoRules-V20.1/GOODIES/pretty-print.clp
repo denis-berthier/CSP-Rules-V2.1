@@ -114,3 +114,6 @@
 )
 
 
+(deffunction pretty-print-sukaku-grid ($?sukaku-list)
+    (pretty-print-sukaku-list (clean-grid-list $?sukaku-list))
+)

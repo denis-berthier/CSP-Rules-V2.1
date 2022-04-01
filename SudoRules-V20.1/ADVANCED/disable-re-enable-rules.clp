@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;             January 2006 - August 2021             ;;;
+               ;;;            January 2006 - December 2021            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -204,7 +204,7 @@
     (bind ?step 1)
     (foreach ?cand ?internal-sequence-of-eliminations
         (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
-        (printout t crlf crlf)
+        (printout t crlf)
         (if ?*print-actions* then (printout t "=====> STEP #" ?step crlf))
         (try-to-eliminate-candidates ?cand)
         (disable-rules-not-in-RT0 0 ?RT0)
@@ -224,9 +224,9 @@
     (bind ?step 1)
     (foreach ?cand ?internal-sequence-of-eliminations
         (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
-        (printout t crlf crlf)
+        (printout t crlf)
         (if ?*print-actions* then (printout t "=====> STEP #" ?step crlf))
-        (try-to-eliminate-candidates (nirjck-to-label ?cand))
+        (try-to-eliminate-candidates ?cand)
         (disable-rules-not-in-RT0 0 ?RT0)
         (run)
         (bind ?step (+ ?step 1))
@@ -245,7 +245,7 @@
     (bind ?step 1)
     (foreach ?cand ?sequence-of-eliminations
         (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
-        (printout t crlf crlf)
+        (printout t crlf)
         (if ?*print-actions* then (printout t "=====> STEP #" ?step crlf))
         (try-to-eliminate-candidates ?cand)
         (disable-rules-not-in-RT0 0 ?RT0)
@@ -265,7 +265,7 @@
     (bind ?step 1)
     (foreach ?cand ?sequence-of-eliminations
         (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
-        (printout t crlf crlf)
+        (printout t crlf)
         (if ?*print-actions* then (printout t "=====> STEP #" ?step crlf))
         (try-to-eliminate-candidates (nirjck-to-label ?cand))
         (disable-rules-not-in-RT0 0 ?RT0)
@@ -290,6 +290,11 @@
 (deffunction reconstruct-sukaku-resolution-path-wrt-W1 (?sukaku-list $?sequence-of-eliminations)
     (reconstruct-sukaku-resolution-path-wrt-RT0 W1 ?sukaku-list $?sequence-of-eliminations)
 )
+
+(deffunction reconstruct-path (?sudoku-string $?sequence-of-eliminations)
+    (reconstruct-sudoku-resolution-path-wrt-RT0 W1 ?sudoku-string $?sequence-of-eliminations)
+)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

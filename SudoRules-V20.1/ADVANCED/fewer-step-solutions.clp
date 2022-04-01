@@ -448,3 +448,7 @@
 (deffunction smart-solve-ntimes-with-fewer-steps (?ntimes ?sudoku-string)
     (smart-solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes W1 ?sudoku-string)
 )
+
+(deffunction smart-solve (?ntimes ?sudoku-string)
+    (smart-solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes W1 ?sudoku-string)
+)

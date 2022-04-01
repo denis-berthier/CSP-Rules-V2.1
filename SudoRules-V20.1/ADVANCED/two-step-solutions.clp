@@ -322,7 +322,6 @@
     ;;; i.e. which of these candidate-pairs are indeed ?RT0 2-steppers:
     (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
     (restore-print-options)
-    (printout t crlf crlf "===> CHECKING WHICH OF THE ANTI-BACKDOOR-PAIRS LEAD TO 2-STEP SOLUTIONS:" crlf)
     (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
         (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
@@ -332,6 +331,7 @@
         (bind ?*print-final-RS* FALSE)
     )
     (bind ?nb-anti-backdoor-pairs (div (length$ ?*list-of-anti-backdoor-pairs*) 2))
+    (printout t crlf crlf "===> CHECKING WHICH OF THESE " ?nb-anti-backdoor-pairs " " ?RT0 "-ANTI-BACKDOOR-PAIRS LEAD TO 2-STEP SOLUTIONS:" crlf)
     (bind ?list-of-2-steppers (create$))
     (bind ?i 1)
     (while (<= ?i ?nb-anti-backdoor-pairs)

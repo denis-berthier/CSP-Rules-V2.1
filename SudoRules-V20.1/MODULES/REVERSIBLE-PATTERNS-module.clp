@@ -41,7 +41,6 @@
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "manage.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "ECP.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Single.clp"))
-; (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "blocked-rules-fns.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "blocked-rules.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "play.clp"))
@@ -69,7 +68,7 @@
         )
     )
     ;;; bivalue-chains ≥ 2
-    (if (and ?*Bivalue-Chains* (<= ?i ?*bivalue-chains-max-length*)) then
+    (if (<= ?i ?*bivalue-chains-max-length*) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
             ?*Directory-symbol* "BIVALUE-CHAINS"
             ?*Directory-symbol* "Bivalue-Chains[" ?i "].clp")
@@ -86,7 +85,7 @@
     )
 
     ;;; z-chains ≥ 2
-    (if (and ?*z-Chains* (<= ?i ?*z-chains-max-length*)) then
+    (if (<= ?i ?*z-chains-max-length*) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "Z-CHAINS"
                 ?*Directory-symbol* "z-chains[" ?i "].clp")
@@ -95,7 +94,7 @@
     
     
     ;;; oddagons (?i odd ≥ 3)
-    (if (and ?*Oddagons* (>= ?i 3) (oddp ?i) (<= ?i ?*oddagons-max-length*)) then
+    (if (and (>= ?i 3) (oddp ?i) (<= ?i ?*oddagons-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
             ?*Directory-symbol* "ODDAGONS"
             ?*Directory-symbol* "Oddagons[" ?i "].clp")

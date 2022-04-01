@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - December 2021            ;;;
+               ;;;             January 2006 - April 2022              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -38,8 +38,9 @@
 (defglobal ?*module-S3Fin-loaded* = FALSE)
 (defglobal ?*module-S4Fin-loaded* = FALSE)
 (defglobal ?*module-REVERSIBLE-PATTERNS-loaded* = FALSE)
+(defglobal ?*module-TRIDAGONS-loaded* = FALSE)
 
-(defglobal ?*list-of-application-specific-modules* = (create$ S2 S3 S4 S2Fin S3Fin S4Fin REVERSIBLE-PATTERNS))
+(defglobal ?*list-of-application-specific-modules* = (create$ S2 S3 S4 S2Fin S3Fin S4Fin REVERSIBLE-PATTERNS TRIDAGONS))
 
 (defglobal ?*list-of-modules* =
     (create$ ?*list-of-generic-modules* ?*list-of-application-specific-modules*)
@@ -133,7 +134,13 @@
                     (batch* (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "REVERSIBLE-PATTERNS-module.clp"))
                     (bind ?*module-REVERSIBLE-PATTERNS-loaded* TRUE)
             ))
-            
+
+            (case TRIDAGONS then
+                (if (not ?*module-TRIDAGONS-loaded*) then
+                    (batch* (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "TRIDAGONS-module.clp"))
+                    (bind ?*module-TRIDAGONS-loaded* TRUE)
+            ))
+
             (case MAIN then TRUE)
             (default (printout t "This (" ?module ") is not a defined module." crlf
                 "The list of available modules is: " ?*list-of-modules* crlf

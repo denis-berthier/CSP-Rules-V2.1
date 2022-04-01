@@ -132,7 +132,7 @@
     
     ;;; All the resolution theories, apart from BRT, must have Whips[1]
     ;;; There is a special global variable ?*Whips[1]* to take this into account
-    ;;; Whips[1] are required by any other resilution theory
+    ;;; Whips[1] are required by any other resolution theory
     (if (or ?*Subsets[2]*
             ?*Typed-Bivalue-Chains*
             ?*Bivalue-Chains*
@@ -354,7 +354,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; init-links
-(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids* ?*Forcing{2}-TE* ?*Forcing{3}-TE*) then
+(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids* ?*Forcing{2}-TE* ?*Forcing{3}-TE* ?*Forcing{4}-TE*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 )
 
@@ -613,11 +613,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; T&E, Forcing T&E, Backdoors, Anti-Backdoors, Anti-Backdoor pairs and DFS
+;;; T&E, Forcing T&E, Backdoors, Anti-Backdoors, Anti-Backdoor-Pairs and DFS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; only one of TE1, TE2 or TE3 can be loaded
+;;; only one of TE1, TE2 or TE3 can be loaded at the same time
 
 (if (and ?*TE1* (not ?*TE2*) (not ?*TE3*)) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "T&E1.clp"))
@@ -648,6 +648,10 @@
 
 (if ?*Forcing{3}-TE* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "Forcing3-TE.clp"))
+)
+
+(if ?*Forcing{4}-TE* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "T&E+DFS" ?*Directory-symbol* "Forcing4-TE.clp"))
 )
 
 
@@ -806,19 +810,19 @@
     (if (and ?*TE1* (not ?*TE2*) (not ?*TE3*)) then
         (if (eq ?*rating-type* "")
             then (bind ?*rating-type* "T&E(1)")
-            else (bind ?*rating-type* (str-cat "T&E(1, " ?*rating-type* ")"))
+            else (bind ?*rating-type* (str-cat "T&E(" ?*rating-type* ", 1)"))
         )
     )
     (if (and ?*TE2* (not ?*TE1*) (not ?*TE3*)) then
         (if (eq ?*rating-type* "")
             then (bind ?*rating-type* "T&E(2)")
-            else (bind ?*rating-type* (str-cat "T&E(2, " ?*rating-type* ")"))
+            else (bind ?*rating-type* (str-cat "T&E(" ?*rating-type* ", 2)"))
         )
     )
     (if (and ?*TE3* (not ?*TE1*) (not ?*TE2*)) then
         (if (eq ?*rating-type* "")
             then (bind ?*rating-type* "T&E(3)")
-            else (bind ?*rating-type* (str-cat "T&E(3, " ?*rating-type* ")"))
+            else (bind ?*rating-type* (str-cat "T&E(" ?*rating-type* ", 3)"))
         )
     )
     (if (and ?*TE1* ?*simple-bi-TE* (not ?*TE2*) (not ?*TE3*)) then

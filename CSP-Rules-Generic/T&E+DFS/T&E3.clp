@@ -164,8 +164,8 @@
 	(retract ?g)
 	(if (eq ?par 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-hypothesis*) then
-		(printout t "NO SOLUTION RC IN CONTEXT " ?cont ".")
-		(printout t " RETRACTING CANDIDATE " ?gen-cand " FROM CONTEXT " ?par "." crlf crlf)
+        (printout t "NO POSSIBLE VALUE for csp-variable " ?csp " IN CONTEXT " ?cont ".")
+        (printout t " RETRACTING CANDIDATE " (print-label ?gen-cand) " FROM CONTEXT " ?par "." crlf crlf)
 	)
 	;;; remember that this phase was productive
 	(assert (phase-productive-in-context ?par ?ph))
@@ -404,7 +404,7 @@
     
     ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
     ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)
-    (or (not (candidate-in-focus (context ?par))) (candidate-in-focus (context ?par) (label ?zzz)))
+    (or (not (candidate-in-focus (context ?par))) (candidate-in-focus (context ?par) (label ?gen-cand)))
 =>
 	;;; choose ?gen-cand as a hypothesis	
 	(bind ?*context-counter* (+ ?*context-counter* 1))

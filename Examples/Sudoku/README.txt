@@ -33,12 +33,12 @@ Some exercises are left to the reader in the latter case: find if there is a com
 
 
 <> The Tridagons folder gives examples of Tridagons, a recently found exotic pattern.
-The two examples are from "mith". They are the first two examples of 9x9 puzzles that cannot be solved in T&E(2)
+Two examples are from "mith". They are the first two examples of 9x9 puzzles that cannot be solved in T&E(2)
 They are not even solvable in gT&E(2) = T&E(W1, 2), nor in T&E(S2, 2)
 They are solvable in T&E(W2, 2) and therefore in T&E(3).
 The tridagon rule (also named "trivalue oddagons" or "Thor's Hammer") makes it much easier to solve them.
 
-
+The third example, also from mith, applies the newly defined Tridagon-Forcing-Whips in two-different ways: with function "solve" and with function "solve-w-preferenecs". In the example, giving Tridagons a preference over whips makes the solution simpler.
 
 
 

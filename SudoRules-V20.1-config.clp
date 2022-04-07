@@ -213,12 +213,12 @@
 ;;; Generic:
 ; (bind ?*Whips[1]* TRUE) ; allows to more easily activate only whips[1]
  (bind ?*Bivalue-Chains* TRUE)
+ (bind ?*z-Chains* TRUE)
  (bind ?*Whips* TRUE)
 
 
 ;;; Some additional rules I use frequently:
- (bind ?*z-Chains* TRUE)
- (bind ?*t-Whips* TRUE)
+; (bind ?*t-Whips* TRUE)
 ; (bind ?*G-Whips* TRUE)
 
 
@@ -298,8 +298,8 @@
 
 ;;; Tridagons:
 ; (bind ?*Tridagons* TRUE)
-; (bind ?*Tridagon-Forcing-Whips* TRUE) ; not yet available
-; When Tridagon-Forcing-Whips are active, you may want to restrict the max length of all the chains:
+; (bind ?*Tridagon-Forcing-Whips* TRUE)
+;;; When Tridagon-Forcing-Whips are active, you may want to restrict the max length of all the chains:
 ; (bind ?*all-chains-max-length* 12)
 ;;; If you plan to give preferences to Tridagon-Forcing-Whips, it is reasonable to put an upper bound on their length;
 ;;; try to increase it progressively:

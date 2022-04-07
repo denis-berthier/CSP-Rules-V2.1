@@ -156,8 +156,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon link (same block) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) " (link cell), " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
@@ -269,8 +270,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon-link (horiz, same row) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  " (link cell), " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
@@ -382,8 +384,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon-link (horiz, different row) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) " (link cell), " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
@@ -495,8 +498,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon-link (verti, same column) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  " (link cell), " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
@@ -608,8 +612,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon-link (verti, different column) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) " (link cell), " (row-name ?row6) (column-name ?col3) crlf
@@ -721,8 +726,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon-link (opposite blocks) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
@@ -834,8 +840,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon-link (opposite blocks) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
@@ -947,8 +954,9 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
-            "extended tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon-link (opposite blocks) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf

@@ -160,6 +160,7 @@
 
 =>
     (if ?*print-actions* then
+        (pretty-print-current-resolution-state)
         (printout t
             "tridagon type " ?type " for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (target cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf

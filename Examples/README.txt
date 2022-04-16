@@ -1,1 +1,0 @@
-All the examples for the different CSP-Rules applications come from various websites, indicated by the names of the folders in which they appear.

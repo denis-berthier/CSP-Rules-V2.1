@@ -217,7 +217,14 @@ For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folde
 Notice that _the installation procedure must be redone every time you download a new release_. In order to avoid re-compiling CLIPS, you can keep a copy of it outside the CSP-Rules-V2.1 folder; you can similarly make a backup copy of your most frequently used config file.
 <br><br>
 
-## 7. References<br>
+## 7. Companion repositories<br>
+CSP-Rules-V2.1 has two companion repositories:
+* one including examples. The first releases of CSP-Rules-V2.1 had an EXAMPLES folder, with examples for all the included applications.
+For easier additions to the examples, not requiring to make an update to CSP-Rules itself, this folder has now been moved to an independent repository: https://github.com/denis-berthier/CSP-Rules-Examples.<br>
+* one including all the sofware and results related to the controlled-bias generation of puzzles: https://github.com/denis-berthier/Controlled-bias_Sudoku_generator_and_collection
+<br><br>
+
+## 8. References<br>
 (A copy of  the references is present in the "Publications" folder. Each of them can also be downloaded from ResearchGate: https://www.researchgate.net/profile/Denis-Berthier/research)<br>
 ### Articles<br>
 * [Berthier 2008a]: BERTHIER D., From Constraints to Resolution Rules, Part I: Conceptual Framework, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 08), December 5-13, 2008, Springer. Published as a chapter of Advanced Techniques in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 165-170, Springer, 2010.<br>

@@ -89,6 +89,8 @@
 (defglobal ?*Application-Dir* = (str-cat ?*CSP-Rules-current-version* ?*Application* "-V" ?*Application-VersionNumber* ?*Directory-symbol*))
 (defglobal ?*Application-Loader* = (str-cat ?*Application-Dir* ?*Application* "-Loader.clp"))
 
+(defglobal ?*CSP-Rules-Examples-Dir* = (str-cat ?*CSP-Rules* "CSP-Rules-Examples" ?*Directory-symbol*))
+
 ;;; load definitions for the global variables necessary for the upcoming choices
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "globals.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "globals.clp"))

@@ -54,7 +54,7 @@
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r813");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r815");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
@@ -90,6 +90,8 @@
 (defglobal ?*Application-Dir* = (str-cat ?*CSP-Rules-current-version* ?*Application* "-V" ?*Application-VersionNumber* ?*Directory-symbol*))
 (defglobal ?*Application-Loader* = (str-cat ?*Application-Dir* ?*Application* "-Loader.clp"))
 
+(defglobal ?*CSP-Rules-Examples-Dir* = (str-cat ?*CSP-Rules* "CSP-Rules-Examples" ?*Directory-symbol*))
+
 ;;; load definitions for the global variables necessary for the upcoming choices
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "globals.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "globals.clp"))
@@ -107,7 +109,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; By default, gird size is 9, as in Sudoku.
+;;; By default, grid size is 9, as in Sudoku.
 ;;; If needed, change grid size here (grid-size can be any integer)
 
 ; (bind ?*grid-size* 13) ;                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

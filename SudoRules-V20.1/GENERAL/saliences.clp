@@ -312,7 +312,10 @@
 (defglobal ?*activate-tridagon-forcing-whip[36]-salience* = 0)
 (defglobal ?*tridagon-forcing-whip[36]-salience* = 0)
 
-
+(defglobal ?*activate-eleven-replacement-based-on-tridagon-link-salience* = 0)
+(defglobal ?*eleven-replacement-based-on-tridagon-link-salience* = 0)
+(defglobal ?*activate-eleven-replacement-based-on-general-tridagon-salience* = 0)
+(defglobal ?*eleven-replacement-based-on-general-tridagon-salience* = 0)
 
 (deffunction define-specific-saliences-at-L6 ()
     (bind ?*activate-J2-Exocet-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
@@ -463,6 +466,12 @@
 (deffunction define-specific-saliences-at-L36 ()
     (bind ?*activate-tridagon-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*tridagon-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (bind ?*activate-eleven-replacement-based-on-tridagon-link-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*eleven-replacement-based-on-tridagon-link-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    
+    (bind ?*activate-eleven-replacement-based-on-general-tridagon-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*eleven-replacement-based-on-general-tridagon-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 
 

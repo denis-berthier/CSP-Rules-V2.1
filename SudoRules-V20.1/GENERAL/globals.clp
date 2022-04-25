@@ -122,6 +122,7 @@
 (defglobal ?*Tridagons* = FALSE)
 (defglobal ?*Tridagon-Forcing-Whips* = FALSE)
 (defglobal ?*tridagon-forcing-whips-max-length* = 36)
+(defglobal ?*Eleven-Replacement-in-Tridagons* = FALSE)
 
 
 (defglobal ?*FinnedFish* = FALSE)

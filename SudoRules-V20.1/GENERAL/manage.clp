@@ -147,7 +147,7 @@
     )
     (if (and ?*print-final-RS* (<= ?*segment-size* 5)) then
         (printout t "Final resolution state:" crlf)
-        (print-current-resolution-state)
+        (pretty-print-current-resolution-state)
     )
     (halt)
 )

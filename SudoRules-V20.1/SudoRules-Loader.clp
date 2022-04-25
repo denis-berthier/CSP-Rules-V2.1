@@ -63,6 +63,7 @@
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "two-step-solutions.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "eval-erasable-cands.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "fewer-step-solutions.clp"))
+(load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "eleven-replacement.clp"))
 
 
 
@@ -163,7 +164,6 @@
 
 (if ?*Tridagons* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Tridagon[12].clp"))
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Tridagon-links[12].clp"))
 )
 
 (if ?*Tridagon-Forcing-Whips* then
@@ -174,9 +174,18 @@
         )
     )
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "TRIDAGON-FORCING-WHIPS" ?*Directory-symbol* "Print-functions.clp"))
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Tridagon-links[12].clp"))
     (loop-for-count (?i 13 ?*tridagon-forcing-whips-max-length*)
         (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "TRIDAGON-FORCING-WHIPS" ?*Directory-symbol* "Tridagon-Forcing-Whips[" ?i "].clp"))
     )
+)
+
+(if ?*Eleven-Replacement-in-Tridagons* then
+    (if ?*Tridagon-Forcing-Whips* then
+        (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Replacement-based-on-Tridagon-links.clp"))
+    )
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol*
+        "Replacement-based-on-general-Tridagon.clp"))
 )
 
 

@@ -248,7 +248,7 @@
 ; (bind ?*G-Braids* TRUE)
 ; (bind ?*Quick-B-Rating* TRUE)
 
- (bind ?*Oddagons* TRUE)
+; (bind ?*Oddagons* TRUE)
 
 
 
@@ -282,10 +282,11 @@
 
 
 
-;;; Exotic patterns
+;;; Exotic patterns:
 ;;; Belt (sk-loop), J-Exocet and Tridagon rules fall under the category of what I called exotic patterns,
-;;; because they are very specialised and rarely present in a puzzle -
-;;; a name that has immediately been adopted on the Sudoku forums
+;;; because they are very specialised and very rarely present in a puzzle -
+;;; a name that has immediately been adopted on the Sudoku forums.
+;;; When present in a puzzle, they are generally very powerful to reduce its difficulty.
 
 ;;; sk-loops:
 ; (bind ?*Belt4* TRUE)
@@ -298,14 +299,28 @@
 ; (bind ?*J4-Exocet* TRUE)
 ; (bind ?*J5-Exocet* TRUE)
 
+
 ;;; Tridagons:
 ; (bind ?*Tridagons* TRUE)
+
+;;; Tridagon-Forcing-Whips:
+;;; (Remember that Tridagon-Forcing-Whips => Tridagons)
 ; (bind ?*Tridagon-Forcing-Whips* TRUE)
-;;; When Tridagon-Forcing-Whips are active, you may want to restrict the max length of all the chains:
+
+;;; When Tridagon-Forcing-Whips or Eleven-Replacement-in-Tridagons are active, you may want to restrict the max length of all the chains.
 ; (bind ?*all-chains-max-length* 12)
-;;; If you plan to give preferences to Tridagon-Forcing-Whips, it is reasonable to put an upper bound on their length;
-;;; try to increase it progressively:
+
+;;; If you plan to solve with preferences for Tridagon-Forcing-Whips, it is reasonable to put an upper bound on their length;
+;;; try to increase it progressively.
 ; (bind ?*tridagon-forcing-whips-max-length* 15)
+
+
+;;; Eleven's replacement technique:
+;;; Allow the automatic use of eleven's replacmeent method based on tridagons.
+;;; (Note that the method is much more general; here, the tridaon structure is only used to define a starting point).
+;;; The method will be applied only after all the other rules.
+; (bind ?*Eleven-Replacement-in-Tridagons* TRUE)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

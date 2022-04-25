@@ -207,7 +207,7 @@
     (if ?*print-final-RS* then
         (printout t "CSP IS NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
         (printout t "Final resolution state:" crlf)
-        (print-current-resolution-state)
+        (pretty-print-current-resolution-state)
     )
     (bind ?*solution-found* FALSE)
 	(halt)

@@ -169,6 +169,10 @@
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row1 ?col4 ?row2 ?col5 ?row3 ?col6))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col1 ?row5 ?col2 ?row6 ?col3))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col4i ?row5 ?col5i ?row6 ?col6i))
 )
 
 
@@ -283,6 +287,9 @@
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col1 ?row5 ?col2 ?row6 ?col3))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col4i ?row5 ?col5i ?row6 ?col6i))
 )
 
 
@@ -397,6 +404,9 @@
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col1 ?row5 ?col2 ?row6 ?col3))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col4i ?row5 ?col5i ?row6 ?col6i))
 )
 
 
@@ -511,6 +521,9 @@
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row1 ?col4 ?row2 ?col5 ?row3 ?col6))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col4i ?row5 ?col5i ?row6 ?col6i))
 )
 
 
@@ -625,6 +638,9 @@
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row1 ?col4 ?row2 ?col5 ?row3 ?col6))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col4i ?row5 ?col5i ?row6 ?col6i))
 )
 
 
@@ -729,16 +745,19 @@
         (pretty-print-current-resolution-state)
         (printout t
             "tridagon-link (opposite blocks) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
-            "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
+            "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
-            "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i) crlf
+            "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  " (link cell), " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i) crlf
             ?*implication-sign* "tridagon-link[12](" (print-label ?laba) ", " (print-label ?labb) ")" crlf
         )
     )
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row1 ?col4 ?row2 ?col5 ?row3 ?col6))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col1 ?row5 ?col2 ?row6 ?col3))
 )
 
 
@@ -843,16 +862,19 @@
         (pretty-print-current-resolution-state)
         (printout t
             "tridagon-link (opposite blocks) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
-            "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
+            "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
-            "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i) crlf
+            "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) " (link cell), " (row-name ?row6) (column-name ?col6i) crlf
             ?*implication-sign* "tridagon-link[12](" (print-label ?laba) ", " (print-label ?labb) ")" crlf
         )
     )
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row1 ?col4 ?row2 ?col5 ?row3 ?col6))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col1 ?row5 ?col2 ?row6 ?col3))
 )
 
 
@@ -957,16 +979,19 @@
         (pretty-print-current-resolution-state)
         (printout t
             "tridagon-link (opposite blocks) for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
-            "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
+            "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (link cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
-            "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i)  "" crlf
+            "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i)  " (link cell)" crlf
             ?*implication-sign* "tridagon-link[12](" (print-label ?laba) ", " (print-label ?labb) ")" crlf
         )
     )
     (assert (OR-link ?cont 12 tridagon-link  ?laba ?labb))
     (assert (OR-link ?cont 12 tridagon-link  ?labb ?laba))
     (bind ?*has-tridagon* TRUE)
+    ;;; allow to start eleven's replacement method from this point:
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row1 ?col4 ?row2 ?col5 ?row3 ?col6))
+    (assert (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row4 ?col1 ?row5 ?col2 ?row6 ?col3))
 )
 
 

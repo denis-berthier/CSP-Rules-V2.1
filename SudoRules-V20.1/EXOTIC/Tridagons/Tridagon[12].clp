@@ -84,7 +84,7 @@
     
     ; (test (progn (printout t "block " ?b11 " OK" crlf) TRUE))
     
-    ;;; 2nd block, b12, in same band:
+    ;;; 2nd block, b12, in same band as the 1st:
     (candidate (context ?cont) (status cand) (block ?b12&~?b11) (square ?sq14) (row ?row1) (column ?col4) (number ?nb1))
     (candidate (context ?cont) (status cand) (block ?b12) (square ?sq14) (number ?nb2))
     (candidate (context ?cont) (status cand) (block ?b12) (square ?sq14) (number ?nb3))
@@ -120,7 +120,7 @@
     
     ; (test (progn (printout t "block " ?b21 " OK" crlf) TRUE))
 
-    ;;; 4th block, b22, in same band and in same stack as the 1st:
+    ;;; 4th block, b22, in same band as the 3rd and in same stack as the 2nd:
     (candidate (context ?cont) (status cand) (block ?b22&~?b11&~?b12&~?b21) (square ?sq44i) (row ?row4) (column ?col4i) (number ?nb1))
     (candidate (context ?cont) (status cand) (block ?b22) (square ?sq44i) (number ?nb2))
     (candidate (context ?cont) (status cand) (block ?b22) (square ?sq44i) (number ?nb3))

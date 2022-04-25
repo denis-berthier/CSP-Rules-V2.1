@@ -63,7 +63,7 @@
         ?*Directory-symbol* "PARTIAL-WHIPS" ?*Directory-symbol* "Partial-Whips[1].clp")
 )
 
-(loop-for-count (?i 1 36)
+(loop-for-count (?i 2 36)
     ;;; typed-bivalue-chains ≥ 2
     (if (and ?*Typed-Bivalue-Chains* (<= ?i ?*typed-bivalue-chains-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"

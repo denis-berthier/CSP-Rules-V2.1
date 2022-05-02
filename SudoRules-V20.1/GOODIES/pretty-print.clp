@@ -117,3 +117,44 @@
 (deffunction pretty-print-sukaku-grid ($?sukaku-list)
     (pretty-print-sukaku-list (clean-grid-list $?sukaku-list))
 )
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Functions for printing the solution
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(deffunction pretty-print-solution-in-context (?cont)
+    ;;; a unique solution is supposed to have been found in context ?cont
+    (if (> ?*segment-size* 5) then
+        (printout t "print-solution works only for grid size ≤ 25" crlf)
+        (return FALSE)
+    )
+    (bind ?str "")
+    (foreach ?row ?*rows*
+        (foreach ?col ?*columns*
+            (foreach ?nb ?*numbers*
+                (do-for-all-facts ((?cand candidate))
+                    (and (= ?cand:context ?cont) (eq ?cand:status c-value) (= ?cand:row ?row) (= ?cand:column ?col) (= ?cand:number ?nb))
+                    (bind ?nb2 ?nb)
+                    ;;; add this line for 16x16 puzzles given in hexadecimal notation
+                    (if (eq ?*grid-size* 16) then (bind ?nb2 (transform-nb-to-hexa ?nb)))
+                    ;;; add this line for 25x25 puzzles given in alphabetical notation
+                    (if (eq ?*grid-size* 25) then (bind ?nb2 (transform-nb-to-25letters ?nb)))
+                    (bind ?str (str-cat ?str ?nb2))
+                )
+            )
+        )
+    )
+    (pretty-print-sudoku-string ?str)
+)
+
+(deffunction pretty-print-solution ()
+    (pretty-print-solution-in-context 0)
+)
+
+

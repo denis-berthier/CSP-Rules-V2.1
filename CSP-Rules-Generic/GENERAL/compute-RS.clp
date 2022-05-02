@@ -74,7 +74,10 @@
 
 ;;; These two generic functions are place-holders for application-specific ones
 (deffunction print-solution-in-context (?cont) TRUE)
+(deffunction pretty-print-solution-in-context (?cont) (print-solution-in-context ?cont))
+
 (deffunction print-solution () (print-solution-in-context 0))
+(deffunction pretty-print-solution () (print-solution))
 
 
 

@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - December 2021            ;;;
+               ;;;              January 2006 - May 2022               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -28,13 +28,15 @@
 
 
 
-;;; Functions for initializing and solving series of puzzles written in a text file
+;;; Functions for initializing and solving series of Sudoku puzzles written in a text file
+;;; Do not forget to check all the files have have the correct CR/LF ending for your file system
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 1) Puzzles given in string format (one per line)
+;;; 1) Sudoku puzzles given in string format (one per line)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -269,7 +271,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; functions for displaying a puzzle from a text file
+;;; functions for displaying a Sudoku puzzle from a text file
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -315,7 +317,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; functions for solving a puzzle written as an sdk file
+;;; functions for solving a Sudoku puzzle written as an sdk file
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -397,11 +399,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; functions for dealing with titled files
+;;; functions for dealing with titled files of Sudoku puzzles
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Note that, for simplicity, gsf's original file is transformed by adding a space after each comma.
+;;; Note that, for simplicity, gsf's original file is first transformed by adding a space after each comma.
 
 
 (deffunction display-nth-effective-line-from-titled-text-file (?file-name ?nb)
@@ -544,7 +546,7 @@
 
 
 
-(deffunction solve-n-gsf-grids-after-first-p-excluding (?file-name ?p ?n ?l-out)
+(deffunction solve-n-titled-grids-after-first-p-excluding (?file-name ?p ?n ?l-out)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -653,7 +655,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 2) Puzzles given in list format (one per line)
+;;; 2) Sudoku puzzles given in list format (one per line)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -714,6 +716,415 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 3) Sukaku puzzles given in string format (one per line)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(deffunction init-sukaku-from-string-file (?file-symb)
+    ;;; read line containing the sukaku data in list form
+    (bind ?lgrid (readline "file-symb"))
+    (if ?*print-actions* then (printout t ?lgrid crlf))
+    ;;; fixed facts and structures common to all the instances are defined here
+    (init-general-application-structures)
+    (bind ?*nb-csp-variables-solved* 0)
+    ;;; initialize candidates as in the data
+    (init-sukaku-string ?lgrid)
+)
+
+
+(deffunction solve-sukaku-from-string-file (?file-symb ?i)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; puzzle entries are taken into account here
+    (init-sukaku-from-string-file ?file-symb)
+    (assert (context (name 0)))
+    (assert (grid ?i))
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+    ;;; the grid is solved here
+    (bind ?n (run))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+        (printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb rules " ?nb-rules crlf)
+        ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
+        (printout t crlf)
+    )
+    (if ?*print-actions* then
+        (print-banner)
+        (printout t crlf)
+    )
+)
+
+
+
+(deffunction solve-n-sukakus-after-first-p-from-string-file (?file-name ?p ?n)
+    (if ?*print-actions* then (print-banner))
+    (bind ?*add-instance-to-solved-list* TRUE)
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*multi-sol-list* (create$))
+    (bind ?*exotic-list* (create$))
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*total-time* 0)
+    (bind ?*max-time* 0)
+    (bind ?*total-outer-time* (time))
+    (open ?file-name "file-symb" "r")
+    (bind ?i 1)
+    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (bind ?i (+ ?p 1))
+    (while (<= ?i (+ ?p ?n))
+        (printout t "#" ?i crlf)
+        (bind ?*has-exotic-pattern* FALSE)
+        (bind ?*has-belt* FALSE)
+        (bind ?*has-J-exocet* FALSE)
+        (bind ?*has-oddagon* FALSE)
+        (bind ?*has-tridagon* FALSE)
+
+        (solve-sukaku-from-string-file "file-symb" ?i)
+        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
+        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
+        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
+        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
+        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        (bind ?i (+ ?i 1))
+    )
+    (close "file-symb")
+    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
+)
+
+
+(deffunction solve-n-sukakus-after-first-p-from-string-file-excluding (?file-name ?p ?n ?l-out)
+    (if ?*print-actions* then (print-banner))
+    (bind ?*add-instance-to-solved-list* TRUE)
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*has-exotic-pattern* FALSE)
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*total-time* 0)
+    (bind ?*max-time* 0)
+    (bind ?*total-outer-time* (time))
+    (open ?file-name "file-symb" "r")
+    (bind ?i 1)
+    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (bind ?i (+ ?p 1))
+    (while (<= ?i (+ ?p ?n))
+        (if (member$ ?i ?l-out)
+            then (readline "file-symb")
+                 ;(printout t "#" ?i " in already solved lists" crlf)
+                 (printout t "#" ?i " " )
+            else
+                (printout t "#" ?i crlf)
+                (bind ?*has-exotic-pattern* FALSE)
+                (bind ?*has-belt* FALSE)
+                (bind ?*has-J-exocet* FALSE)
+                (bind ?*has-oddagon* FALSE)
+                (bind ?*has-tridagon* FALSE)
+
+                (solve-sukaku-from-string-file "file-symb" ?i)
+                (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
+                (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
+                (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
+                (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
+                (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        )
+        (bind ?i (+ ?i 1))
+    )
+    (close "file-symb")
+    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
+)
+
+
+
+(deffunction solve-n-sukakus-after-first-p-from-string-file-included-but-excluding (?file-name ?p ?n ?l-in ?l-out)
+    (if ?*print-actions* then (print-banner))
+    (bind ?*add-instance-to-solved-list* TRUE)
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*multi-sol-list* (create$))
+    (bind ?*has-exotic-pattern* FALSE)
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*total-time* 0)
+    (bind ?*max-time* 0)
+    (bind ?*total-outer-time* (time))
+    (open ?file-name "file-symb" "r")
+    (bind ?i 1)
+    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (bind ?i (+ ?p 1))
+    (while (<= ?i (+ ?p ?n))
+        (if (not (member$ ?i ?l-in))
+            then (readline "file-symb")
+                 ; (printout t ?i " not in selected list" crlf)
+            else (if (member$ ?i ?l-out)
+                    then (readline "file-symb")
+                        ; (printout t ?i " in already solved lists" crlf)
+                    else
+                        (printout t "#" ?i crlf)
+                        (bind ?*has-exotic-pattern* FALSE)
+                        (bind ?*has-belt* FALSE)
+                        (bind ?*has-J-exocet* FALSE)
+                        (bind ?*has-oddagon* FALSE)
+                        (bind ?*has-tridagon* FALSE)
+
+                        (solve-sukaku-from-string-file "file-symb" ?i)
+                        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
+                        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
+                        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
+                        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
+                        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+                )
+        )
+        (bind ?i (+ ?i 1))
+    )
+    (close "file-symb")
+    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
+)
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 4) Sukaku puzzles given in list format (one per line)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction init-sukaku-from-list-file (?file-symb)
+    ;;; read line containing the sukaku data in list form
+    (bind ?lgrid (explode$ (readline "file-symb")))
+    (if ?*print-actions* then (printout t ?lgrid crlf))
+    ;;; fixed facts and structures common to all the instances are defined here
+    (init-general-application-structures)
+    (bind ?*nb-csp-variables-solved* 0)
+    ;;; initialize candidates as in the data
+    (init-sukaku-list ?lgrid)
+)
+
+
+(deffunction solve-sukaku-from-list-file (?file-symb ?i)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; puzzle entries are taken into account here
+    (init-sukaku-from-list-file ?file-symb)
+    (assert (context (name 0)))
+    (assert (grid ?i))
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+    ;;; the grid is solved here
+    (bind ?n (run))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+        (printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb rules " ?nb-rules crlf)
+        ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
+        (printout t crlf)
+    )
+    (if ?*print-actions* then
+        (print-banner)
+        (printout t crlf)
+    )
+)
+
+
+
+(deffunction solve-n-sukakus-after-first-p-from-list-file (?file-name ?p ?n)
+    (if ?*print-actions* then (print-banner))
+    (bind ?*add-instance-to-solved-list* TRUE)
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*multi-sol-list* (create$))
+    (bind ?*exotic-list* (create$))
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*total-time* 0)
+    (bind ?*max-time* 0)
+    (bind ?*total-outer-time* (time))
+    (open ?file-name "file-symb" "r")
+    (bind ?i 1)
+    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (bind ?i (+ ?p 1))
+    (while (<= ?i (+ ?p ?n))
+        (printout t "#" ?i crlf)
+        (bind ?*has-exotic-pattern* FALSE)
+        (bind ?*has-belt* FALSE)
+        (bind ?*has-J-exocet* FALSE)
+        (bind ?*has-oddagon* FALSE)
+        (bind ?*has-tridagon* FALSE)
+
+        (solve-sukaku-from-list-file "file-symb" ?i)
+        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
+        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
+        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
+        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
+        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        (bind ?i (+ ?i 1))
+    )
+    (close "file-symb")
+    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
+)
+
+
+(deffunction solve-n-sukakus-after-first-p-from-list-file-excluding (?file-name ?p ?n ?l-out)
+    (if ?*print-actions* then (print-banner))
+    (bind ?*add-instance-to-solved-list* TRUE)
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*has-exotic-pattern* FALSE)
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*total-time* 0)
+    (bind ?*max-time* 0)
+    (bind ?*total-outer-time* (time))
+    (open ?file-name "file-symb" "r")
+    (bind ?i 1)
+    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (bind ?i (+ ?p 1))
+    (while (<= ?i (+ ?p ?n))
+        (if (member$ ?i ?l-out)
+            then (readline "file-symb")
+                 ;(printout t "#" ?i " in already solved lists" crlf)
+                 (printout t "#" ?i " " )
+            else
+                (printout t "#" ?i crlf)
+                (bind ?*has-exotic-pattern* FALSE)
+                (bind ?*has-belt* FALSE)
+                (bind ?*has-J-exocet* FALSE)
+                (bind ?*has-oddagon* FALSE)
+                (bind ?*has-tridagon* FALSE)
+
+                (solve-sukaku-from-list-file "file-symb" ?i)
+                (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
+                (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
+                (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
+                (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
+                (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        )
+        (bind ?i (+ ?i 1))
+    )
+    (close "file-symb")
+    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
+)
+
+
+
+(deffunction solve-n-sukakus-after-first-p-from-list-file-included-but-excluding (?file-name ?p ?n ?l-in ?l-out)
+    (if ?*print-actions* then (print-banner))
+    (bind ?*add-instance-to-solved-list* TRUE)
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*multi-sol-list* (create$))
+    (bind ?*has-exotic-pattern* FALSE)
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*total-time* 0)
+    (bind ?*max-time* 0)
+    (bind ?*total-outer-time* (time))
+    (open ?file-name "file-symb" "r")
+    (bind ?i 1)
+    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (bind ?i (+ ?p 1))
+    (while (<= ?i (+ ?p ?n))
+        (if (not (member$ ?i ?l-in))
+            then (readline "file-symb")
+                 ; (printout t ?i " not in selected list" crlf)
+            else (if (member$ ?i ?l-out)
+                    then (readline "file-symb")
+                        ; (printout t ?i " in already solved lists" crlf)
+                    else
+                        (printout t "#" ?i crlf)
+                        (bind ?*has-exotic-pattern* FALSE)
+                        (bind ?*has-belt* FALSE)
+                        (bind ?*has-J-exocet* FALSE)
+                        (bind ?*has-oddagon* FALSE)
+                        (bind ?*has-tridagon* FALSE)
+
+                        (solve-sukaku-from-list-file "file-symb" ?i)
+                        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
+                        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
+                        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
+                        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
+                        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+                )
+        )
+        (bind ?i (+ ?i 1))
+    )
+    (close "file-symb")
+    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
+)
 
 

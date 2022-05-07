@@ -186,7 +186,7 @@
     (print-solution-in-context ?cont)
 =>
     (if (or ?*print-solution* ?*save-solutions*) then
-        (print-solution-in-context ?cont)
+        (pretty-print-solution-in-context ?cont)
         (printout t "nb-facts = " ?sol crlf)
     )
     (halt)

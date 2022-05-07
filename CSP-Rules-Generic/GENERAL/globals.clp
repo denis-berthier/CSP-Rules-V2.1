@@ -371,6 +371,8 @@
 
 
 (defglobal ?*special-TE* = FALSE) ;;; by default, there is no priority in T&E for bivalue candidates
+(defglobal ?*restrict-TE-targets* = FALSE) ;;; by default, any candidate can be a target for T&E
+
 (defglobal ?*TE1* = FALSE) ;;; by default, there is no Trial and Error at depth 1
 (defglobal ?*TE2* = FALSE) ;;; by default, there is no Trial and Error at depth 2
 (defglobal ?*TE3* = FALSE) ;;; by default, there is no Trial and Error at depth 3

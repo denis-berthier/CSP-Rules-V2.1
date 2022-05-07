@@ -41,7 +41,11 @@
     ?gen <- (candidate (context ?par) (status cand) (label ?gen-cand))
     (bivalue ?cont ?gen-cand ? ?)
     (not (TE-tried ?par ?ph ?gen-cand))
-    
+    ;;; try only the candidates that are restricted targets for T&E
+    (or (test (not ?*restrict-TE-targets*))
+        (is-restricted-TE-target 0 ?gen-cand)
+    )
+
     ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
     ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)
     (or (not (candidate-in-focus (context ?par))) (candidate-in-focus (context ?par) (label ?zzz)))

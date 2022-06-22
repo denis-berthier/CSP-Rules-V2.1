@@ -146,17 +146,4 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; end init g-links
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defrule init-effective-glinks-end
-	(declare (salience ?*init-glinks-end-salience*))
-=>
-	(if ?*print-initial-state* then 
-        (printout t ?*nb-g-candidates* " g-candidates, " ?*csp-glinks-count* " csp-glinks and " ?*glinks-count* " glinks" crlf)
-    )
-)
+;;; defrule init-effective-glinks-end inherited from Generic

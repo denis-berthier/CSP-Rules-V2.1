@@ -40,7 +40,7 @@
 	(play)
     (context (name ?cont))
 =>
-	(assert (technique ?cont G-Whips))
+	(assert (technique ?cont g-candidates))
 	(define-glabels-and-glinks ?*horiz* ?*verti*)
 )
 
@@ -96,10 +96,4 @@
 )
 
 
-(defrule end-init-effective-glinks
-	(declare (salience ?*init-glinks-end-salience*))
-	?in <- (init)
-=>
-	(retract ?in)
-	(if ?*print-initial-state* then (printout t ?*glinks-count* " glinks" crlf))
-)
+;;; defrule init-effective-glinks-end inherited from Generic

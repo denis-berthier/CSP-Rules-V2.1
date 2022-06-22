@@ -413,10 +413,16 @@
 )
 
 
-;;; Also add this abbreviation for the most usual case:
+;;; Also add these abbreviations for the most usual case:
 
 (deffunction find-1-steppers (?sudoku-string)
     (find-sudoku-1-steppers-wrt-resolution-theory W1 ?sudoku-string)
+)
+
+(deffunction find-sukaku-1-steppers ($?sukaku-list)
+    (clean-grid-list
+        (find-sukaku-1-steppers-wrt-resolution-theory W1 ?sukaku-list)
+    )
 )
 
 

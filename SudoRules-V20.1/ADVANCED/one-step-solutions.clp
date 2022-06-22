@@ -398,6 +398,20 @@
     (find-sukaku-1-steppers-wrt-resolution-theory W1 ?sukaku-list)
 )
 
+;;; syntactic sugar for grid form:
+
+(deffunction find-sukaku-grid-1-steppers-wrt-BRT ($?sukaku-list)
+    (clean-grid-list
+        (find-sukaku-1-steppers-wrt-resolution-theory BRT ?sukaku-list)
+    )
+)
+
+(deffunction find-sukaku-grid-1-steppers-wrt-W1 ($?sukaku-list)
+    (clean-grid-list
+        (find-sukaku-1-steppers-wrt-resolution-theory W1 ?sukaku-list)
+    )
+)
+
 
 ;;; Also add this abbreviation for the most usual case:
 

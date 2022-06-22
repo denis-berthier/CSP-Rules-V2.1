@@ -439,8 +439,37 @@
 )
 
 
+(deffunction find-sukaku-grid-2-steppers-wrt-BRT ($?sukaku-list)
+    (clean-grid-list
+        (find-sukaku-2-steppers-wrt-resolution-theory BRT ?sukaku-list)
+    )
+)
+
+(deffunction find-sukaku-grid-2-steppers-wrt-W1 ($?sukaku-list)
+    (clean-grid-list
+        (find-sukaku-2-steppers-wrt-resolution-theory W1 ?sukaku-list)
+    )
+)
+
+
+;;; syntactic sugar for grid form:
+
+(deffunction find-sukaku-grid-2-steppers-wrt-BRT ($?sukaku-list)
+    (clean-grid-list
+        (find-sukaku-2-steppers-wrt-resolution-theory BRT ?sukaku-list)
+    )
+)
+
+(deffunction find-sukaku-grid-2-steppers-wrt-W1 ($?sukaku-list)
+    (clean-grid-list
+        (find-sukaku-2-steppers-wrt-resolution-theory W1 ?sukaku-list)
+    )
+)
+
+
 ;;; Also add this abbreviation for the most usual case:
 
 (deffunction find-2-steppers (?sudoku-string)
     (find-sudoku-2-steppers-wrt-resolution-theory W1 ?sudoku-string)
 )
+

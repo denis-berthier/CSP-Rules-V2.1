@@ -209,7 +209,7 @@
 	(declare (salience ?*init-glinks-end-salience*))
     (technique ?cont g-candidates)
 =>
-	(if ?*print-initial-state* then 
+	(if ?*print-actions* then 
         (printout t ?*nb-g-candidates* " g-candidates, " ?*csp-glinks-count* " csp-glinks and " ?*glinks-count* " non-csp glinks" crlf)
     )
 )

@@ -29,13 +29,13 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; functions for computing statistics
+;;; Functions for computing statistics
 ;;; on a series of puzzles written as a text file
 ;;; (one line per puzzle)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(deffunction stats-n-grids-after-first-p-from-text-file (?file-name ?p ?n ?levels-file ?times-file ?nb-facts-file)
+(deffunction classify-n-grids-after-first-p-from-text-file (?file-name ?p ?n ?levels-file ?times-file ?nb-facts-file)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
 	(bind ?*solved-list* (create$))
@@ -79,7 +79,7 @@
 
 
 
-(deffunction stats-n-grids-after-first-p-from-text-file-keeping-solutions (?file-name ?p ?n ?levels-file ?times-file ?nb-facts-file ?solns-file)
+(deffunction classify-n-grids-after-first-p-from-text-file-keeping-solutions (?file-name ?p ?n ?levels-file ?times-file ?nb-facts-file ?solns-file)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
 	(bind ?*solved-list* (create$))
@@ -147,10 +147,8 @@
 
 
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; functions for computing the correlation coefficient between two variables
+;;; Functions for computing the correlation coefficient between two variables
 ;;; written as sequences of values in two text files for a series of puzzles
 ;;; (one value per line)
 ;;; values are typically those produced by "stats-n-grids-after-first-p-from-text-file"
@@ -520,7 +518,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; functions for classifying puzzles according to some criterion
+;;; Functions for classifying puzzles according to some criterion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -1518,7 +1516,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; functions for computing the density
+;;; Functions for computing the density
 ;;; of a series of puzzles written as a text file
 ;;; (one line per puzzle)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -91,8 +91,8 @@
 	(if (or ?*print-actions* ?*print-L2* ?*print-typed-whip* ?*print-typed-whip-2*) then
 		(print-typed-whip-without-crlf ?csp-type 2 ?zzz (create$ ?llc1) (create$ ?rlc1) (create$ ?csp1) ?new-llc . ?new-csp)
 	)
-    (if (not ?*blocked-Whips[1]*
-        then (printout t crlf))
+    (if (not ?*blocked-Whips[1]*)
+        then (printout t crlf)
         else
             (assert (apply-rule-as-a-pseudo-block ?cont))
             (assert (pseudo-blocked ?cont typed-whip[2] ?csp-type ?zzz ?csp1 ?llc1 ?rlc1 ?new-csp ?new-llc))

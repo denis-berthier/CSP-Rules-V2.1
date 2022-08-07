@@ -161,7 +161,7 @@
 
 
 ;;; Tridagons
-(if ?*Tridagon-Forcing-Whips* then (bind ?*Tridagons* TRUE))
+(if (or ?*Tridagon-Forcing-Whips* (and ?*Anti-Tridagons* ?*OR2-Forcing-Whips*)) then (bind ?*Tridagons* TRUE))
 
 (if ?*Tridagons* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Tridagon[12].clp"))
@@ -180,6 +180,12 @@
         (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "TRIDAGON-FORCING-WHIPS" ?*Directory-symbol* "Tridagon-Forcing-Whips[" ?i "].clp"))
     )
 )
+
+(if ?*Anti-Tridagons* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "OR-k-anti-Tridagon[12].clp"))
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Symmetrify-OR-k.clp"))
+)
+
 
 
 ;;; modified eleven digit replacement method

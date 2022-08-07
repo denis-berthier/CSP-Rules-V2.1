@@ -31,7 +31,7 @@
 ;;; SPECIAL CASE. DO NOT USE THE AUTOMATIC GENERATOR
 
 
-;;; extension of an existing typed-partial-whip
+;;; define a typed-partial-whip[1]
 
 (defrule typed-partial-whip[1]
     (declare (salience ?*typed-partial-whip[1]-salience*))

@@ -101,6 +101,33 @@
     (if ?*Forcing-Whips* then
         (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*forcing-whips-max-length* ?*whips-max-length*))
     )
+    ;;; OR-k-Forcing-Whips do NOT change the max length of whips
+    ;;; This is bacause they are intended to work with exotic pattern as their OR-k starting point
+    ;(if ?*OR2-Forcing-Whips* then
+    ;    (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*OR2-forcing-whips-max-length* ?*whips-max-length*))
+    ;)
+    ;(if ?*OR3-Forcing-Whips* then
+    ;    (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*OR3-forcing-whips-max-length* ?*whips-max-length*))
+    ;)
+    ;(if ?*OR4-Forcing-Whips* then
+    ;    (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*OR4-forcing-whips-max-length* ?*whips-max-length*))
+    ;)
+    ;(if ?*OR5-Forcing-Whips* then
+    ;    (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*OR5-forcing-whips-max-length* ?*whips-max-length*))
+    ;)
+    ;;; Instead, add dependencies:
+    (if ?*OR5-Forcing-Whips* then
+        (bind ?*OR4-Forcing-Whips* TRUE)
+        (bind ?*OR4-forcing-whips-max-length* (max ?*OR5-forcing-whips-max-length* ?*OR4-forcing-whips-max-length*))
+    )
+    (if ?*OR4-Forcing-Whips* then
+        (bind ?*OR3-Forcing-Whips* TRUE)
+        (bind ?*OR3-forcing-whips-max-length* (max ?*OR4-forcing-whips-max-length* ?*OR3-forcing-whips-max-length*))
+    )
+    (if ?*OR3-Forcing-Whips* then
+        (bind ?*OR2-Forcing-Whips* TRUE)
+        (bind ?*OR2-forcing-whips-max-length* (max ?*OR3-forcing-whips-max-length* ?*OR2-forcing-whips-max-length*))
+    )
 
     ;;; Bivalue-chains, whips, g-bivalue-chains, gwhips, braids, gbraids
     (if ?*G-Braids* then
@@ -415,6 +442,33 @@
             ?*Directory-symbol* "Partial-Whips[1].clp")
     )
 )
+ 
+;;; OR-k Forcing-Whips[1]
+(if ?*OR2-Forcing-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+        ?*Directory-symbol* "OR2-FORCING-WHIPS"
+        ?*Directory-symbol* "OR2-Forcing-Whips[1].clp")
+    )
+)
+(if ?*OR3-Forcing-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+        ?*Directory-symbol* "OR3-FORCING-WHIPS"
+        ?*Directory-symbol* "OR3-Forcing-Whips[1].clp")
+    )
+)
+(if ?*OR4-Forcing-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+        ?*Directory-symbol* "OR4-FORCING-WHIPS"
+        ?*Directory-symbol* "OR4-Forcing-Whips[1].clp")
+    )
+)
+(if ?*OR5-Forcing-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+        ?*Directory-symbol* "OR5-FORCING-WHIPS"
+        ?*Directory-symbol* "OR5-Forcing-Whips[1].clp")
+    )
+)
+
 
 
 (bind ?i 2)
@@ -579,6 +633,32 @@
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
             ?*Directory-symbol* "FORCING-WHIPS"
             ?*Directory-symbol* "Forcing-Whips[" ?i "].clp")
+        )
+    )
+
+    ;;; OR-k forcing whips
+    (if (and ?*OR2-Forcing-Whips* (<= ?i ?*OR2-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR2-FORCING-WHIPS"
+            ?*Directory-symbol* "OR2-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR3-Forcing-Whips* (<= ?i ?*OR3-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR3-FORCING-WHIPS"
+            ?*Directory-symbol* "OR3-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR4-Forcing-Whips* (<= ?i ?*OR4-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR4-FORCING-WHIPS"
+            ?*Directory-symbol* "OR4-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR5-Forcing-Whips* (<= ?i ?*OR5-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR5-FORCING-WHIPS"
+            ?*Directory-symbol* "OR5-Forcing-Whips[" ?i "].clp")
         )
     )
 

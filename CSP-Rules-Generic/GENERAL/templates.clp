@@ -261,8 +261,10 @@
 	(slot generating-cand (type INTEGER) (default 0))
     ;;; used only for bi-Trial-and-Error:
     (slot generating-cand2 (type INTEGER) (default 0))
-    ;;; used only for Forcing3-T&E
+    ;;; used only for Forcing3-T&E:
     (slot generating-cand3 (type INTEGER) (default 0))
+    ;;; used only for Forcing4-T&E:
+    (slot generating-cand4 (type INTEGER) (default 0))
 )
 
 
@@ -377,17 +379,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; BI-CHAINS
+;;; CONTRADICTION CHAINS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; This is used for all the types of bi-chains
+;;; This is used for all the types of contradiction chains
 
-(deftemplate bi-chain
-    (slot type (type SYMBOL)) ; allowed-values: bivalue-chain partial-whip ...
+(deftemplate contrad-chain
+    (slot type (type SYMBOL) (default NIL) (allowed-values NIL bi-whip bi-braid partial-bi-whip partial-bi-braid bi-TE))
     (slot context (type INTEGER) (default 0))
-    (slot length (type INTEGER) (default 0))
+    (slot length (type INTEGER) (default 999))
     (slot end1 (type INTEGER) (default 0))
     (slot end2 (type INTEGER) (default 0))
     ;;; the sequence of left-linking candidates:
@@ -417,6 +419,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; This is intended for all the types of Subsets and g-Subsets
+;;; Currently not used
 
 (deftemplate subset
     (slot type (type SYMBOL)) 
@@ -435,9 +438,32 @@
 (deftemplate constraint-set
     (slot name (type INTEGER))
     (slot type (type SYMBOL))
+    (slot context (type INTEGER) (default 0))
     (multislot elements) ; the list of labels pairwise linked by this constraint
     ;;; additional slots may be added for any specific application,
     ;;; but neither the above ones nor their specifications should be changed
 )
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; GENERAL OR{k} PATTERN
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; This is used for general types of forcing chains
+
+(deftemplate OR-k-relation
+    (slot OR-name (type SYMBOL)); example: Tridagon
+    (slot OR-complexity (type INTEGER))
+    (slot context (type INTEGER) (default 0))
+    (slot OR-size (type INTEGER) (default 0)) ; k
+    (multislot OR-candidates) ; the set of candidates related by an OR-k relation
+)
+
 
 

@@ -187,7 +187,7 @@
 	(bind ?i 1)
 	(while (< ?i (+ ?l 1))
 		(if (or (member$ ?i ?list1) (member$ ?i ?list2)) then
-			(bind ?result (union$ ?result (create$ ?i))))
+			(bind ?result (set-union ?result (create$ ?i))))
 		(bind ?i (+ ?i 1))
 	)
 	?result
@@ -201,7 +201,7 @@
     (bind ?i 1)
     (while (<= ?i ?l)
         (if (not (member$ ?i ?list)) then
-            (bind ?result (union$ ?result (create$ ?i))))
+            (bind ?result (set-union ?result (create$ ?i))))
         (bind ?i (+ ?i 1))
     )
     ?result

@@ -31,6 +31,8 @@
 ;;; SPECIAL CASE. DO NOT USE THE AUTOMATIC GENERATOR
 
 
+;;; define a partial-whip[1]
+
 (defrule partial-whip[1]
 	(declare (salience ?*partial-whip[1]-salience*))
 	(logical

@@ -53,12 +53,12 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r815");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r819");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
 (defglobal ?*Computer-description* =
-    "MacBookPro Retina Mid-2012 i7 2.7GHz, 16GB 1600MHz DDR3, MacOS 10.15.7"
+    "MacBookPro 16'' M1Max 2021, 64GB LPDDR5, MacOS 12.5"
 )                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -220,7 +220,7 @@
 
 
 ;;; Some additional rules I use frequently:
-; (bind ?*t-Whips* TRUE)
+ (bind ?*t-Whips* TRUE)
 ; (bind ?*G-Whips* TRUE)
 
 
@@ -269,61 +269,6 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Sudoku-specific rules (besides Subsets):
-;;; uniqueness and "exotic" patterns
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; U-resolution rules for uniqueness.
-;;; BEWARE: don't activate the following uniqueness rules,
-;;; if you are not sure that the puzzle has a unique solution.
-;;; The result would be undefined.
-; (bind ?*Unique-Rectangles* TRUE)
-; (bind ?*BUG* TRUE)
-
-
-
-;;; Exotic patterns:
-;;; Belt (sk-loop), J-Exocet and Tridagon rules fall under the category of what I called exotic patterns,
-;;; because they are very specialised and very rarely present in a puzzle -
-;;; a name that has immediately been adopted on the Sudoku forums.
-;;; When present in a puzzle, they are generally very powerful to reduce its difficulty.
-
-;;; sk-loops:
-; (bind ?*Belt4* TRUE)
-; (bind ?*Belt6* TRUE)
-
-;;; J-Exocets:
-; (bind ?*J-Exocet* TRUE)
-; (bind ?*J2-Exocet* TRUE)
-; (bind ?*J3-Exocet* TRUE)
-; (bind ?*J4-Exocet* TRUE)
-; (bind ?*J5-Exocet* TRUE)
-
-
-;;; Tridagons:
-; (bind ?*Tridagons* TRUE)
-
-;;; Tridagon-Forcing-Whips:
-;;; (Remember that Tridagon-Forcing-Whips => Tridagons)
-; (bind ?*Tridagon-Forcing-Whips* TRUE)
-
-;;; When Tridagon-Forcing-Whips or Eleven-Replacement-in-Tridagons are active, you may want to restrict the max length of all the chains.
-; (bind ?*all-chains-max-length* 12)
-
-;;; If you plan to solve with preferences for Tridagon-Forcing-Whips, it is reasonable to put an upper bound on their length;
-;;; try to increase it progressively.
-; (bind ?*tridagon-forcing-whips-max-length* 15)
-
-
-;;; Eleven's replacement technique:
-;;; Allow the automatic use of eleven's replacmeent method based on tridagons.
-;;; (Note that the method is much more general; here, the tridaon structure is only used to define a starting point).
-;;; The method will be applied only after all the other rules.
-; (bind ?*Eleven-Replacement-in-Tridagons* TRUE)
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Change the default maximal lengths of the chain patterns
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -353,6 +298,76 @@
 ; (bind ?*forcing-gwhips-max-length* 36)
 ; (bind ?*forcing-braids-max-length* 36)
 ; (bind ?*forcing-gbraids-max-length* 36)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Sudoku-specific rules (besides Subsets): uniqueness
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; 1) U-resolution rules for uniqueness
+;;; BEWARE: don't activate the following uniqueness rules,
+;;; if you are not sure that the puzzle has a unique solution.
+;;; The result would be undefined.
+; (bind ?*Unique-Rectangles* TRUE)
+; (bind ?*BUG* TRUE)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Sudoku-specific rules (besides Subsets): "exotic" patterns
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Belt (sk-loop), J-Exocet and Tridagon rules fall under the category of what I called exotic patterns,
+;;; because they are very specialised and very rarely present in a puzzle -
+;;; a name that has immediately been adopted on the Sudoku forums.
+;;; When present in a puzzle, they are generally very powerful to reduce its difficulty.
+
+;;; 1) sk-loops:
+; (bind ?*Belt4* TRUE)
+; (bind ?*Belt6* TRUE)
+
+;;; 2) J-Exocets:
+; (bind ?*J-Exocet* TRUE)
+; (bind ?*J2-Exocet* TRUE)
+; (bind ?*J3-Exocet* TRUE)
+; (bind ?*J4-Exocet* TRUE)
+; (bind ?*J5-Exocet* TRUE)
+
+
+;;; 3) Tridagons and patterns related to puzzles in T&E(3)
+;;; Use the simplest elimination rule for Tridagons:
+; (bind ?*Tridagons* TRUE)
+
+;;; Use Tridagon-Forcing-Whips (based on Tridagon-links):
+;;; (Remember that Tridagon-Forcing-Whips => Tridagons)
+; (bind ?*Tridagon-Forcing-Whips* TRUE)
+
+;;; Use OR-k-Forcing-Whips in combination with Anti-Tridagons:
+; (bind ?*Anti-Tridagons* TRUE)
+; (bind ?*OR2-Forcing-Whips* True)
+; (bind ?*OR3-Forcing-Whips* True)
+; (bind ?*OR4-Forcing-Whips* True)
+; (bind ?*OR5-Forcing-Whips* True)
+
+;;; Note: DO NOT use Tridagon-Forcing-Whips and ORk-Forcing-Whips at  the same time
+
+;;; If you use Tridagon-Forcing-Whips or OR-k-Forcing-Whips or Eleven-Replacement-in-Tridagons,
+;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and forcing-chains;
+;;; 5 is a good starting point (15 for Tridagon-Forcing-Whips);
+;;; try to increase these lengths progressively.
+; (bind ?*all-chains-max-length* 5)
+; (bind ?*tridagon-forcing-whips-max-length* 15)
+; (bind ?*OR2-forcing-whips-max-length* 5)
+; (bind ?*OR3-forcing-whips-max-length* 5)
+; (bind ?*OR4-forcing-whips-max-length* 5)
+; (bind ?*OR5-forcing-whips-max-length* 5)
+
+;;; Eleven's replacement technique:
+;;; Allow the automatic use of eleven's replacmeent method based on tridagons.
+;;; (Note that the method is much more general; here, the tridaon structure is only used to define a starting point).
+;;; The method will be applied only when no other rule is applicable.
+; (bind ?*Eleven-Replacement-in-Tridagons* TRUE)
 
 
 

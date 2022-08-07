@@ -262,6 +262,10 @@
 ;;; first define a place-holder function; it will be redefined in "goodies"
 (deffunction pretty-print-sukaku-list ($?list) ?list)
 
+(deffunction pretty-print-current-resolution-state-in-context (?cont)
+    (pretty-print-sukaku-list (compute-current-resolution-state-in-context ?cont))
+)
+
 (deffunction pretty-print-current-resolution-state ()
     (pretty-print-sukaku-list (compute-current-resolution-state))
 )

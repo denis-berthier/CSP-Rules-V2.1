@@ -708,7 +708,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Functions for initialising and solving a puzzle given as a list
+;;; Functions for initialising and solving a Sudoku puzzle given as a list
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -724,7 +724,6 @@
 ;;;  . 3 .  . . .  . . 6
 ;;;  . . 7  1 . .  . 2 .
 ;;;  4 . .  . . 7  5 . .
-;;; the functions has to be called by (solve-grid-as-list (create$ the_above_list))
 
 (deffunction init-values-from-list ($?list)
 	;;; Assert the values and the associated c-values for cells with given entries.
@@ -1017,7 +1016,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 4) SYNTACTIC SUGAR FOR SUDOKU AND SUKAKU GRIDS
+;;; 4) SYNTACTIC SUGAR FOR INITIALISING AND SOLVING SUDOKU AND SUKAKU GRIDS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1161,3 +1160,286 @@
 (deffunction solve-sukaku-grid ($?sukaku-grid)
     (solve-sukaku-list (clean-grid-list $?sukaku-grid))
 )
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 5) FUNCTIONS FOR INITIALISING AND SOLVING SUKAKUS GIVEN IN RN, CN OR BN SPACE
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; givens in rn-space
+
+(deffunction init-sukaku-list-rn ($?list)
+    (reset) (reset)
+    ;;; General background is defined here (fixed facts and structures common to all the instances)
+    (init-general-application-structures)
+    ;;; Puzzle entries are taken into account here
+    (bind ?*nb-csp-variables-solved* 0)
+    (bind ?*nb-candidates* 0)
+    ;;; For every rn-cell,
+    (foreach ?row ?*rows*
+        (foreach ?nb ?*numbers*
+            ;;; read the content of the rn-cell from the entries and turn it into a string:
+            (bind ?i (cell-index ?row ?nb)) ;;; function cell-index works the same way in rn-space
+            (bind ?cand-str (implode$ (create$ (nth$ ?i $?list))))
+            ;;; transform this string into a list of column-candidates:
+            (bind ?cand-list (create$))
+            (loop-for-count (?j 1 (str-length ?cand-str))
+                (bind ?col (nth$ 1 (explode$ (sub-string ?j ?j ?cand-str))))
+                ;;; add these two lines for 16x16 or 25x25 puzzles given in hexadecimal notation
+                (if (eq ?*grid-size* 16) then (bind ?col (transform-hexa-to-nb ?col)))
+                (if (eq ?*grid-size* 25) then (bind ?col (transform-25letters-to-nb ?col)))
+                ;;; add this candiadte to the list of candidates for this cell
+                (bind ?cand-list (create$ ?cand-list ?col))
+            )
+            ;;; use this list for asserting c-values and candidates
+            (if (eq (length$ ?cand-list) 1)
+                then ; there is a single candidate for this rn-cell; assert it as a c-value
+                    (bind ?col (nth$ 1 ?cand-list))
+                    (bind ?blk (block ?row ?col))
+                    (bind ?sq (square ?row ?col))
+                    (bind ?xxx (nrc-to-label ?nb ?row ?col))
+                    (assert (candidate
+                                (context 0) (status c-value)
+                                (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                    ))
+                    (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+                    (if (or ?*print-all-details* ?*print-init-details*) then
+                        (printout t "Asserting entry: " (row-name ?row)(column-name ?col) ?*equal-sign* ?nb crlf)
+                    )
+                else ; assert each element as a candidate for this cell
+                    (foreach ?col ?cand-list
+                        (bind ?xxx (nrc-to-label ?nb ?row ?col))
+                        (bind ?blk (block ?row ?col))
+                        (bind ?sq (square ?row ?col))
+                        (assert (candidate
+                                    (context 0) (status cand)
+                                    (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                        ))
+                        (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
+                        (if (or ?*print-all-details* ?*print-init-details*) then
+                            (printout t "Asserting candidate " ?nb " for " (row-name ?row)(column-name ?col) crlf)
+                        )
+                    )
+            )
+        )
+    )
+    (assert (context (name 0)))
+    (assert (grid 0))
+    ; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
+)
+
+
+(deffunction solve-sukaku-list-rn ($?list)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; General background plus puzzle entries are taken into account here
+    (init-sukaku-list-rn $?list)
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+
+    ;;; The puzzle is solved here
+    (bind ?n (run))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t "Puzzle " $?list " :" crlf)
+        (printout t
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
+)
+
+
+
+;;; givens in cn-space
+
+(deffunction init-sukaku-list-cn ($?list)
+    (reset) (reset)
+    ;;; General background is defined here (fixed facts and structures common to all the instances)
+    (init-general-application-structures)
+    ;;; Puzzle entries are taken into account here
+    (bind ?*nb-csp-variables-solved* 0)
+    (bind ?*nb-candidates* 0)
+    ;;; For every cn-cell,
+    (foreach ?col ?*columns*
+        (foreach ?nb ?*numbers*
+            ;;; read the content of the cn-cell from the entries and turn it into a string:
+            (bind ?i (cell-index ?col ?nb)) ;;; function cell-index works the same way in cn-space
+            (bind ?cand-str (implode$ (create$ (nth$ ?i $?list))))
+            ;;; transform this string into a list of row-candidates:
+            (bind ?cand-list (create$))
+            (loop-for-count (?j 1 (str-length ?cand-str))
+                (bind ?row (nth$ 1 (explode$ (sub-string ?j ?j ?cand-str))))
+                ;;; add these two lines for 16x16 or 25x25 puzzles given in hexadecimal notation
+                (if (eq ?*grid-size* 16) then (bind ?row (transform-hexa-to-nb ?row)))
+                (if (eq ?*grid-size* 25) then (bind ?row (transform-25letters-to-nb ?row)))
+                ;;; add this candiadte to the list of candidates for this cell
+                (bind ?cand-list (create$ ?cand-list ?row))
+            )
+            ;;; use this list for asserting c-values and candidates
+            (if (eq (length$ ?cand-list) 1)
+                then ; there is a single candidate for this cn-cell; assert it as a c-value
+                    (bind ?row (nth$ 1 ?cand-list))
+                    (bind ?blk (block ?row ?col))
+                    (bind ?sq (square ?row ?col))
+                    (bind ?xxx (nrc-to-label ?nb ?row ?col))
+                    (assert (candidate
+                                (context 0) (status c-value)
+                                (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                    ))
+                    (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+                    (if (or ?*print-all-details* ?*print-init-details*) then
+                        (printout t "Asserting entry: " (row-name ?row)(column-name ?col) ?*equal-sign* ?nb crlf)
+                    )
+                else ; assert each element as a candidate for this cell
+                    (foreach ?row ?cand-list
+                        (bind ?xxx (nrc-to-label ?nb ?row ?col))
+                        (bind ?blk (block ?row ?col))
+                        (bind ?sq (square ?row ?col))
+                        (assert (candidate
+                                    (context 0) (status cand)
+                                    (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                        ))
+                        (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
+                        (if (or ?*print-all-details* ?*print-init-details*) then
+                            (printout t "Asserting candidate " ?nb " for " (row-name ?row)(column-name ?col) crlf)
+                        )
+                    )
+            )
+        )
+    )
+    (assert (context (name 0)))
+    (assert (grid 0))
+    ; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
+)
+
+
+(deffunction solve-sukaku-list-cn ($?list)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; General background plus puzzle entries are taken into account here
+    (init-sukaku-list-cn $?list)
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+
+    ;;; The puzzle is solved here
+    (bind ?n (run))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t "Puzzle " $?list " :" crlf)
+        (printout t
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
+)
+
+
+
+;;; givens in bn-space (givens are supposed to be positions in each block)
+
+(deffunction init-sukaku-list-bn ($?list)
+    (reset) (reset)
+    ;;; General background is defined here (fixed facts and structures common to all the instances)
+    (init-general-application-structures)
+    ;;; Puzzle entries are taken into account here
+    (bind ?*nb-csp-variables-solved* 0)
+    (bind ?*nb-candidates* 0)
+    ;;; For every bn-cell,
+    (foreach ?blk ?*blocks*
+        (foreach ?nb ?*numbers*
+            ;;; read the content of the bn-cell from the entries and turn it into a string:
+            (bind ?i (cell-index ?blk ?nb)) ;;; function cell-index works the same way in bn-space
+            (bind ?cand-str (implode$ (create$ (nth$ ?i $?list))))
+            ;;; transform this string into a list of s-candidates:
+            (bind ?cand-list (create$))
+            (loop-for-count (?j 1 (str-length ?cand-str))
+                (bind ?sqr (nth$ 1 (explode$ (sub-string ?j ?j ?cand-str))))
+                ;;; add these two lines for 16x16 or 25x25 puzzles given in hexadecimal notation
+                (if (eq ?*grid-size* 16) then (bind ?sqr (transform-hexa-to-nb ?sqr)))
+                (if (eq ?*grid-size* 25) then (bind ?sqr (transform-25letters-to-nb ?sqr)))
+                ;;; add this candiadte to the list of candidates for this cell
+                (bind ?cand-list (create$ ?cand-list ?sqr))
+            )
+            ;;; use this list for asserting c-values and candidates
+            (if (eq (length$ ?cand-list) 1)
+                then ; there is a single candidate for this rn-cell; assert it as a c-value
+                    (bind ?sqr (nth$ 1 ?cand-list))
+                    (bind ?row (row ?blk ?sqr))
+                    (bind ?col (column ?blk ?sqr))
+                    (bind ?xxx (nrc-to-label ?nb ?row ?col))
+                    (assert (candidate
+                                (context 0) (status c-value)
+                                (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sqr)
+                    ))
+                    (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
+                    (if (or ?*print-all-details* ?*print-init-details*) then
+                        (printout t "Asserting entry: " (row-name ?row)(column-name ?col) ?*equal-sign* ?nb crlf)
+                    )
+                else ; assert each element as a candidate for this cell
+                    (foreach ?sqr ?cand-list
+                        (bind ?row (row ?blk ?sqr))
+                        (bind ?col (column ?blk ?sqr))
+                        (bind ?xxx (nrc-to-label ?nb ?row ?col))
+                        (assert (candidate
+                                    (context 0) (status cand)
+                                    (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sqr)
+                        ))
+                        (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
+                        (if (or ?*print-all-details* ?*print-init-details*) then
+                            (printout t "Asserting candidate " ?nb " for " (row-name ?row)(column-name ?col) crlf)
+                        )
+                    )
+            )
+        )
+    )
+    (assert (context (name 0)))
+    (assert (grid 0))
+    ; (if ?*print-initial-state* then (printout t " " ?*nb-candidates* " candidates" crlf))
+)
+
+
+(deffunction solve-sukaku-list-bn ($?list)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; General background plus puzzle entries are taken into account here
+    (init-sukaku-list-bn $?list)
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+
+    ;;; The puzzle is solved here
+    (bind ?n (run))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t "Puzzle " $?list " :" crlf)
+        (printout t
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
+)
+

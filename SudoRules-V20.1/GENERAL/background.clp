@@ -525,6 +525,30 @@
 )
 
 
+(defglobal ?*band1* = (create$ 1 2 3))
+(defglobal ?*band2* = (create$ 4 5 6))
+(defglobal ?*band3* = (create$ 7 8 9))
+
+(defglobal ?*stack1* = (create$ 1 4 7))
+(defglobal ?*stack2* = (create$ 2 5 8))
+(defglobal ?*stack3* = (create$ 3 6 9))
+
+(deffunction blocks-in-same-band (?bl1 ?bl2)
+    (or
+        (and (member$ ?bl1 ?*band1*) (member$ ?bl2 ?*band1*))
+        (and (member$ ?bl1 ?*band2*) (member$ ?bl2 ?*band2*))
+        (and (member$ ?bl1 ?*band3*) (member$ ?bl2 ?*band3*))
+    )
+)
+
+(deffunction blocks-in-same-stack (?bl1 ?bl2)
+    (or
+        (and (member$ ?bl1 ?*stack1*) (member$ ?bl2 ?*stack1*))
+        (and (member$ ?bl1 ?*stack2*) (member$ ?bl2 ?*stack2*))
+        (and (member$ ?bl1 ?*stack3*) (member$ ?bl2 ?*stack3*))
+    )
+)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

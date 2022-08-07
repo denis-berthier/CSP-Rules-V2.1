@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - August 2022              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -261,6 +261,8 @@
 (defglobal ?*tridagon[12]-salience* = 0)
 (defglobal ?*activate-tridagon-link[12]-salience* = 0)
 (defglobal ?*tridagon-link[12]-salience* = 0)
+(defglobal ?*activate-or-k-anti-tridagon[12]-salience* = 0)
+(defglobal ?*or-k-anti-tridagon[12]-salience* = 0)
 (defglobal ?*activate-tridagon-forcing-whip[12]-salience* = 0)
 (defglobal ?*tridagon-forcing-whip[12]-salience* = 0)
 (defglobal ?*activate-tridagon-forcing-whip[13]-salience* = 0)
@@ -339,6 +341,9 @@
 
     (bind ?*activate-tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+
+    (bind ?*activate-or-k-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    (bind ?*or-k-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
 
     (bind ?*activate-tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))

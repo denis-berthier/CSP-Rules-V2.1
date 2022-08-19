@@ -73,7 +73,7 @@
         (bind ?*Typed-t-Whips* TRUE)
         (bind ?*Typed-Whips* TRUE)
         (bind ?*Typed-g-Whips* TRUE)
-        (bind ?*Forcing-G-Braids* TRUE)
+        (bind ?*Forcing-G-Braids* TRUE) ; which will imply all whips, braids...
         ;;; add those that are not implied by the previous ones:
         (bind ?*Bivalue-Chains* TRUE)
         (bind ?*G-Bivalue-Chains* TRUE)
@@ -101,6 +101,14 @@
     (if ?*Forcing-Whips* then
         (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*forcing-whips-max-length* ?*whips-max-length*))
     )
+    (if ?*Forcing5-Whips* then (bind ?*Forcing4-Whips* TRUE))
+    (if ?*Forcing4-Whips* then (bind ?*Forcing3-Whips* TRUE))
+    (if ?*Forcing3-Whips* then (bind ?*Forcing2-Whips* TRUE))
+    (if ?*Forcing2-Whips* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*forcing-whips-max-length* ?*whips-max-length*))
+    )
+
+    
     ;;; OR-k-Forcing-Whips do NOT change the max length of whips
     ;;; This is bacause they are intended to work with exotic pattern as their OR-k starting point
     ;(if ?*OR2-Forcing-Whips* then
@@ -171,6 +179,7 @@
             ?*Typed-Whips*
             ?*Whips*
             ?*Quick-B-Rating*
+            ?*OR2-Forcing-Whips*
         )
         then (bind ?*Whips[1]* TRUE)
     )
@@ -248,7 +257,7 @@
     (if ?*Whips* then (bind ?*generic-rating-type* "W"))
     (if ?*Braids* then (bind ?*generic-rating-type* "B"))
     ;;; not yet implemented:
-    (if ?*Quick-B-Rating* then (bind ?*generic-rating-type* "B-Rating"))
+    (if ?*Quick-B-Rating* then (bind ?*generic-rating-type* "QB"))
 
     ;;; chains with g-labels
     (if ?*G-Bivalue-Chains* then
@@ -288,6 +297,9 @@
     ;;; Forcing chains
     (bind ?forcing-type "")
     (if ?*Forcing-Whips* then (bind ?forcing-type "FW"))
+    (if ?*Forcing3-Whips* then (bind ?forcing-type "F3W"))
+    (if ?*Forcing4-Whips* then (bind ?forcing-type "F4W"))
+    (if ?*Forcing5-Whips* then (bind ?forcing-type "F5W"))
     (if ?*Forcing-G-Whips* then (bind ?forcing-type "FgW"))
     (if ?*Forcing-Braids* then (bind ?forcing-type "FB"))
     (if (and ?*Forcing-G-Whips* ?*Forcing-Braids*) then (bind ?forcing-type "FgW+FB"))
@@ -398,9 +410,32 @@
 )
 
 
-;;; Bivalue
+;;; Bivalue and k-value
 (if (or ?*Subsets[2]* ?*Bivalue-Chains* ?*Typed-Bivalue-Chains* ?*Oddagons* ?*Forcing-Whips* ?*special-TE* ?*Forcing{2}-TE* ?*special-DFS*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Bivalue.clp"))
+)
+(if ?*Forcing2-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL"
+        ?*Directory-symbol* "2-value.clp")
+    )
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL"
+        ?*Directory-symbol* "symmetrify-OR-k.clp")
+    )
+)
+(if ?*Forcing3-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL"
+        ?*Directory-symbol* "3-value.clp")
+    )
+)
+(if ?*Forcing4-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL"
+        ?*Directory-symbol* "4-value.clp")
+    )
+)
+(if ?*Forcing5-Whips* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL"
+        ?*Directory-symbol* "5-value.clp")
+    )
 )
 
 ;;; g-labels and g-links
@@ -436,10 +471,17 @@
         (and ?*z-Chains* (<= 2 ?*z-chains-max-length*))
         (and ?*t-Whips* (<= 2 ?*t-whips-max-length*))
         (and ?*Whips* (<= 2 ?*whips-max-length*))
+        (and ?*Quick-B-Rating* (<= 1 ?*braids-max-length*))
     ) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
             ?*Directory-symbol* "PARTIAL-WHIPS"
             ?*Directory-symbol* "Partial-Whips[1].clp")
+    )
+)
+(if ?*Quick-B-Rating* then
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-SPEED"
+            ?*Directory-symbol* "QUICK-BRAIDS"
+            ?*Directory-symbol* "Quick-Braids-Functions.clp")
     )
 )
  
@@ -583,8 +625,8 @@
     ;;; B-rating ≥ 2
     (if (and ?*Quick-B-Rating* (<= ?i ?*braids-max-length*)) then ;;; start at 2
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-SPEED"
-                ?*Directory-symbol* "RATING-BRAIDS"
-                ?*Directory-symbol* "Rating-Braids[" ?i "].clp")
+                ?*Directory-symbol* "QUICK-BRAIDS"
+                ?*Directory-symbol* "Quick-Braids[" ?i "].clp")
         )
     )
 
@@ -633,6 +675,31 @@
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
             ?*Directory-symbol* "FORCING-WHIPS"
             ?*Directory-symbol* "Forcing-Whips[" ?i "].clp")
+        )
+    )
+
+    (if (and ?*Forcing2-Whips* (>= ?i 3) (<= ?i ?*forcing-whips-max-length*)) then ;;; start at 3
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR2-FORCING-WHIPS"
+            ?*Directory-symbol* "OR2-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*Forcing3-Whips* (>= ?i 3) (<= ?i ?*forcing-whips-max-length*)) then ;;; start at 3
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR3-FORCING-WHIPS"
+            ?*Directory-symbol* "OR3-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*Forcing4-Whips* (>= ?i 3) (<= ?i ?*forcing-whips-max-length*)) then ;;; start at 3
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR4-FORCING-WHIPS"
+            ?*Directory-symbol* "OR4-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*Forcing5-Whips* (>= ?i 3) (<= ?i ?*forcing-whips-max-length*)) then ;;; start at 3
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "OR5-FORCING-WHIPS"
+            ?*Directory-symbol* "OR5-Forcing-Whips[" ?i "].clp")
         )
     )
 

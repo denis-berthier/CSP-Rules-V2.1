@@ -53,12 +53,12 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.32-r819");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.32-r823");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used for the resolution
 (defglobal ?*Computer-description* =
-    "MacBookPro 16'' M1Max 2021, 64GB LPDDR5, MacOS 12.5"
+    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 12.5"
 )                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -253,6 +253,14 @@
 
 
 ;;; Some additional rules I almost never use:
+;;; Forcingk-whips are based on k-value cells in any of the 2D-spaces
+;;; Their maximal length is determined by ?*forcing-whips-max-length*
+; (bind ?*Forcing2-Whips* TRUE)
+; (bind ?*Forcing3-Whips* TRUE)
+; (bind ?*Forcing4-Whips* TRUE)
+; (bind ?*Forcing5-Whips* TRUE)
+
+;;; Forcing-Whips are older and simpler than Forcing2-Whips, but they  are the same thing
 ; (bind ?*Forcing-Whips* TRUE)
 ; (bind ?*Forcing-G-Whips* TRUE)
 ; (bind ?*Forcing-Braids* TRUE)

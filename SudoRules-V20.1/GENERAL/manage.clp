@@ -53,7 +53,7 @@
 	(not (candidate (context 0) (row ?row) (column ?col)))
 =>
     (if ?*print-actions* then
-        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RC-CELL " (row-name ?row) (column-name ?col) crlf)
+        (printout t crlf "PUZZLE " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RC-CELL " (row-name ?row) (column-name ?col) crlf)
         (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
     )
 	(if ?*add-instance-to-solved-list* then
@@ -74,7 +74,7 @@
 	(not (candidate (context 0) (number ?nb) (row ?row)))
 =>
     (if ?*print-actions* then
-        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RN-CELL " (row-name ?row) (number-name ?nb) crlf)
+        (printout t crlf "PUZZLE " ?g " HAS NO SOLUTION : NO CANDIDATE FOR RN-CELL " (row-name ?row) (number-name ?nb) crlf)
         (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
     )
 	(if ?*add-instance-to-solved-list* then
@@ -94,7 +94,7 @@
 	(not (candidate (context 0) (number ?nb) (column ?col)))
 =>
     (if ?*print-actions* then
-        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR CN-CELL " (column-name ?col) (number-name ?nb) crlf)
+        (printout t crlf "PUZZLE " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR CN-CELL " (column-name ?col) (number-name ?nb) crlf)
         (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
     )
 	(if ?*add-instance-to-solved-list* then
@@ -114,7 +114,7 @@
 	(not (candidate (context 0) (number ?nb) (block ?blk)))
 =>
     (if ?*print-actions* then
-        (printout t crlf "GRID " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR BN-CELL " (block-name ?blk) (number-name ?nb) crlf)
+        (printout t crlf "PUZZLE " ?g " HAS NO SOLUTION : NO CANDIDATE FOR FOR BN-CELL " (block-name ?blk) (number-name ?nb) crlf)
         (printout t "MOST COMPLEX RULE TRIED = " ?*technique* crlf)
     )
 	(if ?*add-instance-to-solved-list* then

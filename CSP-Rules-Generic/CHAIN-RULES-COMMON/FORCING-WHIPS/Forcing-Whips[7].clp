@@ -52,36 +52,28 @@
 
 
 
-(defrule forcing-whip[7]-value
-   (declare (salience ?*forcing-whip[7]-value-salience*))
+(defrule forcing-whip[7]-candidate-0p
+   (declare (salience ?*forcing-whip[7]-candidate-salience*))
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-whip[7])
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p1&:(< ?p1 6))
-      (target ?zzz1)
-      (llcs $?llcs1)
-      (rlcs $?rlcs1)
-      (csp-vars $?csps1)
-      (last-rlc ?cand)
-   )
-   (chain
-      (type partial-whip)
-      (context ?cont)
-      (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 6))
+      (length ?p2&:(= ?p2 6))
       (target ?zzz2)
       (llcs $?llcs2)
       (rlcs $?rlcs2)
       (csp-vars $?csps2)
-      (last-rlc ?cand)
+      (last-rlc ?last-rlc2)
    )
-   ?mod <- (candidate (context ?cont) (status cand) (label ?cand))
+   ?ret <- (candidate (context ?cont) (status cand) (label ?cand))
+   (exists-link ?cont ?zzz1 ?cand)
+   (exists-link ?cont ?last-rlc2 ?cand)
 =>
-   (modify ?mod (status c-value))
+   (retract ?ret)
    (if (or ?*print-actions* ?*print-L7* ?*print-forcing-whip* ?*print-forcing-whip-7*) then
-      (print-forcing-whip-assert-value 
-         ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1
+      (print-forcing-whip-elim-candidate 
+         0 ?zzz1 (create$) (create$) (create$)
          ?p2 ?zzz2 $?llcs2 $?rlcs2 $?csps2
          ?cand
       )
@@ -90,7 +82,7 @@
 
 
 
-(defrule forcing-whip[7]-candidate
+(defrule forcing-whip[7]-candidate-pq
    (declare (salience ?*forcing-whip[7]-candidate-salience*))
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-whip[7])
@@ -121,6 +113,44 @@
    (retract ?ret)
    (if (or ?*print-actions* ?*print-L7* ?*print-forcing-whip* ?*print-forcing-whip-7*) then
       (print-forcing-whip-elim-candidate 
+         ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1
+         ?p2 ?zzz2 $?llcs2 $?rlcs2 $?csps2
+         ?cand
+      )
+   )
+)
+
+
+
+(defrule forcing-whip[7]-value
+   (declare (salience ?*forcing-whip[7]-value-salience*))
+   (bivalue ?cont ?zzz1 ?zzz2 ?ll)
+   (technique ?cont forcing-whip[7])
+   (chain
+      (type partial-whip)
+      (context ?cont)
+      (length ?p1&:(< ?p1 6))
+      (target ?zzz1)
+      (llcs $?llcs1)
+      (rlcs $?rlcs1)
+      (csp-vars $?csps1)
+      (last-rlc ?cand)
+   )
+   (chain
+      (type partial-whip)
+      (context ?cont)
+      (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 6))
+      (target ?zzz2)
+      (llcs $?llcs2)
+      (rlcs $?rlcs2)
+      (csp-vars $?csps2)
+      (last-rlc ?cand)
+   )
+   ?mod <- (candidate (context ?cont) (status cand) (label ?cand))
+=>
+   (modify ?mod (status c-value))
+   (if (or ?*print-actions* ?*print-L7* ?*print-forcing-whip* ?*print-forcing-whip-7*) then
+      (print-forcing-whip-assert-value 
          ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1
          ?p2 ?zzz2 $?llcs2 $?rlcs2 $?csps2
          ?cand

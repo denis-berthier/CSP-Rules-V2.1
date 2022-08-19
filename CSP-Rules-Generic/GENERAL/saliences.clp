@@ -759,22 +759,47 @@
     (bind ?*bivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 
-;;; used only for Forcing{3}-T&E
-(defglobal ?*activate-trivalue-salience* = 0)
-(defglobal ?*trivalue-salience* = 0)
+;;; used only for OR2-Forcing-Whips:
+(defglobal ?*activate-2-value-salience* = 0)
+(defglobal ?*2-value-salience* = 0)
 
-(deffunction define-trivalue-saliences ()
-    (bind ?*activate-trivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*trivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+(deffunction define-2-value-saliences ()
+    (bind ?*activate-2-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*2-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 
-;;; used only for Forcing{4}-T&E
-(defglobal ?*activate-quadrivalue-salience* = 0)
-(defglobal ?*quadrivalue-salience* = 0)
+;;; used only for Forcing{3}-T&E and OR3-Forcing-Whips:
+(defglobal ?*activate-3-value-salience* = 0)
+(defglobal ?*3-value-salience* = 0)
 
-(deffunction define-quadrivalue-saliences ()
-    (bind ?*activate-quadrivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    (bind ?*quadrivalue-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+(deffunction define-3-value-saliences ()
+    (bind ?*activate-3-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*3-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+;;; used only for Forcing{4}-T&E and OR4-Forcing-Whips:
+(defglobal ?*activate-4-value-salience* = 0)
+(defglobal ?*4-value-salience* = 0)
+
+(deffunction define-4-value-saliences ()
+    (bind ?*activate-4-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*4-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+;;; used only for Forcing{5}-T&E and OR5-Forcing-Whips:
+(defglobal ?*activate-5-value-salience* = 0)
+(defglobal ?*5-value-salience* = 0)
+
+(deffunction define-5-value-saliences ()
+    (bind ?*activate-5-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*5-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+)
+
+(deffunction define-k-value-saliences ()
+    (define-2-value-saliences)
+    (define-3-value-saliences)
+    (define-4-value-saliences)
+    (define-5-value-saliences)
 )
 
 
@@ -9340,10 +9365,9 @@
 	(define-no-confluence-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L1)
     (define-bivalue-saliences) ;;; <<<< do not forget these
+    (define-k-value-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L2)
-    (define-trivalue-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L3)
-    (define-quadrivalue-saliences) ;;; <<<< do not forget these
 	(define-saliences-at-L4)
 	(define-saliences-at-L5)
 	(define-saliences-at-L6)

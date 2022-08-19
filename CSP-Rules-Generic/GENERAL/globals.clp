@@ -304,6 +304,11 @@
 (defglobal ?*G-Braids* = FALSE)
 
 (defglobal ?*Forcing-Whips* = FALSE)
+(defglobal ?*Forcing2-Whips* = FALSE)
+(defglobal ?*Forcing3-Whips* = FALSE)
+(defglobal ?*Forcing4-Whips* = FALSE)
+(defglobal ?*Forcing5-Whips* = FALSE)
+
 (defglobal ?*OR2-Forcing-Whips* = FALSE)
 (defglobal ?*OR3-Forcing-Whips* = FALSE)
 (defglobal ?*OR4-Forcing-Whips* = FALSE)

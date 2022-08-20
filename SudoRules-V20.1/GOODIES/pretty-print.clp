@@ -63,6 +63,12 @@
     (printout t ?left-space ?floor-separator crlf crlf)
 )
 
+;;; abbreviation:
+(deffunction pretty-print (?sudoku-string)
+    (pretty-print-sudoku-string ?sudoku-string)
+)
+
+
 
 (deffunction pretty-print-tatham-string (?tatham-string)
     (pretty-print-sudoku-string (tatham-to-sudoku-string ?tatham-string))

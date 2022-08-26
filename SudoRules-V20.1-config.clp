@@ -250,17 +250,6 @@
 
 ; (bind ?*Oddagons* TRUE)
 
-
-
-;;; Some additional rules I almost never use:
-;;; Forcingk-whips are based on k-value cells in any of the 2D-spaces
-;;; Their maximal length is determined by ?*forcing-whips-max-length*
-; (bind ?*Forcing2-Whips* TRUE)
-; (bind ?*Forcing3-Whips* TRUE)
-; (bind ?*Forcing4-Whips* TRUE)
-; (bind ?*Forcing5-Whips* TRUE)
-
-;;; Forcing-Whips are older and simpler than Forcing2-Whips, but they  are the same thing
 ; (bind ?*Forcing-Whips* TRUE)
 ; (bind ?*Forcing-G-Whips* TRUE)
 ; (bind ?*Forcing-Braids* TRUE)
@@ -273,6 +262,19 @@
 ;;; It is NOT RECOMMENDED to use this possibility, unless you know what you are doing
 ;;; Many complex rules are loaded and memory overflow problems may appear.
 ; (bind ?*All-generic-chain-rules* TRUE)
+; (bind ?*all-chains-max-length* 36)
+
+
+
+;;; Some additional rules I almost never use:
+;;; Forcing-Whips are older and simpler than Forcing2-Whips, but they  are the same thing.
+;;; Forcingk-whips are based on k-value cells in any of the 2D-spaces.
+;;; Their maximal length is determined by ?*forcing-whips-max-length*.
+;;; Note that they are not automaticallyy loaded by setting ?*All-generic-chain-rules* to TRUE.
+; (bind ?*Forcing2-Whips* TRUE)
+; (bind ?*Forcing3-Whips* TRUE)
+; (bind ?*Forcing4-Whips* TRUE)
+; (bind ?*Forcing5-Whips* TRUE)
 
 
 

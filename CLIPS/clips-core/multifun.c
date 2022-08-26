@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.31  05/09/19            */
+   /*             CLIPS Version 6.32  01/05/22            */
    /*                                                     */
    /*             MULTIFIELD FUNCTIONS MODULE             */
    /*******************************************************/
@@ -46,6 +46,9 @@
 /*                                                           */
 /*            Fixed linkage issue when DEFMODULE_CONSTRUCT   */
 /*            compiler flag is set to 0.                     */
+/*                                                           */
+/*      6.32: Rebinding of field index variable in progn$    */
+/*            and foreach now generates an error.            */
 /*                                                           */
 /*************************************************************/
 
@@ -1038,6 +1041,7 @@ static struct expr *MultifieldPrognParser(
    struct token tkn;
    struct expr *tmp;
    SYMBOL_HN *fieldVar = NULL;
+   size_t flen = 0;
 
    SavePPBuffer(theEnv," ");
    GetToken(theEnv,infile,&tkn);
@@ -1118,10 +1122,15 @@ static struct expr *MultifieldPrognParser(
    ReturnExpression(theEnv,tmp);
    newBindList = GetParsedBindNames(theEnv);
    prev = NULL;
+   if (fieldVar != NULL)
+     { flen = strlen(fieldVar->contents); }
+
    while (newBindList != NULL)
      {
       if ((fieldVar == NULL) ? FALSE :
-          (strcmp(ValueToString(newBindList->name),ValueToString(fieldVar)) == 0))
+          (((strncmp(ValueToString(newBindList->name),ValueToString(fieldVar),flen) == 0) &&
+            (strcmp(ValueToString(newBindList->name)+flen,"-index") == 0)) ||
+           (strcmp(ValueToString(newBindList->name),ValueToString(fieldVar)) == 0)))
         {
          ClearParsedBindNames(theEnv);
          SetParsedBindNames(theEnv,oldBindList);
@@ -1159,6 +1168,7 @@ static struct expr *ForeachParser(
    struct token tkn;
    struct expr *tmp;
    SYMBOL_HN *fieldVar;
+   size_t flen = 0;
 
    SavePPBuffer(theEnv," ");
    GetToken(theEnv,infile,&tkn);
@@ -1201,10 +1211,15 @@ static struct expr *ForeachParser(
    ReturnExpression(theEnv,tmp);
    newBindList = GetParsedBindNames(theEnv);
    prev = NULL;
+   if (fieldVar != NULL)
+     { flen = strlen(fieldVar->contents); }
+
    while (newBindList != NULL)
      {
       if ((fieldVar == NULL) ? FALSE :
-          (strcmp(ValueToString(newBindList->name),ValueToString(fieldVar)) == 0))
+          (((strncmp(ValueToString(newBindList->name),ValueToString(fieldVar),flen) == 0) &&
+            (strcmp(ValueToString(newBindList->name)+flen,"-index") == 0)) ||
+           (strcmp(ValueToString(newBindList->name),ValueToString(fieldVar)) == 0)))
         {
          ClearParsedBindNames(theEnv);
          SetParsedBindNames(theEnv,oldBindList);

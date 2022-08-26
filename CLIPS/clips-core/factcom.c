@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.32  10/28/20            */
+   /*             CLIPS Version 6.32  8/16/22             */
    /*                                                     */
    /*                FACT COMMANDS MODULE                 */
    /*******************************************************/
@@ -57,6 +57,8 @@
 /*            garbage frame.                                 */
 /*                                                           */
 /*      6.32: Fixed embedded reset of error flags.           */
+/*                                                           */
+/*            Fixed load-facts garbage collection issue.     */
 /*                                                           */
 /*************************************************************/
 
@@ -1240,7 +1242,12 @@ globle intBool EnvLoadFacts(
      {
       testPtr = StandardLoadFact(theEnv,(char *) filePtr,&theToken);
       if (testPtr == NULL) theToken.type = STOP;
-      else EvaluateExpression(theEnv,testPtr,&rv);
+      else
+        {
+         ExpressionInstall(theEnv,testPtr);
+         EvaluateExpression(theEnv,testPtr,&rv);
+         ExpressionDeinstall(theEnv,testPtr);
+        }
       ReturnExpression(theEnv,testPtr);
      }
     

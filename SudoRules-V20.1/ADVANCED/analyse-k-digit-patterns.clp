@@ -237,8 +237,9 @@
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
     (printout t "Solved list = " ?*solved-list* crlf)
-    (printout t "No-sol list = " ?*no-sol-list* crlf)
-    ;;; make the default unrestricted form of T&E available for other calculations
+    (printout t (length$ ?*no-sol-list*) " contradictory " ?k "-digit patterns:" crlf)
+    (printout t ?*no-sol-list* crlf)
+    ;;; make the default unrestricted form of T&E available for other calculations:
     (bind ?*restrict-TE-targets* FALSE)
 )
 
@@ -291,8 +292,9 @@
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
     (printout t "Solved list = " ?*solved-list* crlf)
-    (printout t "No-sol list = " ?*no-sol-list* crlf)
-    ;;; make the default unrestricted form of T&E available for other calculations
+    (printout t (length$ ?*no-sol-list*) " contradictory " ?k "-digit patterns:" crlf)
+    (printout t ?*no-sol-list* crlf)
+    ;;; make the default unrestricted form of T&E available for other calculations:
     (bind ?*restrict-TE-targets* FALSE)
 )
 
@@ -350,8 +352,9 @@
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
     (printout t "Solved list = " ?*solved-list* crlf)
-    (printout t "No-sol list = " ?*no-sol-list* crlf)
-    ;;; make the default unrestricted form of T&E available for other calculations
+    (printout t (length$ ?*no-sol-list*) " contradictory " ?k "-digit patterns:" crlf)
+    (printout t ?*no-sol-list* crlf)
+    ;;; make the default unrestricted form of T&E available for other calculations:
     (bind ?*restrict-TE-targets* FALSE)
 )
 

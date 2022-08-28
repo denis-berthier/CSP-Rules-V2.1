@@ -57,7 +57,7 @@
 	(if (eq ?par 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-hypothesis*) then
 		(printout t "NO SOLUTION RC IN CONTEXT " ?cont ".")
-		(printout t " RETRACTING CANDIDATE " ?gen-cand " FROM CONTEXT " ?par "." crlf crlf)
+		(printout t " RETRACTING CANDIDATE " (print-label ?gen-cand) " FROM CONTEXT " ?par "." crlf crlf)
 	)
 	;;; remember that this phase was productive
 	(assert (phase-productive-in-context ?par ?ph))
@@ -84,7 +84,7 @@
 	(if (eq ?par 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-hypothesis*) then
 		(printout t "NO SOLUTION RN IN CONTEXT " ?cont ".")
-		(printout t " RETRACTING CANDIDATE " ?gen-cand " FROM CONTEXT " ?par "." crlf crlf)
+		(printout t " RETRACTING CANDIDATE " (print-label ?gen-cand) " FROM CONTEXT " ?par "." crlf crlf)
 	)
 	;;; remember that this phase was productive
 	(assert (phase-productive-in-context ?par ?ph))
@@ -111,7 +111,7 @@
 	(if (eq ?par 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-hypothesis*) then
 		(printout t "NO SOLUTION CN IN CONTEXT " ?cont ".")
-		(printout t " RETRACTING CANDIDATE " ?gen-cand " FROM CONTEXT " ?par "." crlf crlf)
+		(printout t " RETRACTING CANDIDATE " (print-label ?gen-cand) " FROM CONTEXT " ?par "." crlf crlf)
 	)
 	;;; remember that this phase was productive
 	(assert (phase-productive-in-context ?par ?ph))
@@ -138,7 +138,7 @@
 	(if (eq ?par 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
 	(if (or ?*print-actions* ?*print-hypothesis*) then
 		(printout t "NO SOLUTION BN IN CONTEXT " ?cont ".")
-		(printout t " RETRACTING CANDIDATE " ?gen-cand " FROM CONTEXT " ?par "." crlf crlf)
+		(printout t " RETRACTING CANDIDATE " (print-label ?gen-cand) " FROM CONTEXT " ?par "." crlf crlf)
 	)
 	;;; remember that this phase was productive
 	(assert (phase-productive-in-context ?par ?ph))

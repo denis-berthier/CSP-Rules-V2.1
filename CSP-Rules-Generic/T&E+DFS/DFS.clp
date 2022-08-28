@@ -233,6 +233,9 @@
     ;;; only one direct descendant of ?par is considered at a time:
     ;(not (context (name ?cont&~?par) (parent ?par) (depth ?depth1&:(eq ?depth1 (+ 1 ?depth)))))
     ?gen <- (candidate (context ?par) (status cand) (label ?gen-cand))
+    (or (test (not ?*restrict-TE-targets*))
+        (is-restricted-TE-target 0 ?gen-cand)
+    )
 =>
 	;;; choose ?gen-cand as a hypothesis	
 	(bind ?*context-counter* (+ ?*context-counter* 1))

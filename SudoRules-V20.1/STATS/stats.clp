@@ -1060,6 +1060,29 @@
 
 
 
+(deffunction store-nb-cands (?puzzles-file ?nb-cands-file ?n)
+    ;;; Computes the number of candidates remaining after the current set of rules has been applied.
+    ;;; Generally applied after Singles or after whips[1].
+    (close)
+    (open ?puzzles-file "puzzles-file" "r")
+    (open ?nb-cands-file "nb-cands-file" "w")
+    
+    (mute-print-options)
+    (bind ?i 1)
+    (while (<= ?i ?n)
+        (printout t ?i crlf)
+        (bind ?puzzles-line (readline "puzzles-file"))
+        (init ?puzzles-line)
+        (run)
+        (bind ?nb-cands ?*nb-candidates*)
+        (printout "nb-cands-file" ?nb-cands crlf)
+        (bind ?i (+ ?i 1))
+    )
+    (close "puzzles-file")
+    (close "nb-cands-file")
+    (restore-print-options)
+)
+
 
 
 

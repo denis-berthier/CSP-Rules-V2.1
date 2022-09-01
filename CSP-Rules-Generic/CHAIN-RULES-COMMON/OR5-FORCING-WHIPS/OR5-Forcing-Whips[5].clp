@@ -97,7 +97,7 @@
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p4&:(< ?p4 3))
+      (length ?p4&:(< ?p4 4))
       (target ?zzz4)
       (llcs $?llcs4)
       (rlcs $?rlcs4)

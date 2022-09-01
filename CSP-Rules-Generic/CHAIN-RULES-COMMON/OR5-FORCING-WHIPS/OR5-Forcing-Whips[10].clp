@@ -97,7 +97,7 @@
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p4&:(< ?p4 8))
+      (length ?p4&:(< ?p4 9))
       (target ?zzz4)
       (llcs $?llcs4)
       (rlcs $?rlcs4)
@@ -302,7 +302,7 @@
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p4&:(or (< ?p3 ?p4) (and (= ?p3 ?p4) (< ?zzz3 ?zzz4)))&:(< (+ ?p1 ?p2 ?p3 ?p4) 8))
+      (length ?p4&:(or (< ?p3 ?p4) (and (= ?p3 ?p4) (< ?zzz3 ?zzz4)))&:(< (+ ?p1 ?p2 ?p3 ?p4) 9))
       (target ?zzz4)
       (llcs $?llcs4)
       (rlcs $?rlcs4)
@@ -355,7 +355,7 @@
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p2&:(or (< ?p1 ?p2) (and (= ?p1 ?p2) (< ?zzz1 ?zzz2)))&:(< ?p2 7))
+      (length ?p2&:(or (< ?p1 ?p2) (and (= ?p1 ?p2) (< ?zzz1 ?zzz2)))&:(< (+ ?p1 ?p2) 7))
       (target ?zzz2)
       (llcs $?llcs2)
       (rlcs $?rlcs2)
@@ -375,7 +375,7 @@
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p4&:(or (< ?p3 ?p4) (and (= ?p3 ?p4) (< ?zzz3 ?zzz4)))&:(< (+ ?p1 ?p2 ?p3 ?p4) 8))
+      (length ?p4&:(or (< ?p3 ?p4) (and (= ?p3 ?p4) (< ?zzz3 ?zzz4)))&:(< (+ ?p1 ?p2 ?p3 ?p4) 9))
       (target ?zzz4)
       (llcs $?llcs4)
       (rlcs $?rlcs4)

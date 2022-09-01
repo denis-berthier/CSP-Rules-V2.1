@@ -30,7 +30,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; tridagon PATTERN
+;;; TRIDAGON PATTERN
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -46,8 +46,6 @@
     (if ?*print-levels* then (printout t "Entering_level_tridagon[12]"))
     (assert (technique ?cont tridagon[12]))
     (bind ?*technique* tridagon[12])
-    (assert (tridagon-type antidiag))
-    (assert (tridagon-type diag))
 )
 
 
@@ -139,15 +137,11 @@
     ; (test (progn (printout t "block " ?b22 " OK" crlf) TRUE))
 
     ;;; additional structural conditions on the 4th block
-    (tridagon-type ?type)
     (test (or
-            (and (eq ?type antidiag) (eq ?col4i ?col6) (eq ?col5i ?col5) (eq ?col6i ?col4)) ; cells 357, i.e. cols 654 anti-diagonal case
-            ;;; the next two cases are not equivalent if we specify ?nb2 < ?nb3:
-            (and (eq ?type diag) (eq ?col4i ?col5) (eq ?col5i ?col4) (eq ?col6i ?col6)) ; cells 249, i.e. cols 546
-            (and (eq ?type diag) (eq ?col4i ?col4) (eq ?col5i ?col6) (eq ?col6i ?col5)) ; cells 168, i.e. cols 465
+            (and (eq ?col4i ?col6) (eq ?col5i ?col5) (eq ?col6i ?col4))
+            (and (eq ?col4i ?col5) (eq ?col5i ?col4) (eq ?col6i ?col6)) ; cells 249, i.e. cols 546
+            (and (eq ?col4i ?col4) (eq ?col5i ?col6) (eq ?col6i ?col5)) ; cells 168, i.e. cols 465
     ))
-    ;;; or write them using the rectangles form (doesn't work)
-    ;(test (or (eq ?col4i ?col4) (eq ?col5i ?col5) (eq ?col6i ?col6)))
 
     ; (test (progn (printout t "additional conditions in " ?b22 " OK" crlf) TRUE))
 
@@ -162,7 +156,7 @@
     (if ?*print-actions* then
         (pretty-print-current-resolution-state)
         (printout t
-            "tridagon type " ?type " for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "tridagon for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  " (target cell), " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf

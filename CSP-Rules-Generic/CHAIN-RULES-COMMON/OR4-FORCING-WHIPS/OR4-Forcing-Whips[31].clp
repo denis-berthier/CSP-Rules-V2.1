@@ -205,7 +205,7 @@
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p2&:(or (< ?p1 ?p2) (and (= ?p1 ?p2) (< ?zzz1 ?zzz2)))&:(< ?p2 29))
+      (length ?p2&:(or (< ?p1 ?p2) (and (= ?p1 ?p2) (< ?zzz1 ?zzz2)))&:(< (+ ?p1 ?p2) 29))
       (target ?zzz2)
       (llcs $?llcs2)
       (rlcs $?rlcs2)
@@ -270,7 +270,7 @@
    (chain
       (type partial-whip)
       (context ?cont)
-      (length ?p2&:(or (< ?p1 ?p2) (and (= ?p1 ?p2) (< ?zzz1 ?zzz2)))&:(< ?p2 29))
+      (length ?p2&:(or (< ?p1 ?p2) (and (= ?p1 ?p2) (< ?zzz1 ?zzz2)))&:(< (+ ?p1 ?p2) 29))
       (target ?zzz2)
       (llcs $?llcs2)
       (rlcs $?rlcs2)

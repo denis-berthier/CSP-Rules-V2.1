@@ -143,7 +143,6 @@
         (bind ?*OR2-Forcing-Whips* TRUE)
         (bind ?*OR2-forcing-whips-max-length* (max ?*OR3-forcing-whips-max-length* ?*OR2-forcing-whips-max-length*))
     )
-    (if ?*OR2-Forcing-Whips* then (bind ?*Anti-Tridagons* TRUE))
 
     
     ;;; ORk-Contrad-Whips DO change the max length of whips
@@ -166,9 +165,6 @@
     (if ?*OR2-Contrad-Whips* then
         (bind ?*Whips* TRUE)
         (bind ?*whips-max-length* (max ?*whips-max-length* ?*OR2-contrad-whips-max-length*))
-    )
-    (if ?*OR2-Contrad-Whips* then
-        (bind ?*Anti-Tridagons* TRUE)
     )
     
     ;;; Bivalue-chains, whips, g-bivalue-chains, gwhips, braids, gbraids

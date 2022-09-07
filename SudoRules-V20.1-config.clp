@@ -345,39 +345,83 @@
 ; (bind ?*J5-Exocet* TRUE)
 
 
-;;; 3) Tridagons and patterns related to puzzles in T&E(3)
-;;; Use the simplest elimination rule for Tridagons:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Sudoku-specific rules : Tridagons and patterns for puzzles in T&E(3)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; 1) Use the simplest elimination rule for Tridagons, with Subsets and Finned Fish:
+; (bind ?*Subsets* TRUE)
+; (bind ?*FinnedFish* TRUE)
 ; (bind ?*Tridagons* TRUE)
 
-;;; Use Tridagon-Forcing-Whips (based on Tridagon-links):
+
+;;; 2) Note: DO NOT use Tridagon-Forcing-Whips and ORk-Forcing-Whips at the same time
+
+;;; 2a - demoted) Use Tridagon-Forcing-Whips (based on Tridagon-links):
 ;;; (Remember that Tridagon-Forcing-Whips => Tridagons)
 ; (bind ?*Tridagon-Forcing-Whips* TRUE)
+;;; If you use Tridagon-Forcing-Whips,
+;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and forcing-chains;
+;;; 5 and 15 are good respective starting points;
+;;; try to increase these lengths progressively.
+; (bind ?*all-chains-max-length* 5)
+; (bind ?*tridagon-forcing-whips-max-length* 15)
 
-;;; Use OR-k-Forcing-Whips in combination with Anti-Tridagons:
-; (bind ?*Anti-Tridagons* TRUE)
+;;; 2b) Use OR-k-Forcing-Whips in combination with Anti-Tridagons:
+;;; (Remember that ORk-Forcing-Whips => Tridagons)
 ; (bind ?*OR2-Forcing-Whips* True)
 ; (bind ?*OR3-Forcing-Whips* True)
 ; (bind ?*OR4-Forcing-Whips* True)
 ; (bind ?*OR5-Forcing-Whips* True)
+; (bind ?*OR6-Forcing-Whips* True)
 
-;;; Note: DO NOT use Tridagon-Forcing-Whips and ORk-Forcing-Whips at  the same time
+;;; If you use OR-k-Forcing-Whips,
+;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and ORk forcing-chains;
+;;; 5 is a good starting point;
+;;; try to increase these lengths progressively.
+; (bind ?*all-chains-max-length* 7)
+; (bind ?*OR2-forcing-whips-max-length* 7)
+; (bind ?*OR3-forcing-whips-max-length* 7)
+; (bind ?*OR4-forcing-whips-max-length* 7)
+; (bind ?*OR5-forcing-whips-max-length* 7)
+; (bind ?*OR6-forcing-whips-max-length* 7)
+;;; You can also restrict all of the ORk forcing-chains at once:
+; (bind ?*all-ORk-forcing-whips-max-length* 7)
 
-;;; If you use Tridagon-Forcing-Whips or OR-k-Forcing-Whips or Eleven-Replacement-in-Tridagons,
-;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and forcing-chains;
-;;; 5 is a good starting point (15 for Tridagon-Forcing-Whips);
+
+;;; 3) Use OR-k-Contrad-Whips in combination with Anti-Tridagons:
+;;; (Remember that ORk-Contrad-Whips => Tridagons)
+;;; Note that ORk-Forcing-Whips and ORk-Contrad-Whips can be used at  the same time.
+; (bind ?*OR2-Contrad-Whips* True)
+; (bind ?*OR3-Contrad-Whips* True)
+; (bind ?*OR4-Contrad-Whips* True)
+; (bind ?*OR5-Contrad-Whips* True)
+; (bind ?*OR6-Contrad-Whips* True)
+
+;;; If you use Tridagon-Contrad-Whips,
+;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and ORk-contrad-chains;
+;;; 5 is a good starting point ;
 ;;; try to increase these lengths progressively.
 ; (bind ?*all-chains-max-length* 5)
-; (bind ?*tridagon-forcing-whips-max-length* 15)
-; (bind ?*OR2-forcing-whips-max-length* 5)
-; (bind ?*OR3-forcing-whips-max-length* 5)
-; (bind ?*OR4-forcing-whips-max-length* 5)
-; (bind ?*OR5-forcing-whips-max-length* 5)
+; (bind ?*OR2-contrad-whips-max-length* 5)
+; (bind ?*OR3-contrad-whips-max-length* 5)
+; (bind ?*OR4-contrad-whips-max-length* 5)
+; (bind ?*OR5-contrad-whips-max-length* 5)
+; (bind ?*OR6-contrad-whips-max-length* 5)
+;;; You can also restrict all of them at once:
+; (bind ?*all-ORk-contrad-whips-max-length* 5)
 
-;;; Eleven's replacement technique:
+
+;;; 4) Eleven's replacement technique:
 ;;; Allow the automatic use of eleven's replacmeent method based on tridagons.
 ;;; (Note that the method is much more general; here, the tridaon structure is only used to define a starting point).
 ;;; The method will be applied only when no other rule is applicable.
+; (bind ?*Anti-Tridagons* TRUE)
 ; (bind ?*Eleven-Replacement-in-Tridagons* TRUE)
+
+;;; If you use Eleven-Replacement-in-Tridagons,
+;;; it is highly recommended to put a strict upper bound on the lengths of all the chains, ORk-forcing-chains and ORk-contrad-chains;
+;;; see above
 
 
 

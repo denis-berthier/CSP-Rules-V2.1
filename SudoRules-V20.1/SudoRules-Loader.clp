@@ -161,7 +161,9 @@
 
 
 ;;; Tridagons
-(if (or ?*Tridagon-Forcing-Whips* (and ?*Anti-Tridagons* ?*OR2-Forcing-Whips*)) then (bind ?*Tridagons* TRUE))
+(if (or ?*Tridagon-Forcing-Whips* (and ?*Anti-Tridagons* ?*OR2-Forcing-Whips*)) (and ?*Anti-Tridagons* ?*OR2-Contrad-Whips*))
+    then (bind ?*Tridagons* TRUE)
+)
 
 (if ?*Tridagons* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Tridagon[12].clp"))

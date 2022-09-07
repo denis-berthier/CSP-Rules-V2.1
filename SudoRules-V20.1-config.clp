@@ -369,6 +369,8 @@
 
 ;;; 2b) Use OR-k-Forcing-Whips in combination with Anti-Tridagons:
 ;;; (Remember that ORk-Forcing-Whips => Tridagons)
+;;; The anti-tridagons detection rule must be selected explicitly
+; (bind ?*Anti-Tridagons* TRUE)
 ; (bind ?*OR2-Forcing-Whips* True)
 ; (bind ?*OR3-Forcing-Whips* True)
 ; (bind ?*OR4-Forcing-Whips* True)
@@ -392,6 +394,8 @@
 ;;; 3) Use OR-k-Contrad-Whips in combination with Anti-Tridagons:
 ;;; (Remember that ORk-Contrad-Whips => Tridagons)
 ;;; Note that ORk-Forcing-Whips and ORk-Contrad-Whips can be used at  the same time.
+;;; The anti-tridagons detection rule must be selected explicitly
+; (bind ?*Anti-Tridagons* TRUE)
 ; (bind ?*OR2-Contrad-Whips* True)
 ; (bind ?*OR3-Contrad-Whips* True)
 ; (bind ?*OR4-Contrad-Whips* True)

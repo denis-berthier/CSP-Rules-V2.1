@@ -40,8 +40,9 @@
 (defglobal ?*module-REVERSIBLE-PATTERNS-loaded* = FALSE)
 (defglobal ?*module-TRIDAGONS-loaded* = FALSE)
 (defglobal ?*module-TRIDAGON-FW-loaded* = FALSE)
+(defglobal ?*module-TRIDAGON-ORk-FW-loaded* = FALSE)
 
-(defglobal ?*list-of-application-specific-modules* = (create$ S2 S3 S4 S2Fin S3Fin S4Fin REVERSIBLE-PATTERNS TRIDAGONS TRIDAGON-FW))
+(defglobal ?*list-of-application-specific-modules* = (create$ S2 S3 S4 S2Fin S3Fin S4Fin REVERSIBLE-PATTERNS TRIDAGONS TRIDAGON-FW TRIDAGON-ORk-FW))
 
 (defglobal ?*list-of-modules* =
     (create$ ?*list-of-generic-modules* ?*list-of-application-specific-modules*)
@@ -146,6 +147,12 @@
                 (if (not ?*module-TRIDAGON-FW-loaded*) then
                     (batch* (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "TRIDAGON-FW-module.clp"))
                     (bind ?*module-TRIDAGON-FW-loaded* TRUE)
+            ))
+
+            (case TRIDAGON-ORk-FW then
+                (if (not ?*module-TRIDAGON-ORk-FW-loaded*) then
+                    (batch* (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "TRIDAGON-ORk-FW-module.clp"))
+                    (bind ?*module-TRIDAGON-ORk-FW-loaded* TRUE)
             ))
 
             (case MAIN then TRUE)

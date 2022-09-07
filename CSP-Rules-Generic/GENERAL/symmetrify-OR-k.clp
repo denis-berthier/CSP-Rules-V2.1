@@ -231,7 +231,7 @@ CSP
                                                         (OR-name ?OR-name)
                                                         (OR-complexity ?OR-compl)
                                                         (context ?cont)
-                                                        (OR-size 5)
+                                                        (OR-size 6)
                                                         (OR-candidates ?uuu1 ?uuu2 ?uuu3 ?uuu4 ?uuu5 ?uuu6)
                                                     )
                                                 )

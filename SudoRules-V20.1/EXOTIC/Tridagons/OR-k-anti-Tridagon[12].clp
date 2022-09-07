@@ -28,9 +28,6 @@
 
 
 
-(defglobal ?*OR-k-size* = 0)
-(defglobal ?*OR-k-sizes-list* = (create$))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; OR-k TRIDAGON PATTERN
@@ -48,7 +45,9 @@
 =>
     (if ?*print-levels* then (printout t "Entering_level_OR-k-anti-tridagon[12]"))
     (assert (technique ?cont OR-k-anti-tridagon[12]))
-    (bind ?*technique* OR-k-anti-tridagon[12])
+    ;;; In order to allow the ORkFW[n] to be found as the hardest techniques,
+    ;;; don't take the OR-k-anti-tridagon[12] into account:
+    ; (bind ?*technique* OR-k-anti-tridagon[12])
     (assert (tridagon-type antidiag))
     (assert (tridagon-type diag))
 )

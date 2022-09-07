@@ -45,7 +45,9 @@
 =>
     (if ?*print-levels* then (printout t "Entering_level_tridagon[12]"))
     (assert (technique ?cont tridagon[12]))
-    (bind ?*technique* tridagon[12])
+    ;;; In order to allow the ORkFW[n] to be found as the hardest techniques,
+    ;;; don't take the tridagon[12] into account:
+    ; (bind ?*technique* tridagon[12])
 )
 
 

@@ -118,6 +118,9 @@
 
     ?*has-exotic-pattern* = FALSE
     ?*has-oddagon* = FALSE
+    
+    ?*OR-k-size* = 0
+    ?*OR-k-sizes-list* = (create$)
 )
 
 
@@ -163,6 +166,9 @@
 
     (bind ?*has-exotic-pattern* FALSE)
     (bind ?*has-oddagon* FALSE)
+
+    (bind ?*OR-k-size* 0)
+    (bind ?*OR-k-sizes-list* (create$))
 )
 
 
@@ -314,8 +320,15 @@
 (defglobal ?*OR4-Forcing-Whips* = FALSE)
 (defglobal ?*OR5-Forcing-Whips* = FALSE)
 (defglobal ?*OR6-Forcing-Whips* = FALSE)
-(defglobal ?*Forcing-Braids* = FALSE)
+
+(defglobal ?*OR2-Contrad-Whips* = FALSE)
+(defglobal ?*OR3-Contrad-Whips* = FALSE)
+(defglobal ?*OR4-Contrad-Whips* = FALSE)
+(defglobal ?*OR5-Contrad-Whips* = FALSE)
+(defglobal ?*OR6-Contrad-Whips* = FALSE)
+
 (defglobal ?*Forcing-G-Whips* = FALSE)
+(defglobal ?*Forcing-Braids* = FALSE)
 (defglobal ?*Forcing-G-Braids* = FALSE)
 
 
@@ -343,11 +356,22 @@
 (defglobal ?*typed-gwhips-max-length* = 36)
 
 (defglobal ?*forcing-whips-max-length* = 36)
+
 (defglobal ?*OR2-forcing-whips-max-length* = 36)
 (defglobal ?*OR3-forcing-whips-max-length* = 36)
 (defglobal ?*OR4-forcing-whips-max-length* = 36)
 (defglobal ?*OR5-forcing-whips-max-length* = 36)
 (defglobal ?*OR6-forcing-whips-max-length* = 36)
+(defglobal ?*all-ORk-forcing-whips-max-length* = 36)
+
+(defglobal ?*OR2-contrad-whips-max-length* = 36)
+(defglobal ?*OR3-contrad-whips-max-length* = 36)
+(defglobal ?*OR4-contrad-whips-max-length* = 36)
+(defglobal ?*OR5-contrad-whips-max-length* = 36)
+(defglobal ?*OR6-contrad-whips-max-length* = 36)
+(defglobal ?*all-ORk-contrad-whips-max-length* = 36)
+
+
 (defglobal ?*forcing-gwhips-max-length* = 36)
 (defglobal ?*forcing-braids-max-length* = 36)
 (defglobal ?*forcing-gbraids-max-length* = 36)
@@ -382,13 +406,31 @@
     (bind ?*forcing-braids-max-length* (min ?*forcing-braids-max-length* ?*all-chains-max-length*))
     (bind ?*forcing-gbraids-max-length* (min ?*forcing-gbraids-max-length* ?*all-chains-max-length*))
 
-    ;;; because OR-k-Forcing-Whips are supposed to rely on exotic patterns,
-    ;;; their max-length is not restricted by ?*all-chains-max-length*
+    ;;; Because OR-k-Forcing-Whips are supposed to rely on exotic patterns,
+    ;;; their max-lengths are not restricted by ?*all-chains-max-length*
     ; (bind ?*OR2-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
     ; (bind ?*OR3-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
     ; (bind ?*OR4-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
     ; (bind ?*OR5-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
     ; (bind ?*OR6-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
+    
+    ;;; but they can be restricted globally by ?*all-ORk-forcing-whips-max-length*:
+    (if (neq ?*all-ORk-forcing-whips-max-length* 36) then
+        (bind ?*OR2-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
+        (bind ?*OR3-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
+        (bind ?*OR4-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
+        (bind ?*OR5-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
+        (bind ?*OR6-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
+    )
+    
+    ;;; OR-k-Contrad-Whips are supposed to rely on exotic patterns, but they are basically partial-whips;
+    ;;; as a result, their max-lengths are restricted by ?*all-chains-max-length*
+    (bind ?*OR2-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*OR3-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*OR4-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*OR5-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
+    (bind ?*OR6-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
+
 )
 
 
@@ -1576,6 +1618,206 @@
     ?*print-OR6-forcing-whip-34* = FALSE
     ?*print-OR6-forcing-whip-35* = FALSE
     ?*print-OR6-forcing-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR2-contrad-whip* = FALSE
+    ?*print-OR2-contrad-whip-1* = FALSE
+    ?*print-OR2-contrad-whip-2* = FALSE
+    ?*print-OR2-contrad-whip-3* = FALSE
+    ?*print-OR2-contrad-whip-4* = FALSE
+    ?*print-OR2-contrad-whip-5* = FALSE
+    ?*print-OR2-contrad-whip-6* = FALSE
+    ?*print-OR2-contrad-whip-7* = FALSE
+    ?*print-OR2-contrad-whip-8* = FALSE
+    ?*print-OR2-contrad-whip-9* = FALSE
+    ?*print-OR2-contrad-whip-10* = FALSE
+    ?*print-OR2-contrad-whip-11* = FALSE
+    ?*print-OR2-contrad-whip-12* = FALSE
+    ?*print-OR2-contrad-whip-13* = FALSE
+    ?*print-OR2-contrad-whip-14* = FALSE
+    ?*print-OR2-contrad-whip-15* = FALSE
+    ?*print-OR2-contrad-whip-16* = FALSE
+    ?*print-OR2-contrad-whip-17* = FALSE
+    ?*print-OR2-contrad-whip-18* = FALSE
+    ?*print-OR2-contrad-whip-19* = FALSE
+    ?*print-OR2-contrad-whip-20* = FALSE
+    ?*print-OR2-contrad-whip-21* = FALSE
+    ?*print-OR2-contrad-whip-22* = FALSE
+    ?*print-OR2-contrad-whip-23* = FALSE
+    ?*print-OR2-contrad-whip-24* = FALSE
+    ?*print-OR2-contrad-whip-25* = FALSE
+    ?*print-OR2-contrad-whip-26* = FALSE
+    ?*print-OR2-contrad-whip-27* = FALSE
+    ?*print-OR2-contrad-whip-28* = FALSE
+    ?*print-OR2-contrad-whip-29* = FALSE
+    ?*print-OR2-contrad-whip-30* = FALSE
+    ?*print-OR2-contrad-whip-31* = FALSE
+    ?*print-OR2-contrad-whip-32* = FALSE
+    ?*print-OR2-contrad-whip-33* = FALSE
+    ?*print-OR2-contrad-whip-34* = FALSE
+    ?*print-OR2-contrad-whip-35* = FALSE
+    ?*print-OR2-contrad-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR3-contrad-whip* = FALSE
+    ?*print-OR3-contrad-whip-1* = FALSE
+    ?*print-OR3-contrad-whip-2* = FALSE
+    ?*print-OR3-contrad-whip-3* = FALSE
+    ?*print-OR3-contrad-whip-4* = FALSE
+    ?*print-OR3-contrad-whip-5* = FALSE
+    ?*print-OR3-contrad-whip-6* = FALSE
+    ?*print-OR3-contrad-whip-7* = FALSE
+    ?*print-OR3-contrad-whip-8* = FALSE
+    ?*print-OR3-contrad-whip-9* = FALSE
+    ?*print-OR3-contrad-whip-10* = FALSE
+    ?*print-OR3-contrad-whip-11* = FALSE
+    ?*print-OR3-contrad-whip-12* = FALSE
+    ?*print-OR3-contrad-whip-13* = FALSE
+    ?*print-OR3-contrad-whip-14* = FALSE
+    ?*print-OR3-contrad-whip-15* = FALSE
+    ?*print-OR3-contrad-whip-16* = FALSE
+    ?*print-OR3-contrad-whip-17* = FALSE
+    ?*print-OR3-contrad-whip-18* = FALSE
+    ?*print-OR3-contrad-whip-19* = FALSE
+    ?*print-OR3-contrad-whip-20* = FALSE
+    ?*print-OR3-contrad-whip-21* = FALSE
+    ?*print-OR3-contrad-whip-22* = FALSE
+    ?*print-OR3-contrad-whip-23* = FALSE
+    ?*print-OR3-contrad-whip-24* = FALSE
+    ?*print-OR3-contrad-whip-25* = FALSE
+    ?*print-OR3-contrad-whip-26* = FALSE
+    ?*print-OR3-contrad-whip-27* = FALSE
+    ?*print-OR3-contrad-whip-28* = FALSE
+    ?*print-OR3-contrad-whip-29* = FALSE
+    ?*print-OR3-contrad-whip-30* = FALSE
+    ?*print-OR3-contrad-whip-31* = FALSE
+    ?*print-OR3-contrad-whip-32* = FALSE
+    ?*print-OR3-contrad-whip-33* = FALSE
+    ?*print-OR3-contrad-whip-34* = FALSE
+    ?*print-OR3-contrad-whip-35* = FALSE
+    ?*print-OR3-contrad-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR4-contrad-whip* = FALSE
+    ?*print-OR4-contrad-whip-1* = FALSE
+    ?*print-OR4-contrad-whip-2* = FALSE
+    ?*print-OR4-contrad-whip-3* = FALSE
+    ?*print-OR4-contrad-whip-4* = FALSE
+    ?*print-OR4-contrad-whip-5* = FALSE
+    ?*print-OR4-contrad-whip-6* = FALSE
+    ?*print-OR4-contrad-whip-7* = FALSE
+    ?*print-OR4-contrad-whip-8* = FALSE
+    ?*print-OR4-contrad-whip-9* = FALSE
+    ?*print-OR4-contrad-whip-10* = FALSE
+    ?*print-OR4-contrad-whip-11* = FALSE
+    ?*print-OR4-contrad-whip-12* = FALSE
+    ?*print-OR4-contrad-whip-13* = FALSE
+    ?*print-OR4-contrad-whip-14* = FALSE
+    ?*print-OR4-contrad-whip-15* = FALSE
+    ?*print-OR4-contrad-whip-16* = FALSE
+    ?*print-OR4-contrad-whip-17* = FALSE
+    ?*print-OR4-contrad-whip-18* = FALSE
+    ?*print-OR4-contrad-whip-19* = FALSE
+    ?*print-OR4-contrad-whip-20* = FALSE
+    ?*print-OR4-contrad-whip-21* = FALSE
+    ?*print-OR4-contrad-whip-22* = FALSE
+    ?*print-OR4-contrad-whip-23* = FALSE
+    ?*print-OR4-contrad-whip-24* = FALSE
+    ?*print-OR4-contrad-whip-25* = FALSE
+    ?*print-OR4-contrad-whip-26* = FALSE
+    ?*print-OR4-contrad-whip-27* = FALSE
+    ?*print-OR4-contrad-whip-28* = FALSE
+    ?*print-OR4-contrad-whip-29* = FALSE
+    ?*print-OR4-contrad-whip-30* = FALSE
+    ?*print-OR4-contrad-whip-31* = FALSE
+    ?*print-OR4-contrad-whip-32* = FALSE
+    ?*print-OR4-contrad-whip-33* = FALSE
+    ?*print-OR4-contrad-whip-34* = FALSE
+    ?*print-OR4-contrad-whip-35* = FALSE
+    ?*print-OR4-contrad-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR5-contrad-whip* = FALSE
+    ?*print-OR5-contrad-whip-1* = FALSE
+    ?*print-OR5-contrad-whip-2* = FALSE
+    ?*print-OR5-contrad-whip-3* = FALSE
+    ?*print-OR5-contrad-whip-4* = FALSE
+    ?*print-OR5-contrad-whip-5* = FALSE
+    ?*print-OR5-contrad-whip-6* = FALSE
+    ?*print-OR5-contrad-whip-7* = FALSE
+    ?*print-OR5-contrad-whip-8* = FALSE
+    ?*print-OR5-contrad-whip-9* = FALSE
+    ?*print-OR5-contrad-whip-10* = FALSE
+    ?*print-OR5-contrad-whip-11* = FALSE
+    ?*print-OR5-contrad-whip-12* = FALSE
+    ?*print-OR5-contrad-whip-13* = FALSE
+    ?*print-OR5-contrad-whip-14* = FALSE
+    ?*print-OR5-contrad-whip-15* = FALSE
+    ?*print-OR5-contrad-whip-16* = FALSE
+    ?*print-OR5-contrad-whip-17* = FALSE
+    ?*print-OR5-contrad-whip-18* = FALSE
+    ?*print-OR5-contrad-whip-19* = FALSE
+    ?*print-OR5-contrad-whip-20* = FALSE
+    ?*print-OR5-contrad-whip-21* = FALSE
+    ?*print-OR5-contrad-whip-22* = FALSE
+    ?*print-OR5-contrad-whip-23* = FALSE
+    ?*print-OR5-contrad-whip-24* = FALSE
+    ?*print-OR5-contrad-whip-25* = FALSE
+    ?*print-OR5-contrad-whip-26* = FALSE
+    ?*print-OR5-contrad-whip-27* = FALSE
+    ?*print-OR5-contrad-whip-28* = FALSE
+    ?*print-OR5-contrad-whip-29* = FALSE
+    ?*print-OR5-contrad-whip-30* = FALSE
+    ?*print-OR5-contrad-whip-31* = FALSE
+    ?*print-OR5-contrad-whip-32* = FALSE
+    ?*print-OR5-contrad-whip-33* = FALSE
+    ?*print-OR5-contrad-whip-34* = FALSE
+    ?*print-OR5-contrad-whip-35* = FALSE
+    ?*print-OR5-contrad-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR6-contrad-whip* = FALSE
+    ?*print-OR6-contrad-whip-1* = FALSE
+    ?*print-OR6-contrad-whip-2* = FALSE
+    ?*print-OR6-contrad-whip-3* = FALSE
+    ?*print-OR6-contrad-whip-4* = FALSE
+    ?*print-OR6-contrad-whip-5* = FALSE
+    ?*print-OR6-contrad-whip-6* = FALSE
+    ?*print-OR6-contrad-whip-7* = FALSE
+    ?*print-OR6-contrad-whip-8* = FALSE
+    ?*print-OR6-contrad-whip-9* = FALSE
+    ?*print-OR6-contrad-whip-10* = FALSE
+    ?*print-OR6-contrad-whip-11* = FALSE
+    ?*print-OR6-contrad-whip-12* = FALSE
+    ?*print-OR6-contrad-whip-13* = FALSE
+    ?*print-OR6-contrad-whip-14* = FALSE
+    ?*print-OR6-contrad-whip-15* = FALSE
+    ?*print-OR6-contrad-whip-16* = FALSE
+    ?*print-OR6-contrad-whip-17* = FALSE
+    ?*print-OR6-contrad-whip-18* = FALSE
+    ?*print-OR6-contrad-whip-19* = FALSE
+    ?*print-OR6-contrad-whip-20* = FALSE
+    ?*print-OR6-contrad-whip-21* = FALSE
+    ?*print-OR6-contrad-whip-22* = FALSE
+    ?*print-OR6-contrad-whip-23* = FALSE
+    ?*print-OR6-contrad-whip-24* = FALSE
+    ?*print-OR6-contrad-whip-25* = FALSE
+    ?*print-OR6-contrad-whip-26* = FALSE
+    ?*print-OR6-contrad-whip-27* = FALSE
+    ?*print-OR6-contrad-whip-28* = FALSE
+    ?*print-OR6-contrad-whip-29* = FALSE
+    ?*print-OR6-contrad-whip-30* = FALSE
+    ?*print-OR6-contrad-whip-31* = FALSE
+    ?*print-OR6-contrad-whip-32* = FALSE
+    ?*print-OR6-contrad-whip-33* = FALSE
+    ?*print-OR6-contrad-whip-34* = FALSE
+    ?*print-OR6-contrad-whip-35* = FALSE
+    ?*print-OR6-contrad-whip-36* = FALSE
 )
 
 (defglobal

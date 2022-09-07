@@ -628,10 +628,6 @@
 (defglobal ?*partial-g-braid[0]-salience-2* = 0)
 (defglobal ?*partial-g-braid[0]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[1]-salience* = 0)
-(defglobal ?*forcing-whip[1]-value-salience* = 0)
-(defglobal ?*forcing-whip[1]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[1]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[1]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[1]-candidate-salience* = 0)
@@ -651,6 +647,10 @@
 (defglobal ?*activate-OR6-forcing-whip[1]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[1]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[1]-candidate-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[1]-salience* = 0)
+(defglobal ?*forcing-whip[1]-value-salience* = 0)
+(defglobal ?*forcing-whip[1]-candidate-salience* = 0)
 
 
 
@@ -705,10 +705,6 @@
 	(bind ?*partial-g-braid[0]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 	(bind ?*partial-g-braid[0]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-	(bind ?*activate-forcing-whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-	(bind ?*forcing-whip[1]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-	(bind ?*forcing-whip[1]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
     (bind ?*activate-OR2-forcing-whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR2-forcing-whip[1]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR2-forcing-whip[1]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -728,6 +724,10 @@
     (bind ?*activate-OR6-forcing-whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR6-forcing-whip[1]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR6-forcing-whip[1]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (bind ?*activate-forcing-whip[1]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*forcing-whip[1]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*forcing-whip[1]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     
 	(bind ?*activate-w*-whip[[1]]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -947,10 +947,6 @@
 (defglobal ?*partial-gbraid[1]-salience-2* = 0)
 (defglobal ?*partial-gbraid[1]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[2]-salience* = 0)
-(defglobal ?*forcing-whip[2]-value-salience* = 0)
-(defglobal ?*forcing-whip[2]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[2]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[2]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[2]-candidate-salience* = 0)
@@ -970,6 +966,25 @@
 (defglobal ?*activate-OR6-forcing-whip[2]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[2]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[2]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[2]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[2]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[2]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[2]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[2]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[2]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[2]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[2]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[2]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[2]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[2]-salience* = 0)
+(defglobal ?*forcing-whip[2]-value-salience* = 0)
+(defglobal ?*forcing-whip[2]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[2]-salience* = 0)
 (defglobal ?*forcing-gwhip[2]-value-salience* = 0)
@@ -1132,10 +1147,6 @@
 	(bind ?*partial-gbraid[1]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 	(bind ?*partial-gbraid[1]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-	(bind ?*activate-forcing-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-	(bind ?*forcing-whip[2]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-	(bind ?*forcing-whip[2]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
     (bind ?*activate-OR2-forcing-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR2-forcing-whip[2]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR2-forcing-whip[2]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -1155,6 +1166,26 @@
     (bind ?*activate-OR6-forcing-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR6-forcing-whip[2]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*OR6-forcing-whip[2]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (bind ?*activate-OR2-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*OR2-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (bind ?*activate-OR3-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*OR3-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (bind ?*activate-OR4-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*OR4-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (bind ?*activate-OR5-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*OR5-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (bind ?*activate-OR6-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*OR6-contrad-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+
+    (bind ?*activate-forcing-whip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*forcing-whip[2]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*forcing-whip[2]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-forcing-gwhip[2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*forcing-gwhip[2]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -1262,10 +1293,6 @@
 (defglobal ?*partial-gbraid[2]-salience-2* = 0)
 (defglobal ?*partial-gbraid[2]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[3]-salience* = 0)
-(defglobal ?*forcing-whip[3]-value-salience* = 0)
-(defglobal ?*forcing-whip[3]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[3]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[3]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[3]-candidate-salience* = 0)
@@ -1285,6 +1312,25 @@
 (defglobal ?*activate-OR6-forcing-whip[3]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[3]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[3]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[3]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[3]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[3]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[3]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[3]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[3]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[3]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[3]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[3]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[3]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[3]-salience* = 0)
+(defglobal ?*forcing-whip[3]-value-salience* = 0)
+(defglobal ?*forcing-whip[3]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[3]-salience* = 0)
 (defglobal ?*forcing-gwhip[3]-value-salience* = 0)
@@ -1398,10 +1444,6 @@
    (bind ?*partial-gbraid[2]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[2]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[3]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[3]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[3]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[3]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -1421,6 +1463,25 @@
    (bind ?*activate-OR6-forcing-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[3]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[3]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[3]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[3]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[3]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -1524,10 +1585,6 @@
 (defglobal ?*partial-gbraid[3]-salience-2* = 0)
 (defglobal ?*partial-gbraid[3]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[4]-salience* = 0)
-(defglobal ?*forcing-whip[4]-value-salience* = 0)
-(defglobal ?*forcing-whip[4]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[4]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[4]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[4]-candidate-salience* = 0)
@@ -1547,6 +1604,25 @@
 (defglobal ?*activate-OR6-forcing-whip[4]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[4]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[4]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[4]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[4]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[4]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[4]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[4]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[4]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[4]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[4]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[4]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[4]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[4]-salience* = 0)
+(defglobal ?*forcing-whip[4]-value-salience* = 0)
+(defglobal ?*forcing-whip[4]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[4]-salience* = 0)
 (defglobal ?*forcing-gwhip[4]-value-salience* = 0)
@@ -1656,10 +1732,6 @@
    (bind ?*partial-gbraid[3]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[3]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[4]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[4]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[4]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[4]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -1679,6 +1751,25 @@
    (bind ?*activate-OR6-forcing-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[4]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[4]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[4]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[4]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[4]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -1786,10 +1877,6 @@
 (defglobal ?*partial-gbraid[4]-salience-2* = 0)
 (defglobal ?*partial-gbraid[4]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[5]-salience* = 0)
-(defglobal ?*forcing-whip[5]-value-salience* = 0)
-(defglobal ?*forcing-whip[5]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[5]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[5]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[5]-candidate-salience* = 0)
@@ -1809,6 +1896,25 @@
 (defglobal ?*activate-OR6-forcing-whip[5]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[5]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[5]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[5]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[5]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[5]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[5]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[5]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[5]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[5]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[5]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[5]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[5]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[5]-salience* = 0)
+(defglobal ?*forcing-whip[5]-value-salience* = 0)
+(defglobal ?*forcing-whip[5]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[5]-salience* = 0)
 (defglobal ?*forcing-gwhip[5]-value-salience* = 0)
@@ -1922,10 +2028,6 @@
    (bind ?*partial-gbraid[4]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[4]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[5]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[5]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[5]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[5]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -1945,6 +2047,25 @@
    (bind ?*activate-OR6-forcing-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[5]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[5]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[5]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[5]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[5]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[5]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2048,10 +2169,6 @@
 (defglobal ?*partial-gbraid[5]-salience-2* = 0)
 (defglobal ?*partial-gbraid[5]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[6]-salience* = 0)
-(defglobal ?*forcing-whip[6]-value-salience* = 0)
-(defglobal ?*forcing-whip[6]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[6]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[6]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[6]-candidate-salience* = 0)
@@ -2071,6 +2188,25 @@
 (defglobal ?*activate-OR6-forcing-whip[6]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[6]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[6]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[6]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[6]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[6]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[6]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[6]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[6]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[6]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[6]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[6]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[6]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[6]-salience* = 0)
+(defglobal ?*forcing-whip[6]-value-salience* = 0)
+(defglobal ?*forcing-whip[6]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[6]-salience* = 0)
 (defglobal ?*forcing-gwhip[6]-value-salience* = 0)
@@ -2180,10 +2316,6 @@
    (bind ?*partial-gbraid[5]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[5]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[6]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[6]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[6]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[6]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2203,6 +2335,25 @@
    (bind ?*activate-OR6-forcing-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[6]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[6]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[6]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[6]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[6]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[6]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2310,10 +2461,6 @@
 (defglobal ?*partial-gbraid[6]-salience-2* = 0)
 (defglobal ?*partial-gbraid[6]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[7]-salience* = 0)
-(defglobal ?*forcing-whip[7]-value-salience* = 0)
-(defglobal ?*forcing-whip[7]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[7]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[7]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[7]-candidate-salience* = 0)
@@ -2333,6 +2480,25 @@
 (defglobal ?*activate-OR6-forcing-whip[7]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[7]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[7]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[7]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[7]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[7]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[7]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[7]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[7]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[7]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[7]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[7]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[7]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[7]-salience* = 0)
+(defglobal ?*forcing-whip[7]-value-salience* = 0)
+(defglobal ?*forcing-whip[7]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[7]-salience* = 0)
 (defglobal ?*forcing-gwhip[7]-value-salience* = 0)
@@ -2446,10 +2612,6 @@
    (bind ?*partial-gbraid[6]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[6]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[7]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[7]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[7]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[7]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2469,6 +2631,25 @@
    (bind ?*activate-OR6-forcing-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[7]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[7]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[7]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[7]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[7]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[7]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2572,10 +2753,6 @@
 (defglobal ?*partial-gbraid[7]-salience-2* = 0)
 (defglobal ?*partial-gbraid[7]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[8]-salience* = 0)
-(defglobal ?*forcing-whip[8]-value-salience* = 0)
-(defglobal ?*forcing-whip[8]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[8]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[8]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[8]-candidate-salience* = 0)
@@ -2595,6 +2772,25 @@
 (defglobal ?*activate-OR6-forcing-whip[8]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[8]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[8]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[8]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[8]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[8]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[8]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[8]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[8]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[8]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[8]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[8]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[8]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[8]-salience* = 0)
+(defglobal ?*forcing-whip[8]-value-salience* = 0)
+(defglobal ?*forcing-whip[8]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[8]-salience* = 0)
 (defglobal ?*forcing-gwhip[8]-value-salience* = 0)
@@ -2704,10 +2900,6 @@
    (bind ?*partial-gbraid[7]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[7]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[8]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[8]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[8]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[8]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2727,6 +2919,25 @@
    (bind ?*activate-OR6-forcing-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[8]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[8]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[8]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[8]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[8]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[8]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2834,10 +3045,6 @@
 (defglobal ?*partial-gbraid[8]-salience-2* = 0)
 (defglobal ?*partial-gbraid[8]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[9]-salience* = 0)
-(defglobal ?*forcing-whip[9]-value-salience* = 0)
-(defglobal ?*forcing-whip[9]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[9]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[9]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[9]-candidate-salience* = 0)
@@ -2857,6 +3064,25 @@
 (defglobal ?*activate-OR6-forcing-whip[9]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[9]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[9]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[9]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[9]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[9]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[9]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[9]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[9]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[9]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[9]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[9]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[9]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[9]-salience* = 0)
+(defglobal ?*forcing-whip[9]-value-salience* = 0)
+(defglobal ?*forcing-whip[9]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[9]-salience* = 0)
 (defglobal ?*forcing-gwhip[9]-value-salience* = 0)
@@ -2970,10 +3196,6 @@
    (bind ?*partial-gbraid[8]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[8]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[9]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[9]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[9]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[9]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -2993,6 +3215,25 @@
    (bind ?*activate-OR6-forcing-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[9]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[9]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[9]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[9]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[9]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[9]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -3096,10 +3337,6 @@
 (defglobal ?*partial-gbraid[9]-salience-2* = 0)
 (defglobal ?*partial-gbraid[9]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[10]-salience* = 0)
-(defglobal ?*forcing-whip[10]-value-salience* = 0)
-(defglobal ?*forcing-whip[10]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[10]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[10]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[10]-candidate-salience* = 0)
@@ -3119,6 +3356,25 @@
 (defglobal ?*activate-OR6-forcing-whip[10]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[10]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[10]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[10]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[10]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[10]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[10]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[10]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[10]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[10]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[10]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[10]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[10]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[10]-salience* = 0)
+(defglobal ?*forcing-whip[10]-value-salience* = 0)
+(defglobal ?*forcing-whip[10]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[10]-salience* = 0)
 (defglobal ?*forcing-gwhip[10]-value-salience* = 0)
@@ -3228,10 +3484,6 @@
    (bind ?*partial-gbraid[9]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[9]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[10]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[10]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[10]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[10]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -3251,6 +3503,25 @@
    (bind ?*activate-OR6-forcing-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[10]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[10]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[10]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[10]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[10]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[10]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -3358,10 +3629,6 @@
 (defglobal ?*partial-gbraid[10]-salience-2* = 0)
 (defglobal ?*partial-gbraid[10]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[11]-salience* = 0)
-(defglobal ?*forcing-whip[11]-value-salience* = 0)
-(defglobal ?*forcing-whip[11]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[11]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[11]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[11]-candidate-salience* = 0)
@@ -3381,6 +3648,25 @@
 (defglobal ?*activate-OR6-forcing-whip[11]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[11]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[11]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[11]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[11]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[11]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[11]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[11]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[11]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[11]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[11]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[11]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[11]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[11]-salience* = 0)
+(defglobal ?*forcing-whip[11]-value-salience* = 0)
+(defglobal ?*forcing-whip[11]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[11]-salience* = 0)
 (defglobal ?*forcing-gwhip[11]-value-salience* = 0)
@@ -3494,10 +3780,6 @@
    (bind ?*partial-gbraid[10]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[10]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[11]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[11]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[11]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[11]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -3517,6 +3799,25 @@
    (bind ?*activate-OR6-forcing-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[11]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[11]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[11]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[11]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[11]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[11]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -3620,10 +3921,6 @@
 (defglobal ?*partial-gbraid[11]-salience-2* = 0)
 (defglobal ?*partial-gbraid[11]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[12]-salience* = 0)
-(defglobal ?*forcing-whip[12]-value-salience* = 0)
-(defglobal ?*forcing-whip[12]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[12]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[12]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[12]-candidate-salience* = 0)
@@ -3643,6 +3940,25 @@
 (defglobal ?*activate-OR6-forcing-whip[12]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[12]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[12]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[12]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[12]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[12]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[12]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[12]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[12]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[12]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[12]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[12]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[12]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[12]-salience* = 0)
+(defglobal ?*forcing-whip[12]-value-salience* = 0)
+(defglobal ?*forcing-whip[12]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[12]-salience* = 0)
 (defglobal ?*forcing-gwhip[12]-value-salience* = 0)
@@ -3752,10 +4068,6 @@
    (bind ?*partial-gbraid[11]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[11]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[12]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[12]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[12]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[12]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -3775,6 +4087,25 @@
    (bind ?*activate-OR6-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[12]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[12]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[12]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[12]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[12]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -3882,10 +4213,6 @@
 (defglobal ?*partial-gbraid[12]-salience-2* = 0)
 (defglobal ?*partial-gbraid[12]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[13]-salience* = 0)
-(defglobal ?*forcing-whip[13]-value-salience* = 0)
-(defglobal ?*forcing-whip[13]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[13]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[13]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[13]-candidate-salience* = 0)
@@ -3905,6 +4232,25 @@
 (defglobal ?*activate-OR6-forcing-whip[13]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[13]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[13]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[13]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[13]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[13]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[13]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[13]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[13]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[13]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[13]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[13]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[13]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[13]-salience* = 0)
+(defglobal ?*forcing-whip[13]-value-salience* = 0)
+(defglobal ?*forcing-whip[13]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[13]-salience* = 0)
 (defglobal ?*forcing-gwhip[13]-value-salience* = 0)
@@ -4018,10 +4364,6 @@
    (bind ?*partial-gbraid[12]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[12]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[13]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[13]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[13]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[13]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4041,6 +4383,25 @@
    (bind ?*activate-OR6-forcing-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[13]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[13]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[13]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[13]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[13]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[13]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4144,10 +4505,6 @@
 (defglobal ?*partial-gbraid[13]-salience-2* = 0)
 (defglobal ?*partial-gbraid[13]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[14]-salience* = 0)
-(defglobal ?*forcing-whip[14]-value-salience* = 0)
-(defglobal ?*forcing-whip[14]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[14]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[14]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[14]-candidate-salience* = 0)
@@ -4167,6 +4524,25 @@
 (defglobal ?*activate-OR6-forcing-whip[14]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[14]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[14]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[14]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[14]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[14]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[14]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[14]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[14]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[14]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[14]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[14]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[14]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[14]-salience* = 0)
+(defglobal ?*forcing-whip[14]-value-salience* = 0)
+(defglobal ?*forcing-whip[14]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[14]-salience* = 0)
 (defglobal ?*forcing-gwhip[14]-value-salience* = 0)
@@ -4276,10 +4652,6 @@
    (bind ?*partial-gbraid[13]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[13]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[14]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[14]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[14]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[14]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4299,6 +4671,25 @@
    (bind ?*activate-OR6-forcing-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[14]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[14]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[14]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[14]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[14]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[14]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4406,10 +4797,6 @@
 (defglobal ?*partial-gbraid[14]-salience-2* = 0)
 (defglobal ?*partial-gbraid[14]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[15]-salience* = 0)
-(defglobal ?*forcing-whip[15]-value-salience* = 0)
-(defglobal ?*forcing-whip[15]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[15]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[15]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[15]-candidate-salience* = 0)
@@ -4429,6 +4816,25 @@
 (defglobal ?*activate-OR6-forcing-whip[15]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[15]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[15]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[15]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[15]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[15]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[15]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[15]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[15]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[15]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[15]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[15]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[15]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[15]-salience* = 0)
+(defglobal ?*forcing-whip[15]-value-salience* = 0)
+(defglobal ?*forcing-whip[15]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[15]-salience* = 0)
 (defglobal ?*forcing-gwhip[15]-value-salience* = 0)
@@ -4542,10 +4948,6 @@
    (bind ?*partial-gbraid[14]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[14]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[15]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[15]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[15]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[15]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4565,6 +4967,25 @@
    (bind ?*activate-OR6-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[15]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[15]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[15]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[15]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[15]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4668,10 +5089,6 @@
 (defglobal ?*partial-gbraid[15]-salience-2* = 0)
 (defglobal ?*partial-gbraid[15]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[16]-salience* = 0)
-(defglobal ?*forcing-whip[16]-value-salience* = 0)
-(defglobal ?*forcing-whip[16]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[16]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[16]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[16]-candidate-salience* = 0)
@@ -4691,6 +5108,25 @@
 (defglobal ?*activate-OR6-forcing-whip[16]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[16]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[16]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[16]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[16]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[16]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[16]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[16]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[16]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[16]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[16]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[16]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[16]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[16]-salience* = 0)
+(defglobal ?*forcing-whip[16]-value-salience* = 0)
+(defglobal ?*forcing-whip[16]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[16]-salience* = 0)
 (defglobal ?*forcing-gwhip[16]-value-salience* = 0)
@@ -4800,10 +5236,6 @@
    (bind ?*partial-gbraid[15]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[15]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[16]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[16]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[16]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[16]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4823,6 +5255,25 @@
    (bind ?*activate-OR6-forcing-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[16]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[16]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[16]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[16]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[16]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[16]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -4926,10 +5377,6 @@
 (defglobal ?*partial-gbraid[16]-salience-2* = 0)
 (defglobal ?*partial-gbraid[16]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[17]-salience* = 0)
-(defglobal ?*forcing-whip[17]-value-salience* = 0)
-(defglobal ?*forcing-whip[17]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[17]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[17]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[17]-candidate-salience* = 0)
@@ -4949,6 +5396,25 @@
 (defglobal ?*activate-OR6-forcing-whip[17]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[17]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[17]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[17]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[17]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[17]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[17]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[17]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[17]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[17]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[17]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[17]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[17]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[17]-salience* = 0)
+(defglobal ?*forcing-whip[17]-value-salience* = 0)
+(defglobal ?*forcing-whip[17]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[17]-salience* = 0)
 (defglobal ?*forcing-gwhip[17]-value-salience* = 0)
@@ -5058,10 +5524,6 @@
    (bind ?*partial-gbraid[16]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[16]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[17]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[17]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[17]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[17]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5081,6 +5543,25 @@
    (bind ?*activate-OR6-forcing-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[17]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[17]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[17]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[17]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[17]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[17]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5184,10 +5665,6 @@
 (defglobal ?*partial-gbraid[17]-salience-2* = 0)
 (defglobal ?*partial-gbraid[17]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[18]-salience* = 0)
-(defglobal ?*forcing-whip[18]-value-salience* = 0)
-(defglobal ?*forcing-whip[18]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[18]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[18]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[18]-candidate-salience* = 0)
@@ -5207,6 +5684,25 @@
 (defglobal ?*activate-OR6-forcing-whip[18]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[18]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[18]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[18]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[18]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[18]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[18]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[18]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[18]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[18]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[18]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[18]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[18]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[18]-salience* = 0)
+(defglobal ?*forcing-whip[18]-value-salience* = 0)
+(defglobal ?*forcing-whip[18]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[18]-salience* = 0)
 (defglobal ?*forcing-gwhip[18]-value-salience* = 0)
@@ -5316,10 +5812,6 @@
    (bind ?*partial-gbraid[17]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[17]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[18]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[18]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[18]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[18]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5339,6 +5831,25 @@
    (bind ?*activate-OR6-forcing-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[18]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[18]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[18]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[18]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[18]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[18]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5442,10 +5953,6 @@
 (defglobal ?*partial-gbraid[18]-salience-2* = 0)
 (defglobal ?*partial-gbraid[18]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[19]-salience* = 0)
-(defglobal ?*forcing-whip[19]-value-salience* = 0)
-(defglobal ?*forcing-whip[19]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[19]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[19]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[19]-candidate-salience* = 0)
@@ -5465,6 +5972,25 @@
 (defglobal ?*activate-OR6-forcing-whip[19]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[19]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[19]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[19]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[19]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[19]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[19]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[19]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[19]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[19]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[19]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[19]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[19]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[19]-salience* = 0)
+(defglobal ?*forcing-whip[19]-value-salience* = 0)
+(defglobal ?*forcing-whip[19]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[19]-salience* = 0)
 (defglobal ?*forcing-gwhip[19]-value-salience* = 0)
@@ -5574,10 +6100,6 @@
    (bind ?*partial-gbraid[18]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[18]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[19]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[19]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[19]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[19]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5597,6 +6119,25 @@
    (bind ?*activate-OR6-forcing-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[19]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[19]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[19]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[19]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[19]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[19]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5700,10 +6241,6 @@
 (defglobal ?*partial-gbraid[19]-salience-2* = 0)
 (defglobal ?*partial-gbraid[19]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[20]-salience* = 0)
-(defglobal ?*forcing-whip[20]-value-salience* = 0)
-(defglobal ?*forcing-whip[20]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[20]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[20]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[20]-candidate-salience* = 0)
@@ -5723,6 +6260,25 @@
 (defglobal ?*activate-OR6-forcing-whip[20]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[20]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[20]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[20]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[20]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[20]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[20]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[20]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[20]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[20]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[20]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[20]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[20]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[20]-salience* = 0)
+(defglobal ?*forcing-whip[20]-value-salience* = 0)
+(defglobal ?*forcing-whip[20]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[20]-salience* = 0)
 (defglobal ?*forcing-gwhip[20]-value-salience* = 0)
@@ -5832,10 +6388,6 @@
    (bind ?*partial-gbraid[19]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[19]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[20]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[20]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[20]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[20]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5855,6 +6407,25 @@
    (bind ?*activate-OR6-forcing-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[20]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[20]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[20]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[20]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[20]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[20]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -5937,10 +6508,6 @@
 (defglobal ?*partial-gbraid[20]-salience-2* = 0)
 (defglobal ?*partial-gbraid[20]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[21]-salience* = 0)
-(defglobal ?*forcing-whip[21]-value-salience* = 0)
-(defglobal ?*forcing-whip[21]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[21]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[21]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[21]-candidate-salience* = 0)
@@ -5960,6 +6527,25 @@
 (defglobal ?*activate-OR6-forcing-whip[21]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[21]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[21]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[21]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[21]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[21]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[21]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[21]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[21]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[21]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[21]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[21]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[21]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[21]-salience* = 0)
+(defglobal ?*forcing-whip[21]-value-salience* = 0)
+(defglobal ?*forcing-whip[21]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[21]-salience* = 0)
 (defglobal ?*forcing-gwhip[21]-value-salience* = 0)
@@ -6040,10 +6626,6 @@
    (bind ?*partial-gbraid[20]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[20]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[21]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[21]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[21]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[21]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6063,6 +6645,25 @@
    (bind ?*activate-OR6-forcing-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[21]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[21]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[21]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[21]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[21]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[21]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6137,10 +6738,6 @@
 (defglobal ?*partial-gbraid[21]-salience-2* = 0)
 (defglobal ?*partial-gbraid[21]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[22]-salience* = 0)
-(defglobal ?*forcing-whip[22]-value-salience* = 0)
-(defglobal ?*forcing-whip[22]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[22]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[22]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[22]-candidate-salience* = 0)
@@ -6160,6 +6757,25 @@
 (defglobal ?*activate-OR6-forcing-whip[22]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[22]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[22]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[22]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[22]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[22]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[22]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[22]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[22]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[22]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[22]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[22]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[22]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[22]-salience* = 0)
+(defglobal ?*forcing-whip[22]-value-salience* = 0)
+(defglobal ?*forcing-whip[22]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[22]-salience* = 0)
 (defglobal ?*forcing-gwhip[22]-value-salience* = 0)
@@ -6240,10 +6856,6 @@
    (bind ?*partial-gbraid[21]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[21]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[22]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[22]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[22]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[22]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6263,6 +6875,25 @@
    (bind ?*activate-OR6-forcing-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[22]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[22]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[22]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[22]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[22]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[22]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6337,10 +6968,6 @@
 (defglobal ?*partial-gbraid[22]-salience-2* = 0)
 (defglobal ?*partial-gbraid[22]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[23]-salience* = 0)
-(defglobal ?*forcing-whip[23]-value-salience* = 0)
-(defglobal ?*forcing-whip[23]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[23]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[23]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[23]-candidate-salience* = 0)
@@ -6360,6 +6987,25 @@
 (defglobal ?*activate-OR6-forcing-whip[23]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[23]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[23]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[23]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[23]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[23]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[23]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[23]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[23]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[23]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[23]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[23]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[23]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[23]-salience* = 0)
+(defglobal ?*forcing-whip[23]-value-salience* = 0)
+(defglobal ?*forcing-whip[23]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[23]-salience* = 0)
 (defglobal ?*forcing-gwhip[23]-value-salience* = 0)
@@ -6440,10 +7086,6 @@
    (bind ?*partial-gbraid[22]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[22]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[23]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[23]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[23]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[23]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6463,6 +7105,25 @@
    (bind ?*activate-OR6-forcing-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[23]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[23]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[23]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[23]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[23]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[23]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6537,10 +7198,6 @@
 (defglobal ?*partial-gbraid[23]-salience-2* = 0)
 (defglobal ?*partial-gbraid[23]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[24]-salience* = 0)
-(defglobal ?*forcing-whip[24]-value-salience* = 0)
-(defglobal ?*forcing-whip[24]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[24]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[24]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[24]-candidate-salience* = 0)
@@ -6560,6 +7217,25 @@
 (defglobal ?*activate-OR6-forcing-whip[24]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[24]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[24]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[24]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[24]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[24]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[24]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[24]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[24]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[24]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[24]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[24]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[24]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[24]-salience* = 0)
+(defglobal ?*forcing-whip[24]-value-salience* = 0)
+(defglobal ?*forcing-whip[24]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[24]-salience* = 0)
 (defglobal ?*forcing-gwhip[24]-value-salience* = 0)
@@ -6640,10 +7316,6 @@
    (bind ?*partial-gbraid[23]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[23]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[24]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[24]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[24]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[24]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6663,6 +7335,25 @@
    (bind ?*activate-OR6-forcing-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[24]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[24]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[24]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[24]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[24]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[24]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6737,10 +7428,6 @@
 (defglobal ?*partial-gbraid[24]-salience-2* = 0)
 (defglobal ?*partial-gbraid[24]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[25]-salience* = 0)
-(defglobal ?*forcing-whip[25]-value-salience* = 0)
-(defglobal ?*forcing-whip[25]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[25]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[25]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[25]-candidate-salience* = 0)
@@ -6760,6 +7447,25 @@
 (defglobal ?*activate-OR6-forcing-whip[25]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[25]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[25]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[25]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[25]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[25]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[25]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[25]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[25]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[25]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[25]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[25]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[25]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[25]-salience* = 0)
+(defglobal ?*forcing-whip[25]-value-salience* = 0)
+(defglobal ?*forcing-whip[25]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[25]-salience* = 0)
 (defglobal ?*forcing-gwhip[25]-value-salience* = 0)
@@ -6840,10 +7546,6 @@
    (bind ?*partial-gbraid[24]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[24]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[25]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[25]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[25]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[25]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6863,6 +7565,25 @@
    (bind ?*activate-OR6-forcing-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[25]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[25]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[25]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[25]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[25]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[25]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -6937,10 +7658,6 @@
 (defglobal ?*partial-gbraid[25]-salience-2* = 0)
 (defglobal ?*partial-gbraid[25]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[26]-salience* = 0)
-(defglobal ?*forcing-whip[26]-value-salience* = 0)
-(defglobal ?*forcing-whip[26]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[26]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[26]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[26]-candidate-salience* = 0)
@@ -6960,6 +7677,25 @@
 (defglobal ?*activate-OR6-forcing-whip[26]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[26]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[26]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[26]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[26]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[26]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[26]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[26]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[26]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[26]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[26]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[26]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[26]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[26]-salience* = 0)
+(defglobal ?*forcing-whip[26]-value-salience* = 0)
+(defglobal ?*forcing-whip[26]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[26]-salience* = 0)
 (defglobal ?*forcing-gwhip[26]-value-salience* = 0)
@@ -7040,10 +7776,6 @@
    (bind ?*partial-gbraid[25]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[25]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[26]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[26]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[26]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[26]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7063,6 +7795,25 @@
    (bind ?*activate-OR6-forcing-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[26]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[26]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[26]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[26]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[26]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[26]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7137,10 +7888,6 @@
 (defglobal ?*partial-gbraid[26]-salience-2* = 0)
 (defglobal ?*partial-gbraid[26]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[27]-salience* = 0)
-(defglobal ?*forcing-whip[27]-value-salience* = 0)
-(defglobal ?*forcing-whip[27]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[27]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[27]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[27]-candidate-salience* = 0)
@@ -7160,6 +7907,25 @@
 (defglobal ?*activate-OR6-forcing-whip[27]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[27]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[27]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[27]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[27]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[27]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[27]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[27]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[27]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[27]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[27]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[27]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[27]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[27]-salience* = 0)
+(defglobal ?*forcing-whip[27]-value-salience* = 0)
+(defglobal ?*forcing-whip[27]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[27]-salience* = 0)
 (defglobal ?*forcing-gwhip[27]-value-salience* = 0)
@@ -7240,10 +8006,6 @@
    (bind ?*partial-gbraid[26]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[26]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[27]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[27]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[27]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[27]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7263,6 +8025,25 @@
    (bind ?*activate-OR6-forcing-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[27]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[27]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[27]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[27]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[27]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[27]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7337,10 +8118,6 @@
 (defglobal ?*partial-gbraid[27]-salience-2* = 0)
 (defglobal ?*partial-gbraid[27]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[28]-salience* = 0)
-(defglobal ?*forcing-whip[28]-value-salience* = 0)
-(defglobal ?*forcing-whip[28]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[28]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[28]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[28]-candidate-salience* = 0)
@@ -7360,6 +8137,25 @@
 (defglobal ?*activate-OR6-forcing-whip[28]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[28]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[28]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[28]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[28]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[28]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[28]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[28]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[28]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[28]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[28]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[28]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[28]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[28]-salience* = 0)
+(defglobal ?*forcing-whip[28]-value-salience* = 0)
+(defglobal ?*forcing-whip[28]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[28]-salience* = 0)
 (defglobal ?*forcing-gwhip[28]-value-salience* = 0)
@@ -7440,10 +8236,6 @@
    (bind ?*partial-gbraid[27]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[27]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[28]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[28]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[28]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[28]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7463,6 +8255,25 @@
    (bind ?*activate-OR6-forcing-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[28]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[28]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[28]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[28]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[28]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[28]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7537,10 +8348,6 @@
 (defglobal ?*partial-gbraid[28]-salience-2* = 0)
 (defglobal ?*partial-gbraid[28]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[29]-salience* = 0)
-(defglobal ?*forcing-whip[29]-value-salience* = 0)
-(defglobal ?*forcing-whip[29]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[29]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[29]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[29]-candidate-salience* = 0)
@@ -7560,6 +8367,25 @@
 (defglobal ?*activate-OR6-forcing-whip[29]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[29]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[29]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[29]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[29]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[29]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[29]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[29]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[29]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[29]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[29]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[29]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[29]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[29]-salience* = 0)
+(defglobal ?*forcing-whip[29]-value-salience* = 0)
+(defglobal ?*forcing-whip[29]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[29]-salience* = 0)
 (defglobal ?*forcing-gwhip[29]-value-salience* = 0)
@@ -7640,10 +8466,6 @@
    (bind ?*partial-gbraid[28]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[28]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[29]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[29]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[29]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[29]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7663,6 +8485,25 @@
    (bind ?*activate-OR6-forcing-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[29]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[29]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[29]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[29]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[29]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[29]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7737,10 +8578,6 @@
 (defglobal ?*partial-gbraid[29]-salience-2* = 0)
 (defglobal ?*partial-gbraid[29]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[30]-salience* = 0)
-(defglobal ?*forcing-whip[30]-value-salience* = 0)
-(defglobal ?*forcing-whip[30]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[30]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[30]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[30]-candidate-salience* = 0)
@@ -7760,6 +8597,25 @@
 (defglobal ?*activate-OR6-forcing-whip[30]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[30]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[30]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[30]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[30]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[30]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[30]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[30]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[30]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[30]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[30]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[30]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[30]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[30]-salience* = 0)
+(defglobal ?*forcing-whip[30]-value-salience* = 0)
+(defglobal ?*forcing-whip[30]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[30]-salience* = 0)
 (defglobal ?*forcing-gwhip[30]-value-salience* = 0)
@@ -7840,10 +8696,6 @@
    (bind ?*partial-gbraid[29]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[29]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[30]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[30]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[30]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[30]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7863,6 +8715,25 @@
    (bind ?*activate-OR6-forcing-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[30]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[30]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[30]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[30]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[30]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[30]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -7937,10 +8808,6 @@
 (defglobal ?*partial-gbraid[30]-salience-2* = 0)
 (defglobal ?*partial-gbraid[30]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[31]-salience* = 0)
-(defglobal ?*forcing-whip[31]-value-salience* = 0)
-(defglobal ?*forcing-whip[31]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[31]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[31]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[31]-candidate-salience* = 0)
@@ -7960,6 +8827,25 @@
 (defglobal ?*activate-OR6-forcing-whip[31]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[31]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[31]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[31]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[31]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[31]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[31]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[31]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[31]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[31]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[31]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[31]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[31]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[31]-salience* = 0)
+(defglobal ?*forcing-whip[31]-value-salience* = 0)
+(defglobal ?*forcing-whip[31]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[31]-salience* = 0)
 (defglobal ?*forcing-gwhip[31]-value-salience* = 0)
@@ -8040,10 +8926,6 @@
    (bind ?*partial-gbraid[30]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[30]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[31]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[31]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[31]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[31]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8063,6 +8945,25 @@
    (bind ?*activate-OR6-forcing-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[31]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[31]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[31]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[31]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[31]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[31]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8137,10 +9038,6 @@
 (defglobal ?*partial-gbraid[31]-salience-2* = 0)
 (defglobal ?*partial-gbraid[31]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[32]-salience* = 0)
-(defglobal ?*forcing-whip[32]-value-salience* = 0)
-(defglobal ?*forcing-whip[32]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[32]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[32]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[32]-candidate-salience* = 0)
@@ -8160,6 +9057,25 @@
 (defglobal ?*activate-OR6-forcing-whip[32]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[32]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[32]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[32]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[32]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[32]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[32]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[32]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[32]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[32]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[32]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[32]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[32]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[32]-salience* = 0)
+(defglobal ?*forcing-whip[32]-value-salience* = 0)
+(defglobal ?*forcing-whip[32]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[32]-salience* = 0)
 (defglobal ?*forcing-gwhip[32]-value-salience* = 0)
@@ -8240,10 +9156,6 @@
    (bind ?*partial-gbraid[31]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[31]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[32]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[32]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[32]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[32]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8263,6 +9175,25 @@
    (bind ?*activate-OR6-forcing-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[32]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[32]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[32]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[32]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[32]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[32]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8337,10 +9268,6 @@
 (defglobal ?*partial-gbraid[32]-salience-2* = 0)
 (defglobal ?*partial-gbraid[32]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[33]-salience* = 0)
-(defglobal ?*forcing-whip[33]-value-salience* = 0)
-(defglobal ?*forcing-whip[33]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[33]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[33]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[33]-candidate-salience* = 0)
@@ -8360,6 +9287,25 @@
 (defglobal ?*activate-OR6-forcing-whip[33]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[33]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[33]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[33]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[33]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[33]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[33]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[33]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[33]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[33]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[33]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[33]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[33]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[33]-salience* = 0)
+(defglobal ?*forcing-whip[33]-value-salience* = 0)
+(defglobal ?*forcing-whip[33]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[33]-salience* = 0)
 (defglobal ?*forcing-gwhip[33]-value-salience* = 0)
@@ -8440,10 +9386,6 @@
    (bind ?*partial-gbraid[32]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[32]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[33]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[33]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[33]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[33]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8463,6 +9405,25 @@
    (bind ?*activate-OR6-forcing-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[33]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[33]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[33]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[33]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[33]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[33]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8537,10 +9498,6 @@
 (defglobal ?*partial-gbraid[33]-salience-2* = 0)
 (defglobal ?*partial-gbraid[33]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[34]-salience* = 0)
-(defglobal ?*forcing-whip[34]-value-salience* = 0)
-(defglobal ?*forcing-whip[34]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[34]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[34]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[34]-candidate-salience* = 0)
@@ -8560,6 +9517,25 @@
 (defglobal ?*activate-OR6-forcing-whip[34]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[34]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[34]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[34]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[34]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[34]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[34]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[34]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[34]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[34]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[34]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[34]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[34]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[34]-salience* = 0)
+(defglobal ?*forcing-whip[34]-value-salience* = 0)
+(defglobal ?*forcing-whip[34]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[34]-salience* = 0)
 (defglobal ?*forcing-gwhip[34]-value-salience* = 0)
@@ -8640,10 +9616,6 @@
    (bind ?*partial-gbraid[33]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[33]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[34]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[34]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[34]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[34]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8663,6 +9635,25 @@
    (bind ?*activate-OR6-forcing-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[34]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[34]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[34]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[34]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[34]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[34]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8737,10 +9728,6 @@
 (defglobal ?*partial-gbraid[34]-salience-2* = 0)
 (defglobal ?*partial-gbraid[34]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[35]-salience* = 0)
-(defglobal ?*forcing-whip[35]-value-salience* = 0)
-(defglobal ?*forcing-whip[35]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[35]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[35]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[35]-candidate-salience* = 0)
@@ -8760,6 +9747,25 @@
 (defglobal ?*activate-OR6-forcing-whip[35]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[35]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[35]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[35]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[35]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[35]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[35]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[35]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[35]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[35]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[35]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[35]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[35]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[35]-salience* = 0)
+(defglobal ?*forcing-whip[35]-value-salience* = 0)
+(defglobal ?*forcing-whip[35]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[35]-salience* = 0)
 (defglobal ?*forcing-gwhip[35]-value-salience* = 0)
@@ -8840,10 +9846,6 @@
    (bind ?*partial-gbraid[34]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[34]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[35]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[35]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[35]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[35]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8863,6 +9865,25 @@
    (bind ?*activate-OR6-forcing-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[35]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[35]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[35]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[35]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[35]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -8937,10 +9958,6 @@
 (defglobal ?*partial-gbraid[35]-salience-2* = 0)
 (defglobal ?*partial-gbraid[35]-salience-3* = 0)
 
-(defglobal ?*activate-forcing-whip[36]-salience* = 0)
-(defglobal ?*forcing-whip[36]-value-salience* = 0)
-(defglobal ?*forcing-whip[36]-candidate-salience* = 0)
-
 (defglobal ?*activate-OR2-forcing-whip[36]-salience* = 0)
 (defglobal ?*OR2-forcing-whip[36]-value-salience* = 0)
 (defglobal ?*OR2-forcing-whip[36]-candidate-salience* = 0)
@@ -8960,6 +9977,25 @@
 (defglobal ?*activate-OR6-forcing-whip[36]-salience* = 0)
 (defglobal ?*OR6-forcing-whip[36]-value-salience* = 0)
 (defglobal ?*OR6-forcing-whip[36]-candidate-salience* = 0)
+
+(defglobal ?*activate-OR2-contrad-whip[36]-salience* = 0)
+(defglobal ?*OR2-contrad-whip[36]-salience* = 0)
+
+(defglobal ?*activate-OR3-contrad-whip[36]-salience* = 0)
+(defglobal ?*OR3-contrad-whip[36]-salience* = 0)
+
+(defglobal ?*activate-OR4-contrad-whip[36]-salience* = 0)
+(defglobal ?*OR4-contrad-whip[36]-salience* = 0)
+
+(defglobal ?*activate-OR5-contrad-whip[36]-salience* = 0)
+(defglobal ?*OR5-contrad-whip[36]-salience* = 0)
+
+(defglobal ?*activate-OR6-contrad-whip[36]-salience* = 0)
+(defglobal ?*OR6-contrad-whip[36]-salience* = 0)
+
+(defglobal ?*activate-forcing-whip[36]-salience* = 0)
+(defglobal ?*forcing-whip[36]-value-salience* = 0)
+(defglobal ?*forcing-whip[36]-candidate-salience* = 0)
 
 (defglobal ?*activate-forcing-gwhip[36]-salience* = 0)
 (defglobal ?*forcing-gwhip[36]-value-salience* = 0)
@@ -9040,10 +10076,6 @@
    (bind ?*partial-gbraid[35]-salience-2* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*partial-gbraid[35]-salience-3* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
-   (bind ?*activate-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-   (bind ?*forcing-whip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-
    (bind ?*activate-OR2-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR2-forcing-whip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -9063,6 +10095,25 @@
    (bind ?*activate-OR6-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*OR6-forcing-whip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR2-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR2-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR3-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR3-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR4-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR4-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR5-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR5-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-OR6-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*OR6-contrad-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+   (bind ?*activate-forcing-whip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+   (bind ?*forcing-whip[36]-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
    (bind ?*activate-forcing-gwhip[36]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
    (bind ?*forcing-gwhip[36]-value-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -9085,6 +10136,7 @@
    (bind ?*partial-bibraid[35]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
 )
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

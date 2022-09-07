@@ -231,6 +231,18 @@
 
 
 
+(deffunction print-list-with-separators (?list ?n)
+    (bind ?mod 0)
+    (foreach ?item ?list
+        (bind ?new-mod (mod ?item ?n))
+        (if (< ?mod ?new-mod)
+            then (bind ?mod ?new-mod)
+            else (bind ?mod 0) (printout t crlf crlf)
+        )
+        (printout t ?item " ")
+    )
+    (printout t  crlf)
+)
 
 
 

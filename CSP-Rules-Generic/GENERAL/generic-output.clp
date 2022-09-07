@@ -553,7 +553,8 @@
 )
 
 (deffunction print-OR2-forcing-whip-elim-candidate (?or-name ?or-compl ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2 ?cand)
-    (printout t "OR2-forcing-whip-elim[" (+ ?p1 ?p2 1) "] based on OR2-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) " and  " (print-label ?zzz2) ":")
+    (bind ?name (if (eq (+ ?p1 ?p2) 0) then "OR2-whip" else "OR2-forcing-whip-elim"))
+    (printout t ?name "[" (+ ?p1 ?p2 1) "] based on OR2-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) " and  " (print-label ?zzz2) ":")
     (printout t crlf "   || " (print-label ?zzz1) " - ")
     (if (neq ?p1 0) then (print-partial-chain "partial-whip" ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1))
     (printout t crlf "   || " (print-label ?zzz2) " - ")
@@ -575,7 +576,8 @@
 )
 
 (deffunction print-OR3-forcing-whip-elim-candidate (?or-name ?or-compl ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2 ?p3 ?zzz3 ?llcs3 ?rlcs3 ?csps3 ?cand)
-    (printout t "OR3-forcing-whip-elim[" (+ ?p1 ?p2 ?p3 1) "] based on OR3-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) " and  " (print-label ?zzz3) ":")
+    (bind ?name (if (eq (+ ?p1 ?p2 ?p3) 0) then "OR3-whip" else "OR3-forcing-whip-elim"))
+    (printout t ?name "[" (+ ?p1 ?p2 ?p3 1) "] based on OR3-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) " and  " (print-label ?zzz3) ":")
     (printout t crlf "   || " (print-label ?zzz1) " - ")
     (if (neq ?p1 0) then (print-partial-chain "partial-whip" ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1))
     (printout t crlf "   || " (print-label ?zzz2) " - ")
@@ -601,7 +603,8 @@
 )
 
 (deffunction print-OR4-forcing-whip-elim-candidate (?or-name ?or-compl ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2 ?p3 ?zzz3 ?llcs3 ?rlcs3 ?csps3 ?p4 ?zzz4 ?llcs4 ?rlcs4 ?csps4 ?cand)
-    (printout t "OR4-forcing-whip-elim[" (+ ?p1 ?p2 ?p3 ?p4 1) "] based on OR4-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) " and  " (print-label ?zzz4) ":")
+    (bind ?name (if (eq (+ ?p1 ?p2 ?p3 ?p4) 0) then "OR4-whip" else "OR4-forcing-whip-elim"))
+    (printout t ?name "[" (+ ?p1 ?p2 ?p3 ?p4 1) "] based on OR4-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) " and  " (print-label ?zzz4) ":")
     (printout t crlf "   || " (print-label ?zzz1) " - ")
     (if (neq ?p1 0) then (print-partial-chain "partial-whip" ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1))
     (printout t crlf "   || " (print-label ?zzz2) " - ")
@@ -631,7 +634,8 @@
 )
 
 (deffunction print-OR5-forcing-whip-elim-candidate (?or-name ?or-compl ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2 ?p3 ?zzz3 ?llcs3 ?rlcs3 ?csps3 ?p4 ?zzz4 ?llcs4 ?rlcs4 ?csps4 ?p5 ?zzz5 ?llcs5 ?rlcs5 ?csps5 ?cand)
-    (printout t "OR5-forcing-whip-elim[" (+ ?p1 ?p2 ?p3 ?p4 ?p5 1) "] based on OR5-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) ", "  (print-label ?zzz4) " and  " (print-label ?zzz5) ":")
+    (bind ?name (if (eq (+ ?p1 ?p2 ?p3 ?p4 ?p5) 0) then "OR5-whip" else "OR5-forcing-whip-elim"))
+    (printout t ?name "[" (+ ?p1 ?p2 ?p3 ?p4 ?p5 1) "] based on OR5-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) ", "  (print-label ?zzz4) " and  " (print-label ?zzz5) ":")
     (printout t crlf "   || " (print-label ?zzz1) " - ")
     (if (neq ?p1 0) then (print-partial-chain "partial-whip" ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1))
     (printout t crlf "   || " (print-label ?zzz2) " - ")
@@ -665,7 +669,8 @@
 )
 
 (deffunction print-OR6-forcing-whip-elim-candidate (?or-name ?or-compl ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2 ?p3 ?zzz3 ?llcs3 ?rlcs3 ?csps3 ?p4 ?zzz4 ?llcs4 ?rlcs4 ?csps4 ?p5 ?zzz5 ?llcs5 ?rlcs5 ?csps5 ?p6 ?zzz6 ?llcs6 ?rlcs6 ?csps6 ?cand)
-    (printout t "OR6-forcing-whip-elim[" (+ ?p1 ?p2 ?p3 ?p4 ?p5 ?p6 1) "] based on OR6-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) ", "  (print-label ?zzz4) ", "  (print-label ?zzz5) " and  " (print-label ?zzz6) ":")
+    (bind ?name (if (eq (+ ?p1 ?p2 ?p3 ?p4 ?p5 ?p6) 0) then "OR6-whip" else "OR6-forcing-whip-elim"))
+    (printout t ?name "[" (+ ?p1 ?p2 ?p3 ?p4 ?p5 ?p6 1) "] based on OR6-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) ", "  (print-label ?zzz4) ", "  (print-label ?zzz5) " and  " (print-label ?zzz6) ":")
     (printout t crlf "   || " (print-label ?zzz1) " - ")
     (if (neq ?p1 0) then (print-partial-chain "partial-whip" ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1))
     (printout t crlf "   || " (print-label ?zzz2) " - ")
@@ -678,6 +683,50 @@
     (if (neq ?p5 0) then (print-partial-chain "partial-whip" ?p5 ?zzz5 ?llcs5 ?rlcs5 ?csps5))
     (printout t crlf "   || " (print-label ?zzz6) " - ")
     (if (neq ?p6 0) then (print-partial-chain "partial-whip" ?p6 ?zzz6 ?llcs6 ?rlcs6 ?csps6))
+    (printout t crlf ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+
+
+;;; ORk contrad whips
+
+(deffunction print-OR2-contrad-whip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (if (eq ?p 0) then "OR2-whip" else "OR2-contrad-whip"))
+    (printout t ?name "[" (+ ?p 1) "] based on OR2-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) " and  " (print-label ?zzz2) ":" crlf "   ")
+    (print-partial-chain "partial-whip" ?p ?cand ?llcs ?rlcs ?csps)
+    (printout t crlf ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+(deffunction print-OR3-contrad-whip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?zzz3 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (if (eq ?p 0) then "OR3-whip" else "OR3-contrad-whip"))
+    (printout t ?name "[" (+ ?p 1) "] based on OR3-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) " and  " (print-label ?zzz3) ":" crlf "   ")
+    (print-partial-chain "partial-whip" ?p ?cand ?llcs ?rlcs ?csps)
+    (printout t crlf ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+(deffunction print-OR4-contrad-whip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (if (eq ?p 0) then "OR4-whip" else "OR4-contrad-whip"))
+    (printout t ?name "[" (+ ?p 1) "] based on OR4-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) " and  " (print-label ?zzz4) ":" crlf "   ")
+    (print-partial-chain "partial-whip" ?p ?cand ?llcs ?rlcs ?csps)
+    (printout t crlf ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+(deffunction print-OR5-contrad-whip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?cand ?llcs ?rlcs ?csps )
+    (bind ?name (if (eq ?p 0) then "OR5-whip" else "OR5-contrad-whip"))
+    (printout t ?name "[" (+ ?p 1) "] based on OR5-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) ", "  (print-label ?zzz4) " and  " (print-label ?zzz5) ":" crlf "   ")
+    (print-partial-chain "partial-whip" ?p ?cand ?llcs ?rlcs ?csps)
+    (printout t crlf ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+(deffunction print-OR6-contrad-whip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (if (eq ?p 0) then "OR6-whip" else "OR6-contrad-whip"))
+    (printout t ?name "[" (+ ?p 1) "] based on OR6-" ?or-name "[" ?or-compl "] for " (print-label ?zzz1) ", "  (print-label ?zzz2) ", "  (print-label ?zzz3) ", "  (print-label ?zzz4) ", "  (print-label ?zzz5) " and  " (print-label ?zzz6) ":" crlf "   ")
+    (print-partial-chain "partial-whip" ?p ?cand ?llcs ?rlcs ?csps)
     (printout t crlf ?*implication-sign*) (print-deleted-candidate ?cand)
     (printout t crlf)
 )
@@ -725,6 +774,7 @@
 
 ;;; forcing gbraids
 ;;; should be refined depending on whether partial-chains are whips or braids
+
 (deffunction print-forcing-gbraid-assert-value (?chain-type1 ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1 ?chain-type2 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2 ?cand)
 	(printout t "forcing-gbraid-assert[" (+ ?p1 ?p2 1) "] based on bivalue candidates " (print-label ?zzz1) " and  " (print-label ?zzz2) ":")
     (printout t crlf "   || " (print-label ?zzz1) " - ") (print-partial-chain ?chain-type1 ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1)

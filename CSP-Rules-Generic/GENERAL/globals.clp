@@ -119,8 +119,8 @@
     ?*has-exotic-pattern* = FALSE
     ?*has-oddagon* = FALSE
     
-    ?*OR-k-size* = 0
-    ?*OR-k-sizes-list* = (create$)
+    ?*ORk-size* = 0
+    ?*ORk-sizes-list* = (create$)
 )
 
 
@@ -167,8 +167,8 @@
     (bind ?*has-exotic-pattern* FALSE)
     (bind ?*has-oddagon* FALSE)
 
-    (bind ?*OR-k-size* 0)
-    (bind ?*OR-k-sizes-list* (create$))
+    (bind ?*ORk-size* 0)
+    (bind ?*ORk-sizes-list* (create$))
 )
 
 
@@ -406,7 +406,7 @@
     (bind ?*forcing-braids-max-length* (min ?*forcing-braids-max-length* ?*all-chains-max-length*))
     (bind ?*forcing-gbraids-max-length* (min ?*forcing-gbraids-max-length* ?*all-chains-max-length*))
 
-    ;;; Because OR-k-Forcing-Whips are supposed to rely on exotic patterns,
+    ;;; Because ORk-Forcing-Whips are supposed to rely on exotic patterns,
     ;;; their max-lengths are not restricted by ?*all-chains-max-length*
     ; (bind ?*OR2-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
     ; (bind ?*OR3-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
@@ -423,7 +423,7 @@
         (bind ?*OR6-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
     )
     
-    ;;; OR-k-Contrad-Whips are supposed to rely on exotic patterns, but they are basically partial-whips;
+    ;;; ORk-Contrad-Whips are supposed to rely on exotic patterns, but they are basically partial-whips;
     ;;; as a result, their max-lengths are restricted by ?*all-chains-max-length*
     (bind ?*OR2-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
     (bind ?*OR3-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))

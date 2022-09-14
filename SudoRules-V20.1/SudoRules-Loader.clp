@@ -161,7 +161,7 @@
 
 
 ;;; Tridagons
-(if (or ?*Tridagon-Forcing-Whips* (and ?*Anti-Tridagons* ?*OR2-Forcing-Whips*)) (and ?*Anti-Tridagons* ?*OR2-Contrad-Whips*))
+(if (or ?*Tridagon-Forcing-Whips* (and ?*Anti-Tridagons* ?*OR2-Forcing-Whips*) (and ?*Anti-Tridagons* ?*OR2-Contrad-Whips*))
     then (bind ?*Tridagons* TRUE)
 )
 
@@ -184,8 +184,8 @@
 )
 
 (if ?*Anti-Tridagons* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "OR-k-anti-Tridagon[12].clp"))
-    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Symmetrify-OR-k.clp"))
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "ORk-anti-Tridagon[12].clp"))
+    (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "Symmetrify-ORk.clp"))
 )
 
 

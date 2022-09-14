@@ -457,12 +457,12 @@
 
 ;;; This is used for general types of forcing chains
 
-(deftemplate OR-k-relation
+(deftemplate ORk-relation
     (slot OR-name (type SYMBOL)); example: Tridagon
     (slot OR-complexity (type INTEGER))
     (slot context (type INTEGER) (default 0))
     (slot OR-size (type INTEGER) (default 0)) ; k
-    (multislot OR-candidates) ; the set of candidates related by an OR-k relation
+    (multislot OR-candidates) ; the set of candidates related by an ORk relation
 )
 
 

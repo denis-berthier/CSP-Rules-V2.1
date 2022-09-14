@@ -68,7 +68,7 @@
     (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?cand2)))
 =>
 	(assert
-        (OR-k-relation
+        (ORk-relation
             (OR-name 2-value)
             (OR-complexity 1)
             (context ?cont)

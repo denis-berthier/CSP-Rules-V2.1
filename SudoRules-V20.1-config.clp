@@ -367,9 +367,9 @@
 ; (bind ?*all-chains-max-length* 5)
 ; (bind ?*tridagon-forcing-whips-max-length* 15)
 
-;;; 2b) Use OR-k-Forcing-Whips in combination with Anti-Tridagons:
-;;; (Remember that ORk-Forcing-Whips => Tridagons)
-;;; The anti-tridagons detection rule must be selected explicitly
+;;; 2b) Use ORk-Forcing-Whips in combination with Anti-Tridagons.
+;;; Remember that Anti-Tridagons + ORk-Forcing-Whips => Tridagons.
+;;; However, the anti-tridagons detection rule must be selected explicitly.
 ; (bind ?*Anti-Tridagons* TRUE)
 ; (bind ?*OR2-Forcing-Whips* True)
 ; (bind ?*OR3-Forcing-Whips* True)
@@ -377,24 +377,24 @@
 ; (bind ?*OR5-Forcing-Whips* True)
 ; (bind ?*OR6-Forcing-Whips* True)
 
-;;; If you use OR-k-Forcing-Whips,
+;;; If you use ORk-Forcing-Whips,
 ;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and ORk forcing-chains;
 ;;; 5 is a good starting point;
 ;;; try to increase these lengths progressively.
-; (bind ?*all-chains-max-length* 7)
-; (bind ?*OR2-forcing-whips-max-length* 7)
-; (bind ?*OR3-forcing-whips-max-length* 7)
-; (bind ?*OR4-forcing-whips-max-length* 7)
-; (bind ?*OR5-forcing-whips-max-length* 7)
-; (bind ?*OR6-forcing-whips-max-length* 7)
+; (bind ?*all-chains-max-length* 5)
+; (bind ?*OR2-forcing-whips-max-length* 5)
+; (bind ?*OR3-forcing-whips-max-length* 5)
+; (bind ?*OR4-forcing-whips-max-length* 5)
+; (bind ?*OR5-forcing-whips-max-length* 5)
+; (bind ?*OR6-forcing-whips-max-length* 5)
 ;;; You can also restrict all of the ORk forcing-chains at once:
-; (bind ?*all-ORk-forcing-whips-max-length* 7)
+; (bind ?*all-ORk-forcing-whips-max-length* 5)
 
 
-;;; 3) Use OR-k-Contrad-Whips in combination with Anti-Tridagons:
-;;; (Remember that ORk-Contrad-Whips => Tridagons)
+;;; 3) Use ORk-Contrad-Whips in combination with Anti-Tridagons.
+;;; Remember that Anti-Tridagons + ORk-Contrad-Whips => Tridagons.
+;;; However, the anti-tridagons detection rule must be selected explicitly.
 ;;; Note that ORk-Forcing-Whips and ORk-Contrad-Whips can be used at  the same time.
-;;; The anti-tridagons detection rule must be selected explicitly
 ; (bind ?*Anti-Tridagons* TRUE)
 ; (bind ?*OR2-Contrad-Whips* True)
 ; (bind ?*OR3-Contrad-Whips* True)

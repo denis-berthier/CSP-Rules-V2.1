@@ -110,7 +110,7 @@
 
     
     ;;; ORk-Forcing-Whips do NOT change the max length of whips
-    ;;; This is because they are intended to work with exotic patterns as their OR-k starting point
+    ;;; This is because they are intended to work with exotic patterns as their ORk starting point
     ;(if ?*OR2-Forcing-Whips* then
     ;    (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*OR2-forcing-whips-max-length* ?*whips-max-length*))
     ;)
@@ -475,7 +475,7 @@
         ?*Directory-symbol* "2-value.clp")
     )
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL"
-        ?*Directory-symbol* "symmetrify-OR-k.clp")
+        ?*Directory-symbol* "symmetrify-ORk.clp")
     )
 )
 (if ?*Forcing3-Whips* then

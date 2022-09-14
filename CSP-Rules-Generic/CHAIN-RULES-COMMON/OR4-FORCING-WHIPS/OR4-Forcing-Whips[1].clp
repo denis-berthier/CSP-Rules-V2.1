@@ -56,7 +56,7 @@
 (defrule OR4-forcing-whip[1]-candidate-0000
    (declare (salience ?*OR4-forcing-whip[1]-candidate-salience*))
    (technique ?cont OR4-forcing-whip[1])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 4) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3&:(< ?zzz2 ?zzz3) ?zzz4&:(< ?zzz3 ?zzz4)))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 4) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3&:(< ?zzz2 ?zzz3) ?zzz4&:(< ?zzz3 ?zzz4)))
    ?ret <- (candidate (context ?cont) (status cand) (label ?cand))
    (exists-link ?cont ?zzz1 ?cand)
    (exists-link ?cont ?zzz2 ?cand)

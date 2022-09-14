@@ -56,7 +56,7 @@
 (defrule OR5-forcing-whip[36]-candidate-0000p
    (declare (salience ?*OR5-forcing-whip[36]-candidate-salience*))
    (technique ?cont OR5-forcing-whip[36])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3&:(< ?zzz2 ?zzz3) ?zzz4&:(< ?zzz3 ?zzz4) ?zzz5))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3&:(< ?zzz2 ?zzz3) ?zzz4&:(< ?zzz3 ?zzz4) ?zzz5))
    (chain
       (type partial-whip)
       (context ?cont)
@@ -93,7 +93,7 @@
 (defrule OR5-forcing-whip[36]-candidate-000pq
    (declare (salience ?*OR5-forcing-whip[36]-candidate-salience*))
    (technique ?cont OR5-forcing-whip[36])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3&:(< ?zzz2 ?zzz3) ?zzz4 ?zzz5))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3&:(< ?zzz2 ?zzz3) ?zzz4 ?zzz5))
    (chain
       (type partial-whip)
       (context ?cont)
@@ -140,7 +140,7 @@
 (defrule OR5-forcing-whip[36]-candidate-00pqr
    (declare (salience ?*OR5-forcing-whip[36]-candidate-salience*))
    (technique ?cont OR5-forcing-whip[36])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3 ?zzz4 ?zzz5))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2&:(< ?zzz1 ?zzz2) ?zzz3 ?zzz4 ?zzz5))
    (chain
       (type partial-whip)
       (context ?cont)
@@ -197,7 +197,7 @@
 (defrule OR5-forcing-whip[36]-candidate-0pqrs
    (declare (salience ?*OR5-forcing-whip[36]-candidate-salience*))
    (technique ?cont OR5-forcing-whip[36])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5))
    (chain
       (type partial-whip)
       (context ?cont)
@@ -264,7 +264,7 @@
 (defrule OR5-forcing-whip[36]-candidate-pqrst
    (declare (salience ?*OR5-forcing-whip[36]-candidate-salience*))
    (technique ?cont OR5-forcing-whip[36])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5))
    (chain
       (type partial-whip)
       (context ?cont)
@@ -341,7 +341,7 @@
 (defrule OR5-forcing-whip[36]-value
    (declare (salience ?*OR5-forcing-whip[36]-value-salience*))
    (technique ?cont OR5-forcing-whip[36])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 5) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5))
    (chain
       (type partial-whip)
       (context ?cont)

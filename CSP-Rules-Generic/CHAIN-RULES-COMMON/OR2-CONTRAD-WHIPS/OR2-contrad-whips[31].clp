@@ -56,7 +56,7 @@
 (defrule OR2-contrad-whip[31]
    (declare (salience ?*OR2-contrad-whip[31]-salience*))
    (technique ?cont OR2-contrad-whip[31])
-   (OR-k-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 2) (OR-candidates ?zzz1 ?zzz2))
+   (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 2) (OR-candidates ?zzz1 ?zzz2))
    (chain
       (type partial-whip)
       (context ?cont)

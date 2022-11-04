@@ -357,6 +357,7 @@
     (if ?*print-time* then
         (printout t "Puzzle " ?string " :" crlf)
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -413,6 +414,7 @@
     (if ?*print-time* then
         (printout t "Puzzle " ?puzzle-string " :" crlf)
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -574,6 +576,7 @@
     (if ?*print-time* then
         (printout t "Puzzle " ?list " :" crlf)
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -759,6 +762,7 @@
     (if ?*print-time* then
         (printout t "Puzzle " $?list " :" crlf)
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf

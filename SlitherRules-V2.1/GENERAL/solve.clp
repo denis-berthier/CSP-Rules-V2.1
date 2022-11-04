@@ -1805,6 +1805,7 @@
 	(bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
 	(if ?*print-time* then
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf

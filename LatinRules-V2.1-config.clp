@@ -57,7 +57,7 @@
 (defglobal ?*Clips-version* = "6.32-r823");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-;;; Description of the computer used for the resolution
+;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
     "MacBookPro 16'' M1Max 2021, 64GB LPDDR5, MacOS 12.5"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -182,7 +182,8 @@
 ; (bind ?*print-init-details* TRUE)
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-actions* FALSE)
- (bind ?*print-levels* TRUE)
+; (bind ?*print-levels* TRUE)
+; (bind ?*print-main-levels* TRUE)
 ; (bind ?*print-solution* FALSE)
 
 ;;; The resolution state after BRT is printed by default.
@@ -430,6 +431,5 @@
 ;;; Notice that the generic loader also loads the application-specific files
 (if (and ?*Pandiagonal* (or (evenp ?*grid-size*) (eq (mod ?*grid-size* 3) 0)))
     then (printout t "Pandiagonal Latin Squares can only be defined on grids of size not divisible by 2 or 3" crlf crlf)
-    else (redefine-all-chains-max-length)
-         (batch ?*CSP-Rules-Generic-Loader*)
+    else (batch ?*CSP-Rules-Generic-Loader*)
 )

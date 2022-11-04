@@ -56,7 +56,7 @@
 (defglobal ?*Clips-version* = "6.32-r823");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-;;; Description of the computer used for the resolution
+;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
     "MacBookPro 16'' M1Max 2021, 64GB LPDDR5, MacOS 12.5"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -166,6 +166,7 @@
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* TRUE)
+; (bind ?*print-main-levels* TRUE)
 ; (bind ?*print-solution* FALSE)
 
 ;;; As H/V-singles, I-singles, P-singles and B-singles are trivial rules that appear very often,
@@ -345,6 +346,5 @@
 
 ;;; now, load all
 ;;; Notice that the generic loader also loads the application-specific files
-(redefine-all-chains-max-length)
 (batch ?*CSP-Rules-Generic-Loader*)
 

@@ -56,7 +56,7 @@
 (defglobal ?*Clips-version* = "6.32-r823");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-;;; Description of the computer used for the resolution
+;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
     "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 12.5"
 )                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -176,6 +176,7 @@
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* TRUE)
+; (bind ?*print-main-levels* TRUE)
 ; (bind ?*print-solution* FALSE)
 
 ;;; Note that the following print options are time consuming.
@@ -198,7 +199,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 1) Choose ordinary resolution rules
+;;; 1) Choose ordinary generic or quasi-generic resolution rules
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -215,13 +216,16 @@
 ;;; Generic:
 ; (bind ?*Whips[1]* TRUE) ; allows to more easily activate only whips[1]
  (bind ?*Bivalue-Chains* TRUE)
- (bind ?*z-Chains* TRUE)
  (bind ?*Whips* TRUE)
+ (bind ?*z-Chains* TRUE)
+ (bind ?*t-Whips* TRUE)
 
 
 ;;; Some additional rules I use frequently:
- (bind ?*t-Whips* TRUE)
 ; (bind ?*G-Whips* TRUE)
+
+;;; Some additional rules I use occasionally:
+; (bind ?*Oddagons* TRUE)
 
 
 ;;; Some optional intermediary Typed Chains, allowing more varied resolution paths:
@@ -241,15 +245,23 @@
 ; (bind ?*allowed-csp-types* (create$ rc))
 
 
-;;; Some additional rules I use occasionally:
+;;; Some additional rules I almost never use:
 ; (bind ?*G2-Whips* TRUE)
 ; (bind ?*Braids* TRUE)
 ; (bind ?*G-Bivalue-Chains* TRUE)
 ; (bind ?*G-Braids* TRUE)
+;;; The following is incompatible with any other chain type:
 ; (bind ?*Quick-B-Rating* TRUE)
 
-; (bind ?*Oddagons* TRUE)
 
+;;; Forcingk-whips are based on k-value cells in any of the 2D-spaces.
+;;; Their maximal length is determined by ?*forcing-whips-max-length*.
+; (bind ?*Forcing2-Whips* TRUE)
+; (bind ?*Forcing3-Whips* TRUE)
+; (bind ?*Forcing4-Whips* TRUE)
+; (bind ?*Forcing5-Whips* TRUE)
+
+;;; Forcing-Whips are older and simpler than Forcing2-Whips, but they  are the same thing
 ; (bind ?*Forcing-Whips* TRUE)
 ; (bind ?*Forcing-G-Whips* TRUE)
 ; (bind ?*Forcing-Braids* TRUE)
@@ -262,19 +274,6 @@
 ;;; It is NOT RECOMMENDED to use this possibility, unless you know what you are doing
 ;;; Many complex rules are loaded and memory overflow problems may appear.
 ; (bind ?*All-generic-chain-rules* TRUE)
-; (bind ?*all-chains-max-length* 36)
-
-
-
-;;; Some additional rules I almost never use:
-;;; Forcing-Whips are older and simpler than Forcing2-Whips, but they  are the same thing.
-;;; Forcingk-whips are based on k-value cells in any of the 2D-spaces.
-;;; Their maximal length is determined by ?*forcing-whips-max-length*.
-;;; Note that they are not automaticallyy loaded by setting ?*All-generic-chain-rules* to TRUE.
-; (bind ?*Forcing2-Whips* TRUE)
-; (bind ?*Forcing3-Whips* TRUE)
-; (bind ?*Forcing4-Whips* TRUE)
-; (bind ?*Forcing5-Whips* TRUE)
 
 
 
@@ -284,7 +283,8 @@
 
 ;;; Don't change these lengths unless you have some reason.
 
-;;; The maximum length of all the generic chains can be lowered at once:
+;;; The maximum length of all the generic chains can be lowered at once.
+;;; 36 is the absolute maximum, never reached in practice.
 ; (bind ?*all-chains-max-length* 36)
 
 ;;; Maximum lengths can also be lowered individually:
@@ -311,11 +311,19 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 2) Choose application-specific resolution rules (besides Subsets)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Sudoku-specific rules (besides Subsets): uniqueness
+;;; 2.1 Sudoku-specific rules : U-resolution rules for uniqueness
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; 1) U-resolution rules for uniqueness
 ;;; BEWARE: don't activate the following uniqueness rules,
 ;;; if you are not sure that the puzzle has a unique solution.
 ;;; The result would be undefined.
@@ -325,7 +333,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Sudoku-specific rules (besides Subsets): "exotic" patterns
+;;; 2.2 Sudoku-specific rules (besides Subsets): sk-loops and J-Exocets
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Belt (sk-loop), J-Exocet and Tridagon rules fall under the category of what I called exotic patterns,
@@ -333,11 +341,11 @@
 ;;; a name that has immediately been adopted on the Sudoku forums.
 ;;; When present in a puzzle, they are generally very powerful to reduce its difficulty.
 
-;;; 1) sk-loops:
+;;; 2.2.1) sk-loops:
 ; (bind ?*Belt4* TRUE)
 ; (bind ?*Belt6* TRUE)
 
-;;; 2) J-Exocets:
+;;; 2.2.2) J-Exocets:
 ; (bind ?*J-Exocet* TRUE)
 ; (bind ?*J2-Exocet* TRUE)
 ; (bind ?*J3-Exocet* TRUE)
@@ -345,95 +353,121 @@
 ; (bind ?*J5-Exocet* TRUE)
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Sudoku-specific rules : Tridagons and patterns for puzzles in T&E(3)
+;;; 2.3 Sudoku-specific rules : Tridagons and patterns for puzzles in T&E(3)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; 1) Use the simplest elimination rule for Tridagons, with Subsets and Finned Fish:
-; (bind ?*Subsets* TRUE)
-; (bind ?*FinnedFish* TRUE)
+;;; BEWARE: in this section 2.3, general rules (Subsets, chains... are supposed to be activated in section 2.2)
+
+;;; 2.3.0) General settings:
+;;; By default, the Tridagon elimination rule and the anti-tridagon detection rule have high priority,
+;;; alowing their early use (i.e. they will be available immediately after Subsets[3]).
+;;; Give them lower priority (as in the original settings) here:
+; (bind ?*use-high-Tridagon-salience* FALSE)
+
+;;; Choose if you want ORk-forcing-whips to be applied before or after ORk-whips.
+;;; Default is before (i.e. ?*ORk-Forcing-Whips-before-ORk-Whips* = TRUE); change it here:
+; (bind ?*ORk-Forcing-Whips-before-ORk-Whips* FALSE)
+
+;;; Use any of the rules in this section, possibly with chains defined in the generic part,
+;;; with restricted lengths:
+; (bind ?*all-chains-max-length* 5)
+
+
+;;; 2.3.1) Use the simplest Tridagon elimination rule:
 ; (bind ?*Tridagons* TRUE)
 
 
-;;; 2) Note: DO NOT use Tridagon-Forcing-Whips and ORk-Forcing-Whips at the same time
+;;; IN ALL THE CASES BELOW (ORk-chains and eleven replacement: 2.3.2a, 2.3.2b, 2.3.3, 2.3.4, 2.3.5):
+;;; - the anti-tridagons pattern detection rule must be selected explicitly;
+;;;   it then automatically implies Tridagons;
+;;; - it is highly recommended to restrict the max length of the basic chains rules,
+;;;   and that must be done explicitly (it is NOT a consequence of the ORk chain rules).
+;;;   See 2.3.0 above.
+; (bind ?*Anti-Tridagons* TRUE)
 
-;;; 2a - demoted) Use Tridagon-Forcing-Whips (based on Tridagon-links):
+
+;;; 2.3.2a - deprecated) Use Tridagon-Forcing-Whips (based on Tridagon-links):
 ;;; (Remember that Tridagon-Forcing-Whips => Tridagons)
 ; (bind ?*Tridagon-Forcing-Whips* TRUE)
 ;;; If you use Tridagon-Forcing-Whips,
-;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and forcing-chains;
-;;; 5 and 15 are good respective starting points;
+;;; it is highly recommended to put a strict upper bound also on the lengths of all the forcing-chains;
+;;; 15 is a good starting points;
 ;;; try to increase these lengths progressively.
-; (bind ?*all-chains-max-length* 5)
-; (bind ?*tridagon-forcing-whips-max-length* 15)
+; (bind ?*tridagon-forcing-whips-max-length* 12)
 
-;;; 2b) Use ORk-Forcing-Whips in combination with Anti-Tridagons.
-;;; Remember that Anti-Tridagons + ORk-Forcing-Whips => Tridagons.
-;;; However, the anti-tridagons detection rule must be selected explicitly.
-; (bind ?*Anti-Tridagons* TRUE)
+
+;;; 2.3.2b) Use ORk-Forcing-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-Forcing-Whips* True)
 ; (bind ?*OR3-Forcing-Whips* True)
 ; (bind ?*OR4-Forcing-Whips* True)
 ; (bind ?*OR5-Forcing-Whips* True)
 ; (bind ?*OR6-Forcing-Whips* True)
 
-;;; If you use ORk-Forcing-Whips,
-;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and ORk forcing-chains;
-;;; 5 is a good starting point;
-;;; try to increase these lengths progressively.
-; (bind ?*all-chains-max-length* 5)
-; (bind ?*OR2-forcing-whips-max-length* 5)
-; (bind ?*OR3-forcing-whips-max-length* 5)
-; (bind ?*OR4-forcing-whips-max-length* 5)
-; (bind ?*OR5-forcing-whips-max-length* 5)
-; (bind ?*OR6-forcing-whips-max-length* 5)
-;;; You can also restrict all of the ORk forcing-chains at once:
-; (bind ?*all-ORk-forcing-whips-max-length* 5)
-
-
-;;; 3) Use ORk-Contrad-Whips in combination with Anti-Tridagons.
-;;; Remember that Anti-Tridagons + ORk-Contrad-Whips => Tridagons.
-;;; However, the anti-tridagons detection rule must be selected explicitly.
-;;; Note that ORk-Forcing-Whips and ORk-Contrad-Whips can be used at  the same time.
-; (bind ?*Anti-Tridagons* TRUE)
+;;; 2.3.3) Use ORk-Contrad-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-Contrad-Whips* True)
 ; (bind ?*OR3-Contrad-Whips* True)
 ; (bind ?*OR4-Contrad-Whips* True)
 ; (bind ?*OR5-Contrad-Whips* True)
 ; (bind ?*OR6-Contrad-Whips* True)
 
-;;; If you use Tridagon-Contrad-Whips,
-;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and ORk-contrad-chains;
-;;; 5 is a good starting point ;
-;;; try to increase these lengths progressively.
-; (bind ?*all-chains-max-length* 5)
+;;; 2.3.4) Use ORk-Whips in combination with Anti-Tridagons:
+;;; (Remember that ORk-Whips[n] => ORk-Contrad-Whips[n] => Tridagons)
+; (bind ?*OR2-Whips* True)
+; (bind ?*OR3-Whips* True)
+; (bind ?*OR4-Whips* True)
+; (bind ?*OR5-Whips* True)
+; (bind ?*OR6-Whips* True)
+
+
+;;; If you use Tridagon-Chains,
+;;; it is highly recommended to put a strict upper bound on their lengths;
+;;; 5 is a good starting point ; try to increase these lengths progressively.
+; (bind ?*all-ORk-forcing-whips-max-length* 5)
+; (bind ?*all-ORk-contrad-whips-max-length* 5)
+; (bind ?*all-ORk-whips-max-length* 5)
+
+
+;;; All the ORk-chain rules max lengths can also be restricted individually:
+; (bind ?*OR2-forcing-whips-max-length* 5)
+; (bind ?*OR3-forcing-whips-max-length* 5)
+; (bind ?*OR4-forcing-whips-max-length* 5)
+; (bind ?*OR5-forcing-whips-max-length* 5)
+; (bind ?*OR6-forcing-whips-max-length* 5)
+
 ; (bind ?*OR2-contrad-whips-max-length* 5)
 ; (bind ?*OR3-contrad-whips-max-length* 5)
 ; (bind ?*OR4-contrad-whips-max-length* 5)
 ; (bind ?*OR5-contrad-whips-max-length* 5)
 ; (bind ?*OR6-contrad-whips-max-length* 5)
-;;; You can also restrict all of them at once:
-; (bind ?*all-ORk-contrad-whips-max-length* 5)
+
+; (bind ?*OR2-whips-max-length* 5)
+; (bind ?*OR3-whips-max-length* 5)
+; (bind ?*OR4-whips-max-length* 5)
+; (bind ?*OR5-whips-max-length* 5)
+; (bind ?*OR6-whips-max-length* 5)
 
 
-;;; 4) Eleven's replacement technique:
-;;; Allow the automatic use of eleven's replacmeent method based on tridagons.
-;;; (Note that the method is much more general; here, the tridaon structure is only used to define a starting point).
+
+;;; 2.3.5) Eleven's replacement technique:
+;;; Allow the automatic use of eleven's replacement method based on tridagons.
+;;; (Note that the method is much more general;
+;;; here, the anti-tridaon structure is only used to define a starting point).
 ;;; The method will be applied only when no other rule is applicable.
 ; (bind ?*Anti-Tridagons* TRUE)
 ; (bind ?*Eleven-Replacement-in-Tridagons* TRUE)
 
 ;;; If you use Eleven-Replacement-in-Tridagons,
-;;; it is highly recommended to put a strict upper bound on the lengths of all the chains, ORk-forcing-chains and ORk-contrad-chains;
+;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and ORk-chains;
 ;;; see above
-
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 2) Choose typical T&E config options, for various predefined purposes
+;;; 3) Choose typical T&E config options, for various predefined purposes
 ;;;
 ;;; DO NOT FORGET TO DISABLE ALL THE RULES IN THE OTHER SECTIONS
 ;;; BEFORE ACTIVATING T&E
@@ -456,7 +490,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2a) for checking membership in T&E(k) or gT&E(k), k = 1,2,3
+;;; 3a) for checking membership in T&E(k) or gT&E(k), k = 1,2,3
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following 3 depths of T&E:
@@ -477,7 +511,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2b) For computing the SpB classification
+;;; 3b) For computing the SpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following forms of T&E(Sp or SpFin, 1)
@@ -504,7 +538,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2c) for computing the BpB classification
+;;; 3c) for computing the BpB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following forms of T&E(1)
@@ -521,7 +555,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2d) for computing the BpBB classification for puzzles in T&E(3)
+;;; 3d) for computing the BpBB classification for puzzles in T&E(3)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Added after the discovery that there are (extremely rare) Sudoku puzzles in T&E(3).
@@ -541,7 +575,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2e) for looking for backdoors, anti-backdoors or anti-backdoor pairs
+;;; 3e) for looking for backdoors, anti-backdoors or anti-backdoor pairs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one or several of backdoors, anti-backdoors and anti-backdoor pairs:
@@ -557,7 +591,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2f) for solving with Forcing-T&E
+;;; 3f) for solving with Forcing-T&E
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; For Forcing-T&E OR Forcing{3}-T&E OR Forcing{4}-T&E, activate any of the following
@@ -576,7 +610,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 3) Choose DFS (depth-first search) options
+;;; 4) Choose DFS (depth-first search) options
 ;;;
 ;;; DO NOT FORGET TO DISABLE ALL THE RULES IN THE OTHER SECTIONS BEFORE ACTIVATING DFS
 ;;;
@@ -642,8 +676,7 @@
     then (printout t
         "BEWARE: g-labels, g-bivalue-chains, g-whips and g-braids are not managed” crlf
         “for segment size larger than 4, i.e. grid size larger than 16" crlf)
-    else (redefine-all-chains-max-length)
-        (batch ?*CSP-Rules-Generic-Loader*)
+    else (batch ?*CSP-Rules-Generic-Loader*)
 )
 
 	

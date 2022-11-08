@@ -36,7 +36,7 @@
 =>
     (bind ?module (get-current-module))
     (if (and ?*print-actions* (or ?*modules-used* (neq ?module MAIN)))
-        then (printout t crlf "ENTERING RESOLUTION THEORY " (get-current-module) crlf)
+        then (printout t crlf crlf "ENTERING RESOLUTION THEORY " ?module crlf)
     )
 )
 

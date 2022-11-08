@@ -5,7 +5,17 @@ All the changes are indeed additions to the original functionalities; in particu
 -- no basic structure or resolution rule has been changed;<br>
 -- no bug has been found since first publication. <br>
 
-#### 2022 Nov 04:  
+#### 2022 Nov 08 (Generic):  
+* New, extended and largely restructured version of the user manual: "Augmented User Manual". 
+
+#### 2022 Nov 08 (SudoRules):  
+* addition of the TRIDAGON-ORk-W and TRIDAGON-ORk-CHAINS sets of preferences;
+* addition of control variables related to Tridagons in the configuration file, in particular to choose the priority of Tridagon elimination and anti-tridagon detection rules. 
+
+#### 2022 Nov 08 (Generic):  
+* addition of ORk-whips, k≤6. 
+
+#### 2022 Nov 05:  
 * addition of this UPDATES.md file. 
 
 #### 2022 Sept 11 (SudoRules): 
@@ -54,15 +64,15 @@ When T&E is involved, they restrict the candidates that may be tried at each lev
 * addition of the Tridagon elimination rule. 
 
 #### 2022 Feb 09 (Publications): 
-* addition of my book "Pattern-Based Constraint Satisfaction and Logic Puzzles (Third Edition)" in the POublications folder. 
+* addition of my book "Pattern-Based Constraint Satisfaction and Logic Puzzles (Third Edition)" in the Publications folder. 
 
 #### 2021 Nov 21 (Publications/Docs): 
 * addition of the "Basic User Manual for CSP-Rules-V2.1 (Second Edition)". 
 
 #### 2021 Nov 21 (Generic): 
-* introduction of sets of preferences and of function "solve-with-preferences" (also "solve-w-prefs"). Original sets of preferences are:
-- generic: BIVALUE-CHAINS, REVERSIBLE-CHAINS, REVERSIBLE-PATTERNS
-- Sudoku-specific: S4Fin. 
+* introduction of sets of preferences and of function "solve-with-preferences" (also "solve-w-prefs"). Original sets of preferences are:<br>
+-- generic: BIVALUE-CHAINS, REVERSIBLE-CHAINS, REVERSIBLE-PATTERNS<br>
+-- Sudoku-specific: S4Fin. 
 
 #### 2021 Oct 27 (Generic): 
 * addition of "blocked" versions for z-chains (typed or not) and oddagons. 
@@ -142,7 +152,7 @@ When T&E is involved, they restrict the candidates that may be tried at each lev
 * add pre-computed backgrounds. 
 
 #### 2020 Aug 24 (SlitherRules): 
-* add extended-loops. 
+* add isolated chains and extended-loops. 
 
 #### 2020 Aug 19: 
 * first public release of CSP-Rules-V2.1, including all the currently existing applications and the first edition of the "Basic User Manual for CSP-Rules-V2.1". <br>

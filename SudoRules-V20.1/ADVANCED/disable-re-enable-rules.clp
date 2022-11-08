@@ -319,7 +319,7 @@
         (if (and ?*Typed-Whips* (<= ?n ?*typed-whips-max-length*)) then (bind ?list (create$ ?list (sym-cat TyW[ ?n ]))))
         (if (and ?*Whips* (<= ?n ?*whips-max-length*))  then (bind ?list (create$ ?list (sym-cat W[ ?n ]))))
         (if (and ?*G-Bivalue-Chains* (<= ?n ?*g-bivalue-chains-max-length*)) then (bind ?list (create$ ?list (sym-cat gBC[ ?n ]))))
-        (if (and ?*Typed-g-Whips* (<= ?n ?*typed-gwhips-max-length*)) then (bind ?list (create$ ?list (sym-cat TygW[ ?n ]))))
+        (if (and ?*Typed-G-Whips* (<= ?n ?*typed-gwhips-max-length*)) then (bind ?list (create$ ?list (sym-cat TygW[ ?n ]))))
         (if (and ?*G2-Whips* (<= ?n ?*g2whips-max-length*)) then (bind ?list (create$ ?list (sym-cat gW[ ?n ]))))
         (if (and ?*G-Whips* (<= ?n ?*gwhips-max-length*)) then (bind ?list (create$ ?list (sym-cat gW[ ?n ]))))
         (if (and ?*Braids* (<= ?n ?*braids-max-length*)) then (bind ?list (create$ ?list (sym-cat B[ ?n ]))))

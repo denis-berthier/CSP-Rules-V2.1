@@ -39,7 +39,7 @@
 
 ;;; Candidates are used in all the resolution rules.
 ;;; Candidates define the set of possible values for a csp variable.
-;;; The status slot says if a candidate is  a real candidate (i.e. a candidate with status cand) or a c-value (i.e. a candidate with status c-value) . 
+;;; The status slot says whether a candidate is  a real candidate (i.e. a candidate with status cand) or a c-value (i.e. a candidate with status c-value) .
 
 ;;;	After initialisation, there are candidates for every csp variable, except those for which an entry is given (as a c-value).
 ;;; Usually, for efficiency reasons, candidate sets for a csp variable are initialised with only all the values compatible 
@@ -57,7 +57,7 @@
 ;;;	and every contradiction is detected this way.
 ;;; If this happens in context 0, it means the instance has no solution.
 
-;;; The "context" slot may be used only for T&E. Its default value is 0. 
+;;; The "context" slot is mainly used for T&E. Its default value is 0. 
 ;;; Any resolution rule should be context-independent and it should always have the same context in its left and right parts.
 
 
@@ -323,8 +323,9 @@
 
 
 
+;;; Currently used only for Oddagons:
+
 (deftemplate csp-chain
-    ;;; currently used only for Oddagons
     (slot type (type SYMBOL))
     (slot context (type INTEGER) (default 0))
     (slot length (type INTEGER) (default 0))
@@ -385,6 +386,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; This is used for all the types of contradiction chains
+;;; Not used in the public release
 
 (deftemplate contrad-chain
     (slot type (type SYMBOL) (default NIL) (allowed-values NIL bi-whip bi-braid partial-bi-whip partial-bi-braid bi-TE))
@@ -450,7 +452,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GENERAL OR{k} PATTERN
+;;; GENERAL ORk PATTERN
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -462,7 +464,68 @@
     (slot OR-complexity (type INTEGER))
     (slot context (type INTEGER) (default 0))
     (slot OR-size (type INTEGER) (default 0)) ; k
+    (slot symmetrified (type SYMBOL) (default FALSE))
     (multislot OR-candidates) ; the set of candidates related by an ORk relation
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; ORk CHAINS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; This is used for all the types of ORk chains
+
+(deftemplate ORk-chain
+    (slot type (type SYMBOL)) ; allowed-values: OR2-partial-whip, OR2-whip, OR3-partial-whip, OR3-whip
+    (slot context (type INTEGER) (default 0))
+    (slot length (type INTEGER) (default 0))
+    (slot target (type INTEGER) (default 0))
+
+    ;;; The part before the ORk relation:
+    (slot length1 (type INTEGER) (default 0))
+    ;;; the first sequence of left-linking candidates:
+    (multislot llcs1 (default (create$)))
+    ;;; the first sequence of right-linking candidates or g-candidates:
+    (multislot rlcs1 (default (create$)))
+    ;;; the first sequence of CSP-variables:
+    (multislot csp-vars1 (default (create$)))
+    ;;; the following slot is redundant, but useful for technical reasons
+    ;;; the last right-linking candidate or g-candidate (equal to the last element of rlcs&):
+    (slot last-rlc1 (type INTEGER) (default 0))
+    
+    ;;; The ORk part
+    ;;; the name of the ORr-k ralation, e.g. Odd (for Oddagon), Trid (for Tridagon)
+    (slot OR-name (type SYMBOL) (default UNDEFINED))
+    ;;; the complexity of probvin g the OR-relation
+    (slot OR-complexity (type INTEGER) (default 1))
+    ;;; the number of candidates being ORed
+    (slot OR-size (type INTEGER) (default 0)) ; k
+    ;;; the set of candidates linked to the target or to some previous rlcs:
+    (multislot OR-llcs (default (create$)))
+    ;;; the candidate playing the role of a rlc:
+    (slot OR-rlc (type INTEGER) (default 0))
+
+    ;;; The part after the ORk relation:
+    (slot length2 (type INTEGER) (default 0))
+    ;;; the second sequence of left-linking candidates:
+    (multislot llcs2 (default (create$)))
+    ;;; the second sequence of right-linking candidates or g-candidates:
+    (multislot rlcs2 (default (create$)))
+    ;;; the second sequence of CSP-variables:
+    (multislot csp-vars2 (default (create$)))
+    ;;; the following slot is redundant, but useful for technical reasons
+    ;;; the last right-linking candidate or g-candidate (equal to the last element of rlcs2):
+    (slot last-rlc2 (type INTEGER) (default 0))
+
+    ;;; Note that length = length1 + length2 + 1 (independent of OR-complexity)
+    ;;; because such chains are intended for use with exotic patterns only.
+    ;;; Additional slots may be added for any specific application,
+    ;;; but neither the above ones nor their specifications should be changed
 )
 
 

@@ -281,6 +281,14 @@
 ;;; - g-Braids[3] because they cover some Sudoku specific rules not covered by simpler rules
 (defglobal ?*G-Braids[3]* = FALSE)
 
+;;; ORk-whips[1], for simplicity
+(defglobal ?*OR2-Whips[1]* = FALSE)
+(defglobal ?*OR3-Whips[1]* = FALSE)
+(defglobal ?*OR4-Whips[1]* = FALSE)
+(defglobal ?*OR5-Whips[1]* = FALSE)
+(defglobal ?*OR6-Whips[1]* = FALSE)
+(defglobal ?*OR7-Whips[1]* = FALSE)
+(defglobal ?*OR8-Whips[1]* = FALSE)
 
 
 (defglobal ?*Bivalue-Chains* = FALSE)
@@ -296,7 +304,7 @@
 (defglobal ?*Typed-z-Chains* = FALSE)
 (defglobal ?*Typed-t-Whips* = FALSE)
 (defglobal ?*Typed-Whips* = FALSE)
-(defglobal ?*Typed-g-Whips* = FALSE)
+(defglobal ?*Typed-G-Whips* = FALSE)
 (defglobal ?*Typed-Chains* = FALSE)
 
 (defglobal ?*restrict-csp-types-in-typed-chains* = FALSE)
@@ -307,6 +315,7 @@
 (defglobal ?*G-Bivalue-Chains* = FALSE)
 (defglobal ?*G2-Whips* = FALSE)
 (defglobal ?*G-Whips* = FALSE)
+(defglobal ?*G2-Braids* = FALSE)
 (defglobal ?*G-Braids* = FALSE)
 
 (defglobal ?*Forcing-Whips* = FALSE)
@@ -315,17 +324,37 @@
 (defglobal ?*Forcing4-Whips* = FALSE)
 (defglobal ?*Forcing5-Whips* = FALSE)
 
-(defglobal ?*OR2-Forcing-Whips* = FALSE)
-(defglobal ?*OR3-Forcing-Whips* = FALSE)
-(defglobal ?*OR4-Forcing-Whips* = FALSE)
-(defglobal ?*OR5-Forcing-Whips* = FALSE)
-(defglobal ?*OR6-Forcing-Whips* = FALSE)
 
+(defglobal ?*OR2-Forcing-Whips* = FALSE)
 (defglobal ?*OR2-Contrad-Whips* = FALSE)
+(defglobal ?*OR2-Whips* = FALSE)
+
+(defglobal ?*OR3-Forcing-Whips* = FALSE)
 (defglobal ?*OR3-Contrad-Whips* = FALSE)
+(defglobal ?*OR3-Whips* = FALSE)
+
+(defglobal ?*OR4-Forcing-Whips* = FALSE)
 (defglobal ?*OR4-Contrad-Whips* = FALSE)
+(defglobal ?*OR4-Whips* = FALSE)
+
+(defglobal ?*OR5-Forcing-Whips* = FALSE)
 (defglobal ?*OR5-Contrad-Whips* = FALSE)
+(defglobal ?*OR5-Whips* = FALSE)
+
+(defglobal ?*OR6-Forcing-Whips* = FALSE)
 (defglobal ?*OR6-Contrad-Whips* = FALSE)
+(defglobal ?*OR6-Whips* = FALSE)
+
+(defglobal ?*OR7-Forcing-Whips* = FALSE)
+(defglobal ?*OR7-Contrad-Whips* = FALSE)
+(defglobal ?*OR7-Whips* = FALSE)
+
+(defglobal ?*OR8-Forcing-Whips* = FALSE)
+(defglobal ?*OR8-Contrad-Whips* = FALSE)
+(defglobal ?*OR8-Whips* = FALSE)
+
+(defglobal ?*ORk-Forcing-Whips-before-ORk-Whips* = TRUE)
+
 
 (defglobal ?*Forcing-G-Whips* = FALSE)
 (defglobal ?*Forcing-Braids* = FALSE)
@@ -336,101 +365,150 @@
 ;;; By default, all the chain rules of any coded length are loaded when their pattern is activated,
 ;;; but this can be changed by the user.
 
+(defglobal ?*absolute-chains-max-length* = 36)
+
 (defglobal ?*bivalue-chains-max-length* = 20)
 (defglobal ?*z-chains-max-length* = 20)
 (defglobal ?*oddagons-max-length* = 15)
-(defglobal ?*t-whips-max-length* = 36)
-(defglobal ?*whips-max-length* = 36)
-(defglobal ?*braids-max-length* = 36)
+(defglobal ?*t-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*braids-max-length* = ?*absolute-chains-max-length*)
 
 (defglobal ?*g-bivalue-chains-max-length* = 20)
-(defglobal ?*g2whips-max-length* = 36)
-(defglobal ?*gwhips-max-length* = 36)
-(defglobal ?*g2braids-max-length* = 36)
-(defglobal ?*gbraids-max-length* = 36)
+(defglobal ?*g2whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*gwhips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*g2braids-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*gbraids-max-length* = ?*absolute-chains-max-length*)
 
 (defglobal ?*typed-bivalue-chains-max-length* = 20)
 (defglobal ?*typed-z-chains-max-length* = 20)
-(defglobal ?*typed-t-whips-max-length* = 36)
-(defglobal ?*typed-whips-max-length* = 36)
-(defglobal ?*typed-gwhips-max-length* = 36)
+(defglobal ?*typed-t-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*typed-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*typed-gwhips-max-length* = ?*absolute-chains-max-length*)
 
-(defglobal ?*forcing-whips-max-length* = 36)
+(defglobal ?*forcing-whips-max-length* = ?*absolute-chains-max-length*)
 
-(defglobal ?*OR2-forcing-whips-max-length* = 36)
-(defglobal ?*OR3-forcing-whips-max-length* = 36)
-(defglobal ?*OR4-forcing-whips-max-length* = 36)
-(defglobal ?*OR5-forcing-whips-max-length* = 36)
-(defglobal ?*OR6-forcing-whips-max-length* = 36)
-(defglobal ?*all-ORk-forcing-whips-max-length* = 36)
+(defglobal ?*OR2-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR2-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR2-whips-max-length* = ?*absolute-chains-max-length*)
 
-(defglobal ?*OR2-contrad-whips-max-length* = 36)
-(defglobal ?*OR3-contrad-whips-max-length* = 36)
-(defglobal ?*OR4-contrad-whips-max-length* = 36)
-(defglobal ?*OR5-contrad-whips-max-length* = 36)
-(defglobal ?*OR6-contrad-whips-max-length* = 36)
-(defglobal ?*all-ORk-contrad-whips-max-length* = 36)
+(defglobal ?*OR3-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR3-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR3-whips-max-length* = ?*absolute-chains-max-length*)
+
+(defglobal ?*OR4-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR4-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR4-whips-max-length* = ?*absolute-chains-max-length*)
+
+(defglobal ?*OR5-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR5-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR5-whips-max-length* = ?*absolute-chains-max-length*)
+
+(defglobal ?*OR6-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR6-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR6-whips-max-length* = ?*absolute-chains-max-length*)
+
+(defglobal ?*OR7-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR7-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR7-whips-max-length* = ?*absolute-chains-max-length*)
+
+(defglobal ?*OR8-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR8-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*OR8-whips-max-length* = ?*absolute-chains-max-length*)
+
+(defglobal ?*all-ORk-forcing-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*all-ORk-contrad-whips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*all-ORk-whips-max-length* = ?*absolute-chains-max-length*)
 
 
-(defglobal ?*forcing-gwhips-max-length* = 36)
-(defglobal ?*forcing-braids-max-length* = 36)
-(defglobal ?*forcing-gbraids-max-length* = 36)
+(defglobal ?*forcing-gwhips-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*forcing-braids-max-length* = ?*absolute-chains-max-length*)
+(defglobal ?*forcing-gbraids-max-length* = ?*absolute-chains-max-length*)
+
+;;; By default, partial whips are not loaded.
+;;; The following variable is for technical purposes only; not available to the user
+(defglobal ?*partial-whips-max-length* = 0)
+
+;;; used by the level tracking rules
+(defglobal ?*max-level* = 0)
+
 
 
 ;;; Maximum lengths can be lowered individually in the application configuration file
 ;;; The maximaum length can also be lowered at once for all the chains:
-(defglobal ?*all-chains-max-length* = 36)
+(defglobal ?*all-chains-max-length* = ?*absolute-chains-max-length*)
 
 (deffunction redefine-all-chains-max-length ()
-    (bind ?*bivalue-chains-max-length* (min ?*bivalue-chains-max-length* ?*all-chains-max-length*))
-    (bind ?*z-chains-max-length* (min ?*z-chains-max-length* ?*all-chains-max-length*))
-    (bind ?*oddagons-max-length* (min ?*oddagons-max-length* ?*all-chains-max-length*))
-    (bind ?*t-whips-max-length* (min ?*t-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*whips-max-length* (min ?*whips-max-length* ?*all-chains-max-length*))
-    (bind ?*braids-max-length* (min ?*braids-max-length* ?*all-chains-max-length*))
-
-    (bind ?*g-bivalue-chains-max-length* (min ?*g-bivalue-chains-max-length* ?*all-chains-max-length*))
-    (bind ?*g2whips-max-length* (min ?*g2whips-max-length* ?*all-chains-max-length*))
-    (bind ?*gwhips-max-length* (min ?*gwhips-max-length* ?*all-chains-max-length*))
-    (bind ?*g2braids-max-length* (min ?*g2braids-max-length* ?*all-chains-max-length*))
-    (bind ?*gbraids-max-length* (min ?*gbraids-max-length* ?*all-chains-max-length*))
-
-    (bind ?*typed-bivalue-chains-max-length* (min ?*typed-bivalue-chains-max-length* ?*all-chains-max-length*))
-    (bind ?*typed-z-chains-max-length* (min ?*typed-z-chains-max-length* ?*all-chains-max-length*))
-    (bind ?*typed-t-whips-max-length* (min ?*typed-t-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*typed-whips-max-length* (min ?*typed-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*typed-gwhips-max-length* (min ?*typed-gwhips-max-length* ?*all-chains-max-length*))
-     
-    (bind ?*forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*forcing-gwhips-max-length* (min ?*forcing-gwhips-max-length* ?*all-chains-max-length*))
-    (bind ?*forcing-braids-max-length* (min ?*forcing-braids-max-length* ?*all-chains-max-length*))
-    (bind ?*forcing-gbraids-max-length* (min ?*forcing-gbraids-max-length* ?*all-chains-max-length*))
-
-    ;;; Because ORk-Forcing-Whips are supposed to rely on exotic patterns,
-    ;;; their max-lengths are not restricted by ?*all-chains-max-length*
-    ; (bind ?*OR2-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
-    ; (bind ?*OR3-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
-    ; (bind ?*OR4-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
-    ; (bind ?*OR5-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
-    ; (bind ?*OR6-forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
+    ;;; This function only deals with the various user choices of global lengths in the configuration file.
+    ;;; Detailed consitency-preserving rules will be applied in the generic loader before any rule is loaded.
     
-    ;;; but they can be restricted globally by ?*all-ORk-forcing-whips-max-length*:
-    (if (neq ?*all-ORk-forcing-whips-max-length* 36) then
+    ;;; All the lengths of standard chains are restricted by ?*all-chains-max-length*
+    (if (neq ?*all-chains-max-length* ?*absolute-chains-max-length*) then
+        (bind ?*bivalue-chains-max-length* (min ?*bivalue-chains-max-length* ?*all-chains-max-length*))
+        (bind ?*z-chains-max-length* (min ?*z-chains-max-length* ?*all-chains-max-length*))
+        (bind ?*oddagons-max-length* (min ?*oddagons-max-length* ?*all-chains-max-length*))
+        (bind ?*t-whips-max-length* (min ?*t-whips-max-length* ?*all-chains-max-length*))
+        (bind ?*whips-max-length* (min ?*whips-max-length* ?*all-chains-max-length*))
+        (bind ?*braids-max-length* (min ?*braids-max-length* ?*all-chains-max-length*))
+
+        (bind ?*g-bivalue-chains-max-length* (min ?*g-bivalue-chains-max-length* ?*all-chains-max-length*))
+        (bind ?*g2whips-max-length* (min ?*g2whips-max-length* ?*all-chains-max-length*))
+        (bind ?*gwhips-max-length* (min ?*gwhips-max-length* ?*all-chains-max-length*))
+        (bind ?*g2braids-max-length* (min ?*g2braids-max-length* ?*all-chains-max-length*))
+        (bind ?*gbraids-max-length* (min ?*gbraids-max-length* ?*all-chains-max-length*))
+
+        (bind ?*typed-bivalue-chains-max-length* (min ?*typed-bivalue-chains-max-length* ?*all-chains-max-length*))
+        (bind ?*typed-z-chains-max-length* (min ?*typed-z-chains-max-length* ?*all-chains-max-length*))
+        (bind ?*typed-t-whips-max-length* (min ?*typed-t-whips-max-length* ?*all-chains-max-length*))
+        (bind ?*typed-whips-max-length* (min ?*typed-whips-max-length* ?*all-chains-max-length*))
+        (bind ?*typed-gwhips-max-length* (min ?*typed-gwhips-max-length* ?*all-chains-max-length*))
+         
+        (bind ?*forcing-whips-max-length* (min ?*forcing-whips-max-length* ?*all-chains-max-length*))
+        (bind ?*forcing-gwhips-max-length* (min ?*forcing-gwhips-max-length* ?*all-chains-max-length*))
+        (bind ?*forcing-braids-max-length* (min ?*forcing-braids-max-length* ?*all-chains-max-length*))
+        (bind ?*forcing-gbraids-max-length* (min ?*forcing-gbraids-max-length* ?*all-chains-max-length*))
+    )
+        
+    ;;; All the lengths of ORk-Forcing-Whips are restricted by ?*all-ORk-forcing-whips-max-length*:
+    (if (neq ?*all-ORk-forcing-whips-max-length* ?*absolute-chains-max-length*) then
         (bind ?*OR2-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
         (bind ?*OR3-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
         (bind ?*OR4-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
         (bind ?*OR5-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
         (bind ?*OR6-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
+        (bind ?*OR7-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
+        (bind ?*OR8-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)
     )
     
-    ;;; ORk-Contrad-Whips are supposed to rely on exotic patterns, but they are basically partial-whips;
-    ;;; as a result, their max-lengths are restricted by ?*all-chains-max-length*
-    (bind ?*OR2-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*OR3-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*OR4-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*OR5-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
-    (bind ?*OR6-contrad-whips-max-length* (min ?*all-ORk-contrad-whips-max-length* ?*all-chains-max-length*))
+    ;;; If ?*all-ORk-whips-max-length* is restricted but ?*all-ORk-contrad-whips-max-length* is not,
+    ;;; then, in order to deal properly with implied rules, restrict the latter:
+    (if (and (neq ?*all-ORk-whips-max-length* ?*absolute-chains-max-length*)
+            (eq ?*all-ORk-contrad-whips-max-length* ?*absolute-chains-max-length*)
+        )
+        then (bind ?*all-ORk-contrad-whips-max-length* ?*all-ORk-whips-max-length*)
+    )
+    
+    ;;; All the lengths of ORk-Contrad-Whips are restricted by *all-ORk-contrad-whips-max-length*
+    (if (neq ?*all-ORk-contrad-whips-max-length* ?*absolute-chains-max-length*) then
+        (bind ?*OR2-contrad-whips-max-length* ?*all-ORk-contrad-whips-max-length*)
+        (bind ?*OR3-contrad-whips-max-length* ?*all-ORk-contrad-whips-max-length*)
+        (bind ?*OR4-contrad-whips-max-length* ?*all-ORk-contrad-whips-max-length*)
+        (bind ?*OR5-contrad-whips-max-length* ?*all-ORk-contrad-whips-max-length*)
+        (bind ?*OR6-contrad-whips-max-length* ?*all-ORk-contrad-whips-max-length*)
+        (bind ?*OR7-contrad-whips-max-length* ?*all-ORk-contrad-whips-max-length*)
+        (bind ?*OR8-contrad-whips-max-length* ?*all-ORk-contrad-whips-max-length*)
+    )
 
+    ;;; All the lengths of ORk-Whips are restricted by ?*all-ORk-whips-max-length*
+    (if (neq ?*all-ORk-whips-max-length* ?*absolute-chains-max-length*) then
+        (bind ?*OR2-whips-max-length* ?*all-ORk-whips-max-length*)
+        (bind ?*OR3-whips-max-length* ?*all-ORk-whips-max-length*)
+        (bind ?*OR4-whips-max-length* ?*all-ORk-whips-max-length*)
+        (bind ?*OR5-whips-max-length* ?*all-ORk-whips-max-length*)
+        (bind ?*OR6-whips-max-length* ?*all-ORk-whips-max-length*)
+        (bind ?*OR7-whips-max-length* ?*all-ORk-whips-max-length*)
+        (bind ?*OR8-whips-max-length* ?*all-ORk-whips-max-length*)
+    )
 )
 
 
@@ -569,6 +647,7 @@
 (defglobal ?*print-initial-state* = TRUE) ; number of values and candidates, csp-links, links, density
 (defglobal ?*print-actions* = TRUE) ; print the singles and all the non-ECP rules
 (defglobal ?*print-levels* = FALSE) ; <<<<<<<<<<<<<<<<<< useful for tracking the advancement of hard instances
+(defglobal ?*print-main-levels* = FALSE) ; <<<<<<<<<<<<< useful for simpler tracking the advancement of hard instances
 
 (defglobal ?*print-all-details* = FALSE) ; includes any of the following
 (defglobal ?*print-init-details* = FALSE) ; print data about c-values and candidates initialisation
@@ -609,6 +688,7 @@
 (defglobal ?*print-RS-after-whips[1]-backup* = ?*print-RS-after-whips[1]*)
 (defglobal ?*print-final-RS-backup* = ?*print-final-RS*)
 (defglobal ?*print-levels-backup* = ?*print-levels*)
+(defglobal ?*print-main-levels-backup* = ?*print-main-levels*)
 (defglobal ?*print-time-backup* = ?*print-time*)
 (defglobal ?*print-hypothesis-backup* = ?*print-hypothesis*)
 (defglobal ?*print-phase-backup* = ?*print-phase*)
@@ -621,6 +701,7 @@
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
         (bind ?*print-levels-backup* ?*print-levels*)
+        (bind ?*print-main-levels-backup* ?*print-main-levels*)
         (bind ?*print-time-backup* ?*print-time*)
         (bind ?*print-hypothesis-backup* ?*print-hypothesis*)
         (bind ?*print-phase-backup* ?*print-phase*)
@@ -631,6 +712,7 @@
         (bind ?*print-RS-after-whips[1]* FALSE)
         (bind ?*print-final-RS* FALSE)
         (bind ?*print-levels* FALSE)
+        (bind ?*print-main-levels* FALSE)
         (bind ?*print-time* FALSE)
         (bind ?*print-hypothesis* FALSE)
         (bind ?*print-phase* FALSE)
@@ -646,6 +728,7 @@
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind ?*print-final-RS* ?*print-final-RS-backup*)
         (bind ?*print-levels* ?*print-levels-backup*)
+        (bind ?*print-main-levels* ?*print-main-levels-backup*)
         (bind ?*print-time* ?*print-time-backup*)
         (bind ?*print-hypothesis* ?*print-hypothesis-backup*)
         (bind ?*print-phase* ?*print-phase-backup*)
@@ -1381,46 +1464,6 @@
 )
 
 (defglobal
-    ?*print-forcing-whip* = FALSE
-    ?*print-forcing-whip-1* = FALSE
-    ?*print-forcing-whip-2* = FALSE
-    ?*print-forcing-whip-3* = FALSE
-    ?*print-forcing-whip-4* = FALSE
-    ?*print-forcing-whip-5* = FALSE
-    ?*print-forcing-whip-6* = FALSE
-    ?*print-forcing-whip-7* = FALSE
-    ?*print-forcing-whip-8* = FALSE
-    ?*print-forcing-whip-9* = FALSE
-    ?*print-forcing-whip-10* = FALSE
-    ?*print-forcing-whip-11* = FALSE
-    ?*print-forcing-whip-12* = FALSE
-    ?*print-forcing-whip-13* = FALSE
-    ?*print-forcing-whip-14* = FALSE
-    ?*print-forcing-whip-15* = FALSE
-    ?*print-forcing-whip-16* = FALSE
-    ?*print-forcing-whip-17* = FALSE
-    ?*print-forcing-whip-18* = FALSE
-    ?*print-forcing-whip-19* = FALSE
-    ?*print-forcing-whip-20* = FALSE
-    ?*print-forcing-whip-21* = FALSE
-    ?*print-forcing-whip-22* = FALSE
-    ?*print-forcing-whip-23* = FALSE
-    ?*print-forcing-whip-24* = FALSE
-    ?*print-forcing-whip-25* = FALSE
-    ?*print-forcing-whip-26* = FALSE
-    ?*print-forcing-whip-27* = FALSE
-    ?*print-forcing-whip-28* = FALSE
-    ?*print-forcing-whip-29* = FALSE
-    ?*print-forcing-whip-30* = FALSE
-    ?*print-forcing-whip-31* = FALSE
-    ?*print-forcing-whip-32* = FALSE
-    ?*print-forcing-whip-33* = FALSE
-    ?*print-forcing-whip-34* = FALSE
-    ?*print-forcing-whip-35* = FALSE
-    ?*print-forcing-whip-36* = FALSE
-)
-
-(defglobal
     ?*print-OR2-forcing-whip* = FALSE
     ?*print-OR2-forcing-whip-1* = FALSE
     ?*print-OR2-forcing-whip-2* = FALSE
@@ -1621,6 +1664,87 @@
 )
 
 (defglobal
+    ?*print-OR7-forcing-whip* = FALSE
+    ?*print-OR7-forcing-whip-1* = FALSE
+    ?*print-OR7-forcing-whip-2* = FALSE
+    ?*print-OR7-forcing-whip-3* = FALSE
+    ?*print-OR7-forcing-whip-4* = FALSE
+    ?*print-OR7-forcing-whip-5* = FALSE
+    ?*print-OR7-forcing-whip-6* = FALSE
+    ?*print-OR7-forcing-whip-7* = FALSE
+    ?*print-OR7-forcing-whip-8* = FALSE
+    ?*print-OR7-forcing-whip-9* = FALSE
+    ?*print-OR7-forcing-whip-10* = FALSE
+    ?*print-OR7-forcing-whip-11* = FALSE
+    ?*print-OR7-forcing-whip-12* = FALSE
+    ?*print-OR7-forcing-whip-13* = FALSE
+    ?*print-OR7-forcing-whip-14* = FALSE
+    ?*print-OR7-forcing-whip-15* = FALSE
+    ?*print-OR7-forcing-whip-16* = FALSE
+    ?*print-OR7-forcing-whip-17* = FALSE
+    ?*print-OR7-forcing-whip-18* = FALSE
+    ?*print-OR7-forcing-whip-19* = FALSE
+    ?*print-OR7-forcing-whip-20* = FALSE
+    ?*print-OR7-forcing-whip-21* = FALSE
+    ?*print-OR7-forcing-whip-22* = FALSE
+    ?*print-OR7-forcing-whip-23* = FALSE
+    ?*print-OR7-forcing-whip-24* = FALSE
+    ?*print-OR7-forcing-whip-25* = FALSE
+    ?*print-OR7-forcing-whip-26* = FALSE
+    ?*print-OR7-forcing-whip-27* = FALSE
+    ?*print-OR7-forcing-whip-28* = FALSE
+    ?*print-OR7-forcing-whip-29* = FALSE
+    ?*print-OR7-forcing-whip-30* = FALSE
+    ?*print-OR7-forcing-whip-31* = FALSE
+    ?*print-OR7-forcing-whip-32* = FALSE
+    ?*print-OR7-forcing-whip-33* = FALSE
+    ?*print-OR7-forcing-whip-34* = FALSE
+    ?*print-OR7-forcing-whip-35* = FALSE
+    ?*print-OR7-forcing-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR8-forcing-whip* = FALSE
+    ?*print-OR8-forcing-whip-1* = FALSE
+    ?*print-OR8-forcing-whip-2* = FALSE
+    ?*print-OR8-forcing-whip-3* = FALSE
+    ?*print-OR8-forcing-whip-4* = FALSE
+    ?*print-OR8-forcing-whip-5* = FALSE
+    ?*print-OR8-forcing-whip-6* = FALSE
+    ?*print-OR8-forcing-whip-7* = FALSE
+    ?*print-OR8-forcing-whip-8* = FALSE
+    ?*print-OR8-forcing-whip-9* = FALSE
+    ?*print-OR8-forcing-whip-10* = FALSE
+    ?*print-OR8-forcing-whip-11* = FALSE
+    ?*print-OR8-forcing-whip-12* = FALSE
+    ?*print-OR8-forcing-whip-13* = FALSE
+    ?*print-OR8-forcing-whip-14* = FALSE
+    ?*print-OR8-forcing-whip-15* = FALSE
+    ?*print-OR8-forcing-whip-16* = FALSE
+    ?*print-OR8-forcing-whip-17* = FALSE
+    ?*print-OR8-forcing-whip-18* = FALSE
+    ?*print-OR8-forcing-whip-19* = FALSE
+    ?*print-OR8-forcing-whip-20* = FALSE
+    ?*print-OR8-forcing-whip-21* = FALSE
+    ?*print-OR8-forcing-whip-22* = FALSE
+    ?*print-OR8-forcing-whip-23* = FALSE
+    ?*print-OR8-forcing-whip-24* = FALSE
+    ?*print-OR8-forcing-whip-25* = FALSE
+    ?*print-OR8-forcing-whip-26* = FALSE
+    ?*print-OR8-forcing-whip-27* = FALSE
+    ?*print-OR8-forcing-whip-28* = FALSE
+    ?*print-OR8-forcing-whip-29* = FALSE
+    ?*print-OR8-forcing-whip-30* = FALSE
+    ?*print-OR8-forcing-whip-31* = FALSE
+    ?*print-OR8-forcing-whip-32* = FALSE
+    ?*print-OR8-forcing-whip-33* = FALSE
+    ?*print-OR8-forcing-whip-34* = FALSE
+    ?*print-OR8-forcing-whip-35* = FALSE
+    ?*print-OR8-forcing-whip-36* = FALSE
+)
+
+
+(defglobal
     ?*print-OR2-contrad-whip* = FALSE
     ?*print-OR2-contrad-whip-1* = FALSE
     ?*print-OR2-contrad-whip-2* = FALSE
@@ -1818,6 +1942,408 @@
     ?*print-OR6-contrad-whip-34* = FALSE
     ?*print-OR6-contrad-whip-35* = FALSE
     ?*print-OR6-contrad-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR7-contrad-whip* = FALSE
+    ?*print-OR7-contrad-whip-1* = FALSE
+    ?*print-OR7-contrad-whip-2* = FALSE
+    ?*print-OR7-contrad-whip-3* = FALSE
+    ?*print-OR7-contrad-whip-4* = FALSE
+    ?*print-OR7-contrad-whip-5* = FALSE
+    ?*print-OR7-contrad-whip-6* = FALSE
+    ?*print-OR7-contrad-whip-7* = FALSE
+    ?*print-OR7-contrad-whip-8* = FALSE
+    ?*print-OR7-contrad-whip-9* = FALSE
+    ?*print-OR7-contrad-whip-10* = FALSE
+    ?*print-OR7-contrad-whip-11* = FALSE
+    ?*print-OR7-contrad-whip-12* = FALSE
+    ?*print-OR7-contrad-whip-13* = FALSE
+    ?*print-OR7-contrad-whip-14* = FALSE
+    ?*print-OR7-contrad-whip-15* = FALSE
+    ?*print-OR7-contrad-whip-16* = FALSE
+    ?*print-OR7-contrad-whip-17* = FALSE
+    ?*print-OR7-contrad-whip-18* = FALSE
+    ?*print-OR7-contrad-whip-19* = FALSE
+    ?*print-OR7-contrad-whip-20* = FALSE
+    ?*print-OR7-contrad-whip-21* = FALSE
+    ?*print-OR7-contrad-whip-22* = FALSE
+    ?*print-OR7-contrad-whip-23* = FALSE
+    ?*print-OR7-contrad-whip-24* = FALSE
+    ?*print-OR7-contrad-whip-25* = FALSE
+    ?*print-OR7-contrad-whip-26* = FALSE
+    ?*print-OR7-contrad-whip-27* = FALSE
+    ?*print-OR7-contrad-whip-28* = FALSE
+    ?*print-OR7-contrad-whip-29* = FALSE
+    ?*print-OR7-contrad-whip-30* = FALSE
+    ?*print-OR7-contrad-whip-31* = FALSE
+    ?*print-OR7-contrad-whip-32* = FALSE
+    ?*print-OR7-contrad-whip-33* = FALSE
+    ?*print-OR7-contrad-whip-34* = FALSE
+    ?*print-OR7-contrad-whip-35* = FALSE
+    ?*print-OR7-contrad-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR8-contrad-whip* = FALSE
+    ?*print-OR8-contrad-whip-1* = FALSE
+    ?*print-OR8-contrad-whip-2* = FALSE
+    ?*print-OR8-contrad-whip-3* = FALSE
+    ?*print-OR8-contrad-whip-4* = FALSE
+    ?*print-OR8-contrad-whip-5* = FALSE
+    ?*print-OR8-contrad-whip-6* = FALSE
+    ?*print-OR8-contrad-whip-7* = FALSE
+    ?*print-OR8-contrad-whip-8* = FALSE
+    ?*print-OR8-contrad-whip-9* = FALSE
+    ?*print-OR8-contrad-whip-10* = FALSE
+    ?*print-OR8-contrad-whip-11* = FALSE
+    ?*print-OR8-contrad-whip-12* = FALSE
+    ?*print-OR8-contrad-whip-13* = FALSE
+    ?*print-OR8-contrad-whip-14* = FALSE
+    ?*print-OR8-contrad-whip-15* = FALSE
+    ?*print-OR8-contrad-whip-16* = FALSE
+    ?*print-OR8-contrad-whip-17* = FALSE
+    ?*print-OR8-contrad-whip-18* = FALSE
+    ?*print-OR8-contrad-whip-19* = FALSE
+    ?*print-OR8-contrad-whip-20* = FALSE
+    ?*print-OR8-contrad-whip-21* = FALSE
+    ?*print-OR8-contrad-whip-22* = FALSE
+    ?*print-OR8-contrad-whip-23* = FALSE
+    ?*print-OR8-contrad-whip-24* = FALSE
+    ?*print-OR8-contrad-whip-25* = FALSE
+    ?*print-OR8-contrad-whip-26* = FALSE
+    ?*print-OR8-contrad-whip-27* = FALSE
+    ?*print-OR8-contrad-whip-28* = FALSE
+    ?*print-OR8-contrad-whip-29* = FALSE
+    ?*print-OR8-contrad-whip-30* = FALSE
+    ?*print-OR8-contrad-whip-31* = FALSE
+    ?*print-OR8-contrad-whip-32* = FALSE
+    ?*print-OR8-contrad-whip-33* = FALSE
+    ?*print-OR8-contrad-whip-34* = FALSE
+    ?*print-OR8-contrad-whip-35* = FALSE
+    ?*print-OR8-contrad-whip-36* = FALSE
+)
+
+
+(defglobal
+    ?*print-OR2-whip* = FALSE
+    ?*print-OR2-whip-1* = FALSE
+    ?*print-OR2-whip-2* = FALSE
+    ?*print-OR2-whip-3* = FALSE
+    ?*print-OR2-whip-4* = FALSE
+    ?*print-OR2-whip-5* = FALSE
+    ?*print-OR2-whip-6* = FALSE
+    ?*print-OR2-whip-7* = FALSE
+    ?*print-OR2-whip-8* = FALSE
+    ?*print-OR2-whip-9* = FALSE
+    ?*print-OR2-whip-10* = FALSE
+    ?*print-OR2-whip-11* = FALSE
+    ?*print-OR2-whip-12* = FALSE
+    ?*print-OR2-whip-13* = FALSE
+    ?*print-OR2-whip-14* = FALSE
+    ?*print-OR2-whip-15* = FALSE
+    ?*print-OR2-whip-16* = FALSE
+    ?*print-OR2-whip-17* = FALSE
+    ?*print-OR2-whip-18* = FALSE
+    ?*print-OR2-whip-19* = FALSE
+    ?*print-OR2-whip-20* = FALSE
+    ?*print-OR2-whip-21* = FALSE
+    ?*print-OR2-whip-22* = FALSE
+    ?*print-OR2-whip-23* = FALSE
+    ?*print-OR2-whip-24* = FALSE
+    ?*print-OR2-whip-25* = FALSE
+    ?*print-OR2-whip-26* = FALSE
+    ?*print-OR2-whip-27* = FALSE
+    ?*print-OR2-whip-28* = FALSE
+    ?*print-OR2-whip-29* = FALSE
+    ?*print-OR2-whip-30* = FALSE
+    ?*print-OR2-whip-31* = FALSE
+    ?*print-OR2-whip-32* = FALSE
+    ?*print-OR2-whip-33* = FALSE
+    ?*print-OR2-whip-34* = FALSE
+    ?*print-OR2-whip-35* = FALSE
+    ?*print-OR2-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR3-whip* = FALSE
+    ?*print-OR3-whip-1* = FALSE
+    ?*print-OR3-whip-2* = FALSE
+    ?*print-OR3-whip-3* = FALSE
+    ?*print-OR3-whip-4* = FALSE
+    ?*print-OR3-whip-5* = FALSE
+    ?*print-OR3-whip-6* = FALSE
+    ?*print-OR3-whip-7* = FALSE
+    ?*print-OR3-whip-8* = FALSE
+    ?*print-OR3-whip-9* = FALSE
+    ?*print-OR3-whip-10* = FALSE
+    ?*print-OR3-whip-11* = FALSE
+    ?*print-OR3-whip-12* = FALSE
+    ?*print-OR3-whip-13* = FALSE
+    ?*print-OR3-whip-14* = FALSE
+    ?*print-OR3-whip-15* = FALSE
+    ?*print-OR3-whip-16* = FALSE
+    ?*print-OR3-whip-17* = FALSE
+    ?*print-OR3-whip-18* = FALSE
+    ?*print-OR3-whip-19* = FALSE
+    ?*print-OR3-whip-20* = FALSE
+    ?*print-OR3-whip-21* = FALSE
+    ?*print-OR3-whip-22* = FALSE
+    ?*print-OR3-whip-23* = FALSE
+    ?*print-OR3-whip-24* = FALSE
+    ?*print-OR3-whip-25* = FALSE
+    ?*print-OR3-whip-26* = FALSE
+    ?*print-OR3-whip-27* = FALSE
+    ?*print-OR3-whip-28* = FALSE
+    ?*print-OR3-whip-29* = FALSE
+    ?*print-OR3-whip-30* = FALSE
+    ?*print-OR3-whip-31* = FALSE
+    ?*print-OR3-whip-32* = FALSE
+    ?*print-OR3-whip-33* = FALSE
+    ?*print-OR3-whip-34* = FALSE
+    ?*print-OR3-whip-35* = FALSE
+    ?*print-OR3-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR4-whip* = FALSE
+    ?*print-OR4-whip-1* = FALSE
+    ?*print-OR4-whip-2* = FALSE
+    ?*print-OR4-whip-3* = FALSE
+    ?*print-OR4-whip-4* = FALSE
+    ?*print-OR4-whip-5* = FALSE
+    ?*print-OR4-whip-6* = FALSE
+    ?*print-OR4-whip-7* = FALSE
+    ?*print-OR4-whip-8* = FALSE
+    ?*print-OR4-whip-9* = FALSE
+    ?*print-OR4-whip-10* = FALSE
+    ?*print-OR4-whip-11* = FALSE
+    ?*print-OR4-whip-12* = FALSE
+    ?*print-OR4-whip-13* = FALSE
+    ?*print-OR4-whip-14* = FALSE
+    ?*print-OR4-whip-15* = FALSE
+    ?*print-OR4-whip-16* = FALSE
+    ?*print-OR4-whip-17* = FALSE
+    ?*print-OR4-whip-18* = FALSE
+    ?*print-OR4-whip-19* = FALSE
+    ?*print-OR4-whip-20* = FALSE
+    ?*print-OR4-whip-21* = FALSE
+    ?*print-OR4-whip-22* = FALSE
+    ?*print-OR4-whip-23* = FALSE
+    ?*print-OR4-whip-24* = FALSE
+    ?*print-OR4-whip-25* = FALSE
+    ?*print-OR4-whip-26* = FALSE
+    ?*print-OR4-whip-27* = FALSE
+    ?*print-OR4-whip-28* = FALSE
+    ?*print-OR4-whip-29* = FALSE
+    ?*print-OR4-whip-30* = FALSE
+    ?*print-OR4-whip-31* = FALSE
+    ?*print-OR4-whip-32* = FALSE
+    ?*print-OR4-whip-33* = FALSE
+    ?*print-OR4-whip-34* = FALSE
+    ?*print-OR4-whip-35* = FALSE
+    ?*print-OR4-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR5-whip* = FALSE
+    ?*print-OR5-whip-1* = FALSE
+    ?*print-OR5-whip-2* = FALSE
+    ?*print-OR5-whip-3* = FALSE
+    ?*print-OR5-whip-4* = FALSE
+    ?*print-OR5-whip-5* = FALSE
+    ?*print-OR5-whip-6* = FALSE
+    ?*print-OR5-whip-7* = FALSE
+    ?*print-OR5-whip-8* = FALSE
+    ?*print-OR5-whip-9* = FALSE
+    ?*print-OR5-whip-10* = FALSE
+    ?*print-OR5-whip-11* = FALSE
+    ?*print-OR5-whip-12* = FALSE
+    ?*print-OR5-whip-13* = FALSE
+    ?*print-OR5-whip-14* = FALSE
+    ?*print-OR5-whip-15* = FALSE
+    ?*print-OR5-whip-16* = FALSE
+    ?*print-OR5-whip-17* = FALSE
+    ?*print-OR5-whip-18* = FALSE
+    ?*print-OR5-whip-19* = FALSE
+    ?*print-OR5-whip-20* = FALSE
+    ?*print-OR5-whip-21* = FALSE
+    ?*print-OR5-whip-22* = FALSE
+    ?*print-OR5-whip-23* = FALSE
+    ?*print-OR5-whip-24* = FALSE
+    ?*print-OR5-whip-25* = FALSE
+    ?*print-OR5-whip-26* = FALSE
+    ?*print-OR5-whip-27* = FALSE
+    ?*print-OR5-whip-28* = FALSE
+    ?*print-OR5-whip-29* = FALSE
+    ?*print-OR5-whip-30* = FALSE
+    ?*print-OR5-whip-31* = FALSE
+    ?*print-OR5-whip-32* = FALSE
+    ?*print-OR5-whip-33* = FALSE
+    ?*print-OR5-whip-34* = FALSE
+    ?*print-OR5-whip-35* = FALSE
+    ?*print-OR5-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR6-whip* = FALSE
+    ?*print-OR6-whip-1* = FALSE
+    ?*print-OR6-whip-2* = FALSE
+    ?*print-OR6-whip-3* = FALSE
+    ?*print-OR6-whip-4* = FALSE
+    ?*print-OR6-whip-5* = FALSE
+    ?*print-OR6-whip-6* = FALSE
+    ?*print-OR6-whip-7* = FALSE
+    ?*print-OR6-whip-8* = FALSE
+    ?*print-OR6-whip-9* = FALSE
+    ?*print-OR6-whip-10* = FALSE
+    ?*print-OR6-whip-11* = FALSE
+    ?*print-OR6-whip-12* = FALSE
+    ?*print-OR6-whip-13* = FALSE
+    ?*print-OR6-whip-14* = FALSE
+    ?*print-OR6-whip-15* = FALSE
+    ?*print-OR6-whip-16* = FALSE
+    ?*print-OR6-whip-17* = FALSE
+    ?*print-OR6-whip-18* = FALSE
+    ?*print-OR6-whip-19* = FALSE
+    ?*print-OR6-whip-20* = FALSE
+    ?*print-OR6-whip-21* = FALSE
+    ?*print-OR6-whip-22* = FALSE
+    ?*print-OR6-whip-23* = FALSE
+    ?*print-OR6-whip-24* = FALSE
+    ?*print-OR6-whip-25* = FALSE
+    ?*print-OR6-whip-26* = FALSE
+    ?*print-OR6-whip-27* = FALSE
+    ?*print-OR6-whip-28* = FALSE
+    ?*print-OR6-whip-29* = FALSE
+    ?*print-OR6-whip-30* = FALSE
+    ?*print-OR6-whip-31* = FALSE
+    ?*print-OR6-whip-32* = FALSE
+    ?*print-OR6-whip-33* = FALSE
+    ?*print-OR6-whip-34* = FALSE
+    ?*print-OR6-whip-35* = FALSE
+    ?*print-OR6-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR7-whip* = FALSE
+    ?*print-OR7-whip-1* = FALSE
+    ?*print-OR7-whip-2* = FALSE
+    ?*print-OR7-whip-3* = FALSE
+    ?*print-OR7-whip-4* = FALSE
+    ?*print-OR7-whip-5* = FALSE
+    ?*print-OR7-whip-6* = FALSE
+    ?*print-OR7-whip-7* = FALSE
+    ?*print-OR7-whip-8* = FALSE
+    ?*print-OR7-whip-9* = FALSE
+    ?*print-OR7-whip-10* = FALSE
+    ?*print-OR7-whip-11* = FALSE
+    ?*print-OR7-whip-12* = FALSE
+    ?*print-OR7-whip-13* = FALSE
+    ?*print-OR7-whip-14* = FALSE
+    ?*print-OR7-whip-15* = FALSE
+    ?*print-OR7-whip-16* = FALSE
+    ?*print-OR7-whip-17* = FALSE
+    ?*print-OR7-whip-18* = FALSE
+    ?*print-OR7-whip-19* = FALSE
+    ?*print-OR7-whip-20* = FALSE
+    ?*print-OR7-whip-21* = FALSE
+    ?*print-OR7-whip-22* = FALSE
+    ?*print-OR7-whip-23* = FALSE
+    ?*print-OR7-whip-24* = FALSE
+    ?*print-OR7-whip-25* = FALSE
+    ?*print-OR7-whip-26* = FALSE
+    ?*print-OR7-whip-27* = FALSE
+    ?*print-OR7-whip-28* = FALSE
+    ?*print-OR7-whip-29* = FALSE
+    ?*print-OR7-whip-30* = FALSE
+    ?*print-OR7-whip-31* = FALSE
+    ?*print-OR7-whip-32* = FALSE
+    ?*print-OR7-whip-33* = FALSE
+    ?*print-OR7-whip-34* = FALSE
+    ?*print-OR7-whip-35* = FALSE
+    ?*print-OR7-whip-36* = FALSE
+)
+
+(defglobal
+    ?*print-OR8-whip* = FALSE
+    ?*print-OR8-whip-1* = FALSE
+    ?*print-OR8-whip-2* = FALSE
+    ?*print-OR8-whip-3* = FALSE
+    ?*print-OR8-whip-4* = FALSE
+    ?*print-OR8-whip-5* = FALSE
+    ?*print-OR8-whip-6* = FALSE
+    ?*print-OR8-whip-7* = FALSE
+    ?*print-OR8-whip-8* = FALSE
+    ?*print-OR8-whip-9* = FALSE
+    ?*print-OR8-whip-10* = FALSE
+    ?*print-OR8-whip-11* = FALSE
+    ?*print-OR8-whip-12* = FALSE
+    ?*print-OR8-whip-13* = FALSE
+    ?*print-OR8-whip-14* = FALSE
+    ?*print-OR8-whip-15* = FALSE
+    ?*print-OR8-whip-16* = FALSE
+    ?*print-OR8-whip-17* = FALSE
+    ?*print-OR8-whip-18* = FALSE
+    ?*print-OR8-whip-19* = FALSE
+    ?*print-OR8-whip-20* = FALSE
+    ?*print-OR8-whip-21* = FALSE
+    ?*print-OR8-whip-22* = FALSE
+    ?*print-OR8-whip-23* = FALSE
+    ?*print-OR8-whip-24* = FALSE
+    ?*print-OR8-whip-25* = FALSE
+    ?*print-OR8-whip-26* = FALSE
+    ?*print-OR8-whip-27* = FALSE
+    ?*print-OR8-whip-28* = FALSE
+    ?*print-OR8-whip-29* = FALSE
+    ?*print-OR8-whip-30* = FALSE
+    ?*print-OR8-whip-31* = FALSE
+    ?*print-OR8-whip-32* = FALSE
+    ?*print-OR8-whip-33* = FALSE
+    ?*print-OR8-whip-34* = FALSE
+    ?*print-OR8-whip-35* = FALSE
+    ?*print-OR8-whip-36* = FALSE
+)
+
+
+(defglobal
+    ?*print-forcing-whip* = FALSE
+    ?*print-forcing-whip-1* = FALSE
+    ?*print-forcing-whip-2* = FALSE
+    ?*print-forcing-whip-3* = FALSE
+    ?*print-forcing-whip-4* = FALSE
+    ?*print-forcing-whip-5* = FALSE
+    ?*print-forcing-whip-6* = FALSE
+    ?*print-forcing-whip-7* = FALSE
+    ?*print-forcing-whip-8* = FALSE
+    ?*print-forcing-whip-9* = FALSE
+    ?*print-forcing-whip-10* = FALSE
+    ?*print-forcing-whip-11* = FALSE
+    ?*print-forcing-whip-12* = FALSE
+    ?*print-forcing-whip-13* = FALSE
+    ?*print-forcing-whip-14* = FALSE
+    ?*print-forcing-whip-15* = FALSE
+    ?*print-forcing-whip-16* = FALSE
+    ?*print-forcing-whip-17* = FALSE
+    ?*print-forcing-whip-18* = FALSE
+    ?*print-forcing-whip-19* = FALSE
+    ?*print-forcing-whip-20* = FALSE
+    ?*print-forcing-whip-21* = FALSE
+    ?*print-forcing-whip-22* = FALSE
+    ?*print-forcing-whip-23* = FALSE
+    ?*print-forcing-whip-24* = FALSE
+    ?*print-forcing-whip-25* = FALSE
+    ?*print-forcing-whip-26* = FALSE
+    ?*print-forcing-whip-27* = FALSE
+    ?*print-forcing-whip-28* = FALSE
+    ?*print-forcing-whip-29* = FALSE
+    ?*print-forcing-whip-30* = FALSE
+    ?*print-forcing-whip-31* = FALSE
+    ?*print-forcing-whip-32* = FALSE
+    ?*print-forcing-whip-33* = FALSE
+    ?*print-forcing-whip-34* = FALSE
+    ?*print-forcing-whip-35* = FALSE
+    ?*print-forcing-whip-36* = FALSE
 )
 
 (defglobal

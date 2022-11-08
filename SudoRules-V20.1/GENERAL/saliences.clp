@@ -111,7 +111,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; SUBSETS
+;;; SUBSETS and TRIDAGONS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -167,6 +167,12 @@
 (defglobal ?*g-quads-salience* = 0)
 
 
+(defglobal ?*activate-tridagon[12]-salience* = 0)
+(defglobal ?*tridagon[12]-salience* = 0)
+(defglobal ?*activate-ork-anti-tridagon[12]-salience* = 0)
+(defglobal ?*ork-anti-tridagon[12]-salience* = 0)
+
+
 
 (deffunction define-specific-saliences-at-L2 ()
     (bind ?*one-step-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -201,6 +207,13 @@
 
     (bind ?*activate-g-triplets-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*g-triplets-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    
+    ;;; Tridagon and anti-tridagon detection (by default, will be redefned at level 12)
+    (bind ?*activate-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+
+    (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
 )
 
 
@@ -228,13 +241,14 @@
 
     (bind ?*activate-g-quads-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*g-quads-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
 )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; EXOCETS AND TRIDAGON
+;;; EXOCETS AND TRIDAGONS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -256,13 +270,8 @@
 (defglobal ?*J5-Exocet-elimination-salience* = 0)
 (defglobal ?*J5-Exocet-detection-salience* = 0)
 
-
-(defglobal ?*activate-tridagon[12]-salience* = 0)
-(defglobal ?*tridagon[12]-salience* = 0)
 (defglobal ?*activate-tridagon-link[12]-salience* = 0)
 (defglobal ?*tridagon-link[12]-salience* = 0)
-(defglobal ?*activate-ork-anti-tridagon[12]-salience* = 0)
-(defglobal ?*ork-anti-tridagon[12]-salience* = 0)
 (defglobal ?*activate-tridagon-forcing-whip[12]-salience* = 0)
 (defglobal ?*tridagon-forcing-whip[12]-salience* = 0)
 (defglobal ?*activate-tridagon-forcing-whip[13]-salience* = 0)
@@ -319,6 +328,10 @@
 (defglobal ?*activate-eleven-replacement-based-on-general-tridagon-salience* = 0)
 (defglobal ?*eleven-replacement-based-on-general-tridagon-salience* = 0)
 
+
+(deffunction define-specific-saliences-at-L5 ()
+)
+
 (deffunction define-specific-saliences-at-L6 ()
     (bind ?*activate-J2-Exocet-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J2-Exocet-elimination-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
@@ -336,14 +349,15 @@
     (bind ?*J4-Exocet-elimination-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J4-Exocet-detection-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
 
-    (bind ?*activate-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    (if (not ?*use-high-Tridagon-salience*) then
+        (bind ?*activate-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+        (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
 
+        (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+        (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+    )
     (bind ?*activate-tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-
-    (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
 
     (bind ?*activate-tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))

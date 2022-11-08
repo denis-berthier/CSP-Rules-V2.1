@@ -77,6 +77,7 @@
 	(bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
 	(if ?*print-time* then
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -145,6 +146,7 @@
 	)
 	(close "file-symb")
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
 	(printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
 	(printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
 	(printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -197,6 +199,7 @@
 	)
 	(close "file-symb")
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -204,7 +207,7 @@
 
 
 
-(deffunction solve-n-grids-after-first-p-from-text-file-including-but-excluding (?file-name ?p ?n ?l-in ?l-out)
+(deffunction solve-n-grids-after-first-p-from-text-file-restricted-to-and-excluding (?file-name ?p ?n ?l-in ?l-out)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
 	(bind ?*solved-list* (create$))
@@ -254,6 +257,7 @@
 	)
 	(close "file-symb")
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -378,6 +382,7 @@
 	(bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -463,6 +468,7 @@
 	(bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -540,6 +546,7 @@
 	)
 	(close "file-symb")
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -600,6 +607,7 @@
 	)
 	(close "file-symb")
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -705,6 +713,7 @@
     (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -761,6 +770,7 @@
     (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -818,6 +828,7 @@
     )
     (close "file-symb")
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -869,6 +880,7 @@
     )
     (close "file-symb")
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -876,7 +888,7 @@
 
 
 
-(deffunction solve-n-sukakus-after-first-p-from-string-file-including-but-excluding (?file-name ?p ?n ?l-in ?l-out)
+(deffunction solve-n-sukakus-after-first-p-from-string-file-restricted-to-and-excluding (?file-name ?p ?n ?l-in ?l-out)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -925,6 +937,7 @@
     )
     (close "file-symb")
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -971,6 +984,7 @@
     (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
     (if ?*print-time* then
         (printout t
+            "computer = " ?*Computer-description* crlf
             "init-time = " (seconds-to-hours ?*init-instance-time*)
             ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
@@ -1028,6 +1042,7 @@
     )
     (close "file-symb")
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -1079,6 +1094,7 @@
     )
     (close "file-symb")
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
@@ -1086,7 +1102,7 @@
 
 
 
-(deffunction solve-n-sukakus-after-first-p-from-list-file-including-but-excluding (?file-name ?p ?n ?l-in ?l-out)
+(deffunction solve-n-sukakus-after-first-p-from-list-file-restricted-to-and-excluding (?file-name ?p ?n ?l-in ?l-out)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -1135,6 +1151,7 @@
     )
     (close "file-symb")
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
     (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)

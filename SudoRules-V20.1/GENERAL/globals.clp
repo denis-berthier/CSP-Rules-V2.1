@@ -68,7 +68,7 @@
     (bind ?*internal-factor-0*  (if (or (eq ?*segment-size* 2) (eq ?*segment-size* 3))then 10 else 100))
     (bind ?*internal-factor* ?*internal-factor-0*)
     (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*
-            ?*Typed-g-Whips*
+            ?*Typed-G-Whips*
             ?*Forcing-G-Whips* ?*Forcing-G-Braids*
             ?*All-generic-chain-rules*
         ) then
@@ -124,6 +124,9 @@
 (defglobal ?*tridagon-forcing-whips-max-length* = 36)
 (defglobal ?*Anti-Tridagons* = FALSE)
 (defglobal ?*Eleven-Replacement-in-Tridagons* = FALSE)
+;;; This is now set to TRUE by defualt in order to allow early detection of Tridagons and anti-tridagons;
+;;; it can be changed in the configuration file:
+(defglobal ?*use-high-Tridagon-salience* = TRUE)
 
 
 (defglobal ?*FinnedFish* = FALSE)

@@ -24,13 +24,14 @@ A priori, CSP-Rules deals only with binary constraints, but the applications stu
 Patterns in CSP-Rules can take many forms, but the most powerful generic ones are various kinds of chains (bivalue-chains, z-chains, t-whips, whips, g-whips…). **_A chain is defined as a continuous sequence of candidates, where continuity means that each candidate is linked to the previous one_**. In the context of logic games, these chains can be considered as logical abstractions of the universal, spontaneous practice of human solvers wondering “can this candidate be true?” and checking for a possible contradiction implied by such a hypothesis; but they also suggest much more constrained ways of proceeding. In particular, the continuity condition is a very strong guide for a human solver looking for chain patterns. More generally, **_the absence of OR-branching in any of the CSP-Rules chain patterns means that each of them supports a single stream of reasoning_**.<br>
 Instead of having zillions of application-specific rules (like e.g. most existing rule-based Sudoku solvers), the resolution backbone of CSP-Rules consists of only a few types of universal rules – though it remains perfectly compatible with the addition of any number of application-specific rules (see the Slitherlink chapter).<br><br>
 
-**_One more essential aspect of the CSP-Rules resolution paradigm is its insistence on using the “simplest-first strategy"_**. Indeed, much of my approach can be considered as a detailed study into possible meanings of “**_simplest-first search_**”. At each step of the resolution process, the simplest available rule is applied. Here, “simplest” is not to be understood as it is generally done in the world of AI, i.e. in an abstract logical way that has never had any real application. Simplest is defined precisely in terms of the patterns making the conditions of the rules. In case of chains, simplicity is easy to define: a chain (of any type) is simpler than another chain (of any type) if it is shorter, where **the length of a chain is defined as the number of CSP-Variables its definition involves** - a notion that can be defined in pure logical terms, contrary to more usual notions of complexity based on the number of "inferences". For chains of same lengths but of different types, it’s also easy to define their relative simplicity (see chapter 4 of the Basic User Manual). As a result, for each family of rules, an intrinsic rating of the difficulty of instances can be defined and it can often be obtained at the end of a single resolution path. The simplest-first strategy is intimately related to the **_confluence property_** (see [PBCS]).<br><br>
+**_One more essential aspect of the CSP-Rules resolution paradigm is its insistence on using the “simplest-first strategy"_**. Indeed, much of my approach can be considered as a detailed study into possible meanings of “**_simplest-first search_**”. At each step of the resolution process, the simplest available rule is applied. Here, “simplest” is not to be understood as it is generally done in the world of AI, i.e. in an abstract logical way that has never had any real application. Simplest is defined precisely in terms of the patterns making the conditions of the rules. In case of chains, simplicity is easy to define: a chain (of any type) is simpler than another chain (of any type) if it is shorter, where **the length of a chain is defined as the number of CSP-Variables its definition involves** - a notion that can be defined in pure logical terms, contrary to more usual notions of complexity based on the number of "inferences". For chains of same lengths but of different types, it’s also easy to define their relative simplicity (see chapter 4 of the Basic User Manual). As a result, for each family of rules, an intrinsic **rating** of the difficulty of instances can be defined and it can often be obtained at the end of a single resolution path. The simplest-first strategy is intimately related to the **_confluence property_** (see [PBCS]).<br><br>
 
 
 ## 3. The contents of CSP-Rules<br>
-CSP-Rules consists of **a generic part** (in the “CSP-Rules-Generic” folder) together with **a few application-specific parts** aimed at solving some familiar logic puzzles. The application-specific parts are integral members of CSP-Rules. They were chosen in order to illustrate how, by the proper choice of additional CSP-Variables, the generic concepts can be used in so different CSPs as the above-mentioned ones, including some non-binary ones.<br>
-The generic part consists of powerful generic resolution rules together with a general mechanism for managing the whole system, including the outputting of solutions in an easy-to-understand, universal notation. The generic part cannot be run alone. It requires an application-specific part to feed it with problem instances in the proper format.<br>
-Each application-specific part consists of a specific interfacing with the generic part of CSP-Rules, specific commands for launching the resolution process (they are reviewed in the application-specific chapters in Part II of the Basic User Manual [BUM]), plus a configuration file allowing the user to select general settings and which families of rules he wants to apply. It often also contains application-specific resolution rules.<br><br>
+CSP-Rules consists of **a generic part** (in the “CSP-Rules-Generic” folder) together with **a few application-specific parts** aimed at solving some familiar logic puzzles. The application-specific parts are integral members of CSP-Rules. They were chosen in order to illustrate how, by the proper choice of additional CSP-Variables, the generic concepts can be used in so different CSPs as the above-mentioned ones, including some non-binary ones.<br><br>
+The generic part consists of powerful generic resolution rules (such as **bivalue-chains, z-chains, t-whips, whips, braids, g-whips**...) together with a general mechanism for managing the whole system, including the outputting of solutions in an easy-to-understand, universal notation. The generic part cannot be run alone. It requires an application-specific part to feed it with problem instances in the proper format.<br><br>
+Each application-specific part consists of a specific interfacing with the generic part of CSP-Rules, specific commands for launching the resolution process (they are reviewed in the application-specific chapters in Part II of the User Manual[BUM] or [AUM]), plus a configuration file allowing the user to select general settings and which families of rules he wants to apply. It often also contains application-specific resolution rules.<br><br>
+Notice that the more recent releases contain  a whole new set of powerful generic resolution rules (**ORk-forcing-whips and ORk-whips**) able to deal with any exotic, application-specific OR-relation - in particular (but not restricted to) those that can be deduced from the newly discovered impossible Tridagon pattern in Sudoku. These rules allow to smoothly extend the previous family of ratings.In Sudoku, they allow to simplify puzzles in T&E(3) to puzzles in T&E(1 or more rarely 2).<br><br>
 
 
 
@@ -38,19 +39,19 @@ Each application-specific part consists of a specific interfacing with the gener
 For making the above more explicit, consider the following (moderately difficult) Sudoku puzzle (created by "Mith"):<br>
 
 ```
-+-------+-------+-------+ 
-| . . . | 1 3 . | . . . | 
-| . 1 . | . . 4 | 5 . . | 
-| . . 2 | . . . | . 6 . | 
-+-------+-------+-------+ 
-| 1 . . | 3 . . | . 7 . | 
-| 2 . . | . 5 . | . . 8 | 
-| . 4 . | . . 6 | . . 9 | 
-+-------+-------+-------+ 
-| . 5 . | . . . | 7 . . | 
-| . . 6 | 7 . . | . 9 . | 
-| . . . | . 8 9 | . . . | 
-+-------+-------+-------+ 
+   +-------+-------+-------+ 
+   | . . . | 1 3 . | . . . | 
+   | . 1 . | . . 4 | 5 . . | 
+   | . . 2 | . . . | . 6 . | 
+   +-------+-------+-------+ 
+   | 1 . . | 3 . . | . 7 . | 
+   | 2 . . | . 5 . | . . 8 | 
+   | . 4 . | . . 6 | . . 9 | 
+   +-------+-------+-------+ 
+   | . 5 . | . . . | 7 . . | 
+   | . . 6 | 7 . . | . 9 . | 
+   | . . . | . 8 9 | . . . | 
+   +-------+-------+-------+ 
 ```
 
 The problem can be given to SudoRules (the part of CSP-Rules that deals with the Sudoku CSP) in several forms, including the following two:<br>
@@ -138,34 +139,39 @@ hidden-single-in-a-row ==> r2c9 = 7
 whip[1]: c7n2{r6 .} ==> r4c9 ≠ 2, r6c8 ≠ 2 
 naked-pairs-in-a-block: b3{r1c8 r1c9}{n2 n4} ==> r3c7 ≠ 4 
 (singles to the end) 
-675138924 
-819264537 
-432597861 
-198342675 
-267951348 
-543876219 
-951423786 
-386715492 
-724689153 
+
+     +-------+-------+-------+
+     ! 6 7 5 ! 1 3 8 ! 9 2 4 ! 
+     ! 8 1 9 ! 2 6 4 ! 5 3 7 ! 
+     ! 4 3 2 ! 5 9 7 ! 8 6 1 ! 
+     +-------+-------+-------+
+     ! 1 9 8 ! 3 4 2 ! 6 7 5 ! 
+     ! 2 6 7 ! 9 5 1 ! 3 4 8 ! 
+     ! 5 4 3 ! 8 7 6 ! 2 1 9 ! 
+     +-------+-------+-------+
+     ! 9 5 1 ! 4 2 3 ! 7 8 6 ! 
+     ! 3 8 6 ! 7 1 5 ! 4 9 2 ! 
+     ! 7 2 4 ! 6 8 9 ! 1 5 3 ! 
+     +-------+-------+-------+
 ```
 
-Here is a slightly simpler example (puzzle created by JPF), illustrating another familiar input format for Sudoku: 
+Here is a slightly simpler example (puzzle created by JPF), illustrating another familiar input format for Sudoku:<br> 
 
 ```
 (solve-sudoku-grid 
-   +-------+-------+-------+ 
-   ! . . . ! 1 2 3 ! 4 . . ! 
-   ! . . 4 ! . . . ! . 5 . ! 
-   ! . 6 . ! . 4 7 ! . . 8 ! 
-   +-------+-------+-------+ 
-   ! . 4 . ! 9 . . ! 8 . 7 ! 
-   ! . 9 . ! . . . ! 5 . 3 ! 
-   ! . . 7 ! . . 4 ! . . 9 ! 
-   +-------+-------+-------+ 
-   ! . . . ! 2 7 . ! . 8 . ! 
-   ! . 5 . ! . . . ! 9 . . ! 
-   ! . . 6 ! 3 9 5 ! . . . ! 
-   +-------+-------+-------+ 
+     +-------+-------+-------+
+     ! . . . ! 1 2 3 ! 4 . . ! 
+     ! . . 4 ! . . . ! . 5 . ! 
+     ! . 6 . ! . 4 7 ! . . 8 ! 
+     +-------+-------+-------+
+     ! . 4 . ! 9 . . ! 8 . 7 ! 
+     ! . 9 . ! . . . ! 5 . 3 ! 
+     ! . . 7 ! . . 4 ! . . 9 ! 
+     +-------+-------+-------+
+     ! . . . ! 2 7 . ! . 8 . ! 
+     ! . 5 . ! . . . ! 9 . . ! 
+     ! . . 6 ! 3 9 5 ! . . . ! 
+     +-------+-------+-------+
 ) 
 ```
 
@@ -192,36 +198,45 @@ whip[1]: b6n1{r6c8 .} ==> r9c8 ≠ 1
 singles ==> r9c8 = 7, r1c8 = 9, r3c1 = 9, r2c7 = 7, r1c2 = 7, r3c3 ≠ 3 
 finned-x-wing-in-rows: n2{r8 r2}{c9 c3} ==> r3c3 ≠ 2 
 singles to the end 
-578123496 
-324689751 
-961547238 
-645932817 
-892761543 
-137854629 
-419276385 
-753418962 
-286395174 
+
+     +-------+-------+-------+
+     ! 5 7 8 ! 1 2 3 ! 4 9 6 ! 
+     ! 3 2 4 ! 6 8 9 ! 7 5 1 ! 
+     ! 9 6 1 ! 5 4 7 ! 2 3 8 ! 
+     +-------+-------+-------+
+     ! 6 4 5 ! 9 3 2 ! 8 1 7 ! 
+     ! 8 9 2 ! 7 6 1 ! 5 4 3 ! 
+     ! 1 3 7 ! 8 5 4 ! 6 2 9 ! 
+     +-------+-------+-------+
+     ! 4 1 9 ! 2 7 6 ! 3 8 5 ! 
+     ! 7 5 3 ! 4 1 8 ! 9 6 2 ! 
+     ! 2 8 6 ! 3 9 5 ! 1 7 4 ! 
+     +-------+-------+-------+
 ```
 
 <br>
-Notice that more interactive ways of solving a CSP are described in the Basic User Manual.
+Notice that <strong><em>more interactive ways of solving a CSP</em></strong> are described in the User Manual. These include focused eliminations or taking into account additional (extra-logical) requirements on the number of steps in the resolution path.
 <br><br>
 
-## 5. License<br>
+## 5. Installation and updates<br>
+Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (in particular, delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br><br>
+For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MacOS security rules, you may have to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br><br>
+Notice that _the installation procedure must be redone every time you download a new release_. In order to avoid re-compiling CLIPS, you can keep a copy of it outside the CSP-Rules-V2.1 folder; you can similarly make a backup copy of your most frequently used config file(s).<br><br>
+CSP-Rules-V2.1 was first published on August 19th, 2020.<br>
+See the UPDATES.md file for a detailed list of the updates (i.e. of additional functionalities) since the first release. 
+<br><br>
+
+## 6. License<br>
 The software parts in CSP-Rules V2.1 are distributed under the GNU GPL v3.0 license (see the full text in the Docs folder).<br>
 Of course, the other publications (books, articles, conference proceedings...) remain protected by their original respective copyrights; this also applies to the CLIPS software.<br><br>
-
-## 6. Installation and updates<br>
-Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (in particular, delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br>
-For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MACOS security rules, you may have to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br>
-Notice that _the installation procedure must be redone every time you download a new release_. In order to avoid re-compiling CLIPS, you can keep a copy of it outside the CSP-Rules-V2.1 folder; you can similarly make a backup copy of your most frequently used config file.
-<br><br>
 
 ## 7. Companion repositories<br>
 CSP-Rules-V2.1 has two companion repositories:
 * one including examples. The first releases of CSP-Rules-V2.1 had an EXAMPLES folder, with examples for all the included applications.
 For easier additions to the examples, not requiring to make an update to CSP-Rules itself, this folder has now been moved to an independent repository: https://github.com/denis-berthier/CSP-Rules-Examples.<br>
 * one including all the sofware and results related to the controlled-bias generation of puzzles: https://github.com/denis-berthier/Controlled-bias_Sudoku_generator_and_collection
+<br>
+See these repositories for a detailed description of their contents.
 <br><br>
 
 ## 8. References<br>
@@ -232,6 +247,7 @@ For easier additions to the examples, not requiring to make an update to CSP-Rul
 * [Berthier 2009]: BERTHIER D., Unbiased Statistics of a CSP - A Controlled-Bias Generator, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 09), December 4-12, 2009, Springer. Published as a chapter of Innovations in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 11-17, Springer, 2010.<br><br>
 
 ### Books<br>
+* [AUM]: BERTHIER D., Augmented User Manual for CSP-Rules V2.1, Lulu Press, November 2021.<br>
 * [BUM1]: BERTHIER D., Basic User Manual for CSP-Rules V2.1, Lulu Press, August 2020.<br>
 * [BUM2]: BERTHIER D., Basic User Manual for CSP-Rules V2.1 (Second Edition), Lulu Press, November 2021.<br>
 * [CRT]: BERTHIER D., Constraint Resolution Theories, Lulu Press, October 2011.<br>

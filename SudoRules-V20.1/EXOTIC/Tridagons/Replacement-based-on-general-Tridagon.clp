@@ -37,9 +37,9 @@
         (retract ?f)
     )
     (bind ?new-RS
-        (fix-digits-in-3-rc-cells-of-sukaku-list
+        (fix-3-digits-in-3-rc-cells-of-sukaku-list
             ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3
-            (replace-digits-in-sukaku-list ?nb1 ?nb2 ?nb3 ?sukaku-list)
+            (replace-3-digits-in-sukaku-list ?nb1 ?nb2 ?nb3 ?sukaku-list)
         )
     )
     (bind ?*nb-csp-variables-solved* 0)
@@ -113,7 +113,7 @@
 =>
     (if ?*print-levels* then (printout t "Entering_level_eleven-replact-for-gen-trid"))
     (assert (technique ?cont eleven-replacement-based-on-general-tridagon))
-    (bind ?*technique* eleven-replacement-based-on-general-tridagon)
+    ; (bind ?*technique* eleven-replacement-based-on-general-tridagon)
 )
 
 
@@ -207,6 +207,7 @@
 
 =>
     (printout t crlf "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE FOR GENERAL TRIDAGON in resolution state: *****" crlf)
+    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf crlf)
     (bind ?RS (compute-current-resolution-state))
     (pretty-print-sukaku-list ?RS)
     (solve-sukaku-list-by-eleven-replacement ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 ?RS)
@@ -243,6 +244,7 @@
     (not (eleven-tried-block ?cont ?b11))
 =>
     (printout t crlf "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE FOR GENERAL TRIDAGON in resolution state: *****" crlf)
+    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf crlf)
     (bind ?RS (compute-current-resolution-state))
     (pretty-print-sukaku-list ?RS)
     (printout t "Trying in block " ?b11 crlf)

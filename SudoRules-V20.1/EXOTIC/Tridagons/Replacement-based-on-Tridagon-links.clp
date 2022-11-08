@@ -64,6 +64,7 @@
     (not (eleven-tried ?cont))
 =>
     (printout t crlf "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE in resolution state: *****" crlf)
+    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf crlf)
     (bind ?RS (compute-current-resolution-state))
     (pretty-print-sukaku-list ?RS)
     (assert (eleven-tried ?cont))

@@ -45,7 +45,7 @@
 =>
     (if ?*print-levels* then (printout t "Entering_level_ORk-anti-tridagon[12]"))
     (assert (technique ?cont ORk-anti-tridagon[12]))
-    ;;; In order to allow the ORkFW[n] to be found as the hardest techniques,
+    ;;; In order to allow the ORkXW[n] to be found as the hardest techniques,
     ;;; don't take the ORk-anti-tridagon[12] into account:
     ; (bind ?*technique* ORk-anti-tridagon[12])
     (assert (tridagon-type antidiag))
@@ -63,8 +63,8 @@
 
 (defrule ORk-anti-tridagon[12]
 	(declare (salience ?*ork-anti-tridagon[12]-salience*))
-	(technique ?cont ORk-anti-tridagon[12])
-    
+	(logical (technique ?cont ORk-anti-tridagon[12]))
+
     ;;; general conditions on block b33 and numbers ?nb1, ?nb2 and ?nb3:
     (candidate (context ?cont) (status c-value) (number ?nb1) (block ?b33))
     (not (candidate (context ?cont) (status c-value) (number ?nb1) (block ?bxx&~?b33)))
@@ -105,13 +105,13 @@
     (candidate (context ?cont) (status cand) (block ?b12) (square ?sq14) (number ?nb2))
     (candidate (context ?cont) (status cand) (block ?b12) (square ?sq14) (number ?nb3))
     
-    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq15&~?sq14) (row ?row2) (column ?col5&~?col4) (number ?nb1))
-    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq15) (number ?nb2))
-    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq15) (number ?nb3))
+    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq25&~?sq14) (row ?row2) (column ?col5&~?col4) (number ?nb1))
+    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq25) (number ?nb2))
+    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq25) (number ?nb3))
     
-    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq16&~?sq14&~?sq15) (row ?row3) (column ?col6&~?col4&~?col5) (number ?nb1))
-    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq16) (number ?nb2))
-    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq16) (number ?nb3))
+    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq36&~?sq14&~?sq25) (row ?row3) (column ?col6&~?col4&~?col5) (number ?nb1))
+    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq36) (number ?nb2))
+    (candidate (context ?cont) (status cand) (block ?b12) (square ?sq36) (number ?nb3))
 
     ; (test (progn (printout t "block " ?b12 " OK" crlf) TRUE))
 
@@ -121,13 +121,13 @@
     (candidate (context ?cont) (status cand) (block ?b21) (square ?sq41) (number ?nb2))
     (candidate (context ?cont) (status cand) (block ?b21) (square ?sq41) (number ?nb3))
     
-    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq51&~?sq41) (column ?col2) (row ?row5&~?row4) (number ?nb1))
-    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq51) (number ?nb2))
-    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq51) (number ?nb3))
+    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq52&~?sq41) (column ?col2) (row ?row5&~?row4) (number ?nb1))
+    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq52) (number ?nb2))
+    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq52) (number ?nb3))
     
-    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq61&~?sq41&~?sq51) (column ?col3) (row ?row6&~?row4&~?row5) (number ?nb1))
-    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq61) (number ?nb2))
-    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq61) (number ?nb3))
+    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq63&~?sq41&~?sq52) (column ?col3) (row ?row6&~?row4&~?row5) (number ?nb1))
+    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq63) (number ?nb2))
+    (candidate (context ?cont) (status cand) (block ?b21) (square ?sq63) (number ?nb3))
     
     ; (test (progn (printout t "block " ?b21 " OK" crlf) TRUE))
 
@@ -185,10 +185,11 @@
     )
     (assert
         (ORk-relation
-            (OR-name anti-tridagon)
+            (OR-name Trid)
             (OR-complexity 12)
             (context ?cont)
             (OR-size ?nb-guardians)
+            (symmetrified FALSE)
             (OR-candidates ?guardians)
         )
     )
@@ -199,16 +200,14 @@
     (if ?*print-actions* then
         (pretty-print-current-resolution-state)
         (printout t
-            "OR" ?nb-guardians "-anti-tridagon[12] (type " ?type ") for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "OR" ?nb-guardians "-anti-tridagon[12] for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
             "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i) crlf
-            "with " ?nb-guardians " guardians: " (print-list-of-labels ?guardians) crlf
+            "with " ?nb-guardians " guardians: " (print-list-of-labels ?guardians) crlf crlf
         )
     )
 )
-    
-
 
 

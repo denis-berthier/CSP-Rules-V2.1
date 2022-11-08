@@ -133,11 +133,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction print-deleted-candidate (?zzz)
-	(bind ?nb (label-number ?zzz))
+    (bind ?nb (label-number ?zzz))
     (bind ?cell (label-cell ?zzz))
-	(bind ?row (cell-row ?cell))
-	(bind ?col (cell-column ?cell))
-	(printout t ?*row-symbol* ?row ?*column-symbol* ?col ?*non-equal-sign* ?*numeral-symbol* ?nb)
+    (bind ?row (cell-row ?cell))
+    (bind ?col (cell-column ?cell))
+    (printout t ?*row-symbol* ?row ?*column-symbol* ?col ?*non-equal-sign* ?*numeral-symbol* ?nb)
+)
+
+(deffunction print-asserted-candidate (?zzz)
+    (bind ?nb (label-number ?zzz))
+    (bind ?cell (label-cell ?zzz))
+    (bind ?row (cell-row ?cell))
+    (bind ?col (cell-column ?cell))
+    (printout t ?*row-symbol* ?row ?*column-symbol* ?col ?*equal-sign* ?*numeral-symbol* ?nb)
 )
 
 

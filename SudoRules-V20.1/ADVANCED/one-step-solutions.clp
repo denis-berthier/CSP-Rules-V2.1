@@ -401,15 +401,11 @@
 ;;; syntactic sugar for grid form:
 
 (deffunction find-sukaku-grid-1-steppers-wrt-BRT ($?sukaku-list)
-    (clean-grid-list
-        (find-sukaku-1-steppers-wrt-resolution-theory BRT ?sukaku-list)
-    )
+    (find-sukaku-1-steppers-wrt-resolution-theory BRT (clean-grid-list ?sukaku-list))
 )
 
 (deffunction find-sukaku-grid-1-steppers-wrt-W1 ($?sukaku-list)
-    (clean-grid-list
-        (find-sukaku-1-steppers-wrt-resolution-theory W1 ?sukaku-list)
-    )
+    (find-sukaku-1-steppers-wrt-resolution-theory W1 (clean-grid-list ?sukaku-list))
 )
 
 

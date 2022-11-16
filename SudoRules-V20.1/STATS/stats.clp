@@ -72,9 +72,10 @@
 	(close "times-file")
 	(close "nb-facts-file")
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
-	(printout t ";;; TOTAL OUTER TIME = " ?*total-outer-time* crlf)
-	(printout t ";;; TOTAL RESOLUTION TIME = " ?*total-time* crlf)
-	(printout t ";;; MAX TIME = " ?*max-time* crlf)
+    (printout t ";;; computer = " ?*Computer-description* crlf)
+	(printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+	(printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+	(printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
 )
 
 
@@ -118,9 +119,10 @@
 	(close "nb-facts-file")
 	(close ?*solutions-file*)
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
-	(printout t ";;; TOTAL OUTER TIME = " ?*total-outer-time* crlf)
-	(printout t ";;; TOTAL RESOLUTION TIME = " ?*total-time* crlf)
-	(printout t ";;; MAX TIME = " ?*max-time* crlf)
+    (printout t ";;; computer = " ?*Computer-description* crlf)
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
 )
 
 

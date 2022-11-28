@@ -40,6 +40,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L2))
    (assert (level ?cont L2))
+   (bind ?*main-level* L2)
 )
 
 (defrule track-level-L2
@@ -61,6 +62,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L3))
    (assert (level ?cont L3))
+   (bind ?*main-level* L3)
 )
 
 (defrule track-level-L3
@@ -82,6 +84,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L4))
    (assert (level ?cont L4))
+   (bind ?*main-level* L4)
 )
 
 (defrule track-level-L4
@@ -103,6 +106,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L5))
    (assert (level ?cont L5))
+   (bind ?*main-level* L5)
 )
 
 (defrule track-level-L5
@@ -124,6 +128,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L6))
    (assert (level ?cont L6))
+   (bind ?*main-level* L6)
 )
 
 (defrule track-level-L6
@@ -145,6 +150,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L7))
    (assert (level ?cont L7))
+   (bind ?*main-level* L7)
 )
 
 (defrule track-level-L7
@@ -166,6 +172,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L8))
    (assert (level ?cont L8))
+   (bind ?*main-level* L8)
 )
 
 (defrule track-level-L8
@@ -187,6 +194,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L9))
    (assert (level ?cont L9))
+   (bind ?*main-level* L9)
 )
 
 (defrule track-level-L9
@@ -208,6 +216,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L10))
    (assert (level ?cont L10))
+   (bind ?*main-level* L10)
 )
 
 (defrule track-level-L10
@@ -229,6 +238,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L11))
    (assert (level ?cont L11))
+   (bind ?*main-level* L11)
 )
 
 (defrule track-level-L11
@@ -250,6 +260,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L12))
    (assert (level ?cont L12))
+   (bind ?*main-level* L12)
 )
 
 (defrule track-level-L12
@@ -271,6 +282,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L13))
    (assert (level ?cont L13))
+   (bind ?*main-level* L13)
 )
 
 (defrule track-level-L13
@@ -292,6 +304,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L14))
    (assert (level ?cont L14))
+   (bind ?*main-level* L14)
 )
 
 (defrule track-level-L14
@@ -313,6 +326,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L15))
    (assert (level ?cont L15))
+   (bind ?*main-level* L15)
 )
 
 (defrule track-level-L15
@@ -334,6 +348,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L16))
    (assert (level ?cont L16))
+   (bind ?*main-level* L16)
 )
 
 (defrule track-level-L16
@@ -355,6 +370,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L17))
    (assert (level ?cont L17))
+   (bind ?*main-level* L17)
 )
 
 (defrule track-level-L17
@@ -376,6 +392,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L18))
    (assert (level ?cont L18))
+   (bind ?*main-level* L18)
 )
 
 (defrule track-level-L18
@@ -397,6 +414,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L19))
    (assert (level ?cont L19))
+   (bind ?*main-level* L19)
 )
 
 (defrule track-level-L19
@@ -418,6 +436,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L20))
    (assert (level ?cont L20))
+   (bind ?*main-level* L20)
 )
 
 (defrule track-level-L20
@@ -439,6 +458,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L21))
    (assert (level ?cont L21))
+   (bind ?*main-level* L21)
 )
 
 (defrule track-level-L21
@@ -460,6 +480,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L22))
    (assert (level ?cont L22))
+   (bind ?*main-level* L22)
 )
 
 (defrule track-level-L22
@@ -481,6 +502,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L23))
    (assert (level ?cont L23))
+   (bind ?*main-level* L23)
 )
 
 (defrule track-level-L23
@@ -502,6 +524,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L24))
    (assert (level ?cont L24))
+   (bind ?*main-level* L24)
 )
 
 (defrule track-level-L24
@@ -523,6 +546,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L25))
    (assert (level ?cont L25))
+   (bind ?*main-level* L25)
 )
 
 (defrule track-level-L25
@@ -544,6 +568,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L26))
    (assert (level ?cont L26))
+   (bind ?*main-level* L26)
 )
 
 (defrule track-level-L26
@@ -565,6 +590,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L27))
    (assert (level ?cont L27))
+   (bind ?*main-level* L27)
 )
 
 (defrule track-level-L27
@@ -586,6 +612,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L28))
    (assert (level ?cont L28))
+   (bind ?*main-level* L28)
 )
 
 (defrule track-level-L28
@@ -607,6 +634,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L29))
    (assert (level ?cont L29))
+   (bind ?*main-level* L29)
 )
 
 (defrule track-level-L29
@@ -628,6 +656,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L30))
    (assert (level ?cont L30))
+   (bind ?*main-level* L30)
 )
 
 (defrule track-level-L30
@@ -649,6 +678,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L31))
    (assert (level ?cont L31))
+   (bind ?*main-level* L31)
 )
 
 (defrule track-level-L31
@@ -670,6 +700,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L32))
    (assert (level ?cont L32))
+   (bind ?*main-level* L32)
 )
 
 (defrule track-level-L32
@@ -691,6 +722,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L33))
    (assert (level ?cont L33))
+   (bind ?*main-level* L33)
 )
 
 (defrule track-level-L33
@@ -712,6 +744,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L34))
    (assert (level ?cont L34))
+   (bind ?*main-level* L34)
 )
 
 (defrule track-level-L34
@@ -733,6 +766,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L35))
    (assert (level ?cont L35))
+   (bind ?*main-level* L35)
 )
 
 (defrule track-level-L35
@@ -754,6 +788,7 @@
 =>
    (if ?*print-main-levels* then (printout t Entering_level_L36))
    (assert (level ?cont L36))
+   (bind ?*main-level* L36)
 )
 
 (defrule track-level-L36

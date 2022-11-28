@@ -71,6 +71,7 @@
 
 
 (defglobal
+    ?*main-level* = 0
     ?*level* = 0
     ?*technique* = 0
     ?*nb-facts* = 0
@@ -125,6 +126,7 @@
 
 
 (deffunction init-universal-globals ()
+    (bind ?*main-level* 0)
     (bind ?*level* 0)
 	(bind ?*technique* 0)
 	(bind ?*nb-facts* 0)

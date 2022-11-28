@@ -71,7 +71,8 @@
         (not (candidate (context ?cont) (label ?zzz2)))
     )
 =>
-    ;;; if no guardian has been asserted
+    ;;; If a guardian has been asserted, let the ORk-relation become void.
+    ;;; If no guardian has been asserted:
     (if (not (any-factp ((?c candidate))
                 (and (eq ?c:context ?cont) (eq ?c:status c-value)
                     (or (eq ?c:label ?zzz1) (eq ?c:label ?zzz2))
@@ -128,7 +129,8 @@
         (not (candidate (context ?cont) (label ?zzz3)))
     )
 =>
-    ;;; if no guardian has been asserted
+    ;;; If a guardian has been asserted, let the ORk-relation become void.
+    ;;; If no guardian has been asserted:
     (if (not (any-factp ((?c candidate))
                 (and (eq ?c:context ?cont) (eq ?c:status c-value)
                     (or (eq ?c:label ?zzz1) (eq ?c:label ?zzz2) (eq ?c:label ?zzz3))
@@ -190,7 +192,8 @@
         (not (candidate (context ?cont) (label ?zzz4)))
     )
 =>
-    ;;; if no guardian has been asserted
+    ;;; If a guardian has been asserted, let the ORk-relation become void.
+    ;;; If no guardian has been asserted:
     (if (not (any-factp ((?c candidate))
                 (and (eq ?c:context ?cont) (eq ?c:status c-value)
                     (or (eq ?c:label ?zzz1) (eq ?c:label ?zzz2) (eq ?c:label ?zzz3) (eq ?c:label ?zzz4))
@@ -257,7 +260,8 @@
         (not (candidate (context ?cont) (label ?zzz5)))
     )
 =>
-    ;;; if no guardian has been asserted
+    ;;; If a guardian has been asserted, let the ORk-relation become void.
+    ;;; If no guardian has been asserted:
     (if (not (any-factp ((?c candidate))
                 (and (eq ?c:context ?cont) (eq ?c:status c-value)
                     (or (eq ?c:label ?zzz1) (eq ?c:label ?zzz2) (eq ?c:label ?zzz3) (eq ?c:label ?zzz4) (eq ?c:label ?zzz5))
@@ -329,7 +333,8 @@
         (not (candidate (context ?cont) (label ?zzz6)))
     )
 =>
-    ;;; if no guardian has been asserted
+    ;;; If a guardian has been asserted, let the ORk-relation become void.
+    ;;; If no guardian has been asserted:
     (if (not (any-factp ((?c candidate))
                 (and (eq ?c:context ?cont) (eq ?c:status c-value)
                     (or (eq ?c:label ?zzz1) (eq ?c:label ?zzz2) (eq ?c:label ?zzz3) (eq ?c:label ?zzz4) (eq ?c:label ?zzz5) (eq ?c:label ?zzz6))
@@ -406,7 +411,8 @@
         (not (candidate (context ?cont) (label ?zzz7)))
     )
 =>
-    ;;; if no guardian has been asserted
+    ;;; If a guardian has been asserted, let the ORk-relation become void.
+    ;;; If no guardian has been asserted:
     (if (not (any-factp ((?c candidate))
                 (and (eq ?c:context ?cont) (eq ?c:status c-value)
                     (or (eq ?c:label ?zzz1) (eq ?c:label ?zzz2) (eq ?c:label ?zzz3) (eq ?c:label ?zzz4) (eq ?c:label ?zzz5) (eq ?c:label ?zzz6) (eq ?c:label ?zzz7))
@@ -488,7 +494,8 @@
         (not (candidate (context ?cont) (label ?zzz8)))
     )
 =>
-    ;;; if no guardian has been asserted
+    ;;; If a guardian has been asserted, let the ORk-relation become void.
+    ;;; If no guardian has been asserted:
     (if (not (any-factp ((?c candidate))
                 (and (eq ?c:context ?cont) (eq ?c:status c-value)
                     (or (eq ?c:label ?zzz1) (eq ?c:label ?zzz2) (eq ?c:label ?zzz3) (eq ?c:label ?zzz4) (eq ?c:label ?zzz5) (eq ?c:label ?zzz6) (eq ?c:label ?zzz7) (eq ?c:label ?zzz8))

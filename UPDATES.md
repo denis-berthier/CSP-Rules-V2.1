@@ -5,6 +5,10 @@ All the changes are indeed additions to the original functionalities; in particu
 -- no basic structure or resolution rule has been changed;<br>
 -- no bug has been found since first publication. <br>
 
+#### 2022 Nov 28 (Generic):  
+* Faster ORk-Whips for k>3 (irrelevant for k=2 or 3). They are about 30% to 50% faster (depending on many contextual factors) and they also use less memory.<br>
+For technical reasons, these improvements work only when ORk-forcing-whips are not active. Which version is used is automatic: the new, faster one if ORk-forcing-whips are not active, the original one otherwise.
+
 #### 2022 Nov 08 (Generic):  
 * New, extended and largely restructured version of the user manual: "Augmented User Manual". 
 

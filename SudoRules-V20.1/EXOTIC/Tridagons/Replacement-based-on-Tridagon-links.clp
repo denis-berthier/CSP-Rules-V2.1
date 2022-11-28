@@ -63,10 +63,11 @@
     (eleven-replacement-start ?cont ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3)
     (not (eleven-tried ?cont))
 =>
-    (printout t crlf "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE in resolution state: *****" crlf)
-    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf crlf)
     (bind ?RS (compute-current-resolution-state))
+    (printout t crlf)
     (pretty-print-sukaku-list ?RS)
+    (printout t "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE *****" crlf)
+    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf)
     (assert (eleven-tried ?cont))
     (solve-sukaku-list-by-eleven-replacement ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 ?RS)
 )

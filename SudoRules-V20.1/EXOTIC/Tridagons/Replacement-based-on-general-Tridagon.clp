@@ -206,10 +206,11 @@
     ; (test (progn (printout t "additional conditions in " ?b22 " OK" crlf) TRUE))
 
 =>
-    (printout t crlf "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE FOR GENERAL TRIDAGON in resolution state: *****" crlf)
-    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf crlf)
     (bind ?RS (compute-current-resolution-state))
+    (printout t crlf)
     (pretty-print-sukaku-list ?RS)
+    (printout t "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE *****" crlf)
+    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf)
     (solve-sukaku-list-by-eleven-replacement ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 ?RS)
 )
 
@@ -243,10 +244,11 @@
     
     (not (eleven-tried-block ?cont ?b11))
 =>
-    (printout t crlf "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE FOR GENERAL TRIDAGON in resolution state: *****" crlf)
-    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf crlf)
     (bind ?RS (compute-current-resolution-state))
+    (printout t crlf)
     (pretty-print-sukaku-list ?RS)
+    (printout t "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE *****" crlf)
+    (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf)
     (printout t "Trying in block " ?b11 crlf)
     (bind ?RS (modify-RS-by-eleven-replacement ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 ?RS))
     (pretty-print-RS)

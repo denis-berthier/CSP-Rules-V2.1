@@ -209,7 +209,7 @@
 =>
     (assert (technique 0 TE))
     (assert (phase 0 1))
-    (printout t crlf "*** STARTING T&E IN CONTEXT " 0  " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf)
+    (if ?*print-actions* then (printout t crlf "*** STARTING T&E IN CONTEXT " 0  " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf))
     (if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE " 1 " IN CONTEXT " 0 " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)

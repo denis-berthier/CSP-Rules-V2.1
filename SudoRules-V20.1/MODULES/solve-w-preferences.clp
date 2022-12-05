@@ -102,9 +102,9 @@
 (deffunction solve-sudoku-list-w-preferences ($?list)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
-    (bind ?data (subseq$ $?list 1 (* ?*grid-size* ?*grid-size*)))
-    (bind ?prefs (subseq$ $?list (+ (* ?*grid-size* ?*grid-size*) 1) (length$ ?list)))
-    (if (load-modules $?prefs) then
+    (bind ?data (subseq$ ?list 1 (* ?*grid-size* ?*grid-size*)))
+    (bind ?prefs (subseq$ ?list (+ (* ?*grid-size* ?*grid-size*) 1) (length$ ?list)))
+    (if (load-modules ?prefs) then
         ;;; General background plus puzzle entries are taken into account here
         (init-sudoku-list ?data)
         (bind ?time1 (time))
@@ -153,12 +153,14 @@
     )
 )
 
+
 (deffunction solve-sukaku-list-w-preferences ($?list)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
-    (bind ?data (subseq$ $?list 1 (* ?*grid-size* ?*grid-size*)))
-    (bind ?prefs (subseq$ $?list (+ (* ?*grid-size* ?*grid-size*) 1) (length$ ?list)))
-    (if (load-modules $?prefs) then
+    (bind ?data (subseq$ ?list 1 (* ?*grid-size* ?*grid-size*)))
+    (bind ?prefs (subseq$ ?list (+ (* ?*grid-size* ?*grid-size*) 1) (length$ ?list)))
+    (printout t "List of modules = " ?prefs crlf)
+    (if (load-modules ?prefs) then
         ;;; General background plus puzzle entries are taken into account here
         (init-sukaku-list ?data)
         (bind ?time1 (time))

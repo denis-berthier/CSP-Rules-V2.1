@@ -469,6 +469,8 @@
 
     ;;; The puzzle is solved here
 	(bind ?n (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -523,6 +525,8 @@
     (bind ?*init-instance-time* (- ?time1 ?time0))
     ;;; The puzzle is solved here
 	(bind ?nb-rules (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -672,6 +676,8 @@
     (bind ?*init-instance-time* (- ?time1 ?time0))
     ;;; The puzzle is solved here
 	(bind ?n (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -841,6 +847,8 @@
     (bind ?*init-instance-time* (- ?time1 ?time0))
     ;;; The puzzle is solved here
 	(bind ?n (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -984,6 +992,8 @@
 
     ;;; The puzzle is solved here
     (bind ?n (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -1083,17 +1093,19 @@
 ;;;    +-------+-------+-------+
 ;;; )
 ;;;
-;;; The + signs can also be * signs and both signs can be mixed withput restriction
+;;; The + signs can also be * signs and both signs can be mixed without restriction
 
 
 (deffunction cosmetic-sign-in-grid (?x)
     (bind ?cosmetic FALSE)
-    (bind ?str (implode$ (create$ ?x)))
-    (bind ?len (str-length ?str))
-    (bind ?i 1)
-    (while (<= ?i ?len)
-        (if (member$ (sub-string ?i ?i ?str) ?*cosmetic-signs-in-grid*) then (bind ?cosmetic TRUE))
-        (bind ?i (+ ?i 1))
+    (if (not (member$ ?x ?*list-of-modules*)) then
+        (bind ?str (implode$ (create$ ?x)))
+        (bind ?len (str-length ?str))
+        (bind ?i 1)
+        (while (<= ?i ?len)
+            (if (member$ (sub-string ?i ?i ?str) ?*cosmetic-signs-in-grid*) then (bind ?cosmetic TRUE))
+            (bind ?i (+ ?i 1))
+        )
     )
     ?cosmetic
 )
@@ -1250,6 +1262,8 @@
 
     ;;; The puzzle is solved here
     (bind ?n (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -1342,6 +1356,8 @@
 
     ;;; The puzzle is solved here
     (bind ?n (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -1434,6 +1450,8 @@
 
     ;;; The puzzle is solved here
     (bind ?n (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))

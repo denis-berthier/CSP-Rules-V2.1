@@ -145,6 +145,8 @@
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
 	(printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -198,6 +200,8 @@
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -256,6 +260,8 @@
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -545,6 +551,8 @@
         (bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -606,6 +614,8 @@
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -827,6 +837,8 @@
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -879,6 +891,8 @@
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -936,6 +950,8 @@
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -1041,6 +1057,8 @@
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -1093,6 +1111,8 @@
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
@@ -1150,6 +1170,8 @@
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
     (printout t ";;; computer = " ?*Computer-description* crlf)
     (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)

@@ -5,6 +5,10 @@ All the changes are indeed additions to the original functionalities; in particu
 -- no basic structure or resolution rule has been changed;<br>
 -- no bug has been found since first publication. <br>
 
+#### 2022 Dec 07 (Generic):  
+* All the ORk-relations of size ≤ 20 are now ultra-persistent. (Previously, size was limited to 12, but there are rare anti-tridaogns with 20 guardians).<br>
+* Add Forcing2-T&E and Forcing3-T&E. They have been mentioned in the User Manual for a long time, but I had forgotten to post the code.
+
 #### 2022 Nov 28 (Generic):  
 * Faster ORk-Whips for k>3 (irrelevant for k=2 or 3). They are about 30% to 50% faster (depending on many contextual factors) and they also use less memory.<br>
 For technical reasons, these improvements work only when ORk-forcing-whips are not active. Which version is used is automatic: the new, faster one if ORk-forcing-whips are not active, the original one otherwise.

@@ -58,7 +58,7 @@
 
 ;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
-    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 12.5"
+    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 13.0.1"
 )                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -420,16 +420,26 @@
 ; (bind ?*OR5-Whips* True)
 ; (bind ?*OR6-Whips* True)
 
+;;; 2.3.5) Use ORk-Contrad-G-Whips in combination with Anti-Tridagons:
+; (bind ?*OR2-Contrad-G-Whips* True)
+; (bind ?*OR3-Contrad-G-Whips* True)
+; (bind ?*OR4-Contrad-G-Whips* True)
+; (bind ?*OR5-Contrad-G-Whips* True)
+; (bind ?*OR6-Contrad-G-Whips* True)
+; (bind ?*OR7-Contrad-G-Whips* True)
+; (bind ?*OR8-Contrad-G-Whips* True)
 
-;;; If you use Tridagon-Chains,
+
+;;; 2.3.6 If you use Tridagon-Chains,
 ;;; it is highly recommended to put a strict upper bound on their lengths;
 ;;; 5 is a good starting point ; try to increase these lengths progressively.
 ; (bind ?*all-ORk-forcing-whips-max-length* 5)
 ; (bind ?*all-ORk-contrad-whips-max-length* 5)
 ; (bind ?*all-ORk-whips-max-length* 5)
+; (bind ?*all-ORk-contrad-gwhips-max-length* 5)
 
 
-;;; All the ORk-chain rules max lengths can also be restricted individually:
+;;; All the ORk-chain and ORk-g-chain rules max lengths can also be restricted individually:
 ; (bind ?*OR2-forcing-whips-max-length* 5)
 ; (bind ?*OR3-forcing-whips-max-length* 5)
 ; (bind ?*OR4-forcing-whips-max-length* 5)
@@ -448,9 +458,14 @@
 ; (bind ?*OR5-whips-max-length* 5)
 ; (bind ?*OR6-whips-max-length* 5)
 
+; (bind ?*OR2-contrad-gwhips-max-length* 5)
+; (bind ?*OR3-contrad-gwhips-max-length* 5)
+; (bind ?*OR4-contrad-gwhips-max-length* 5)
+; (bind ?*OR5-contrad-gwhips-max-length* 5)
 
 
-;;; 2.3.5) Eleven's replacement technique:
+
+;;; 2.3.7) Eleven's replacement technique:
 ;;; Allow the automatic use of eleven's replacement method based on tridagons.
 ;;; (Note that the method is much more general;
 ;;; here, the anti-tridaon structure is only used to define a starting point).

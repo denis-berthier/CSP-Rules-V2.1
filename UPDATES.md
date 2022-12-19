@@ -1,12 +1,22 @@
 # CSP-Rules-V2.1 updates
-Only the main updates (in reverse time order) are listed below. <br>
-Cosmetic changes (such as changes in the way things are printed) are not mentioned. <br>
-All the changes are indeed additions to the original functionalities; in particular:<br>
+Notes: 
+1) Only the main updates (in reverse time order) are listed below. <br>
+2) Cosmetic changes (such as minor changes in the way things are printed) are not mentioned. <br>
+3) Trivial additions to the globals, saliences or print functions (which may be necessary when new resolution rules are added) are not mentioned. <br>
+4) All the changes are indeed additions to the original functionalities; in particular:<br>
 -- no basic structure or resolution rule has been changed;<br>
--- no bug has been found since first publication. <br>
+-- no bug has been found since the first publication. <br><br>
+
+
+#### Forthcoming (Generic):
+* Add the ORk-g-whips, for k ≤ 5 .
+
+#### 2022 Dec 19 (Generic):
+* Add the ORk-contrad-g-whips, for k ≤ 5 (and corresponding global variables allowing to use them in the SudoRules config file).
+* Split the G-Whip files into G-Whip and Partial-G-Whip files (for easier use with ORk-Contrad-Whips). This implies no change for the ordinary G-Whips.
 
 #### 2022 Dec 07 (Generic):  
-* All the ORk-relations of size ≤ 20 are now ultra-persistent. (Previously, size was limited to 12, but there are rare anti-tridaogns with 20 guardians).<br>
+* All the ORk-relations of size ≤ 20 are now ultra-persistent. (Previously, size for applying persistency was limited to 12, but there are rare anti-tridagons with 20 guardians).<br>
 * Add Forcing2-T&E and Forcing3-T&E. They have been mentioned in the User Manual for a long time, but I had forgotten to post the code.
 
 #### 2022 Nov 28 (Generic):  

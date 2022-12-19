@@ -54,7 +54,8 @@
 (defglobal ?*dummy-variable-for-setting-generic-rules-dependencies* = (progn
     ;;; Function redefine-all-chains-max-length is called before setting all the other dependencies,
     ;;; so as to ensure priority to the global declarations such as ?*all-chains-max-length*,
-    ;;; ?*all-ORk-forcing-whips-max-length*, ?*all-ORk-contrad-whips-max-length* and ?*all-ORk-whips-max-length*
+    ;;; ?*all-ORk-forcing-whips-max-length*, ?*all-ORk-contrad-whips-max-length*, ?*all-ORk-whips-max-length*
+    ;;; ?*all-ORk-forcing-gwhips-max-length*, ?*all-ORk-contrad-gwhips-max-length* and ?*all-ORk-gwhips-max-length*
     (redefine-all-chains-max-length)
     
     ;;; Subsets and gSubsets
@@ -111,10 +112,89 @@
     (if ?*Forcing2-Whips* then
         (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*forcing-whips-max-length* ?*whips-max-length*))
     )
+    
+    
+    
+    ;;; ORk-forcing-g-whips, ORk-contrad-g-whips, ORk-g-whips
+    ;;; The following is in case the lengths have been set independently by the user:
+
+    (if ?*OR5-G-Whips* then
+        (bind ?*OR4-G-Whips* TRUE)
+        (bind ?*OR4-gwhips-max-length* (max ?*OR5-gwhips-max-length* ?*OR4-gwhips-max-length*))
+        (bind ?*OR5-Contrad-G-Whips* TRUE)
+        (if (< ?*OR5-contrad-gwhips-max-length* ?*OR5-gwhips-max-length*) then
+            (bind ?*OR5-contrad-gwhips-max-length* ?*OR5-gwhips-max-length*)
+        )
+        (bind ?*OR5-Whips* TRUE)
+        (bind ?*OR5-whips-max-length* (max ?*OR5-whips-max-length* ?*OR5-gwhips-max-length*))
+    )
+    (if ?*OR4-G-Whips* then
+        (bind ?*OR3-G-Whips* TRUE)
+        (bind ?*OR3-gwhips-max-length* (max ?*OR4-gwhips-max-length* ?*OR3-gwhips-max-length*))
+        (bind ?*OR4-Contrad-G-Whips* TRUE)
+        (if (< ?*OR4-contrad-gwhips-max-length* ?*OR4-gwhips-max-length*) then
+            (bind ?*OR4-contrad-gwhips-max-length* ?*OR4-gwhips-max-length*)
+        )
+        (bind ?*OR4-Whips* TRUE)
+        (bind ?*OR4-whips-max-length* (max ?*OR4-whips-max-length* ?*OR4-gwhips-max-length*))
+    )
+    (if ?*OR3-G-Whips* then
+        (bind ?*OR2-G-Whips* TRUE)
+        (bind ?*OR2-gwhips-max-length* (max ?*OR3-gwhips-max-length* ?*OR2-gwhips-max-length*))
+        (bind ?*OR3-Contrad-G-Whips* TRUE)
+        (if (< ?*OR3-contrad-gwhips-max-length* ?*OR3-gwhips-max-length*) then
+            (bind ?*OR3-contrad-gwhips-max-length* ?*OR3-gwhips-max-length*)
+        )
+        (bind ?*OR3-Whips* TRUE)
+        (bind ?*OR3-whips-max-length* (max ?*OR3-whips-max-length* ?*OR3-gwhips-max-length*))
+    )
+    (if ?*OR2-G-Whips* then
+        (bind ?*OR2-Contrad-G-Whips* TRUE)
+        (if (< ?*OR2-contrad-gwhips-max-length* ?*OR2-gwhips-max-length*) then
+            (bind ?*OR2-contrad-gwhips-max-length* ?*OR2-gwhips-max-length*)
+        )
+        (bind ?*OR2-Whips* TRUE)
+        (bind ?*OR2-whips-max-length* (max ?*OR2-whips-max-length* ?*OR2-gwhips-max-length*))
+    )
 
     
+    (if ?*OR5-Contrad-G-Whips* then
+        (bind ?*OR4-Contrad-G-Whips* TRUE)
+        (bind ?*OR4-contrad-gwhips-max-length* (max ?*OR5-contrad-gwhips-max-length* ?*OR4-contrad-gwhips-max-length*))
+        (bind ?*OR5-Contrad-Whips* TRUE)
+        (if (< ?*OR5-contrad-whips-max-length* ?*OR5-contrad-gwhips-max-length*) then
+            (bind ?*OR5-contrad-whips-max-length* ?*OR5-contrad-gwhips-max-length*)
+        )
+    )
+    (if ?*OR4-Contrad-G-Whips* then
+        (bind ?*OR3-Contrad-G-Whips* TRUE)
+        (bind ?*OR3-contrad-gwhips-max-length* (max ?*OR4-contrad-gwhips-max-length* ?*OR3-contrad-gwhips-max-length*))
+        (bind ?*OR4-Contrad-Whips* TRUE)
+        (if (< ?*OR4-contrad-whips-max-length* ?*OR4-contrad-gwhips-max-length*) then
+            (bind ?*OR4-contrad-whips-max-length* ?*OR4-contrad-gwhips-max-length*)
+        )
+    )
+    (if ?*OR3-Contrad-G-Whips* then
+        (bind ?*OR2-Contrad-G-Whips* TRUE)
+        (bind ?*OR2-contrad-gwhips-max-length* (max ?*OR3-contrad-gwhips-max-length* ?*OR2-contrad-gwhips-max-length*))
+        (bind ?*OR3-Contrad-Whips* TRUE)
+        (if (< ?*OR3-contrad-whips-max-length* ?*OR3-contrad-gwhips-max-length*) then
+            (bind ?*OR3-contrad-whips-max-length* ?*OR3-contrad-gwhips-max-length*)
+        )
+    )
+    (if ?*OR2-Contrad-G-Whips* then
+        (bind ?*OR2-Contrad-Whips* TRUE)
+        (if (< ?*OR2-contrad-whips-max-length* ?*OR2-contrad-gwhips-max-length*) then
+            (bind ?*OR2-contrad-whips-max-length* ?*OR2-contrad-gwhips-max-length*)
+        )
+    )
+
+    
+    
+    ;;; ORk-forcing-whips, ORk-contrad-whips, ORk-whips
+    ;;; The following is in case the lengths have been set independently by the user:
+
     ;;; ORk-Forcing-Whips have standard consistency-preserving dependencies.
-    ;;; The folloxing is in case the lengths have been set independently by the user:
     (if ?*OR8-Forcing-Whips* then
         (bind ?*OR7-Forcing-Whips* TRUE)
         (bind ?*OR7-forcing-whips-max-length* (max ?*OR8-forcing-whips-max-length* ?*OR7-forcing-whips-max-length*))
@@ -144,52 +224,52 @@
     ;;; ORk-Whips have standard consistency-preserving dependencies,
     ;;; and they imply ORk-contrad-whips of same length and same k, which are indeed a special case.
     (if ?*OR8-Whips* then
+        (bind ?*OR7-Whips* TRUE)
+        (bind ?*OR7-whips-max-length* (max ?*OR8-whips-max-length* ?*OR7-whips-max-length*))
         (bind ?*OR8-Contrad-Whips* TRUE)
         (if (< ?*OR8-contrad-whips-max-length* ?*OR8-whips-max-length*) then
             (bind ?*OR8-contrad-whips-max-length* ?*OR8-whips-max-length*)
         )
-        (bind ?*OR7-Whips* TRUE)
-        (bind ?*OR7-whips-max-length* (max ?*OR8-whips-max-length* ?*OR7-whips-max-length*))
     )
     (if ?*OR7-Whips* then
+        (bind ?*OR6-Whips* TRUE)
+        (bind ?*OR6-whips-max-length* (max ?*OR7-whips-max-length* ?*OR6-whips-max-length*))
         (bind ?*OR7-Contrad-Whips* TRUE)
         (if (< ?*OR7-contrad-whips-max-length* ?*OR7-whips-max-length*) then
             (bind ?*OR7-contrad-whips-max-length* ?*OR7-whips-max-length*)
         )
-        (bind ?*OR6-Whips* TRUE)
-        (bind ?*OR6-whips-max-length* (max ?*OR7-whips-max-length* ?*OR6-whips-max-length*))
     )
     (if ?*OR6-Whips* then
+        (bind ?*OR5-Whips* TRUE)
+        (bind ?*OR5-whips-max-length* (max ?*OR6-whips-max-length* ?*OR5-whips-max-length*))
         (bind ?*OR6-Contrad-Whips* TRUE)
         (if (< ?*OR6-contrad-whips-max-length* ?*OR6-whips-max-length*) then
             (bind ?*OR6-contrad-whips-max-length* ?*OR6-whips-max-length*)
         )
-        (bind ?*OR5-Whips* TRUE)
-        (bind ?*OR5-whips-max-length* (max ?*OR6-whips-max-length* ?*OR5-whips-max-length*))
     )
     (if ?*OR5-Whips* then
+        (bind ?*OR4-Whips* TRUE)
+        (bind ?*OR4-whips-max-length* (max ?*OR5-whips-max-length* ?*OR4-whips-max-length*))
         (bind ?*OR5-Contrad-Whips* TRUE)
         (if (< ?*OR5-contrad-whips-max-length* ?*OR5-whips-max-length*) then
             (bind ?*OR5-contrad-whips-max-length* ?*OR5-whips-max-length*)
         )
-        (bind ?*OR4-Whips* TRUE)
-        (bind ?*OR4-whips-max-length* (max ?*OR5-whips-max-length* ?*OR4-whips-max-length*))
     )
     (if ?*OR4-Whips* then
+        (bind ?*OR3-Whips* TRUE)
+        (bind ?*OR3-whips-max-length* (max ?*OR4-whips-max-length* ?*OR3-whips-max-length*))
         (bind ?*OR4-Contrad-Whips* TRUE)
         (if (< ?*OR4-contrad-whips-max-length* ?*OR4-whips-max-length*) then
             (bind ?*OR4-contrad-whips-max-length* ?*OR4-whips-max-length*)
         )
-        (bind ?*OR3-Whips* TRUE)
-        (bind ?*OR3-whips-max-length* (max ?*OR4-whips-max-length* ?*OR3-whips-max-length*))
     )
     (if ?*OR3-Whips* then
+        (bind ?*OR2-Whips* TRUE)
+        (bind ?*OR2-whips-max-length* (max ?*OR3-whips-max-length* ?*OR2-whips-max-length*))
         (bind ?*OR3-Contrad-Whips* TRUE)
         (if (< ?*OR3-contrad-whips-max-length* ?*OR3-whips-max-length*) then
             (bind ?*OR3-contrad-whips-max-length* ?*OR3-whips-max-length*)
         )
-        (bind ?*OR2-Whips* TRUE)
-        (bind ?*OR2-whips-max-length* (max ?*OR3-whips-max-length* ?*OR2-whips-max-length*))
     )
     (if ?*OR2-Whips* then
         (bind ?*OR2-Contrad-Whips* TRUE)
@@ -225,6 +305,7 @@
         (bind ?*OR2-Contrad-Whips* TRUE)
         (bind ?*OR2-contrad-whips-max-length* (max ?*OR3-contrad-whips-max-length* ?*OR2-contrad-whips-max-length*))
     )
+    
     
     
     ;;; Bivalue-chains, whips, g-bivalue-chains, gwhips, braids, gbraids
@@ -315,9 +396,17 @@
     ;;; partial-whips[i] must be loaded for some rules to work:
     (if ?*t-Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*t-whips-max-length* 1))))
     (if ?*Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*whips-max-length* 1))))
+    
     ;;; Contrary to ORk-Forcing-Whips, whose length is (indirectly) further restricted by ?*all-chains-max-length*,
-    ;;; ORk-Contrad-Whips and ORk-Contrad-Whips need access to
+    ;;; ORk-Contrad-Whips and ORk-Whips need access to partial-whips
     (if ?*OR2-Contrad-Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*OR2-contrad-whips-max-length* 1))))
+
+    ;;; partial-gwhips[i] must be loaded for some rules to work:
+    (if ?*G-Whips* then (bind ?*partial-gwhips-max-length* (- ?*gwhips-max-length* 1)))
+    
+    ;;; Contrary to ORk-Forcing-G-Whips, whose length is (indirectly) further restricted by ?*all-chains-max-length*,
+    ;;; ORk-Contrad-G-Whips and ORk-G-Whips need access to partial-gwhips
+    (if ?*OR2-Contrad-G-Whips* then (bind ?*partial-gwhips-max-length* (max ?*partial-gwhips-max-length* (- ?*OR2-contrad-gwhips-max-length* 1))))
 
     (printout t "Generic consistency-preserving rules dependencies set" crlf)
     
@@ -388,6 +477,23 @@
     (if ?*OR6-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-whips-max-length*)))
     (if ?*OR7-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-whips-max-length*)))
     (if ?*OR8-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-whips-max-length*)))
+
+
+    (if ?*OR2-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-contrad-gwhips-max-length*)))
+    (if ?*OR3-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-contrad-gwhips-max-length*)))
+    (if ?*OR4-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-contrad-gwhips-max-length*)))
+    (if ?*OR5-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-contrad-gwhips-max-length*)))
+    (if ?*OR5-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-contrad-gwhips-max-length*)))
+    (if ?*OR7-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-contrad-gwhips-max-length*)))
+    (if ?*OR8-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-contrad-gwhips-max-length*)))
+
+    (if ?*OR2-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-gwhips-max-length*)))
+    (if ?*OR3-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-gwhips-max-length*)))
+    (if ?*OR4-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-gwhips-max-length*)))
+    (if ?*OR5-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-gwhips-max-length*)))
+    (if ?*OR6-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-gwhips-max-length*)))
+    (if ?*OR7-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-gwhips-max-length*)))
+    (if ?*OR8-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-gwhips-max-length*)))
 
     TRUE
 ))
@@ -501,7 +607,16 @@
     (if ?*OR7-Contrad-Whips* then (bind ?ORk-contrad-type "OR7CW"))
     (if ?*OR8-Contrad-Whips* then (bind ?ORk-contrad-type "OR8CW"))
 
-    ;;; ORk-Whips
+    ;;; ORk-contrad-gwhips
+    (if ?*OR2-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR2CgW"))
+    (if ?*OR3-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR3CgW"))
+    (if ?*OR4-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR4CgW"))
+    (if ?*OR5-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR5CgW"))
+    (if ?*OR6-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR6CgW"))
+    (if ?*OR7-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR7CgW"))
+    (if ?*OR8-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR8CgW"))
+
+    ;;; ORk-whips
     (bind ?ORk-whip-type "")
     (if ?*OR2-Whips* then (bind ?ORk-whip-type "OR2W"))
     (if ?*OR3-Whips* then (bind ?ORk-whip-type "OR3W"))
@@ -510,8 +625,18 @@
     (if ?*OR6-Whips* then (bind ?ORk-whip-type "OR6W"))
     (if ?*OR7-Whips* then (bind ?ORk-whip-type "OR7W"))
     (if ?*OR8-Whips* then (bind ?ORk-whip-type "OR8W"))
-    (if (neq ?ORk-whip-type "") then (bind ?ORk-contrad-type ?ORk-whip-type))
+    
+    ;;; ORk-gwhips
+    (if ?*OR2-G-Whips* then (bind ?ORk-whip-type "OR2gW"))
+    (if ?*OR3-G-Whips* then (bind ?ORk-whip-type "OR3gW"))
+    (if ?*OR4-G-Whips* then (bind ?ORk-whip-type "OR4gW"))
+    (if ?*OR5-G-Whips* then (bind ?ORk-whip-type "OR5gW"))
+    (if ?*OR6-G-Whips* then (bind ?ORk-whip-type "OR6gW"))
+    (if ?*OR7-G-Whips* then (bind ?ORk-whip-type "OR7gW"))
+    (if ?*OR8-G-Whips* then (bind ?ORk-whip-type "OR8gW"))
 
+    
+    (if (neq ?ORk-whip-type "") then (bind ?ORk-contrad-type ?ORk-whip-type))
     (if (neq ?ORk-contrad-type "") then
         (bind ?forcing-type (if (eq ?forcing-type "") then ?ORk-contrad-type else (str-cat ?forcing-type "+" ?ORk-contrad-type)))
     )
@@ -777,7 +902,7 @@
 )
 
 ;;; g-labels and g-links
-(if (or ?*G-Bivalue-Chains* ?*G-Whips*  ?*G-Braids*) then
+(if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids* ?*OR2-Forcing-G-Whips* ?*OR2-Contrad-G-Whips* ?*OR2-G-Whips*) then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "glabels.clp"))
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-glinks.clp"))
 )
@@ -834,6 +959,8 @@
 ;            ?*Directory-symbol* "Partial-Whips[1].clp")
 ;    )
 ;)
+
+
 
 (bind ?i 2)
 (while (<= ?i 36)
@@ -893,7 +1020,6 @@
                     ?*Directory-symbol* "Typed-Partial-Whips[" (- ?i 1) "].clp")
         )
     )
-
     ;;; typed-t-whips ≥ 2
     (if (and ?*Typed-t-Whips* (<= ?i ?*typed-t-whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
@@ -901,25 +1027,6 @@
                     ?*Directory-symbol* "Typed-t-Whips[" ?i "].clp")
         )
     )
-    
-    ;;; t-whips ≥ 2
-    (if (and ?*t-Whips* (<= ?i ?*t-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                    ?*Directory-symbol* "T-WHIPS"
-                    ?*Directory-symbol* "T-Whips[" ?i "].clp")
-        )
-    )
-
-    
-    ;;; partial-whips[?i - 1]
-    (if (<= (- ?i 1) ?*partial-whips-max-length*) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                ?*Directory-symbol* "PARTIAL-WHIPS"
-                ?*Directory-symbol* "Partial-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
-    
     ;;; typed-whips ≥ 2
     (if (and ?*Typed-Whips* (<= ?i ?*typed-whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
@@ -928,6 +1035,21 @@
         )
     )
     
+    
+    ;;; partial-whips[?i - 1]
+    (if (<= (- ?i 1) ?*partial-whips-max-length*) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                ?*Directory-symbol* "PARTIAL-WHIPS"
+                ?*Directory-symbol* "Partial-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    ;;; t-whips ≥ 2
+    (if (and ?*t-Whips* (<= ?i ?*t-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                    ?*Directory-symbol* "T-WHIPS"
+                    ?*Directory-symbol* "T-Whips[" ?i "].clp")
+        )
+    )
     ;;; whips ≥ 2
     (if (and ?*Whips* (<= ?i ?*whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
@@ -935,26 +1057,177 @@
                 ?*Directory-symbol* "Whips[" ?i "].clp")
         )
     )
-
     
-    ;;; braids ≥ 3
-    (if (and ?*Braids* (>= ?i 3) (<= ?i ?*braids-max-length*)) then ;;; start at 3
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
-                ?*Directory-symbol* "BRAIDS"
-                ?*Directory-symbol* "Braids[" ?i "].clp")
+    
+    ;;; OR2-forcing-whips, OR2-contrad-whips, OR2-whips
+    (if (and ?*OR2-Forcing-Whips* (<= ?i ?*OR2-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR2-FORCING-WHIPS"
+            ?*Directory-symbol* "OR2-Forcing-Whips[" ?i "].clp")
         )
     )
-
-
-    ;;; B-rating ≥ 2
-    (if (and ?*Quick-B-Rating* (<= ?i ?*braids-max-length*)) then ;;; start at 2
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-SPEED"
-                ?*Directory-symbol* "QUICK-BRAIDS"
-                ?*Directory-symbol* "Quick-Braids[" ?i "].clp")
+    (if (and ?*OR2-Contrad-Whips* (<= ?i ?*OR2-contrad-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR2-CONTRAD-WHIPS"
+            ?*Directory-symbol* "OR2-Contrad-Whips[" ?i "].clp")
         )
     )
-
-
+    (if (and ?*OR2-Whips* (>= ?i 2) (<= ?i ?*OR2-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR2-WHIPS"
+            ?*Directory-symbol* "OR2-Whips[" ?i "].clp")
+        )
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR2-WHIPS"
+            ?*Directory-symbol* "Partial-OR2-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    
+    ;;; OR3-forcing-whips, OR3-contrad-whips, OR3-whips
+    (if (and ?*OR3-Forcing-Whips* (<= ?i ?*OR3-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR3-FORCING-WHIPS"
+            ?*Directory-symbol* "OR3-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR3-Contrad-Whips* (<= ?i ?*OR3-contrad-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR3-CONTRAD-WHIPS"
+            ?*Directory-symbol* "OR3-Contrad-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR3-Whips* (>= ?i 2) (<= ?i ?*OR3-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR3-WHIPS"
+            ?*Directory-symbol* "OR3-Whips[" ?i "].clp")
+        )
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR3-WHIPS"
+            ?*Directory-symbol* "Partial-OR3-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    
+    ;;; OR4-forcing-whips, OR4-contrad-whips, OR4-whips
+    (if (and ?*OR4-Forcing-Whips* (<= ?i ?*OR4-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR4-FORCING-WHIPS"
+            ?*Directory-symbol* "OR4-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR4-Contrad-Whips* (<= ?i ?*OR4-contrad-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR4-CONTRAD-WHIPS"
+            ?*Directory-symbol* "OR4-Contrad-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR4-Whips* (>= ?i 2) (<= ?i ?*OR4-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR4-WHIPS"
+            ?*Directory-symbol* "OR4-Whips[" ?i "].clp")
+        )
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR4-WHIPS"
+            ?*Directory-symbol* "Partial-OR4-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    
+    ;;; OR5-forcing-whips, OR5-contrad-whips, OR5-whips
+    (if (and ?*OR5-Forcing-Whips* (<= ?i ?*OR5-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR5-FORCING-WHIPS"
+            ?*Directory-symbol* "OR5-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR5-Contrad-Whips* (<= ?i ?*OR5-contrad-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR5-CONTRAD-WHIPS"
+            ?*Directory-symbol* "OR5-Contrad-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR5-Whips* (>= ?i 2) (<= ?i ?*OR5-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR5-WHIPS"
+            ?*Directory-symbol* "OR5-Whips[" ?i "].clp")
+        )
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR5-WHIPS"
+            ?*Directory-symbol* "Partial-OR5-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    
+    ;;; OR6-forcing-whips, OR6-contrad-whips and OR6-whips
+    (if (and ?*OR6-Forcing-Whips* (<= ?i ?*OR6-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR6-FORCING-WHIPS"
+            ?*Directory-symbol* "OR6-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR6-Contrad-Whips* (<= ?i ?*OR6-contrad-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR6-CONTRAD-WHIPS"
+            ?*Directory-symbol* "OR6-Contrad-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR6-Whips* (>= ?i 2) (<= ?i ?*OR6-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR6-WHIPS"
+            ?*Directory-symbol* "OR6-Whips[" ?i "].clp")
+        )
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR6-WHIPS"
+            ?*Directory-symbol* "Partial-OR6-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    
+    ;;; OR7-forcing-whips, OR7-contrad-whips and OR7-whips
+    (if (and ?*OR7-Forcing-Whips* (<= ?i ?*OR7-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR7-FORCING-WHIPS"
+            ?*Directory-symbol* "OR7-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR7-Contrad-Whips* (<= ?i ?*OR7-contrad-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR7-CONTRAD-WHIPS"
+            ?*Directory-symbol* "OR7-Contrad-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR7-Whips* (>= ?i 2) (<= ?i ?*OR7-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR7-WHIPS"
+            ?*Directory-symbol* "OR7-Whips[" ?i "].clp")
+        )
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR7-WHIPS"
+            ?*Directory-symbol* "Partial-OR7-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    
+    ;;; OR8-forcing-whips, OR8-contrad-whips and OR8-whips
+    (if (and ?*OR8-Forcing-Whips* (<= ?i ?*OR8-forcing-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR8-FORCING-WHIPS"
+            ?*Directory-symbol* "OR8-Forcing-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR8-Contrad-Whips* (<= ?i ?*OR8-contrad-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR8-CONTRAD-WHIPS"
+            ?*Directory-symbol* "OR8-Contrad-Whips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR8-Whips* (>= ?i 2) (<= ?i ?*OR8-whips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR8-WHIPS"
+            ?*Directory-symbol* "OR8-Whips[" ?i "].clp")
+        )
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR8-WHIPS"
+            ?*Directory-symbol* "Partial-OR8-Whips[" (- ?i 1) "].clp")
+        )
+    )
+    
+    
     ;;; g-bivalue-chains
     (if (and ?*G-Bivalue-Chains* (>= ?i 1) (<= ?i ?*g-bivalue-chains-max-length*)) then ;;; start at 1
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
@@ -962,7 +1235,8 @@
                 ?*Directory-symbol* "g-Bivalue-Chains[" ?i "].clp")
         )
     )
-
+    
+    
     ;;; G2-Whips always use the memory version
     (if (and ?*G2-Whips* (<= ?i ?*g2whips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-MEMORY"
@@ -978,22 +1252,126 @@
     ;    )
     ;)
 
+    ;;; partial-g-whips (their loading is decided by ?*partial-gwhips-max-length*)
+    (if (<= (- ?i 1) ?*partial-gwhips-max-length*) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                ?*Directory-symbol* "PARTIAL-G-WHIPS" ?*Directory-symbol* "Partial-gWhips[" (- ?i 1) "].clp")
+        )
+    )
     ;;; g-whips
     (if (and ?*G-Whips* (<= ?i ?*gwhips-max-length*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "G-WHIPS" ?*Directory-symbol* "gWhips[" ?i "].clp")
         )
     )
+    
+    
+    ;;; OR2-contrad-g-whips and OR2-gwhips
+    (if (and ?*OR2-Contrad-G-Whips* (<= ?i ?*OR2-contrad-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR2-CONTRAD-G-WHIPS"
+            ?*Directory-symbol* "OR2-Contrad-gWhips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR2-G-Whips* (>= ?i 2) (<= ?i ?*OR2-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR2-G-WHIPS"
+            ?*Directory-symbol* "OR2-gWhips[" ?i "].clp")
+        )
+        (if (> ?i 2) then
+            (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+                ?*Directory-symbol* "PARTIAL-OR2-G-WHIPS"
+                ?*Directory-symbol* "Partial-OR2-gWhips[" (- ?i 1) "].clp")
+            )
+        )
+    )
+    
+    ;;; OR3-contrad-g-whips and OR3-gwhips
+    (if (and ?*OR3-Contrad-G-Whips* (<= ?i ?*OR3-contrad-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR3-CONTRAD-G-WHIPS"
+            ?*Directory-symbol* "OR3-Contrad-gWhips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR3-G-Whips* (>= ?i 2) (<= ?i ?*OR3-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR3-G-WHIPS"
+            ?*Directory-symbol* "OR3-gWhips[" ?i "].clp")
+        )
+        (if (> ?i 2) then
+            (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+                ?*Directory-symbol* "PARTIAL-OR3-G-WHIPS"
+                ?*Directory-symbol* "Partial-OR3-gWhips[" (- ?i 1) "].clp")
+            )
+        )
+    )
+    
+    ;;; OR4-contrad-g-whips and OR4-gwhips
+    (if (and ?*OR4-Contrad-G-Whips* (<= ?i ?*OR4-contrad-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR4-CONTRAD-G-WHIPS"
+            ?*Directory-symbol* "OR4-Contrad-gWhips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR4-G-Whips* (>= ?i 2) (<= ?i ?*OR4-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR4-G-WHIPS"
+            ?*Directory-symbol* "OR4-gWhips[" ?i "].clp")
+        )
+        (if (> ?i 2) then
+            (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+                ?*Directory-symbol* "PARTIAL-OR4-G-WHIPS"
+                ?*Directory-symbol* "Partial-OR4-gWhips[" (- ?i 1) "].clp")
+            )
+        )
+    )
 
+    ;;; OR5-contrad-g-whips and OR5-gwhips
+    (if (and ?*OR5-Contrad-G-Whips* (<= ?i ?*OR5-contrad-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR5-CONTRAD-G-WHIPS"
+            ?*Directory-symbol* "OR5-Contrad-gWhips[" ?i "].clp")
+        )
+    )
+    (if (and ?*OR5-G-Whips* (>= ?i 2) (<= ?i ?*OR5-gwhips-max-length*)) then
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "OR5-G-WHIPS"
+            ?*Directory-symbol* "OR5-gWhips[" ?i "].clp")
+        )
+        (if (> ?i 2) then
+            (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+                ?*Directory-symbol* "PARTIAL-OR5-G-WHIPS"
+                ?*Directory-symbol* "Partial-OR5-gWhips[" (- ?i 1) "].clp")
+            )
+        )
+    )
+    
+    
+    
+    ;;; braids ≥ 3
+    (if (and ?*Braids* (>= ?i 3) (<= ?i ?*braids-max-length*)) then ;;; start at 3
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                ?*Directory-symbol* "BRAIDS"
+                ?*Directory-symbol* "Braids[" ?i "].clp")
+        )
+    )
+    
+    ;;; B-rating ≥ 2
+    (if (and ?*Quick-B-Rating* (<= ?i ?*braids-max-length*)) then ;;; start at 2
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-SPEED"
+                ?*Directory-symbol* "QUICK-BRAIDS"
+                ?*Directory-symbol* "Quick-Braids[" ?i "].clp")
+        )
+    )
+    
     ;;; g-braids
     (if (and ?*G-Braids* (>= ?i 3) (<= ?i ?*gbraids-max-length*)) then  ;;; start at 3
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "G-BRAIDS" ?*Directory-symbol* "gBraids[" ?i "].clp")
         )
     )
-
-
-
+    
+    
     ;;; forcing whips
     (if (and ?*Forcing-Whips* (>= ?i 3) (<= ?i ?*forcing-whips-max-length*)) then ;;; start at 3
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
@@ -1026,181 +1404,7 @@
             ?*Directory-symbol* "OR5-Forcing-Whips[" ?i "].clp")
         )
     )
-
-    ;;; OR2-forcing-whips, OR2-contrad-whips and OR2-whips
-    (if (and ?*OR2-Forcing-Whips* (<= ?i ?*OR2-forcing-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR2-FORCING-WHIPS"
-            ?*Directory-symbol* "OR2-Forcing-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR2-Contrad-Whips* (<= ?i ?*OR2-contrad-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR2-CONTRAD-WHIPS"
-            ?*Directory-symbol* "OR2-Contrad-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR2-Whips* (>= ?i 2) (<= ?i ?*OR2-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR2-WHIPS"
-            ?*Directory-symbol* "OR2-Whips[" ?i "].clp")
-        )
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "PARTIAL-OR2-WHIPS"
-            ?*Directory-symbol* "Partial-OR2-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
     
-    ;;; OR3-forcing-whips, OR3-contrad-whips and OR3-whips
-    (if (and ?*OR3-Forcing-Whips* (<= ?i ?*OR3-forcing-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR3-FORCING-WHIPS"
-            ?*Directory-symbol* "OR3-Forcing-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR3-Contrad-Whips* (<= ?i ?*OR3-contrad-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR3-CONTRAD-WHIPS"
-            ?*Directory-symbol* "OR3-Contrad-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR3-Whips* (>= ?i 2) (<= ?i ?*OR3-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR3-WHIPS"
-            ?*Directory-symbol* "OR3-Whips[" ?i "].clp")
-        )
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "PARTIAL-OR3-WHIPS"
-            ?*Directory-symbol* "Partial-OR3-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
-
-    ;;; OR4-forcing-whips, OR4-contrad-whips and OR4-whips
-    (if (and ?*OR4-Forcing-Whips* (<= ?i ?*OR4-forcing-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR4-FORCING-WHIPS"
-            ?*Directory-symbol* "OR4-Forcing-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR4-Contrad-Whips* (<= ?i ?*OR4-contrad-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR4-CONTRAD-WHIPS"
-            ?*Directory-symbol* "OR4-Contrad-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR4-Whips* (>= ?i 2) (<= ?i ?*OR4-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR4-WHIPS"
-            ?*Directory-symbol* "OR4-Whips[" ?i "].clp")
-        )
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "PARTIAL-OR4-WHIPS"
-            ?*Directory-symbol* "Partial-OR4-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
-
-    ;;; OR5-forcing-whips, OR5-contrad-whips and OR5-whips
-    (if (and ?*OR5-Forcing-Whips* (<= ?i ?*OR5-forcing-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR5-FORCING-WHIPS"
-            ?*Directory-symbol* "OR5-Forcing-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR5-Contrad-Whips* (<= ?i ?*OR5-contrad-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR5-CONTRAD-WHIPS"
-            ?*Directory-symbol* "OR5-Contrad-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR5-Whips* (>= ?i 2) (<= ?i ?*OR5-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR5-WHIPS"
-            ?*Directory-symbol* "OR5-Whips[" ?i "].clp")
-        )
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "PARTIAL-OR5-WHIPS"
-            ?*Directory-symbol* "Partial-OR5-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
-    
-    ;;; OR6-forcing-whips, OR6-contrad-whips and OR6-whips
-    (if (and ?*OR6-Forcing-Whips* (<= ?i ?*OR6-forcing-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR6-FORCING-WHIPS"
-            ?*Directory-symbol* "OR6-Forcing-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR6-Contrad-Whips* (<= ?i ?*OR6-contrad-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR6-CONTRAD-WHIPS"
-            ?*Directory-symbol* "OR6-Contrad-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR6-Whips* (>= ?i 2) (<= ?i ?*OR6-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR6-WHIPS"
-            ?*Directory-symbol* "OR6-Whips[" ?i "].clp")
-        )
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "PARTIAL-OR6-WHIPS"
-            ?*Directory-symbol* "Partial-OR6-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
-    
-    ;;; OR7-forcing-whips, OR7-contrad-whips and OR7-whips
-    (if (and ?*OR7-Forcing-Whips* (<= ?i ?*OR7-forcing-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR7-FORCING-WHIPS"
-            ?*Directory-symbol* "OR7-Forcing-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR7-Contrad-Whips* (<= ?i ?*OR7-contrad-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR7-CONTRAD-WHIPS"
-            ?*Directory-symbol* "OR7-Contrad-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR7-Whips* (>= ?i 2) (<= ?i ?*OR7-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR7-WHIPS"
-            ?*Directory-symbol* "OR7-Whips[" ?i "].clp")
-        )
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "PARTIAL-OR7-WHIPS"
-            ?*Directory-symbol* "Partial-OR7-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
-    
-    ;;; OR8-forcing-whips, OR8-contrad-whips and OR8-whips
-    (if (and ?*OR8-Forcing-Whips* (<= ?i ?*OR8-forcing-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR8-FORCING-WHIPS"
-            ?*Directory-symbol* "OR8-Forcing-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR8-Contrad-Whips* (<= ?i ?*OR8-contrad-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR8-CONTRAD-WHIPS"
-            ?*Directory-symbol* "OR8-Contrad-Whips[" ?i "].clp")
-        )
-    )
-    (if (and ?*OR8-Whips* (>= ?i 2) (<= ?i ?*OR8-whips-max-length*)) then
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "OR8-WHIPS"
-            ?*Directory-symbol* "OR8-Whips[" ?i "].clp")
-        )
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
-            ?*Directory-symbol* "PARTIAL-OR8-WHIPS"
-            ?*Directory-symbol* "Partial-OR8-Whips[" (- ?i 1) "].clp")
-        )
-    )
-
     
     ;;; forcing g-whips
     (if (and ?*Forcing-G-Whips* (>= ?i 3) (<= ?i ?*forcing-gwhips-max-length*)) then ;;; start at 3

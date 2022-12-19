@@ -498,7 +498,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; printing of forcing whips, gwhips, braids and gbraids
+;;; printing of forcing-whips, forcing-gwhips, forcing-braids and forcing-gbraids
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -888,6 +888,72 @@
     (printout t ?*implication-sign*) (print-deleted-candidate ?cand)
     (printout t crlf)
 )
+
+
+
+;;; ORk-contrad-gwhips
+
+(deffunction print-OR2-contrad-gwhip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (str-cat ?or-name "-" (if (eq ?p 0) then "OR2-gwhip" else "OR2-ctr-gwhip")))
+    (printout t ?name "[" (+ ?p 1) "]: ")
+    (print-partial-ORk-chain ?p ?llcs ?rlcs ?csps)
+    (printout t ?*link-symbol*)
+    (print-final-ORk-cell 2 ?zzz1 ?zzz2)
+    (printout t ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+(deffunction print-OR3-contrad-gwhip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?zzz3 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (str-cat ?or-name "-" (if (eq ?p 0) then "OR3-gwhip" else "OR3-ctr-gwhip")))
+    (printout t ?name "[" (+ ?p 1) "]: ")
+    (print-partial-ORk-chain ?p ?llcs ?rlcs ?csps)
+    (printout t ?*link-symbol*)
+    (print-final-ORk-cell 3 ?zzz1 ?zzz2 ?zzz3)
+    (printout t ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+(deffunction print-OR4-contrad-gwhip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (str-cat ?or-name "-" (if (eq ?p 0) then "OR4-gwhip" else "OR4-ctr-gwhip")))
+    (printout t ?name "[" (+ ?p 1) "]: ")
+    (print-partial-ORk-chain ?p ?llcs ?rlcs ?csps)
+    (printout t ?*link-symbol*)
+    (print-final-ORk-cell 4 ?zzz1 ?zzz2 ?zzz3 ?zzz4)
+    (printout t ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+(deffunction print-OR5-contrad-gwhip (?or-name ?or-compl ?p ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?cand ?llcs ?rlcs ?csps)
+    (bind ?name (str-cat ?or-name "-" (if (eq ?p 0) then "OR5-gwhip" else "OR5-ctr-gwhip")))
+    (printout t ?name "[" (+ ?p 1) "]: ")
+    (print-partial-ORk-chain ?p ?llcs ?rlcs ?csps)
+    (printout t ?*link-symbol*)
+    (print-final-ORk-cell 5 ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5)
+    (printout t ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+
+;;; ORk-gwhips, length ≠ 1
+
+(deffunction print-ORk-gwhip (?OR-name ?k ?or-compl ?cand ?p1 ?llcs1 ?rlcs1 ?csps1 ?ORk-llcs ?ORk-rlc ?p2 ?llcs2 ?rlcs2 ?csps2 ?new-llc ?dot ?new-csp)
+    (printout t ?OR-name "-OR" ?k "-gwhip[" (+ ?p1 1 ?p2 1) "]: ")
+    (if (neq ?p1 0) then
+        (print-partial-ORk-chain ?p1 ?llcs1 ?rlcs1 ?csps1)
+        (printout t ?*link-symbol*)
+    )
+    (print-ORk-cell ?k ?ORk-llcs ?ORk-rlc)
+    (if (neq ?p2 0) then
+        (printout t ?*link-symbol*)
+        (print-partial-ORk-chain ?p2 ?llcs2 ?rlcs2 ?csps2)
+    )
+    (printout t ?*link-symbol*)
+    (print-final-cell ?new-llc ?dot ?new-csp)
+    (printout t ?*implication-sign*) (print-deleted-candidate ?cand)
+    (printout t crlf)
+)
+
+
 
 
 

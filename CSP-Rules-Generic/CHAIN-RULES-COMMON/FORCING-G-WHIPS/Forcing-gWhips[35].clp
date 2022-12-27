@@ -57,7 +57,7 @@
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-gwhip[35])
    (chain
-      (type ?type1&partial-whip|partial-gwhip)
+      (type ?type1&:(or (eq ?type1 partial-whip) (eq ?type1 partial-gwhip)))
       (context ?cont)
       (length ?p1&:(< ?p1 34))
       (target ?zzz1)
@@ -67,7 +67,7 @@
       (last-rlc ?cand)
    )
    (chain
-      (type ?type2&partial-whip|partial-gwhip&:(or (eq ?type1 partial-gwhip) (eq ?type2 partial-gwhip)))
+      (type ?type2&:(or (eq ?type2 partial-whip) (eq ?type2 partial-gwhip))&:(or (eq ?type1 partial-gwhip) (eq ?type2 partial-gwhip)))
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 34))
       (target ?zzz2)
@@ -95,7 +95,7 @@
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-gwhip[35])
    (chain
-      (type ?type1&partial-whip|partial-gwhip)
+      (type ?type1&:(or (eq ?type1 partial-whip) (eq ?type1 partial-gwhip)))
       (context ?cont)
       (length ?p1&:(< ?p1 34))
       (target ?zzz1)
@@ -105,7 +105,7 @@
       (last-rlc ?last-rlc1)
    )
    (chain
-      (type ?type2&partial-whip|partial-gwhip&:(or (eq ?type1 partial-gwhip) (eq ?type2 partial-gwhip)))
+      (type ?type2&:(or (eq ?type2 partial-whip) (eq ?type2 partial-gwhip))&:(or (eq ?type1 partial-gwhip) (eq ?type2 partial-gwhip)))
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 34))
       (target ?zzz2)
@@ -115,8 +115,14 @@
       (last-rlc ?last-rlc2)
    )
    ?ret <- (candidate (context ?cont) (status cand) (label ?cand))
-   (exists-link ?cont ?last-rlc1 ?cand)
-   (exists-link ?cont ?last-rlc2 ?cand)
+   (or
+      (exists-link ?cont ?cand ?last-rlc1)
+      (exists-glink ?cont ?cand ?last-rlc1)
+   )
+   (or
+      (exists-link ?cont ?cand ?last-rlc2)
+      (exists-glink ?cont ?cand ?last-rlc2)
+   )
 =>
    (retract ?ret)
    (if (or ?*print-actions* ?*print-L35* ?*print-forcing-gwhip* ?*print-forcing-gwhip-35*) then

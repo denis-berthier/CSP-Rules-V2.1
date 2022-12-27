@@ -57,7 +57,7 @@
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-gbraid[33])
    (chain
-      (type ?type1&partial-whip|partial-gwhip|partial-braid|partial-gbraid)
+      (type ?type1&:(or (eq ?type1 partial-whip) (eq ?type1 partial-gwhip) (eq ?type1 partial-braid) (eq ?type1 partial-gbraid)))
       (context ?cont)
       (length ?p1&:(< ?p1 32))
       (target ?zzz1)
@@ -67,7 +67,7 @@
       (last-rlc ?cand)
    )
    (chain
-      (type ?type2&partial-whip|partial-gwhip|partial-braid|partial-gbraid&:(or (eq ?type1 partial-gbraid) (eq ?type2 partial-bgraid)))
+      (type ?type2&:(or (eq ?type2 partial-whip) (eq ?type2 partial-gwhip) (eq ?type2 partial-braid) (eq ?type2 partial-gbraid))&:(or (eq ?type1 partial-gbraid) (eq ?type2 partial-bgraid)))
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 32))
       (target ?zzz2)
@@ -95,7 +95,7 @@
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-gbraid[33])
    (chain
-      (type ?type1&partial-whip|partial-gwhip|partial-braid|partial-gbraid)
+      (type ?type1&:(or (eq ?type1 partial-whip) (eq ?type1 partial-gwhip) (eq ?type1 partial-braid) (eq ?type1 partial-gbraid)))
       (context ?cont)
       (length ?p1&:(< ?p1 32))
       (target ?zzz1)
@@ -105,7 +105,7 @@
       (last-rlc ?last-rlc1)
    )
    (chain
-      (type ?type2&partial-whip|partial-gwhip|partial-braid|partial-gbraid&:(or (eq ?type1 partial-gbraid) (eq ?type2 partial-bgraid)))
+      (type ?type2&:(or (eq ?type2 partial-whip) (eq ?type2 partial-gwhip) (eq ?type2 partial-braid) (eq ?type2 partial-gbraid))&:(or (eq ?type1 partial-gbraid) (eq ?type2 partial-bgraid)))
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 32))
       (target ?zzz2)
@@ -115,8 +115,14 @@
       (last-rlc ?last-rlc2)
    )
    ?ret <- (candidate (context ?cont) (status cand) (label ?cand))
-   (exists-link ?cont ?last-rlc1 ?cand)
-   (exists-link ?cont ?last-rlc2 ?cand)
+   (or
+      (exists-link ?cont ?cand ?last-rlc1)
+      (exists-glink ?cont ?cand ?last-rlc1)
+   )
+   (or
+      (exists-link ?cont ?cand ?last-rlc2)
+      (exists-glink ?cont ?cand ?last-rlc2)
+   )
 =>
    (retract ?ret)
    (if (or ?*print-actions* ?*print-L33* ?*print-forcing-gbraid* ?*print-forcing-gbraid-33*) then

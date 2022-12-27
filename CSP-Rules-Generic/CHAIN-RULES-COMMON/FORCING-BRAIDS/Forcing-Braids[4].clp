@@ -57,7 +57,7 @@
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-braid[4])
    (chain
-      (type ?type1&partial-whip|partial-braid)
+      (type ?type1&:(or (eq ?type1 partial-whip) (eq ?type1 partial-braid)))
       (context ?cont)
       (length ?p1&:(< ?p1 3))
       (target ?zzz1)
@@ -67,7 +67,7 @@
       (last-rlc ?cand)
    )
    (chain
-      (type ?type2&partial-whip|partial-braid&:(not (and (eq ?type1 partial-whip) (and eq ?type2 partial-whip))))
+      (type ?type2&:(or (eq ?type2 partial-whip) (eq ?type2 partial-braid))&:(or (eq ?type1 partial-braid) (eq ?type2 partial-braid)))
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 3))
       (target ?zzz2)
@@ -95,7 +95,7 @@
    (bivalue ?cont ?zzz1 ?zzz2 ?ll)
    (technique ?cont forcing-braid[4])
    (chain
-      (type ?type1&partial-whip|partial-braid)
+      (type ?type1&:(or (eq ?type1 partial-whip) (eq ?type1 partial-braid)))
       (context ?cont)
       (length ?p1&:(< ?p1 3))
       (target ?zzz1)
@@ -105,7 +105,7 @@
       (last-rlc ?last-rlc1)
    )
    (chain
-      (type ?type2&partial-whip|partial-braid&:(not (and (eq ?type1 partial-whip) (and eq ?type2 partial-whip))))
+      (type ?type2&:(or (eq ?type2 partial-whip) (eq ?type2 partial-braid))&:(or (eq ?type1 partial-braid) (eq ?type2 partial-braid)))
       (context ?cont)
       (length ?p2&:(<= ?p1 ?p2)&:(= (+ ?p1 ?p2) 3))
       (target ?zzz2)

@@ -285,6 +285,7 @@
 
 ;;; The maximum length of all the generic chains can be lowered at once.
 ;;; 36 is the absolute maximum, never reached in practice.
+;;; Notice that this global restriction will prevail on any of the individual restrictions below.
 ; (bind ?*all-chains-max-length* 36)
 
 ;;; Maximum lengths can also be lowered individually:
@@ -366,7 +367,8 @@
 ;;; Give them lower priority (as in the original settings) here:
 ; (bind ?*use-high-Tridagon-salience* FALSE)
 
-;;; Choose if you want ORk-forcing-whips to be applied before or after ORk-whips.
+;;; Choose if you want ORk-forcing-whips to be applied before or after ORk-whips
+;;; (and simutaneaously ORk-forcing-g-whips before or after ORk-g-whips).
 ;;; Default is before (i.e. ?*ORk-Forcing-Whips-before-ORk-Whips* = TRUE); change it here:
 ; (bind ?*ORk-Forcing-Whips-before-ORk-Whips* FALSE)
 
@@ -420,26 +422,50 @@
 ; (bind ?*OR5-Whips* True)
 ; (bind ?*OR6-Whips* True)
 
-;;; 2.3.5) Use ORk-Contrad-G-Whips in combination with Anti-Tridagons:
+
+;;; 2.3.5) Use ORk-Forcing-G-Whips in combination with Anti-Tridagons:
+; (bind ?*OR2-Forcing-G-Whips* True)
+; (bind ?*OR3-Forcing-G-Whips* True)
+; (bind ?*OR4-Forcing-G-Whips* True)
+; (bind ?*OR5-Forcing-G-Whips* True)
+; (bind ?*OR6-Forcing-G-Whips* True)
+
+;;; 2.3.6) Use ORk-Contrad-G-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-Contrad-G-Whips* True)
 ; (bind ?*OR3-Contrad-G-Whips* True)
 ; (bind ?*OR4-Contrad-G-Whips* True)
 ; (bind ?*OR5-Contrad-G-Whips* True)
 ; (bind ?*OR6-Contrad-G-Whips* True)
-; (bind ?*OR7-Contrad-G-Whips* True)
-; (bind ?*OR8-Contrad-G-Whips* True)
+
+;;; 2.3.7) Use ORk-G-Whips in combination with Anti-Tridagons:
+; (bind ?*OR2-G-Whips* True)
+; (bind ?*OR3-G-Whips* True)
+; (bind ?*OR4-G-Whips* True)
+; (bind ?*OR5-G-Whips* True)
+; (bind ?*OR6-G-Whips* True)
 
 
-;;; 2.3.6 If you use Tridagon-Chains,
+;;; 2.3.8) If you use anti-tridagon chains or g-chains,
 ;;; it is highly recommended to put a strict upper bound on their lengths;
 ;;; 5 is a good starting point ; try to increase these lengths progressively.
+
+;;; 2.3.8.a) restrict all the ORk-chains and ORk-g-chains at once;
+;;; Notice that this global restriction will prevail on any of the individual restrictions below.
+; (bind ?*all-ORk-chains-max-length* 5)
+
+;;; 2.3.8.b) restrict all the ORk-chains and ORj-g-chains of each type;
+;;; Notice that these semi-global restrictions will prevail on any of the individual restrictions below.
 ; (bind ?*all-ORk-forcing-whips-max-length* 5)
 ; (bind ?*all-ORk-contrad-whips-max-length* 5)
 ; (bind ?*all-ORk-whips-max-length* 5)
+
+; (bind ?*all-ORk-forcing-gwhips-max-length* 5)
 ; (bind ?*all-ORk-contrad-gwhips-max-length* 5)
+; (bind ?*all-ORk-gwhips-max-length* 5)
 
 
-;;; All the ORk-chain and ORk-g-chain rules max lengths can also be restricted individually:
+;;; 2.3.8.c) restrict each ORk-chain and ORk-g-chain max lengths individually;
+;;; notice that consistency preserving rules will be applied.
 ; (bind ?*OR2-forcing-whips-max-length* 5)
 ; (bind ?*OR3-forcing-whips-max-length* 5)
 ; (bind ?*OR4-forcing-whips-max-length* 5)
@@ -462,10 +488,17 @@
 ; (bind ?*OR3-contrad-gwhips-max-length* 5)
 ; (bind ?*OR4-contrad-gwhips-max-length* 5)
 ; (bind ?*OR5-contrad-gwhips-max-length* 5)
+; (bind ?*OR6-contrad-gwhips-max-length* 5)
+
+; (bind ?*OR2-gwhips-max-length* 5)
+; (bind ?*OR3-gwhips-max-length* 5)
+; (bind ?*OR4-gwhips-max-length* 5)
+; (bind ?*OR5-gwhips-max-length* 5)
+; (bind ?*OR6-gwhips-max-length* 5)
 
 
 
-;;; 2.3.7) Eleven's replacement technique:
+;;; 2.3.9) Eleven's replacement technique:
 ;;; Allow the automatic use of eleven's replacement method based on tridagons.
 ;;; (Note that the method is much more general;
 ;;; here, the anti-tridaon structure is only used to define a starting point).

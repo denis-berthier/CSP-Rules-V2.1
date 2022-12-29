@@ -477,6 +477,8 @@
 (defglobal ?*all-ORk-contrad-gwhips-max-length* = ?*absolute-chains-max-length*)
 (defglobal ?*all-ORk-gwhips-max-length* = ?*absolute-chains-max-length*)
 
+(defglobal ?*all-ORk-chains-max-length* = ?*absolute-chains-max-length*)
+
 
 
 (defglobal ?*forcing-gwhips-max-length* = ?*absolute-chains-max-length*)
@@ -529,7 +531,18 @@
         (bind ?*forcing-gbraids-max-length* (min ?*forcing-gbraids-max-length* ?*all-chains-max-length*))
     )
     
-    ;;; ORk-chains
+    ;;; All ORk chains and g-chains
+    ;;; The lengths of all the ORk chains and g-chains are restricted by ?*all-ORk-chains-max-length*:
+    (if (< ?*all-ORk-chains-max-length* ?*absolute-chains-max-length*) then
+        (bind ?*all-ORk-forcing-whips-max-length* ?*all-ORk-chains-max-length*)
+        (bind ?*all-ORk-contrad-whips-max-length* ?*all-ORk-chains-max-length*)
+        (bind ?*all-ORk-whips-max-length* ?*all-ORk-chains-max-length*)
+        (bind ?*all-ORk-forcing-gwhips-max-length* ?*all-ORk-chains-max-length*)
+        (bind ?*all-ORk-contrad-gwhips-max-length* ?*all-ORk-chains-max-length*)
+        (bind ?*all-ORk-gwhips-max-length* ?*all-ORk-chains-max-length*)
+    )
+    
+    
     ;;; All the lengths of ORk-Forcing-Whips are restricted by ?*all-ORk-forcing-whips-max-length*:
     (if (< ?*all-ORk-forcing-whips-max-length* ?*absolute-chains-max-length*) then
         (bind ?*OR2-forcing-whips-max-length* ?*all-ORk-forcing-whips-max-length*)

@@ -1,15 +1,22 @@
 # CSP-Rules-V2.1 updates
-Notes: 
-1) Only the main updates (in reverse time order) are listed below. <br>
+#### Notes: 
+1) Only the main updates to the  original publication (in reverse time order) are listed below. <br>
 2) Cosmetic changes (such as minor changes in the way things are printed) are not mentioned. <br>
 3) Trivial additions to the globals, saliences or print functions (which may be necessary when new resolution rules are added) are not mentioned. <br>
-4) All the changes are indeed additions to the original functionalities; in particular:<br>
--- no basic structure or resolution rule has been changed;<br>
--- no bug has been found since the first publication. <br><br>
+4) All the changes from the  first publication are indeed additions to the original functionalities; in particular:<br>
+-- no basic data structure has been changed ;<br>
+-- no fundamental generic resolution rule (i.e. bivalue-chains, z-chains, t-whips, whips, g-bivalue-chains, g-whips, braids, g-braids), as defined in [CRT] or [PBCS], has been changed;<br>
+-- no application-specific resolution rule, as defined in [CRT] or [PBCS]  - such as Subsets in Sudoku or any application that has them, ascending-chains in Futoshiki, loops in Slitherlink... - has been changed;<br>
+-- no bug has been found since the first publication (note that this software had been largely tested before the first publication). <br>
+5) Because they reflect changes to the software (almost) as soon as such changes are published, updates of the User Manual are not mentioned, except in case of a major update. <br><br>
 
 
-#### Forthcoming (Generic):
-* Add the ORk-g-whips, for k ≤ 5 .
+#### 2022 Dec 29 (Generic):
+* Add the ORk-contrad-g-whips, for k = 6
+* Add the full ORk-g-Whips for k ≤ 6.
+* Add the ORk-forcing-g-whips, for k ≤ 6. <br>
+This completes the set of ORk chain and g-chain rules, now all defined for 2 ≤ k ≤ 6.
+
 
 #### 2022 Dec 19 (Generic):
 * Add the ORk-contrad-g-whips, for k ≤ 5 (and corresponding global variables allowing to use them in the SudoRules config file).
@@ -167,7 +174,7 @@ When T&E is involved, they restrict the candidates that may be tried at each lev
 * add functions "solve-sukaku-list" and "solve-sukaku-grid". 
 
 #### 2020 Aug 26 (SlitherRules): 
-* add pre-computed backgrounds. 
+* add pre-computed backgrounds (making reoslution much faster for pre-computed square grids). 
 
 #### 2020 Aug 24 (SlitherRules): 
 * add isolated chains and extended-loops. 

@@ -47,7 +47,7 @@
     ?cand <- (candidate (context ?cont) (label ?zzz1) (status cand))
 =>
     (modify ?cand (status c-value))
-    (printout t "ORk-relation with only one candidate => "
+    (printout t ?OR-name "-ORk-relation with only one candidate => "
         (print-asserted-candidate ?zzz1) crlf)
 )
 
@@ -55,6 +55,7 @@
 
 (defrule update-OR2-relation
     (declare (salience ?*update-OR2-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -111,6 +112,7 @@
 
 (defrule update-OR3-relation
     (declare (salience ?*update-OR3-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -172,6 +174,7 @@
 
 (defrule update-OR4-relation
     (declare (salience ?*update-OR4-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -238,6 +241,7 @@
 
 (defrule update-OR5-relation
     (declare (salience ?*update-OR5-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -309,6 +313,7 @@
 
 (defrule update-OR6-relation
     (declare (salience ?*update-OR6-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -385,6 +390,7 @@
 
 (defrule update-OR7-relation
     (declare (salience ?*update-OR7-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -466,6 +472,7 @@
 
 (defrule update-OR8-relation
     (declare (salience ?*update-OR8-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -552,6 +559,7 @@
 
 (defrule update-OR9-relation
     (declare (salience ?*update-OR9-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -642,6 +650,7 @@
 
 (defrule update-OR10-relation
     (declare (salience ?*update-OR10-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -737,6 +746,7 @@
 
 (defrule update-OR11-relation
     (declare (salience ?*update-OR11-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -837,6 +847,7 @@
 
 (defrule update-OR12-relation
     (declare (salience ?*update-OR12-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -942,6 +953,7 @@
 
 (defrule update-OR13-relation
     (declare (salience ?*update-OR13-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -1052,6 +1064,7 @@
 
 (defrule update-OR14-relation
     (declare (salience ?*update-OR14-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -1167,6 +1180,7 @@
 
 (defrule update-OR15-relation
     (declare (salience ?*update-OR15-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -1287,6 +1301,7 @@
 
 (defrule update-OR16-relation
     (declare (salience ?*update-OR16-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -1412,6 +1427,7 @@
 
 (defrule update-OR17-relation
     (declare (salience ?*update-OR17-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -1543,6 +1559,7 @@
 
 (defrule update-OR18-relation
     (declare (salience ?*update-OR18-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -1679,6 +1696,7 @@
 
 (defrule update-OR19-relation
     (declare (salience ?*update-OR19-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -1820,6 +1838,7 @@
 
 (defrule update-OR20-relation
     (declare (salience ?*update-OR20-salience*))
+    (logical (play) (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)

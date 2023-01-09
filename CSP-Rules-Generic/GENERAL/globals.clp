@@ -327,6 +327,9 @@
 (defglobal ?*Forcing5-Whips* = FALSE)
 
 
+(defglobal ?*allow-ORk-splitting* = FALSE)
+
+
 (defglobal ?*OR2-Forcing-Whips* = FALSE)
 (defglobal ?*OR2-Contrad-Whips* = FALSE)
 (defglobal ?*OR2-Whips* = FALSE)

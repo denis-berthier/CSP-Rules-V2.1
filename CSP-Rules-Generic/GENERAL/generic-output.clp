@@ -906,7 +906,7 @@
     (printout t crlf "   || " (print-label ?zzz1) " - ")
     (if (neq ?p1 0) then (print-partial-chain ?type1 ?p1 ?zzz1 ?llcs1 ?rlcs1 ?csps1))
     (printout t crlf "   || " (print-label ?zzz2) " - ")
-    (if (neq ?p2 0) then (print-partial-chain ?type1 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2))
+    (if (neq ?p2 0) then (print-partial-chain ?type2 ?p2 ?zzz2 ?llcs2 ?rlcs2 ?csps2))
     (printout t crlf ?*implication-sign*) (print-deleted-candidate ?cand)
     (printout t crlf)
 )

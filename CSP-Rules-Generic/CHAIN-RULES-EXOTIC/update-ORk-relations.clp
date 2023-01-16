@@ -34,6 +34,16 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; When a candidate of an ORk-relation is eliminated:
+;;; - if k=2, then the remaining candidate is asserted;
+;;; - if k>2, then a new OR(k-1) relation is asserted with the remaining candidates.
+
+;;; Note that, in order to avoid redundancies,
+;;; only the original "non-symmetrified" ORk relations are updated.
+;;; The updates produce a "non-symmetrified" ORk relation,
+;;; which will in turn be symmetrified by the symmetrifying rules.
+
+
 (defrule apply-OR1-relation
     (declare (salience ?*update-OR1-salience*))
     (ORk-relation
@@ -41,14 +51,14 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&1)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates ?zzz1)
     )
     ?cand <- (candidate (context ?cont) (label ?zzz1) (status cand))
 =>
     (modify ?cand (status c-value))
     (printout t ?OR-name "-ORk-relation with only one candidate => "
-        (print-asserted-candidate ?zzz1) crlf)
+        (print-asserted-candidate ?zzz1) crlf crlf)
 )
 
 
@@ -61,11 +71,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&2)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -90,9 +97,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -103,7 +114,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -118,12 +128,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&3)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -152,9 +158,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -165,7 +175,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -180,13 +189,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&4)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -219,9 +223,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -232,7 +240,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -247,14 +254,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&5)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -291,9 +292,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -304,7 +309,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -319,15 +323,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&6)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -368,9 +365,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -381,7 +382,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -396,16 +396,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&7)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -450,9 +442,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -463,7 +459,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -478,17 +473,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&8)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -537,9 +523,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -550,7 +540,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -565,18 +554,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&9)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -628,9 +607,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -641,7 +624,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -656,19 +638,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&10)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -724,9 +695,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -737,7 +712,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -752,20 +726,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&11)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10 ?zzz11)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -825,9 +787,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -838,7 +804,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -853,21 +818,8 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&12)
-        (symmetrified ?sym)
-        (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-        )
+        (symmetrified FALSE)
+        (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10 ?zzz11 ?zzz12)
     )
     (or
         (not (candidate (context ?cont) (label ?zzz1)))
@@ -930,10 +882,15 @@
             (bind ?new-guardians (create$ ?new-guardians ?zzz12))
         )
         ;;; then assert the new ORk-relation
+        (pretty-print-current-resolution-state-in-context ?cont)
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -944,7 +901,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -959,21 +915,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&13)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13
         )
     )
     (or
@@ -1042,9 +987,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1055,7 +1004,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -1070,22 +1018,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&14)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
-            ?zzz14&:(or (< ?zzz13 ?zzz14) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13 ?zzz14
         )
     )
     (or
@@ -1158,9 +1094,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1171,7 +1111,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -1186,23 +1125,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&15)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
-            ?zzz14&:(or (< ?zzz13 ?zzz14) (eq ?sym FALSE))
-            ?zzz15&:(or (< ?zzz14 ?zzz15) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13 ?zzz14 ?zzz15
         )
     )
     (or
@@ -1279,9 +1205,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1292,7 +1222,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -1307,24 +1236,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&16)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
-            ?zzz14&:(or (< ?zzz13 ?zzz14) (eq ?sym FALSE))
-            ?zzz15&:(or (< ?zzz14 ?zzz15) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13 ?zzz14 ?zzz15 ?zzz16
         )
     )
     (or
@@ -1405,9 +1320,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1418,7 +1337,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -1433,26 +1351,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&17)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
-            ?zzz14&:(or (< ?zzz13 ?zzz14) (eq ?sym FALSE))
-            ?zzz15&:(or (< ?zzz14 ?zzz15) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz17&:(or (< ?zzz16 ?zzz17) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13 ?zzz14 ?zzz15 ?zzz16 ?zzz17
         )
     )
     (or
@@ -1537,9 +1439,14 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (pretty-print-current-resolution-state-in-context ?cont)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1550,7 +1457,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -1565,27 +1471,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&18)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
-            ?zzz14&:(or (< ?zzz13 ?zzz14) (eq ?sym FALSE))
-            ?zzz15&:(or (< ?zzz14 ?zzz15) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz17&:(or (< ?zzz16 ?zzz17) (eq ?sym FALSE))
-            ?zzz18&:(or (< ?zzz17 ?zzz18) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13 ?zzz14 ?zzz15 ?zzz16 ?zzz17 ?zzz18
         )
     )
     (or
@@ -1674,9 +1563,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1687,7 +1580,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -1702,28 +1594,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&19)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
-            ?zzz14&:(or (< ?zzz13 ?zzz14) (eq ?sym FALSE))
-            ?zzz15&:(or (< ?zzz14 ?zzz15) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz17&:(or (< ?zzz16 ?zzz17) (eq ?sym FALSE))
-            ?zzz18&:(or (< ?zzz17 ?zzz18) (eq ?sym FALSE))
-            ?zzz19&:(or (< ?zzz18 ?zzz19) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13 ?zzz14 ?zzz15 ?zzz16 ?zzz17 ?zzz18 ?zzz19
         )
     )
     (or
@@ -1816,9 +1690,14 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (pretty-print-current-resolution-state-in-context ?cont)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1829,7 +1708,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )
@@ -1844,29 +1722,10 @@
         (OR-complexity ?OR-compl)
         (context ?cont)
         (OR-size ?OR-size&20)
-        (symmetrified ?sym)
+        (symmetrified FALSE)
         (OR-candidates
-            ?zzz1
-            ?zzz2&:(or (< ?zzz1 ?zzz2) (eq ?sym FALSE))
-            ?zzz3&:(or (< ?zzz2 ?zzz3) (eq ?sym FALSE))
-            ?zzz4&:(or (< ?zzz3 ?zzz4) (eq ?sym FALSE))
-            ?zzz5&:(or (< ?zzz4 ?zzz5) (eq ?sym FALSE))
-            ?zzz6&:(or (< ?zzz5 ?zzz6) (eq ?sym FALSE))
-            ?zzz7&:(or (< ?zzz6 ?zzz7) (eq ?sym FALSE))
-            ?zzz8&:(or (< ?zzz7 ?zzz8) (eq ?sym FALSE))
-            ?zzz9&:(or (< ?zzz8 ?zzz9) (eq ?sym FALSE))
-            ?zzz10&:(or (< ?zzz9 ?zzz10) (eq ?sym FALSE))
-            ?zzz11&:(or (< ?zzz10 ?zzz11) (eq ?sym FALSE))
-            ?zzz12&:(or (< ?zzz11 ?zzz12) (eq ?sym FALSE))
-            ?zzz13&:(or (< ?zzz12 ?zzz13) (eq ?sym FALSE))
-            ?zzz14&:(or (< ?zzz13 ?zzz14) (eq ?sym FALSE))
-            ?zzz15&:(or (< ?zzz14 ?zzz15) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz16&:(or (< ?zzz15 ?zzz16) (eq ?sym FALSE))
-            ?zzz17&:(or (< ?zzz16 ?zzz17) (eq ?sym FALSE))
-            ?zzz18&:(or (< ?zzz17 ?zzz18) (eq ?sym FALSE))
-            ?zzz19&:(or (< ?zzz18 ?zzz19) (eq ?sym FALSE))
-            ?zzz20&:(or (< ?zzz19 ?zzz20) (eq ?sym FALSE))
+            ?zzz1 ?zzz2 ?zzz3 ?zzz4 ?zzz5 ?zzz6 ?zzz7 ?zzz8 ?zzz9 ?zzz10
+            ?zzz11 ?zzz12 ?zzz13 ?zzz14 ?zzz15 ?zzz16 ?zzz17 ?zzz18 ?zzz19 ?zzz20
         )
     )
     (or
@@ -1963,9 +1822,13 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (printout t crlf "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-        (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
-        (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        (if ?*print-actions* then
+            (printout t crlf)
+            (pretty-print-current-resolution-state-in-context ?cont)
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
+            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
+        )
         (assert
             (ORk-relation
                 (OR-name ?OR-name)
@@ -1976,7 +1839,6 @@
                 (OR-candidates ?new-guardians)
             )
         )
-        (pretty-print-current-resolution-state-in-context ?cont)
     )
     (retract ?ORk)
 )

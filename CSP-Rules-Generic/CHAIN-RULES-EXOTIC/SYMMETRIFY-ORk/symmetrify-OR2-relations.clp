@@ -54,6 +54,16 @@
             (context ?cont)
             (OR-size 2)
             (symmetrified TRUE)
+            (OR-candidates ?zzz1 ?zzz2)
+        )
+    )
+    (assert
+        (ORk-relation
+            (OR-name ?OR-name)
+            (OR-complexity ?OR-compl)
+            (context ?cont)
+            (OR-size 2)
+            (symmetrified TRUE)
             (OR-candidates ?zzz2 ?zzz1)
         )
     )

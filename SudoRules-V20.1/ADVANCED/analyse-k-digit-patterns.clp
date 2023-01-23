@@ -28,6 +28,17 @@
 
 
 
+;;; Functions in this file allow to solve k-digit (and kl-digit) patterns
+;;; while focusing only on the candidates in the pattern,
+;;; i.e. without taking into account the full Sudoku context in which they are embedded.
+;;; The purpose of such functions is only to serve as a pre-filter for the unrestricted ones.
+;;; They can typically be used to pre-check whether a pattern is provably impossible in some T&E(n).
+
+;;; Additional functions "full-solve..." allow to solve k-digit (and kl-digit) patterns
+;;; without the focusing restrictions,
+;;; i.e. within the full Sudoku context.
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -37,14 +48,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Patterns must be defined by strings of 81 characters, which can be:
-;;; "." or "0" for cells not in the pattern
-;;; "1" or "X" for cells in the pattern
-;;; Incomplete strings are automatically completed to 81 characters
+;;;    "." or "0" for cells not in the pattern
+;;;    "1" or "X" for cells in the pattern
+;;; Incomplete strings are automatically completed to 81 characters.
+;;; Beware that incomplete patterns be not given with additional information
 
 (deffunction init-candidates-from-k-digit-pattern-string (?k ?string)
     ;;; Initialize candidates for cells with no entry.
-    ;;; Initializing candidates as follows avoids having lots of elementary propagation rules
-    ;;; firing at the start to eliminate them.
     (bind ?*nb-candidates* 0)
     (bind ?len (length$ ?string))
     (if (< ?len 81) then
@@ -98,14 +108,9 @@
 (deffunction init-k-digit-pattern-string (?k ?string)
     (if ?*print-actions* then (printout t ?string crlf))
     (reset) (reset)
-    ;;; General background is defined here (fixed facts and structures common to all the instances)
-    (bind ?*restrict-TE-targets* TRUE)
+    ;;; General background is defined here (fixed facts and structures common to all the instances):
     (init-general-application-structures)
-    ;;; Data specific to the instance are defined here
-    ;;; This function could be simplified (and initialization time shortened)
-    ;;; by combining the following two calls into a single function,
-    ;;; but, for easier navigation in the facts base, I prefer asserting all the c-values first and then all the candidates.
-    ;;; Initialize candidates for cells with no entry
+    ;;; Data specific to the instance are defined here:
     (init-candidates-from-k-digit-pattern-string ?k ?string)
     (assert (context (name 0)))
     (assert (grid 0))
@@ -120,7 +125,8 @@
     (bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
 
-    ;;; The puzzle is solved here
+    ;;; The puzzle is solved here:
+    (bind ?*restrict-TE-targets* TRUE) ; moved here
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
@@ -141,6 +147,33 @@
 )
 
 
+(deffunction fully-solve-k-digit-pattern-string (?k ?string)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; General background plus puzzle entries are taken into account here
+    (init-k-digit-pattern-string ?k ?string)
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+
+    ;;; The puzzle is solved here (no restrictions):
+    (bind ?n (run))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t "Puzzle " ?string " :" crlf)
+        (printout t
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
+)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -154,13 +187,8 @@
     (bind ?string (readline ?file-symb))
     (if ?*print-actions* then (printout t ?string crlf))
     ;;; fixed facts and structures common to all the instances are defined here
-    (bind ?*restrict-TE-targets* TRUE)
     (init-general-application-structures)
     (bind ?*nb-csp-variables-solved* 0)
-    ;;; This function could be simplified (and initialization time shortened)
-    ;;; by combining the following two calls into a single function,
-    ;;; but, for easier navigation in the facts base, I prefer asserting all the c-values first and then all the candidates.
-    ;;; Initialize candidates for cells with no entry
     (init-candidates-from-k-digit-pattern-string ?k ?string)
 )
 
@@ -176,7 +204,10 @@
     (assert (grid ?i))
     (bind ?time1 (time))
     (bind ?*init-instance-time* (- ?time1 ?time0))
-    (bind ?n (run)) ;;; the grid is solved here
+
+    ;;; The puzzle is solved here
+    (bind ?*restrict-TE-targets* TRUE) ; moved here
+    (bind ?n (run))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))
     (bind ?*total-instance-time* (- ?time2 ?time0))
@@ -189,8 +220,6 @@
             ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
         )
         (printout t "nb-facts = " ?*nb-facts* crlf)
-        ;(printout t "nb rules " ?nb-rules crlf)
-        ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
         (printout t crlf)
     )
     ;;; make the default unrestricted form of T&E available for other calculations
@@ -215,6 +244,8 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
+
+    (bind ?*restrict-TE-targets* TRUE)
     (open ?file-name "file-symb" "r")
     (bind ?i 1)
     (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
@@ -264,6 +295,8 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
+
+    (bind ?*restrict-TE-targets* TRUE)
     (open ?file-name "file-symb" "r")
     (bind ?i 1)
     (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
@@ -321,6 +354,8 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
+
+    (bind ?*restrict-TE-targets* TRUE)
     (open ?file-name "file-symb" "r")
     (bind ?i 1)
     (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
@@ -382,9 +417,6 @@
 ;;; Incomplete strings are automatically completed to 81 characters
 
 (deffunction init-candidates-from-kl-digit-pattern-string (?k ?l ?string)
-    ;;; Initialize candidates for cells with no entry.
-    ;;; Initializing candidates as follows avoids having lots of elementary propagation rules
-    ;;; firing at the start to eliminate them.
     (bind ?*nb-candidates* 0)
     (bind ?len (length$ ?string))
     (if (< ?len 81) then
@@ -456,7 +488,6 @@
     (if ?*print-actions* then (printout t ?string crlf))
     (reset) (reset)
     ;;; General background is defined here (fixed facts and structures common to all the instances)
-    (bind ?*restrict-TE-targets* TRUE)
     (init-general-application-structures)
     ;;; Data specific to the instance are defined here
     ;;; This function could be simplified (and initialization time shortened)
@@ -478,6 +509,7 @@
     (bind ?*init-instance-time* (- ?time1 ?time0))
 
     ;;; The puzzle is solved here
+    (bind ?*restrict-TE-targets* TRUE)
     (bind ?n (run))
     (bind ?time2 (time))
     (bind ?*solve-instance-time* (- ?time2 ?time1))

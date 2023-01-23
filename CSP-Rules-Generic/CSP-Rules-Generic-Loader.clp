@@ -1114,7 +1114,7 @@
 (bind ?i 2)
 (while (<= ?i 36)
     (if (>= ?*max-level* ?i) then
-        (printout t crlf crlf "LOADING RULES AT LEVEL " ?i ":" crlf)
+        (printout t crlf crlf "LOADING GENERIC RULES AT LEVEL " ?i ":" crlf)
     )
 
     ;;; typed-bivalue-chains ≥ 2
@@ -1209,9 +1209,9 @@
     
     
     ;;; ORk-splitting rules
-    (if (and ?*allow-ORk-splitting* (evenp ?i) (<= ?i 8)) then
+    (if (and ?*allow-ORk-splitting* (evenp ?i) (<= ?i 10)) then
         (bind ?k 2)
-        (while (<= ?k 8)
+        (while (<= ?k 12)
             (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
                 ?*Directory-symbol* "SPLIT-ORk"
                 ?*Directory-symbol* "split-OR" ?k "-ch[" ?i "].clp")
@@ -1821,7 +1821,7 @@
 (batch ?*Application-Loader*)
 
 
-;;; now that all the rules to be used are known, define the global rating type
+;;; now that all the generic and application-specific rules to be used are known, define the global rating type
 (deffunction define-rating-type ()
     ;;; generic part
     (define-generic-rating-type)

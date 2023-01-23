@@ -30,7 +30,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Randomly shuffle a puzzle to get an isomorphic one
+;;; Horizontal permutations
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -51,6 +51,11 @@
     )
     ?puzzle
 )
+;;; other name:
+(deffunction permute-bands-9x9 (?puzzle ?f1 ?f2 ?f3)
+    (permute-floors-9x9 ?puzzle ?f1 ?f2 ?f3)
+)
+
 
 
 (deffunction permute-rows-in-floor-9x9 (?floor ?r1 ?r2 ?r3)
@@ -71,6 +76,10 @@
     )
     ?floor
 )
+;;; other name:
+(deffunction permute-rows-in-band-9x9 (?floor ?r1 ?r2 ?r3)
+    (permute-rows-in-floor-9x9 ?floor ?r1 ?r2 ?r3)
+)
 
 
 (deffunction permute-rows-in-nth-floor-9x9 (?puzzle ?nth ?r1 ?r2 ?r3)
@@ -87,46 +96,23 @@
             (str-cat (sub-string 1 27 ?puzzle) (permute-rows-in-floor-9x9 (sub-string 28 54 ?puzzle) ?r1 ?r2 ?r3) (sub-string 55 81 ?puzzle))
         )
         (case 3 then
-            (str-cat (sub-string 1 54 ?puzzle) (permute-rows-in-floor-9x9 (sub-string 54 81 ?puzzle) ?r1 ?r2 ?r3))
+            (str-cat (sub-string 1 54 ?puzzle) (permute-rows-in-floor-9x9 (sub-string 55 81 ?puzzle) ?r1 ?r2 ?r3))
         )
         (default ?puzzle)
     )
 )
-;;; Other name for same function:
+;;; other name:
 (deffunction permute-rows-in-nth-band-9x9 (?puzzle ?nth ?r1 ?r2 ?r3)
     (permute-rows-in-nth-floor-9x9 ?puzzle ?nth ?r1 ?r2 ?r3)
 )
 
 
 
-(defglobal ?*permutations-3* = (create$ "123" "231" "312" "321" "213" "132"))
-
-(deffunction random-permutation-3 ()
-    (seed (integer (time)))
-    (bind ?perm (nth$ (random 1 6) ?*permutations-3*))
-    (create$
-        (string-to-field (sub-string 1 1 ?perm))
-        (string-to-field (sub-string 2 2 ?perm))
-        (string-to-field (sub-string 3 3 ?perm))
-    )
-)
-
-
-(deffunction horizontal-random-shuffle-9x9 (?puzzle)
-    ;;; shuffle floors
-    (bind ?perm (random-permutation-3))
-    (bind ?puzzle (permute-floors-9x9 ?puzzle (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
-    ;;; shuffle rows within each floor
-    (bind ?perm (random-permutation-3))
-    (bind ?floor1 (permute-rows-in-floor-9x9 (sub-string 1 27 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
-    (bind ?perm (random-permutation-3))
-    (bind ?floor2 (permute-rows-in-floor-9x9 (sub-string 28 54 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
-    (bind ?perm (random-permutation-3))
-    (bind ?floor3 (permute-rows-in-floor-9x9 (sub-string 55 81 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
-    (bind ?puzzle (str-cat ?floor1 ?floor2 ?floor3))
-    ?puzzle
-)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Vertical permutations
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction diagonal-symmetry-9x9 (?puzzle)
     (bind ?sym "")
@@ -143,6 +129,22 @@
     ?sym
 )
 
+(deffunction permute-towers-9x9 (?puzzle ?f1 ?f2 ?f3)
+    ;;; ?puzzle is supposed to be 9x9 and to be given as a string of 81 characters
+    ;;; (?f1, ?f2, ?f3) is supposed to be a permutation of (1, 2, 3)
+    ;;; the new floors are the ?t1 ?t2 ?t3 floors of the given puzzle
+    (diagonal-symmetry-9x9
+        (permute-floors-9x9
+            (diagonal-symmetry-9x9 ?puzzle)
+            ?f1 ?f2 ?f3
+        )
+    )
+)
+;;; other name
+(deffunction permute-stacks-9x9 (?puzzle ?f1 ?f2 ?f3)
+    (permute-towers-9x9 ?puzzle ?f1 ?f2 ?f3)
+)
+
 
 (deffunction permute-columns-in-nth-tower-9x9 (?puzzle ?nth ?c1 ?c2 ?c3)
     ;;; ?puzzle is supposed to be given as a string of 81 characters
@@ -155,9 +157,58 @@
         )
     )
 )
-;;; Other name for same function:
+;;; other name:
 (deffunction permute-columns-in-nth-stack-9x9 (?puzzle ?nth ?c1 ?c2 ?c3)
     (permute-columns-in-nth-tower-9x9 ?puzzle ?nth ?c1 ?c2 ?c3)
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Randomly shuffle a puzzle to get an isomorphic one
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defglobal ?*permutations-3* = (create$ "123" "231" "312" "321" "213" "132"))
+
+(deffunction random-permutation-3 ()
+    (seed (integer (time)))
+    (bind ?perm (nth$ (random 1 6) ?*permutations-3*))
+    (create$
+        (string-to-field (sub-string 1 1 ?perm))
+        (string-to-field (sub-string 2 2 ?perm))
+        (string-to-field (sub-string 3 3 ?perm))
+    )
+)
+
+
+(deffunction horizontal-random-shuffle-9x9-puzzle (?puzzle)
+    ;;; shuffle floors
+    (bind ?perm (random-permutation-3))
+    (bind ?puzzle (permute-floors-9x9 ?puzzle (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    ;;; shuffle rows within each floor
+    (bind ?perm (random-permutation-3))
+    (bind ?floor1 (permute-rows-in-floor-9x9 (sub-string 1 27 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    (bind ?perm (random-permutation-3))
+    (bind ?floor2 (permute-rows-in-floor-9x9 (sub-string 28 54 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    (bind ?perm (random-permutation-3))
+    (bind ?floor3 (permute-rows-in-floor-9x9 (sub-string 55 81 ?puzzle) (nth$ 1 ?perm) (nth$ 2 ?perm) (nth$ 2 ?perm)))
+    (bind ?puzzle (str-cat ?floor1 ?floor2 ?floor3))
+    ?puzzle
+)
+
+
+(deffunction vertical-random-shuffle-9x9-puzzle (?puzzle)
+    ;;; ?puzzle is supposed to be 9x9 and to be given as a string of 81 characters
+    ;;; shuffle the floors and rows
+    (seed (integer (time)))
+    ;;; shuffle the towers and columns
+    (bind ?puzzle (diagonal-symmetry-9x9 ?puzzle))
+    (bind ?puzzle (horizontal-random-shuffle-9x9-puzzle ?puzzle))
+    ;;; shuffle the towers and columns again
+    (bind ?puzzle (diagonal-symmetry-9x9 ?puzzle))
+    ?puzzle
 )
 
 
@@ -165,10 +216,10 @@
     ;;; ?puzzle is supposed to be 9x9 and to be given as a string of 81 characters
     ;;; shuffle the floors and rows
     (seed (integer (time)))
-    (bind ?puzzle (horizontal-random-shuffle-9x9 ?puzzle))
+    (bind ?puzzle (horizontal-random-shuffle-9x9-puzzle ?puzzle))
     ;;; shuffle the towers and columns
     (bind ?puzzle (diagonal-symmetry-9x9 ?puzzle))
-    (bind ?puzzle (horizontal-random-shuffle-9x9 ?puzzle))
+    (bind ?puzzle (horizontal-random-shuffle-9x9-puzzle ?puzzle))
     ;;; randomly decide if there must be a diagonal symmetry or not
     (if (eq (random 0 1) 0) then (bind ?puzzle (diagonal-symmetry-9x9 ?puzzle)))
     ?puzzle

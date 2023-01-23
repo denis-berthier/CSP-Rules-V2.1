@@ -372,6 +372,9 @@
 ;;; Default is before (i.e. ?*ORk-Forcing-Whips-before-ORk-Whips* = TRUE); change it here:
 ; (bind ?*ORk-Forcing-Whips-before-ORk-Whips* FALSE)
 
+;;; Allow the splitting of ORk relations via conjugacy-chains (FALSE by default):
+; (bind ?*allow-ORk-splitting* TRUE)
+
 ;;; Use any of the rules in this section, possibly with chains defined in the generic part,
 ;;; with restricted lengths:
 ; (bind ?*all-chains-max-length* 5)

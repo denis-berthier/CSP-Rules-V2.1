@@ -124,9 +124,20 @@
 (defglobal ?*tridagon-forcing-whips-max-length* = 36)
 (defglobal ?*Anti-Tridagons* = FALSE)
 (defglobal ?*Eleven-Replacement-in-Tridagons* = FALSE)
-;;; This is now set to TRUE by defualt in order to allow early detection of Tridagons and anti-tridagons;
+
+;;; This is now set to TRUE by default in order to allow the early detection of Tridagons and anti-tridagons;
 ;;; it can be changed in the configuration file:
 (defglobal ?*use-high-Tridagon-salience* = TRUE)
+
+(defglobal ?*Eleven#38-12cells* = FALSE)
+;;; This is also set to TRUE by default in order to allow the early detection of the eleven TE(3) pattern;
+;;; it can be changed in the configuration file:
+(defglobal ?*use-high-eleven#38-12cells-salience* = TRUE)
+
+(defglobal ?*Eleven#97[15]* = FALSE)
+;;; This is also set to TRUE by default in order to allow the early detection of the eleven TE(3) pattern;
+;;; it can be changed in the configuration file:
+(defglobal ?*use-high-eleven#97[15]-salience* = TRUE)
 
 
 (defglobal ?*FinnedFish* = FALSE)
@@ -354,6 +365,8 @@
 
 (defglobal ?*tridagon-list* = (create$))
 (defglobal ?*has-tridagon* = FALSE)
+(defglobal ?*has-eleven#97[15]* = FALSE)
+(defglobal ?*has-eleven#38-12cells* = FALSE)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

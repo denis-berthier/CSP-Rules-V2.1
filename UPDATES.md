@@ -11,6 +11,9 @@
 5) Because they reflect changes to the software (almost) as soon as such changes are published, updates of the User Manual are not mentioned, except in case of a major update. <br><br>
 
 
+#### 2023 Jan 23 (Generic):
+* Add the ORk-splitting rules, for k ≤ 12, allowing toreduce the number of guardians in an ORk-relation and, possibly, to solve with shorter ORk-chains.
+
 #### 2022 Dec 29 (Generic):
 * Add the ORk-contrad-g-whips, for k = 6
 * Add the full ORk-g-Whips for k ≤ 6.

@@ -800,3 +800,25 @@
 
 
 
+(defrule enter-level-L99
+   (declare (salience ?*first-L99-salience*))
+   (logical
+        (play)
+        (context (name ?cont))
+        (not (deactivate ?cont track-levels))
+   )
+=>
+   (if ?*print-main-levels* then (printout t Entering_level_L99))
+   (assert (level ?cont L99))
+   (bind ?*main-level* L99)
+)
+
+(defrule track-level-L99
+   (declare (salience ?*first-L99-salience*))
+   ?fact <- (level ?cont L99)
+=>
+   (if ?*print-main-levels* then (printout t _with_ ?fact crlf))
+)
+
+
+

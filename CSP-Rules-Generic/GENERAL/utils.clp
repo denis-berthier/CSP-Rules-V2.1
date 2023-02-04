@@ -246,4 +246,44 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Dealing with vowels
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Used for printing the correct articles before names
+
+(deffunction strict-vowel (?x)
+    (or
+        (eq ?x "a") (eq ?x "A") (eq ?x a) (eq ?x A)
+        (eq ?x "e") (eq ?x "E") (eq ?x e) (eq ?x E)
+        (eq ?x "i") (eq ?x "I") (eq ?x i) (eq ?x I)
+        (eq ?x "o") (eq ?x "O") (eq ?x o) (eq ?x O)
+        (eq ?x "u") (eq ?x "U") (eq ?x u) (eq ?x U)
+    )
+)
+
+(deffunction leading-vowel (?name)
+    (if (not (lexemep ?name))
+        then FALSE
+        else
+            (if (symbolp ?name) then (bind ?name (implode$ (create$ ?name))))
+            (bind ?x (sub-string 1 1 ?name))
+            (or (strict-vowel ?x)
+                (and
+                    (or (eq ?x "y") (eq ?x "Y"))
+                    (or (eq (str-length ?name) 1)
+                        (strict-vowel (sub-string 2 2 ?name))
+                        (eq (sub-string 2 2 ?name) "y")
+                        (eq (sub-string 2 2 ?name) "Y")
+                        (eq (sub-string 2 2 ?name) y)
+                        (eq (sub-string 2 2 ?name) Y)
+                        (numberp (sub-string 2 2 ?name))
+                    )
+                )
+            )
+    )
+)
+                
+            

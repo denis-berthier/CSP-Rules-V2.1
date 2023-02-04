@@ -204,10 +204,12 @@
 	(context (name ?cont&0))
 	(not (solution-found ?cont))
 =>
-    (if ?*print-final-RS* then
+    (if ?*print-actions* then
         (printout t "CSP IS NOT SOLVED. " (- ?*nb-csp-variables*  ?*nb-csp-variables-solved*) " VALUES MISSING." crlf)
-        (printout t "Final resolution state:" crlf)
-        (pretty-print-current-resolution-state)
+        (if ?*print-final-RS* then
+            (printout t "Final resolution state:" crlf)
+            (pretty-print-current-resolution-state)
+        )
     )
     (bind ?*solution-found* FALSE)
 	(halt)

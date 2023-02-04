@@ -24761,10 +24761,12 @@
 
 (deffunction define-specific-final-saliences () TRUE)
 
+(defglobal ?*first-L99-salience* = 0)
 (defglobal ?*print-final-state-salience* = 0)
 
 (deffunction define-generic-final-saliences ()
     ;;; in case no solution is found
+    (bind ?*first-L99-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*print-final-state-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 

@@ -220,19 +220,19 @@
     (bind ?*activate-g-triplets-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*g-triplets-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     
-    ;;; Tridagon and anti-tridagon detection (by default, will be redefined at level 12)
+    ;;; Tridagon and anti-tridagon detection (by default, will possibly be redefined at level 12)
     (bind ?*activate-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     
-    ;;; anti-eleven#38-12cells detection (by default, will be redefined at level 12)
+    ;;; anti-eleven#38-12cells detection (by default, will possibly be redefined at level 12)
     (bind ?*activate-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*activate-ork-anti-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*ork-anti-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     
-    ;;; anti-eleven#97-15cells detection (by default, will be redefined at level 15)
+    ;;; anti-eleven#97-15cells detection (by default, will possibly be redefined at level 15)
     (bind ?*activate-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*activate-ork-anti-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
@@ -268,6 +268,7 @@
 )
 
 
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

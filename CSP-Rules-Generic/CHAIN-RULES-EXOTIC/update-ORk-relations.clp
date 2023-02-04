@@ -100,8 +100,12 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -161,8 +165,12 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -226,8 +234,12 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -295,8 +307,12 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -368,8 +384,13 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -445,8 +466,13 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -526,8 +552,13 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -610,8 +641,13 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -698,8 +734,13 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -790,8 +831,14 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -887,8 +934,14 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -990,8 +1043,14 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -1097,8 +1156,14 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13) " " (print-label ?zzz14)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -1208,8 +1273,14 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13) " " (print-label ?zzz14) " " (print-label ?zzz15)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -1323,8 +1394,15 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13) " " (print-label ?zzz14) " " (print-label ?zzz15)
+                " " (print-label ?zzz16)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -1443,8 +1521,15 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13) " " (print-label ?zzz14) " " (print-label ?zzz15)
+                " " (print-label ?zzz16) " " (print-label ?zzz17)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -1566,8 +1651,15 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13) " " (print-label ?zzz14) " " (print-label ?zzz15)
+                " " (print-label ?zzz16) " " (print-label ?zzz17) " " (print-label ?zzz18)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -1694,8 +1786,15 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13) " " (print-label ?zzz14) " " (print-label ?zzz15)
+                " " (print-label ?zzz16) " " (print-label ?zzz17) " " (print-label ?zzz18) " " (print-label ?zzz19)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert
@@ -1825,8 +1924,15 @@
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
-            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation has just been eliminated." crlf)
-            (printout t "There remains a " ?OR-name "-OR" ?new-OR-size "-relation ")
+            (printout t "At least one candidate of a previous " ?OR-name "-OR" ?OR-size "-relation between candidates "
+                (print-label ?zzz1) " " (print-label ?zzz2) " " (print-label ?zzz3) " " (print-label ?zzz4) " " (print-label ?zzz5)
+                " " (print-label ?zzz6) " " (print-label ?zzz7) " " (print-label ?zzz8) " " (print-label ?zzz9) " " (print-label ?zzz10)
+                " " (print-label ?zzz11) " " (print-label ?zzz12) " " (print-label ?zzz13) " " (print-label ?zzz14) " " (print-label ?zzz15)
+                " " (print-label ?zzz16) " " (print-label ?zzz17) " " (print-label ?zzz18) " " (print-label ?zzz19) " " (print-label ?zzz20)
+                " has just been eliminated." crlf
+            )
+            (bind ?art (if (leading-vowel ?OR-name) then "an" else "a"))
+            (printout t "There remains " ?art " " ?OR-name "-OR" ?new-OR-size "-relation ")
             (printout t "between candidates: "  (print-list-of-labels ?new-guardians) crlf crlf)
         )
         (assert

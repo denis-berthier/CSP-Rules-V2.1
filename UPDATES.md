@@ -5,14 +5,17 @@
 3) Trivial additions to the globals, saliences or print functions (which may be necessary when new resolution rules are added) are not mentioned. <br>
 4) All the changes from the  first publication are indeed additions to the original functionalities; in particular:<br>
 -- no basic data structure has been changed ;<br>
--- no fundamental generic resolution rule (i.e. bivalue-chains, z-chains, t-whips, whips, g-bivalue-chains, g-whips, braids, g-braids), as defined in [CRT] or [PBCS], has been changed;<br>
--- no application-specific resolution rule, as defined in [CRT] or [PBCS]  - such as Subsets in Sudoku or any application that has them, ascending-chains in Futoshiki, loops in Slitherlink... - has been changed;<br>
--- no bug has been found since the first publication (note that this software had been largely tested before the first publication). <br>
-5) Because they reflect changes to the software (almost) as soon as such changes are published, updates of the User Manual are not mentioned, except in case of a major update. <br><br>
+-- no fundamental generic resolution rule (i.e. bivalue-chains, z-chains, t-whips, whips, g-bivalue-chains, g-whips, braids, g-braids), as defined in [CRT] or [PBCS], has been changed (though the files that contain them may have been split into partial-chain extension rules and chain elimination rules);<br>
+-- no application-specific resolution rule, as defined in [CRT] or [PBCS]  - such as Subsets in Sudoku or any application that has them, ascending-chains in Futoshiki, loops in Slitherlink... - has been changed (though their "blocked" and "unblocked" versions may may have been fused);<br>
+-- no bug has been found since the first publication (note that this software had been largely tested (on millions of instances) before the first publication). <br>
+5) Because they reflect changes to the software (almost) as soon as such changes are published, updates of the User Manual are not mentioned _per se_, except in case of a major update. <br><br>
 
+
+#### 2023 Feb 04 (SudoRules):
+* Add functions for the analysis of k and kl digit patterns in SudoRules/Advanced; they allow in particular to find which 3-digit patterns are in T&E(2) - both restricted form (already published before) and full form (that's the new part).
 
 #### 2023 Jan 23 (Generic):
-* Add the ORk-splitting rules, for k ≤ 12, allowing toreduce the number of guardians in an ORk-relation and, possibly, to solve with shorter ORk-chains.
+* Add the ORk-splitting rules, for k ≤ 12, allowing to reduce the number of guardians in an ORk-relation and, possibly, to solve with shorter ORk-chains.
 
 #### 2022 Dec 29 (Generic):
 * Add the ORk-contrad-g-whips, for k = 6

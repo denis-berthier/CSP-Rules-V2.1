@@ -147,6 +147,7 @@
 )
 
 
+;;; solve without focusing on candidates in the pattern
 (deffunction fully-solve-k-digit-pattern-string (?k ?string)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
@@ -395,6 +396,90 @@
     (printout t ?*no-sol-list* crlf)
     ;;; make the default unrestricted form of T&E available for other calculations:
     (bind ?*restrict-TE-targets* FALSE)
+)
+
+
+
+;;; solve without focusing on candidates in the pattern
+
+(deffunction fully-solve-grid-from-k-digit-pattern-string-file (?k ?file-symb ?i)
+    (reset) (reset)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; puzzle entries are taken into account here
+    (init-grid-from-k-digit-pattern-string-file ?k ?file-symb)
+    (pretty-print-current-resolution-state)
+    (assert (context (name 0)))
+    (assert (grid ?i))
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+
+    ;;; The puzzle is solved here
+    (bind ?n (run))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+        (printout t "nb-facts = " ?*nb-facts* crlf)
+        (printout t crlf)
+    )
+    ;;; make the default unrestricted form of T&E available for other calculations
+)
+
+
+(deffunction fully-solve-n-grids-after-first-p-from-k-digit-pattern-string-file (?k ?file-name ?p ?n)
+    (if ?*print-actions* then (print-banner))
+    (bind ?*add-instance-to-solved-list* TRUE)
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*multi-sol-list* (create$))
+    (bind ?*exotic-list* (create$))
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*total-time* 0)
+    (bind ?*max-time* 0)
+    (bind ?*total-outer-time* (time))
+
+    (open ?file-name "file-symb" "r")
+    (bind ?i 1)
+    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (bind ?i (+ ?p 1))
+    (while (<= ?i (+ ?p ?n))
+        (printout t "#" ?i crlf)
+        (bind ?*has-exotic-pattern* FALSE)
+        (bind ?*has-belt* FALSE)
+        (bind ?*has-J-exocet* FALSE)
+        (bind ?*has-oddagon* FALSE)
+        (bind ?*has-tridagon* FALSE)
+
+        (fully-solve-grid-from-k-digit-pattern-string-file ?k "file-symb" ?i)
+        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
+        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
+        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
+        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
+        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        (bind ?i (+ ?i 1))
+    )
+    (close "file-symb")
+    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
+    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
+    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
+    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
+    (printout t "Solved list = " ?*solved-list* crlf)
+    (printout t (length$ ?*no-sol-list*) " contradictory " ?k "-digit patterns:" crlf)
+    (printout t ?*no-sol-list* crlf)
 )
 
 

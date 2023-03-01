@@ -270,7 +270,7 @@
       ;;; useless: (not (exists-link ?cont ?last-rlc1 ??zzz6))
       
    ) ; end logical
-   ;;; do not assert different partial OR6-gwhips with the same sequences of rlc's
+   ;;; do not assert a partial OR6-gwhip with the same sequences of rlc's or the same OR-rlc or the same last-rlc1
    (not
       (ORk-chain
          (type partial-OR6-gwhip)
@@ -278,6 +278,8 @@
          (length 7)
          (target ?zzz)
          (rlcs1 $?rlcs1b&:(same-sets ?rlcs1 ?rlcs1b))
+         (last-rlc1 ?last-rlc1)
+         (OR-rlc ?zzz6)
       )
    )
 =>

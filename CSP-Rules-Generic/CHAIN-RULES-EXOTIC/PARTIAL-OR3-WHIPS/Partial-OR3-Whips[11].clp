@@ -145,7 +145,7 @@
       ;;; keep ?zzz3 for ?OR-rlc
       
    ) ; end logical
-   ;;; do not assert different partial OR3-whips with the same sequences of rlc's
+   ;;; do not assert a partial OR3-whip with the same sequences of rlc's or the same last-rlc1 or the same OR-rlc
    (not
       (ORk-chain
          (type partial-OR3-whip)
@@ -153,6 +153,8 @@
          (length 11)
          (target ?zzz)
          (rlcs1 $?rlcs1b&:(same-sets ?rlcs1 ?rlcs1b))
+         (last-rlc1 ?last-rlc1)
+         (OR-rlc ?zzz3)
       )
    )
 =>

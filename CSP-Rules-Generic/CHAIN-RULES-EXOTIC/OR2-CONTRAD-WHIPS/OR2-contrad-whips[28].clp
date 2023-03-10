@@ -72,6 +72,7 @@
    ?ret <- (candidate (context ?cont) (status cand) (label ?zzz))
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L28* ?*print-OR2-contrad-whip* ?*print-OR2-contrad-whip-28*) then
       (print-OR2-contrad-whip 
          ?or-name ?or-compl ?p ?zzz1 ?zzz2

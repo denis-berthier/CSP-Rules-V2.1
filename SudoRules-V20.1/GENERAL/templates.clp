@@ -43,6 +43,10 @@
 	(slot column (type INTEGER))
 	(slot block (type INTEGER))
 	(slot square (type INTEGER))
+    ;;; added on Feb 06, 2023 for easier dealing with k-digit patterns
+    ;;; doesn't have any impact on anything pre-existing
+    (slot band (type INTEGER) (default 0))
+    (slot stack (type INTEGER) (default 0))
 )
 
 

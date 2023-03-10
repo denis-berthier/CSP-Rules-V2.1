@@ -216,6 +216,13 @@
 )
 
 
+;;; added on Feb 06, 2023 for easier dealing with k-digit patterns
+;;; doesn't have any impact on anything pre-existing
+
+(deffunction band (?row) (+ 1 (div (- ?row 1) ?*segment-size*))))
+
+(deffunction stack (?col) (+ 1 (div (- ?col 1) ?*segment-size*)))
+
 
 
 

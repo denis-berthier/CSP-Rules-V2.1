@@ -363,7 +363,11 @@
 			;;; then assert (the value and) the corresponding c-value
 			(if (member$ ?nb ?*numbers*) then
 				(bind ?lab (nrc-to-label ?nb ?row ?col))
-				(assert (candidate (context 0) (status c-value) (label ?lab) (number ?nb) (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col))))
+                (assert (candidate (context 0) (status c-value)
+                    (label ?lab) (number ?nb)
+                    (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col))
+                    (band (band ?row)) (stack (stack ?col))
+                ))
 				(bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
 				(if (or ?*print-all-details* ?*print-init-details*) then (printout t "Asserting entry: " (row-name ?row)(column-name ?col) " = " ?nb crlf))
 			)
@@ -416,7 +420,11 @@
 					(if ?nbx-allowed
 						then 
 							(bind ?labx (nrc-to-label ?nbx ?row ?col))
-							(assert (candidate (context 0) (status cand) (label ?labx) (number ?nbx) (row ?row) (column ?col) (block ?blk) (square ?sqr)))
+                            (assert (candidate (context 0) (status cand)
+                                (label ?labx) (number ?nbx)
+                                (row ?row) (column ?col) (block ?blk) (square ?sqr)
+                                (band (band ?row)) (stack (stack ?col))
+                            ))
 							(bind ?*nb-candidates* (+ ?*nb-candidates* 1))
 							 (if (or ?*print-all-details* ?*print-init-details*) then
 								(printout t "Asserting candidate " ?nbx " for " (row-name ?row) (column-name ?col) crlf)
@@ -640,7 +648,11 @@
                     (bind ?blk (block ?row ?col))
                     (bind ?sqr (square ?row ?col))
                     (bind ?lab (nrc-to-label ?nb ?row ?col))
-                    (assert (candidate (context 0) (status cand) (label ?lab) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sqr)))
+                    (assert (candidate (context 0) (status cand)
+                        (label ?lab) (number ?nb)
+                        (row ?row) (column ?col) (block ?blk) (square ?sqr)
+                        (band (band ?row)) (stack (stack ?col))
+                    ))
                     (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
                     (if (or ?*print-all-details* ?*print-init-details*) then
                         (printout t "Asserting candidate " ?nb " for " (row-name ?row) (column-name ?col) crlf)
@@ -750,7 +762,11 @@
 			(if (member$ ?nb ?*numbers*) then
 				(bind ?xxx (nrc-to-label ?nb ?row ?col))
 				;;; (assert (value ?xxx))
-				(assert (candidate (context 0) (status c-value) (label ?xxx) (number ?nb) (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col))))
+                (assert (candidate (context 0) (status c-value)
+                    (label ?xxx) (number ?nb)
+                    (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col))
+                    (band (band ?row)) (stack (stack ?col))
+                ))
 				(bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
 				(if (or ?*print-all-details* ?*print-init-details*) then
 					(printout t "Asserting entry: " (row-name ?row)(column-name ?col) ?*equal-sign* ?nb crlf)
@@ -803,7 +819,11 @@
 					(if ?nbx-allowed
 						then 
 							(bind ?xxx (nrc-to-label ?nbx ?row ?col))
-                            (assert (candidate (context 0) (status cand) (label ?xxx) (number ?nbx) (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col))))
+                            (assert (candidate (context 0) (status cand)
+                                (label ?xxx) (number ?nbx)
+                                (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col))
+                                (band (band ?row)) (stack (stack ?col))
+                            ))
 							(bind ?*nb-candidates* (+ ?*nb-candidates* 1))
                             (if (or ?*print-all-details* ?*print-init-details*) then
 								(printout t "Asserting candidate " ?nbx " for " (row-name ?row)(column-name ?col) crlf)
@@ -949,7 +969,8 @@
                     (assert (candidate
                                 (context 0) (status c-value)
                                 (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
-                    ))
+                                (band (band ?row)) (stack (stack ?col))
+                   ))
                     (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
                     (if (or ?*print-all-details* ?*print-init-details*) then
                         (printout t "Asserting entry: " (row-name ?row)(column-name ?col) ?*equal-sign* ?nb crlf)
@@ -960,7 +981,8 @@
                         (assert (candidate
                                     (context 0) (status cand)
                                     (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
-                        ))
+                                    (band (band ?row)) (stack (stack ?col))
+                       ))
                         (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
                         (if (or ?*print-all-details* ?*print-init-details*) then
                             (printout t "Asserting candidate " ?nb " for " (row-name ?row)(column-name ?col) crlf)
@@ -1224,6 +1246,7 @@
                     (assert (candidate
                                 (context 0) (status c-value)
                                 (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                                (band (band ?row)) (stack (stack ?col))
                     ))
                     (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
                     (if (or ?*print-all-details* ?*print-init-details*) then
@@ -1237,6 +1260,7 @@
                         (assert (candidate
                                     (context 0) (status cand)
                                     (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                                    (band (band ?row)) (stack (stack ?col))
                         ))
                         (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
                         (if (or ?*print-all-details* ?*print-init-details*) then
@@ -1318,6 +1342,7 @@
                     (assert (candidate
                                 (context 0) (status c-value)
                                 (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                                (band (band ?row)) (stack (stack ?col))
                     ))
                     (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
                     (if (or ?*print-all-details* ?*print-init-details*) then
@@ -1331,6 +1356,7 @@
                         (assert (candidate
                                     (context 0) (status cand)
                                     (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                                    (band (band ?row)) (stack (stack ?col))
                         ))
                         (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
                         (if (or ?*print-all-details* ?*print-init-details*) then
@@ -1412,6 +1438,7 @@
                     (assert (candidate
                                 (context 0) (status c-value)
                                 (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sqr)
+                                (band (band ?row)) (stack (stack ?col))
                     ))
                     (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
                     (if (or ?*print-all-details* ?*print-init-details*) then
@@ -1425,7 +1452,8 @@
                         (assert (candidate
                                     (context 0) (status cand)
                                     (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sqr)
-                        ))
+                                    (band (band ?row)) (stack (stack ?col))
+                       ))
                         (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
                         (if (or ?*print-all-details* ?*print-init-details*) then
                             (printout t "Asserting candidate " ?nb " for " (row-name ?row)(column-name ?col) crlf)

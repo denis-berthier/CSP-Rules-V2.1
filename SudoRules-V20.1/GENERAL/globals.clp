@@ -94,21 +94,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GLOBAL VARIABLES FOR SELECTING THE ALLOWED CSP-TYPES IN TYPED-CHAINS
-;;; AND THE SUDOKU-SPECIFIC RULES
+;;; GLOBAL VARIABLES FOR SELECTING
+;;; - THE ALLOWED CSP-TYPES IN TYPED-CHAINS
+;;; - THE SUDOKU-SPECIFIC RULES
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;; define the allowed csp-types in Typed-Chains
 (defglobal ?*dummy-for-allowed-csp-types* = (progn (bind ?*allowed-csp-types* (create$ rc rn cn bn)) TRUE))
 
 
+(defglobal ?*FinnedFish* = FALSE)
+(defglobal ?*FinnedFish[2]* = FALSE)
+(defglobal ?*FinnedFish[3]* = FALSE)
+(defglobal ?*FinnedFish[4]* = FALSE)
+
+;;; Uniqueness
 (defglobal ?*Unique-Rectangles* = FALSE)
 (defglobal ?*BUG* = FALSE)
 
+;;; Exotic patterns
 (defglobal ?*Belt4* = FALSE)
 (defglobal ?*Belt6* = FALSE)
 
@@ -118,6 +125,9 @@
 (defglobal ?*J3-Exocet* = FALSE)
 (defglobal ?*J4-Exocet* = FALSE)
 (defglobal ?*J5-Exocet* = FALSE)
+
+;;; For all the rules that produce ORk-relations between "guardians":
+(defglobal ?*max-guardians* = 8)
 
 (defglobal ?*Tridagons* = FALSE)
 (defglobal ?*Tridagon-Forcing-Whips* = FALSE)
@@ -129,21 +139,40 @@
 ;;; it can be changed in the configuration file:
 (defglobal ?*use-high-Tridagon-salience* = TRUE)
 
-(defglobal ?*Eleven#38-12cells* = FALSE)
-;;; This is also set to TRUE by default in order to allow the early detection of the eleven TE(3) pattern;
-;;; it can be changed in the configuration file:
-(defglobal ?*use-high-eleven#38-12cells-salience* = TRUE)
+(defglobal ?*Selected-Imp630* = FALSE)
 
-(defglobal ?*Eleven#97[15]* = FALSE)
-;;; This is also set to TRUE by default in order to allow the early detection of the eleven TE(3) pattern;
-;;; it can be changed in the configuration file:
-(defglobal ?*use-high-eleven#97[15]-salience* = TRUE)
+(defglobal ?*EL13c290* = FALSE)
+(defglobal ?*EL14c30* = FALSE)
+(defglobal ?*EL14c159* = FALSE)
+(defglobal ?*EL14c13* = FALSE)
+(defglobal ?*EL14c1* = FALSE)
+(defglobal ?*EL10c28* = FALSE)
+(defglobal ?*EL13c30* = FALSE)
+(defglobal ?*EL13c176* = FALSE)
+(defglobal ?*EL13c234* = FALSE)
+(defglobal ?*EL13c179* = FALSE)
+(defglobal ?*EL10c6* = FALSE)
+(defglobal ?*EL13c259* = FALSE)
+(defglobal ?*EL13c172* = FALSE)
+(defglobal ?*EL13c171* = FALSE)
+(defglobal ?*EL13c187* = FALSE)
+(defglobal ?*EL13c175* = FALSE)
+(defglobal ?*EL13c168* = FALSE)
+(defglobal ?*EL10c8* = FALSE)
+(defglobal ?*EL14c93* = FALSE)
+(defglobal ?*EL14c154* = FALSE)
+(defglobal ?*EL15c97* = FALSE)
 
+;;; For allowing all the rules for impossible patterns in two bands or two stacks:
+(defglobal ?*Imposs630-all* = FALSE)
+;;; For allowing independently all the rules for each sub-family with n cells.
+(defglobal ?*Imposs630-10c* = FALSE)
+(defglobal ?*Imposs630-12c* = FALSE)
+(defglobal ?*Imposs630-13c* = FALSE)
+(defglobal ?*Imposs630-14c* = FALSE)
+(defglobal ?*Imposs630-15c* = FALSE)
+(defglobal ?*Imposs630-16c* = FALSE)
 
-(defglobal ?*FinnedFish* = FALSE)
-(defglobal ?*FinnedFish[2]* = FALSE)
-(defglobal ?*FinnedFish[3]* = FALSE)
-(defglobal ?*FinnedFish[4]* = FALSE)
 
 
 
@@ -365,8 +394,7 @@
 
 (defglobal ?*tridagon-list* = (create$))
 (defglobal ?*has-tridagon* = FALSE)
-(defglobal ?*has-eleven#97[15]* = FALSE)
-(defglobal ?*has-eleven#38-12cells* = FALSE)
+(defglobal ?*has-EL15c97* = FALSE)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

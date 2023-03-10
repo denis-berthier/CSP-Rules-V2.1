@@ -173,16 +173,63 @@
 (defglobal ?*ork-anti-tridagon[12]-salience* = 0)
 
 
-(defglobal ?*activate-eleven#38[12]-salience* = 0)
-(defglobal ?*eleven#38[12]-salience* = 0)
-(defglobal ?*activate-ork-anti-eleven#38[12]-salience* = 0)
-(defglobal ?*ork-anti-eleven#38[12]-salience* = 0)
+
+(defglobal ?*activate-EL13c290-salience* = 0)
+(defglobal ?*EL13c290-salience* = 0)
+(defglobal ?*activate-EL14c30-salience* = 0)
+(defglobal ?*EL14c30-salience* = 0)
+(defglobal ?*activate-EL14c159-salience* = 0)
+(defglobal ?*EL14c159-salience* = 0)
+(defglobal ?*activate-EL14c13-salience* = 0)
+(defglobal ?*EL14c13-salience* = 0)
+(defglobal ?*activate-EL14c1-salience* = 0)
+(defglobal ?*EL14c1-salience* = 0)
+(defglobal ?*activate-EL10c28-salience* = 0)
+(defglobal ?*EL10c28-salience* = 0)
+(defglobal ?*activate-EL13c30-salience* = 0)
+(defglobal ?*EL13c30-salience* = 0)
+(defglobal ?*activate-EL13c176-salience* = 0)
+(defglobal ?*EL13c176-salience* = 0)
+(defglobal ?*activate-EL13c234-salience* = 0)
+(defglobal ?*EL13c234-salience* = 0)
+(defglobal ?*activate-EL13c179-salience* = 0)
+(defglobal ?*EL13c179-salience* = 0)
+(defglobal ?*activate-EL10c6-salience* = 0)
+(defglobal ?*EL10c6-salience* = 0)
+(defglobal ?*activate-EL13c259-salience* = 0)
+(defglobal ?*EL13c259-salience* = 0)
+(defglobal ?*activate-EL13c172-salience* = 0)
+(defglobal ?*EL13c172-salience* = 0)
+(defglobal ?*activate-EL13c171-salience* = 0)
+(defglobal ?*EL13c171-salience* = 0)
+(defglobal ?*activate-EL13c187-salience* = 0)
+(defglobal ?*EL13c187-salience* = 0)
+(defglobal ?*activate-EL13c175-salience* = 0)
+(defglobal ?*EL13c175-salience* = 0)
+(defglobal ?*activate-EL13c168-salience* = 0)
+(defglobal ?*EL13c168-salience* = 0)
+(defglobal ?*activate-EL10c8-salience* = 0)
+(defglobal ?*EL10c8-salience* = 0)
+(defglobal ?*activate-EL14c93-salience* = 0)
+(defglobal ?*EL14c93-salience* = 0)
+(defglobal ?*activate-EL14c154-salience* = 0)
+(defglobal ?*EL14c154-salience* = 0)
+(defglobal ?*activate-EL15c97-salience* = 0)
+(defglobal ?*EL15c97-salience* = 0)
 
 
-(defglobal ?*activate-eleven#97[15]-salience* = 0)
-(defglobal ?*eleven#97[15]-salience* = 0)
-(defglobal ?*activate-ork-anti-eleven#97[15]-salience* = 0)
-(defglobal ?*ork-anti-eleven#97[15]-salience* = 0)
+(defglobal ?*activate-ork-Imposs630-10c-salience* = 0)
+(defglobal ?*ork-Imposs630-10c-salience* = 0)
+(defglobal ?*activate-ork-Imposs630-12c-salience* = 0)
+(defglobal ?*ork-Imposs630-12c-salience* = 0)
+(defglobal ?*activate-ork-Imposs630-13c-salience* = 0)
+(defglobal ?*ork-Imposs630-13c-salience* = 0)
+(defglobal ?*activate-ork-Imposs630-14c-salience* = 0)
+(defglobal ?*ork-Imposs630-14c-salience* = 0)
+(defglobal ?*activate-ork-Imposs630-15c-salience* = 0)
+(defglobal ?*ork-Imposs630-15c-salience* = 0)
+(defglobal ?*activate-ork-Imposs630-16c-salience* = 0)
+(defglobal ?*ork-Imposs630-16c-salience* = 0)
 
 
 
@@ -225,18 +272,149 @@
     (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    
-    ;;; anti-eleven#38-12cells detection (by default, will possibly be redefined at level 12)
-    (bind ?*activate-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*activate-ork-anti-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*ork-anti-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    
-    ;;; anti-eleven#97-15cells detection (by default, will possibly be redefined at level 15)
-    (bind ?*activate-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*activate-ork-anti-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    (bind ?*ork-anti-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+        
+    ;;; Special EL<xx>c<yy> saliences
+    (bind ?*activate-EL13c290-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c290-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL14c30-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL14c30-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL14c159-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL14c159-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL14c13-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL14c13-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL14c1-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL14c1-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL10c28-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL10c28-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c30-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c30-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c176-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c176-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c234-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c234-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c179-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c179-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL10c6-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL10c6-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c259-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c259-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c172-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c172-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c171-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c171-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c187-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c187-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c175-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c175-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL13c168-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL13c168-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL10c8-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL10c8-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL14c93-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL14c93-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL14c154-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL14c154-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-EL15c97-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*EL15c97-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    ;;; Eleven's 630 impossible patterns
+    (bind ?*activate-ork-Imposs630-10c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*ork-Imposs630-10c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-ork-Imposs630-12c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*ork-Imposs630-12c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-ork-Imposs630-13c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*ork-Imposs630-13c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-ork-Imposs630-14c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*ork-Imposs630-14c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-ork-Imposs630-15c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*ork-Imposs630-15c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*activate-ork-Imposs630-16c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*ork-Imposs630-16c-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+    (if (not ?*EL13c290*) then
+        (bind ?*activate-EL13c290-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c290-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL14c30*) then
+        (bind ?*activate-EL14c30-salience* ?*activate-ork-Imposs630-14c-salience*)
+        (bind ?*EL14c30-salience* ?*ork-Imposs630-14c-salience*)
+    )
+    (if (not ?*EL14c159*) then
+        (bind ?*activate-EL14c159-salience* ?*activate-ork-Imposs630-14c-salience*)
+        (bind ?*EL14c159-salience* ?*ork-Imposs630-14c-salience*)
+    )
+    (if (not ?*EL14c13*) then
+        (bind ?*activate-EL14c13-salience* ?*activate-ork-Imposs630-14c-salience*)
+        (bind ?*EL14c13-salience* ?*ork-Imposs630-14c-salience*)
+    )
+    (if (not ?*EL14c1*) then
+        (bind ?*activate-EL14c1-salience* ?*activate-ork-Imposs630-14c-salience*)
+        (bind ?*EL14c1-salience* ?*ork-Imposs630-14c-salience*)
+    )
+    (if (not ?*EL10c28*) then
+        (bind ?*activate-EL10c28-salience* ?*activate-ork-Imposs630-10c-salience*)
+        (bind ?*EL10c28-salience* ?*ork-Imposs630-10c-salience*)
+    )
+    (if (not ?*EL13c30*) then
+        (bind ?*activate-EL13c30-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c30-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c176*) then
+        (bind ?*activate-EL13c176-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c176-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c234*) then
+        (bind ?*activate-EL13c234-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c234-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c179*) then
+        (bind ?*activate-EL13c179-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c179-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL10c6*) then
+        (bind ?*activate-EL10c6-salience* ?*activate-ork-Imposs630-10c-salience*)
+        (bind ?*EL10c6-salience* ?*ork-Imposs630-10c-salience*)
+    )
+    (if (not ?*EL13c259*) then
+        (bind ?*activate-EL13c259-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c259-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c172*) then
+        (bind ?*activate-EL13c172-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c172-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c171*) then
+        (bind ?*activate-EL13c171-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c171-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c187*) then
+        (bind ?*activate-EL13c187-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c187-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c175*) then
+        (bind ?*activate-EL13c175-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c175-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL13c168*) then
+        (bind ?*activate-EL13c168-salience* ?*activate-ork-Imposs630-13c-salience*)
+        (bind ?*EL13c168-salience* ?*ork-Imposs630-13c-salience*)
+    )
+    (if (not ?*EL10c8*) then
+        (bind ?*activate-EL10c8-salience* ?*activate-ork-Imposs630-10c-salience*)
+        (bind ?*EL10c8-salience* ?*ork-Imposs630-10c-salience*)
+    )
+    (if (not ?*EL14c93*) then
+        (bind ?*activate-EL14c93-salience* ?*activate-ork-Imposs630-14c-salience*)
+        (bind ?*EL14c93-salience* ?*ork-Imposs630-14c-salience*)
+    )
+    (if (not ?*EL14c154*) then
+        (bind ?*activate-EL14c154-salience* ?*activate-ork-Imposs630-14c-salience*)
+        (bind ?*EL14c154-salience* ?*ork-Imposs630-14c-salience*)
+    )
+    (if (not ?*EL15c97*) then
+        (bind ?*activate-EL15c97-salience* ?*activate-ork-Imposs630-15c-salience*)
+        (bind ?*EL15c97-salience* ?*ork-Imposs630-15c-salience*)
+    )
 )
 
 
@@ -372,27 +550,20 @@
     (bind ?*activate-J4-Exocet-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J4-Exocet-elimination-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
     (bind ?*J4-Exocet-detection-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; EXOCETS
-
+    
     (if (not ?*use-high-Tridagon-salience*) then
         (bind ?*activate-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
         (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-
+        
         (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
         (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     )
     (bind ?*activate-tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-
+    
     (bind ?*activate-tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*tridagon-forcing-whip[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     
-    (if (not ?*use-high-eleven#38-12cells-salience*) then
-        (bind ?*activate-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-        (bind ?*eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-
-        (bind ?*activate-ork-anti-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-        (bind ?*ork-anti-eleven#38[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-    )
 )
 
 (deffunction define-specific-saliences-at-L13 ()
@@ -413,13 +584,6 @@
     (bind ?*activate-tridagon-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*tridagon-forcing-whip[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     
-    (if (not ?*use-high-eleven#97[15]-salience*) then
-        (bind ?*activate-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-        (bind ?*eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-
-        (bind ?*activate-ork-anti-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-        (bind ?*ork-anti-eleven#97[15]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; eleven#97-15cells
-    )
 )
 
 (deffunction define-specific-saliences-at-L16 ()

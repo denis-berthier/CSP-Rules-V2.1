@@ -142,6 +142,7 @@
         (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
         (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
         (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
@@ -197,6 +198,7 @@
                 (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
                 (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
 		)
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
@@ -257,6 +259,7 @@
                         (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
 				)
 		)
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
@@ -548,6 +551,7 @@
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
         (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
         (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
@@ -611,6 +615,7 @@
                 (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
                 (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
 		)
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
@@ -834,6 +839,7 @@
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
         (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
         (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
@@ -888,6 +894,7 @@
                 (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
                 (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
         )
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
@@ -947,6 +954,7 @@
                         (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
                 )
         )
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
@@ -1054,6 +1062,7 @@
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
         (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
         (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
@@ -1108,6 +1117,7 @@
                 (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
                 (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
         )
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")
@@ -1167,6 +1177,7 @@
                         (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
                 )
         )
+        (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
     (close "file-symb")

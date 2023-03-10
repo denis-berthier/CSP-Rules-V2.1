@@ -214,3 +214,17 @@
     )
 )
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Printing of rc-cells defined by their indices
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction print-cell-index (?index)
+    (printout t (row-name (row-from-cell-index ?index)) (column-name (column-from-cell-index ?index)))
+)
+
+(deffunction print-list-of-cell-indices ($?list)
+    (foreach ?index ?list
+        (printout t (row-name (row-from-cell-index ?index)) (column-name (column-from-cell-index ?index)) " ")
+    )
+)

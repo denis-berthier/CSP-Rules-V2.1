@@ -49,7 +49,10 @@
     (column ?col)
     (not (candidate (context 0) (row ?row) (column ?col)))
 =>
-	(assert (candidate (status c-value) (context ?cont) (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col)) ))
+    (assert (candidate (status c-value) (context ?cont)
+        (row ?row) (column ?col) (block (block ?row ?col)) (square (square ?row ?col))
+        (band (band ?row)) (stack (stack ?col))
+    ))
 	(if ?*print-actions* then
 		(printout t "filling up gaps : " (row-name ?row) (column-name ?col) " = ." crlf))
 )

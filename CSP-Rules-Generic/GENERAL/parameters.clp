@@ -58,7 +58,8 @@
 ;;;
 ;;; Specific parameters and associated naming functions for the nrc notation.
 ;;; All the parameters potentially useful for any application defined on a 2D grid:
-;;; numbers, rows, columns, blocks and squares in blocks, diagonals and anti-diagonals.
+;;; numbers, rows, columns, blocks and squares in blocks,
+;;; bands and stacks, diagonals and anti-diagonals.
 ;;; In case any parameter xxx is missing here, an application MUST add it
 ;;; and the associated xxx-name(?xxx) function in its own General/parameters file.
 ;;;
@@ -70,6 +71,8 @@
 (defglobal ?*column-symbol* = c)
 (defglobal ?*block-symbol* = b)
 (defglobal ?*square-symbol* = s)
+(defglobal ?*band-symbol* = B)
+(defglobal ?*stack-symbol* = S)
 (defglobal ?*diagonal-symbol* = d)
 (defglobal ?*anti-diagonal-symbol* = a)
 
@@ -79,6 +82,8 @@
 (deffunction column-name (?col) (sym-cat ?*column-symbol* ?col))
 (deffunction block-name (?bl) (sym-cat ?*block-symbol* ?bl))
 (deffunction square-name (?sq) (sym-cat ?*square-symbol* ?sq))
+(deffunction band-name (?bnd) (sym-cat ?*band-symbol* ?bnd))
+(deffunction stack-name (?stk) (sym-cat ?*stack-symbol* ?stk))
 (deffunction diagonal-name (?diag) (sym-cat ?*diagonal-symbol* ?diag))
 (deffunction anti-diagonal-name (?anti-diag) (sym-cat ?*anti-diagonal-symbol* ?anti-diag))
 

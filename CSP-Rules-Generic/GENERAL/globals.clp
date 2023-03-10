@@ -63,7 +63,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GENERAL GLOBAL VARIABLES
+;;; GENERAL GLOBAL VARIABLES RELATED TO INSTANCES
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -71,57 +71,57 @@
 
 
 (defglobal
+    ;;; globals for an instance
     ?*main-level* = 0
     ?*level* = 0
     ?*technique* = 0
     ?*nb-facts* = 0
     ?*density* = 100
-
+    
     ?*nb-csp-variables* = 0
     ?*nb-csp-variables-solved* = 0
     ?*nb-candidates* = 0
     ?*nb-g-candidates* = 0
-
+    
     ?*label-links* = (create$)
     ?*label-glabel-glinks* = (create$)
     ?*label-in-glabel* = (create$)
     ?*glabel-in-glabel* = (create$)
-
+    
     ?*csp-links-count* = 0
     ?*links-count* = 0
     ?*csp-links* = (create$)
     ?*links* = (create$)
-
+    
     ?*csp-glinks-count* = 0
     ?*glinks-count* = 0
     ?*csp-glinks* = (create$)
     ?*glinks* = (create$)
-
-
+    
     ?*blocked-rule-description* = ""
     ?*blocked-rule-eliminations* = ""
-
+    
     ?*context-counter* = 0
     ?*max-depth* = 0
     ?*biTE-context-counter* = 0
-
+    
     ?*solution-found* = FALSE
     ?*add-grid-to-solved-list* = TRUE
     ?*add-instance-to-solved-list* = TRUE
-    ?*solved-list* = (create$)
-
+    
     ?*init-instance-time* = 0
     ?*solve-instance-time* = 0
     ?*total-instance-time* = 0
     ?*end-instance-time* = 0
-
+    
     ?*DFS-max-depth* = 0
-
+    
     ?*has-exotic-pattern* = FALSE
     ?*has-oddagon* = FALSE
     
     ?*ORk-size* = 0
     ?*ORk-sizes-list* = (create$)
+    ?*ORk-relations-used* = (create$)
 )
 
 
@@ -171,6 +171,7 @@
 
     (bind ?*ORk-size* 0)
     (bind ?*ORk-sizes-list* (create$))
+    (bind ?*ORk-relations-used* (create$))
 )
 
 
@@ -181,7 +182,7 @@
 
 
 ;;; The following variables are NOT re-initialised by init-universal-globals
-;;; so that they can be defined manually before solution
+;;; so that they can be defined manually after (init) and before (solve))
 ;;; As a result, they MUST be re-initialised manually after each run
 
 ;;; Variable used to simulate the effect of non-programmed patterns
@@ -192,6 +193,91 @@
 ;;; Variable and function used to avoid testing useless patterns when the solution is already known
 (defglobal ?*known-to-be-in-solution* = (create$))
 (deffunction known-to-be-in-solution (?label) (member$ ?label ?*known-to-be-in-solution*))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; VARIABLES USED FOR MULTI SOLUTION INSTANCES OR FOR T&E
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defglobal ?*find-only-one-solution* = TRUE)
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; GLOBAL VARIABLES USED FOR BATCH PROCESSING
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; VARIABLES USED FOR KEEPING TRACK OF MAX AND TOTAL COMPUTATION TIME WHEN SOLVING SETS OF PUZZLES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; total-outer-time includes all read actions and all initializations
+;;; total-time includes only resolution time
+(defglobal
+    ?*puzzle-time* = 0
+    ?*total-outer-time* = 0
+    ?*total-time* = 0
+    ?*max-time* = 0
+    ?*print-time* = TRUE
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; VARIABLES USED FOR KEEPING TRACK OF SETS OF SOLUTIONS WHEN SOLVING SETS OF INSTANCES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; variables used when studying lists of grids, to keep track of those that are solved by a given strategy:
+(defglobal
+    ?*solved-list* = (create$)
+    ?*not-solved-list* = (create$)
+    ?*no-sol-list* = (create$)
+    ?*multi-sol-list* = (create$)
+)
+
+;;; variables used to keep track of special patterns:
+(defglobal
+    ?*exotic-list* = (create$)
+    ?*oddagon-list* = (create$)
+    ?*special-list* = (create$)
+    ?*special-list1* = (create$)
+    ?*special-list2* = (create$)
+    ?*all-ORk-relations-used-in-list* = (create$)
+    ?*all-ORk-relations-used-in-solved-list* = (create$)
+)
+
+(deffunction init-globals-for-files ()
+    (bind ?*solved-list* (create$))
+    (bind ?*not-solved-list* (create$))
+    (bind ?*no-sol-list* (create$))
+    (bind ?*multi-sol-list* (create$))
+
+    (bind ?*exotic-list* (create$))
+    (bind ?*oddagon-list* (create$))
+    (bind ?*special-list* (create$))
+    (bind ?*special-list1* (create$))
+    (bind ?*special-list2* (create$))
+    (bind ?*all-ORk-relations-used-in-list* (create$))
+    (bind ?*all-ORk-relations-used-in-solved-list* (create$))
+)
+
+
+;;; ?*save-solutions* should be kept to FALSE, except within a function that opens a writable solutions file with symbol "solutions-file"
+(defglobal
+    ?*save-solutions* = FALSE
+    ?*solutions-file* = "solutions-file"
+)
 
 
 
@@ -327,7 +413,7 @@
 (defglobal ?*Forcing5-Whips* = FALSE)
 
 
-(defglobal ?*allow-ORk-splitting* = FALSE)
+(defglobal ?*allow-ORk-splitting* = TRUE)
 
 
 (defglobal ?*OR2-Forcing-Whips* = FALSE)
@@ -648,74 +734,6 @@
 (defglobal ?*rating-type* = "") ;;; the final value will be computed automatically in the application loader
 (defglobal ?*generic-rating-type* = "") ;;; this will be computed by the generic loader
 (defglobal ?*application-specific-rating-type* = "") ;;; this will be computed by the application loader
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; GLOBAL VARIABLES USED FOR BATCH PROCESSING
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; VARIABLES USED FOR KEEPING TRACK OF MAX AND TOTAL COMPUTATION TIME WHEN SOLVING SETS OF PUZZLES
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; total-outer-time includes all read actions and all initializations
-;;; total-time includes only resolution time
-(defglobal 
-    ?*puzzle-time* = 0
-    ?*total-outer-time* = 0
-    ?*total-time* = 0
-    ?*max-time* = 0
-    ?*print-time* = TRUE
-)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; VARIABLES USED FOR KEEPING TRACK OF SETS OF SOLUTIONS WHEN SOLVING SETS OF INSTANCES
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; variables used when studying lists of grids, to keep track of those that are solved by a given strategy:
-(defglobal 
-    ?*not-solved-list* = (create$)
-    ?*no-sol-list* = (create$)
-    ?*multi-sol-list* = (create$)
-)
-
-;;; variables used to keep track of special patterns:
-(defglobal
-    ?*exotic-list* = (create$)
-    ?*oddagon-list* = (create$)
-    ?*special-list* = (create$)
-    ?*special-list1* = (create$)
-    ?*special-list2* = (create$)
-)
-
-
-;;; ?*save-solutions* should be kept to FALSE, except within a function that opens a writable solutions file with symbol "solutions-file"
-(defglobal 
-    ?*save-solutions* = FALSE
-    ?*solutions-file* = "solutions-file"
-)
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; VARIABLES USED FOR MULTI SOLUTION INSTANCES OR FOR T&E
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defglobal ?*find-only-one-solution* = TRUE)
-
-
-
 
 
 

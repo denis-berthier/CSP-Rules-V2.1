@@ -59,6 +59,7 @@
     (retract ?ORk)
     (modify ?cand1 (status c-value))
     (modify ?cand2 (status c-value))
+    (if (not (member$ ?OR-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?OR-name)))
     (if ?*print-actions* then
         (printout t crlf)
         (pretty-print-current-resolution-state)

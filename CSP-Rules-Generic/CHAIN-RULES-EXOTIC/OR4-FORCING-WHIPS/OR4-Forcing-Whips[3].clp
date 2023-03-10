@@ -74,6 +74,7 @@
    (exists-link ?cont ?last-rlc4 ?cand)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L3* ?*print-OR4-forcing-whip* ?*print-OR4-forcing-whip-3*) then
       (print-OR4-forcing-whip-elim-candidate 
          ?or-name ?or-compl
@@ -119,6 +120,7 @@
    (exists-link ?cont ?last-rlc4 ?cand)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L3* ?*print-OR4-forcing-whip* ?*print-OR4-forcing-whip-3*) then
       (print-OR4-forcing-whip-elim-candidate 
          ?or-name ?or-compl

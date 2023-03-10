@@ -877,7 +877,7 @@
 ;;; Both can be considered as mere ORk-Whips[1]
 
 (if ?*OR2-Whips[1]* then
-    (if ?*ORk-Forcing-Whips-before-ORk-Whips*
+    (if (and ?*OR2-Forcing-Whips* ?*ORk-Forcing-Whips-before-ORk-Whips*)
         then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR2-FORCING-WHIPS" ?*Directory-symbol* "OR2-Forcing-Whips[1].clp")
@@ -889,7 +889,7 @@
     )
 )
 (if ?*OR3-Whips[1]* then
-    (if ?*ORk-Forcing-Whips-before-ORk-Whips*
+    (if (and ?*OR3-Forcing-Whips* ?*ORk-Forcing-Whips-before-ORk-Whips*)
         then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR3-FORCING-WHIPS" ?*Directory-symbol* "OR3-Forcing-Whips[1].clp")
@@ -901,7 +901,7 @@
     )
 )
 (if ?*OR4-Whips[1]* then
-    (if ?*ORk-Forcing-Whips-before-ORk-Whips*
+    (if (and ?*OR4-Forcing-Whips* ?*ORk-Forcing-Whips-before-ORk-Whips*)
         then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR4-FORCING-WHIPS" ?*Directory-symbol* "OR4-Forcing-Whips[1].clp")
@@ -913,7 +913,7 @@
     )
 )
 (if ?*OR5-Whips[1]* then
-    (if ?*ORk-Forcing-Whips-before-ORk-Whips*
+    (if (and ?*OR5-Forcing-Whips* ?*ORk-Forcing-Whips-before-ORk-Whips*)
         then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR5-FORCING-WHIPS" ?*Directory-symbol* "OR5-Forcing-Whips[1].clp")
@@ -925,7 +925,7 @@
     )
 )
 (if ?*OR6-Whips[1]* then
-    (if ?*ORk-Forcing-Whips-before-ORk-Whips*
+    (if (and ?*OR6-Forcing-Whips* ?*ORk-Forcing-Whips-before-ORk-Whips*)
         then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR6-FORCING-WHIPS" ?*Directory-symbol* "OR6-Forcing-Whips[1].clp")
@@ -937,7 +937,7 @@
     )
 )
 (if ?*OR7-Whips[1]* then
-    (if ?*ORk-Forcing-Whips-before-ORk-Whips*
+    (if (and ?*OR7-Forcing-Whips* ?*ORk-Forcing-Whips-before-ORk-Whips*)
         then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR7-FORCING-WHIPS" ?*Directory-symbol* "OR7-Forcing-Whips[1].clp")
@@ -949,7 +949,7 @@
     )
 )
 (if ?*OR8-Whips[1]* then
-    (if ?*ORk-Forcing-Whips-before-ORk-Whips*
+    (if (and ?*OR8-Forcing-Whips* ?*ORk-Forcing-Whips-before-ORk-Whips*)
         then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR8-FORCING-WHIPS" ?*Directory-symbol* "OR8-Forcing-Whips[1].clp")
@@ -1209,7 +1209,7 @@
     
     
     ;;; ORk-splitting rules
-    (if (and ?*allow-ORk-splitting* (evenp ?i) (<= ?i 10)) then
+    (if (and ?*allow-ORk-splitting* (or ?*OR2-Forcing-Whips* ?*OR2-Contrad-Whips*) (evenp ?i) (<= ?i 10)) then
         (bind ?k 2)
         (while (<= ?k 12)
             (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"

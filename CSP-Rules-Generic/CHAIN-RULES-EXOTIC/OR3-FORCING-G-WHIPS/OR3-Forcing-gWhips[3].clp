@@ -74,6 +74,7 @@
    (exists-glink ?cont ?cand ?last-rlc3)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L3* ?*print-OR3-forcing-gwhip* ?*print-OR3-forcing-gwhip-3*) then
       (print-OR3-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl
@@ -123,6 +124,7 @@
    )
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L3* ?*print-OR3-forcing-gwhip* ?*print-OR3-forcing-gwhip-3*) then
       (print-OR3-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl

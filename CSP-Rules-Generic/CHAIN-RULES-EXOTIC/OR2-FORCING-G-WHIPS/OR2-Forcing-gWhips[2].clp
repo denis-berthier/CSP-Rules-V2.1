@@ -73,6 +73,7 @@
    (exists-glink ?cont ?cand ?last-rlc2)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L2* ?*print-OR2-forcing-gwhip* ?*print-OR2-forcing-gwhip-2*) then
       (print-OR2-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl

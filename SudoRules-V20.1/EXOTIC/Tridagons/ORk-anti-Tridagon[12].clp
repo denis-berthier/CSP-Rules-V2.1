@@ -28,10 +28,10 @@
 
 
 
-;;; The trivalue oddagon 3-digit pattern, contradctory in T&E(3).
+;;; The trivalue oddagon 3-digit pattern, contradictory in T&E(3).
 ;;; Cells with a "o" are the only places where the 3 digits can appear as givens
 
-;;; The 3 (Sudoku isomorrphic) patterns identified here,
+;;; The 3 (Sudoku isomorphic) patterns identified here,
 ;;; cells in blocks ?b11, ?b12, ?b21 and ?b22 as shown
 
 ;;; +-----------------------+
@@ -247,15 +247,21 @@
     (bind ?*ORk-sizes-list* (create$ ?*ORk-sizes-list* ?nb-guardians))
 
     (if ?*print-actions* then
-        (pretty-print-current-resolution-state)
         (printout t
             "OR" ?nb-guardians "-anti-tridagon[12] for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
-            "        " (block-name ?b11) ", with cells: " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
-            "        " (block-name ?b12) ", with cells: " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
-            "        " (block-name ?b21) ", with cells: " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
-            "        " (block-name ?b22) ", with cells: " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i) crlf
-            "with " ?nb-guardians " guardians: " (print-list-of-labels ?guardians) crlf crlf
+            "        " (block-name ?b11) ", with cells (marked #): " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
+            "        " (block-name ?b12) ", with cells (marked #): " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
+            "        " (block-name ?b21) ", with cells (marked #): " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf
+            "        " (block-name ?b22) ", with cells (marked #): " (row-name ?row4) (column-name ?col4i)  ", " (row-name ?row5) (column-name ?col5i) ", " (row-name ?row6) (column-name ?col6i) crlf
+            "with " ?nb-guardians " guardians (in cells marked @): " (print-list-of-labels ?guardians) crlf crlf
         )
+        (bind ?cell-indices (create$
+            (cell-index ?row1 ?col1) (cell-index ?row2 ?col2) (cell-index ?row3 ?col3)
+            (cell-index ?row1 ?col4) (cell-index ?row2 ?col5) (cell-index ?row3 ?col6)
+            (cell-index ?row4 ?col1) (cell-index ?row5 ?col2) (cell-index ?row6 ?col3)
+            (cell-index ?row4 ?col4i) (cell-index ?row5 ?col5i) (cell-index ?row6 ?col6i)
+        ))
+        (pretty-print-mark-current-resolution-state ?cell-indices ?guardians)
     )
 )
 

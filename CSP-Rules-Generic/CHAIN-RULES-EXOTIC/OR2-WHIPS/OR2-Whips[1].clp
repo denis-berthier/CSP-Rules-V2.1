@@ -64,6 +64,7 @@
    (exists-link ?cont ?zzz ?zzz2)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L1* ?*print-OR2-whip* ?*print-OR2-whip-1*) then
        (print-ORk-whip[1] ?or-name 2 ?or-compl ?zzz ?zzz1 ?zzz2)
     )

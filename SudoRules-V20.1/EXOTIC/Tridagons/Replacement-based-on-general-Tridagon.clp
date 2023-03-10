@@ -71,6 +71,7 @@
                     (assert (candidate
                                 (context 0) (status c-value)
                                 (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                                (band (band ?row)) (stack (stack ?col))
                     ))
                     (bind ?*nb-csp-variables-solved* (+ ?*nb-csp-variables-solved* 1))
                     (if (or ?*print-all-details* ?*print-init-details*) then
@@ -82,6 +83,7 @@
                         (assert (candidate
                                     (context 0) (status cand)
                                     (label ?xxx) (number ?nb) (row ?row) (column ?col) (block ?blk) (square ?sq)
+                                    (band (band ?row)) (stack (stack ?col))
                         ))
                         (bind ?*nb-candidates* (+ ?*nb-candidates* 1))
                         (if (or ?*print-all-details* ?*print-init-details*) then

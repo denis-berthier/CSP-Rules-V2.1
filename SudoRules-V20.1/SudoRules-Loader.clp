@@ -36,15 +36,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; GENERAL
-
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "background.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "nrc-output.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "solve.clp"))
-(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "solve-files.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "compute-RS.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "manage.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "NS.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "HS.clp"))
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "solve-files.clp"))
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "record-levels.clp"))
 
 ;;; now loaded only if W1 is active:
 (if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids*) then
@@ -56,6 +56,14 @@
     (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "init-glinks.clp"))
 )
 
+
+;;; GOODIES
+(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "goodies.clp"))
+(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "shuffle.clp"))
+(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "pretty-print.clp"))
+
+
+;;; ADVANCED
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "disable-re-enable-rules.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "erasable-cands.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "1or2-step-solutions.clp"))
@@ -64,6 +72,7 @@
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "eval-erasable-cands.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "fewer-step-solutions.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "eleven-replacement.clp"))
+(load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "mark-k-digit-patterns.clp"))
 (load (str-cat ?*Application-Dir* "ADVANCED" ?*Directory-symbol* "analyse-k-digit-patterns.clp"))
 
 
@@ -188,7 +197,6 @@
 )
 
 
-
 ;;; modified eleven digit replacement method
 (if ?*Eleven-Replacement-in-Tridagons* then
     (if ?*Tridagon-Forcing-Whips* then
@@ -198,7 +206,177 @@
         "Replacement-based-on-general-Tridagon.clp"))
 )
 
+(defglobal ?*dummy-Imp630* = (progn
+    (if ?*Selected-Imp630* then
+        (bind ?*EL13c290* TRUE)
+        (bind ?*EL14c30* TRUE)
+        (bind ?*EL14c159* TRUE)
+        (bind ?*EL14c13* TRUE)
+        (bind ?*EL14c1* TRUE)
+        (bind ?*EL10c28* TRUE)
+        (bind ?*EL13c30* TRUE)
+        (bind ?*EL13c176* TRUE)
+        (bind ?*EL13c234* TRUE)
+        (bind ?*EL13c179* TRUE)
+        (bind ?*EL10c6* TRUE)
+        (bind ?*EL13c259* TRUE)
+        (bind ?*EL13c172* TRUE)
+        (bind ?*EL13c171* TRUE)
+        (bind ?*EL13c187* TRUE)
+        (bind ?*EL13c175* TRUE)
+        (bind ?*EL13c168* TRUE)
+        (bind ?*EL10c8* TRUE)
+        (bind ?*EL14c93* TRUE)
+        (bind ?*EL14c154* TRUE)
+        (bind ?*EL15c97* TRUE)
+    )
+    TRUE
+))
+;;; Special impossible patterns
+(if ?*EL13c290* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c290.clp"))
+)
+(if ?*EL14c30* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/14c" ?*Directory-symbol* "EL14c30.clp"))
+)
+(if ?*EL14c159* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/14c" ?*Directory-symbol* "EL14c159.clp"))
+)
+(if ?*EL14c13* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/14c" ?*Directory-symbol* "EL14c13.clp"))
+)
+(if ?*EL14c1* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/14c" ?*Directory-symbol* "EL14c1.clp"))
+)
+(if ?*EL10c28* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/10c" ?*Directory-symbol* "EL10c28.clp"))
+)
+(if ?*EL13c30* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c30.clp"))
+)
+(if ?*EL13c176* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c176.clp"))
+)
+(if ?*EL13c234* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c234.clp"))
+)
+(if ?*EL13c179* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c179.clp"))
+)
+(if ?*EL10c6* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/10c" ?*Directory-symbol* "EL10c6.clp"))
+)
+(if ?*EL13c259* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c259.clp"))
+)
+(if ?*EL13c172* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c172.clp"))
+)
+(if ?*EL13c171* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c171.clp"))
+)
+(if ?*EL13c187* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c187.clp"))
+)
+(if ?*EL13c175* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c175.clp"))
+)
+(if ?*EL13c168* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c168.clp"))
+)
+(if ?*EL10c8* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/10c" ?*Directory-symbol* "EL10c8.clp"))
+)
+(if ?*EL14c93* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/14c" ?*Directory-symbol* "EL14c93.clp"))
+)
+(if ?*EL14c154* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/14c" ?*Directory-symbol* "EL14c154.clp"))
+)
+(if ?*EL15c97* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/15c" ?*Directory-symbol* "EL15c97.clp"))
+)
 
+
+;;; Impossible patterns in two bands or two stacks;
+;;; impossible patterns that have no free cells have no associated rules
+(if (or ?*Imposs630-all* ?*Imposs630-10c*) then
+    (loop-for-count (?i 1 31)
+        (if (neq ?i 11) then ; #11 has 4 cells in block 6
+            (if (and
+                (not (and (eq ?i 6) ?*EL10c6*))
+                (not (and (eq ?i 8) ?*EL10c8*))
+                (not (and (eq ?i 28) ?*EL10c28*))
+                )then ; already loaded as a special case
+                (load (str-cat
+                    ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/10c" ?*Directory-symbol* "EL10c" ?i ".clp"))
+            )
+        )
+    )
+)
+(if (or ?*Imposs630-all* ?*Imposs630-12c*) then
+    (loop-for-count (?i 1 38)
+        (if (neq ?i 38) then ; #38 is Tridagon, it must be loaded separately
+            (load (str-cat
+                ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/12c" ?*Directory-symbol* "EL12c" ?i ".clp"))
+        )
+    )
+)
+(if (or ?*Imposs630-all* ?*Imposs630-13c*) then
+    (loop-for-count (?i 1 290)
+        (if (not (member$ ?i (create$ 207 211 217 218 219))) then
+            (if (and
+                    (not (and (eq ?i 30) ?*EL13c30*))
+                    (not (and (eq ?i 168) ?*EL13c168*))
+                    (not (and (eq ?i 171) ?*EL13c171*))
+                    (not (and (eq ?i 172) ?*EL13c172*))
+                    (not (and (eq ?i 175) ?*EL13c175*))
+                    (not (and (eq ?i 176) ?*EL13c176*))
+                    (not (and (eq ?i 179) ?*EL13c179*))
+                    (not (and (eq ?i 187) ?*EL13c187*))
+                    (not (and (eq ?i 234) ?*EL13c234*))
+                    (not (and (eq ?i 259) ?*EL13c259*))
+                    (not (and (eq ?i 290) ?*EL13c290*))
+                ) then ; already loaded as special cases
+                (load (str-cat
+                    ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/13c" ?*Directory-symbol* "EL13c" ?i ".clp"))
+            )
+        )
+    )
+)
+(if (or ?*Imposs630-all* ?*Imposs630-14c*) then
+    (loop-for-count (?i 1 159)
+        (if (not (member$ ?i (create$ 23 33 36 73 92 112 113))) then
+            (if (and
+                    (not (and (eq ?i 1) ?*EL14c1*))
+                    (not (and (eq ?i 13) ?*EL14c13*))
+                    (not (and (eq ?i 30) ?*EL14c30*))
+                    (not (and (eq ?i 159) ?*EL14c159*))
+                ) then ; already loaded as a special case
+                (load (str-cat
+                    ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/14c" ?*Directory-symbol* "EL14c" ?i ".clp"))
+            )
+        )
+    )
+)
+(if (or ?*Imposs630-all* ?*Imposs630-15c*) then
+    (loop-for-count (?i 1 102)
+        (if (not (member$ ?i (create$ 11 16 18 30 32 36 38 40 42 45 47 49 51 53 56 57 66 68 69 80 83 85 100 101))) then
+            (if (not (and (eq ?i 97) ?*EL15c97*)) then ; already loaded as a special case
+                (load (str-cat
+                    ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/15c" ?*Directory-symbol* "EL15c" ?i ".clp"))
+            )
+        )
+    )
+)
+(if (or ?*Imposs630-all* ?*Imposs630-16c*) then
+    (loop-for-count (?i 1 10)
+        (if (not (member$ ?i (create$ 9 10))) then
+            (load (str-cat
+                ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imposs630/16c" ?*Directory-symbol* "EL16c" ?i ".clp"))
+        )
+    )
+)
 
 
 
@@ -228,7 +406,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (if (and ?*Templates* (<= 1 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[1].clp")))
 (if (and ?*Templates* (<= 2 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[2].clp")))
 (if (and ?*Templates* (<= 3 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[3].clp")))
@@ -242,13 +419,11 @@
 
 
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; STATISTICS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;; most of this could be extended to the general CSP
 
@@ -256,19 +431,6 @@
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "unbiased-stats.clp"))
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "comparisons.clp"))
 
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; GOODIES
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "goodies.clp"))
-(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "shuffle.clp"))
-(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "pretty-print.clp"))
 
 
 
@@ -318,6 +480,19 @@
     (if ?*Tridagon-Forcing-Whips* then
         (bind ?*application-specific-rating-type*
             (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "TridFW") else "TridFW")
+        )
+    )
+    (if (or ?*Imposs630-all* (and ?*Imposs630-10c* ?*Imposs630-12c* ?*Imposs630-13c* ?*Imposs630-14c* ?*Imposs630-15c* ?*Imposs630-16c*)) then
+        (bind ?*application-specific-rating-type*
+            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "Imp630") else "Imp630")
+        )
+    )
+    (if (and (or ?*Imposs630-10c* ?*Imposs630-12c* ?*Imposs630-13c* ?*Imposs630-14c* ?*Imposs630-15c* ?*Imposs630-16c*)
+            (not (or ?*Imposs630-all* (and ?*Imposs630-10c* ?*Imposs630-12c* ?*Imposs630-13c* ?*Imposs630-14c* ?*Imposs630-15c* ?*Imposs630-16c*)))
+            
+        ) then
+        (bind ?*application-specific-rating-type*
+            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "pImp630") else "pImp630")
         )
     )
     ?*application-specific-rating-type*

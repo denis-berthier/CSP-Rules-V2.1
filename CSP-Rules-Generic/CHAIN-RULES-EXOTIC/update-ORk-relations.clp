@@ -57,6 +57,7 @@
     ?cand <- (candidate (context ?cont) (label ?zzz1) (status cand))
 =>
     (modify ?cand (status c-value))
+    (if (not (member$ ?OR-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?OR-name)))
     (printout t ?OR-name "-ORk-relation with only one candidate => "
         (print-asserted-candidate ?zzz1) crlf crlf)
 )

@@ -69,7 +69,7 @@
       (rlcs1 $?rlcs1)
       (csp-vars1 $?csp-vars1)
       (last-rlc1 ?last-rlc1)
-      (OR-name ?OR-name)
+      (OR-name ?or-name)
       (OR-size ?OR-size&6)
       (OR-complexity ?OR-compl)
       (OR-llcs $?OR-llcs)
@@ -94,9 +94,10 @@
    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
 =>
    (retract ?cand)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L13* ?*print-OR6-whip* ?*print-OR6-whip-13*) then
-      (print-ORk-whip ?OR-name ?OR-size ?OR-compl ?zzz ?len1 ?llcs1 ?rlcs1 ?csp-vars1 ?OR-llcs ?OR-rlc ?len2 ?llcs2 ?rlcs2 ?csp-vars2 ?new-llc . ?new-csp)
+      (print-ORk-whip ?or-name ?OR-size ?OR-compl ?zzz ?len1 ?llcs1 ?rlcs1 ?csp-vars1 ?OR-llcs ?OR-rlc ?len2 ?llcs2 ?rlcs2 ?csp-vars2 ?new-llc . ?new-csp)
    )
 )
 
@@ -117,7 +118,7 @@
       (rlcs1 $?rlcs1)
       (csp-vars1 $?csp-vars1)
       (last-rlc1 ?last-rlc1)
-      (OR-name ?OR-name)
+      (OR-name ?or-name)
       (OR-size ?OR-size&6)
       (OR-complexity ?OR-compl)
       (OR-llcs $?OR-llcs)
@@ -143,9 +144,10 @@
    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
 =>
    (retract ?cand)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L13* ?*print-OR6-whip* ?*print-OR6-whip-13*) then
-      (print-ORk-whip ?OR-name ?OR-size ?OR-compl ?zzz ?len1 ?llcs1 ?rlcs1 ?csp-vars1 ?OR-llcs ?OR-rlc ?len2 ?llcs2 ?rlcs2 ?csp-vars2 ?new-llc . ?new-csp)
+      (print-ORk-whip ?or-name ?OR-size ?OR-compl ?zzz ?len1 ?llcs1 ?rlcs1 ?csp-vars1 ?OR-llcs ?OR-rlc ?len2 ?llcs2 ?rlcs2 ?csp-vars2 ?new-llc . ?new-csp)
    )
 )
 

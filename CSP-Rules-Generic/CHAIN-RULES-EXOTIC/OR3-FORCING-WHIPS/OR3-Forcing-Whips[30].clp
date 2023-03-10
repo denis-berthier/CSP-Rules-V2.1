@@ -73,6 +73,7 @@
    (exists-link ?cont ?last-rlc3 ?cand)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L30* ?*print-OR3-forcing-whip* ?*print-OR3-forcing-whip-30*) then
       (print-OR3-forcing-whip-elim-candidate 
          ?or-name ?or-compl
@@ -116,6 +117,7 @@
    (exists-link ?cont ?last-rlc3 ?cand)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L30* ?*print-OR3-forcing-whip* ?*print-OR3-forcing-whip-30*) then
       (print-OR3-forcing-whip-elim-candidate 
          ?or-name ?or-compl
@@ -169,6 +171,7 @@
    (exists-link ?cont ?last-rlc3 ?cand)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L30* ?*print-OR3-forcing-whip* ?*print-OR3-forcing-whip-30*) then
       (print-OR3-forcing-whip-elim-candidate 
          ?or-name ?or-compl
@@ -219,6 +222,7 @@
    ?mod <- (candidate (context ?cont) (status cand) (label ?cand))
 =>
    (modify ?mod (status c-value))
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L30* ?*print-OR3-forcing-whip* ?*print-OR3-forcing-whip-30*) then
       (print-OR3-forcing-whip-assert-value 
          ?or-name ?or-compl

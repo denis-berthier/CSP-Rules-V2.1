@@ -79,6 +79,7 @@
    )
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L4* ?*print-OR5-forcing-gwhip* ?*print-OR5-forcing-gwhip-4*) then
       (print-OR5-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl
@@ -132,6 +133,7 @@
    )
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L4* ?*print-OR5-forcing-gwhip* ?*print-OR5-forcing-gwhip-4*) then
       (print-OR5-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl
@@ -198,6 +200,7 @@
    )
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L4* ?*print-OR5-forcing-gwhip* ?*print-OR5-forcing-gwhip-4*) then
       (print-OR5-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl

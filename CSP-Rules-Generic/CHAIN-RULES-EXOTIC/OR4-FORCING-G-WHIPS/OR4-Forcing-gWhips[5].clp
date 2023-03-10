@@ -75,6 +75,7 @@
    (exists-glink ?cont ?cand ?last-rlc4)
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L5* ?*print-OR4-forcing-gwhip* ?*print-OR4-forcing-gwhip-5*) then
       (print-OR4-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl
@@ -126,6 +127,7 @@
    )
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L5* ?*print-OR4-forcing-gwhip* ?*print-OR4-forcing-gwhip-5*) then
       (print-OR4-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl
@@ -190,6 +192,7 @@
    )
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L5* ?*print-OR4-forcing-gwhip* ?*print-OR4-forcing-gwhip-5*) then
       (print-OR4-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl
@@ -267,6 +270,7 @@
    )
 =>
    (retract ?ret)
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L5* ?*print-OR4-forcing-gwhip* ?*print-OR4-forcing-gwhip-5*) then
       (print-OR4-forcing-gwhip-elim-candidate 
          ?or-name ?or-compl
@@ -305,7 +309,6 @@
       (csp-vars $?csps2)
       (last-rlc ?cand)
    )
-   ?ret <- (candidate (context ?cont) (status cand) (label ?cand))
    (chain
       (type ?type3&:(or (eq ?type3 partial-whip) (eq ?type3 partial-gwhip)))
       (context ?cont)
@@ -330,6 +333,7 @@
    ?mod <- (candidate (context ?cont) (status cand) (label ?cand))
 =>
    (modify ?mod (status c-value))
+   (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L5* ?*print-OR4-forcing-gwhip* ?*print-OR4-forcing-gwhip-5*) then
       (print-OR4-forcing-gwhip-assert-value 
          ?or-name ?or-compl

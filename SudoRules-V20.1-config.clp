@@ -58,7 +58,7 @@
 
 ;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
-    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 13.0.1"
+    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 13.2.1"
 )                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -355,153 +355,240 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                                                                                                      ;;;
+;;;                  ALL THAT FOLLOWS IS FOR EXPERTS AND CAN BE COMPLETELY FORGOTTEN                     ;;;
+;;;                           IF YOU ARE SOLVING ORDINARY PUZZLES                                        ;;;
+;;;                                                                                                      ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2.3 Sudoku-specific rules : Tridagons and patterns for puzzles in T&E(3)
+;;; 2.3 9x9 Sudoku-specific rules based on impossible patterns:
+;;;     Tridagons and Eleven's set of 630 impossible patterns
+;;;     These rules produce ORk-relations that can be used with ORk-chains
+;;;     (for 9x9 puzzles only)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; BEWARE: in this section 2.3, general rules (Subsets, chains... are supposed to be activated in section 2.2)
+;;; BEWARE: in this section 2.3 and in sections 2.4 and 2.5,
+;;; general rules (Subsets, whips, ...) are supposed to be activated in sections 2.1 and 2.2.
 
-;;; 2.3.0) General settings:
-;;; By default, the Tridagon elimination rule and the anti-tridagon detection rule have high priority,
-;;; alowing their early use (i.e. they will be available immediately after Subsets[3]).
-;;; Give them lower priority (as in the original settings) here:
-; (bind ?*use-high-Tridagon-salience* FALSE)
-
-;;; Choose if you want ORk-forcing-whips to be applied before or after ORk-whips
-;;; (and simutaneaously ORk-forcing-g-whips before or after ORk-g-whips).
-;;; Default is before (i.e. ?*ORk-Forcing-Whips-before-ORk-Whips* = TRUE); change it here:
-; (bind ?*ORk-Forcing-Whips-before-ORk-Whips* FALSE)
-
-;;; Allow the splitting of ORk relations via conjugacy-chains (FALSE by default):
-; (bind ?*allow-ORk-splitting* TRUE)
-
-;;; Use any of the rules in this section, possibly with chains defined in the generic part,
-;;; with restricted lengths:
-; (bind ?*all-chains-max-length* 5)
-
-
-;;; 2.3.1) Use the simplest Tridagon elimination rule:
+;;; 2.3.1) Tridagons
+;;; Use the simplest Tridagon elimination rule:
 ; (bind ?*Tridagons* TRUE)
 
-
-;;; IN ALL THE CASES BELOW (ORk-chains and eleven replacement: 2.3.2a, 2.3.2b, 2.3.3, 2.3.4, 2.3.5):
-;;; - the anti-tridagons pattern detection rule must be selected explicitly;
-;;;   it then automatically implies Tridagons;
-;;; - it is highly recommended to restrict the max length of the basic chains rules,
-;;;   and that must be done explicitly (it is NOT a consequence of the ORk chain rules).
-;;;   See 2.3.0 above.
+;;; Allow the use of ORk-chains based on Tridagons
 ; (bind ?*Anti-Tridagons* TRUE)
 
+;;; By default, the Tridagon elimination rule and the anti-tridagon detection rule have high priority,
+;;; alowing their early use (i.e. they will be available immediately after Subsets[3]).
+;;; Give them lower priority here (not recommended):
+; (bind ?*use-high-Tridagon-salience* FALSE)
 
-;;; 2.3.2a - deprecated) Use Tridagon-Forcing-Whips (based on Tridagon-links):
+;;; 2.3.1a - (deprecated) Use Tridagon-Forcing-Whips (based on Tridagon-links):
 ;;; (Remember that Tridagon-Forcing-Whips => Tridagons)
-; (bind ?*Tridagon-Forcing-Whips* TRUE)
 ;;; If you use Tridagon-Forcing-Whips,
 ;;; it is highly recommended to put a strict upper bound also on the lengths of all the forcing-chains;
 ;;; 15 is a good starting points;
 ;;; try to increase these lengths progressively.
-; (bind ?*tridagon-forcing-whips-max-length* 12)
+; (bind ?*Tridagon-Forcing-Whips* TRUE)
+; (bind ?*tridagon-forcing-whips-max-length* 15)
 
 
-;;; 2.3.2b) Use ORk-Forcing-Whips in combination with Anti-Tridagons:
+;;; 2.3.2) Use eleven's 630-38 impossible patterns (FORTHCOMING)
+;;; Note that ?*Tridagons* and ?*Anti-Tridagons* must still be independently set to TRUE:
+;;; they are given higher salience and they are not included in the following lists.
+
+;;; Restrict all the rules that produce ORk relations between "guardians" to a maximum number of guardians:
+; (bind ?*max-guardians* 6) ; default is 8
+
+;;; Allow the use of (the most frequently found) specific impossible patterns,
+;;; by order of decreasing priorities:
+;;; - either all at a time:
+; (bind ?*Selected-Imp630* TRUE)
+;;; - or one by one:
+; (bind ?*EL13c290* TRUE)
+; (bind ?*EL14c30* TRUE)
+; (bind ?*EL14c13* TRUE)
+; (bind ?*EL14c159* TRUE)
+; (bind ?*EL14c1* TRUE)
+; (bind ?*EL13c176* TRUE)
+; (bind ?*EL13c30* TRUE)
+; (bind ?*EL10c28* TRUE)
+; (bind ?*EL13c234* TRUE)
+; (bind ?*EL13c179* TRUE)
+; (bind ?*EL13c187* TRUE)
+; (bind ?*EL13c168* TRUE)
+; (bind ?*EL13c175* TRUE)
+; (bind ?*EL13c259* TRUE)
+; (bind ?*EL15c97* TRUE)
+;;; Notice that selecting any of the above patterns will not only load the corresponding rules;
+;;; it will also set their priorities higher than those of all the other Imposs630 rules
+;;; (only useful when the following patterns are simultaneously activated).
+
+;;; Allow all the rules for impossible patterns in two bands or two stacks.
+; (bind ?*Imposs630-all* TRUE)
+;;; Or allow independently all the rules for each sub-family with n cells.
+; (bind ?*Imposs630-10c* TRUE)
+; (bind ?*Imposs630-12c* TRUE)
+; (bind ?*Imposs630-13c* TRUE)
+; (bind ?*Imposs630-14c* TRUE)
+; (bind ?*Imposs630-15c* TRUE)
+; (bind ?*Imposs630-16c* TRUE)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2.4 Combine Sudoku-specific rules producing ORk-relations
+;;;     with generic ORk-chains
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; IN ALL THE CASES BELOW (ORk-chains and eleven replacement: 2.4.2, 2.4.3, 2.4.4, 2.4.5, 2.4.6, 2.4.7, 2.5):
+;;; - the anti impossible pattern detection rule must be selected explicitly in section  2.3.1;
+;;;   it then automatically implies Tridagons;
+;;; - it is highly recommended to restrict the max length of the basic chains rules,
+;;;   and that must be done explicitly (it is NOT a consequence of the ORk chain rules);
+;;;   see 2.4.1.
+
+;;; BEWARE: It is strongly recommended not to choose any ORk-chains for k > 6.
+
+
+;;; 2.4.1) General settings:
+
+;;; Choose if you want ORk-forcing-whips to be applied before or after ORk-whips
+;;; (and simultaneously ORk-forcing-g-whips before or after ORk-g-whips).
+;;; Default is before (i.e. ?*ORk-Forcing-Whips-before-ORk-Whips* = TRUE); change it here:
+; (bind ?*ORk-Forcing-Whips-before-ORk-Whips* FALSE)
+
+;;; Allow the splitting of ORk relations via conjugacy-chains (now TRUE by default):
+; (bind ?*allow-ORk-splitting* FALSE)
+
+;;; Use any of the rules in this section, possibly with chains defined in the generic part,
+;;; with restricted lengths:
+; (bind ?*all-chains-max-length* 8)
+
+
+;;; 2.4.2) Use ORk-Forcing-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-Forcing-Whips* True)
 ; (bind ?*OR3-Forcing-Whips* True)
 ; (bind ?*OR4-Forcing-Whips* True)
 ; (bind ?*OR5-Forcing-Whips* True)
 ; (bind ?*OR6-Forcing-Whips* True)
+; (bind ?*OR7-Forcing-Whips* True)
+; (bind ?*OR8-Forcing-Whips* True)
 
-;;; 2.3.3) Use ORk-Contrad-Whips in combination with Anti-Tridagons:
+;;; 2.4.3) Use ORk-Contrad-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-Contrad-Whips* True)
 ; (bind ?*OR3-Contrad-Whips* True)
 ; (bind ?*OR4-Contrad-Whips* True)
 ; (bind ?*OR5-Contrad-Whips* True)
 ; (bind ?*OR6-Contrad-Whips* True)
+; (bind ?*OR7-Contrad-Whips* True)
+; (bind ?*OR8-Contrad-Whips* True)
 
-;;; 2.3.4) Use ORk-Whips in combination with Anti-Tridagons:
+;;; 2.4.4) Use ORk-Whips in combination with Anti-Tridagons:
 ;;; (Remember that ORk-Whips[n] => ORk-Contrad-Whips[n] => Tridagons)
 ; (bind ?*OR2-Whips* True)
 ; (bind ?*OR3-Whips* True)
 ; (bind ?*OR4-Whips* True)
 ; (bind ?*OR5-Whips* True)
 ; (bind ?*OR6-Whips* True)
+; (bind ?*OR7-Whips* True)
+; (bind ?*OR8-Whips* True)
 
 
-;;; 2.3.5) Use ORk-Forcing-G-Whips in combination with Anti-Tridagons:
+;;; 2.4.5) Use ORk-Forcing-G-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-Forcing-G-Whips* True)
 ; (bind ?*OR3-Forcing-G-Whips* True)
 ; (bind ?*OR4-Forcing-G-Whips* True)
 ; (bind ?*OR5-Forcing-G-Whips* True)
 ; (bind ?*OR6-Forcing-G-Whips* True)
 
-;;; 2.3.6) Use ORk-Contrad-G-Whips in combination with Anti-Tridagons:
+;;; 2.4.6) Use ORk-Contrad-G-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-Contrad-G-Whips* True)
 ; (bind ?*OR3-Contrad-G-Whips* True)
 ; (bind ?*OR4-Contrad-G-Whips* True)
 ; (bind ?*OR5-Contrad-G-Whips* True)
 ; (bind ?*OR6-Contrad-G-Whips* True)
+; (bind ?*OR7-Contrad-G-Whips* True)
+; (bind ?*OR8-Contrad-G-Whips* True)
 
-;;; 2.3.7) Use ORk-G-Whips in combination with Anti-Tridagons:
+;;; 2.4.7) Use ORk-G-Whips in combination with Anti-Tridagons:
 ; (bind ?*OR2-G-Whips* True)
 ; (bind ?*OR3-G-Whips* True)
 ; (bind ?*OR4-G-Whips* True)
 ; (bind ?*OR5-G-Whips* True)
 ; (bind ?*OR6-G-Whips* True)
+; (bind ?*OR7-G-Whips* True)
+; (bind ?*OR8-G-Whips* True)
 
 
-;;; 2.3.8) If you use anti-tridagon chains or g-chains,
+;;; 2.4.8) If you use anti-tridagon chains or g-chains,
 ;;; it is highly recommended to put a strict upper bound on their lengths;
 ;;; 5 is a good starting point ; try to increase these lengths progressively.
 
-;;; 2.3.8.a) restrict all the ORk-chains and ORk-g-chains at once;
-;;; Notice that this global restriction will prevail on any of the individual restrictions below.
-; (bind ?*all-ORk-chains-max-length* 5)
+;;; 2.4.8.a) restrict all the ORk-chains and ORk-g-chains at once;
+;;; Notice that this global restriction will prevail on any of the individual restrictions further below.
+; (bind ?*all-ORk-chains-max-length* 8)
 
-;;; 2.3.8.b) restrict all the ORk-chains and ORj-g-chains of each type;
-;;; Notice that these semi-global restrictions will prevail on any of the individual restrictions below.
-; (bind ?*all-ORk-forcing-whips-max-length* 5)
-; (bind ?*all-ORk-contrad-whips-max-length* 5)
-; (bind ?*all-ORk-whips-max-length* 5)
+;;; 2.4.8.b) restrict all the ORk-chains and ORk-g-chains of each type;
+;;; Notice that these semi-global restrictions will prevail on any of the individual restrictions further below.
+; (bind ?*all-ORk-forcing-whips-max-length* 8)
+; (bind ?*all-ORk-contrad-whips-max-length* 8)
+; (bind ?*all-ORk-whips-max-length* 8)
 
-; (bind ?*all-ORk-forcing-gwhips-max-length* 5)
-; (bind ?*all-ORk-contrad-gwhips-max-length* 5)
-; (bind ?*all-ORk-gwhips-max-length* 5)
+; (bind ?*all-ORk-forcing-gwhips-max-length* 8)
+; (bind ?*all-ORk-contrad-gwhips-max-length* 8)
+; (bind ?*all-ORk-gwhips-max-length* 8)
 
 
-;;; 2.3.8.c) restrict each ORk-chain and ORk-g-chain max lengths individually;
+;;; 2.4.8.c) restrict each ORk-chain and ORk-g-chain max lengths individually;
 ;;; notice that consistency preserving rules will be applied.
 ; (bind ?*OR2-forcing-whips-max-length* 5)
 ; (bind ?*OR3-forcing-whips-max-length* 5)
 ; (bind ?*OR4-forcing-whips-max-length* 5)
 ; (bind ?*OR5-forcing-whips-max-length* 5)
 ; (bind ?*OR6-forcing-whips-max-length* 5)
+; (bind ?*OR7-forcing-whips-max-length* 5)
+; (bind ?*OR8-forcing-whips-max-length* 5)
 
 ; (bind ?*OR2-contrad-whips-max-length* 5)
 ; (bind ?*OR3-contrad-whips-max-length* 5)
 ; (bind ?*OR4-contrad-whips-max-length* 5)
 ; (bind ?*OR5-contrad-whips-max-length* 5)
 ; (bind ?*OR6-contrad-whips-max-length* 5)
+; (bind ?*OR7-contrad-whips-max-length* 5)
+; (bind ?*OR8-contrad-whips-max-length* 5)
 
 ; (bind ?*OR2-whips-max-length* 5)
 ; (bind ?*OR3-whips-max-length* 5)
 ; (bind ?*OR4-whips-max-length* 5)
 ; (bind ?*OR5-whips-max-length* 5)
 ; (bind ?*OR6-whips-max-length* 5)
+; (bind ?*OR7-whips-max-length* 5)
+; (bind ?*OR8-whips-max-length* 5)
 
 ; (bind ?*OR2-contrad-gwhips-max-length* 5)
 ; (bind ?*OR3-contrad-gwhips-max-length* 5)
 ; (bind ?*OR4-contrad-gwhips-max-length* 5)
 ; (bind ?*OR5-contrad-gwhips-max-length* 5)
 ; (bind ?*OR6-contrad-gwhips-max-length* 5)
+; (bind ?*OR7-contrad-gwhips-max-length* 5)
+; (bind ?*OR8-contrad-gwhips-max-length* 5)
 
 ; (bind ?*OR2-gwhips-max-length* 5)
 ; (bind ?*OR3-gwhips-max-length* 5)
 ; (bind ?*OR4-gwhips-max-length* 5)
 ; (bind ?*OR5-gwhips-max-length* 5)
 ; (bind ?*OR6-gwhips-max-length* 5)
+; (bind ?*OR7-gwhips-max-length* 5)
+; (bind ?*OR8-gwhips-max-length* 5)
 
 
 
-;;; 2.3.9) Eleven's replacement technique:
+;;; 2.5) Eleven's replacement technique:
 ;;; Allow the automatic use of eleven's replacement method based on tridagons.
 ;;; (Note that the method is much more general;
 ;;; here, the anti-tridaon structure is only used to define a starting point).

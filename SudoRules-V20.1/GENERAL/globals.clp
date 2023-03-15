@@ -139,39 +139,52 @@
 ;;; it can be changed in the configuration file:
 (defglobal ?*use-high-Tridagon-salience* = TRUE)
 
-(defglobal ?*Selected-Imp630* = FALSE)
+(defglobal ?*Imp630-Select1* = FALSE)
+(defglobal ?*Imp630-Select2* = FALSE)
+(defglobal ?*Imp630-Select3* = FALSE)
+(defglobal ?*Imp630-Select4* = FALSE)
 
+;;; ?*Imp630-Select1*
 (defglobal ?*EL13c290* = FALSE)
 (defglobal ?*EL14c30* = FALSE)
 (defglobal ?*EL14c159* = FALSE)
 (defglobal ?*EL14c13* = FALSE)
 (defglobal ?*EL14c1* = FALSE)
+
+;;; ?*Imp630-Select2*
+(defglobal ?*EL13c176* = FALSE)
 (defglobal ?*EL10c28* = FALSE)
 (defglobal ?*EL13c30* = FALSE)
-(defglobal ?*EL13c176* = FALSE)
-(defglobal ?*EL13c234* = FALSE)
 (defglobal ?*EL13c179* = FALSE)
-(defglobal ?*EL10c6* = FALSE)
-(defglobal ?*EL13c259* = FALSE)
-(defglobal ?*EL13c172* = FALSE)
+(defglobal ?*EL13c234* = FALSE)
 (defglobal ?*EL13c171* = FALSE)
-(defglobal ?*EL13c187* = FALSE)
-(defglobal ?*EL13c175* = FALSE)
-(defglobal ?*EL13c168* = FALSE)
+
+;;; ?*Imp630-Select3*
+(defglobal ?*EL10c6* = FALSE)
 (defglobal ?*EL10c8* = FALSE)
-(defglobal ?*EL14c93* = FALSE)
-(defglobal ?*EL14c154* = FALSE)
+(defglobal ?*EL13c175* = FALSE)
+(defglobal ?*EL13c259* = FALSE)
+(defglobal ?*EL10c4* = FALSE)
+(defglobal ?*EL14c19* = FALSE)
+(defglobal ?*EL13c187* = FALSE)
+(defglobal ?*EL13c172* = FALSE)
+
+;;; ?*Imp630-Select3*
 (defglobal ?*EL15c97* = FALSE)
+(defglobal ?*EL13c168* = FALSE)
+(defglobal ?*EL14c93* = FALSE)
+(defglobal ?*EL13c19* = FALSE)
+(defglobal ?*EL14c154* = FALSE)
 
 ;;; For allowing all the rules for impossible patterns in two bands or two stacks:
-(defglobal ?*Imposs630-all* = FALSE)
+(defglobal ?*Imp630-all* = FALSE)
 ;;; For allowing independently all the rules for each sub-family with n cells.
-(defglobal ?*Imposs630-10c* = FALSE)
-(defglobal ?*Imposs630-12c* = FALSE)
-(defglobal ?*Imposs630-13c* = FALSE)
-(defglobal ?*Imposs630-14c* = FALSE)
-(defglobal ?*Imposs630-15c* = FALSE)
-(defglobal ?*Imposs630-16c* = FALSE)
+(defglobal ?*Imp630-10c* = FALSE)
+(defglobal ?*Imp630-12c* = FALSE)
+(defglobal ?*Imp630-13c* = FALSE)
+(defglobal ?*Imp630-14c* = FALSE)
+(defglobal ?*Imp630-15c* = FALSE)
+(defglobal ?*Imp630-16c* = FALSE)
 
 
 

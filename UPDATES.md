@@ -11,11 +11,28 @@
 5) Because they reflect changes to the software (almost) as soon as such changes are published, updates of the User Manual are not mentioned _per se_, except in case of a major update. <br><br>
 
 
+
+#### 2023 Mar 16 (Docs):
+* Update the Augmented User Manual with a full new chapter about the impossible patterns and the general question of how to deal with large numbers of patterns.<br>
+
+#### 2023 Mar 16 (SudoRules):
+* Add the 2488 automatically generated rules that can detect all the patterns in eleven's list of 630-38 impossible patterns in two bands (or two stacks). The output of these rules (ORk relations) can be used by all the generic ORk-chain rules.<br>
+* Complete the SudoRules configuration file with many options for activating all or part of the impossible patterns.<br>
+
+#### 2023 Mar 10 (Generic):
+* Allow ORk chains and g-chains to track which ORk-relations they have effectively used (introduce global variables ORk-relations-used and all-ORk-relations-used-in-list for respectively a puzzle and a file of puzzles). This was not useful when there was only one ORk relation (tridagon) but it will allow to make statistics about which ORk relations are the most frequently used.<br>
+
+#### 2023 Mar 10 (SudoRules):
+* Add functions to normalise patterns, to do some elementary analysis of them and to pretty-print them with additional information (free cells...).<br>
+* Note that the Sudoku-specific part of the "candidate" template in SudoRules has been extended with two slots (band and stack) for easier writing of the rules detecting the 630 impossible patterns. This has strictly no impact on anything existing before this change (especially on generic chain rules, which never use any application-specific slot, or on rules such as Subsets that do use Sudoku-specific slots, but continue not to use the two new ones).<br>
+
+
 #### 2023 Feb 04 (SudoRules):
 * Add functions for the analysis of k and kl digit patterns in SudoRules/Advanced; they allow in particular to find which 3-digit patterns are in T&E(2) - both restricted form (already published before) and full form (that's the new part).
+*In functions that solve lists of puzzles, add global variables to check in how many puzzles any specified ORk relation has effectively been used and to estimate the resolution power of each impossible pattern.<br>
 
 #### 2023 Jan 23 (Generic):
-* Add the ORk-splitting rules, for k ≤ 12, allowing to reduce the number of guardians in an ORk-relation and, possibly, to solve with shorter ORk-chains.
+* Add the ORk-splitting rules, for k ≤ 12, allowing to reduce the number of guardians in an ORk-relation and, possibly, to solve with shorter ORk-chains.<br>
 
 #### 2022 Dec 29 (Generic):
 * Add the ORk-contrad-g-whips, for k = 6

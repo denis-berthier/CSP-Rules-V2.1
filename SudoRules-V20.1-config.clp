@@ -369,7 +369,9 @@
 ;;; 2.3 9x9 Sudoku-specific rules based on impossible patterns:
 ;;;     Tridagons and Eleven's set of 630 impossible patterns
 ;;;     These rules produce ORk-relations that can be used with ORk-chains
-;;;     (for 9x9 puzzles only)
+;;;     (for 9x9 puzzles only).
+;;; This is highly specific to puzzles in T&E(3)
+;;; Read section 3.5 and chapters 14 and 15 of the Augmented User Manual
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; BEWARE: in this section 2.3 and in sections 2.4 and 2.5,
@@ -383,7 +385,7 @@
 ; (bind ?*Anti-Tridagons* TRUE)
 
 ;;; By default, the Tridagon elimination rule and the anti-tridagon detection rule have high priority,
-;;; alowing their early use (i.e. they will be available immediately after Subsets[3]).
+;;; allowing their early use (i.e. they will be available immediately after Subsets[3]).
 ;;; Give them lower priority here (not recommended):
 ; (bind ?*use-high-Tridagon-salience* FALSE)
 
@@ -397,46 +399,82 @@
 ; (bind ?*tridagon-forcing-whips-max-length* 15)
 
 
-;;; 2.3.2) Use eleven's 630-38 impossible patterns (FORTHCOMING)
+;;; 2.3.2) Use eleven's 630-38 impossible patterns
 ;;; Note that ?*Tridagons* and ?*Anti-Tridagons* must still be independently set to TRUE:
 ;;; they are given higher salience and they are not included in the following lists.
 
 ;;; Restrict all the rules that produce ORk relations between "guardians" to a maximum number of guardians:
 ; (bind ?*max-guardians* 6) ; default is 8
 
-;;; Allow the use of (the most frequently found) specific impossible patterns,
+;;; 2.3.2a) Allow the use of the most frequently found impossible patterns,
 ;;; by order of decreasing priorities:
-;;; - either all at a time:
-; (bind ?*Selected-Imp630* TRUE)
-;;; - or one by one:
+;;; - either a small set of them (4 possibilities, in increasing order):
+; (bind ?*Imp630-Select1* TRUE)
+; (bind ?*Imp630-Select2* TRUE)
+; (bind ?*Imp630-Select3* TRUE)
+; (bind ?*Imp630-Select4* TRUE)
+
+
+;;; - or members of each of the above subsets, one by one:
+;;; members of ?*Imp630-Select1*
 ; (bind ?*EL13c290* TRUE)
 ; (bind ?*EL14c30* TRUE)
-; (bind ?*EL14c13* TRUE)
 ; (bind ?*EL14c159* TRUE)
+; (bind ?*EL14c13* TRUE)
 ; (bind ?*EL14c1* TRUE)
+
+;;; members of ?*Imp630-Select2* = ?*Imp630-Select1* + the following:
 ; (bind ?*EL13c176* TRUE)
-; (bind ?*EL13c30* TRUE)
 ; (bind ?*EL10c28* TRUE)
-; (bind ?*EL13c234* TRUE)
+; (bind ?*EL13c30* TRUE)
 ; (bind ?*EL13c179* TRUE)
-; (bind ?*EL13c187* TRUE)
-; (bind ?*EL13c168* TRUE)
+; (bind ?*EL13c234* TRUE)
+; (bind ?*EL13c171* TRUE)
+
+;;; members of ?*Imp630-Select3* = ?*Imp630-Select2* + the following:
+; (bind ?*EL10c6* TRUE)
+; (bind ?*EL10c8* TRUE)
 ; (bind ?*EL13c175* TRUE)
 ; (bind ?*EL13c259* TRUE)
+; (bind ?*EL10c4* TRUE)
+; (bind ?*EL14c19* TRUE)
+; (bind ?*EL13c187* TRUE)
+; (bind ?*EL13c172* TRUE)
+
+;;; members of ?*Imp630-Select4* = ?*Imp630-Select3* + the following:
 ; (bind ?*EL15c97* TRUE)
+; (bind ?*EL13c168* TRUE)
+; (bind ?*EL14c93* TRUE)
+; (bind ?*EL13c19* TRUE)
+; (bind ?*EL14c154* TRUE)
+
+
 ;;; Notice that selecting any of the above patterns will not only load the corresponding rules;
 ;;; it will also set their priorities higher than those of all the other Imposs630 rules
-;;; (only useful when the following patterns are simultaneously activated).
+;;; (only useful when the following sets of patterns are simultaneously activated).
 
-;;; Allow all the rules for impossible patterns in two bands or two stacks.
-; (bind ?*Imposs630-all* TRUE)
+
+;;; 2.3.2b) Allow all the rules for impossible patterns in two bands or two stacks.
+; (bind ?*Imp630-all* TRUE)
+
 ;;; Or allow independently all the rules for each sub-family with n cells.
-; (bind ?*Imposs630-10c* TRUE)
-; (bind ?*Imposs630-12c* TRUE)
-; (bind ?*Imposs630-13c* TRUE)
-; (bind ?*Imposs630-14c* TRUE)
-; (bind ?*Imposs630-15c* TRUE)
-; (bind ?*Imposs630-16c* TRUE)
+; (bind ?*Imp630-10c* TRUE)
+; (bind ?*Imp630-12c* TRUE)
+; (bind ?*Imp630-13c* TRUE)
+; (bind ?*Imp630-14c* TRUE)
+; (bind ?*Imp630-15c* TRUE)
+; (bind ?*Imp630-16c* TRUE)
+
+
+
+;;; 2.3.3) Use eleven's impossible pattern #38 in 12 cells
+;;; Allow the use of eleven impossible pattern #38 in 12 cells
+; (bind ?*Eleven#38-12cells* TRUE)
+
+;;; By default, the eleven#38 detection rule has high priority,
+;;; alowing its early use (i.e. it will be available after Subsets[3] and Tridagons).
+;;; Give it lower priority here:
+; (bind ?*use-high-eleven#38-12cells-salience* FALSE)
 
 
 
@@ -446,13 +484,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; IN ALL THE CASES BELOW (ORk-chains and eleven replacement: 2.4.2, 2.4.3, 2.4.4, 2.4.5, 2.4.6, 2.4.7, 2.5):
-;;; - the anti impossible pattern detection rule must be selected explicitly in section  2.3.1;
-;;;   it then automatically implies Tridagons;
+;;; - the impossible patterns detection rule must be selected explicitly in section  2.3.1;
 ;;; - it is highly recommended to restrict the max length of the basic chains rules,
-;;;   and that must be done explicitly (it is NOT a consequence of the ORk chain rules);
+;;; - and that must be done explicitly (it is NOT a consequence of restricting the ORk chain rules);
 ;;;   see 2.4.1.
 
-;;; BEWARE: It is strongly recommended not to choose any ORk-chains for k > 6.
+;;; BEWARE: It is strongly recommended not to choose any ORk-chains for k > 8.
 
 
 ;;; 2.4.1) General settings:
@@ -470,7 +507,7 @@
 ; (bind ?*all-chains-max-length* 8)
 
 
-;;; 2.4.2) Use ORk-Forcing-Whips in combination with Anti-Tridagons:
+;;; 2.4.2) Use ORk-Forcing-Whips in combination with the selected ORk-relations:
 ; (bind ?*OR2-Forcing-Whips* True)
 ; (bind ?*OR3-Forcing-Whips* True)
 ; (bind ?*OR4-Forcing-Whips* True)
@@ -479,7 +516,7 @@
 ; (bind ?*OR7-Forcing-Whips* True)
 ; (bind ?*OR8-Forcing-Whips* True)
 
-;;; 2.4.3) Use ORk-Contrad-Whips in combination with Anti-Tridagons:
+;;; 2.4.3) Use ORk-Contrad-Whips in combination with the selected ORk-relations:
 ; (bind ?*OR2-Contrad-Whips* True)
 ; (bind ?*OR3-Contrad-Whips* True)
 ; (bind ?*OR4-Contrad-Whips* True)
@@ -488,7 +525,7 @@
 ; (bind ?*OR7-Contrad-Whips* True)
 ; (bind ?*OR8-Contrad-Whips* True)
 
-;;; 2.4.4) Use ORk-Whips in combination with Anti-Tridagons:
+;;; 2.4.4) Use ORk-Whips in combination with the selected ORk-relations:
 ;;; (Remember that ORk-Whips[n] => ORk-Contrad-Whips[n] => Tridagons)
 ; (bind ?*OR2-Whips* True)
 ; (bind ?*OR3-Whips* True)
@@ -499,14 +536,14 @@
 ; (bind ?*OR8-Whips* True)
 
 
-;;; 2.4.5) Use ORk-Forcing-G-Whips in combination with Anti-Tridagons:
+;;; 2.4.5) Use ORk-Forcing-G-Whips in combination with the selected ORk-relations:
 ; (bind ?*OR2-Forcing-G-Whips* True)
 ; (bind ?*OR3-Forcing-G-Whips* True)
 ; (bind ?*OR4-Forcing-G-Whips* True)
 ; (bind ?*OR5-Forcing-G-Whips* True)
 ; (bind ?*OR6-Forcing-G-Whips* True)
 
-;;; 2.4.6) Use ORk-Contrad-G-Whips in combination with Anti-Tridagons:
+;;; 2.4.6) Use ORk-Contrad-G-Whips in combination with the selected ORk-relations:
 ; (bind ?*OR2-Contrad-G-Whips* True)
 ; (bind ?*OR3-Contrad-G-Whips* True)
 ; (bind ?*OR4-Contrad-G-Whips* True)
@@ -515,7 +552,7 @@
 ; (bind ?*OR7-Contrad-G-Whips* True)
 ; (bind ?*OR8-Contrad-G-Whips* True)
 
-;;; 2.4.7) Use ORk-G-Whips in combination with Anti-Tridagons:
+;;; 2.4.7) Use ORk-G-Whips in combination with the selected ORk-relations:
 ; (bind ?*OR2-G-Whips* True)
 ; (bind ?*OR3-G-Whips* True)
 ; (bind ?*OR4-G-Whips* True)
@@ -525,7 +562,7 @@
 ; (bind ?*OR8-G-Whips* True)
 
 
-;;; 2.4.8) If you use anti-tridagon chains or g-chains,
+;;; 2.4.8) If you use ORk chains or g-chains,
 ;;; it is highly recommended to put a strict upper bound on their lengths;
 ;;; 5 is a good starting point ; try to increase these lengths progressively.
 

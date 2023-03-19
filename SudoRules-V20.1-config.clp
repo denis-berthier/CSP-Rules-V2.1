@@ -468,17 +468,6 @@
 
 
 
-;;; 2.3.3) Use eleven's impossible pattern #38 in 12 cells
-;;; Allow the use of eleven impossible pattern #38 in 12 cells
-; (bind ?*Eleven#38-12cells* TRUE)
-
-;;; By default, the eleven#38 detection rule has high priority,
-;;; alowing its early use (i.e. it will be available after Subsets[3] and Tridagons).
-;;; Give it lower priority here:
-; (bind ?*use-high-eleven#38-12cells-salience* FALSE)
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 2.4 Combine Sudoku-specific rules producing ORk-relations
 ;;;     with generic ORk-chains

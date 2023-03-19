@@ -423,7 +423,7 @@
 ; (bind ?*EL14c13* TRUE)
 ; (bind ?*EL14c1* TRUE)
 
-;;; members of ?*Imp630-Select2* = ?*Imp630-Select1* + the following:
+;;; members of ?*Imp630-Select2* :
 ; (bind ?*EL13c176* TRUE)
 ; (bind ?*EL10c28* TRUE)
 ; (bind ?*EL13c30* TRUE)
@@ -431,7 +431,7 @@
 ; (bind ?*EL13c234* TRUE)
 ; (bind ?*EL13c171* TRUE)
 
-;;; members of ?*Imp630-Select3* = ?*Imp630-Select2* + the following:
+;;; members of ?*Imp630-Select3* :
 ; (bind ?*EL10c6* TRUE)
 ; (bind ?*EL10c8* TRUE)
 ; (bind ?*EL13c175* TRUE)
@@ -441,7 +441,7 @@
 ; (bind ?*EL13c187* TRUE)
 ; (bind ?*EL13c172* TRUE)
 
-;;; members of ?*Imp630-Select4* = ?*Imp630-Select3* + the following:
+;;; members of ?*Imp630-Select4* :
 ; (bind ?*EL15c97* TRUE)
 ; (bind ?*EL13c168* TRUE)
 ; (bind ?*EL14c93* TRUE)
@@ -454,16 +454,17 @@
 ;;; (only useful when the following sets of patterns are simultaneously activated).
 
 
-;;; 2.3.2b) Allow all the rules for impossible patterns in two bands or two stacks.
-; (bind ?*Imp630-all* TRUE)
-
-;;; Or allow independently all the rules for each sub-family with n cells.
+;;; 2.3.2b) Allow all the rules for impossible patterns in two bands or two stacks
+;;; - either independently for each sub-family with n cells:
 ; (bind ?*Imp630-10c* TRUE)
 ; (bind ?*Imp630-12c* TRUE)
 ; (bind ?*Imp630-13c* TRUE)
 ; (bind ?*Imp630-14c* TRUE)
 ; (bind ?*Imp630-15c* TRUE)
 ; (bind ?*Imp630-16c* TRUE)
+
+;;; - or all of them at once:
+; (bind ?*Imp630-all* TRUE)
 
 
 
@@ -489,8 +490,6 @@
 ;;; - and that must be done explicitly (it is NOT a consequence of restricting the ORk chain rules);
 ;;;   see 2.4.1.
 
-;;; BEWARE: It is strongly recommended not to choose any ORk-chains for k > 8.
-
 
 ;;; 2.4.1) General settings:
 
@@ -513,8 +512,6 @@
 ; (bind ?*OR4-Forcing-Whips* True)
 ; (bind ?*OR5-Forcing-Whips* True)
 ; (bind ?*OR6-Forcing-Whips* True)
-; (bind ?*OR7-Forcing-Whips* True)
-; (bind ?*OR8-Forcing-Whips* True)
 
 ;;; 2.4.3) Use ORk-Contrad-Whips in combination with the selected ORk-relations:
 ; (bind ?*OR2-Contrad-Whips* True)
@@ -522,8 +519,6 @@
 ; (bind ?*OR4-Contrad-Whips* True)
 ; (bind ?*OR5-Contrad-Whips* True)
 ; (bind ?*OR6-Contrad-Whips* True)
-; (bind ?*OR7-Contrad-Whips* True)
-; (bind ?*OR8-Contrad-Whips* True)
 
 ;;; 2.4.4) Use ORk-Whips in combination with the selected ORk-relations:
 ;;; (Remember that ORk-Whips[n] => ORk-Contrad-Whips[n] => Tridagons)
@@ -532,8 +527,6 @@
 ; (bind ?*OR4-Whips* True)
 ; (bind ?*OR5-Whips* True)
 ; (bind ?*OR6-Whips* True)
-; (bind ?*OR7-Whips* True)
-; (bind ?*OR8-Whips* True)
 
 
 ;;; 2.4.5) Use ORk-Forcing-G-Whips in combination with the selected ORk-relations:
@@ -549,8 +542,7 @@
 ; (bind ?*OR4-Contrad-G-Whips* True)
 ; (bind ?*OR5-Contrad-G-Whips* True)
 ; (bind ?*OR6-Contrad-G-Whips* True)
-; (bind ?*OR7-Contrad-G-Whips* True)
-; (bind ?*OR8-Contrad-G-Whips* True)
+
 
 ;;; 2.4.7) Use ORk-G-Whips in combination with the selected ORk-relations:
 ; (bind ?*OR2-G-Whips* True)
@@ -558,8 +550,7 @@
 ; (bind ?*OR4-G-Whips* True)
 ; (bind ?*OR5-G-Whips* True)
 ; (bind ?*OR6-G-Whips* True)
-; (bind ?*OR7-G-Whips* True)
-; (bind ?*OR8-G-Whips* True)
+
 
 
 ;;; 2.4.8) If you use ORk chains or g-chains,
@@ -588,40 +579,30 @@
 ; (bind ?*OR4-forcing-whips-max-length* 5)
 ; (bind ?*OR5-forcing-whips-max-length* 5)
 ; (bind ?*OR6-forcing-whips-max-length* 5)
-; (bind ?*OR7-forcing-whips-max-length* 5)
-; (bind ?*OR8-forcing-whips-max-length* 5)
 
 ; (bind ?*OR2-contrad-whips-max-length* 5)
 ; (bind ?*OR3-contrad-whips-max-length* 5)
 ; (bind ?*OR4-contrad-whips-max-length* 5)
 ; (bind ?*OR5-contrad-whips-max-length* 5)
 ; (bind ?*OR6-contrad-whips-max-length* 5)
-; (bind ?*OR7-contrad-whips-max-length* 5)
-; (bind ?*OR8-contrad-whips-max-length* 5)
 
 ; (bind ?*OR2-whips-max-length* 5)
 ; (bind ?*OR3-whips-max-length* 5)
 ; (bind ?*OR4-whips-max-length* 5)
 ; (bind ?*OR5-whips-max-length* 5)
 ; (bind ?*OR6-whips-max-length* 5)
-; (bind ?*OR7-whips-max-length* 5)
-; (bind ?*OR8-whips-max-length* 5)
 
 ; (bind ?*OR2-contrad-gwhips-max-length* 5)
 ; (bind ?*OR3-contrad-gwhips-max-length* 5)
 ; (bind ?*OR4-contrad-gwhips-max-length* 5)
 ; (bind ?*OR5-contrad-gwhips-max-length* 5)
 ; (bind ?*OR6-contrad-gwhips-max-length* 5)
-; (bind ?*OR7-contrad-gwhips-max-length* 5)
-; (bind ?*OR8-contrad-gwhips-max-length* 5)
 
 ; (bind ?*OR2-gwhips-max-length* 5)
 ; (bind ?*OR3-gwhips-max-length* 5)
 ; (bind ?*OR4-gwhips-max-length* 5)
 ; (bind ?*OR5-gwhips-max-length* 5)
 ; (bind ?*OR6-gwhips-max-length* 5)
-; (bind ?*OR7-gwhips-max-length* 5)
-; (bind ?*OR8-gwhips-max-length* 5)
 
 
 

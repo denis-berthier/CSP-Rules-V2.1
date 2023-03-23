@@ -79,6 +79,7 @@
    )
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L2* ?*print-OR5-forcing-gwhip* ?*print-OR5-forcing-gwhip-2*) then
       (print-OR5-forcing-gwhip-elim-candidate 

@@ -75,6 +75,7 @@
    (exists-link ?cont ?last-rlc5 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L33* ?*print-OR5-forcing-whip* ?*print-OR5-forcing-whip-33*) then
       (print-OR5-forcing-whip-elim-candidate 
@@ -123,6 +124,7 @@
    (exists-link ?cont ?last-rlc5 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L33* ?*print-OR5-forcing-whip* ?*print-OR5-forcing-whip-33*) then
       (print-OR5-forcing-whip-elim-candidate 
@@ -181,6 +183,7 @@
    (exists-link ?cont ?last-rlc5 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L33* ?*print-OR5-forcing-whip* ?*print-OR5-forcing-whip-33*) then
       (print-OR5-forcing-whip-elim-candidate 
@@ -249,6 +252,7 @@
    (exists-link ?cont ?last-rlc5 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L33* ?*print-OR5-forcing-whip* ?*print-OR5-forcing-whip-33*) then
       (print-OR5-forcing-whip-elim-candidate 
@@ -327,6 +331,7 @@
    (exists-link ?cont ?last-rlc5 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L33* ?*print-OR5-forcing-whip* ?*print-OR5-forcing-whip-33*) then
       (print-OR5-forcing-whip-elim-candidate 

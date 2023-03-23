@@ -98,6 +98,7 @@
    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
 =>
    (retract ?cand)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?OR-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?OR-name)))
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L26* ?*print-OR5-gwhip* ?*print-OR5-gwhip-26*) then
@@ -154,6 +155,7 @@
    ?cand <- (candidate (context ?cont) (status cand) (label ?zzz))
 =>
    (retract ?cand)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?OR-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?OR-name)))
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L26* ?*print-OR5-gwhip* ?*print-OR5-gwhip-26*) then

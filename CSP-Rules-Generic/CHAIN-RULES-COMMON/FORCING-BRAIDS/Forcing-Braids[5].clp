@@ -119,6 +119,7 @@
    (exists-link ?cont ?last-rlc2 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L5* ?*print-forcing-braid* ?*print-forcing-braid-5*) then
       (print-forcing-braid-elim-candidate 
          ?type1 ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1

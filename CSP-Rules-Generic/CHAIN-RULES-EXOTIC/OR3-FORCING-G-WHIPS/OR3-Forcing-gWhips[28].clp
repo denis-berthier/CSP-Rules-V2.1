@@ -74,6 +74,7 @@
    (exists-glink ?cont ?cand ?last-rlc3)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L28* ?*print-OR3-forcing-gwhip* ?*print-OR3-forcing-gwhip-28*) then
       (print-OR3-forcing-gwhip-elim-candidate 
@@ -124,6 +125,7 @@
    )
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L28* ?*print-OR3-forcing-gwhip* ?*print-OR3-forcing-gwhip-28*) then
       (print-OR3-forcing-gwhip-elim-candidate 
@@ -187,6 +189,7 @@
    )
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L28* ?*print-OR3-forcing-gwhip* ?*print-OR3-forcing-gwhip-28*) then
       (print-OR3-forcing-gwhip-elim-candidate 

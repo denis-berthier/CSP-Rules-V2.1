@@ -125,6 +125,7 @@
    )
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L12* ?*print-forcing-gwhip* ?*print-forcing-gwhip-12*) then
       (print-forcing-gwhip-elim-candidate 
          ?type1 ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1

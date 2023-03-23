@@ -71,6 +71,7 @@
    (exists-link ?cont ?last-rlc2 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L25* ?*print-forcing-whip* ?*print-forcing-whip-25*) then
       (print-forcing-whip-elim-candidate 
          0 ?zzz1 (create$) (create$) (create$)
@@ -111,6 +112,7 @@
    (exists-link ?cont ?last-rlc2 ?cand)
 =>
    (retract ?ret)
+   (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (or ?*print-actions* ?*print-L25* ?*print-forcing-whip* ?*print-forcing-whip-25*) then
       (print-forcing-whip-elim-candidate 
          ?p1 ?zzz1 $?llcs1 $?rlcs1 $?csps1

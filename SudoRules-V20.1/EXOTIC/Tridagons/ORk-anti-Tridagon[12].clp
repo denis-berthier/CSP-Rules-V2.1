@@ -248,7 +248,7 @@
 
     (if ?*print-actions* then
         (printout t
-            "OR" ?nb-guardians "-anti-tridagon[12] for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
+            "Trid-OR" ?nb-guardians "-relation for digits " ?nb1 ", " ?nb2 " and " ?nb3 " in blocks: " crlf
             "        " (block-name ?b11) ", with cells (marked #): " (row-name ?row1) (column-name ?col1)  ", " (row-name ?row2) (column-name ?col2) ", " (row-name ?row3) (column-name ?col3) crlf
             "        " (block-name ?b12) ", with cells (marked #): " (row-name ?row1) (column-name ?col4)  ", " (row-name ?row2) (column-name ?col5) ", " (row-name ?row3) (column-name ?col6) crlf
             "        " (block-name ?b21) ", with cells (marked #): " (row-name ?row4) (column-name ?col1)  ", " (row-name ?row5) (column-name ?col2) ", " (row-name ?row6) (column-name ?col3) crlf

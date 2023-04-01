@@ -12,6 +12,10 @@
 
 
 
+#### 2023 Apr 1 (SudoRules):
+* Fine tune the four pre-selections of impossible patterns, based on their “usefulness” (see details in release 5 of the Augmented User Manual), a major step in finding the really useful patterns.<br>
+
+
 #### 2023 Mar 16 (Docs):
 * Update the Augmented User Manual with a full new chapter about the impossible patterns and the general question of how to deal with large numbers of patterns.<br>
 

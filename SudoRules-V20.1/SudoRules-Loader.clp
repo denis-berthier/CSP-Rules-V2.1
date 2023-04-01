@@ -206,10 +206,12 @@
         "Replacement-based-on-general-Tridagon.clp"))
 )
 
+;;; eleven's 630 impossible patterns in two bands or two stacks:
 (defglobal ?*dummy-Imp630* = (progn
     (if ?*Imp630-Select4* then (bind ?*Imp630-Select3* TRUE))
     (if ?*Imp630-Select3* then (bind ?*Imp630-Select2* TRUE))
     (if ?*Imp630-Select2* then (bind ?*Imp630-Select1* TRUE))
+    
     (if ?*Imp630-Select1* then
         (bind ?*EL13c290* TRUE)
         (bind ?*EL14c30* TRUE)
@@ -218,34 +220,36 @@
         (bind ?*EL14c1* TRUE)
     )
     (if ?*Imp630-Select2* then
-        (bind ?*EL13c176* TRUE)
-        (bind ?*EL10c28* TRUE)
         (bind ?*EL13c30* TRUE)
+        (bind ?*EL10c28* TRUE)
         (bind ?*EL13c179* TRUE)
+        (bind ?*EL13c176* TRUE)
         (bind ?*EL13c234* TRUE)
         (bind ?*EL13c171* TRUE)
-    )
-    (if ?*Imp630-Select3* then
         (bind ?*EL10c6* TRUE)
-        (bind ?*EL10c8* TRUE)
-        (bind ?*EL13c175* TRUE)
-        (bind ?*EL13c259* TRUE)
-        (bind ?*EL10c4* TRUE)
-        (bind ?*EL14c19* TRUE)
-        (bind ?*EL13c187* TRUE)
-        (bind ?*EL13c172* TRUE)
     )
     (if ?*Imp630-Select3* then
-        (bind ?*EL15c97* TRUE)
-        (bind ?*EL13c168* TRUE)
+        (bind ?*EL13c259* TRUE)
+        (bind ?*EL10c8* TRUE)
+        (bind ?*EL13c172* TRUE)
+        (bind ?*EL13c187* TRUE)
+        (bind ?*EL10c4* TRUE)
+        (bind ?*EL13c175* TRUE)
+        (bind ?*EL14c19* TRUE)
+    )
+    (if ?*Imp630-Select3* then
         (bind ?*EL14c93* TRUE)
-        (bind ?*EL13c19* TRUE)
+        (bind ?*EL15c97* TRUE)
         (bind ?*EL14c154* TRUE)
+        (bind ?*EL10c10* TRUE)
+        (bind ?*EL13c170* TRUE)
+        (bind ?*EL13c168* TRUE)
+        (bind ?*EL13c19* TRUE)
     )
     TRUE
 ))
 
-;;; Load selected lists of impossible patterns
+;;; Load selected lists of impossible patterns:
 ;;; ?*Imp630-Select1*
 (if ?*EL13c290* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c290.clp"))
@@ -262,18 +266,19 @@
 (if ?*EL14c1* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c1.clp"))
 )
+
 ;;; ?*Imp630-Select2*
-(if ?*EL13c176* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c176.clp"))
+(if ?*EL13c30* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c30.clp"))
 )
 (if ?*EL10c28* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/10c" ?*Directory-symbol* "EL10c28.clp"))
 )
-(if ?*EL13c30* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c30.clp"))
-)
 (if ?*EL13c179* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c179.clp"))
+)
+(if ?*EL13c176* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c176.clp"))
 )
 (if ?*EL13c234* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c234.clp"))
@@ -281,46 +286,54 @@
 (if ?*EL13c171* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c171.clp"))
 )
-;;; ?*Imp630-Select3*
 (if ?*EL10c6* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/10c" ?*Directory-symbol* "EL10c6.clp"))
+)
+
+;;; ?*Imp630-Select3*
+(if ?*EL13c259* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c259.clp"))
 )
 (if ?*EL10c8* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/10c" ?*Directory-symbol* "EL10c8.clp"))
 )
-(if ?*EL13c175* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c175.clp"))
-)
-(if ?*EL13c259* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c259.clp"))
-)
-(if ?*EL10c4* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/10c" ?*Directory-symbol* "EL10c4.clp"))
-)
-(if ?*EL14c19* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c19.clp"))
+(if ?*EL13c172* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c172.clp"))
 )
 (if ?*EL13c187* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c187.clp"))
 )
-(if ?*EL13c172* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c172.clp"))
+(if ?*EL10c4* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/10c" ?*Directory-symbol* "EL10c4.clp"))
 )
+(if ?*EL13c175* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c175.clp"))
+)
+(if ?*EL14c19* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c19.clp"))
+)
+
 ;;; ?*Imp630-Select4*
+(if ?*EL14c93* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c93.clp"))
+)
 (if ?*EL15c97* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/15c" ?*Directory-symbol* "EL15c97.clp"))
+)
+(if ?*EL14c154* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c154.clp"))
+)
+(if ?*EL10c10* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/10c" ?*Directory-symbol* "EL10c10.clp"))
+)
+(if ?*EL13c170* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c170.clp"))
 )
 (if ?*EL13c168* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c168.clp"))
 )
-(if ?*EL14c93* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c93.clp"))
-)
 (if ?*EL13c19* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c19.clp"))
-)
-(if ?*EL14c154* then
-    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c154.clp"))
 )
 
 
@@ -333,6 +346,7 @@
                 (not (and (eq ?i 4) ?*EL10c4*))
                 (not (and (eq ?i 6) ?*EL10c6*))
                 (not (and (eq ?i 8) ?*EL10c8*))
+                (not (and (eq ?i 8) ?*EL10c10*))
                 (not (and (eq ?i 28) ?*EL10c28*))
                 )then ; already loaded as a special case
                 (load (str-cat
@@ -351,11 +365,12 @@
 )
 (if (or ?*Imp630-all* ?*Imp630-13c*) then
     (loop-for-count (?i 1 290)
-        (if (not (member$ ?i (create$ 207 211 217 218 219))) then
+        (if (not (member$ ?i (create$ 207 211 217 218 219))) then ; #i has enough free cells
             (if (and
                     (not (and (eq ?i 19) ?*EL13c19*))
                     (not (and (eq ?i 30) ?*EL13c30*))
                     (not (and (eq ?i 168) ?*EL13c168*))
+                    (not (and (eq ?i 170) ?*EL13c170*))
                     (not (and (eq ?i 171) ?*EL13c171*))
                     (not (and (eq ?i 172) ?*EL13c172*))
                     (not (and (eq ?i 175) ?*EL13c175*))
@@ -374,7 +389,7 @@
 )
 (if (or ?*Imp630-all* ?*Imp630-14c*) then
     (loop-for-count (?i 1 159)
-        (if (not (member$ ?i (create$ 23 33 36 73 92 112 113))) then
+        (if (not (member$ ?i (create$ 23 33 36 73 92 112 113))) then ; #i has enough free cells
             (if (and
                     (not (and (eq ?i 1) ?*EL14c1*))
                     (not (and (eq ?i 13) ?*EL14c13*))
@@ -392,7 +407,7 @@
 )
 (if (or ?*Imp630-all* ?*Imp630-15c*) then
     (loop-for-count (?i 1 102)
-        (if (not (member$ ?i (create$ 11 16 18 30 32 36 38 40 42 45 47 49 51 53 56 57 66 68 69 80 83 85 100 101))) then
+        (if (not (member$ ?i (create$ 11 16 18 30 32 36 38 40 42 45 47 49 51 53 56 57 66 68 69 80 83 85 100 101)))  then ; #i has enough free cells
             (if (not (and (eq ?i 97) ?*EL15c97*)) then ; already loaded as a special case
                 (load (str-cat
                     ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/15c" ?*Directory-symbol* "EL15c" ?i ".clp"))

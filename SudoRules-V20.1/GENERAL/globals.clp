@@ -149,6 +149,9 @@
 
 
 ;;; Other impossible patterns in two bands or two stacks:
+
+(defglobal ?*raise-selected-Imp630-saliences* = TRUE)
+
 (defglobal ?*Imp630-Select1* = FALSE)
 (defglobal ?*Imp630-Select2* = FALSE)
 (defglobal ?*Imp630-Select3* = FALSE)

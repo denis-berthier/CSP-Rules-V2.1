@@ -39,6 +39,7 @@
 (defglobal ?*module-S4Fin-loaded* = FALSE)
 (defglobal ?*module-REVERSIBLE-PATTERNS-loaded* = FALSE)
 (defglobal ?*module-TRID-loaded* = FALSE)
+(defglobal ?*module-IMP630-ORk-W-loaded* = FALSE)
 (defglobal ?*module-TRID-FW-loaded* = FALSE)
 (defglobal ?*module-TRID-ORk-FW-loaded* = FALSE)
 (defglobal ?*module-TRID-ORk-CW-loaded* = FALSE)
@@ -47,7 +48,9 @@
 
 (defglobal ?*list-of-application-specific-modules* = (create$
     S2 S3 S4 S2Fin S3Fin S4Fin REVERSIBLE-PATTERNS
-    TRID TRID-FW TRID-ORk-FW TRID-ORk-CW TRID-ORk-W TRID-ORk-CHAINS
+    TRID
+    TRID-FW TRID-ORk-FW TRID-ORk-CW TRID-ORk-W TRID-ORk-CHAINS
+    IMP630-ORk-W
 ))
 
 (defglobal ?*list-of-modules* =
@@ -213,6 +216,14 @@
                 (if (not ?*module-TRID-ORk-CHAINS-loaded*) then
                     (batch* (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "TRID-ORk-CHAINS-module.clp"))
                     (bind ?*module-TRID-ORk-CHAINS-loaded* TRUE)
+                )
+                TRUE
+            )
+
+            (case IMP630-ORk-W then
+                (if (not ?*module-IMP630-ORk-W-loaded*) then
+                    (batch* (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "IMP630-ORk-W-module.clp"))
+                    (bind ?*module-IMP630-ORk-W-loaded* TRUE)
                 )
                 TRUE
             )

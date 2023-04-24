@@ -82,25 +82,25 @@
 
 (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "update-ORk-relations.clp"))
 (if (or ?*OR2-Forcing-Whips* ?*OR2-Contrad-Whips* ?*OR2-Whips*) then
-    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "symmetrify-OR2-relations.clp"))
+    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR2-relations.clp"))
 )
 (if (or ?*OR3-Forcing-Whips* ?*OR3-Contrad-Whips* ?*OR3-Whips*) then
-    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "symmetrify-OR3-relations.clp"))
+    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR3-relations.clp"))
 )
 (if (or ?*OR4-Forcing-Whips* ?*OR4-Contrad-Whips* ?*OR4-Whips*) then
-    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "symmetrify-OR4-relations.clp"))
+    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR4-relations.clp"))
 )
 (if (or *OR5-Forcing-Whips* ?*OR5-Contrad-Whips* ?*OR5-Whips*) then
-    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "symmetrify-OR5-relations.clp"))
+    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR5-relations.clp"))
 )
 (if (or ?*OR6-Forcing-Whips* ?*OR6-Contrad-Whips* ?*OR6-Whips*) then
-    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "symmetrify-OR6-relations.clp"))
+    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR6-relations.clp"))
 )
 (if (or ?*OR7-Forcing-Whips* ?*OR7-Contrad-Whips* ?*OR7-Whips*) then
-    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "symmetrify-OR7-relations.clp"))
+    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR7-relations.clp"))
 )
 (if (or ?*OR8-Forcing-Whips* ?*OR8-Contrad-Whips* ?*OR8-Whips*) then
-    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "symmetrify-OR8-relations.clp"))
+    (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR8-relations.clp"))
 )
 
 

@@ -12,6 +12,10 @@
 
 
 
+#### 2023 Apr 24 (SudoRules):
+* Add the IMP630-ORk-W module for the impossible patterns in two bands or two stacks. Note that patterns effectively loaded in this module are those defined in the configuration file. This module allows to try a solution with only impossible patterns before allowing "standard" chains.<br>
+
+
 #### 2023 Apr 1 (SudoRules):
 * Fine tune the four pre-selections of impossible patterns, based on their “usefulness” (see details in release 5 of the Augmented User Manual), a major step in finding the really useful patterns.<br>
 

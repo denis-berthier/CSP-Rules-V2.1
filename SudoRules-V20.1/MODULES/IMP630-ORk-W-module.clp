@@ -95,10 +95,10 @@
 ;;; Ultra-persistency rules: update ORk-relations and ORk-splitting rules
 (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "update-ORk-relations.clp"))
 (loop-for-count (?i 2 36)
-    (if (and ?*allow-ORk-splitting* (evenp ?i) (<= ?i 10)) then
+    (if (and ?*allow-ORk-splitting* (<= ?i ?*max-level*) (evenp ?i) (<= ?i 10)) then
         (bind ?k 2)
         (while (<= ?k 12)
-            (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
                 ?*Directory-symbol* "SPLIT-ORk"
                 ?*Directory-symbol* "split-OR" ?k "-ch[" ?i "].clp")
             )

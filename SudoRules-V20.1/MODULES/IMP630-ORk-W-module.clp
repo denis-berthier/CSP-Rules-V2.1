@@ -68,6 +68,25 @@
 
 
 
+;;; reversible chains
+(loop-for-count (?i 2 36)
+    ;;; bivalue-chains ≥ 2
+    (if (<= ?i ?*bivalue-chains-max-length*) then
+        (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-COMMON"
+            ?*Directory-symbol* "BIVALUE-CHAINS"
+            ?*Directory-symbol* "Bivalue-Chains[" ?i "].clp")
+        )
+    )
+    
+    ;;; z-chains ≥ 2
+    (if (<= ?i ?*z-chains-max-length*) then
+        (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
+                ?*Directory-symbol* "Z-CHAINS"
+                ?*Directory-symbol* "z-chains[" ?i "].clp")
+        )
+    )
+)
+
 ;;; Symmetrify-ORk rules
 (if ?*OR2-Whips* then
     (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC" ?*Directory-symbol* "SYMMETRIFY-ORk" ?*Directory-symbol* "symmetrify-OR2-relations.clp"))
@@ -332,6 +351,7 @@
             ?*Directory-symbol* "PARTIAL-WHIPS"
             ?*Directory-symbol* "Partial-Whips[" (- ?i 1) "].clp")
         )
+        
         (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR2-CONTRAD-WHIPS"
             ?*Directory-symbol* "OR2-Contrad-Whips[" ?i "].clp")
@@ -339,6 +359,10 @@
         (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR2-WHIPS"
             ?*Directory-symbol* "OR2-Whips[" ?i "].clp")
+        )
+        (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR2-WHIPS"
+            ?*Directory-symbol* "Partial-OR2-Whips[" (- ?i 1) "].clp")
         )
     )
     (if (and ?*OR3-Whips* (<= ?i ?*OR3-whips-max-length*)) then
@@ -350,6 +374,10 @@
             ?*Directory-symbol* "OR3-WHIPS"
             ?*Directory-symbol* "OR3-Whips[" ?i "].clp")
         )
+        (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR3-WHIPS"
+            ?*Directory-symbol* "Partial-OR3-Whips[" (- ?i 1) "].clp")
+        )
     )
     (if (and ?*OR4-Whips* (<= ?i ?*OR4-whips-max-length*)) then
         (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
@@ -359,6 +387,10 @@
         (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR4-WHIPS"
             ?*Directory-symbol* "OR4-Whips[" ?i "].clp")
+        )
+        (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR4-WHIPS"
+            ?*Directory-symbol* "Partial-OR4-Whips[" (- ?i 1) "].clp")
         )
     )
     (if (and ?*OR5-Whips* (<= ?i ?*OR5-whips-max-length*)) then
@@ -370,7 +402,11 @@
             ?*Directory-symbol* "OR5-WHIPS"
             ?*Directory-symbol* "OR5-Whips[" ?i "].clp")
         )
-    )
+        (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR5-WHIPS"
+            ?*Directory-symbol* "Partial-OR5-Whips[" (- ?i 1) "].clp")
+        )
+   )
     (if (and ?*OR6-Whips* (<= ?i ?*OR6-whips-max-length*)) then
         (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR6-CONTRAD-WHIPS"
@@ -379,6 +415,10 @@
         (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
             ?*Directory-symbol* "OR6-WHIPS"
             ?*Directory-symbol* "OR6-Whips[" ?i "].clp")
+        )
+        (load* (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
+            ?*Directory-symbol* "PARTIAL-OR6-WHIPS"
+            ?*Directory-symbol* "Partial-OR6-Whips[" (- ?i 1) "].clp")
         )
     )
 )

@@ -197,11 +197,18 @@
     ; (test (progn (printout t "additional conditions in " ?b22 " OK" crlf) TRUE))
 
     ;;; targets
-    ?candz1 <- (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (row ?row1) (column ?col1) (number ?nb1))
-    ?candz2 <- (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (row ?row1) (column ?col1) (number ?nb2))
-    ?candz3 <- (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (row ?row1) (column ?col1) (number ?nb3))
-    
+    ?candz1 <- (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (row ?row1) (column ?col1) (number ?nb1) (label ?zzz1))
+    ?candz2 <- (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (row ?row1) (column ?col1) (number ?nb2) (label ?zzz2))
+    ?candz3 <- (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (row ?row1) (column ?col1) (number ?nb3) (label ?zzz3))
     ; (test (progn (printout t "targets OK" crlf) TRUE))
+
+    ;;; if the focus list is not empty, the following condition restricts this rule to having at least one guardian in it
+    (or (not (candidate-in-focus (context ?cont)))
+        (or (candidate-in-focus (context ?cont) (label ?zzz1))
+            (candidate-in-focus (context ?cont) (label ?zzz2))
+            (candidate-in-focus (context ?cont) (label ?zzz3))
+        )
+    )
 
 =>
     (if ?*print-actions* then

@@ -12,8 +12,11 @@
 
 
 
+#### 2023 July 10 (Generic):
+* ORk-whips[1] now have a blocked version. It is selected by the same global variable ?\*blocked-Whips[1]\* as ordinary whips[1].<br>
+
 #### 2023 Apr 25 (SudoRules):
-* Add the IMP630-ORk-W module for the impossible patterns in two bands or two stacks. Note that patterns and ORk-whips effectively loaded in this module are those defined in the configuration file. This module allows to try a solution with only impossible patterns before allowing "standard" chains.<br>
+* Add the IMP630-ORk-W module for the impossible patterns in two bands or two stacks. Note that impossible patterns and ORk-whips effectively loaded in this module are those defined in the configuration file. This module also contains Tridagons and the reversible patterns: Subsets, bivalue-chains and z-chains. It allows to try a solution with mainly impossible patterns before allowing more advanced "regular" chains (t-whips, whips, g-whips, braids...).<br>
 * Add ORk-persistency rules to all the ORk-modules.<br>
 
 

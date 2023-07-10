@@ -58,7 +58,7 @@
 
 ;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
-    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 13.2.1"
+    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 13.4"
 )                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -151,7 +151,7 @@
 ;;; In the previous standard behaviour of CSP-Rules, when a pattern could have produced more than one elimination,
 ;;; the activation of a simpler rule by the first elimination could prevent further potential eliminations.
 ;;; This default behaviour is now changed:
-;;; - for Whips[1],
+;;; - for whips[1] (and ORk-whips[1]),
 ;;; - for Subsets,
 ;;; - for bivalue-chains (typed or not), z-chains (typed or not) and t-Whips (typed or not),
 ;;; - for Oddagons.
@@ -371,7 +371,7 @@
 ;;;     These rules produce ORk-relations that can be used with ORk-chains
 ;;;     (for 9x9 puzzles only).
 ;;; This is highly specific to puzzles in T&E(3)
-;;; Read section 3.5 and chapters 14 and 15 of the Augmented User Manual
+;;; Read section 3.5 and chapters 14 and 15 of the User Manual
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; BEWARE: in this section 2.3 and in sections 2.4 and 2.5,
@@ -451,23 +451,15 @@
 ; (bind ?*EL13c168* TRUE)
 ; (bind ?*EL13c19* TRUE)
 
+;;; Selecting any of the above patterns does not only load the corresponding rules;
+;;; it also sets their priorities higher than those of all the other Imposs630 rules.
+;;; You can cancel this behaviour here:
+; (bind ?*raise-selected-Imp630-saliences* FALSE)
 
-;;; Notice that selecting any of the above patterns will not only load the corresponding rules;
-;;; it will also set their priorities higher than those of all the other Imposs630 rules
-;;; (only useful when the following sets of patterns are simultaneously activated).
 
+;;; 2.3.2b) Allow at once all the rules for impossible patterns in two bands or two stacks
+; (bind ?*Imp630-all* TRUE) ; <<<<<<<<<<<<<<<
 
-;;; 2.3.2b) Allow all the rules for impossible patterns in two bands or two stacks
-;;; - either independently for each sub-family with n cells:
-; (bind ?*Imp630-10c* TRUE)
-; (bind ?*Imp630-12c* TRUE)
-; (bind ?*Imp630-13c* TRUE)
-; (bind ?*Imp630-14c* TRUE)
-; (bind ?*Imp630-15c* TRUE)
-; (bind ?*Imp630-16c* TRUE)
-
-;;; - or all of them at once:
-; (bind ?*Imp630-all* TRUE)
 
 
 

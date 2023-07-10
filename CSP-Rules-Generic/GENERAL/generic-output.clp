@@ -882,6 +882,13 @@
 
 ;;; ORk-whips, length = 1
 
+(deffunction print-ORk-whip[1]-without-crlf (?OR-name ?k ?or-compl ?cand $?ORk-cands)
+    (printout t ?OR-name "-OR" ?k "-whip[1]: ")
+    (print-final-ORk-cell ?k ?ORk-cands)
+    (printout t ?*implication-sign*) (print-deleted-candidate ?cand)
+)
+
+
 (deffunction print-ORk-whip[1] (?OR-name ?k ?or-compl ?cand $?ORk-cands)
     (printout t ?OR-name "-OR" ?k "-whip[1]: ")
     (print-final-ORk-cell ?k ?ORk-cands)

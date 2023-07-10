@@ -67,7 +67,32 @@
    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
    (if (not (member$ ?or-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?or-name)))
    (if (or ?*print-actions* ?*print-L1* ?*print-OR2-whip* ?*print-OR2-whip-1*) then
-       (print-ORk-whip[1] ?or-name 2 ?or-compl ?zzz ?zzz1 ?zzz2)
+       (print-ORk-whip[1]-without-crlf ?or-name 2 ?or-compl ?zzz ?zzz1 ?zzz2)
+    )
+   (if (not ?*blocked-Whips[1]*)
+       then (printout t crlf)
+       else (assert (apply-rule-as-a-pseudo-block ?cont))
+           (assert (pseudo-blocked ?cont OR2-whip[1] ?zzz ?zzz1 ?zzz2))
+   )
+)
+
+
+
+(defrule apply-OR2-whip[1]-to-more-targets
+    (declare (salience ?*apply-a-blocked-rule-salience-1*))
+    (pseudo-blocked ?cont OR2-whip[1] ?zzz ?zzz1 ?zzz2)
+
+    ;;; identify the other targets ?yyy
+    (exists-link ?cont ?zzz1 ?yyy&~?zzz)
+    (exists-link ?cont ?zzz2 ?yyy&~?zzz)
+
+    ?cand <- (candidate (context ?cont) (status cand) (label ?yyy))
+=>
+    (retract ?cand)
+    (if (eq ?cont 0) then (bind ?*nb-candidates* (- ?*nb-candidates* 1)))
+    (if (or ?*print-actions* ?*print-L1* ?*print-whip* ?*print-OR2-whip-1*) then
+        (printout t ", ")
+        (print-deleted-candidate ?yyy)
     )
 )
 

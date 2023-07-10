@@ -288,7 +288,7 @@
         (printout t "===> Testing each of the " (length$ ?*list-of-anti-backdoors*) " "
             ?RT0 "-anti-backdoors for a single step solution:" crlf crlf)
     )
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
@@ -310,7 +310,7 @@
         )
     )
 
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind ?*print-final-RS* ?*print-final-RS-backup*)
@@ -382,16 +382,9 @@
 
 
 ;;; Abbreviations:
-(deffunction find-sudoku-1-steppers-wrt-BRT (?sudoku-string)
-    (find-sudoku-1-steppers-wrt-resolution-theory BRT ?sudoku-string)
-)
 
 (deffunction find-sudoku-1-steppers-wrt-W1 (?sudoku-string)
     (find-sudoku-1-steppers-wrt-resolution-theory W1 ?sudoku-string)
-)
-
-(deffunction find-sukaku-1-steppers-wrt-BRT ($?sukaku-list)
-    (find-sukaku-1-steppers-wrt-resolution-theory BRT ?sukaku-list)
 )
 
 (deffunction find-sukaku-1-steppers-wrt-W1 ($?sukaku-list)
@@ -399,10 +392,6 @@
 )
 
 ;;; syntactic sugar for grid form:
-
-(deffunction find-sukaku-grid-1-steppers-wrt-BRT ($?sukaku-list)
-    (find-sukaku-1-steppers-wrt-resolution-theory BRT (clean-grid-list ?sukaku-list))
-)
 
 (deffunction find-sukaku-grid-1-steppers-wrt-W1 ($?sukaku-list)
     (find-sukaku-1-steppers-wrt-resolution-theory W1 (clean-grid-list ?sukaku-list))

@@ -153,7 +153,7 @@
     (bind ?i 1)
     (while (<= ?i ?len)
         (bind ?cand (nth$ ?i ?cand-list))
-        (if ?*debug* then (printout t crlf crlf "===> Trying to eliminate candidate #" ?i ": " ?cand crlf)
+        (if ?*debug* then (printout t crlf crlf "===> Trying to eliminate candidate #" ?i ": " (print-label ?cand) crlf)
             else (printout t ".")
         )
         (try-to-eliminate-candidates ?cand)

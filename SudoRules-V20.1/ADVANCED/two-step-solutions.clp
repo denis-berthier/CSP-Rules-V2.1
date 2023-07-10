@@ -322,7 +322,7 @@
     ;;; i.e. which of these candidate-pairs are indeed ?RT0 2-steppers:
     (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
     (restore-print-options)
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-Singles-backup* ?*print-RS-after-Singles*)
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
@@ -352,7 +352,7 @@
         (init-sukaku-list ?RS-after-RT0)
         (bind ?i (+ ?i 1))
     )
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-Singles* ?*print-RS-after-Singles-backup*)
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind ?*print-final-RS* ?*print-final-RS-backup*)
@@ -422,16 +422,8 @@
 
 
 ;;; Abbreviations:
-(deffunction find-sudoku-2-steppers-wrt-BRT (?sudoku-string)
-    (find-sudoku-2-steppers-wrt-resolution-theory BRT ?sudoku-string)
-)
-
 (deffunction find-sudoku-2-steppers-wrt-W1 (?sudoku-string)
     (find-sudoku-2-steppers-wrt-resolution-theory W1 ?sudoku-string)
-)
-
-(deffunction find-sukaku-2-steppers-wrt-BRT ($?sukaku-list)
-    (find-sukaku-2-steppers-wrt-resolution-theory BRT ?sukaku-list)
 )
 
 (deffunction find-sukaku-2-steppers-wrt-W1 ($?sukaku-list)
@@ -440,18 +432,12 @@
 
 
 ;;; syntactic sugar for grid form:
-
-(deffunction find-sukaku-grid-2-steppers-wrt-BRT ($?sukaku-list)
-    (find-sukaku-2-steppers-wrt-resolution-theory BRT (clean-grid-list ?sukaku-list))
-)
-
 (deffunction find-sukaku-grid-2-steppers-wrt-W1 ($?sukaku-list)
     (find-sukaku-2-steppers-wrt-resolution-theory W1 (clean-grid-list ?sukaku-list))
 )
 
 
 ;;; Also add these abbreviations for the most usual cases:
-
 (deffunction find-2-steppers (?sudoku-string)
     (find-sudoku-2-steppers-wrt-resolution-theory W1 ?sudoku-string)
 )

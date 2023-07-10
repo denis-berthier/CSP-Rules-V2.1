@@ -297,16 +297,8 @@
 
 
 ;;; Abbreviations:
-(deffunction solve-sudoku-with-fewer-steps-wrt-BRT (?sudoku-string)
-    (solve-sudoku-with-fewer-steps-wrt-resolution-theory BRT ?sudoku-string)
-)
-
 (deffunction solve-sudoku-with-fewer-steps-wrt-W1 (?sudoku-string)
     (solve-sudoku-with-fewer-steps-wrt-resolution-theory W1 ?sudoku-string)
-)
-
-(deffunction solve-sukaku-with-fewer-steps-wrt-BRT ($?sukaku-list)
-    (solve-sukaku-with-fewer-steps-wrt-resolution-theory BRT ?sukaku-list)
 )
 
 (deffunction solve-sukaku-with-fewer-steps-wrt-W1 ($?sukaku-list)
@@ -329,16 +321,8 @@
     )
 )
 
-(deffunction solve-ntimes-sudoku-with-fewer-steps-wrt-BRT (?ntimes ?sudoku-string)
-    (solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes BRT ?sudoku-string)
-)
-
 (deffunction solve-ntimes-sudoku-with-fewer-steps-wrt-W1 (?ntimes ?sudoku-string)
     (solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes W1 ?sudoku-string)
-)
-
-(deffunction solve-ntimes-sukaku-with-fewer-steps-wrt-BRT (?ntimes $?sukaku-list)
-    (solve-ntimes-sukaku-with-fewer-steps-wrt-resolution-theory ?ntimes BRT ?sukaku-list)
 )
 
 (deffunction solve-ntimes-sukaku-with-fewer-steps-wrt-W1 (?ntimes $?sukaku-list)
@@ -436,10 +420,6 @@
     (internal-reconstruct-sudoku-resolution-path-wrt-RT0 ?RT0 ?sudoku-string ?best-try-sequence-of-eliminations)
 )
 
-
-(deffunction smart-solve-ntimes-sudoku-with-fewer-steps-wrt-BRT (?ntimes ?sudoku-string)
-    (smart-solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes BRT ?sudoku-string)
-)
 
 (deffunction smart-solve-ntimes-sudoku-with-fewer-steps-wrt-W1 (?ntimes ?sudoku-string)
     (smart-solve-ntimes-sudoku-with-fewer-steps-wrt-resolution-theory ?ntimes W1 ?sudoku-string)

@@ -40,8 +40,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction check-conditions-on-no-step-RT0 (?RT0)
-    (if (not (or (eq ?RT0 BRT) (eq ?RT0 W1) (eq ?RT0 S2) (eq ?RT0 S3) (eq ?RT0 S4) (eq ?RT0 S))) then
-        (printout t "Only BRT, W1, S2, S3, S4 or S are allowed as the second argument to this function" crlf)
+    (if (not (or (eq ?RT0 W1) (eq ?RT0 S2) (eq ?RT0 S3) (eq ?RT0 S4) (eq ?RT0 S))) then
+        (printout t "Only W1, S2, S3, S4 or S are allowed as the second argument to this function" crlf)
         (return FALSE)
     )
     (if (or ?*t-Whips* ?*Typed-t-Whips*) then
@@ -78,15 +78,48 @@
     (assert (deactivate ?cont typed-braid))
     (assert (deactivate ?cont typed-gbraid))
     
+    ;;; Disable the generic ORk-chain rules:
+    (assert (deactivate ?cont OR2-contrad-whip))
+    (assert (deactivate ?cont OR3-contrad-whip))
+    (assert (deactivate ?cont OR4-contrad-whip))
+    (assert (deactivate ?cont OR5-contrad-whip))
+    (assert (deactivate ?cont OR6-contrad-whip))
+    (assert (deactivate ?cont OR7-contrad-whip))
+    (assert (deactivate ?cont OR8-contrad-whip))
+
+    (assert (deactivate ?cont OR2-whip))
+    (assert (deactivate ?cont OR3-whip))
+    (assert (deactivate ?cont OR4-whip))
+    (assert (deactivate ?cont OR5-whip))
+    (assert (deactivate ?cont OR6-whip))
+    (assert (deactivate ?cont OR7-whip))
+    (assert (deactivate ?cont OR8-whip))
+    
+    (assert (deactivate ?cont OR2-contrad-gwhip))
+    (assert (deactivate ?cont OR3-contrad-gwhip))
+    (assert (deactivate ?cont OR4-contrad-gwhip))
+    (assert (deactivate ?cont OR5-contrad-gwhip))
+    (assert (deactivate ?cont OR6-contrad-gwhip))
+    (assert (deactivate ?cont OR7-contrad-gwhip))
+    (assert (deactivate ?cont OR8-contrad-gwhip))
+    
+    (assert (deactivate ?cont OR2-gwhip))
+    (assert (deactivate ?cont OR3-gwhip))
+    (assert (deactivate ?cont OR4-gwhip))
+    (assert (deactivate ?cont OR5-gwhip))
+    (assert (deactivate ?cont OR6-gwhip))
+    (assert (deactivate ?cont OR7-gwhip))
+    (assert (deactivate ?cont OR8-gwhip))
+    
     ;;; if ?RT0 ≠ S, S2, S3 or S4, disable the relevant Subset rules in the new context:
     ;;; (this will also deactivate all the finned fish rules)
     (if (and (neq ?RT0 S2) (neq ?RT0 S3) (neq ?RT0 S4) (neq ?RT0 S)) then (assert (deactivate ?cont pair)))
     (if (and (neq ?RT0 S3) (neq ?RT0 S4) (neq ?RT0 S)) then (assert (deactivate ?cont triplet)))
     (if (and (neq ?RT0 S4) (neq ?RT0 S)) then (assert (deactivate ?cont quad)))
 
-    ;;; if ?RT0 = BRT, disable the whips[1] in the new context:
-    (if (eq ?RT0 BRT) then (assert (deactivate ?cont whip[1])))
-
+    ;;; deactivate tridagons
+    (assert (deactivate ?cont tridagon[12]))
+    
     ;;; make sure global variable ?*technique* is properly re-initialisd for further solving
     (bind ?*technique* 0)
 )
@@ -122,7 +155,7 @@
     ;;; Find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
     (disable-rules-not-in-RT0 0 ?RT0)
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
         (bind ?*print-RS-after-whips[1]* FALSE)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
@@ -134,13 +167,12 @@
     (bind ?RS-after-RT0 (compute-current-resolution-state))
     (if ?*print-actions* then
         (switch ?RT0
-            (case BRT then (printout t crlf "Resolution state after Singles:" crlf))
             (case W1 then (printout t crlf "Resolution state after Singles and whips[1]:" crlf))
             (default (printout t crlf "Resolution state after rules in " ?RT0 ":" crlf))
         )
         (pretty-print-sukaku-list ?RS-after-RT0)
     )
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind  ?*print-final-RS* ?*print-final-RS-backup*)
         (bind  ?*print-solution* ?*print-solution-backup*)
@@ -158,25 +190,24 @@
     ;;; Find the resolution state ?RS-after-RT0 after the rules in ?RT0 have been applied;
     ;;; it will be the starting point for all the subsequent calculations.
     (disable-rules-not-in-RT0 0 ?RT0)
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-whips[1]-backup* ?*print-RS-after-whips[1]*)
         (bind ?*print-RS-after-whips[1]* FALSE)
         (bind ?*print-final-RS-backup* ?*print-final-RS*)
         (bind ?*print-final-RS* FALSE)
         (bind ?*print-solution-backup* ?*print-solution*)
         (bind ?*print-solution* FALSE)
-   )
+    )
     (run)
     (bind ?RS-after-RT0 (compute-current-resolution-state))
     (if ?*print-actions* then
         (switch ?RT0
-            (case BRT then (printout t crlf "Resolution state after Singles:" crlf))
             (case W1 then (printout t crlf "Resolution state after Singles and whips[1]:" crlf))
             (default (printout t crlf "Resolution state after rules in " ?RT0 ":" crlf))
         )
         (pretty-print-sukaku-list ?RS-after-RT0)
     )
-    (if (or (eq ?RT0 BRT) (eq ?RT0 W1)) then
+    (if (eq ?RT0 W1) then
         (bind ?*print-RS-after-whips[1]* ?*print-RS-after-whips[1]-backup*)
         (bind  ?*print-final-RS* ?*print-final-RS-backup*)
         (bind  ?*print-solution* ?*print-solution-backup*)
@@ -247,7 +278,7 @@
         (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
         (printout t crlf)
         (if ?*print-actions* then (printout t "=====> STEP #" ?step crlf))
-        (try-to-eliminate-candidates ?cand)
+        (try-to-eliminate-candidates (list-of-nirjck-to-list-of-labels (create$ ?cand)))
         (disable-rules-not-in-RT0 0 ?RT0)
         (run)
         (bind ?step (+ ?step 1))
@@ -267,7 +298,7 @@
         (re-enable-disabled-rules-not-in-RT0 0 ?RT0)
         (printout t crlf)
         (if ?*print-actions* then (printout t "=====> STEP #" ?step crlf))
-        (try-to-eliminate-candidates (nirjck-to-label ?cand))
+        (try-to-eliminate-candidates (list-of-nirjck-to-list-of-labels (create$ ?cand)))
         (disable-rules-not-in-RT0 0 ?RT0)
         (run)
         (bind ?step (+ ?step 1))
@@ -278,19 +309,12 @@
 
 
 ;;; And the expected abbreviations:
-(deffunction reconstruct-sudoku-resolution-path-wrt-BRT (?sudoku-string $?sequence-of-eliminations)
-    (reconstruct-sudoku-resolution-path-wrt-RT0 BRT ?sudoku-string $?sequence-of-eliminations)
-)
 (deffunction reconstruct-sudoku-resolution-path-wrt-W1 (?sudoku-string $?sequence-of-eliminations)
     (reconstruct-sudoku-resolution-path-wrt-RT0 W1 ?sudoku-string $?sequence-of-eliminations)
-)
-(deffunction reconstruct-sukaku-resolution-path-wrt-BRT (?sukaku-list $?sequence-of-eliminations)
-    (reconstruct-sukaku-resolution-path-wrt-RT0 BRT ?sukaku-list $?sequence-of-eliminations)
 )
 (deffunction reconstruct-sukaku-resolution-path-wrt-W1 (?sukaku-list $?sequence-of-eliminations)
     (reconstruct-sukaku-resolution-path-wrt-RT0 W1 ?sukaku-list $?sequence-of-eliminations)
 )
-
 (deffunction reconstruct-path (?sudoku-string $?sequence-of-eliminations)
     (reconstruct-sudoku-resolution-path-wrt-RT0 W1 ?sudoku-string $?sequence-of-eliminations)
 )

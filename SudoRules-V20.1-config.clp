@@ -417,39 +417,41 @@
 
 
 ;;; - or members of each of the above subsets, one by one:
-;;; members of ?*Imp630-Select1* :
+;;; five members of ?*Imp630-Select1* :
 ; (bind ?*EL13c290* TRUE)
 ; (bind ?*EL14c30* TRUE)
 ; (bind ?*EL14c159* TRUE)
-; (bind ?*EL14c13* TRUE)
 ; (bind ?*EL14c1* TRUE)
+; (bind ?*EL14c13* TRUE)
 
-;;; members of ?*Imp630-Select2* :
-; (bind ?*EL13c30* TRUE)
+;;; seven additional members of ?*Imp630-Select2* :
 ; (bind ?*EL10c28* TRUE)
 ; (bind ?*EL13c179* TRUE)
-; (bind ?*EL13c176* TRUE)
-; (bind ?*EL13c234* TRUE)
+; (bind ?*EL13c30* TRUE)
 ; (bind ?*EL13c171* TRUE)
+; (bind ?*EL13c234* TRUE)
+; (bind ?*EL13c176* TRUE)
 ; (bind ?*EL10c6* TRUE)
 
-;;; members of ?*Imp630-Select3* :
+;;; 5 additional members of ?*Imp630-Select3* :
 ; (bind ?*EL13c259* TRUE)
 ; (bind ?*EL10c8* TRUE)
 ; (bind ?*EL13c172* TRUE)
-; (bind ?*EL13c187* TRUE)
-; (bind ?*EL10c4* TRUE)
-; (bind ?*EL13c175* TRUE)
 ; (bind ?*EL14c19* TRUE)
+; (bind ?*EL10c4* TRUE)
 
-;;; members of ?*Imp630-Select4* :
-; (bind ?*EL14c93* TRUE)
+;;; 11 additional members of ?*Imp630-Select4* :
+; (bind ?*EL13c175* TRUE)
+; (bind ?*EL13c136* TRUE)
 ; (bind ?*EL15c97* TRUE)
+; (bind ?*EL13c187* TRUE)
+; (bind ?*EL14c93* TRUE)
+; (bind ?*EL12c2* TRUE)
 ; (bind ?*EL14c154* TRUE)
-; (bind ?*EL10c10* TRUE)
+; (bind ?*EL13c19* TRUE)
 ; (bind ?*EL13c170* TRUE)
 ; (bind ?*EL13c168* TRUE)
-; (bind ?*EL13c19* TRUE)
+; (bind ?*EL10c10* TRUE)
 
 ;;; Selecting any of the above patterns does not only load the corresponding rules;
 ;;; it also sets their priorities higher than those of all the other Imposs630 rules.
@@ -458,7 +460,7 @@
 
 
 ;;; 2.3.2b) Allow at once all the rules for impossible patterns in two bands or two stacks
-; (bind ?*Imp630-all* TRUE) ; <<<<<<<<<<<<<<<
+; (bind ?*Imp630-all* TRUE)
 
 
 

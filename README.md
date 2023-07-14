@@ -231,11 +231,11 @@ The software parts in CSP-Rules V2.1 are distributed under the GNU GPL v3.0 lice
 Of course, the other publications (books, articles, conference proceedings...) remain protected by their original respective copyrights; this also applies to the CLIPS software.<br><br>
 
 ## 7. Companion repositories<br>
-CSP-Rules-V2.1 has two companion repositories:
+CSP-Rules-V2.1 has three companion repositories on GitHub:
 * one including examples. The first releases of CSP-Rules-V2.1 had an EXAMPLES folder, with examples for all the included applications.
-For easier additions to the examples, not requiring to make an update to CSP-Rules itself, this folder has now been moved to an independent repository: https://github.com/denis-berthier/CSP-Rules-Examples.<br>
+For easier additions to the examples, not requiring to make an update to CSP-Rules itself, this folder has now been moved to an independent repository: https://github.com/denis-berthier/CSP-Rules-Examples.
 * one including all the sofware and results related to the controlled-bias generation of puzzles: https://github.com/denis-berthier/Controlled-bias_Sudoku_generator_and_collection
-<br>
+* one including various classifications of the Sudoku puzzles in T&E(3): https://github.com/denis-berthier/Classifications-of-TE3-Sudokus<br>
 See these repositories for a detailed description of their contents.
 <br><br>
 
@@ -257,4 +257,5 @@ See these repositories for a detailed description of their contents.
 * [PBCS1]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles, Lulu Press, July 2012.<br>
 * [PBCS2]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Second Edition), Lulu Press, November 2015.<br>
 * [PBCS3]: BERTHIER D., Pattern-Based Constraint Satisfaction and Logic Puzzles (Third Edition), Lulu Press, November 2021.<br>
-* [PBCS]: any of [PBCS1], [PBCS2] or [PBCS3].<br><br>
+* [PBCS]: any of [PBCS1], [PBCS2] or [PBCS3].<br>
+* [UMRN]: BERTHIER D., User Manual and Research Notebooks for CSP-Rules, Lulu Press, July 2023.<br><br>

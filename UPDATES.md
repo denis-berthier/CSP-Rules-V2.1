@@ -12,6 +12,9 @@
 
 
 
+#### 2023 July 14 (SudoRules):
+* Update of the four subsets of selected impossible patterns, taking into account the latest classification of all the known T&E(3) puzzles.
+
 #### 2023 July 10 (Generic):
 * ORk-whips[1] now have a blocked version. It is selected by the same global variable ?\*blocked-Whips[1]\* as ordinary whips[1].<br>
 

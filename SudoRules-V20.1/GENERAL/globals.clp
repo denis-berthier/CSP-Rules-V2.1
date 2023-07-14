@@ -161,35 +161,37 @@
 (defglobal ?*EL13c290* = FALSE)
 (defglobal ?*EL14c30* = FALSE)
 (defglobal ?*EL14c159* = FALSE)
-(defglobal ?*EL14c13* = FALSE)
 (defglobal ?*EL14c1* = FALSE)
+(defglobal ?*EL14c13* = FALSE)
 
 ;;; ?*Imp630-Select2*
-(defglobal ?*EL13c30* = FALSE)
 (defglobal ?*EL10c28* = FALSE)
 (defglobal ?*EL13c179* = FALSE)
-(defglobal ?*EL13c176* = FALSE)
-(defglobal ?*EL13c234* = FALSE)
+(defglobal ?*EL13c30* = FALSE)
 (defglobal ?*EL13c171* = FALSE)
+(defglobal ?*EL13c234* = FALSE)
+(defglobal ?*EL13c176* = FALSE)
 (defglobal ?*EL10c6* = FALSE)
 
 ;;; ?*Imp630-Select3*
 (defglobal ?*EL13c259* = FALSE)
 (defglobal ?*EL10c8* = FALSE)
 (defglobal ?*EL13c172* = FALSE)
-(defglobal ?*EL13c187* = FALSE)
-(defglobal ?*EL10c4* = FALSE)
-(defglobal ?*EL13c175* = FALSE)
 (defglobal ?*EL14c19* = FALSE)
+(defglobal ?*EL10c4* = FALSE)
 
 ;;; ?*Imp630-Select4*
-(defglobal ?*EL14c93* = FALSE)
+(defglobal ?*EL13c175* = FALSE)
+(defglobal ?*EL13c136* = FALSE)
 (defglobal ?*EL15c97* = FALSE)
+(defglobal ?*EL13c187* = FALSE)
+(defglobal ?*EL14c93* = FALSE)
+(defglobal ?*EL12c2* = FALSE)
 (defglobal ?*EL14c154* = FALSE)
-(defglobal ?*EL10c10* = FALSE)
+(defglobal ?*EL13c19* = FALSE)
 (defglobal ?*EL13c170* = FALSE)
 (defglobal ?*EL13c168* = FALSE)
-(defglobal ?*EL13c19* = FALSE)
+(defglobal ?*EL10c10* = FALSE)
 
 
 ;;; For allowing sets of rules for impossible patterns in two bands or two stacks:

@@ -53,7 +53,7 @@
 
 
 (defrule activate-3-digit-pattern-rule-EL13c136
-   (declare (salience ?*activate-ork-Imp630-13c-salience*))
+   (declare (salience ?*activate-ork-EL13c136-salience*))
    (logical
       (play)
       (context (name ?cont))
@@ -65,7 +65,7 @@
 
 
 (defrule 3-digit-pattern-rule-EL13c136
-   (declare (salience ?*ork-Imp630-13c-salience*))
+   (declare (salience ?*ork-EL13c136-salience*))
    (number ?nb1)
    (number ?nb2&:(< ?nb1 ?nb2))
    (number ?nb3&:(< ?nb2 ?nb3))
@@ -314,7 +314,7 @@
 
 
 (defrule activate-3-digit-pattern-rule-EL13c136s
-   (declare (salience ?*activate-ork-Imp630-13c-salience*))
+   (declare (salience ?*activate-ork-EL13c136-salience*))
    (logical
       (play)
       (context (name ?cont))
@@ -326,7 +326,7 @@
 
 
 (defrule 3-digit-pattern-rule-EL13c136s
-   (declare (salience ?*ork-Imp630-13c-salience*))
+   (declare (salience ?*ork-EL13c136-salience*))
    (number ?nb1)
    (number ?nb2&:(< ?nb1 ?nb2))
    (number ?nb3&:(< ?nb2 ?nb3))

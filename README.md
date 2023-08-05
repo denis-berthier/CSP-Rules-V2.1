@@ -36,7 +36,7 @@ Notice that the more recent releases contain  a whole new set of powerful generi
 
 
 ## 4. Examples<br>
-For making the above more explicit, consider the following (moderately difficult) Sudoku puzzle (created by "Mith"):<br>
+For making the above more explicit, consider the following (moderately difficult) Sudoku puzzle (created by Philip Newman (alias "mith" on the Sudoku forums):<br>
 
 ```
    +-------+-------+-------+ 

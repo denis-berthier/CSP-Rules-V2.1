@@ -71,6 +71,49 @@
 )
 
 
+
+
+(deffunction compute-solution-string-in-context (?cont)
+    ;;; when this function is called, a solution is supposed to be reached in context ?cont
+    (if (> ?*segment-size* 5) then
+        (printout t "compute-solution-string-in-context works only for grid size ≤ 25" crlf)
+        (return FALSE)
+    )
+    (bind ?sol-str "")
+    (foreach ?row ?*rows*
+        (foreach ?col ?*columns*
+            (bind ?rc-content "")
+            (foreach ?nb ?*numbers*
+                (do-for-all-facts ((?cand candidate))
+                    (and (= ?cand:context ?cont) (= ?cand:row ?row) (= ?cand:column ?col) (= ?cand:number ?nb) (eq ?cand:status c-value))
+                    ;;; add this line for 16x16 or 25x25 puzzles given in hexadecimal notation
+                    (bind ?nb2 ?nb)
+                    ;;; add this line for 16x16 or 25x25 puzzles given in hexadecimal notation
+                    (if (eq ?*grid-size* 16) then (bind ?nb2 (transform-nb-to-hexa ?nb)))
+                    (if (eq ?*grid-size* 25) then (bind ?nb2 (transform-nb-to-25letters ?nb)))
+                    (bind ?rc-content (str-cat ?rc-content ?nb2)) ; this should apply only once for each (row, col)
+                )
+                (if (= ?nb ?*grid-size*) then (bind ?sol-str (str-cat ?sol-str ?rc-content)))
+            )
+        )
+    )
+    ?sol-str
+)
+
+
+(deffunction compute-solution-string ()
+    ;;; when this function is called,
+    ;;; either DFS is not used and a solution is supposed to be reached in context 0
+    ;;; or DFS is used and a solution is has been stored in variables ?*solution-string*
+    (if ?*DFS*
+        then ?*solution-string*
+        else (compute-solution-string-in-context 0)
+    )
+)
+
+
+
+
 (deffunction print-current-resolution-state-in-context (?cont)
     (if (> ?*segment-size* 5) then
         (printout t "print-current-resolution-state works only for grid size ≤ 25" crlf)

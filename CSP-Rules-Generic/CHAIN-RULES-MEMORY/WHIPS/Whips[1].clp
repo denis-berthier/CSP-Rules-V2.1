@@ -61,7 +61,9 @@
 (defrule whip[1]
 	(declare (salience ?*whip[1]-salience*))
     ;;; ?*whip[1]-salience* < ?*single-salience* implies that ?csp1 has at least two candidates when this rule applies
-    (exists-link ?cont ?llc1 ?zzz&:(not (known-to-be-in-solution ?zzz)))
+    ;;; ?zzz and ?llc1
+    (exists-link ?cont ?zzz ?llc1)
+    (test (or (neq ?cont 0) (not (known-to-be-in-solution ?zzz))))
 
     (technique ?cont whip[1])
     (is-csp-variable-for-label (csp-var ?csp1) (label ?llc1))

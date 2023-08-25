@@ -200,6 +200,7 @@
         (printout t "CSP IS SOLVED.")
         (printout t " rating-type = " ?*rating-type* ", MOST COMPLEX RULE TRIED = " ?*technique* ", DFS MAX-DEPTH = " ?*DFS-max-depth* crlf)
     )
+    (bind ?*solution-string* (compute-solution-string-in-context ?cont))
     (retract ?brt)
     (assert (solution-found ?cont))
     (bind ?*solution-found* TRUE)

@@ -228,16 +228,17 @@
     (not (context (name ?cont&~?par) (parent ?par)))
     ;;; each remaining cand will be re-tried in each phase, but not re-tried in the same phase
     (phase ?par ?ph)
+    ;;; try to eliminate candidates that are not known to be in the solution
     ?gen <- (candidate (context ?par) (status cand) (label ?gen-cand))
+    (test (not (known-to-be-in-solution ?gen-cand)))
     (not (TE1-tried ?par ?ph ?gen-cand))
+    
     ;;; try only the candidates that are restricted targets for T&E
-    (or (test (not ?*restrict-TE-targets*))
-        (is-restricted-TE-target 0 ?gen-cand)
-    )
+    (or (test (not ?*restrict-TE-targets*)) (is-restricted-TE-target 0 ?gen-cand))
 
     ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
     ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)
-    (or (not (candidate-in-focus (context ?par))) (candidate-in-focus (context ?par) (label ?zzz)))
+    (or (not (candidate-in-focus (context ?par))) (candidate-in-focus (context ?par) (label ?gen-cand)))
 
 =>
     ;;; choose ?gen-cand as a hypothesis

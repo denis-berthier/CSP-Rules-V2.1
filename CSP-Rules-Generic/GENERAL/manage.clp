@@ -174,7 +174,7 @@
     (not (technique ?cont BRT))
 =>
     (bind ?*nb-facts* ?sol)
-    (if (or ?*print-solution* ?*save-solutions*)
+    (if ?*print-solution* then
         then (assert (print-solution-in-context ?cont)) else (halt)
     )
 )
@@ -185,7 +185,7 @@
     ?sol <- (solution-found ?cont)
     (print-solution-in-context ?cont)
 =>
-    (if (or ?*print-solution* ?*save-solutions*) then
+    (if ?*print-solution* then
         (pretty-print-solution-in-context ?cont)
         (printout t "nb-facts = " ?sol crlf)
     )

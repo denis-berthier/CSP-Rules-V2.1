@@ -122,6 +122,9 @@
     ?*ORk-size* = 0
     ?*ORk-sizes-list* = (create$)
     ?*ORk-relations-used* = (create$)
+    
+    ?*solution-string* = "" ; used only for DFS
+    ?*known-to-be-in-solution* = (create$)
 )
 
 
@@ -172,6 +175,9 @@
     (bind ?*ORk-size* 0)
     (bind ?*ORk-sizes-list* (create$))
     (bind ?*ORk-relations-used* (create$))
+    
+    (bind  ?*solution-string* "")
+    (bind ?*known-to-be-in-solution* (create$))
 )
 
 
@@ -270,13 +276,6 @@
     (bind ?*special-list2* (create$))
     (bind ?*all-ORk-relations-used-in-list* (create$))
     (bind ?*all-ORk-relations-used-in-solved-list* (create$))
-)
-
-
-;;; ?*save-solutions* should be kept to FALSE, except within a function that opens a writable solutions file with symbol "solutions-file"
-(defglobal
-    ?*save-solutions* = FALSE
-    ?*solutions-file* = "solutions-file"
 )
 
 

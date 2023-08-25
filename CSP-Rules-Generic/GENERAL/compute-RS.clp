@@ -52,6 +52,9 @@
 ;;; Allow initialisation from any resolution state:
 (deffunction init-context-with-resolution-state (?cont $?RS) TRUE)
 
+;;; compute solution string
+(deffunction compute-solution-string-in-context (?cont) "")
+
 ;;; Define specific functions for context 0:
 (deffunction compute-current-resolution-state () (compute-current-resolution-state-in-context 0))
 (deffunction print-current-resolution-state () (print-current-resolution-state-in-context 0))

@@ -505,6 +505,7 @@
 
 
 (deffunction sol-string-to-list (?sol-string)
+    (bind ?known-list (create$))
     (bind ?row 1)
     (while (<= ?row ?*grid-size*)
         (bind ?col 1)
@@ -512,12 +513,12 @@
             (bind ?k (cell-index ?row ?col))
             (bind ?nb (nth$ 1 (explode$ (sub-string ?k ?k ?sol-string))))
             (bind ?label (nrc-to-label ?nb ?row ?col))
-            (bind ?*known-to-be-in-solution* (create$ ?*known-to-be-in-solution* ?label))
+            (bind ?known-list (create$ ?known-list ?label))
             (bind ?col (+ ?col 1))
         )
         (bind ?row (+ ?row 1))
     )
-   ?*known-to-be-in-solution*     
+    ?known-list
 )
 
 

@@ -38,8 +38,9 @@
 (defrule partial-gwhip[1]-1
 	(declare (salience ?*partial-gwhip[1]-salience-1*))
 	(logical
-        ;;; ?llc1
-        (exists-link ?cont ?llc1 ?zzz&:(not (known-to-be-in-solution ?zzz)))
+        ;;; ?zzz and ?llc1
+        (exists-link ?cont ?zzz ?llc1)
+        (test (or (neq ?cont 0) (not (known-to-be-in-solution ?zzz))))
 
         ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
         ;;; t-whips should not be used if the focus list is not empty (this would restrict them improperly)

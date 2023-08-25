@@ -63,7 +63,10 @@
 (defrule partial-g-bivalue-chain[1]
 	(declare (salience ?*partial-g-bivalue-chain[1]-salience*))
 	(logical
-        (exists-link ?cont ?zzz&:(not (known-to-be-in-solution ?zzz)) ?llc1)
+        ;;; ?zzz and ?llc1
+        (exists-link ?cont ?zzz ?llc1)
+        (test (or (neq ?cont 0) (not (known-to-be-in-solution ?zzz))))
+        
         ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
         (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 

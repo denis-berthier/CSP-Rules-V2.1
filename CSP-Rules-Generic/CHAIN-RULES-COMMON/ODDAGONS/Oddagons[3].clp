@@ -61,7 +61,9 @@
 (defrule partial-oddagon[2]
 	(declare (salience ?*partial-oddagon[2]-salience*))
     (logical
-        (candidate (context ?cont) (status cand) (label ?zzz&:(not (known-to-be-in-solution ?zzz))))
+        (candidate (context ?cont) (status cand) (label ?zzz))
+        (test (or (neq ?cont 0) (not (known-to-be-in-solution ?zzz))))
+        
         ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
         (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
 

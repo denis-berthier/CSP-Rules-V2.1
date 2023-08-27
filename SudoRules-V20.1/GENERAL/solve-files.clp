@@ -42,9 +42,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(deffunction init-grid-from-text-file (?file-symb)
+(deffunction init-grid-from-text-file (?puzzles-file-symb)
+    ;;; the file is supposed to have been opened by the calling function
 	;;; read line containing the grid entries
-	(bind ?givens (readline ?file-symb))
+	(bind ?givens (readline ?puzzles-file-symb))
 	(if ?*print-actions* then (printout t ?givens crlf))
     ;;; fixed facts and structures common to all the instances are defined here
     (init-general-application-structures)
@@ -59,12 +60,13 @@
 )
 
 
-(deffunction solve-grid-from-text-file (?file-symb ?i)
-	(reset) (reset)  
+(deffunction solve-grid-from-text-file (?puzzles-file-symb ?i)
+    ;;; the file is supposed to have been opened by the calling function
+	(reset) (reset)
 	(if ?*print-actions* then (print-banner))
 	(bind ?time0 (time))
     ;;; puzzle entries are taken into account here
-	(init-grid-from-text-file ?file-symb)
+	(init-grid-from-text-file ?puzzles-file-symb)
     (assert (context (name 0)))
 	(assert (grid ?i))
 	(bind ?time1 (time))
@@ -94,19 +96,19 @@
 )
 
 
-(deffunction solve-nth-grid-from-text-file (?file-name ?nb)
+(deffunction solve-nth-grid-from-text-file (?puzzles-file ?nb)
 	(bind ?*total-time* 0)
 	(bind ?*max-time* 0)
-	(open ?file-name "file-symb" "r")
+	(open ?puzzles-file "puzzles-file-symb" "r")
 	(bind ?i 1)
-	(while (< ?i ?nb) (readline "file-symb") (bind ?i (+ ?i 1)))
-	(solve-grid-from-text-file "file-symb" ?nb)
-	(close "file-symb")
+	(while (< ?i ?nb) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
+	(solve-grid-from-text-file "puzzles-file-symb" ?nb)
+	(close "puzzles-file-symb")
 )
 
 
 
-(deffunction solve-n-grids-after-first-p-from-text-file (?file-name ?p ?n)
+(deffunction solve-n-grids-after-first-p-from-text-file (?puzzles-file ?p ?n)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
 	(bind ?*solved-list* (create$))
@@ -124,9 +126,9 @@
 	(bind ?*total-time* 0)
 	(bind ?*max-time* 0)
 	(bind ?*total-outer-time* (time))
-	(open ?file-name "file-symb" "r")
+	(open ?puzzles-file "puzzles-file-symb" "r")
 	(bind ?i 1)
-	(while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+	(while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
@@ -136,7 +138,7 @@
         (bind ?*has-oddagon* FALSE)
         (bind ?*has-tridagon* FALSE)
 
-        (solve-grid-from-text-file "file-symb" ?i)
+        (solve-grid-from-text-file "puzzles-file-symb" ?i)
         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
         (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
@@ -145,7 +147,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -156,7 +158,7 @@
 )
 
 
-(deffunction solve-n-grids-after-first-p-from-text-file-excluding (?file-name ?p ?n $?l-out)
+(deffunction solve-n-grids-after-first-p-from-text-file-excluding (?puzzles-file ?p ?n $?l-out)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
 	(bind ?*solved-list* (create$))
@@ -174,13 +176,13 @@
 	(bind ?*total-time* 0)
 	(bind ?*max-time* 0)
 	(bind ?*total-outer-time* (time))
-	(open ?file-name "file-symb" "r")
+	(open ?puzzles-file "puzzles-file-symb" "r")
 	(bind ?i 1)
-	(while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+	(while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
 		(if (member$ ?i ?l-out)
-			then (readline "file-symb")
+			then (readline "puzzles-file-symb")
 				 ;(printout t "#" ?i " in already solved lists" crlf)
 				 (printout t "#" ?i " " )
 			else
@@ -191,7 +193,7 @@
                 (bind ?*has-oddagon* FALSE)
                 (bind ?*has-tridagon* FALSE)
 
-                (solve-grid-from-text-file "file-symb" ?i)
+                (solve-grid-from-text-file "puzzles-file-symb" ?i)
                 (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                 (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
                 (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
@@ -201,7 +203,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -213,7 +215,7 @@
 
 
 
-(deffunction solve-n-grids-after-first-p-from-text-file-restricted-to-and-excluding (?file-name ?p ?n ?l-in $?l-out)
+(deffunction solve-n-grids-after-first-p-from-text-file-restricted-to-and-excluding (?puzzles-file ?p ?n ?l-in $?l-out)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
 	(bind ?*solved-list* (create$))
@@ -232,16 +234,16 @@
 	(bind ?*total-time* 0)
 	(bind ?*max-time* 0)
 	(bind ?*total-outer-time* (time))
-	(open ?file-name "file-symb" "r")
+	(open ?puzzles-file "puzzles-file-symb" "r")
 	(bind ?i 1)
-	(while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+	(while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
 		(if (not (member$ ?i ?l-in))
-			then (readline "file-symb")
+			then (readline "puzzles-file-symb")
 				 ; (printout t ?i " not in selected list" crlf)
 		    else (if (member$ ?i ?l-out)
-                    then (readline "file-symb")
+                    then (readline "puzzles-file-symb")
                         ; (printout t ?i " in already solved lists" crlf)
                     else
                         (printout t "#" ?i crlf)
@@ -251,7 +253,7 @@
                         (bind ?*has-oddagon* FALSE)
                         (bind ?*has-tridagon* FALSE)
 
-                        (solve-grid-from-text-file "file-symb" ?i)
+                        (solve-grid-from-text-file "puzzles-file-symb" ?i)
                         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
                         (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
@@ -262,7 +264,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -274,15 +276,15 @@
 
 
 
-(deffunction count-grids-in-text-file (?file-name ?nb)
-	(open ?file-name "file-symb" "r")
+(deffunction count-grids-in-text-file (?puzzles-file ?nb)
+	(open ?puzzles-file "puzzles-file-symb" "r")
 	(bind ?i 1)
 	(while (< ?i ?nb) 
-		(bind ?givens (readline "file-symb"))
+		(bind ?givens (readline "puzzles-file-symb"))
 		(printout t ?i " " ?givens crlf)
 		(bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file-symb")
 )
 
 
@@ -292,17 +294,18 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction solve-grid-from-text-file-knowing-solutions (?file-symb ?solns-file ?i)
+(deffunction solve-grid-from-text-file-knowing-solutions (?puzzles-file-symb ?solns-file-symb ?i)
+    ;;; the files are supposed to have been opened by the calling function
     (reset) (reset)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
     ;;; puzzle entries are taken into account here:
-    (init-grid-from-text-file ?file-symb)
+    (init-grid-from-text-file ?puzzles-file-symb)
     (assert (context (name 0)))
     (assert (grid ?i))
     ;;; solution entries are taken into account here:
     (assert (deactivate 0 t-whip))
-    (bind ?sol-string (readline ?solns-file))
+    (bind ?sol-string (readline ?solns-file-symb))
     (bind ?*known-to-be-in-solution* (sol-string-to-list ?sol-string))
 
     (bind ?time1 (time))
@@ -332,7 +335,7 @@
 )
 
 
-(deffunction solve-n-grids-after-first-p-from-text-file-knowing-solutions (?file-name ?solns-file ?p ?n)
+(deffunction solve-n-grids-after-first-p-from-text-file-knowing-solutions (?puzzles-file ?solns-file ?p ?n)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -350,10 +353,10 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
-    (open ?solns-file "solns-file" "r")
+    (open ?puzzles-file "puzzles-file-symb" "r")
+    (open ?solns-file "solns-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (readline "solns-file") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (readline "solns-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
@@ -363,7 +366,7 @@
         (bind ?*has-oddagon* FALSE)
         (bind ?*has-tridagon* FALSE)
 
-        (solve-grid-from-text-file-knowing-solutions "file-symb" "solns-file" ?i)
+        (solve-grid-from-text-file-knowing-solutions "puzzles-file-symb" "solns-file-symb" ?i)
         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
         (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
@@ -372,8 +375,8 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "solns-file")
-    (close "file-symb")
+    (close "solns-file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -384,32 +387,32 @@
 )
 
 
-(deffunction solve-n-grids-after-first-p-from-text-file-knowing-solutions-excluding (?file-name ?solns-file ?p ?n $?l-out)
+(deffunction solve-n-grids-after-first-p-from-text-file-knowing-solutions-excluding (?puzzles-file ?solns-file ?p ?n $?l-out)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
     (bind ?*not-solved-list* (create$))
     (bind ?*no-sol-list* (create$))
+    (bind ?*multi-sol-list* (create$))
     (bind ?*exotic-list* (create$))
     (bind ?*belt-list* (create$))
     (bind ?*J-exocet-list* (create$))
     (bind ?*oddagon-list* (create$))
     (bind ?*tridagon-list* (create$))
     (bind ?*special-list* (create$))
-    (bind ?*special-list* (create$))
     (bind ?*special-list1* (create$))
     (bind ?*special-list2* (create$))
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
-    (open solns-file "solns-file" "w")
+    (open ?puzzles-file "puzzles-file-symb" "r")
+    (open ?solns-file "solns-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (readline "solns-file") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (readline "solns-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (if (member$ ?i ?l-out)
-            then (readline "file-symb")
+            then (readline "puzzles-file-symb") (readline "solns-file-symb")
                  ;(printout t "#" ?i " in already solved lists" crlf)
                  (printout t "#" ?i " " )
             else
@@ -420,7 +423,7 @@
                 (bind ?*has-oddagon* FALSE)
                 (bind ?*has-tridagon* FALSE)
 
-                (solve-grid-from-text-file-knowing-solutions "file-symb" "solns-file" ?i)
+                (solve-grid-from-text-file-knowing-solutions "puzzles-file-symb" "solns-file-symb" ?i)
                 (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                 (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
                 (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
@@ -430,8 +433,8 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "solns-file")
-    (close "file-symb")
+    (close "solns-file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -449,8 +452,8 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction display-grid-from-text (?file-symb)
-	(bind ?givens (readline ?file-symb))
+(deffunction display-grid-from-text (?puzzles-file-symb)
+	(bind ?givens (readline ?puzzles-file-symb))
 	(printout t crlf)
 	(bind ?ir 1)
 	(while (< ?ir  (+ ?*grid-size* 1))
@@ -469,22 +472,22 @@
 )
 
 
-(deffunction display-nth-grid-from-text-file (?file-name ?nb)
-	(open ?file-name "file-symb" "r")
+(deffunction display-nth-grid-from-text-file (?puzzles-file ?nb)
+	(open ?puzzles-file "puzzles-file-symb" "r")
 	(bind ?i 1)
-	(while (< ?i ?nb) (readline "file-symb") (bind ?i (+ ?i 1)))
-	(display-grid-from-text "file-symb")
-	(close "file-symb")
+	(while (< ?i ?nb) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
+	(display-grid-from-text "puzzles-file-symb")
+	(close "puzzles-file-symb")
 )
 
 
-(deffunction display-nth-line-from-text-file (?file-name ?nb)
-	(open ?file-name "file-symb" "r")
+(deffunction display-nth-line-from-text-file (?puzzles-file ?nb)
+	(open ?puzzles-file "puzzles-file-symb" "r")
 	(bind ?i 1)
-	(while (< ?i ?nb) (readline "file-symb") (bind ?i (+ ?i 1)))
-	(bind ?line (readline "file-symb"))
+	(while (< ?i ?nb) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
+	(bind ?line (readline "puzzles-file-symb"))
 	(printout t ?line crlf)
-	(close "file-symb")
+	(close "puzzles-file-symb")
 )
 
 
@@ -497,17 +500,17 @@
 
 
 (deffunction read-grid-from-sdk-file (?sdk-file-name)
-	(open ?sdk-file-name "file-symb" "r")
+	(open ?sdk-file-name "puzzles-file-symb" "r")
 	(bind ?str "")
 	(bind ?new-line "")
 	(bind ?i 1)
 	(while (<= ?i ?*grid-size*)
-		(bind ?new-line (readline "file-symb"))
+		(bind ?new-line (readline "puzzles-file-symb"))
 		(printout t ?new-line crlf)
 		(bind ?str (str-cat ?str ?new-line))
 		(bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file-symb")
 ;	(printout t ?str crlf)
 	?str
 )
@@ -581,27 +584,27 @@
 ;;; Note that, for simplicity, gsf's original file is first transformed by adding a space after each comma.
 
 
-(deffunction display-nth-effective-line-from-titled-text-file (?file-name ?nb)
-	(display-nth-line-from-text-file ?file-name (+ ?nb 1))
+(deffunction display-nth-effective-line-from-titled-text-file (?puzzles-file ?nb)
+	(display-nth-line-from-text-file ?puzzles-file (+ ?nb 1))
 )
 
 
-(deffunction extract-puzzle-from-titled-text-file (?file-symb)
-	(bind ?Q1 (read ?file-symb) )
-	(bind ?SER (read ?file-symb))
-	(bind ?XR (read ?file-symb))
+(deffunction extract-puzzle-from-titled-text-file (?puzzles-file-symb)
+	(bind ?Q1 (read ?puzzles-file-symb) )
+	(bind ?SER (read ?puzzles-file-symb))
+	(bind ?XR (read ?puzzles-file-symb))
 	(if ?*print-actions* then (printout t "Q1 = " ?Q1 ", SER = " ?SER ", XR = " ?XR crlf))
-	(bind ?givens (read ?file-symb))
-	(read ?file-symb) (read ?file-symb) (read ?file-symb) (read ?file-symb) (read ?file-symb)
+	(bind ?givens (read ?puzzles-file-symb))
+	(read ?puzzles-file-symb) (read ?puzzles-file-symb) (read ?puzzles-file-symb) (read ?puzzles-file-symb) (read ?puzzles-file-symb)
 	(sub-string 1 81 ?givens)
 )
 
 
-(deffunction init-grid-from-titled-text-file (?file-symb)
+(deffunction init-grid-from-titled-text-file (?puzzles-file-symb)
     ;;; fixed facts and structures common to all the instances are defined here
     (init-general-application-structures)
 	;;; read line containing the grid entries
-	(bind ?givens (extract-puzzle-from-titled-text-file ?file-symb))
+	(bind ?givens (extract-puzzle-from-titled-text-file ?puzzles-file-symb))
 	(if ?*print-actions* then (printout t ?givens crlf))
 	;;; This function could be simplified (and initialization time shortened)
 	;;; by combining the following two calls into a single function,
@@ -613,12 +616,12 @@
 )
 
 
-(deffunction solve-grid-from-titled-text-file (?file-symb ?i)
+(deffunction solve-grid-from-titled-text-file (?puzzles-file-symb ?i)
 	(reset) (reset)  
 	(if ?*print-actions* then (print-banner))
 	(bind ?time0 (time))
 	;;; puzzle entries are taken into account here
-    (init-grid-from-titled-text-file ?file-symb)
+    (init-grid-from-titled-text-file ?puzzles-file-symb)
     (assert (context (name 0)))
 	(assert (grid ?i))
 	(bind ?time0 (time))
@@ -651,16 +654,16 @@
 )
 
 
-(deffunction solve-nth-grid-from-titled-text-file (?file-name ?nb)
+(deffunction solve-nth-grid-from-titled-text-file (?puzzles-file ?nb)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*total-time* 0)
 	(bind ?*max-time* 0)
-	(open ?file-name "file-symb" "r")
-	(readline "file-symb") ; read the first non-puzzle line
+	(open ?puzzles-file "puzzles-file-symb" "r")
+	(readline "puzzles-file-symb") ; read the first non-puzzle line
 	(bind ?i 1)
-	(while (< ?i ?nb) (readline "file-symb") (bind ?i (+ ?i 1)))
-	(solve-grid-from-titled-text-file "file-symb" ?nb) ; puzzle on line ?nb + 1, i.e. puzzle ?nb
-	(close "file-symb")
+	(while (< ?i ?nb) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
+	(solve-grid-from-titled-text-file "puzzles-file-symb" ?nb) ; puzzle on line ?nb + 1, i.e. puzzle ?nb
+	(close "puzzles-file-symb")
     (if ?*print-actions* then
 		(printout t crlf)
         (print-banner)
@@ -670,7 +673,7 @@
 
 
 
-(deffunction solve-n-grids-after-first-p-from-titled-text-file (?file-name ?p ?n)
+(deffunction solve-n-grids-after-first-p-from-titled-text-file (?puzzles-file ?p ?n)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -688,10 +691,10 @@
 	(bind ?*total-time* 0)
 	(bind ?*max-time* 0)
 	(bind ?*total-outer-time* (time))
-	(open ?file-name "file-symb" "r")
-	(readline "file-symb") ; read the first non-puzzle line
+	(open ?puzzles-file "puzzles-file-symb" "r")
+	(readline "puzzles-file-symb") ; read the first non-puzzle line
 	(bind ?i 1)
-	(while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+	(while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
@@ -701,7 +704,7 @@
         (bind ?*has-oddagon* FALSE)
         (bind ?*has-tridagon* FALSE)
         
-        (solve-grid-from-titled-text-file "file-symb" ?i)
+        (solve-grid-from-titled-text-file "puzzles-file-symb" ?i)
         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
         (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -710,7 +713,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -727,7 +730,7 @@
 
 
 
-(deffunction solve-n-titled-grids-after-first-p-excluding (?file-name ?p ?n ?l-out)
+(deffunction solve-n-titled-grids-after-first-p-excluding (?puzzles-file ?p ?n ?l-out)
 	(if ?*print-actions* then (print-banner))
 	(bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -745,15 +748,15 @@
 	(bind ?*total-time* 0)
 	(bind ?*max-time* 0)
 	(bind ?*total-outer-time* (time))
-	(open ?file-name "file-symb" "r")
-	(readline "file-symb") ; read the first non-puzzle line
+	(open ?puzzles-file "puzzles-file-symb" "r")
+	(readline "puzzles-file-symb") ; read the first non-puzzle line
 	(bind ?i 1)
-	(while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+	(while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
 		(if (member$ ?i ?l-out)
-			then (readline "file-symb")
+			then (readline "puzzles-file-symb")
 				 ;(printout t ?i " in already solved lists" crlf)
 				 (printout t ?i " " )
 			else
@@ -764,7 +767,7 @@
                 (bind ?*has-oddagon* FALSE)
                 (bind ?*has-tridagon* FALSE)
 
-                (solve-grid-from-titled-text-file "file-symb" ?i)
+                (solve-grid-from-titled-text-file "puzzles-file-symb" ?i)
                 (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                 (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
                 (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -774,7 +777,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
-	(close "file-symb")
+	(close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
 	(bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -847,11 +850,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(deffunction init-grid-from-list-file (?file-symb)
+(deffunction init-grid-from-list-file (?puzzles-file-symb)
     ;;; read line containing the grid entries
-    (open ?file-symb "file-symb" "r")
-    (bind ?lgrid (explode$ (readline "file-symb")))
-    (close "file-symb")
+    (open ?puzzles-file-symb "puzzles-file-symb" "r")
+    (bind ?lgrid (explode$ (readline "puzzles-file-symb")))
+    (close "puzzles-file-symb")
     (if ?*print-actions* then (printout t ?lgrid crlf))
     ;;; fixed facts and structures common to all the instances are defined here
     (init-general-application-structures)
@@ -866,11 +869,11 @@
 
 
 
-(deffunction solve-grid-from-list-file (?file-symb)
+(deffunction solve-grid-from-list-file (?puzzles-file-symb)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
     ;;; puzzle entries are taken into account here
-    (init-grid-from-list-file ?file-symb)
+    (init-grid-from-list-file ?puzzles-file-symb)
     (assert (context (name 0)))
     (assert (grid 0))
     (bind ?time1 (time))
@@ -911,9 +914,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction init-sukaku-from-string-file (?file-symb)
+(deffunction init-sukaku-from-string-file (?puzzles-file-symb)
     ;;; read line containing the sukaku data in list form
-    (bind ?lgrid (readline "file-symb"))
+    (bind ?lgrid (readline "puzzles-file-symb"))
     (if ?*print-actions* then (printout t ?lgrid crlf))
     ;;; fixed facts and structures common to all the instances are defined here
     (init-general-application-structures)
@@ -923,11 +926,11 @@
 )
 
 
-(deffunction solve-sukaku-from-string-file (?file-symb ?i)
+(deffunction solve-sukaku-from-string-file (?puzzles-file-symb ?i)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
     ;;; puzzle entries are taken into account here
-    (init-sukaku-from-string-file ?file-symb)
+    (init-sukaku-from-string-file ?puzzles-file-symb)
     (assert (context (name 0)))
     (assert (grid ?i))
     (bind ?time1 (time))
@@ -959,7 +962,7 @@
 
 
 
-(deffunction solve-n-sukakus-after-first-p-from-string-file (?file-name ?p ?n)
+(deffunction solve-n-sukakus-after-first-p-from-string-file (?puzzles-file ?p ?n)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -977,9 +980,9 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
+    (open ?puzzles-file "puzzles-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
@@ -989,7 +992,7 @@
         (bind ?*has-oddagon* FALSE)
         (bind ?*has-tridagon* FALSE)
 
-        (solve-sukaku-from-string-file "file-symb" ?i)
+        (solve-sukaku-from-string-file "puzzles-file-symb" ?i)
         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
         (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -998,7 +1001,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -1009,7 +1012,7 @@
 )
 
 
-(deffunction solve-n-sukakus-after-first-p-from-string-file-excluding (?file-name ?p ?n ?l-out)
+(deffunction solve-n-sukakus-after-first-p-from-string-file-excluding (?puzzles-file ?p ?n ?l-out)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -1026,13 +1029,13 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
+    (open ?puzzles-file "puzzles-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (if (member$ ?i ?l-out)
-            then (readline "file-symb")
+            then (readline "puzzles-file-symb")
                  ;(printout t "#" ?i " in already solved lists" crlf)
                  (printout t "#" ?i " " )
             else
@@ -1043,7 +1046,7 @@
                 (bind ?*has-oddagon* FALSE)
                 (bind ?*has-tridagon* FALSE)
 
-                (solve-sukaku-from-string-file "file-symb" ?i)
+                (solve-sukaku-from-string-file "puzzles-file-symb" ?i)
                 (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                 (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
                 (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -1053,7 +1056,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -1065,7 +1068,7 @@
 
 
 
-(deffunction solve-n-sukakus-after-first-p-from-string-file-restricted-to-and-excluding (?file-name ?p ?n ?l-in ?l-out)
+(deffunction solve-n-sukakus-after-first-p-from-string-file-restricted-to-and-excluding (?puzzles-file ?p ?n ?l-in ?l-out)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -1083,16 +1086,16 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
+    (open ?puzzles-file "puzzles-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (if (not (member$ ?i ?l-in))
-            then (readline "file-symb")
+            then (readline "puzzles-file-symb")
                  ; (printout t ?i " not in selected list" crlf)
             else (if (member$ ?i ?l-out)
-                    then (readline "file-symb")
+                    then (readline "puzzles-file-symb")
                         ; (printout t ?i " in already solved lists" crlf)
                     else
                         (printout t "#" ?i crlf)
@@ -1102,7 +1105,7 @@
                         (bind ?*has-oddagon* FALSE)
                         (bind ?*has-tridagon* FALSE)
 
-                        (solve-sukaku-from-string-file "file-symb" ?i)
+                        (solve-sukaku-from-string-file "puzzles-file-symb" ?i)
                         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                         (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
                         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -1113,7 +1116,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -1134,9 +1137,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction init-sukaku-from-list-file (?file-symb)
+(deffunction init-sukaku-from-list-file (?puzzles-file-symb)
     ;;; read line containing the sukaku data in list form
-    (bind ?lgrid (explode$ (readline "file-symb")))
+    (bind ?lgrid (explode$ (readline "puzzles-file-symb")))
     (if ?*print-actions* then (printout t ?lgrid crlf))
     ;;; fixed facts and structures common to all the instances are defined here
     (init-general-application-structures)
@@ -1146,11 +1149,11 @@
 )
 
 
-(deffunction solve-sukaku-from-list-file (?file-symb ?i)
+(deffunction solve-sukaku-from-list-file (?puzzles-file-symb ?i)
     (if ?*print-actions* then (print-banner))
     (bind ?time0 (time))
     ;;; puzzle entries are taken into account here
-    (init-sukaku-from-list-file ?file-symb)
+    (init-sukaku-from-list-file ?puzzles-file-symb)
     (assert (context (name 0)))
     (assert (grid ?i))
     (bind ?time1 (time))
@@ -1182,7 +1185,7 @@
 
 
 
-(deffunction solve-n-sukakus-after-first-p-from-list-file (?file-name ?p ?n)
+(deffunction solve-n-sukakus-after-first-p-from-list-file (?puzzles-file ?p ?n)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -1200,9 +1203,9 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
+    (open ?puzzles-file "puzzles-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
@@ -1212,7 +1215,7 @@
         (bind ?*has-oddagon* FALSE)
         (bind ?*has-tridagon* FALSE)
 
-        (solve-sukaku-from-list-file "file-symb" ?i)
+        (solve-sukaku-from-list-file "puzzles-file-symb" ?i)
         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
         (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -1221,7 +1224,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -1232,7 +1235,7 @@
 )
 
 
-(deffunction solve-n-sukakus-after-first-p-from-list-file-excluding (?file-name ?p ?n ?l-out)
+(deffunction solve-n-sukakus-after-first-p-from-list-file-excluding (?puzzles-file ?p ?n ?l-out)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -1249,13 +1252,13 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
+    (open ?puzzles-file "puzzles-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (if (member$ ?i ?l-out)
-            then (readline "file-symb")
+            then (readline "puzzles-file-symb")
                  ;(printout t "#" ?i " in already solved lists" crlf)
                  (printout t "#" ?i " " )
             else
@@ -1266,7 +1269,7 @@
                 (bind ?*has-oddagon* FALSE)
                 (bind ?*has-tridagon* FALSE)
 
-                (solve-sukaku-from-list-file "file-symb" ?i)
+                (solve-sukaku-from-list-file "puzzles-file-symb" ?i)
                 (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                 (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
                 (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -1276,7 +1279,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
@@ -1288,7 +1291,7 @@
 
 
 
-(deffunction solve-n-sukakus-after-first-p-from-list-file-restricted-to-and-excluding (?file-name ?p ?n ?l-in ?l-out)
+(deffunction solve-n-sukakus-after-first-p-from-list-file-restricted-to-and-excluding (?puzzles-file ?p ?n ?l-in ?l-out)
     (if ?*print-actions* then (print-banner))
     (bind ?*add-instance-to-solved-list* TRUE)
     (bind ?*solved-list* (create$))
@@ -1306,16 +1309,16 @@
     (bind ?*total-time* 0)
     (bind ?*max-time* 0)
     (bind ?*total-outer-time* (time))
-    (open ?file-name "file-symb" "r")
+    (open ?puzzles-file "puzzles-file-symb" "r")
     (bind ?i 1)
-    (while (<= ?i ?p) (readline "file-symb") (bind ?i (+ ?i 1)))
+    (while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (if (not (member$ ?i ?l-in))
-            then (readline "file-symb")
+            then (readline "puzzles-file-symb")
                  ; (printout t ?i " not in selected list" crlf)
             else (if (member$ ?i ?l-out)
-                    then (readline "file-symb")
+                    then (readline "puzzles-file-symb")
                         ; (printout t ?i " in already solved lists" crlf)
                     else
                         (printout t "#" ?i crlf)
@@ -1325,7 +1328,7 @@
                         (bind ?*has-oddagon* FALSE)
                         (bind ?*has-tridagon* FALSE)
 
-                        (solve-sukaku-from-list-file "file-symb" ?i)
+                        (solve-sukaku-from-list-file "puzzles-file-symb" ?i)
                         (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
                         (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
                         (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
@@ -1336,7 +1339,7 @@
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
-    (close "file-symb")
+    (close "puzzles-file-symb")
     ;;; cancel the simulated eliminations:
     (bind ?*simulated-eliminations* (create$))
     (bind ?*total-outer-time* (- (time) ?*total-outer-time*))

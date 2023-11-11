@@ -35,8 +35,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; When a candidate of an ORk-relation is eliminated:
-;;; - if k=2, then the remaining candidate is asserted;
-;;; - if k>2, then a new OR(k-1) relation is asserted with the remaining candidates.
+;;; - if k=2, there can remain  only one candidate and it is directly asserted by the rule;
+;;; - if k>2, then a new ORk' relation (with k'<k) is asserted for the remaining candidates;
+;;;   if k'=1, one relies on the apply-OR1-rule to eventually assert the only remaining candidate.
 
 ;;; Note that, in order to avoid redundancies,
 ;;; only the original "non-symmetrified" ORk relations are updated.
@@ -46,6 +47,8 @@
 
 (defrule apply-OR1-relation
     (declare (salience ?*update-OR1-salience*))
+    ;;; there must be no logical for the modify to work properly at the end
+    ; (logical (play) (context (name ?cont)))
     (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)
@@ -58,8 +61,9 @@
 =>
     (modify ?cand (status c-value))
     (if (not (member$ ?OR-name ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* ?OR-name)))
-    (printout t ?OR-name "-ORk-relation with only one candidate => "
-        (print-asserted-candidate ?zzz1) crlf crlf)
+    (if ?*print-actions* then
+        (printout t ?OR-name "-ORk-relation with only one candidate => " (print-asserted-candidate ?zzz1) crlf)
+    )
 )
 
 

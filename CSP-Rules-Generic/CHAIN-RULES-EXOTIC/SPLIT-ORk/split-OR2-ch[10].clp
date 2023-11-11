@@ -36,7 +36,8 @@
 
 (defrule split-OR2-relation-ch[10]
     (declare (salience ?*split-OR2-relation-ch[10]-salience*))
-    (logical (play) (context (name ?cont)))
+    ;;; there must be no logical for the modify to work properly in all circumstances
+    ; (logical (context (name ?cont)))
     ?ORk <- (ORk-relation
         (OR-name ?OR-name)
         (OR-complexity ?OR-compl)

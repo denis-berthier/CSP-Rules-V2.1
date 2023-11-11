@@ -195,6 +195,9 @@
 (if ?*Anti-Tridagons* then
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "ORk-anti-Tridagon[12].clp"))
 )
+(if ?*Degen-Cyclic-Anti-Tridagons* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "ORk-degen-cyclic-anti-Tridagon[12].clp"))
+)
 
 
 ;;; modified eleven digit replacement method

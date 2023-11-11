@@ -12,6 +12,17 @@
 
 
 
+#### 2023 November 11 (Generic):
+* Extend ORk splitting rules upto length 16 (instead of 12).
+* Allow focusing in ORk-whips.
+
+#### 2023 November 11 (SudoRules):
+* Add pretty-print RS after each phase.
+* Add ORk-degenerate-cyclic-anti-tridagon.
+* Add function solve-knowing-solution-sukaku-grid.
+
+
+
 #### 2023 August 25 (Generic):
 * Update of the the generic T&E(n) procedures, addition of extra conditions in whips[1] and parial-whips[1] so as to allow compatibility with function solve-knowing-solution.
 Computation times are decreased in various porportions for BpB and T&E(2).

@@ -207,6 +207,7 @@
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE 1 IN CONTEXT " ?cont " AT DEPTH 1, with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (pretty-print-current-resolution-state)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 )
@@ -265,6 +266,7 @@
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE " (+ ?ph 1) " IN CONTEXT " ?par " AT DEPTH " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (pretty-print-current-resolution-state)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 	(assert (phase ?par (+ ?ph 1)))
@@ -306,6 +308,7 @@
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE 1 IN CONTEXT 0 with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (pretty-print-current-resolution-state)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 )
@@ -368,6 +371,7 @@
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE " (+ ?ph 1) " IN CONTEXT 0 with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
+        (pretty-print-current-resolution-state)
         (if ?*print-hypothesis* then (printout t crlf))
     )
 	(assert (phase ?par (+ ?ph 1)))

@@ -384,6 +384,9 @@
 ;;; Allow the use of ORk-chains based on Tridagons
 ; (bind ?*Anti-Tridagons* TRUE)
 
+;;; Allow the use of ORk-chains based on Degenerate Cyclic Tridagons
+; (bind ?*Degen-Cyclic-Anti-Tridagons* TRUE)
+
 ;;; By default, the Tridagon elimination rule and the anti-tridagon detection rule have high priority,
 ;;; allowing their early use (i.e. they will be available immediately after Subsets[3]).
 ;;; Give them lower priority here (not recommended):

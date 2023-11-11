@@ -29,15 +29,19 @@
 
 
 (defrule partial-OR4-whip[1]
-   (declare (salience ?*partial-OR4-whip[1]-salience-1*))
-   (logical
-       (technique ?cont partial-OR4-whip[1])
-       (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 4) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4))
-       (candidate (context ?cont) (status cand) (label ?zzz))
-       (exists-link ?cont ?zzz ?zzz1)
-       (exists-link ?cont ?zzz ?zzz2)
-       (exists-link ?cont ?zzz ?zzz3)
-    )
+    (declare (salience ?*partial-OR4-whip[1]-salience-1*))
+    (logical
+        (technique ?cont partial-OR4-whip[1])
+        (ORk-relation (OR-name ?or-name) (OR-complexity ?or-compl) (context ?cont) (OR-size 4) (OR-candidates ?zzz1 ?zzz2 ?zzz3 ?zzz4))
+        (candidate (context ?cont) (status cand) (label ?zzz))
+        (exists-link ?cont ?zzz ?zzz1)
+        (exists-link ?cont ?zzz ?zzz2)
+        (exists-link ?cont ?zzz ?zzz3)
+     )
+    
+    ;;; if the focus list is not empty, the following condition restricts the search to the candidates in it
+    (or (not (candidate-in-focus (context ?cont))) (candidate-in-focus (context ?cont) (label ?zzz)))
+    
     (not (exists-link ?cont ?zzz ?zzz4))
     (not
         (ORk-chain

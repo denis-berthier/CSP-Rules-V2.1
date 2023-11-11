@@ -1211,7 +1211,7 @@
     ;;; ORk-splitting rules
     (if (and ?*allow-ORk-splitting* (or ?*OR2-Forcing-Whips* ?*OR2-Contrad-Whips*) (evenp ?i) (<= ?i 10)) then
         (bind ?k 2)
-        (while (<= ?k 12)
+        (while (<= ?k 16)
             (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-EXOTIC"
                 ?*Directory-symbol* "SPLIT-ORk"
                 ?*Directory-symbol* "split-OR" ?k "-ch[" ?i "].clp")

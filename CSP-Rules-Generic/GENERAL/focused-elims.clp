@@ -65,7 +65,7 @@
         (printout t "nb-facts = " ?*nb-facts* crlf)
         (printout t crlf)
     )
-    (if (and (eq ?cont 0) ?*print-final-RS*) then (print-current-resolution-state-in-context 0))
+    (if (and (eq ?cont 0) ?*print-final-RS*) then (pretty-print-current-resolution-state-in-context 0))
     ;;; Now clean the focus list:
     (do-for-all-facts ((?focus candidate-in-focus)) (= ?focus:context ?cont) (retract ?focus))
 )

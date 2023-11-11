@@ -65,6 +65,14 @@
 )
 
 
+(deffunction string> (?a ?b)
+    ;;; applies to strings and to symbols
+    ;;; "abc" is considered as the same as abc
+    (> (str-compare ?a ?b) 0)
+)
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -169,7 +177,7 @@
 ;;; This is the standard definition of density for an undirected graph
 
 (deffunction density (?n-cands ?n-links)
-    (bind ?dens (if (eq ?n-cands ?n-links) then 1 else (/ (* 200 ?n-links) (* ?n-cands (- ?n-cands 1)))))
+    (bind ?dens (if (or (eq ?n-cands 0) (eq ?n-cands 1)) then 0 else (/ (* 200 ?n-links) (* ?n-cands (- ?n-cands 1)))))
     (/ (round (* ?dens 100)) 100)
 )
 
@@ -248,7 +256,65 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Dealing with vowels
+;;; Extracting random subsets of numbers from the {1 ... n} interval
+;;; or of lines from a file
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction p-different-numbers-out-of-n (?p ?n)
+    ;;; p is supposed to be much less than n
+    ;;; (and less than n/2 for efficiency)
+    (bind ?list (create$))
+    (seed (round (time)))
+    (bind ?i 0)
+    (while (< ?i ?p)
+        (bind ?nb (random 1 ?n))
+        (if (not (member$ ?nb ?list)) then
+            (bind ?list (create$ ?list ?nb))
+            (bind ?i (+ ?i 1))
+        )
+    )
+    ?list
+)
+
+(deffunction p-different-ordered-numbers-out-of-n (?p ?n)
+    ;;; p is supposed to be much less than n
+    ;;; (and less than n/2 for efficiency)
+    (bind ?list (p-different-numbers-out-of-n ?p ?n))
+    (bind ?list2 (create$))
+    (bind ?i 0)
+    (while (< ?i ?n)
+        (bind ?i (+ ?i 1))
+        (if (member$ ?i ?list) then (bind ?list2 (create$ ?list2 ?i)))
+    )
+    ?list2
+)
+
+
+(deffunction p-different-ordered-lines-out-of-n (?p ?n ?file-in ?file-out)
+    ;;; randomly choose p different lines among n from a file
+    ;;; p is supposed to be much less than n
+    ;;; (and less than n/2 for efficiency)
+    (bind ?list (p-different-ordered-numbers-out-of-n ?p ?n))
+    (open ?file-in "file-in" "r")
+    (open ?file-out "file-out" "w")
+    (bind ?i 1)
+    (while (<= ?i ?n)
+        (bind ?line (readline "file-symb")
+            (if (member$ ?i ?list) then (printout ?file-out ?line crlf))
+        (bind ?i (+ ?i 1)))
+    )
+    (close "file-out")
+    (close "file-in")
+)
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Dealing with vowels in output
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

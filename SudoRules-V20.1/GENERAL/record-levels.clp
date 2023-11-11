@@ -261,6 +261,7 @@
 	(while (<= ?i ?p) (readline "puzzles-file-symb") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
+        (printout t "puzzle #" ?i crlf)
 		(solve-grid-from-text-file "puzzles-file-symb" ?i)
         (bind ?*density* (density ?*nb-candidates* ?*links-count*))
 		(printout "density-file-symb" ?*density* crlf)

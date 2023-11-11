@@ -1049,6 +1049,41 @@
 )
 
 
+(deffunction solve-knowing-solution-sukaku-list (?sol-string $?sukaku-list)
+    (if ?*print-actions* then (print-banner))
+    (bind ?time0 (time))
+    ;;; General background plus puzzle entries are taken into account here
+    (init-sukaku-list $?sukaku-list)
+    ;;; Solution entries are taken into account here:
+    (assert (deactivate 0 t-whip))
+    (bind ?*known-to-be-in-solution* (sol-string-to-list ?sol-string))
+    (bind ?time1 (time))
+    (bind ?*init-instance-time* (- ?time1 ?time0))
+    
+    ;;; The puzzle is solved here
+    (bind ?nb-rules (run))
+    ;;; cancel the simulated eliminations:
+    (bind ?*simulated-eliminations* (create$))
+    (bind ?time2 (time))
+    (bind ?*solve-instance-time* (- ?time2 ?time1))
+    (bind ?*total-instance-time* (- ?time2 ?time0))
+    (bind ?*total-time* (+ ?*total-time* ?*total-instance-time*))
+    (bind ?*max-time* (max ?*max-time* ?*total-instance-time*))
+    (if ?*print-time* then
+        (printout t
+            "computer = " ?*Computer-description* crlf
+            "init-time = " (seconds-to-hours ?*init-instance-time*)
+            ", solve-time = " (seconds-to-hours ?*solve-instance-time*)
+            ", total-time = " (seconds-to-hours ?*total-instance-time*)  crlf
+        )
+        ;(printout t "nb-facts = " ?*nb-facts* crlf)
+        ;(printout t "nb rules " ?nb-rules crlf)
+        ;(printout t "rules per second " (/ ?nb-rules ?solve-time) crlf crlf) ; provisoire
+    )
+    (if ?*print-actions* then (print-banner) (printout t crlf))
+)
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1199,6 +1234,11 @@
 
 (deffunction solve-sukaku-grid ($?sukaku-grid)
     (solve-sukaku-list (clean-grid-list $?sukaku-grid))
+)
+
+
+(deffunction solve-knowing-solution-sukaku-grid (?sol-string $?sukaku-grid)
+    (solve-knowing-solution-sukaku-list ?sol-string (clean-grid-list $?sukaku-grid))
 )
 
 

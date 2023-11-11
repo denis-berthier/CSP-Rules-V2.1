@@ -141,6 +141,8 @@
 (defglobal ?*Tridagon-Forcing-Whips* = FALSE)
 (defglobal ?*tridagon-forcing-whips-max-length* = 36)
 (defglobal ?*Anti-Tridagons* = FALSE)
+(defglobal ?*Anti-Tridagons* = FALSE)
+(defglobal ?*Degen-Cyclic-Anti-Tridagons* = FALSE)
 (defglobal ?*Eleven-Replacement-in-Tridagons* = FALSE)
 
 ;;; This is now set to TRUE by default in order to allow the early detection of Tridagons and anti-tridagons;
@@ -423,8 +425,10 @@
 (defglobal ?*J-exocet-list* = (create$))
 (defglobal ?*has-J-exocet* = FALSE)
 
-(defglobal ?*tridagon-list* = (create$))
 (defglobal ?*has-tridagon* = FALSE)
+(defglobal ?*tridagon-list* = (create$))
+(defglobal ?*has-degenerate-cyclic-tridagon* = FALSE)
+(defglobal ?*degenerate-cyclic-tridagon-list* = (create$))
 
 
 

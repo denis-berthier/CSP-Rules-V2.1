@@ -171,6 +171,8 @@
 (defglobal ?*tridagon[12]-salience* = 0)
 (defglobal ?*activate-ork-anti-tridagon[12]-salience* = 0)
 (defglobal ?*ork-anti-tridagon[12]-salience* = 0)
+(defglobal ?*activate-ork-degen-cyclic-anti-tridagon[12]-salience* = 0)
+(defglobal ?*ork-degen-cyclic-anti-tridagon[12]-salience* = 0)
 
 
 ;;; ?*Imp630-Select1*
@@ -383,7 +385,9 @@
     (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
-    
+    (bind ?*activate-ork-degen-cyclic-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; degen tridagon
+    (bind ?*ork-degen-cyclic-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; degen tridagon
+
     ;;; Raise saliences for pre-selected subsets of Imp630 patterns
     (define-selected-Imp630-saliences-at-L3)
 
@@ -682,6 +686,9 @@
         
         (bind ?*activate-ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
         (bind ?*ork-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
+        
+        (bind ?*activate-ork-degen-cyclic-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; degen tridagon
+        (bind ?*ork-degen-cyclic-anti-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; degen tridagon
     )
     (bind ?*activate-tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*tridagon-link[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon

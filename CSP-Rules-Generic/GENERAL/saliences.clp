@@ -645,6 +645,8 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defglobal ?*first-L1-salience* = 0)
+
 (defglobal ?*activate-z-chain[1]-salience* = 0)
 (defglobal ?*z-chain[1]-salience* = 0)
 (defglobal ?*partial-z-chain[1]-salience* = 0)
@@ -24535,6 +24537,7 @@
 ;;; - and post-generic saliences (post-generic saliences may be e.g. set-covers) (currently not used).
 ;;; The generic saliences shouldn't be changed by any application.
 
+(deffunction define-first-L1-salience ()    (bind ?*first-L1-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
 (deffunction define-first-L2-salience ()    (bind ?*first-L2-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
 (deffunction define-first-L3-salience ()    (bind ?*first-L3-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
 (deffunction define-first-L4-salience ()    (bind ?*first-L4-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))))
@@ -24574,6 +24577,7 @@
 
 
 (deffunction define-saliences-at-L1 ()
+    (define-first-L1-salience)
     (define-specific-saliences-at-L1)
     (define-generic-saliences-at-L1)
     (define-post-generic-saliences-at-L1)

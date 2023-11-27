@@ -244,15 +244,20 @@
 ;;; VARIABLES USED FOR KEEPING TRACK OF SETS OF SOLUTIONS WHEN SOLVING SETS OF INSTANCES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; variables used when studying lists of grids, to keep track of those that are solved by a given strategy:
+;;; generic variables used when studying lists of grids,
+;;; to keep track of those that are solved by a given strategy
+
 (defglobal
+    ?*save-solutions* = TRUE
+    ?*solutions-file* = t
     ?*solved-list* = (create$)
     ?*not-solved-list* = (create$)
     ?*no-sol-list* = (create$)
     ?*multi-sol-list* = (create$)
 )
 
-;;; variables used to keep track of special patterns:
+
+;;; generic variables used to keep track of special patterns:
 (defglobal
     ?*exotic-list* = (create$)
     ?*oddagon-list* = (create$)
@@ -263,7 +268,8 @@
     ?*all-ORk-relations-used-in-solved-list* = (create$)
 )
 
-(deffunction init-globals-for-files ()
+
+(deffunction init-generic-lists-for-files ()
     (bind ?*solved-list* (create$))
     (bind ?*not-solved-list* (create$))
     (bind ?*no-sol-list* (create$))
@@ -279,6 +285,15 @@
 )
 
 
+(deffunction init-specific-lists-for-files () TRUE
+    ;;; to be redefined by each application
+)
+
+
+(deffunction init-lists-for-files ()
+    (init-generic-lists-for-files)
+    (init-specific-lists-for-files)
+)
 
 
 

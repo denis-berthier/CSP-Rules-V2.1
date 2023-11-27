@@ -32,7 +32,7 @@
 ;;; Functions for computing the correlation coefficient between two variables
 ;;; written as sequences of values in two text files for a series of puzzles
 ;;; (one value per line)
-;;; values are typically those produced by "stats-n-grids-after-first-p-from-text-file"
+;;; Values in the files are typically those produced by "classify-n-grids-after-first-p-from-text-file"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -147,7 +147,7 @@
 		(bind ?xline (readline "x-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "y-file"))
-		;;; only difference: log
+		;;; only difference: sqrt
 		(bind ?yi (sqrt (eval ?yline)))
 ;		(printout t ?xi " " ?yi crlf)
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
@@ -168,7 +168,7 @@
 	(printout t "EY = " ?EY crlf)
 	(printout t "SigmaX = " (sqrt ?VX) crlf)
 	(printout t "SigmaY = " (sqrt ?VY) crlf)
-	;;; only difference: log
+	;;; only difference: sqr
 	(printout t "correlationXsqrY = " ?r crlf)
 	(printout t "regression sqrY = aX+b" crlf)
 	(printout t "a = " ?a crlf)
@@ -196,7 +196,7 @@
 		(bind ?xline (readline "x-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "y-file"))
-		;;; only difference: log
+		;;; only difference: sqr4
 		(bind ?yi (sqrt (sqrt (eval ?yline))))
 ;		(printout t ?xi " " ?yi crlf)
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
@@ -217,7 +217,7 @@
 	(printout t "EY = " ?EY crlf)
 	(printout t "SigmaX = " (sqrt ?VX) crlf)
 	(printout t "SigmaY = " (sqrt ?VY) crlf)
-	;;; only difference: log
+	;;; only difference: sqr4
 	(printout t "correlationXsqr4Y = " ?r crlf)
 	(printout t "regression sqr4Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
@@ -245,7 +245,7 @@
 		(bind ?xline (readline "x-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "y-file"))
-		;;; only difference: log
+		;;; only difference: sqr6
 		(bind ?yi (** (eval ?yline) (/ 1.0 6)))
 ;		(printout t ?xi " " ?yi crlf)
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
@@ -266,7 +266,7 @@
 	(printout t "EY = " ?EY crlf)
 	(printout t "SigmaX = " (sqrt ?VX) crlf)
 	(printout t "SigmaY = " (sqrt ?VY) crlf)
-	;;; only difference: log
+	;;; only difference: sqr6
 	(printout t "correlationXsqr6Y = " ?r crlf)
 	(printout t "regression sqr6Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
@@ -294,7 +294,7 @@
 		(bind ?xline (readline "x-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "y-file"))
-		;;; only difference: log
+		;;; only difference: sqr8
 		(bind ?yi (sqrt (sqrt (sqrt (eval ?yline)))))
 ;		(printout t ?xi " " ?yi crlf)
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
@@ -315,7 +315,7 @@
 	(printout t "EY = " ?EY crlf)
 	(printout t "SigmaX = " (sqrt ?VX) crlf)
 	(printout t "SigmaY = " (sqrt ?VY) crlf)
-	;;; only difference: log
+	;;; only difference: sqr8
 	(printout t "correlationXsqr8Y = " ?r crlf)
 	(printout t "regression sqr8Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
@@ -343,7 +343,7 @@
 		(bind ?xline (readline "x-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "y-file"))
-		;;; only difference: log
+		;;; only difference: sqr16
 		(bind ?yi (sqrt (sqrt (sqrt (sqrt (eval ?yline))))))
 ;		(printout t ?xi " " ?yi crlf)
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
@@ -364,7 +364,7 @@
 	(printout t "EY = " ?EY crlf)
 	(printout t "SigmaX = " (sqrt ?VX) crlf)
 	(printout t "SigmaY = " (sqrt ?VY) crlf)
-	;;; only difference: log
+	;;; only difference: sqr16
 	(printout t "correlationXsqr16Y = " ?r crlf)
 	(printout t "regression sqr16Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
@@ -399,7 +399,9 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Functions for classifying puzzles according to some criterion
+;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -901,24 +903,17 @@
 )
 
 
-(deffunction nb-clues (?puzzles-file 
-						;?nb-clues-file 
-						?n)
+(deffunction nb-clues (?puzzles-file ?n)
 	(close)
 	(open ?puzzles-file "puzzles-file" "r")
-	;(open ?nb-clues-file "nb-clues-file" "w")
-	
-	(bind ?i 1)	
+	(bind ?i 1)
 	(while (< ?i (+ ?n 1))
 		(bind ?puzzles-line (readline "puzzles-file"))
 		(bind ?li (eval ?puzzles-line))
-		(bind ?nb-clues (compute-nb-clues ?li))
-		(printout t ?i "  " ?nb-clues crlf)
+		(printout t ?i "  " (compute-nb-clues ?li) crlf)
 		(bind ?i (+ ?i 1))
 	)
-;	(printout t ?level " " ?nb " " ?ETimes" " ?SigmaTimes " " ?EFacts " " ?SigmaFacts crlf)
 	(close "puzzles-file")
-	;(close "nb-clues-file")
 )
 
 
@@ -926,13 +921,11 @@
 	(close)
 	(open ?puzzles-file "puzzles-file" "r")
 	(open ?nb-clues-file "nb-clues-file" "w")
-	
 	(bind ?i 1)	
 	(while (< ?i (+ ?n 1))
 		(bind ?puzzles-line (readline "puzzles-file"))
 		;(bind ?li (eval ?puzzles-line))
-		(bind ?nb-clues (compute-nb-clues ?puzzles-line))
-		(printout "nb-clues-file" ?nb-clues crlf)
+		(printout "nb-clues-file" (compute-nb-clues ?puzzles-line) crlf)
 		(bind ?i (+ ?i 1))
 	)
 	(close "puzzles-file")
@@ -955,8 +948,7 @@
         (bind ?puzzles-line (readline "puzzles-file"))
         (init ?puzzles-line)
         (run)
-        (bind ?nb-cands ?*nb-candidates*)
-        (printout "nb-cands-file" ?nb-cands crlf)
+        (printout "nb-cands-file" ?*nb-candidates* crlf)
         (bind ?i (+ ?i 1))
     )
     (close "puzzles-file")

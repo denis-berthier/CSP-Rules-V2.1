@@ -81,9 +81,7 @@
 (deffunction length-nth-grid-from-text-file (?tf ?nb)
 	(loop-for-count (?i 1 (- ?nb 1)) (readline ?tf))
 	(bind ?grid (readline ?tf))
-	(printout t 
-		(length-grid-from-text ?grid ?nb)
-		crlf)
+	(printout t  (length-grid-from-text ?grid ?nb) crlf)
 )
 
 (deffunction compute-grids-lengths-from-text-file (?tf ?nb)

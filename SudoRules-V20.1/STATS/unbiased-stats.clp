@@ -31,40 +31,8 @@
 ;;; The functions in this file provide unbiased statistics when applied to collection of puzzles
 ;;; produced by the top-down controlled-bias generator.
 
+;;; This version is based on arbitrarily choosing cf(26) = 1
 
-
-(defglobal ?*cf-sequence-17-35-old* =
-	(progn
-		(bind ?cf24 1)
-		(bind ?cf25 (/ (* (- 81 24) ?cf24) 25))
-		(bind ?cf26 (/ (* (- 81 25) ?cf25) 26))
-		(bind ?cf27 (/ (* (- 81 26) ?cf26) 27))
-		(bind ?cf28 (/ (* (- 81 27) ?cf27) 28))
-		(bind ?cf29 (/ (* (- 81 28) ?cf28) 29))
-		(bind ?cf30 (/ (* (- 81 29) ?cf29) 30))
-		(bind ?cf31 (/ (* (- 81 30) ?cf30) 31))
-		(bind ?cf32 (/ (* (- 81 31) ?cf31) 32))
-		(bind ?cf33 (/ (* (- 81 31) ?cf32) 33))
-		(bind ?cf34 (/ (* (- 81 31) ?cf33) 34))
-		(bind ?cf35 (/ (* (- 81 31) ?cf34) 35))
-	
-		(bind ?cf23 (* 24 (/ ?cf24 (- 81 23))))
-		(bind ?cf22 (* 23 (/ ?cf23 (- 81 22))))
-		(bind ?cf21 (* 22 (/ ?cf22 (- 81 21))))
-		(bind ?cf20 (* 21 (/ ?cf21 (- 81 20))))
-		(bind ?cf19 (* 20 (/ ?cf20 (- 81 19))))
-		(bind ?cf18 (* 19 (/ ?cf19 (- 81 18))))
-		(bind ?cf17 (* 18 (/ ?cf18 (- 81 17))))
-		
-	(printout t "cf-sequence[17...35] =   " ?cf17 "  " ?cf18 "  " ?cf19 "  " ?cf20 "  " ?cf21 "  " ?cf22 "  " ?cf23 "  " 
-											?cf24 "  " ?cf25 "  " ?cf26 "  " ?cf27 "  " ?cf28 "  " ?cf29 "  " ?cf30 "  " 
-											?cf31 "  " ?cf32 "  " ?cf33 "  " ?cf34 "  " ?cf35 crlf crlf)
-		(create$ ?cf17 ?cf18 ?cf19 ?cf20 ?cf21 ?cf22 ?cf23 ?cf24 ?cf25 ?cf26 ?cf27 ?cf28 ?cf29 ?cf30 ?cf31 ?cf32 ?cf33 ?cf34 ?cf35)
-	)
-)
-
-
-;;; new version has cf(26) = 1 (same results, but nicer computations)
 (defglobal ?*cf-sequence-17-35* =
 	(progn
 		(bind ?cf26 1)
@@ -95,6 +63,8 @@
 	)
 )
 
+;;; cf-sequence[17...35] =   0.000113452566652627  0.000403386903653787  0.00133754604895729  0.00414639275176761  0.0120442837075154  0.0328480464750421  0.0842623800881514  0.203634085213033  0.464285714285714  1  2.03703703703704  3.92857142857143  7.17980295566503  12.4449917898194  20.4740187509932  31.9906542984268  48.4706883309497  71.2804240161026  101.829177165861
+
 
 (deffunction cf(?n)
 	(if (or (< ?n 17) (> ?n 35)) 
@@ -108,9 +78,9 @@
 
 (deffunction unbiased-average 
 	(?ono19 ?ono20 ?ono21 ?ono22 ?ono23 ?ono24 ?ono25 ?ono26 ?ono27 ?ono28 ?ono29 ?ono30 ?ono31
-	 ?mean19 ?mean20 ?mean21 ?mean22 ?mean23 ?mean24 ?mean25 ?mean26 ?mean27 ?mean28 ?mean29 ?mean30 ?mean31  
+	 ?mean19 ?mean20 ?mean21 ?mean22 ?mean23 ?mean24 ?mean25 ?mean26 ?mean27 ?mean28 ?mean29 ?mean30 ?mean31
 	 ?sd19 ?sd20 ?sd21 ?sd22 ?sd23 ?sd24 ?sd25 ?sd26 ?sd27 ?sd28 ?sd29 ?sd30 ?sd31)  
-	;;; for obtaining unbiased statistics from controlled-bias top-down generators
+	;;; For obtaining unbiased statistics for random variable X from controlled-bias top-down generators:
 	;;; ?ono(n) = observed number of occurrences of puzzles with n clues
 	;;; ?mean(n) = observed mean value of variable X for puzzles with n clues
 	;;; ?sd(n) = observed standard deviation of variable X for puzzles with n clues
@@ -233,12 +203,12 @@
 
 
 
-
+;;; same with slightly larger "practical interval" for the number of clues
 (deffunction unbiased-average-32
 	(?ono19 ?ono20 ?ono21 ?ono22 ?ono23 ?ono24 ?ono25 ?ono26 ?ono27 ?ono28 ?ono29 ?ono30 ?ono31 ?ono32
 	 ?mean19 ?mean20 ?mean21 ?mean22 ?mean23 ?mean24 ?mean25 ?mean26 ?mean27 ?mean28 ?mean29 ?mean30 ?mean31 ?mean32  
 	 ?sd19 ?sd20 ?sd21 ?sd22 ?sd23 ?sd24 ?sd25 ?sd26 ?sd27 ?sd28 ?sd29 ?sd30 ?sd31 ?sd32)  
-	;;; for obtaining unbiased statistics from controlled-bias top-down generators
+	;;; For obtaining unbiased statistics for random variable X from controlled-bias top-down generators:
 	;;; ?ono(n) = observed number of occurrences of puzzles with n clues
 	;;; ?mean(n) = observed mean value of variable X for puzzles with n clues
 	;;; ?sd(n) = observed standard deviation of variable X for puzzles with n clues
@@ -260,7 +230,7 @@
 	(bind ?rp30 (* (cf 30) ?ono30))
 	(bind ?rp31 (* (cf 31) ?ono31))
 	(bind ?rp32 (* (cf 32) ?ono32))
-	;;; limit computations to the practical interval 19-31
+	;;; limit computations to the practical interval 19-32
 	(bind ?rptotal (+ ?rp19 ?rp20 ?rp21 ?rp22 ?rp23 ?rp24 ?rp25 ?rp26 ?rp27 ?rp28 ?rp29 ?rp30 ?rp31 ?rp32))
 	(bind ?rp19 (/ ?rp19 ?rptotal))
 	(bind ?rp20 (/ ?rp20 ?rptotal))
@@ -362,9 +332,6 @@
 		)
 	)
 )
-
-
-
 
 
 

@@ -248,7 +248,7 @@
 ;;; to keep track of those that are solved by a given strategy
 
 (defglobal
-    ?*save-solutions* = TRUE
+    ?*save-solutions* = FALSE
     ?*solutions-file* = t
     ?*solved-list* = (create$)
     ?*not-solved-list* = (create$)

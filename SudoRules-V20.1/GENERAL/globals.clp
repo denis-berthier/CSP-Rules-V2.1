@@ -418,17 +418,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; variables used to keep track of special puzzles:
-(defglobal ?*belt-list* = (create$))
 (defglobal ?*has-belt* = FALSE)
 (defglobal ?*has-belt6* = FALSE)
+(defglobal ?*belt-list* = (create$))
 
-(defglobal ?*J-exocet-list* = (create$))
 (defglobal ?*has-J-exocet* = FALSE)
+(defglobal ?*J-exocet-list* = (create$))
 
 (defglobal ?*has-tridagon* = FALSE)
 (defglobal ?*tridagon-list* = (create$))
 (defglobal ?*has-degenerate-cyclic-tridagon* = FALSE)
 (defglobal ?*degenerate-cyclic-tridagon-list* = (create$))
+
+
+(deffunction init-specific-lists-for-files ()
+    (bind ?*belt-list* (create$))
+    (bind ?*J-exocet-list* (create$))
+    (bind ?*tridagon-list* (create$))
+    (bind ?*degenerate-cyclic-tridagon-list* (create$))
+)
+
 
 
 

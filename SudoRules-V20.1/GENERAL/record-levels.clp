@@ -245,7 +245,7 @@
 
 ;;; No rule other than BRT is supposed to be loaded
 
-(deffunction density-of-n-grids-after-first-p-from-text-file (?puzzles-file ?p ?n ?density-file)
+(deffunction record-density-of-n-grids-after-first-p-from-text-file (?puzzles-file ?p ?n ?density-file)
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "play.clp"))
     (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))

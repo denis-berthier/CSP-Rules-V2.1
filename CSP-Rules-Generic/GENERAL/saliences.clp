@@ -404,6 +404,9 @@
     (bind ?*update-OR20-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 
+(deffunction define-specific-post-Singles-pre-init-links-saliences () TRUE
+)
+
 
 
 
@@ -510,6 +513,7 @@
     (define-specific-pre-Singles-saliences)
     (define-Singles-saliences)
     (define-generic-post-Singles-pre-init-links-saliences)
+    (define-specific-post-Singles-pre-init-links-saliences)
 
     ;;; The following is indeed relevant to the start of level 1.
     ;;; It is written here in order to leave level 1 for "real" resolution rules.

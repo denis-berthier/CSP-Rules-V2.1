@@ -117,7 +117,7 @@
 ;;; columns
 
 (defrule L4-jellyfish-in-columns
-    (declare (salience ?*apply-a-blocked-rule-salience-1*))
+    (declare (salience ?*jellyfish-salience*))
 	(technique ?cont jellyfish)
 	
     (magic-digit-in-vertical-sector ?nb ?vsec1 ?col1)
@@ -136,7 +136,7 @@
 	(not (candidate (context ?cont) (status cand) (type white) (number ?nb) (row-of-vertical-controller ?vsec2) (column ?col2) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
 	(not (candidate (context ?cont) (status cand) (type white) (number ?nb) (row-of-vertical-controller ?vsec3) (column ?col3) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
 		
-    (magic-digit-in-vertical-sector ?nb ?vsec4 ?col4&~?col2&~?col3&:(or (< ?col3 ?col4) (< ?col3 ?col4)))
+    (magic-digit-in-vertical-sector ?nb ?vsec4 ?col4&~?col2&~?col3&:(or (< ?col2 ?col4) (< ?col3 ?col4)))
 	(candidate (context ?cont) (status cand) (type white) (number ?nb) (row-of-vertical-controller ?vsec4) (column-of-horizontal-controller ?hsec4) (column ?col4) (row ?row4))
 	(candidate (context ?cont) (status cand) (type white) (number ?nb) (row-of-vertical-controller ?vsec4) (column-of-horizontal-controller ?hsec1) (column ?col4) (row ?row1))
 	(not (candidate (context ?cont) (status cand) (type white) (number ?nb) (row-of-vertical-controller ?vsec4) (column ?col4) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))

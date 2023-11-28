@@ -29,17 +29,20 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Functions for computing the correlation coefficient between two variables
+;;;
+;;; General functions for computing the correlation coefficient between two variables
 ;;; written as sequences of values in two text files for a series of puzzles
 ;;; (one value per line)
-;;; Values in the files are typically those produced by "classify-n-grids-after-first-p-from-text-file"
+;;; Values in the files are typically those produced by function:
+;;; "classify-n-grids-after-first-p-from-text-file"
+;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(deffunction correlation (?x-file ?y-file ?n)
+(deffunction correlation (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -49,9 +52,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		(bind ?yi (eval ?yline))
 ;		(printout t ?xi " " ?yi crlf)
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
@@ -76,16 +79,16 @@
 	(printout t "regression Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
 
 
 
-(deffunction log-correlation (?x-file ?y-file ?n)
+(deffunction log-correlation (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -95,9 +98,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		;;; only difference: log
 		(bind ?yi (log (eval ?yline)))
 ;		(printout t ?xi " " ?yi crlf)
@@ -124,17 +127,16 @@
 	(printout t "regression logY = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
 
 
 
-
-(deffunction sqr-correlation (?x-file ?y-file ?n)
+(deffunction sqr-correlation (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -144,9 +146,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		;;; only difference: sqrt
 		(bind ?yi (sqrt (eval ?yline)))
 ;		(printout t ?xi " " ?yi crlf)
@@ -173,17 +175,16 @@
 	(printout t "regression sqrY = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
 
 
 
-
-(deffunction sqr4-correlation (?x-file ?y-file ?n)
+(deffunction sqr4-correlation (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -193,9 +194,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		;;; only difference: sqr4
 		(bind ?yi (sqrt (sqrt (eval ?yline))))
 ;		(printout t ?xi " " ?yi crlf)
@@ -222,17 +223,16 @@
 	(printout t "regression sqr4Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
 
 
 
-
-(deffunction sqr6-correlation (?x-file ?y-file ?n)
+(deffunction sqr6-correlation (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -242,9 +242,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		;;; only difference: sqr6
 		(bind ?yi (** (eval ?yline) (/ 1.0 6)))
 ;		(printout t ?xi " " ?yi crlf)
@@ -271,17 +271,16 @@
 	(printout t "regression sqr6Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
 
 
 
-
-(deffunction sqr8-correlation (?x-file ?y-file ?n)
+(deffunction sqr8-correlation (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -291,9 +290,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		;;; only difference: sqr8
 		(bind ?yi (sqrt (sqrt (sqrt (eval ?yline)))))
 ;		(printout t ?xi " " ?yi crlf)
@@ -320,17 +319,16 @@
 	(printout t "regression sqr8Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
 
 
 
-
-(deffunction sqr16-correlation (?x-file ?y-file ?n)
+(deffunction sqr16-correlation (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -340,9 +338,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		;;; only difference: sqr16
 		(bind ?yi (sqrt (sqrt (sqrt (sqrt (eval ?yline))))))
 ;		(printout t ?xi " " ?yi crlf)
@@ -369,10 +367,9 @@
 	(printout t "regression sqr16Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
-
 
 
 
@@ -395,12 +392,10 @@
 
 
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Functions for classifying puzzles according to some criterion
+;;; Old functions for classifying puzzles according to some criterion
+;;; (used in the first version of the controlled-bias generator)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -657,7 +652,11 @@
 
 
 
-;;; valid for any random variable X, hence renamed:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; The following functions are valid for any random variable X, hence renamed
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction mean-X-by-nb-clues (?nb-clues ?nb-clues-file ?X-file ?n)
 	(close)
@@ -687,7 +686,6 @@
 	(close "X-file")
 	(return (create$ ?nb-clues ?nb ?EX ?SigmaX))
 )
-
 
 
 
@@ -722,8 +720,6 @@
 	(close "X-file")
 	(return (create$ ?nb-clues ?nb ?E ?Sigma ?Kurt))
 )
-
-
 
 
 
@@ -766,43 +762,41 @@
 
 
 
-
-
-(deffunction mean-SER-by-nb-clues-excluding-levels (?nb-clues ?nb-clues-file ?SER-file ?levels-file ?level ?n)
+(deffunction mean-X-by-nb-clues-excluding-levels (?nb-clues ?nb-clues-file ?X-file ?levels-file ?level ?n)
 	(close)
 	(open ?nb-clues-file "nb-clues-file" "r")
-	(open ?SER-file "SER-file" "r")
+	(open ?X-file "X-file" "r")
 	(open ?levels-file "levels-file" "r")
 	
 	(bind ?nb 0)
-	(bind ?ESER 0)
-	(bind ?ESER2 0)
+	(bind ?EX 0)
+	(bind ?EX2 0)
 	
 	(bind ?i 1)
 	(while (< ?i (+ ?n 1))
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?ni (eval ?nb-clues-line))
-		(bind ?SER-line (readline "SER-file"))
-		(bind ?si (eval ?SER-line))
+		(bind ?X-line (readline "X-file"))
+		(bind ?si (eval ?X-line))
 		(bind ?levels-line (readline "levels-file"))
 		(bind ?li (eval ?levels-line))
 		(if (and (eq ?ni ?nb-clues) (> ?li ?level)) then
 			(bind ?nb (+ ?nb 1))
-			(bind ?ESER (+ ?ESER (/ (- ?si  ?ESER) ?nb)))
-			(bind ?ESER2 (+ ?ESER2 (/ (- (* ?si ?si) ?ESER2) ?nb)))
+			(bind ?EX (+ ?EX (/ (- ?si  ?EX) ?nb)))
+			(bind ?EX2 (+ ?EX2 (/ (- (* ?si ?si) ?EX2) ?nb)))
 		)
 		(bind ?i (+ ?i 1))
 	)
-	(bind ?SigmaSER (sqrt (- ?ESER2 (* ?ESER ?ESER))))
-	(printout t ?nb-clues "     " ?nb "     " ?ESER "   " ?SigmaSER crlf)
+	(bind ?SigmaX (sqrt (- ?EX2 (* ?EX ?EX))))
+	(printout t ?nb-clues "     " ?nb "     " ?EX "   " ?SigmaX crlf)
 	(close "nb-clues-file")
-	(close "SER-file")
+	(close "X-file")
 	(close "levels-file")
 )
 
 
 
-(deffunction distribution-of-clues (?nb-clues-file ?n)
+(deffunction distribution-of-clues-19-35 (?nb-clues-file ?n)
 	(close)
 	(bind ?E 0.0)
 	(bind ?E2 0.0)
@@ -829,49 +823,52 @@
 	(bind ?E (/ ?E ?n))
 	(bind ?E2 (/ ?E2 ?n))
 	(bind ?sd (sqrt (- ?E2 (* ?E ?E))))
-	(printout t "mean= " ?E crlf)
-	(printout t "standard-deviation= " ?sd crlf)
+	(printout t "mean = " ?E crlf)
+	(printout t "standard-deviation = " ?sd crlf)
 	(return ?distrib)
 )
 
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; General utility functions
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(deffunction max-value (?x-file ?n)
+(deffunction max-value (?X-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 1)
 	(bind ?max 0)
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?max (max ?max ?xi))
 		(bind ?i (+ ?i 1))
 	)
 	(printout t "max = " ?max crlf)
-	(close "x-file")
+	(close "X-file")
 )
 
 
 
-(deffunction min-value (?x-file ?n)
+(deffunction min-value (?X-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 1)
 	(bind ?min 100000)
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?min (min ?min ?xi))
 		(bind ?i (+ ?i 1))
 	)
 	(printout t "min = " ?min crlf)
-	(close "x-file")
+	(close "X-file")
 )
-
 
 
 
@@ -887,7 +884,6 @@
 	)
 	(close "file")
 )
-
 
 
 
@@ -917,7 +913,7 @@
 )
 
 
-(deffunction store-nb-clues (?puzzles-file ?nb-clues-file ?n)
+(deffunction record-nb-clues (?puzzles-file ?nb-clues-file ?n)
 	(close)
 	(open ?puzzles-file "puzzles-file" "r")
 	(open ?nb-clues-file "nb-clues-file" "w")
@@ -934,7 +930,7 @@
 
 
 
-(deffunction store-nb-cands (?puzzles-file ?nb-cands-file ?n)
+(deffunction record-nb-cands (?puzzles-file ?nb-cands-file ?n)
     ;;; Computes the number of candidates remaining after the current set of rules has been applied.
     ;;; Generally applied after Singles or after whips[1].
     (close)
@@ -962,63 +958,65 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; functions for studying the independence of values in a sequence
+;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(deffunction center-reduce (?x-file ?out-file ?n)
+(deffunction center-reduce (?X-file ?out-file ?n)
 	(close)
 	;;; read the data and compute EX and SigmaX
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 1)
 	(bind ?EX 0)	
 	(bind ?EX2 0)	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
 	(bind ?SigmaX (sqrt ?VX))
 	(printout t "EX = " ?EX crlf)
 	(printout t "SigmaX = " ?SigmaX crlf)
 	
 	;;; print the reduced centered variable ?l0
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(open ?out-file "out-file" "w")
 	(bind ?i 1)
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(printout "out-file" (/ (- ?xi ?EX) ?SigmaX) crlf)
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 	(close "out-file")
 )
 
 
 
-(deffunction auto-correlation (?x-file ?n ?k)
+(deffunction auto-correlation (?X-file ?n ?k)
 	(close)
 	;;; read the data and compute EX and SigmaX
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?l (create$))
 	(bind ?i 1)
 	(bind ?EX 0)	
 	(bind ?EX2 0)	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?l (create$ ?l ?xi))
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
 	(bind ?SigmaX (sqrt ?VX))
 	(printout t "EX = " ?EX crlf)
@@ -1047,23 +1045,23 @@
 
 
 
-(deffunction cr-auto-correlation (?cr-x-file ?n ?k)
+(deffunction cr-auto-correlation (?cr-X-file ?n ?k)
 	"autocorrelation for a sequence of centered reduced instances; 
 	may introduce errors if computed on a subsequence while mean and sigma have been computed on the full sequence"
 	(close)
 	;;; read the data
-	(open ?cr-x-file "cr-x-file" "r")
+	(open ?cr-X-file "cr-X-file" "r")
 	(bind ?l0 (create$))
 	(bind ?i 1)
 	(bind ?EX 0)	
 	(bind ?EX2 0)	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "cr-x-file"))
+		(bind ?xline (readline "cr-X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?l0 (create$ ?l0 ?xi))
 		(bind ?i (+ ?i 1))
 	)
-	(close "cr-x-file")
+	(close "cr-X-file")
 	
 	(bind ?EX2X2k 0)
 	(bind ?i 1)
@@ -1111,8 +1109,11 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;;
 ;;; Same functions with file length computed automatically
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (deffunction file-length (?file)
 	(close)
@@ -1134,66 +1135,66 @@
 )
 
 
-(deffunction file-max-value (?x-file)
+(deffunction file-max-value (?X-file)
 	(close)
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 1)
 	(bind ?max 0)
 	(while TRUE
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(if (eq ?xi EOF) then (return ?max) (printout t "max = " ?max crlf) (close "x-file"))
+		(if (eq ?xi EOF) then (return ?max) (printout t "max = " ?max crlf) (close "X-file"))
 		(bind ?max (max ?max ?xi))
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 )
 
 
 
-(deffunction file-min-value (?x-file)
+(deffunction file-min-value (?X-file)
 	(close)
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 1)
 	(bind ?min 1000000)
 	(while TRUE
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(if (eq ?xi EOF) then (printout t "min = " ?min crlf) (close "x-file") (return ?min))
+		(if (eq ?xi EOF) then (printout t "min = " ?min crlf) (close "X-file") (return ?min))
 		(bind ?min (min ?min ?xi))
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 )
 
 
-(deffunction file-last-value (?x-file)
+(deffunction file-last-value (?X-file)
 	(close)
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 1)
 	(bind ?last 1000000)
 	(while TRUE
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(if (eq ?xi EOF) then (close "x-file") (return ?last))
+		(if (eq ?xi EOF) then (close "X-file") (return ?last))
 		(bind ?last ?xi)
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 )
 
 
-(deffunction file-mean-and-sd (?x-file)
+(deffunction file-mean-and-sd (?X-file)
 	(close)
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 0)
 	(bind ?S 0)
 	(bind ?S2 0)
 	(while TRUE
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(if (eq (eval ?xline) EOF) 
 			then 
-				(close "x-file") 
+				(close "X-file") 
 				(return (create$ (/ ?S ?i) (sqrt (- (/ ?S2 ?i) (** (/ ?S ?i) 2)))))
 			else
 				(bind ?xi (eval ?xline))
@@ -1203,23 +1204,23 @@
 		
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 )
 
 
-(deffunction file-mean-sd-kurtosis (?x-file)
-	(bind ?l (file-mean-and-sd ?x-file))
+(deffunction file-mean-sd-kurtosis (?X-file)
+	(bind ?l (file-mean-and-sd ?X-file))
 	(bind ?E (nth$ 1 ?l))
 	(bind ?Sigma (nth$ 2 ?l))
 	(bind ?V (** ?Sigma 2))
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 0)
 	(bind ?S4 0)
 	(while TRUE
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(if (eq (eval ?xline) EOF) 
 			then 
-				(close "x-file") 
+				(close "X-file") 
 				(return (create$ ?E ?Sigma (- (/ ?S4 (* ?i (** ?V 2))) 3)))
 			else
 				(bind ?xi (eval ?xline))
@@ -1228,24 +1229,24 @@
 		
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 )
 
 
-(deffunction file-mean-sd-skewness-kurtosis (?x-file)
-	(bind ?l (file-mean-and-sd ?x-file))
+(deffunction file-mean-sd-skewness-kurtosis (?X-file)
+	(bind ?l (file-mean-and-sd ?X-file))
 	(bind ?E (nth$ 1 ?l))
 	(bind ?Sigma (nth$ 2 ?l))
 	(bind ?V (** ?Sigma 2))
-	(open ?x-file "x-file" "r")
+	(open ?X-file "X-file" "r")
 	(bind ?i 0)
 	(bind ?S3 0)
 	(bind ?S4 0)
 	(while TRUE
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(if (eq (eval ?xline) EOF) 
 			then 
-				(close "x-file") 
+				(close "X-file") 
 				(return (create$ ?E ?Sigma (/ ?S3 (* ?i (** ?Sigma 3))) (- (/ ?S4 (* ?i (** ?V 2))) 3)))
 			else
 				(bind ?xi (eval ?xline))
@@ -1255,7 +1256,7 @@
 		
 		(bind ?i (+ ?i 1))
 	)
-	(close "x-file")
+	(close "X-file")
 )
 
 
@@ -1359,10 +1360,10 @@
 
 
 
-(deffunction correlation-bis (?x-file ?y-file ?n)
+(deffunction correlation-bis (?X-file ?Y-file ?n)
 	(close)
-	(open ?x-file "x-file" "r")
-	(open ?y-file "y-file" "r")
+	(open ?X-file "X-file" "r")
+	(open ?Y-file "Y-file" "r")
 	
 	(bind ?i 1)
 	(bind ?EX 0)
@@ -1372,9 +1373,9 @@
 	(bind ?EXY 0)
 	
 	(while (< ?i (+ ?n 1))
-		(bind ?xline (readline "x-file"))
+		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
-		(bind ?yline (readline "y-file"))
+		(bind ?yline (readline "Y-file"))
 		(bind ?yi (eval ?yline))
 ;		(printout t ?xi " " ?yi crlf)
 		(bind ?EX (+ ?EX ?xi))
@@ -1404,8 +1405,8 @@
 	(printout t "regression Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
+	(close "X-file")
+	(close "Y-file")
 )
 
 

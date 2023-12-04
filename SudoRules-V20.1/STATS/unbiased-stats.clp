@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;                              CSP-RULES / SUDORULES
-;;;                              UNBIASED STATISTICS
+;;;                              STATS / UNBIASED STATISTICS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -15,8 +15,8 @@
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
-               ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;  https://github.com/denis-berthier/CSP-Rules-V2.1  ;;;
+               ;;;            January 2006 - November 2023            ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -28,10 +28,23 @@
 
 
 
-;;; The functions in this file provide unbiased statistics when applied to collection of puzzles
-;;; produced by the top-down controlled-bias generator.
+;;; The functions in this file provide unbiased statistics when applied to collections of
+;;; 9x9 Sudoku puzzles produced according to the principles of a top-down controlled-bias generator.
+;;; Do not apply them to other collections; the results would make no sense.
+;;; Do not app;ly them to sub-collections of top-down controlled-bias ones.
 
-;;; This version is based on arbitrarily choosing cf(26) = 1
+
+;;; This version is based on arbitrarily choosing the correction factor cf-17-35(26) = 1
+;;; (which makes the final values look better but doesn't change anything else).
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Main functions for computing unbiased distributions
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Correction factors:
 
 (defglobal ?*cf-sequence-17-35* =
 	(progn
@@ -66,17 +79,17 @@
 ;;; cf-sequence[17...35] =   0.000113452566652627  0.000403386903653787  0.00133754604895729  0.00414639275176761  0.0120442837075154  0.0328480464750421  0.0842623800881514  0.203634085213033  0.464285714285714  1  2.03703703703704  3.92857142857143  7.17980295566503  12.4449917898194  20.4740187509932  31.9906542984268  48.4706883309497  71.2804240161026  101.829177165861
 
 
-(deffunction cf(?n)
-	(if (or (< ?n 17) (> ?n 35)) 
-		then (printout t "n = " ?n "out of bounds.") (return FALSE)
-		else (return (nth$ (- ?n 16) ?*cf-sequence-17-35*))
+(deffunction cf-17-35(?nb-clues)
+	(if (or (< ?nb-clues 17) (> ?nb-clues 35))
+		then (printout t "n = " ?nb-clues "out of bounds.") (return FALSE)
+		else (return (nth$ (- ?nb-clues 16) ?*cf-sequence-17-35*))
 	)
 )
 	
 	
 	
 
-(deffunction unbiased-average 
+(deffunction unbiased-average-19-31
 	(?ono19 ?ono20 ?ono21 ?ono22 ?ono23 ?ono24 ?ono25 ?ono26 ?ono27 ?ono28 ?ono29 ?ono30 ?ono31
 	 ?mean19 ?mean20 ?mean21 ?mean22 ?mean23 ?mean24 ?mean25 ?mean26 ?mean27 ?mean28 ?mean29 ?mean30 ?mean31
 	 ?sd19 ?sd20 ?sd21 ?sd22 ?sd23 ?sd24 ?sd25 ?sd26 ?sd27 ?sd28 ?sd29 ?sd30 ?sd31)  
@@ -86,21 +99,21 @@
 	;;; ?sd(n) = observed standard deviation of variable X for puzzles with n clues
 	
 	;;; ?rp real probabilities
-	; (bind ?rp17 (* (cf 17) ?ono17))
-	; (bind ?rp18 (* (cf 18) ?ono18))
-	(bind ?rp19 (* (cf 19) ?ono19))
-	(bind ?rp20 (* (cf 20) ?ono20))
-	(bind ?rp21 (* (cf 21) ?ono21))
-	(bind ?rp22 (* (cf 22) ?ono22))
-	(bind ?rp23 (* (cf 23) ?ono23))
-	(bind ?rp24 (* (cf 24) ?ono24))
-	(bind ?rp25 (* (cf 25) ?ono25))
-	(bind ?rp26 (* (cf 26) ?ono26))
-	(bind ?rp27 (* (cf 27) ?ono27))
-	(bind ?rp28 (* (cf 28) ?ono28))
-	(bind ?rp29 (* (cf 29) ?ono29))
-	(bind ?rp30 (* (cf 30) ?ono30))
-	(bind ?rp31 (* (cf 31) ?ono31))
+	; (bind ?rp17 (* (cf-17-35 17) ?ono17))
+	; (bind ?rp18 (* (cf-17-35 18) ?ono18))
+	(bind ?rp19 (* (cf-17-35 19) ?ono19))
+	(bind ?rp20 (* (cf-17-35 20) ?ono20))
+	(bind ?rp21 (* (cf-17-35 21) ?ono21))
+	(bind ?rp22 (* (cf-17-35 22) ?ono22))
+	(bind ?rp23 (* (cf-17-35 23) ?ono23))
+	(bind ?rp24 (* (cf-17-35 24) ?ono24))
+	(bind ?rp25 (* (cf-17-35 25) ?ono25))
+	(bind ?rp26 (* (cf-17-35 26) ?ono26))
+	(bind ?rp27 (* (cf-17-35 27) ?ono27))
+	(bind ?rp28 (* (cf-17-35 28) ?ono28))
+	(bind ?rp29 (* (cf-17-35 29) ?ono29))
+	(bind ?rp30 (* (cf-17-35 30) ?ono30))
+	(bind ?rp31 (* (cf-17-35 31) ?ono31))
 	;;; limit computations to the practical interval 19-31
 	(bind ?rptotal (+ ?rp19 ?rp20 ?rp21 ?rp22 ?rp23 ?rp24 ?rp25 ?rp26 ?rp27 ?rp28 ?rp29 ?rp30 ?rp31))
 	(bind ?rp19 (/ ?rp19 ?rptotal))
@@ -204,7 +217,7 @@
 
 
 ;;; same with slightly larger "practical interval" for the number of clues
-(deffunction unbiased-average-32
+(deffunction unbiased-average-19-32
 	(?ono19 ?ono20 ?ono21 ?ono22 ?ono23 ?ono24 ?ono25 ?ono26 ?ono27 ?ono28 ?ono29 ?ono30 ?ono31 ?ono32
 	 ?mean19 ?mean20 ?mean21 ?mean22 ?mean23 ?mean24 ?mean25 ?mean26 ?mean27 ?mean28 ?mean29 ?mean30 ?mean31 ?mean32  
 	 ?sd19 ?sd20 ?sd21 ?sd22 ?sd23 ?sd24 ?sd25 ?sd26 ?sd27 ?sd28 ?sd29 ?sd30 ?sd31 ?sd32)  
@@ -214,22 +227,22 @@
 	;;; ?sd(n) = observed standard deviation of variable X for puzzles with n clues
 	
 	;;; ?rp real probabilities
-	; (bind ?rp17 (* (cf 17) ?ono17))
-	; (bind ?rp18 (* (cf 18) ?ono18))
-	(bind ?rp19 (* (cf 19) ?ono19))
-	(bind ?rp20 (* (cf 20) ?ono20))
-	(bind ?rp21 (* (cf 21) ?ono21))
-	(bind ?rp22 (* (cf 22) ?ono22))
-	(bind ?rp23 (* (cf 23) ?ono23))
-	(bind ?rp24 (* (cf 24) ?ono24))
-	(bind ?rp25 (* (cf 25) ?ono25))
-	(bind ?rp26 (* (cf 26) ?ono26))
-	(bind ?rp27 (* (cf 27) ?ono27))
-	(bind ?rp28 (* (cf 28) ?ono28))
-	(bind ?rp29 (* (cf 29) ?ono29))
-	(bind ?rp30 (* (cf 30) ?ono30))
-	(bind ?rp31 (* (cf 31) ?ono31))
-	(bind ?rp32 (* (cf 32) ?ono32))
+	; (bind ?rp17 (* (cf-17-35 17) ?ono17))
+	; (bind ?rp18 (* (cf-17-35 18) ?ono18))
+	(bind ?rp19 (* (cf-17-35 19) ?ono19))
+	(bind ?rp20 (* (cf-17-35 20) ?ono20))
+	(bind ?rp21 (* (cf-17-35 21) ?ono21))
+	(bind ?rp22 (* (cf-17-35 22) ?ono22))
+	(bind ?rp23 (* (cf-17-35 23) ?ono23))
+	(bind ?rp24 (* (cf-17-35 24) ?ono24))
+	(bind ?rp25 (* (cf-17-35 25) ?ono25))
+	(bind ?rp26 (* (cf-17-35 26) ?ono26))
+	(bind ?rp27 (* (cf-17-35 27) ?ono27))
+	(bind ?rp28 (* (cf-17-35 28) ?ono28))
+	(bind ?rp29 (* (cf-17-35 29) ?ono29))
+	(bind ?rp30 (* (cf-17-35 30) ?ono30))
+	(bind ?rp31 (* (cf-17-35 31) ?ono31))
+	(bind ?rp32 (* (cf-17-35 32) ?ono32))
 	;;; limit computations to the practical interval 19-32
 	(bind ?rptotal (+ ?rp19 ?rp20 ?rp21 ?rp22 ?rp23 ?rp24 ?rp25 ?rp26 ?rp27 ?rp28 ?rp29 ?rp30 ?rp31 ?rp32))
 	(bind ?rp19 (/ ?rp19 ?rptotal))
@@ -336,9 +349,14 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Old utility functions
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; correlation for the subset of the sample with ?nb-clues clues
-(deffunction fixed-nb-clues-correlation (?x-file ?y-file ?nb-clues-file ?nb-clues ?n)
+;;; correlation for the subset of the sample with ?fixed-nb-clues clues
+(deffunction fixed-nb-clues-correlation (?x-file ?y-file ?nb-clues-file ?fixed-nb-clues ?file-length)
 	(close)
 	(open ?x-file "x-file" "r")
 	(open ?y-file "y-file" "r")
@@ -352,14 +370,14 @@
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (< ?i (+ ?n 1))
+	(while (<= ?i ?file-length)
 		(bind ?xline (readline "x-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "y-file"))
 		(bind ?yi (eval ?yline))
 		(bind ?nb-clues-i (eval (readline "nb-clues-file")))
 ;		(printout t ?xi " " ?yi " " ?nb-clues-i crlf)
-		(if (eq ?nb-clues-i ?nb-clues) then
+		(if (eq ?nb-clues-i ?fixed-nb-clues) then
 			(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?nb-puzzles)))
 			(bind ?EY (+ ?EY (/ (- ?yi  ?EY) ?nb-puzzles)))
 			(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?nb-puzzles)))
@@ -392,7 +410,7 @@
 
 
 
-(deffunction fixed-nb-clues-log-correlation (?x-file ?y-file ?nb-clues-file ?nb-clues ?n)
+(deffunction fixed-nb-clues-log-correlation (?x-file ?y-file ?nb-clues-file ?fixed-nb-clues ?n)
 	(close)
 	(open ?x-file "x-file" "r")
 	(open ?y-file "y-file" "r")
@@ -413,7 +431,7 @@
 		(bind ?yi (log (eval ?yline)))
 		(bind ?nb-clues-i (eval (readline "nb-clues-file")))
 ;		(printout t ?xi " " ?yi " " ?nb-clues-i crlf)
-		(if (eq ?nb-clues-i ?nb-clues) then
+		(if (eq ?nb-clues-i ?fixed-nb-clues) then
 			(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?nb-puzzles)))
 			(bind ?EY (+ ?EY (/ (- ?yi  ?EY) ?nb-puzzles)))
 			(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?nb-puzzles)))
@@ -445,7 +463,7 @@
 
 
 
-(deffunction stat-number-of-complete-grids-n-after-first-p (?puzzles-file ?p ?n)
+(deffunction stat-number-of-complete-grids-n-after-first-p (?puzzles-file ?p ?file-length)
 	(close)
 	(bind ?T 0.0)
 	(bind ?EX 0.0)
@@ -457,7 +475,7 @@
 	(while (< ?i (+ ?p 1)) (readline "puzzles-file") (bind ?i (+ ?i 1)))
 	(bind ?i (+ ?p 1))
 	(bind ?nb-puzzles 1)
-	(while (< ?i (+ ?p ?n 1))
+	(while (<= ?i (+ ?p ?file-length))
 		(read "puzzles-file")
 		(bind ?nb (read "puzzles-file"))
 		;(printout t ?nb crlf)
@@ -488,9 +506,9 @@
 
 (deffunction file-stat-number-of-complete-grids (?puzzles-file)
 	(close)
-	(bind ?n (file-length ?puzzles-file))
+	(bind ?file-length (file-length ?puzzles-file))
 	(bind ?p 0)
-	(stat-number-of-complete-grids-n-after-first-p ?puzzles-file ?p ?n)
+	(stat-number-of-complete-grids-n-after-first-p ?puzzles-file ?p ?file-length)
 )
 
 
@@ -698,54 +716,63 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Complete calculations in a single function for a random variable X given in a file
+;;; [0 1 2 ... 20, total] represents the 21 possible values of X + the total nb of puzzles
+;;; Note: this is not adapted for non-integer ratings, such as the SER
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(deffunction nrczt-relative-distribution-for-nb-clues (?nrczt-file ?nb-clues-file ?nb ?n)
-	;;; X dsitrib in [0.9 1 2 ... 20, total] for the ?nb-clue puzzles; the last element, the 22th is the total.
+(deffunction X-relative-distribution-for-nb-clues (?X-name ?X-file ?nb-clues-file ?chosen-nb-clues ?file-length)
+	;;; X distrib in [0 1 2 ... 20, total] for the ?nb-clues puzzles
+    ;;; the last element, the 22th, is the total number of puzzles with ?chosen-nb-clues
 	(close)
-	(open ?nrczt-file "nrczt-file" "r")
+	(open ?X-file "X-file" "r")
 	(open ?nb-clues-file "nb-clues-file" "r")
-	(bind ?nrczt-dsitrib (create$ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+	(bind ?X-distrib (create$ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
 	(bind ?i 1)
-	(while (< ?i (+ ?n 1))
-		(bind ?nrczt-line (readline "nrczt-file"))
-		(bind ?nrczt (eval ?nrczt-line))
+	(while (<= ?i ?file-length)
+		(bind ?X-line (readline "X-file"))
+		(bind ?X (eval ?X-line))
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?nb-clues (eval ?nb-clues-line))
-		(if (eq ?nb-clues ?nb)
+		(if (eq ?nb-clues ?chosen-nb-clues)
 			then
-				(bind ?nrczt-dsitrib (replace$ ?nrczt-dsitrib 22 22 (+ 1 (nth$ 22 ?nrczt-dsitrib))))
-				(if (eq ?nrczt 0.9) 
-					then (bind ?nrczt-dsitrib (replace$ ?nrczt-dsitrib 1 1 (+ 1 (nth$ 1 ?nrczt-dsitrib))))
-					else (bind ?nrczt-dsitrib (replace$ ?nrczt-dsitrib (+ 1 ?nrczt) (+ 1 ?nrczt) (+ 1 (nth$ (+ 1 ?nrczt) ?nrczt-dsitrib))))
+				(bind ?X-distrib (replace$ ?X-distrib 22 22 (+ 1 (nth$ 22 ?X-distrib))))
+				(if (eq ?X 0)
+					then (bind ?X-distrib (replace$ ?X-distrib 1 1 (+ 1 (nth$ 1 ?X-distrib))))
+					else (bind ?X-distrib (replace$ ?X-distrib (+ 1 ?X) (+ 1 ?X) (+ 1 (nth$ (+ 1 ?X) ?X-distrib))))
 				)
 		)
 		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 	(close "nb-clues-file")
-	(return ?nrczt-dsitrib)
+    (printout t ?X-name " distribution for " ?chosen-nb-clues "-clue puzzles [0 ... , total] = " ?X-distrib crlf)
+	(return ?X-distrib)
 )
 
 
 
+;;; This is the function that automatically makes all the controlled-bias and unbiased calculations
 
-(deffunction unbiased-nrczt-distribution (?nrczt-file ?nb-clues-file ?n)
+(deffunction unbiased-X-distribution-19-32 (?X-name ?X-file ?nb-clues-file ?file-length)
 	;;; nb-clues from 19 to 32
-	(bind ?distrib-19 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 19 ?n))
-	(bind ?distrib-20 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 20 ?n))
-	(bind ?distrib-21 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 21 ?n))
-	(bind ?distrib-22 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 22 ?n))
-	(bind ?distrib-23 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 23 ?n))
-	(bind ?distrib-24 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 24 ?n))
-	(bind ?distrib-25 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 25 ?n))
-	(bind ?distrib-26 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 26 ?n))
-	(bind ?distrib-27 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 27 ?n))
-	(bind ?distrib-28 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 28 ?n))
-	(bind ?distrib-29 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 29 ?n))
-	(bind ?distrib-30 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 30 ?n))
-	(bind ?distrib-31 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 31 ?n))
-	(bind ?distrib-32 (nrczt-relative-distribution-for-nb-clues ?nrczt-file ?nb-clues-file 32 ?n))
+	(bind ?distrib-19 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 19 ?file-length))
+	(bind ?distrib-20 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 20 ?file-length))
+	(bind ?distrib-21 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 21 ?file-length))
+	(bind ?distrib-22 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 22 ?file-length))
+	(bind ?distrib-23 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 23 ?file-length))
+	(bind ?distrib-24 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 24 ?file-length))
+	(bind ?distrib-25 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 25 ?file-length))
+	(bind ?distrib-26 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 26 ?file-length))
+	(bind ?distrib-27 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 27 ?file-length))
+	(bind ?distrib-28 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 28 ?file-length))
+	(bind ?distrib-29 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 29 ?file-length))
+	(bind ?distrib-30 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 30 ?file-length))
+	(bind ?distrib-31 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 31 ?file-length))
+	(bind ?distrib-32 (X-relative-distribution-for-nb-clues ?X-name ?X-file ?nb-clues-file 32 ?file-length))
 	(bind ?distrib-all 
 		(create$
 			(+  (nth$ 1 ?distrib-19) (nth$ 1 ?distrib-20) (nth$ 1 ?distrib-21) (nth$ 1 ?distrib-22) (nth$ 1 ?distrib-23) (nth$ 1 ?distrib-24) (nth$ 1 ?distrib-25)
@@ -818,160 +845,162 @@
 	)
 	(bind ?real-distrib 
 		(create$
-			(+  (* (nth$ 1 ?distrib-19) (cf 19)) (* (nth$ 1 ?distrib-20) (cf 20)) (* (nth$ 1 ?distrib-21)  (cf 21))
-				(* (nth$ 1 ?distrib-22) (cf 22)) (* (nth$ 1 ?distrib-23) (cf 23)) (* (nth$ 1 ?distrib-24) (cf 24)) 
-				(* (nth$ 1 ?distrib-25) (cf 25)) (* (nth$ 1 ?distrib-26) (cf 26)) (* (nth$ 1 ?distrib-27) (cf 27)) 
-				(* (nth$ 1 ?distrib-28) (cf 28)) (* (nth$ 1 ?distrib-29) (cf 29)) (* (nth$ 1 ?distrib-30) (cf 30)) 
-				(* (nth$ 1 ?distrib-31) (cf 31)) (* (nth$ 1 ?distrib-32) (cf 32))
+			(+  (* (nth$ 1 ?distrib-19) (cf-17-35 19)) (* (nth$ 1 ?distrib-20) (cf-17-35 20)) (* (nth$ 1 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 1 ?distrib-22) (cf-17-35 22)) (* (nth$ 1 ?distrib-23) (cf-17-35 23)) (* (nth$ 1 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 1 ?distrib-25) (cf-17-35 25)) (* (nth$ 1 ?distrib-26) (cf-17-35 26)) (* (nth$ 1 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 1 ?distrib-28) (cf-17-35 28)) (* (nth$ 1 ?distrib-29) (cf-17-35 29)) (* (nth$ 1 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 1 ?distrib-31) (cf-17-35 31)) (* (nth$ 1 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 2 ?distrib-19) (cf 19)) (* (nth$ 2 ?distrib-20) (cf 20)) (* (nth$ 2 ?distrib-21)  (cf 21))
-				(* (nth$ 2 ?distrib-22) (cf 22)) (* (nth$ 2 ?distrib-23) (cf 23)) (* (nth$ 2 ?distrib-24) (cf 24)) 
-				(* (nth$ 2 ?distrib-25) (cf 25)) (* (nth$ 2 ?distrib-26) (cf 26)) (* (nth$ 2 ?distrib-27) (cf 27)) 
-				(* (nth$ 2 ?distrib-28) (cf 28)) (* (nth$ 2 ?distrib-29) (cf 29)) (* (nth$ 2 ?distrib-30) (cf 30)) 
-				(* (nth$ 2 ?distrib-31) (cf 31)) (* (nth$ 2 ?distrib-32) (cf 32))
+			(+  (* (nth$ 2 ?distrib-19) (cf-17-35 19)) (* (nth$ 2 ?distrib-20) (cf-17-35 20)) (* (nth$ 2 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 2 ?distrib-22) (cf-17-35 22)) (* (nth$ 2 ?distrib-23) (cf-17-35 23)) (* (nth$ 2 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 2 ?distrib-25) (cf-17-35 25)) (* (nth$ 2 ?distrib-26) (cf-17-35 26)) (* (nth$ 2 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 2 ?distrib-28) (cf-17-35 28)) (* (nth$ 2 ?distrib-29) (cf-17-35 29)) (* (nth$ 2 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 2 ?distrib-31) (cf-17-35 31)) (* (nth$ 2 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 3 ?distrib-19) (cf 19)) (* (nth$ 3 ?distrib-20) (cf 20)) (* (nth$ 3 ?distrib-21)  (cf 21))
-				(* (nth$ 3 ?distrib-22) (cf 22)) (* (nth$ 3 ?distrib-23) (cf 23)) (* (nth$ 3 ?distrib-24) (cf 24)) 
-				(* (nth$ 3 ?distrib-25) (cf 25)) (* (nth$ 3 ?distrib-26) (cf 26)) (* (nth$ 3 ?distrib-27) (cf 27)) 
-				(* (nth$ 3 ?distrib-28) (cf 28)) (* (nth$ 3 ?distrib-29) (cf 29)) (* (nth$ 3 ?distrib-30) (cf 30)) 
-				(* (nth$ 3 ?distrib-31) (cf 31)) (* (nth$ 3 ?distrib-32) (cf 32))
+			(+  (* (nth$ 3 ?distrib-19) (cf-17-35 19)) (* (nth$ 3 ?distrib-20) (cf-17-35 20)) (* (nth$ 3 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 3 ?distrib-22) (cf-17-35 22)) (* (nth$ 3 ?distrib-23) (cf-17-35 23)) (* (nth$ 3 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 3 ?distrib-25) (cf-17-35 25)) (* (nth$ 3 ?distrib-26) (cf-17-35 26)) (* (nth$ 3 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 3 ?distrib-28) (cf-17-35 28)) (* (nth$ 3 ?distrib-29) (cf-17-35 29)) (* (nth$ 3 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 3 ?distrib-31) (cf-17-35 31)) (* (nth$ 3 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 4 ?distrib-19) (cf 19)) (* (nth$ 4 ?distrib-20) (cf 20)) (* (nth$ 4 ?distrib-21)  (cf 21))
-				(* (nth$ 4 ?distrib-22) (cf 22)) (* (nth$ 4 ?distrib-23) (cf 23)) (* (nth$ 4 ?distrib-24) (cf 24)) 
-				(* (nth$ 4 ?distrib-25) (cf 25)) (* (nth$ 4 ?distrib-26) (cf 26)) (* (nth$ 4 ?distrib-27) (cf 27)) 
-				(* (nth$ 4 ?distrib-28) (cf 28)) (* (nth$ 4 ?distrib-29) (cf 29)) (* (nth$ 4 ?distrib-30) (cf 30)) 
-				(* (nth$ 4 ?distrib-31) (cf 31)) (* (nth$ 4 ?distrib-32) (cf 32))
+			(+  (* (nth$ 4 ?distrib-19) (cf-17-35 19)) (* (nth$ 4 ?distrib-20) (cf-17-35 20)) (* (nth$ 4 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 4 ?distrib-22) (cf-17-35 22)) (* (nth$ 4 ?distrib-23) (cf-17-35 23)) (* (nth$ 4 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 4 ?distrib-25) (cf-17-35 25)) (* (nth$ 4 ?distrib-26) (cf-17-35 26)) (* (nth$ 4 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 4 ?distrib-28) (cf-17-35 28)) (* (nth$ 4 ?distrib-29) (cf-17-35 29)) (* (nth$ 4 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 4 ?distrib-31) (cf-17-35 31)) (* (nth$ 4 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 5 ?distrib-19) (cf 19)) (* (nth$ 5 ?distrib-20) (cf 20)) (* (nth$ 5 ?distrib-21)  (cf 21))
-				(* (nth$ 5 ?distrib-22) (cf 22)) (* (nth$ 5 ?distrib-23) (cf 23)) (* (nth$ 5 ?distrib-24) (cf 24)) 
-				(* (nth$ 5 ?distrib-25) (cf 25)) (* (nth$ 5 ?distrib-26) (cf 26)) (* (nth$ 5 ?distrib-27) (cf 27)) 
-				(* (nth$ 5 ?distrib-28) (cf 28)) (* (nth$ 5 ?distrib-29) (cf 29)) (* (nth$ 5 ?distrib-30) (cf 30)) 
-				(* (nth$ 5 ?distrib-31) (cf 31)) (* (nth$ 5 ?distrib-32) (cf 32))
+			(+  (* (nth$ 5 ?distrib-19) (cf-17-35 19)) (* (nth$ 5 ?distrib-20) (cf-17-35 20)) (* (nth$ 5 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 5 ?distrib-22) (cf-17-35 22)) (* (nth$ 5 ?distrib-23) (cf-17-35 23)) (* (nth$ 5 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 5 ?distrib-25) (cf-17-35 25)) (* (nth$ 5 ?distrib-26) (cf-17-35 26)) (* (nth$ 5 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 5 ?distrib-28) (cf-17-35 28)) (* (nth$ 5 ?distrib-29) (cf-17-35 29)) (* (nth$ 5 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 5 ?distrib-31) (cf-17-35 31)) (* (nth$ 5 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 6 ?distrib-19) (cf 19)) (* (nth$ 6 ?distrib-20) (cf 20)) (* (nth$ 6 ?distrib-21)  (cf 21))
-				(* (nth$ 6 ?distrib-22) (cf 22)) (* (nth$ 6 ?distrib-23) (cf 23)) (* (nth$ 6 ?distrib-24) (cf 24)) 
-				(* (nth$ 6 ?distrib-25) (cf 25)) (* (nth$ 6 ?distrib-26) (cf 26)) (* (nth$ 6 ?distrib-27) (cf 27)) 
-				(* (nth$ 6 ?distrib-28) (cf 28)) (* (nth$ 6 ?distrib-29) (cf 29)) (* (nth$ 6 ?distrib-30) (cf 30)) 
-				(* (nth$ 6 ?distrib-31) (cf 31)) (* (nth$ 6 ?distrib-32) (cf 32))
+			(+  (* (nth$ 6 ?distrib-19) (cf-17-35 19)) (* (nth$ 6 ?distrib-20) (cf-17-35 20)) (* (nth$ 6 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 6 ?distrib-22) (cf-17-35 22)) (* (nth$ 6 ?distrib-23) (cf-17-35 23)) (* (nth$ 6 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 6 ?distrib-25) (cf-17-35 25)) (* (nth$ 6 ?distrib-26) (cf-17-35 26)) (* (nth$ 6 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 6 ?distrib-28) (cf-17-35 28)) (* (nth$ 6 ?distrib-29) (cf-17-35 29)) (* (nth$ 6 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 6 ?distrib-31) (cf-17-35 31)) (* (nth$ 6 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 7 ?distrib-19) (cf 19)) (* (nth$ 7 ?distrib-20) (cf 20)) (* (nth$ 7 ?distrib-21)  (cf 21))
-				(* (nth$ 7 ?distrib-22) (cf 22)) (* (nth$ 7 ?distrib-23) (cf 23)) (* (nth$ 7 ?distrib-24) (cf 24)) 
-				(* (nth$ 7 ?distrib-25) (cf 25)) (* (nth$ 7 ?distrib-26) (cf 26)) (* (nth$ 7 ?distrib-27) (cf 27)) 
-				(* (nth$ 7 ?distrib-28) (cf 28)) (* (nth$ 7 ?distrib-29) (cf 29)) (* (nth$ 7 ?distrib-30) (cf 30)) 
-				(* (nth$ 7 ?distrib-31) (cf 31)) (* (nth$ 7 ?distrib-32) (cf 32))
+			(+  (* (nth$ 7 ?distrib-19) (cf-17-35 19)) (* (nth$ 7 ?distrib-20) (cf-17-35 20)) (* (nth$ 7 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 7 ?distrib-22) (cf-17-35 22)) (* (nth$ 7 ?distrib-23) (cf-17-35 23)) (* (nth$ 7 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 7 ?distrib-25) (cf-17-35 25)) (* (nth$ 7 ?distrib-26) (cf-17-35 26)) (* (nth$ 7 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 7 ?distrib-28) (cf-17-35 28)) (* (nth$ 7 ?distrib-29) (cf-17-35 29)) (* (nth$ 7 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 7 ?distrib-31) (cf-17-35 31)) (* (nth$ 7 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 8 ?distrib-19) (cf 19)) (* (nth$ 8 ?distrib-20) (cf 20)) (* (nth$ 8 ?distrib-21)  (cf 21))
-				(* (nth$ 8 ?distrib-22) (cf 22)) (* (nth$ 8 ?distrib-23) (cf 23)) (* (nth$ 8 ?distrib-24) (cf 24)) 
-				(* (nth$ 8 ?distrib-25) (cf 25)) (* (nth$ 8 ?distrib-26) (cf 26)) (* (nth$ 8 ?distrib-27) (cf 27)) 
-				(* (nth$ 8 ?distrib-28) (cf 28)) (* (nth$ 8 ?distrib-29) (cf 29)) (* (nth$ 8 ?distrib-30) (cf 30)) 
-				(* (nth$ 8 ?distrib-31) (cf 31)) (* (nth$ 8 ?distrib-32) (cf 32))
+			(+  (* (nth$ 8 ?distrib-19) (cf-17-35 19)) (* (nth$ 8 ?distrib-20) (cf-17-35 20)) (* (nth$ 8 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 8 ?distrib-22) (cf-17-35 22)) (* (nth$ 8 ?distrib-23) (cf-17-35 23)) (* (nth$ 8 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 8 ?distrib-25) (cf-17-35 25)) (* (nth$ 8 ?distrib-26) (cf-17-35 26)) (* (nth$ 8 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 8 ?distrib-28) (cf-17-35 28)) (* (nth$ 8 ?distrib-29) (cf-17-35 29)) (* (nth$ 8 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 8 ?distrib-31) (cf-17-35 31)) (* (nth$ 8 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 9 ?distrib-19) (cf 19)) (* (nth$ 9 ?distrib-20) (cf 20)) (* (nth$ 9 ?distrib-21)  (cf 21))
-				(* (nth$ 9 ?distrib-22) (cf 22)) (* (nth$ 9 ?distrib-23) (cf 23)) (* (nth$ 9 ?distrib-24) (cf 24)) 
-				(* (nth$ 9 ?distrib-25) (cf 25)) (* (nth$ 9 ?distrib-26) (cf 26)) (* (nth$ 9 ?distrib-27) (cf 27)) 
-				(* (nth$ 9 ?distrib-28) (cf 28)) (* (nth$ 9 ?distrib-29) (cf 29)) (* (nth$ 9 ?distrib-30) (cf 30)) 
-				(* (nth$ 9 ?distrib-31) (cf 31)) (* (nth$ 9 ?distrib-32) (cf 32))
+			(+  (* (nth$ 9 ?distrib-19) (cf-17-35 19)) (* (nth$ 9 ?distrib-20) (cf-17-35 20)) (* (nth$ 9 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 9 ?distrib-22) (cf-17-35 22)) (* (nth$ 9 ?distrib-23) (cf-17-35 23)) (* (nth$ 9 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 9 ?distrib-25) (cf-17-35 25)) (* (nth$ 9 ?distrib-26) (cf-17-35 26)) (* (nth$ 9 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 9 ?distrib-28) (cf-17-35 28)) (* (nth$ 9 ?distrib-29) (cf-17-35 29)) (* (nth$ 9 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 9 ?distrib-31) (cf-17-35 31)) (* (nth$ 9 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 10 ?distrib-19) (cf 19)) (* (nth$ 10 ?distrib-20) (cf 20)) (* (nth$ 10 ?distrib-21)  (cf 21))
-				(* (nth$ 10 ?distrib-22) (cf 22)) (* (nth$ 10 ?distrib-23) (cf 23)) (* (nth$ 10 ?distrib-24) (cf 24)) 
-				(* (nth$ 10 ?distrib-25) (cf 25)) (* (nth$ 10 ?distrib-26) (cf 26)) (* (nth$ 10 ?distrib-27) (cf 27)) 
-				(* (nth$ 10 ?distrib-28) (cf 28)) (* (nth$ 10 ?distrib-29) (cf 29)) (* (nth$ 10 ?distrib-30) (cf 30)) 
-				(* (nth$ 10 ?distrib-31) (cf 31)) (* (nth$ 10 ?distrib-32) (cf 32))
+			(+  (* (nth$ 10 ?distrib-19) (cf-17-35 19)) (* (nth$ 10 ?distrib-20) (cf-17-35 20)) (* (nth$ 10 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 10 ?distrib-22) (cf-17-35 22)) (* (nth$ 10 ?distrib-23) (cf-17-35 23)) (* (nth$ 10 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 10 ?distrib-25) (cf-17-35 25)) (* (nth$ 10 ?distrib-26) (cf-17-35 26)) (* (nth$ 10 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 10 ?distrib-28) (cf-17-35 28)) (* (nth$ 10 ?distrib-29) (cf-17-35 29)) (* (nth$ 10 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 10 ?distrib-31) (cf-17-35 31)) (* (nth$ 10 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 11 ?distrib-19) (cf 19)) (* (nth$ 11 ?distrib-20) (cf 20)) (* (nth$ 11 ?distrib-21)  (cf 21))
-				(* (nth$ 11 ?distrib-22) (cf 22)) (* (nth$ 11 ?distrib-23) (cf 23)) (* (nth$ 11 ?distrib-24) (cf 24)) 
-				(* (nth$ 11 ?distrib-25) (cf 25)) (* (nth$ 11 ?distrib-26) (cf 26)) (* (nth$ 11 ?distrib-27) (cf 27)) 
-				(* (nth$ 11 ?distrib-28) (cf 28)) (* (nth$ 11 ?distrib-29) (cf 29)) (* (nth$ 11 ?distrib-30) (cf 30)) 
-				(* (nth$ 11 ?distrib-31) (cf 31)) (* (nth$ 11 ?distrib-32) (cf 32))
+			(+  (* (nth$ 11 ?distrib-19) (cf-17-35 19)) (* (nth$ 11 ?distrib-20) (cf-17-35 20)) (* (nth$ 11 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 11 ?distrib-22) (cf-17-35 22)) (* (nth$ 11 ?distrib-23) (cf-17-35 23)) (* (nth$ 11 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 11 ?distrib-25) (cf-17-35 25)) (* (nth$ 11 ?distrib-26) (cf-17-35 26)) (* (nth$ 11 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 11 ?distrib-28) (cf-17-35 28)) (* (nth$ 11 ?distrib-29) (cf-17-35 29)) (* (nth$ 11 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 11 ?distrib-31) (cf-17-35 31)) (* (nth$ 11 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 12 ?distrib-19) (cf 19)) (* (nth$ 12 ?distrib-20) (cf 20)) (* (nth$ 12 ?distrib-21)  (cf 21))
-				(* (nth$ 12 ?distrib-22) (cf 22)) (* (nth$ 12 ?distrib-23) (cf 23)) (* (nth$ 12 ?distrib-24) (cf 24)) 
-				(* (nth$ 12 ?distrib-25) (cf 25)) (* (nth$ 12 ?distrib-26) (cf 26)) (* (nth$ 12 ?distrib-27) (cf 27)) 
-				(* (nth$ 12 ?distrib-28) (cf 28)) (* (nth$ 12 ?distrib-29) (cf 29)) (* (nth$ 12 ?distrib-30) (cf 30)) 
-				(* (nth$ 12 ?distrib-31) (cf 31)) (* (nth$ 12 ?distrib-32) (cf 32))
+			(+  (* (nth$ 12 ?distrib-19) (cf-17-35 19)) (* (nth$ 12 ?distrib-20) (cf-17-35 20)) (* (nth$ 12 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 12 ?distrib-22) (cf-17-35 22)) (* (nth$ 12 ?distrib-23) (cf-17-35 23)) (* (nth$ 12 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 12 ?distrib-25) (cf-17-35 25)) (* (nth$ 12 ?distrib-26) (cf-17-35 26)) (* (nth$ 12 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 12 ?distrib-28) (cf-17-35 28)) (* (nth$ 12 ?distrib-29) (cf-17-35 29)) (* (nth$ 12 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 12 ?distrib-31) (cf-17-35 31)) (* (nth$ 12 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 13 ?distrib-19) (cf 19)) (* (nth$ 13 ?distrib-20) (cf 20)) (* (nth$ 13 ?distrib-21)  (cf 21))
-				(* (nth$ 13 ?distrib-22) (cf 22)) (* (nth$ 13 ?distrib-23) (cf 23)) (* (nth$ 13 ?distrib-24) (cf 24)) 
-				(* (nth$ 13 ?distrib-25) (cf 25)) (* (nth$ 13 ?distrib-26) (cf 26)) (* (nth$ 13 ?distrib-27) (cf 27)) 
-				(* (nth$ 13 ?distrib-28) (cf 28)) (* (nth$ 13 ?distrib-29) (cf 29)) (* (nth$ 13 ?distrib-30) (cf 30)) 
-				(* (nth$ 13 ?distrib-31) (cf 31)) (* (nth$ 13 ?distrib-32) (cf 32))
+			(+  (* (nth$ 13 ?distrib-19) (cf-17-35 19)) (* (nth$ 13 ?distrib-20) (cf-17-35 20)) (* (nth$ 13 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 13 ?distrib-22) (cf-17-35 22)) (* (nth$ 13 ?distrib-23) (cf-17-35 23)) (* (nth$ 13 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 13 ?distrib-25) (cf-17-35 25)) (* (nth$ 13 ?distrib-26) (cf-17-35 26)) (* (nth$ 13 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 13 ?distrib-28) (cf-17-35 28)) (* (nth$ 13 ?distrib-29) (cf-17-35 29)) (* (nth$ 13 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 13 ?distrib-31) (cf-17-35 31)) (* (nth$ 13 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 14 ?distrib-19) (cf 19)) (* (nth$ 14 ?distrib-20) (cf 20)) (* (nth$ 14 ?distrib-21)  (cf 21))
-				(* (nth$ 14 ?distrib-22) (cf 22)) (* (nth$ 14 ?distrib-23) (cf 23)) (* (nth$ 14 ?distrib-24) (cf 24)) 
-				(* (nth$ 14 ?distrib-25) (cf 25)) (* (nth$ 14 ?distrib-26) (cf 26)) (* (nth$ 14 ?distrib-27) (cf 27)) 
-				(* (nth$ 14 ?distrib-28) (cf 28)) (* (nth$ 14 ?distrib-29) (cf 29)) (* (nth$ 14 ?distrib-30) (cf 30)) 
-				(* (nth$ 14 ?distrib-31) (cf 31)) (* (nth$ 14 ?distrib-32) (cf 32))
+			(+  (* (nth$ 14 ?distrib-19) (cf-17-35 19)) (* (nth$ 14 ?distrib-20) (cf-17-35 20)) (* (nth$ 14 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 14 ?distrib-22) (cf-17-35 22)) (* (nth$ 14 ?distrib-23) (cf-17-35 23)) (* (nth$ 14 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 14 ?distrib-25) (cf-17-35 25)) (* (nth$ 14 ?distrib-26) (cf-17-35 26)) (* (nth$ 14 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 14 ?distrib-28) (cf-17-35 28)) (* (nth$ 14 ?distrib-29) (cf-17-35 29)) (* (nth$ 14 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 14 ?distrib-31) (cf-17-35 31)) (* (nth$ 14 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 15 ?distrib-19) (cf 19)) (* (nth$ 15 ?distrib-20) (cf 20)) (* (nth$ 15 ?distrib-21)  (cf 21))
-				(* (nth$ 15 ?distrib-22) (cf 22)) (* (nth$ 15 ?distrib-23) (cf 23)) (* (nth$ 15 ?distrib-24) (cf 24)) 
-				(* (nth$ 15 ?distrib-25) (cf 25)) (* (nth$ 15 ?distrib-26) (cf 26)) (* (nth$ 15 ?distrib-27) (cf 27)) 
-				(* (nth$ 15 ?distrib-28) (cf 28)) (* (nth$ 15 ?distrib-29) (cf 29)) (* (nth$ 15 ?distrib-30) (cf 30)) 
-				(* (nth$ 15 ?distrib-31) (cf 31)) (* (nth$ 15 ?distrib-32) (cf 32))
+			(+  (* (nth$ 15 ?distrib-19) (cf-17-35 19)) (* (nth$ 15 ?distrib-20) (cf-17-35 20)) (* (nth$ 15 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 15 ?distrib-22) (cf-17-35 22)) (* (nth$ 15 ?distrib-23) (cf-17-35 23)) (* (nth$ 15 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 15 ?distrib-25) (cf-17-35 25)) (* (nth$ 15 ?distrib-26) (cf-17-35 26)) (* (nth$ 15 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 15 ?distrib-28) (cf-17-35 28)) (* (nth$ 15 ?distrib-29) (cf-17-35 29)) (* (nth$ 15 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 15 ?distrib-31) (cf-17-35 31)) (* (nth$ 15 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 16 ?distrib-19) (cf 19)) (* (nth$ 16 ?distrib-20) (cf 20)) (* (nth$ 16 ?distrib-21)  (cf 21))
-				(* (nth$ 16 ?distrib-22) (cf 22)) (* (nth$ 16 ?distrib-23) (cf 23)) (* (nth$ 16 ?distrib-24) (cf 24)) 
-				(* (nth$ 16 ?distrib-25) (cf 25)) (* (nth$ 16 ?distrib-26) (cf 26)) (* (nth$ 16 ?distrib-27) (cf 27)) 
-				(* (nth$ 16 ?distrib-28) (cf 28)) (* (nth$ 16 ?distrib-29) (cf 29)) (* (nth$ 16 ?distrib-30) (cf 30)) 
-				(* (nth$ 16 ?distrib-31) (cf 31)) (* (nth$ 16 ?distrib-32) (cf 32))
+			(+  (* (nth$ 16 ?distrib-19) (cf-17-35 19)) (* (nth$ 16 ?distrib-20) (cf-17-35 20)) (* (nth$ 16 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 16 ?distrib-22) (cf-17-35 22)) (* (nth$ 16 ?distrib-23) (cf-17-35 23)) (* (nth$ 16 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 16 ?distrib-25) (cf-17-35 25)) (* (nth$ 16 ?distrib-26) (cf-17-35 26)) (* (nth$ 16 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 16 ?distrib-28) (cf-17-35 28)) (* (nth$ 16 ?distrib-29) (cf-17-35 29)) (* (nth$ 16 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 16 ?distrib-31) (cf-17-35 31)) (* (nth$ 16 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 17 ?distrib-19) (cf 19)) (* (nth$ 17 ?distrib-20) (cf 20)) (* (nth$ 17 ?distrib-21)  (cf 21))
-				(* (nth$ 17 ?distrib-22) (cf 22)) (* (nth$ 17 ?distrib-23) (cf 23)) (* (nth$ 17 ?distrib-24) (cf 24)) 
-				(* (nth$ 17 ?distrib-25) (cf 25)) (* (nth$ 17 ?distrib-26) (cf 26)) (* (nth$ 17 ?distrib-27) (cf 27)) 
-				(* (nth$ 17 ?distrib-28) (cf 28)) (* (nth$ 17 ?distrib-29) (cf 29)) (* (nth$ 17 ?distrib-30) (cf 30)) 
-				(* (nth$ 17 ?distrib-31) (cf 31)) (* (nth$ 17 ?distrib-32) (cf 32))
+			(+  (* (nth$ 17 ?distrib-19) (cf-17-35 19)) (* (nth$ 17 ?distrib-20) (cf-17-35 20)) (* (nth$ 17 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 17 ?distrib-22) (cf-17-35 22)) (* (nth$ 17 ?distrib-23) (cf-17-35 23)) (* (nth$ 17 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 17 ?distrib-25) (cf-17-35 25)) (* (nth$ 17 ?distrib-26) (cf-17-35 26)) (* (nth$ 17 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 17 ?distrib-28) (cf-17-35 28)) (* (nth$ 17 ?distrib-29) (cf-17-35 29)) (* (nth$ 17 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 17 ?distrib-31) (cf-17-35 31)) (* (nth$ 17 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 18 ?distrib-19) (cf 19)) (* (nth$ 18 ?distrib-20) (cf 20)) (* (nth$ 18 ?distrib-21)  (cf 21))
-				(* (nth$ 18 ?distrib-22) (cf 22)) (* (nth$ 18 ?distrib-23) (cf 23)) (* (nth$ 18 ?distrib-24) (cf 24)) 
-				(* (nth$ 18 ?distrib-25) (cf 25)) (* (nth$ 18 ?distrib-26) (cf 26)) (* (nth$ 18 ?distrib-27) (cf 27)) 
-				(* (nth$ 18 ?distrib-28) (cf 28)) (* (nth$ 18 ?distrib-29) (cf 29)) (* (nth$ 18 ?distrib-30) (cf 30)) 
-				(* (nth$ 18 ?distrib-31) (cf 31)) (* (nth$ 18 ?distrib-32) (cf 32))
+			(+  (* (nth$ 18 ?distrib-19) (cf-17-35 19)) (* (nth$ 18 ?distrib-20) (cf-17-35 20)) (* (nth$ 18 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 18 ?distrib-22) (cf-17-35 22)) (* (nth$ 18 ?distrib-23) (cf-17-35 23)) (* (nth$ 18 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 18 ?distrib-25) (cf-17-35 25)) (* (nth$ 18 ?distrib-26) (cf-17-35 26)) (* (nth$ 18 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 18 ?distrib-28) (cf-17-35 28)) (* (nth$ 18 ?distrib-29) (cf-17-35 29)) (* (nth$ 18 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 18 ?distrib-31) (cf-17-35 31)) (* (nth$ 18 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 19 ?distrib-19) (cf 19)) (* (nth$ 19 ?distrib-20) (cf 20)) (* (nth$ 19 ?distrib-21)  (cf 21))
-				(* (nth$ 19 ?distrib-22) (cf 22)) (* (nth$ 19 ?distrib-23) (cf 23)) (* (nth$ 19 ?distrib-24) (cf 24)) 
-				(* (nth$ 19 ?distrib-25) (cf 25)) (* (nth$ 19 ?distrib-26) (cf 26)) (* (nth$ 19 ?distrib-27) (cf 27)) 
-				(* (nth$ 19 ?distrib-28) (cf 28)) (* (nth$ 19 ?distrib-29) (cf 29)) (* (nth$ 19 ?distrib-30) (cf 30)) 
-				(* (nth$ 19 ?distrib-31) (cf 31)) (* (nth$ 19 ?distrib-32) (cf 32))
+			(+  (* (nth$ 19 ?distrib-19) (cf-17-35 19)) (* (nth$ 19 ?distrib-20) (cf-17-35 20)) (* (nth$ 19 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 19 ?distrib-22) (cf-17-35 22)) (* (nth$ 19 ?distrib-23) (cf-17-35 23)) (* (nth$ 19 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 19 ?distrib-25) (cf-17-35 25)) (* (nth$ 19 ?distrib-26) (cf-17-35 26)) (* (nth$ 19 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 19 ?distrib-28) (cf-17-35 28)) (* (nth$ 19 ?distrib-29) (cf-17-35 29)) (* (nth$ 19 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 19 ?distrib-31) (cf-17-35 31)) (* (nth$ 19 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 20 ?distrib-19) (cf 19)) (* (nth$ 20 ?distrib-20) (cf 20)) (* (nth$ 20 ?distrib-21)  (cf 21))
-				(* (nth$ 20 ?distrib-22) (cf 22)) (* (nth$ 20 ?distrib-23) (cf 23)) (* (nth$ 20 ?distrib-24) (cf 24)) 
-				(* (nth$ 20 ?distrib-25) (cf 25)) (* (nth$ 20 ?distrib-26) (cf 26)) (* (nth$ 20 ?distrib-27) (cf 27)) 
-				(* (nth$ 20 ?distrib-28) (cf 28)) (* (nth$ 20 ?distrib-29) (cf 29)) (* (nth$ 20 ?distrib-30) (cf 30)) 
-				(* (nth$ 20 ?distrib-31) (cf 31)) (* (nth$ 20 ?distrib-32) (cf 32))
+			(+  (* (nth$ 20 ?distrib-19) (cf-17-35 19)) (* (nth$ 20 ?distrib-20) (cf-17-35 20)) (* (nth$ 20 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 20 ?distrib-22) (cf-17-35 22)) (* (nth$ 20 ?distrib-23) (cf-17-35 23)) (* (nth$ 20 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 20 ?distrib-25) (cf-17-35 25)) (* (nth$ 20 ?distrib-26) (cf-17-35 26)) (* (nth$ 20 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 20 ?distrib-28) (cf-17-35 28)) (* (nth$ 20 ?distrib-29) (cf-17-35 29)) (* (nth$ 20 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 20 ?distrib-31) (cf-17-35 31)) (* (nth$ 20 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 21 ?distrib-19) (cf 19)) (* (nth$ 21 ?distrib-20) (cf 20)) (* (nth$ 21 ?distrib-21)  (cf 21))
-				(* (nth$ 21 ?distrib-22) (cf 22)) (* (nth$ 21 ?distrib-23) (cf 23)) (* (nth$ 21 ?distrib-24) (cf 24)) 
-				(* (nth$ 21 ?distrib-25) (cf 25)) (* (nth$ 21 ?distrib-26) (cf 26)) (* (nth$ 21 ?distrib-27) (cf 27)) 
-				(* (nth$ 21 ?distrib-28) (cf 28)) (* (nth$ 21 ?distrib-29) (cf 29)) (* (nth$ 21 ?distrib-30) (cf 30)) 
-				(* (nth$ 21 ?distrib-31) (cf 31)) (* (nth$ 21 ?distrib-32) (cf 32))
+			(+  (* (nth$ 21 ?distrib-19) (cf-17-35 19)) (* (nth$ 21 ?distrib-20) (cf-17-35 20)) (* (nth$ 21 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 21 ?distrib-22) (cf-17-35 22)) (* (nth$ 21 ?distrib-23) (cf-17-35 23)) (* (nth$ 21 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 21 ?distrib-25) (cf-17-35 25)) (* (nth$ 21 ?distrib-26) (cf-17-35 26)) (* (nth$ 21 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 21 ?distrib-28) (cf-17-35 28)) (* (nth$ 21 ?distrib-29) (cf-17-35 29)) (* (nth$ 21 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 21 ?distrib-31) (cf-17-35 31)) (* (nth$ 21 ?distrib-32) (cf-17-35 32))
 			)
-			(+  (* (nth$ 22 ?distrib-19) (cf 19)) (* (nth$ 22 ?distrib-20) (cf 20)) (* (nth$ 22 ?distrib-21)  (cf 21))
-				(* (nth$ 22 ?distrib-22) (cf 22)) (* (nth$ 22 ?distrib-23) (cf 23)) (* (nth$ 22 ?distrib-24) (cf 24)) 
-				(* (nth$ 22 ?distrib-25) (cf 25)) (* (nth$ 22 ?distrib-26) (cf 26)) (* (nth$ 22 ?distrib-27) (cf 27)) 
-				(* (nth$ 22 ?distrib-28) (cf 28)) (* (nth$ 22 ?distrib-29) (cf 29)) (* (nth$ 22 ?distrib-30) (cf 30)) 
-				(* (nth$ 22 ?distrib-31) (cf 31)) (* (nth$ 22 ?distrib-32) (cf 32))
+			(+  (* (nth$ 22 ?distrib-19) (cf-17-35 19)) (* (nth$ 22 ?distrib-20) (cf-17-35 20)) (* (nth$ 22 ?distrib-21)  (cf-17-35 21))
+				(* (nth$ 22 ?distrib-22) (cf-17-35 22)) (* (nth$ 22 ?distrib-23) (cf-17-35 23)) (* (nth$ 22 ?distrib-24) (cf-17-35 24)) 
+				(* (nth$ 22 ?distrib-25) (cf-17-35 25)) (* (nth$ 22 ?distrib-26) (cf-17-35 26)) (* (nth$ 22 ?distrib-27) (cf-17-35 27)) 
+				(* (nth$ 22 ?distrib-28) (cf-17-35 28)) (* (nth$ 22 ?distrib-29) (cf-17-35 29)) (* (nth$ 22 ?distrib-30) (cf-17-35 30)) 
+				(* (nth$ 22 ?distrib-31) (cf-17-35 31)) (* (nth$ 22 ?distrib-32) (cf-17-35 32))
 			)
 		)
 	)
-				
-	(printout t "19: " ?distrib-19 crlf)
-	(printout t "20: " ?distrib-20 crlf)
-	(printout t "21: " ?distrib-21 crlf)
-	(printout t "22: " ?distrib-22 crlf)
-	(printout t "23: " ?distrib-23 crlf)
-	(printout t "24: " ?distrib-24 crlf)
-	(printout t "25: " ?distrib-25 crlf)
-	(printout t "26: " ?distrib-26 crlf)
-	(printout t "27: " ?distrib-27 crlf)
-	(printout t "28: " ?distrib-28 crlf)
-	(printout t "29: " ?distrib-29 crlf)
-	(printout t "30: " ?distrib-30 crlf)
-	(printout t "31: " ?distrib-31 crlf)
-	(printout t "32: " ?distrib-32 crlf)
-	(printout t "all: " ?distrib-all crlf)
-	(printout t "real: " ?real-distrib crlf)
+    
+    (printout t crlf)
+	(printout t ?X-name " distribution for 19 clue puzzles = " ?distrib-19 crlf)
+    (printout t ?X-name " distribution for 20 clue puzzles = " ?distrib-20 crlf)
+    (printout t ?X-name " distribution for 21 clue puzzles = " ?distrib-21 crlf)
+    (printout t ?X-name " distribution for 22 clue puzzles = " ?distrib-22 crlf)
+    (printout t ?X-name " distribution for 23 clue puzzles = " ?distrib-23 crlf)
+    (printout t ?X-name " distribution for 24 clue puzzles = " ?distrib-24 crlf)
+    (printout t ?X-name " distribution for 25 clue puzzles = " ?distrib-25 crlf)
+    (printout t ?X-name " distribution for 26 clue puzzles = " ?distrib-26 crlf)
+    (printout t ?X-name " distribution for 27 clue puzzles = " ?distrib-27 crlf)
+    (printout t ?X-name " distribution for 28 clue puzzles = " ?distrib-28 crlf)
+    (printout t ?X-name " distribution for 29 clue puzzles = " ?distrib-29 crlf)
+    (printout t ?X-name " distribution for 30 clue puzzles = " ?distrib-30 crlf)
+    (printout t ?X-name " distribution for 31 clue puzzles = " ?distrib-31 crlf)
+    (printout t ?X-name " distribution for 32 clue puzzles = " ?distrib-32 crlf)
+    (printout t ?X-name " global distribution = " ?distrib-all crlf)
+	; (printout t ?X-name " real distribution = " ?real-distrib crlf)
 	
-	(printout t percentages: crlf)
-	
+    (printout t crlf)
+    (printout t "Distributions for " ?X-name ", expresed as percentages: " crlf)
+
 	(bind ?total (nth$ 22 ?distrib-all))
 	(bind ?percentages-all
 		(create$ 
@@ -999,7 +1028,7 @@
 			(* (nth$ 22 ?distrib-all) (/ 100 ?total))
 		)
 	)
-	(printout t "%-all: " ?percentages-all crlf)
+	(printout t "controlled-bias distribution: " ?percentages-all crlf)
 	
 	(bind ?total (nth$ 22 ?real-distrib))
 	(bind ?real-percentages 
@@ -1028,12 +1057,12 @@
 			(* (nth$ 22 ?real-distrib) (/ 100 ?total))
 		)
 	)
-	(printout t "%-real: " ?real-percentages crlf)
-)	
+	(printout t "real unbiased distribution: "  ?real-percentages crlf)
+)
 
 
 
-(deffunction weighted-relative-error (?weights ?sds)
+(deffunction weighted-relative-error-19-32 (?weights ?sds)
 	;;; weights and standards deviations from 19 to 32 clues
 	(bind ?sum
 		(+ 

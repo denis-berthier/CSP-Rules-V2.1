@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;                              CSP-RULES / SUDORULES
-;;;                              COMPARISONS
+;;;                               STATS / COMPARISONS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -15,7 +15,7 @@
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
-               ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
+               ;;;  https://github.com/denis-berthier/CSP-Rules-V2.1  ;;;
                ;;;            January 2006 - August 2020              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,7 +32,7 @@
 ;;; This is not very elegant.
 ;;; But "while" is the only iterative control structure common to CLIPS and JESS.
 
-;;; The contents of the compared files must be intergers or reals
+;;; The contents of the compared files must be integers or reals
 
 
 (deffunction compare-files (?file1 ?file2 ?n)
@@ -58,3 +58,26 @@
 	(printout t "file1 smaller " ?minus " times." crlf)
 )
 
+
+
+(deffunction compare-ratings-in-files (?r1 ?r2 ?file1 ?file2 ?file-length)
+    ;;; ?r1 and ?r2 are the names of the ratings, e.g. W and B
+    ;;; ?file1 ?file2 are the full paths to the files of the two ratings
+    ;;; ?file-length is the length of the files of the two ratings
+    (open ?file1 "file1" "r")
+    (open ?file2 "file2" "r")
+    (bind ?nb-diff 0)
+    (bind ?i 1)
+    (while (<= ?i ?file-length)
+        (bind ?rating1 (read-number "file1"))
+        (bind ?rating2 (read-number "file2") )
+        (if (neq ?rating1 ?rating2) then
+            (bind ?nb-diff (+ ?nb-diff 1))
+            (printout t "#" ?i "; " ?r1 ?rating1 "; " ?r2 ?rating2 "; diff " (- ?rating1 ?rating2) crlf)
+        )
+        (bind ?i (+ ?i 1))
+    )
+    (printout t ?nb-diff " differences" crlf)
+    (close "file2")
+    (close "file1")
+)

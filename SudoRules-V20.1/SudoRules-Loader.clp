@@ -492,6 +492,7 @@
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "stats.clp"))
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "unbiased-stats.clp"))
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "comparisons.clp"))
+(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "puzzle-filters.clp"))
 
 
 

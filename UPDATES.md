@@ -12,6 +12,10 @@
 
 
 
+#### 2023 December 4 (SudoRules):
+* add functions for filtering puzzles that have some fixed rating or have their rating above some fixed raing. This may be useful e.g. for extracting T&E(2) or T&E(3) puzzles from a mixed list of hard puzzles, or for extracting T&E(2) puzzles with a high value of their BpB rating.
+
+
 #### 2023 November 11 (Generic):
 * Extend ORk splitting rules upto length 16 (instead of 12).
 * Allow focusing in ORk-whips.

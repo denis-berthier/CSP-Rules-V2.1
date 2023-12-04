@@ -57,7 +57,7 @@
 
 ;;; Extract puzzles that have a value equal to or above a given value
 
-(deffunction extract-puzzles-with-value (?puzzles-file-in ?values-file ?file-len ?value ?puzzles-file-out)
+(deffunction extract-puzzles-with-value-greater (?puzzles-file-in ?values-file ?file-len ?value ?puzzles-file-out)
     (bind ?puzzles-out-list (create$))
     (bind ?puzzle-value 0)
     (bind ?puzzle "")

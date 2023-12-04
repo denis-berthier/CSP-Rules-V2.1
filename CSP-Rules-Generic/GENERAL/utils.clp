@@ -351,5 +351,91 @@
             )
     )
 )
-                
-            
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; General utility functions for files
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction max-value-in-file (?X-file ?file-length)
+    (close)
+    (open ?X-file "X-file" "r")
+    (bind ?i 1)
+    (bind ?max -1000000)
+    (while (<= ?i ?file-length)
+        (bind ?xline (readline "X-file"))
+        (bind ?xi (eval ?xline))
+        (bind ?max (max ?max ?xi))
+        (bind ?i (+ ?i 1))
+    )
+    (printout t "max = " ?max crlf)
+    (close "X-file")
+)
+
+
+(deffunction min-value-in-file (?X-file ?file-length)
+    (close)
+    (open ?X-file "X-file" "r")
+    (bind ?i 1)
+    (bind ?min 1000000)
+    (while (<= ?i ?file-length)
+        (bind ?xline (readline "X-file"))
+        (bind ?xi (eval ?xline))
+        (bind ?min (min ?min ?xi))
+        (bind ?i (+ ?i 1))
+    )
+    (printout t "min = " ?min crlf)
+    (close "X-file")
+)
+
+
+;;; Same functions with file length computed automatically
+
+(deffunction file-length (?file)
+    (close)
+    (open ?file "file" "r")
+    (bind ?i 0)
+    (while TRUE
+        (bind ?line (readline "file"))
+        (bind ?li ?line)
+        (if (eq ?li EOF) then (return ?i))
+        (bind ?i (+ ?i 1))
+    )
+    (close "file")
+)
+
+
+(deffunction file-max-value (?X-file)
+    (close)
+    (open ?X-file "X-file" "r")
+    (bind ?i 1)
+    (bind ?max -1000000)
+    (while TRUE
+        (bind ?xline (readline "X-file"))
+        (bind ?xi (eval ?xline))
+        (if (eq ?xi EOF) then (return ?max) (printout t "max = " ?max crlf) (close "X-file"))
+        (bind ?max (max ?max ?xi))
+        (bind ?i (+ ?i 1))
+    )
+    (close "X-file")
+)
+
+
+(deffunction file-min-value (?X-file)
+    (close)
+    (open ?X-file "X-file" "r")
+    (bind ?i 1)
+    (bind ?min 1000000)
+    (while TRUE
+        (bind ?xline (readline "X-file"))
+        (bind ?xi (eval ?xline))
+        (if (eq ?xi EOF) then (printout t "min = " ?min crlf) (close "X-file") (return ?min))
+        (bind ?min (min ?min ?xi))
+        (bind ?i (+ ?i 1))
+    )
+    (close "X-file")
+)
+
+

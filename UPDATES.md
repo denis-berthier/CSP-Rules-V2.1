@@ -28,7 +28,7 @@
 
 
 #### 2023 August 25 (Generic):
-* Update of the the generic T&E(n) procedures, addition of extra conditions in whips[1] and parial-whips[1] so as to allow compatibility with function solve-knowing-solution.
+* Update of the generic T&E(n) procedures, addition of extra conditions in whips[1] and partial-whips[1] so as to allow compatibility with function solve-knowing-solution.
 Computation times are decreased in various porportions for BpB and T&E(2).
 #### 2023 August 25 (SudoRules):
 Addition of corresponding functions for solving files of puzzles knowing solutions.

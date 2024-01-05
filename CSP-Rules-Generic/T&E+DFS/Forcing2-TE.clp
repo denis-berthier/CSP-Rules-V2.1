@@ -392,7 +392,7 @@
     )
     (not (context (name ?contx&~?cont0)))
     ;;; check that the pair is bivalue and that Forcing-TE has not yet been tried for it;
-    ;;; (it is ecessary to re-check here in case only one pair is tried
+    ;;; (it is necessary to re-check here in case only one pair is tried
     ;;; in a call from "apply-F2TE-to-bivalue-pair")
     (bivalue ?cont0 ?cand1 ?cand2&:(< ?cand1 ?cand2) ?csp)
     (not (F2TE-simple-tried-pair (context ?cont0) (label1 ?cand1) (label2 ?cand2)))

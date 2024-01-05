@@ -380,41 +380,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; CONTRADICTION CHAINS
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; This is used for all the types of contradiction chains
-;;; Not used in the public release
-
-(deftemplate contrad-chain
-    (slot type (type SYMBOL) (default NIL) (allowed-values NIL bi-whip bi-braid partial-bi-whip partial-bi-braid bi-TE))
-    (slot context (type INTEGER) (default 0))
-    (slot length (type INTEGER) (default 999))
-    (slot end1 (type INTEGER) (default 0))
-    (slot end2 (type INTEGER) (default 0))
-    ;;; the sequence of left-linking candidates:
-    (multislot llcs (default (create$)))
-    ;;; the sequence of right-linking candidates or g-candidates:
-    (multislot rlcs (default (create$)))
-    ;;; the sequence of CSP-variables:
-    (multislot csp-vars (default (create$)))
-    ;;; the following two slots are redundant, but useful for technical reasons
-    ;;; the last right-linking candidate or g-candidate or ".":
-    (slot last-rlc)
-    ;;; the last CSP-variable:
-    (slot last-csp (type INTEGER))
-    ;;; additional slots may be added for any specific application,
-    ;;; but neither the above ones nor their specifications should be changed
-)
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
 ;;; GENERIC SUBSETS (NOT USED)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -525,6 +490,41 @@
     ;;; Note that length = length1 + length2 + 1 (independent of OR-complexity)
     ;;; because such chains are intended for use with exotic patterns only.
     ;;; Additional slots may be added for any specific application,
+    ;;; but neither the above ones nor their specifications should be changed
+)
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; CONTRADICTION CHAINS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; This is used for all the types of contradiction chains
+;;; Not used in the public release
+
+(deftemplate contrad-chain
+    (slot type (type SYMBOL) (default NIL) (allowed-values NIL bi-whip bi-braid partial-bi-whip partial-bi-braid bi-TE))
+    (slot context (type INTEGER) (default 0))
+    (slot length (type INTEGER) (default 999))
+    (slot end1 (type INTEGER) (default 0))
+    (slot end2 (type INTEGER) (default 0))
+    ;;; the sequence of left-linking candidates:
+    (multislot llcs (default (create$)))
+    ;;; the sequence of right-linking candidates or g-candidates:
+    (multislot rlcs (default (create$)))
+    ;;; the sequence of CSP-variables:
+    (multislot csp-vars (default (create$)))
+    ;;; the following two slots are redundant, but useful for technical reasons
+    ;;; the last right-linking candidate or g-candidate or ".":
+    (slot last-rlc)
+    ;;; the last CSP-variable:
+    (slot last-csp (type INTEGER))
+    ;;; additional slots may be added for any specific application,
     ;;; but neither the above ones nor their specifications should be changed
 )
 

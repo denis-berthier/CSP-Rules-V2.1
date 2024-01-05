@@ -415,11 +415,12 @@
     (while TRUE
         (bind ?xline (readline "X-file"))
         (bind ?xi (eval ?xline))
-        (if (eq ?xi EOF) then (return ?max) (printout t "max = " ?max crlf) (close "X-file"))
+        (if (eq ?xi EOF) then (printout t "max = " ?max crlf) (close "X-file") (return ?max))
         (bind ?max (max ?max ?xi))
         (bind ?i (+ ?i 1))
     )
     (close "X-file")
+    ?max
 )
 
 
@@ -436,6 +437,7 @@
         (bind ?i (+ ?i 1))
     )
     (close "X-file")
+    ?min
 )
 
 

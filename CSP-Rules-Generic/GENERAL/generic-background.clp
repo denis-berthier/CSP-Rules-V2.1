@@ -330,9 +330,9 @@
 		(and (< ?yyy ?xxx) (member$ (label-pair ?yyy ?xxx) ?*all-biwhip-contrads*))
 	)
 )
-			
-			
-			
+
+
+
 (deffunction biwhip-linked-or (?xxx $?l)
 	(bind ?len (length$ $?l))
 	(if (eq ?len 0) then (return FALSE))
@@ -352,24 +352,23 @@
 (deffunction bibraid-linked (?xxx ?yyy)
 	(or
 		(linked ?xxx ?yyy)
-		(biwhip-linked ?xxx ?yyy)
+        (and (< ?xxx ?yyy) (member$ (label-pair ?xxx ?yyy) ?*all-biwhip-contrads*))
+        (and (< ?yyy ?xxx) (member$ (label-pair ?yyy ?xxx) ?*all-biwhip-contrads*))
 		(and (< ?xxx ?yyy) (member$ (label-pair ?xxx ?yyy) ?*all-bibraid-contrads*))
 		(and (< ?yyy ?xxx) (member$ (label-pair ?yyy ?xxx) ?*all-bibraid-contrads*))
 	)
 )
 			
 			
-			
+
+;;; used in B*-Braids
 (deffunction bibraid-linked-or (?xxx $?l)
 	(bind ?len (length$ $?l))
 	(if (eq ?len 0) then (return FALSE))
 	(bind ?i 1)
 	(while (<= ?i ?len)
 		(bind ?yyy (nth$ ?i $?l))
-		(if (linked ?xxx ?yyy) then (return TRUE))
-		(if (biwhip-linked ?xxx ?yyy) then (return TRUE))
-		(if (and (< ?xxx ?yyy) (member$ (label-pair ?xxx ?yyy) ?*all-bibraid-contrads*)) then (return TRUE))
-		(if (and (< ?yyy ?xxx) (member$ (label-pair ?yyy ?xxx) ?*all-bibraid-contrads*)) then (return TRUE))
+		(if (bibraid-linked ?xxx ?yyy) then (return TRUE))
 		(bind ?i (+ ?i 1))
 	)
 	(return FALSE)

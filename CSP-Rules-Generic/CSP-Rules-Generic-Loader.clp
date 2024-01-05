@@ -86,9 +86,19 @@
         (bind ?*t-Whips* TRUE)
     )
         
-    ;;; Add the relevant part for Bi-Whips, Bi-Braids, ...
+    ;;; Bi-Whips, Bi-Braids, ...
+    (if ?*Bi-Braids* then
+        (bind ?*Bi-Whips* TRUE) (bind ?*biwhips-max-length* (max 2 ?*bibraids-max-length* ?*biwhips-max-length*))
+    )
+    (if ?*B*-Braids* then 
+        ;;; not => W*-Whips, because, as  they are coded,
+        ;;; B*-Braids can be used in conjunction with Bi-T&E-contrads, while W*-Whips can only use bi-whips contrads
+        (bind ?*Braids* TRUE) (bind ?*braids-max-length* (max ?*bibraids-max-length* ?*braids-max-length*))
+    )
+    (if ?*W*-Whips* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*w*-whips-max-length* ?*whips-max-length*))
+    )
 
-        
     ;;; Forcing-whips, forcing-gwhips, forcing-braids, forcing-gbraids
     (if ?*Forcing-G-Braids* then
         (bind ?*Forcing-G-Whips* TRUE) (bind ?*forcing-gwhips-max-length* (max ?*forcing-gbraids-max-length* ?*forcing-gwhips-max-length*))
@@ -1714,7 +1724,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Bi-Whips, Bi-Braids, Bi-T&E
+;;; Bi-Whips, Bi-Braids, Bi-T&E (NOT AVAILABLE IN THE PUBLIC RELEASES)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1742,7 +1752,7 @@
 )
 
 
-(if ?*Bi-TE* then
+(if ?*simple-bi-TE* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "BiT&E-and-T&E*" ?*Directory-symbol* "Bi-T&E.clp" ))
 )
 
@@ -1750,7 +1760,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Forcing-Bi-Whips and Forcing-Bi-Braids
+;;; Forcing-Bi-Whips and Forcing-Bi-Braids (NOT AVAILABLE IN THE PUBLIC RELEASES)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1773,24 +1783,26 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; W*-Whips and B*-Braids
+;;; W*-Whips and B*-Braids (NOT AVAILABLE IN THE PUBLIC RELEASES)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;;; There's only one version, in the "CHAIN-RULES-SPEED" directory
+
 (if ?*W*-Whips* then ;;; start at 1
     (bind ?i 1)
     (while (<= ?i ?*w*-whips-max-length*)
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type* ?*Directory-symbol* "W*-WHIPS" ?*Directory-symbol* "W*-Whips[[" ?i "]].clp"))
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" "SPEED" ?*Directory-symbol* "W*-WHIPS" ?*Directory-symbol* "W*-Whips[[" ?i "]].clp"))
         (bind ?i (+ ?i 1))
     )
 )
 
 
-(if ?*B*-Braids* then ;;; start at 2
-    (bind ?i 2)
+(if ?*B*-Braids* then ;;; start at 1 (there may be b*-braids[1] that are not w*-whips[1])
+    (bind ?i 1)
     (while (<= ?i ?*b*-braids-max-length*)
-        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type* ?*Directory-symbol* "B*-BRAIDS" ?*Directory-symbol* "B*-Braids[[" ?i "]].clp"))
+        (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" "SPEED" ?*Directory-symbol* "B*-BRAIDS" ?*Directory-symbol* "B*-Braids[[" ?i "]].clp"))
         (bind ?i (+ ?i 1))
     )
 )
@@ -1821,7 +1833,7 @@
 (batch ?*Application-Loader*)
 
 
-;;; now that all the generic and application-specific rules to be used are known, define the global rating type
+;;; Now that all the generic and application-specific rules to be used are known, define the global rating type
 (deffunction define-rating-type ()
     ;;; generic part
     (define-generic-rating-type)
@@ -1861,19 +1873,24 @@
             else (bind ?*rating-type* (str-cat "T&E(" ?*rating-type* ", 3)"))
         )
     )
-    (if (and ?*TE1* ?*simple-bi-TE* (not ?*TE2*) (not ?*TE3*)) then
-        (if (neq ?*rating-type* "T&E")
+    
+    
+    ;;; Should be used only to produce bi-T&E contradictions, with no other rule activated:
+    (if (and ?*simple-bi-TE* (not ?*TE1*) (not ?*TE2*) (not ?*TE3*)) then
+        (if (neq ?*rating-type* "BRT")
             then (printout t "Config error for bi-T&E" crlf) (halt)
-            else (bind ?*rating-type* "in-B*B-test")
+            else (bind ?*rating-type* "Bi-T&E-contrads")
         )
     )
+    ;;; TO UPDATE:
     (if (and ?*TE1* ?*simple-bi-TE* ?*Forcing-bi-TE* (not ?*TE2*) (not ?*TE3*)) then
         (if (neq ?*rating-type* "in-B*B-test")
             then (printout t "Config error for Forcing-bi-T&E" crlf) (halt)
             else (bind ?*rating-type* "in-Forcing-B*-braids-test")
         )
     )
-    
+    ;;; END TO UPDATE
+
     ;;; deal with DFS
     (if ?*DFS* then
         (if (eq ?*rating-type* "")

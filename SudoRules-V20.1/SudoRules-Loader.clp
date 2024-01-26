@@ -16,7 +16,7 @@
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
                ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;            January 2006 - January 2024             ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -61,6 +61,7 @@
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "goodies.clp"))
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "shuffle.clp"))
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "pretty-print.clp"))
+(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "record-expansions.clp"))
 
 
 ;;; ADVANCED

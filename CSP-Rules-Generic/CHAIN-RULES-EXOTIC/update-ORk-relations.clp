@@ -934,7 +934,6 @@
             (bind ?new-guardians (create$ ?new-guardians ?zzz12))
         )
         ;;; then assert the new ORk-relation
-        (pretty-print-current-resolution-state-in-context ?cont)
         (bind ?new-OR-size (length$ ?new-guardians))
         (if ?*print-actions* then
             (printout t crlf)
@@ -1522,7 +1521,6 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (pretty-print-current-resolution-state-in-context ?cont)
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)
@@ -1787,7 +1785,6 @@
         )
         ;;; then assert the new ORk-relation
         (bind ?new-OR-size (length$ ?new-guardians))
-        (pretty-print-current-resolution-state-in-context ?cont)
         (if ?*print-actions* then
             (printout t crlf)
             (pretty-print-current-resolution-state-in-context ?cont)

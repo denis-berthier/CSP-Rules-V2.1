@@ -487,6 +487,7 @@
     
     
     ;;; partial-whips[i] must be loaded for some rules to work:
+    (if ?*z-Chains* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* 1)))
     (if ?*t-Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*t-whips-max-length* 1))))
     (if ?*Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*whips-max-length* 1))))
     
@@ -1196,7 +1197,8 @@
     
     
     ;;; partial-whips[?i - 1]
-    (if (<= (- ?i 1) ?*partial-whips-max-length*) then
+    ;;; rememebr that z-chains[2] require partial-whips[1]
+    (if (or (<= (- ?i 1) ?*partial-whips-max-length*) (and (eq ?i 1) ?*z-Chains*)) then
         (load (str-cat ?*CSP-Rules-Generic-Dir* "CHAIN-RULES-" ?*chain-rules-optimisation-type*
                 ?*Directory-symbol* "PARTIAL-WHIPS"
                 ?*Directory-symbol* "Partial-Whips[" (- ?i 1) "].clp")

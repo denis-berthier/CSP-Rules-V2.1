@@ -47,9 +47,9 @@
 	;;; read line containing the grid entries
 	(bind ?givens (readline ?puzzles-file-symb))
 	(if ?*print-actions* then (printout t ?givens crlf))
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; facts and structures initialised at the start of each instance are defined here
     (init-general-application-structures)
-    (bind ?*nb-csp-variables-solved* 0)
+    (init-specific-globals)
 	;;; This function could be simplified (and initialization time shortened)
 	;;; by combining the following two calls into a single function,
 	;;; but, for easier navigation in the facts base, I prefer asserting all the c-values first and then all the candidates.
@@ -121,20 +121,8 @@
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
-        (bind ?*has-exotic-pattern* FALSE)
-        (bind ?*has-belt* FALSE)
-        (bind ?*has-J-exocet* FALSE)
-        (bind ?*has-oddagon* FALSE)
-        (bind ?*has-tridagon* FALSE)
-        (bind ?*has-degenerate-cyclic-tridagon* FALSE)
-
         (solve-grid-from-text-file "puzzles-file-symb" ?i)
-        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+        (add-i-to-lists-for-files ?i)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
 	)
@@ -167,19 +155,8 @@
 				 (printout t "#" ?i " " )
 			else
                 (printout t "#" ?i crlf)
-                (bind ?*has-exotic-pattern* FALSE)
-                (bind ?*has-belt* FALSE)
-                (bind ?*has-J-exocet* FALSE)
-                (bind ?*has-oddagon* FALSE)
-                (bind ?*has-tridagon* FALSE)
-
                 (solve-grid-from-text-file "puzzles-file-symb" ?i)
-                (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+                (add-i-to-lists-for-files ?i)
 		)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
@@ -216,19 +193,8 @@
                         ; (printout t ?i " in already solved lists" crlf)
                     else
                         (printout t "#" ?i crlf)
-                        (bind ?*has-exotic-pattern* FALSE)
-                        (bind ?*has-belt* FALSE)
-                        (bind ?*has-J-exocet* FALSE)
-                        (bind ?*has-oddagon* FALSE)
-                        (bind ?*has-tridagon* FALSE)
-
                         (solve-grid-from-text-file "puzzles-file-symb" ?i)
-                        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+                        (add-i-to-lists-for-files ?i)
 				)
 		)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
@@ -319,19 +285,8 @@
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
-        (bind ?*has-exotic-pattern* FALSE)
-        (bind ?*has-belt* FALSE)
-        (bind ?*has-J-exocet* FALSE)
-        (bind ?*has-oddagon* FALSE)
-        (bind ?*has-tridagon* FALSE)
-
         (solve-grid-from-text-file-knowing-solutions "puzzles-file-symb" "solns-file-symb" ?i)
-        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+        (add-i-to-lists-for-files ?i)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
@@ -366,19 +321,8 @@
                  (printout t "#" ?i " " )
             else
                 (printout t "#" ?i crlf)
-                (bind ?*has-exotic-pattern* FALSE)
-                (bind ?*has-belt* FALSE)
-                (bind ?*has-J-exocet* FALSE)
-                (bind ?*has-oddagon* FALSE)
-                (bind ?*has-tridagon* FALSE)
-
                 (solve-grid-from-text-file-knowing-solutions "puzzles-file-symb" "solns-file-symb" ?i)
-                (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+                (add-i-to-lists-for-files ?i)
         )
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
@@ -467,10 +411,11 @@
 
 
 (deffunction init-grid-from-sdk-file (?sdk-file-name)
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; read line containing the grid entries
+    (bind ?givens (read-grid-from-sdk-file ?sdk-file-name))
+    ;;; facts and structures initialised at the start of each instance are defined here
     (init-general-application-structures)
-	;;; read line containing the grid entries
-	(bind ?givens (read-grid-from-sdk-file ?sdk-file-name))
+    (init-specific-globals)
 	;;; This function could be simplified (and initialization time shortened)
 	;;; by combining the following two calls into a single function,
 	;;; but, for easier navigation in the facts base, I prefer asserting all the c-values first and then all the candidates.
@@ -551,11 +496,12 @@
 
 
 (deffunction init-grid-from-titled-text-file (?puzzles-file-symb)
-    ;;; fixed facts and structures common to all the instances are defined here
-    (init-general-application-structures)
 	;;; read line containing the grid entries
 	(bind ?givens (extract-puzzle-from-titled-text-file ?puzzles-file-symb))
 	(if ?*print-actions* then (printout t ?givens crlf))
+    ;;; facts and structures initialised at the start of each instance are defined here
+    (init-general-application-structures)
+    (init-specific-globals)
 	;;; This function could be simplified (and initialization time shortened)
 	;;; by combining the following two calls into a single function,
 	;;; but, for easier navigation in the facts base, I prefer asserting all the c-values first and then all the candidates.
@@ -637,19 +583,8 @@
 	(bind ?i (+ ?p 1))
 	(while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
-        (bind ?*has-exotic-pattern* FALSE)
-        (bind ?*has-belt* FALSE)
-        (bind ?*has-J-exocet* FALSE)
-        (bind ?*has-oddagon* FALSE)
-        (bind ?*has-tridagon* FALSE)
-        
         (solve-grid-from-titled-text-file "puzzles-file-symb" ?i)
-        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+        (add-i-to-lists-for-files ?i)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
 	)
@@ -690,19 +625,8 @@
 				 (printout t ?i " " )
 			else
                 (printout t "#" ?i crlf)
-                (bind ?*has-exotic-pattern* FALSE)
-                (bind ?*has-belt* FALSE)
-                (bind ?*has-J-exocet* FALSE)
-                (bind ?*has-oddagon* FALSE)
-                (bind ?*has-tridagon* FALSE)
-
                 (solve-grid-from-titled-text-file "puzzles-file-symb" ?i)
-                (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+                (add-i-to-lists-for-files ?i)
 		)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
 		(bind ?i (+ ?i 1))
@@ -786,8 +710,9 @@
     (bind ?lgrid (explode$ (readline "puzzles-file-symb")))
     (close "puzzles-file-symb")
     (if ?*print-actions* then (printout t ?lgrid crlf))
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; facts and structures initialised at the start of each instance are defined here
     (init-general-application-structures)
+    (init-specific-globals)
     ;;; This function could be simplified (and initialization time shortened)
     ;;; by combining the following two calls into a single function,
     ;;; but, for easier navigation in the facts base, I prefer asserting all c-values first and then all the candidates.
@@ -848,9 +773,9 @@
     ;;; read line containing the sukaku data in list form
     (bind ?lgrid (readline "puzzles-file-symb"))
     (if ?*print-actions* then (printout t ?lgrid crlf))
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; facts and structures initialised at the start of each instance are defined here
     (init-general-application-structures)
-    (bind ?*nb-csp-variables-solved* 0)
+    (init-specific-globals)
     ;;; initialize candidates as in the data
     (init-sukaku-string ?lgrid)
 )
@@ -905,19 +830,8 @@
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
-        (bind ?*has-exotic-pattern* FALSE)
-        (bind ?*has-belt* FALSE)
-        (bind ?*has-J-exocet* FALSE)
-        (bind ?*has-oddagon* FALSE)
-        (bind ?*has-tridagon* FALSE)
-
         (solve-sukaku-from-string-file "puzzles-file-symb" ?i)
-        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+        (add-i-to-lists-for-files ?i)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
@@ -950,19 +864,8 @@
                  (printout t "#" ?i " " )
             else
                 (printout t "#" ?i crlf)
-                (bind ?*has-exotic-pattern* FALSE)
-                (bind ?*has-belt* FALSE)
-                (bind ?*has-J-exocet* FALSE)
-                (bind ?*has-oddagon* FALSE)
-                (bind ?*has-tridagon* FALSE)
-
                 (solve-sukaku-from-string-file "puzzles-file-symb" ?i)
-                (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+                (add-i-to-lists-for-files ?i)
         )
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
@@ -999,20 +902,9 @@
                         ; (printout t ?i " in already solved lists" crlf)
                     else
                         (printout t "#" ?i crlf)
-                        (bind ?*has-exotic-pattern* FALSE)
-                        (bind ?*has-belt* FALSE)
-                        (bind ?*has-J-exocet* FALSE)
-                        (bind ?*has-oddagon* FALSE)
-                        (bind ?*has-tridagon* FALSE)
-
                         (solve-sukaku-from-string-file "puzzles-file-symb" ?i)
-                        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
-                )
+                        (add-i-to-lists-for-files ?i)
+               )
         )
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
@@ -1042,9 +934,9 @@
     ;;; read line containing the sukaku data in list form
     (bind ?lgrid (explode$ (readline "puzzles-file-symb")))
     (if ?*print-actions* then (printout t ?lgrid crlf))
-    ;;; fixed facts and structures common to all the instances are defined here
+    ;;; facts and structures initialised at the start of each instance are defined here
     (init-general-application-structures)
-    (bind ?*nb-csp-variables-solved* 0)
+    (init-specific-globals)
     ;;; initialize candidates as in the data
     (init-sukaku-list ?lgrid)
 )
@@ -1100,19 +992,8 @@
     (bind ?i (+ ?p 1))
     (while (<= ?i (+ ?p ?n))
         (printout t "#" ?i crlf)
-        (bind ?*has-exotic-pattern* FALSE)
-        (bind ?*has-belt* FALSE)
-        (bind ?*has-J-exocet* FALSE)
-        (bind ?*has-oddagon* FALSE)
-        (bind ?*has-tridagon* FALSE)
-
         (solve-sukaku-from-list-file "puzzles-file-symb" ?i)
-        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+        (add-i-to-lists-for-files ?i)
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
     )
@@ -1145,19 +1026,8 @@
                  (printout t "#" ?i " " )
             else
                 (printout t "#" ?i crlf)
-                (bind ?*has-exotic-pattern* FALSE)
-                (bind ?*has-belt* FALSE)
-                (bind ?*has-J-exocet* FALSE)
-                (bind ?*has-oddagon* FALSE)
-                (bind ?*has-tridagon* FALSE)
-
                 (solve-sukaku-from-list-file "puzzles-file-symb" ?i)
-                (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
+                (add-i-to-lists-for-files ?i)
         )
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))
@@ -1194,20 +1064,9 @@
                         ; (printout t ?i " in already solved lists" crlf)
                     else
                         (printout t "#" ?i crlf)
-                        (bind ?*has-exotic-pattern* FALSE)
-                        (bind ?*has-belt* FALSE)
-                        (bind ?*has-J-exocet* FALSE)
-                        (bind ?*has-oddagon* FALSE)
-                        (bind ?*has-tridagon* FALSE)
-
                         (solve-sukaku-from-list-file "puzzles-file-symb" ?i)
-                        (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* (create$ ?i))))
-                        (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* (create$ ?i))))
-                        (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* (create$ ?i))))
-                        (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* (create$ ?i))))
-                        (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* (create$ ?i))))
-                        (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* (create$ ?i))))
-                )
+                        (add-i-to-lists-for-files ?i)
+               )
         )
         (if (eq (mod ?i 100) 0) then (release-mem)) ; to deal with memory overload problems
         (bind ?i (+ ?i 1))

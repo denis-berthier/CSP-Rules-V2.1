@@ -15,8 +15,8 @@
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
-               ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;  https://github.com/denis-berthier/CSP-Rules-V2.1  ;;;
+               ;;;             January 2006 - April 2024              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -94,7 +94,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GLOBAL VARIABLES FOR SELECTING
+;;; GLOBAL VARIABLES FOR SELECTING:
 ;;; - THE ALLOWED CSP-TYPES IN TYPED-CHAINS
 ;;; - THE SUDOKU-SPECIFIC RULES
 ;;;
@@ -417,27 +417,53 @@
 ;;; VARIABLES USED FOR KEEPING TRACK OF SETS OF SOLUTIONS WHEN SOLVING SETS OF PUZZLES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; variables used to keep track of special puzzles:
-(defglobal ?*has-belt* = FALSE)
-(defglobal ?*has-belt6* = FALSE)
-(defglobal ?*belt-list* = (create$))
+;;; variables used to keep track of special patterns and of puzzles that have them:
+(defglobal
+    ?*has-belt* = FALSE
+    ?*has-belt6* = FALSE
+    ?*has-J-exocet* = FALSE
+    ;;; the following three variables don't put any restriction on the number of guardians
+    ?*has-tridagon* = FALSE
+    ?*has-degenerate-cyclic-tridagon* = FALSE
+    ?*has-Imp630* = FALSE
+)
 
-(defglobal ?*has-J-exocet* = FALSE)
-(defglobal ?*J-exocet-list* = (create$))
+(defglobal
+    ?*belt-list* = (create$)
+    ?*belt6-list* = (create$)
+    ?*J-exocet-list* = (create$)
+    ?*tridagon-list* = (create$)
+    ?*degenerate-cyclic-tridagon-list* = (create$)
+    ?*Imp630-list* = (create$)
+)
 
-(defglobal ?*has-tridagon* = FALSE)
-(defglobal ?*tridagon-list* = (create$))
-(defglobal ?*has-degenerate-cyclic-tridagon* = FALSE)
-(defglobal ?*degenerate-cyclic-tridagon-list* = (create$))
 
+(deffunction init-specific-globals ()
+    (bind ?*has-belt* FALSE)
+    (bind ?*has-belt6* FALSE)
+    (bind ?*has-J-exocet* FALSE)
+    (bind ?*has-tridagon* FALSE)
+    (bind ?*has-degenerate-cyclic-tridagon* FALSE)
+    (bind ?*has-Imp630* FALSE)
+)
 
 (deffunction init-specific-lists-for-files ()
     (bind ?*belt-list* (create$))
+    (bind ?*belt6-list* (create$))
     (bind ?*J-exocet-list* (create$))
     (bind ?*tridagon-list* (create$))
     (bind ?*degenerate-cyclic-tridagon-list* (create$))
+    (bind ?*Imp630-list* (create$))
 )
 
+(deffunction add-i-to-specific-lists-for-files (?i)
+    (if ?*has-belt* then (bind ?*belt-list* (create$ ?*belt-list* ?i)))
+    (if ?*has-belt6* then (bind ?*belt6-list* (create$ ?*belt6-list* ?i)))
+    (if ?*has-J-exocet* then (bind ?*J-exocet-list* (create$ ?*J-exocet-list* ?i)))
+    (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* ?i)))
+    (if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* ?i)))
+    (if ?*has-Imp630* then (bind ?*Imp630-list* (create$ ?*Imp630-list* ?i)))
+)
 
 
 

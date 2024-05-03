@@ -211,6 +211,7 @@
     )
 
 =>
+    (bind ?*has-tridagon* TRUE)
     (if ?*print-actions* then
         (bind ?cell-indices (create$
             (cell-index ?row1 ?col1) (cell-index ?row2 ?col2) (cell-index ?row3 ?col3)
@@ -233,7 +234,6 @@
     (retract ?candz2)
     (retract ?candz3)
     (if (not (member$ Trid ?*ORk-relations-used*)) then (bind ?*ORk-relations-used* (create$ ?*ORk-relations-used* Trid)))
-    (bind ?*has-tridagon* TRUE)
 )
     
 

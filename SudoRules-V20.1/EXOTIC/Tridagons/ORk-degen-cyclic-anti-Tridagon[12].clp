@@ -207,6 +207,7 @@
     ))
 
 =>
+    (bind ?*has-degenerate-cyclic-tridagon* TRUE)
     ;;; find the additional candidates ("guardians")
     (bind ?nb-guardians 0)
     (bind ?guardians (create$))
@@ -234,8 +235,6 @@
         (bind ?nb-guardians (+ ?nb-guardians 1))
         (bind ?guardians (create$ ?guardians ?c:label))
     )
-    ;;; if there is only one guardian, rule Degenerate-Cyclic-Tridagon[12] takes care of it
-    ; (if (> ?nb-guardians 1) then
     ;;; if there is only one guardian, generic rule apply-OR1-relation will take care of it
     (if (not (any-factp 
                 ((?f ORk-relation))
@@ -258,7 +257,6 @@
                 (OR-candidates ?guardians)
             )
         )
-        (bind ?*has-degenerate-cyclic-tridagon* TRUE)
         (bind ?*ORk-size* ?nb-guardians)
         (bind ?*ORk-sizes-list* (create$ ?*ORk-sizes-list* ?nb-guardians))
 
@@ -279,7 +277,6 @@
             ))
             (pretty-print-mark-current-resolution-state ?cell-indices ?guardians)
         )
-    ;) ; end of old if
     )
 )
 

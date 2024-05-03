@@ -205,6 +205,7 @@
     ))
 
 =>
+    (bind ?*has-tridagon* TRUE)
     ;;; find the additional candidates ("guardians")
     (bind ?nb-guardians 0)
     (bind ?guardians (create$))
@@ -244,7 +245,6 @@
                 (OR-candidates ?guardians)
             )
         )
-        (bind ?*has-tridagon* TRUE)
         (bind ?*ORk-size* ?nb-guardians)
         (bind ?*ORk-sizes-list* (create$ ?*ORk-sizes-list* ?nb-guardians))
 

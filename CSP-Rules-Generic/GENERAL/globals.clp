@@ -15,8 +15,8 @@
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
-               ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - August 2020              ;;;
+               ;;;  https://github.com/denis-berthier/CSP-Rules-V2.1  ;;;
+               ;;;             January 2006 - April 2024              ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -32,7 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GENERAL CLIPS VARIABLES AND GENERAL BEHAVIOUR
+;;; GENERAL VARIABLES AND CLIPS GENERAL BEHAVIOUR
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -50,7 +50,7 @@
 
 ;;; CLIPS default strategy is depth-first; keep it so
 ;;; All the global variables will be kept by a reset.
-;;; This is important for a good loading of rules and for keeping track of lists of solved instances
+;;; This is essential for a good loading of rules and for keeping track of lists of solved instances
 (defglobal ?*dummy-for-setting-CLIPS-behaviour* = (progn
     (set-strategy depth)
     (set-reset-globals FALSE)
@@ -69,9 +69,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defglobal
-    ;;; globals for an instance
+    ;;; universal globals for an instance
     ?*main-level* = 0
     ?*level* = 0
     ?*technique* = 0
@@ -116,19 +115,25 @@
     
     ?*DFS-max-depth* = 0
     
-    ?*has-exotic-pattern* = FALSE
+    ;;; globals for signaling patterns present in an instance and their sizes
     ?*has-oddagon* = FALSE
-    
+    ?*has-exotic-pattern* = FALSE
+    ?*has-special-pattern* = FALSE
+    ?*has-special-pattern1* = FALSE
+    ?*has-special-pattern2* = FALSE
+
     ?*ORk-size* = 0
     ?*ORk-sizes-list* = (create$)
     ?*ORk-relations-used* = (create$)
     
+    ;;; globals for dealing with solutions as strings
     ?*solution-string* = "" ; used only for DFS
     ?*known-to-be-in-solution* = (create$)
 )
 
 
 (deffunction init-universal-globals ()
+    ;;; init universal globals for an instance
     (bind ?*main-level* 0)
     (bind ?*level* 0)
 	(bind ?*technique* 0)
@@ -169,8 +174,11 @@
     (bind ?*total-instance-time* 0)
     (bind ?*end-instance-time* 0)
 
-    (bind ?*has-exotic-pattern* FALSE)
     (bind ?*has-oddagon* FALSE)
+    (bind ?*has-exotic-pattern* FALSE)
+    (bind ?*has-special-pattern* FALSE)
+    (bind ?*has-special-pattern1* FALSE)
+    (bind ?*has-special-pattern2* FALSE)
 
     (bind ?*ORk-size* 0)
     (bind ?*ORk-sizes-list* (create$))
@@ -183,11 +191,15 @@
 
 ;;; Each application may have additional global variables.
 ;;; In that case, it must redefine the following init-specific-globals function
-(deffunction init-specific-globals () TRUE)
+(deffunction init-specific-globals ()
+    ;;; init universal globals for an instance
+    TRUE
+)
 
 
 
 ;;; The following variables are NOT re-initialised by init-universal-globals
+;;; and they shouldn't be re-initialised by init-specific-globals,
 ;;; so that they can be defined manually after (init) and before (solve))
 ;;; As a result, they MUST be re-initialised manually after each run
 
@@ -199,6 +211,7 @@
 ;;; Variable and function used to avoid testing useless patterns when the solution is already known
 (defglobal ?*known-to-be-in-solution* = (create$))
 (deffunction known-to-be-in-solution (?label) (member$ ?label ?*known-to-be-in-solution*))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -294,6 +307,26 @@
     (init-generic-lists-for-files)
     (init-specific-lists-for-files)
 )
+
+(deffunction add-i-to-universal-lists-for-files (?i)
+    (if ?*has-exotic-pattern* then (bind ?*exotic-list* (create$ ?*exotic-list* ?i)))
+    (if ?*has-oddagon* then (bind ?*oddagon-list* (create$ ?*oddagon-list* ?i)))
+    (if ?*has-special-pattern* then (bind ?*special-list* = (create$ ?*special-list* ?i)))
+    (if ?*has-special-pattern1* then (bind ?*special-list1* = (create$ ?*special-list1* ?i)))
+    (if ?*has-special-pattern2* then (bind ?*special-list2* = (create$ ?*special-list2* ?i)))
+)
+
+
+(deffunction add-i-to-specific-lists-for-files (?i) TRUE
+    ;;; to be redefined by each application
+)
+
+(deffunction add-i-to-lists-for-files (?i)
+    (add-i-to-universal-lists-for-files ?i)
+    (add-i-to-specific-lists-for-files ?i)
+)
+
+
 
 
 

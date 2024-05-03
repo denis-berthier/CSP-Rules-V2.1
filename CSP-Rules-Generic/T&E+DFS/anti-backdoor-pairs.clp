@@ -320,7 +320,7 @@
     (bind ?*context-counter* (+ ?*context-counter* 1))
     (bind ?depth1 (+ 1 ?depth))
     (if (or ?*print-actions* ?*print-hypothesis*) then
-        (printout t "GENERATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FROM HYPOTHESIS: not " (print-label ?gen-cand) " and not " (print-label ?gen-cand2) "." crlf)
+        (printout t "CREATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FOR HYPOTHESIS: not " (print-label ?gen-cand) " and not " (print-label ?gen-cand2) "." crlf)
     )
     ;;; assert the new context
     (assert (context (name ?*context-counter*) (parent ?par) (depth ?depth1) (generating-cand ?gen-cand) (generating-cand2 ?gen-cand2)))
@@ -352,7 +352,7 @@
     (bind ?*context-counter* (+ ?*context-counter* 1))
     (bind ?depth1 (+ 1 ?depth))
     (if (or ?*print-actions* ?*print-hypothesis*) then
-        (printout t "GENERATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FROM HYPOTHESIS: not " (print-label ?gen-cand) " and not " (print-label ?gen-cand2) "." crlf)
+        (printout t "CREATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FOR HYPOTHESIS: not " (print-label ?gen-cand) " and not " (print-label ?gen-cand2) "." crlf)
     )
     ;;; assert the new context
     (assert (context (name ?*context-counter*) (parent ?par) (depth ?depth1) (generating-cand ?gen-cand) (generating-cand2 ?gen-cand2)))

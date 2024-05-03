@@ -201,7 +201,7 @@
 	(context (name ?cont) (depth ?depth&2))
 =>
 	(assert (phase ?cont 1))
-    (if ?*print-actions* then (printout t crlf "*** STARTING T&E IN CONTEXT " ?cont  " at depth " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf))
+    (if ?*print-actions* then (printout t crlf "*** STARTING T&E IN CONTEXT " ?cont  " at depth " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf))
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE 1 IN CONTEXT " ?cont  " AT DEPTH 2, with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
@@ -234,7 +234,7 @@
 	(bind ?*context-counter* (+ ?*context-counter* 1))
 	(bind ?depth1 (+ 1 ?depth))
 	(if (or ?*print-actions* ?*print-hypothesis*) then 
-		(printout t crlf "GENERATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FROM HYPOTHESIS " (print-label ?gen-cand) "." crlf)
+		(printout t crlf "CREATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FOR HYPOTHESIS " (print-label ?gen-cand) "." crlf)
 	)
 	;;; assert the new context
 	(assert (context (name ?*context-counter*) (parent ?par) (depth ?depth1) (generating-cand ?gen-cand)))
@@ -300,7 +300,7 @@
 	(context (name ?cont) (depth ?depth&1))
 =>
 	(assert (phase ?cont 1))
-    (if ?*print-actions* then (printout t crlf "*** STARTING T&E IN CONTEXT " ?cont  " at depth " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf))
+    (if ?*print-actions* then (printout t crlf "*** STARTING T&E IN CONTEXT " ?cont  " at depth " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf))
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE 1 IN CONTEXT " ?cont " AT DEPTH " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
@@ -331,7 +331,7 @@
 	(bind ?*context-counter* (+ ?*context-counter* 1))
 	(bind ?depth1 (+ 1 ?depth))
 	(if (or ?*print-actions* ?*print-hypothesis*) then 
-		(printout t crlf "GENERATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FROM HYPOTHESIS " (print-label ?gen-cand) "." crlf)
+		(printout t crlf "CREATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FOR HYPOTHESIS " (print-label ?gen-cand) "." crlf)
 	)
 	;;; assert the new context
 	(assert (context (name ?*context-counter*) (parent ?par) (depth ?depth1) (generating-cand ?gen-cand)))
@@ -398,7 +398,7 @@
 =>
     (assert (technique 0 TE3))
 	(assert (phase ?cont 1))
-    (if ?*print-actions* then (printout t crlf "*** STARTING T&E IN CONTEXT " ?cont  " at depth " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf))
+    (if ?*print-actions* then (printout t crlf "*** STARTING T&E IN CONTEXT " ?cont  " at depth " ?depth " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf))
 	(if ?*print-phase* then
         (if ?*print-hypothesis* then (printout t crlf))
         (printout t "        STARTING PHASE " 1 " IN CONTEXT " ?cont " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf)
@@ -433,7 +433,7 @@
 	(bind ?*context-counter* (+ ?*context-counter* 1))
 	(bind ?depth1 (+ 1 ?depth))
 	(if (or ?*print-actions* ?*print-hypothesis*) then 
-		(printout t crlf "GENERATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FROM HYPOTHESIS " (print-label ?gen-cand) "." crlf)
+		(printout t crlf "CREATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FOR HYPOTHESIS " (print-label ?gen-cand) "." crlf)
 	)
 	;;; assert the new context
 	(assert (context (name ?*context-counter*) (parent ?par) (depth ?depth1) (generating-cand ?gen-cand)))

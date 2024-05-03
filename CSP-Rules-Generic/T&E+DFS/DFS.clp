@@ -220,7 +220,7 @@
 =>
     (assert (technique ?cont DFS))
     (if (eq ?cont 0) then
-        (printout t crlf "*** STARTING DFS IN CONTEXT " 0  " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining ***" crlf crlf)
+        (printout t crlf "*** STARTING DFS IN CONTEXT " 0  " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf crlf)
         (bind ?*DFS-max-depth* 0)
     )
 )
@@ -243,7 +243,7 @@
     (bind ?depth1 (+ ?depth 1))
     (bind ?*DFS-max-depth* (max ?*DFS-max-depth* ?depth1))
 	(if (or ?*print-actions* ?*print-hypothesis*) then
-		(printout t "GENERATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FROM HYPOTHESIS " (print-label ?gen-cand) "." crlf)
+		(printout t "CREATING CONTEXT " ?*context-counter* " AT DEPTH " ?depth1 ", SON OF CONTEXT " ?par ", FOR HYPOTHESIS " (print-label ?gen-cand) "." crlf)
         (printout t "DFS-max-depth = " ?*DFS-max-depth* crlf)
 	)
 	;;; assert the new context

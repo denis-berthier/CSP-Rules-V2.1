@@ -140,7 +140,7 @@
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col2) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col3) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
 		
-	(candidate (context ?cont) (status cand) (number ?nb) (row ?row4) (column ?col4&~?col2&~?col3&:(or (< ?col3 ?col4) (< ?col3 ?col4))))
+	(candidate (context ?cont) (status cand) (number ?nb) (row ?row4) (column ?col4&~?col2&~?col3&:(or (< ?col2 ?col4) (< ?col3 ?col4))))
 	(candidate (context ?cont) (status cand) (number ?nb) (column ?col4) (row ?row1))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (column ?col4) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
     

@@ -113,7 +113,7 @@
 	(not (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag2) (diagonal ?diagx&~?diag1&~?diag2&~?diag3&~?diag4)))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag3) (diagonal ?diagx&~?diag1&~?diag2&~?diag3&~?diag4)))
 		
-	(candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag4) (anti-diagonal ?anti-diag4&~?anti-diag2&~?anti-diag3&:(or (< ?anti-diag3 ?anti-diag4) (< ?anti-diag3 ?anti-diag4))))
+	(candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag4) (anti-diagonal ?anti-diag4&~?anti-diag2&~?anti-diag3&:(or (< ?anti-diag2 ?anti-diag4) (< ?anti-diag3 ?anti-diag4))))
 	(candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag4) (diagonal ?diag1))
 	(not (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag4) (diagonal ?diagx&~?diag1&~?diag2&~?diag3&~?diag4)))
     
@@ -509,7 +509,7 @@
     (not (candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag2) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
     (not (candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag3) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
         
-    (candidate (context ?cont) (status cand) (number ?nb) (row ?row4) (diagonal ?diag4&~?diag2&~?diag3&:(or (< ?diag3 ?diag4) (< ?diag3 ?diag4))))
+    (candidate (context ?cont) (status cand) (number ?nb) (row ?row4) (diagonal ?diag4&~?diag2&~?diag3&:(or (< ?diag2 ?diag4) (< ?diag3 ?diag4))))
     (candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag4) (row ?row1))
     (not (candidate (context ?cont) (status cand) (number ?nb) (diagonal ?diag4) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
     
@@ -640,7 +640,7 @@
     (not (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag2) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
     (not (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag3) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
         
-    (candidate (context ?cont) (status cand) (number ?nb) (row ?row4) (anti-diagonal ?anti-diag4&~?anti-diag2&~?anti-diag3&:(or (< ?anti-diag3 ?anti-diag4) (< ?anti-diag3 ?anti-diag4))))
+    (candidate (context ?cont) (status cand) (number ?nb) (row ?row4) (anti-diagonal ?anti-diag4&~?anti-diag2&~?anti-diag3&:(or (< ?anti-diag2 ?anti-diag4) (< ?anti-diag3 ?anti-diag4))))
     (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag4) (row ?row1))
     (not (candidate (context ?cont) (status cand) (number ?nb) (anti-diagonal ?anti-diag4) (row ?rowx&~?row1&~?row2&~?row3&~?row4)))
     

@@ -15,8 +15,8 @@
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
-               ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - February 2023            ;;;
+               ;;;         https://github.com/denis-berthier          ;;;
+               ;;;            January 2006 - April 2024               ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -123,6 +123,7 @@
 
 =>
 
+   (bind ?*has-Imp630* TRUE)
    ;;; find the additional candidates ("guardians")
    (bind ?nb-real-guardians 0)
    (bind ?real-guardians (create$))
@@ -374,6 +375,7 @@
 
 =>
 
+   (bind ?*has-Imp630* TRUE)
    ;;; find the additional candidates ("guardians")
    (bind ?nb-real-guardians 0)
    (bind ?real-guardians (create$))

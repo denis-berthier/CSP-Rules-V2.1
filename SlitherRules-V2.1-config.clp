@@ -58,7 +58,7 @@
 
 ;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
-    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 14.2"
+    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 14.4"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 

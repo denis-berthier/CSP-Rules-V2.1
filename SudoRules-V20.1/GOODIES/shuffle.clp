@@ -61,7 +61,7 @@
 (deffunction permute-rows-in-floor-9x9 (?floor ?r1 ?r2 ?r3)
     ;;; ?floor is supposed to be given as a string of 27 characters
     ;;; (?r1, ?r2, ?r3) is supposed to be a permutation of (1, 2, 3)
-    ;;; i.e. ?r1, ?r2 and ?r3 are supposed to be pairwise different and equal to 1, 2 or 3
+    ;;; i.e. ?r1, ?r2 and ?r3 are supposed to be pairwise different and to belong to {1, 2, 3}
     ;;; the new rows are the ?r1 ?r2 ?r3 rows of the given floor
     (if (eq ?r1 1) then
         (if (eq ?r2 3) then (bind ?floor (str-cat (sub-string 1 9 ?floor) (sub-string 19 27 ?floor) (sub-string 10 18 ?floor))))
@@ -86,7 +86,7 @@
     ;;; ?puzzle is supposed to be given as a string of 81 characters
     ;;; ?nth is the floor in which row permutations will occur
     ;;; (?r1, ?r2, ?r3) is supposed to be a permutation of (1, 2, 3), to occur within ?nth floor
-    ;;; i.e. ?r1, ?r2 and ?r3 are supposed to be pairwise different and belong to 1, 2 or 3
+    ;;; i.e. ?r1, ?r2 and ?r3 are supposed to be pairwise different and to belong to {1, 2, 3}
     ;;; the new rows of the ?nth floor are the ?r1 ?r2 ?r3 rows of the given floor
     (switch ?nth
         (case 1 then
@@ -132,7 +132,7 @@
 (deffunction permute-towers-9x9 (?puzzle ?f1 ?f2 ?f3)
     ;;; ?puzzle is supposed to be 9x9 and to be given as a string of 81 characters
     ;;; (?f1, ?f2, ?f3) is supposed to be a permutation of (1, 2, 3)
-    ;;; the new floors are the ?t1 ?t2 ?t3 floors of the given puzzle
+    ;;; the new towers are the ?f1 ?f2 ?f3 towers of the given puzzle
     (diagonal-symmetry-9x9
         (permute-floors-9x9
             (diagonal-symmetry-9x9 ?puzzle)
@@ -150,7 +150,7 @@
     ;;; ?puzzle is supposed to be given as a string of 81 characters
     ;;; ?nth is the tower in which column permutations will occur
     ;;; (?r1, ?r2, ?r3) is supposed to be a permutation of (1, 2, 3), to occur within ?nth tower
-    ;;; i.e. ?c1, ?c2 and ?c3 are supposed to be pairwise different and belong to 1, 2 or 3
+    ;;; i.e. ?c1, ?c2 and ?c3 are supposed to be pairwise different and to belong to {1, 2, 3}
     (diagonal-symmetry-9x9
         (permute-rows-in-nth-floor-9x9
             (diagonal-symmetry-9x9 ?puzzle) ?nth ?c1 ?c2 ?c3

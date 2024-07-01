@@ -35,7 +35,7 @@
 ;;; The contents of the compared files must be integers or reals
 
 
-(deffunction compare-files (?file1 ?file2 ?n)
+(deffunction compare-files (?file1 ?file2 ?file-length)
 	(close)
 	(bind ?plus 0)
 	(bind ?minus 0)
@@ -43,7 +43,7 @@
 	(open ?file1 "file1" "r")
 	(open ?file2 "file2" "r")
 	(bind ?i 0)
-	(while (< ?i ?n)
+	(while (< ?i ?file-length)
 		(bind ?i (+ ?i 1))
 		(bind ?x1 (string-to-field (readline "file1")))
 		(bind ?x2 (string-to-field (readline "file2")))
@@ -62,8 +62,8 @@
 
 (deffunction compare-ratings-in-files (?r1 ?r2 ?file1 ?file2 ?file-length)
     ;;; ?r1 and ?r2 are the names of the ratings, e.g. W and B
-    ;;; ?file1 ?file2 are the full paths to the files of the two ratings
-    ;;; ?file-length is the length of the files of the two ratings
+    ;;; ?file1 and ?file2 are the full paths to the files of the two ratings
+    ;;; ?file-length is the common length of the files of the two ratings
     (open ?file1 "file1" "r")
     (open ?file2 "file2" "r")
     (bind ?nb-diff 0)
@@ -95,8 +95,8 @@
 (deffunction compare-diff-ratings-in-files (?r1 ?r2 ?toler ?file1 ?file2 ?file-length)
     ;;; ?r1 and ?r2 are the names of the ratings, e.g. W and B
     ;;; ?toler is the tolerance between the ratings for being considered as equivalent (e.g. 0.1 in SER)
-    ;;; ?file1 ?file2 are the full paths to the files of the two ratings
-    ;;; ?file-length is the length of the files of the two ratings
+    ;;; ?file1 and ?file2 are the full paths to the files of the two ratings
+    ;;; ?file-length is the common length of the files of the two ratings
     (open ?file1 "file1" "r")
     (open ?file2 "file2" "r")
     (bind ?nb-diff 0)

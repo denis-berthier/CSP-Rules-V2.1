@@ -29,31 +29,42 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; General functions for computing the correlation coefficient between
 ;;; two random variables X and Y (or some function of Y)
 ;;; written as sequences of values in two text files for a series of puzzles (one value per line).
 ;;; Values in the files are typically those produced by function:
-;;; "classify-n-grids-after-first-p-from-text-file"
-;;; but this is not necessary
+;;; "classify-n-grids-after-first-p-from-text-file", but this is not necessary.
 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Pearson's correlation coefficient
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (deffunction correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Pearson's correlation coefficient between ?X and ?Y
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
 	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -63,7 +74,6 @@
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
 		(bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -85,25 +95,139 @@
 )
 
 
+;;; same function, restricted to the cases where ?Y ≠ 0
 
-;;; Correlations between X and a function of Y may be useful e.g. when:
+(deffunction nonZ0-correlation-coefficient (?X-name ?Y-name ?Z-name ?X-file ?Y-file ?Z-file ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and ?Y, excluding data with  ?Z = 0
+    ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
+    (close)
+    (open ?X-file "X-file" "r")
+    (open ?Y-file "Y-file" "r")
+    (open ?Z-file "Z-file" "r")
+
+    (bind ?i 0)
+    (bind ?nb 0)
+    (bind ?EX 0)
+    (bind ?EY 0)
+    (bind ?EX2 0)
+    (bind ?EY2 0)
+    (bind ?EXY 0)
+    
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (bind ?xi (eval ?xline))
+        (bind ?yline (readline "Y-file"))
+        (bind ?yi (eval ?yline))
+        (bind ?zline (readline "Z-file"))
+        (bind ?zi (eval ?zline))
+        (if (neq ?zi 0) then
+            (bind ?nb (+ ?nb 1))
+            (bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?nb)))
+            (bind ?EY (+ ?EY (/ (- ?yi  ?EY) ?nb)))
+            (bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?nb)))
+            (bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?nb)))
+            (bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?nb)))
+        )
+    )
+    
+    (bind ?VX (- ?EX2 (* ?EX ?EX)))
+    (bind ?VY (- ?EY2 (* ?EY ?EY)))
+    (bind ?CovXY (- ?EXY (* ?EX ?EY)))
+    (bind ?r (/ ?CovXY (* (sqrt ?VX) (sqrt ?VY))))
+    (bind ?a (/ ?CovXY ?VX))
+    (bind ?b (- ?EY (* ?a ?EX)))
+    (printout t "# of " ?Z-name "≠0 cases = " ?nb crlf)
+    (printout t "E(" ?X-name ") = " ?EX crlf)
+    (printout t "E(" ?Y-name ") = " ?EY crlf)
+    (printout t "Sigma(" ?X-name ") = " (sqrt ?VX) crlf)
+    (printout t "Sigma(" ?Y-name ") = " (sqrt ?VY) crlf)
+    (printout t "correlation-coefficient(" ?X-name ", " ?Y-name ") = " ?r crlf)
+    (printout t "regression " ?Y-name " = a * " ?X-name " + b" crlf)
+    (printout t "a = " ?a crlf)
+    (printout t "b = " ?b crlf)
+    (close "X-file")
+    (close "Y-file")
+)
+
+
+;;; same function, restricted to the cases where ?Z > ?z
+
+(deffunction Zgtz-correlation-coefficient (?X-name ?Y-name ?Z-name ?X-file ?Y-file ?Z-file ?zmin ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and ?Y, restricted to data with ?Z > ?z
+    ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
+    (close)
+    (open ?X-file "X-file" "r")
+    (open ?Y-file "Y-file" "r")
+    (open ?Z-file "Z-file" "r")
+
+    (bind ?i 0)
+    (bind ?nb 0)
+    (bind ?EX 0)
+    (bind ?EY 0)
+    (bind ?EX2 0)
+    (bind ?EY2 0)
+    (bind ?EXY 0)
+    
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (bind ?xi (eval ?xline))
+        (bind ?yline (readline "Y-file"))
+        (bind ?yi (eval ?yline))
+        (bind ?zline (readline "Z-file"))
+        (bind ?zi (eval ?zline))
+        (if (> ?zi ?zmin) then
+            (bind ?nb (+ ?nb 1))
+            (bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?nb)))
+            (bind ?EY (+ ?EY (/ (- ?yi  ?EY) ?nb)))
+            (bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?nb)))
+            (bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?nb)))
+            (bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?nb)))
+        )
+    )
+    
+    (bind ?VX (- ?EX2 (* ?EX ?EX)))
+    (bind ?VY (- ?EY2 (* ?EY ?EY)))
+    (bind ?CovXY (- ?EXY (* ?EX ?EY)))
+    (bind ?r (/ ?CovXY (* (sqrt ?VX) (sqrt ?VY))))
+    (bind ?a (/ ?CovXY ?VX))
+    (bind ?b (- ?EY (* ?a ?EX)))
+    (printout t "# of " ?Z-name " cases > " ?zmin " = " ?nb crlf)
+    (printout t "E(" ?X-name ") = " ?EX crlf)
+    (printout t "E(" ?Y-name ") = " ?EY crlf)
+    (printout t "Sigma(" ?X-name ") = " (sqrt ?VX) crlf)
+    (printout t "Sigma(" ?Y-name ") = " (sqrt ?VY) crlf)
+    (printout t "correlation-coefficient(" ?X-name ", " ?Y-name ") = " ?r crlf)
+    (printout t "regression " ?Y-name " = a * " ?X-name " + b" crlf)
+    (printout t "a = " ?a crlf)
+    (printout t "b = " ?b crlf)
+    (close "X-file")
+    (close "Y-file")
+)
+
+
+;;; Correlation coefficient between X and a function of Y
+;;; May be useful e.g. when:
 ;;; - Y is the number of facts used in the CLIPS computations,
 ;;; - Y is the computation time.
 
 (deffunction log-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and log(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
 	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -114,7 +238,6 @@
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
 		(bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -139,19 +262,21 @@
 
 
 (deffunction sqr-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
 	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -162,7 +287,6 @@
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
 		(bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -187,19 +311,21 @@
 
 
 (deffunction sqr4-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr4(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
 	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -210,7 +336,6 @@
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
 		(bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -235,19 +360,21 @@
 
 
 (deffunction sqr6-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr6(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
 	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -258,7 +385,6 @@
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
 		(bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -283,19 +409,21 @@
 
 
 (deffunction sqr8-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr8(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
 	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -306,7 +434,6 @@
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
 		(bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -316,7 +443,7 @@
 	(bind ?a (/ ?CovXY ?VX))
 	(bind ?b (- ?EY (* ?a ?EX)))
     ;;; only difference: sqr8
-   (printout t "E(" ?X-name ") = " ?EX crlf)
+    (printout t "E(" ?X-name ") = " ?EX crlf)
     (printout t "E(sqr8(" ?Y-name ")) = " ?EY crlf)
     (printout t "Sigma(" ?X-name ") = " (sqrt ?VX) crlf)
     (printout t "Sigma(sqr8(" ?Y-name ")) = " (sqrt ?VY) crlf)
@@ -331,19 +458,21 @@
 
 
 (deffunction sqr16-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr16(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
 	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -354,7 +483,6 @@
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
 		(bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
 		(bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -398,24 +526,26 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Old functions for classifying puzzles according to some criterion
 ;;; (used in the first old uses of the controlled-bias generator)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction number-by-level (?fixed-level ?levels-file ?file-length)
 	(close)
 	(open ?levels-file "levels-file" "r")
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?nb-puzzles 0)
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?levels-line (readline "levels-file"))
 		(bind ?li (eval ?levels-line))
 		(if (eq ?li ?fixed-level) then
 			(bind ?nb-puzzles (+ ?nb-puzzles 1))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(printout t ?fixed-level "   " ?nb-puzzles crlf)
 	(close "levels-file")
@@ -429,14 +559,15 @@
 	(open ?times-file "times-file" "r")
 	(open ?facts-file "facts-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?nb-puzzles 0)
 	(bind ?ETimes 0)
 	(bind ?ETimes2 0)
 	(bind ?EFacts 0)
 	(bind ?EFacts2 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?levels-line (readline "levels-file"))
 		(bind ?li (eval ?levels-line))
 		(bind ?times-line (readline "times-file"))
@@ -450,7 +581,6 @@
 			(bind ?EFacts (+ ?EFacts (/ (- ?fi  ?EFacts) ?nb-puzzles)))
 			(bind ?EFacts2 (+ ?EFacts2 (/ (- (* ?fi ?fi) ?EFacts2) ?nb-puzzles)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?SigmaTimes (sqrt (- ?ETimes2 (* ?ETimes ?ETimes))))
 	(bind ?SigmaFacts (sqrt (- ?EFacts2 (* ?EFacts ?EFacts))))
@@ -469,7 +599,7 @@
 	(open ?facts-file "facts-file" "r")
 	(open ?SER-file "SER-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?nb-puzzles 0)
 	(bind ?ETimes 0)
 	(bind ?ETimes2 0)
@@ -478,7 +608,8 @@
 	(bind ?ESER 0)
 	(bind ?ESER2 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?levels-line (readline "levels-file"))
 		(bind ?li (eval ?levels-line))
 		(bind ?times-line (readline "times-file"))
@@ -496,7 +627,6 @@
 			(bind ?ESER (+ ?ESER (/ (- ?si  ?ESER) ?nb-puzzles)))
 			(bind ?ESER2 (+ ?ESER2 (/ (- (* ?si ?si) ?ESER2) ?nb-puzzles)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?SigmaTimes (sqrt (- ?ETimes2 (* ?ETimes ?ETimes))))
 	(bind ?SigmaFacts (sqrt (- ?EFacts2 (* ?EFacts ?EFacts))))
@@ -528,8 +658,9 @@
 	(bind ?ENbClues 0)
 	(bind ?ENbClues2 0)
 	
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?levels-line (readline "levels-file"))
 		(bind ?li (eval ?levels-line))
 		(bind ?times-line (readline "times-file"))
@@ -551,7 +682,6 @@
 			(bind ?ENbClues (+ ?ENbClues (/ (- ?ni  ?ENbClues) ?nb-puzzles)))
 			(bind ?ENbClues2 (+ ?ENbClues2 (/ (- (* ?ni ?ni) ?ENbClues2) ?nb-puzzles)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?SigmaTimes (sqrt (- ?ETimes2 (* ?ETimes ?ETimes))))
 	(bind ?SigmaFacts (sqrt (- ?EFacts2 (* ?EFacts ?EFacts))))
@@ -585,8 +715,9 @@
 	(bind ?ESER 0)
 	(bind ?ESER2 0)
 	
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?ni (eval ?nb-clues-line))
 		(bind ?levels-line (readline "levels-file"))
@@ -608,7 +739,6 @@
 			(bind ?ESER (+ ?ESER (/ (- ?si  ?ESER) ?nb-puzzles)))
 			(bind ?ESER2 (+ ?ESER2 (/ (- (* ?si ?si) ?ESER2) ?nb-puzzles)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?SigmaLevels (sqrt (- ?ELevels2 (* ?ELevels ?ELevels))))
 	(bind ?SigmaTimes (sqrt (- ?ETimes2 (* ?ETimes ?ETimes))))
@@ -633,8 +763,9 @@
 	(bind ?ESER 0)
 	(bind ?ESER2 0)
 	
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+    (bind ?i (+ ?i 1))
+	(while (< ?i ?file-length)
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?ni (eval ?nb-clues-line))
 		(bind ?SER-line (readline "SER-file"))
@@ -644,7 +775,6 @@
 			(bind ?ESER (+ ?ESER (/ (- ?si  ?ESER) ?nb-puzzles)))
 			(bind ?ESER2 (+ ?ESER2 (/ (- (** ?si 2) ?ESER2) ?nb-puzzles)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?SigmaSER (sqrt (- ?ESER2 (** ?ESER 2))))
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?ESER "   " ?SigmaSER crlf)
@@ -657,12 +787,15 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; The following functions are valid for any random variable X, hence have been renamed
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction X-mean-sd-for-nb-clues (?fixed-nb-clues ?nb-clues-file ?X-file ?file-length)
+(deffunction X-mean-sd-for-nb-clues (?X-file ?nb-clues-file ?file-length ?fixed-nb-clues)
+    ;;; computes the mean and standard deviation of ?X, restricted to cases with value ?fixed-nb-clues of ?nb-clues
 	(close)
 	(open ?nb-clues-file "nb-clues-file" "r")
 	(open ?X-file "X-file" "r")
@@ -671,8 +804,9 @@
 	(bind ?EX 0)
 	(bind ?EX2 0)
 	
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?ni (eval ?nb-clues-line))
 		(bind ?X-line (readline "X-file"))
@@ -682,7 +816,6 @@
 			(bind ?EX (+ ?EX (/ (- ?si  ?EX) ?nb-puzzles)))
 			(bind ?EX2 (+ ?EX2 (/ (- (** ?si 2) ?EX2) ?nb-puzzles)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?SigmaX (sqrt (- ?EX2 (** ?EX 2))))
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?EX "   " ?SigmaX crlf)
@@ -693,8 +826,10 @@
 
 
 
-(deffunction X-mean-sd-kurtosis-for-nb-clues (?fixed-nb-clues ?nb-clues-file ?X-file ?file-length)
-	(bind ?l (X-mean-sd-for-nb-clues ?fixed-nb-clues ?nb-clues-file ?X-file ?file-length))
+(deffunction X-mean-sd-kurtosis-for-nb-clues (?X-file ?nb-clues-file ?file-length ?fixed-nb-clues)
+    ;;; computes the mean, standard deviation and kurtosis of ?X, 
+    ;;; restricted to cases with value ?fixed-nb-clues of ?nb-clues
+	(bind ?l (X-mean-sd-for-nb-clues ?X-file ?nb-clues-file ?file-length ?fixed-nb-clues))
 	(bind ?E (nth$ 3 ?l))
 	(bind ?Sigma (nth$ 4 ?l))
 	(open ?nb-clues-file "nb-clues-file" "r")
@@ -703,8 +838,9 @@
 	(bind ?nb-puzzles 0)
 	(bind ?S4 0)
 	
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?ni (eval ?nb-clues-line))
 		(bind ?X-line (readline "X-file"))
@@ -713,7 +849,6 @@
 			(bind ?nb-puzzles (+ ?nb-puzzles 1))
 			(bind ?S4 (+ ?S4 (** (- ?xi ?E) 4)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(if (eq ?nb-puzzles 0) 
 		then (bind ?Kurt 0) 
@@ -727,8 +862,10 @@
 
 
 
-(deffunction X-mean-sd-skewness-kurtosis-for-nb-clues (?fixed-nb-clues ?nb-clues-file ?X-file ?file-length)
-	(bind ?l (X-mean-sd-for-nb-clues ?fixed-nb-clues ?nb-clues-file ?X-file ?file-length))
+(deffunction X-mean-sd-skewness-kurtosis-for-nb-clues (?X-file ?nb-clues-file ?file-length ?fixed-nb-clues)
+    ;;; computes the mean, standard deviation, skewness and kurtosis of ?X,
+    ;;; restricted to cases with value ?fixed-nb-clues of ?nb-clues
+	(bind ?l (X-mean-sd-for-nb-clues ?X-file ?nb-clues-file ?file-length ?fixed-nb-clues))
 	(bind ?E (nth$ 3 ?l))
 	(bind ?Sigma (nth$ 4 ?l))
 	(open ?nb-clues-file "nb-clues-file" "r")
@@ -738,8 +875,9 @@
 	(bind ?S3 0)
 	(bind ?S4 0)
 	
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?ni (eval ?nb-clues-line))
 		(bind ?X-line (readline "X-file"))
@@ -749,7 +887,6 @@
 			(bind ?S3 (+ ?S3 (** (- ?xi ?E) 3)))
  			(bind ?S4 (+ ?S4 (** (- ?xi ?E) 4)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(if (eq ?nb-puzzles 0) 
 		then (bind ?Skewness 0) 
@@ -767,7 +904,7 @@
 
 ;;; Compute the same functions for X, excluding Y levels (in ?levels-file) lower than some value (?min-lvel)
 
-(deffunction X-mean-sd-for-nb-clues-excluding-lower-levels (?fixed-nb-clues ?nb-clues-file ?X-file ?levels-file ?min-level ?file-length)
+(deffunction X-mean-sd-for-nb-clues-excluding-lower-levels (?X-file ?levels-file ?nb-clues-file ?file-length ?fixed-nb-clues ?min-level)
 	(close)
 	(open ?nb-clues-file "nb-clues-file" "r")
 	(open ?X-file "X-file" "r")
@@ -777,8 +914,9 @@
 	(bind ?EX 0)
 	(bind ?EX2 0)
 	
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?nb-clues-line (readline "nb-clues-file"))
 		(bind ?ni (eval ?nb-clues-line))
 		(bind ?X-line (readline "X-file"))
@@ -790,7 +928,6 @@
 			(bind ?EX (+ ?EX (/ (- ?si  ?EX) ?nb-puzzles)))
 			(bind ?EX2 (+ ?EX2 (/ (- (* ?si ?si) ?EX2) ?nb-puzzles)))
 		)
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?SigmaX (sqrt (- ?EX2 (* ?EX ?EX))))
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?EX "   " ?SigmaX crlf)
@@ -812,12 +949,12 @@
 	(while (<= ?nb-clues 35)
 		(open ?nb-clues-file "nb-clues-file" "r")
 		(bind ?nb-instances 0)
-		(bind ?i 1)
-		(while (<= ?i ?file-length)
+		(bind ?i 0)
+		(while (< ?i ?file-length)
+            (bind ?i (+ ?i 1))
 			(bind ?nb-clues-line (readline "nb-clues-file"))
 			(bind ?ni (eval ?nb-clues-line))
 			(if (eq ?ni ?nb-clues) then (bind ?nb-instances (+ ?nb-instances 1)))
-			(bind ?i (+ ?i 1))
 		)
 		(close "nb-clues-file")
 		(printout t ?nb-clues "         " ?nb-instances crlf)
@@ -837,124 +974,28 @@
 
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; General utility functions for clues and candidates
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(deffunction compute-nb-clues (?puzzle-string)
-	(bind ?nb-clues 0)
-	(bind ?i 1)
-	(while (< ?i 82)
-		(bind ?ni (nth$ 1 (explode$ (sub-string ?i ?i ?puzzle-string))))
-		(if (member$ ?ni ?*numbers*) then (bind ?nb-clues (+ ?nb-clues 1)))
-		(bind ?i (+ ?i 1))
-	)
-    ?nb-clues
-)
-
-
-(deffunction nb-clues (?puzzles-file ?file-length)
-	(close)
-	(open ?puzzles-file "puzzles-file" "r")
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
-		(bind ?puzzles-line (readline "puzzles-file"))
-		(bind ?li (eval ?puzzles-line))
-		(printout t ?i "  " (compute-nb-clues ?li) crlf)
-		(bind ?i (+ ?i 1))
-	)
-	(close "puzzles-file")
-)
-
-
-(deffunction record-nb-clues (?puzzles-file ?nb-clues-file ?file-length)
-	(close)
-	(open ?puzzles-file "puzzles-file" "r")
-	(open ?nb-clues-file "nb-clues-file" "w")
-	(bind ?i 1)	
-	(while (<= ?i ?file-length)
-		(bind ?puzzles-line (readline "puzzles-file"))
-		;(bind ?li (eval ?puzzles-line))
-		(printout "nb-clues-file" (compute-nb-clues ?puzzles-line) crlf)
-		(bind ?i (+ ?i 1))
-	)
-	(close "puzzles-file")
-	(close "nb-clues-file")
-)
-
-
-
-(deffunction record-nb-cands (?puzzles-file ?nb-cands-file ?file-length)
-    ;;; Computes the number of candidates remaining after the current set of rules has been applied.
-    ;;; Generally applied after Singles or after whips[1].
-    (close)
-    (open ?puzzles-file "puzzles-file" "r")
-    (open ?nb-cands-file "nb-cands-file" "w")
-    
-    (mute-print-options)
-    (bind ?i 1)
-    (while (<= ?i ?file-length)
-        (printout t ?i crlf)
-        (bind ?puzzles-line (readline "puzzles-file"))
-        (init ?puzzles-line)
-        (run)
-        (printout "nb-cands-file" ?*nb-candidates* crlf)
-        (bind ?i (+ ?i 1))
-    )
-    (close "puzzles-file")
-    (close "nb-cands-file")
-    (restore-print-options)
-)
-
-
-(deffunction file-record-nb-clues (?puzzles-file ?nb-clues-file)
-    (close)
-    (open ?puzzles-file "puzzles-file" "r")
-    (open ?nb-clues-file "nb-clues-file" "w")
-    
-    (bind ?i 1)
-    (while TRUE
-        (bind ?puzzles-line (readline "puzzles-file"))
-        (bind ?li (eval ?puzzles-line))
-        (if (neq ?li EOF)
-            then
-                (bind ?fixed-nb-clues (compute-nb-clues ?puzzles-line))
-                (printout "nb-clues-file" ?fixed-nb-clues crlf)
-            else
-                (close "puzzles-file")
-                (close "nb-clues-file")
-                (return (- ?i 1))
-        )
-        (bind ?i (+ ?i 1))
-    )
-    (close "puzzles-file")
-    (close "nb-clues-file")
-)
-
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; functions for studying the independence of the values in a sequence
 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction center-reduce (?X-file ?out-file ?file-length)
 	(close)
 	;;; read the data and compute EX and SigmaX
 	(open ?X-file "X-file" "r")
-	(bind ?i 1)
-	(bind ?EX 0)	
+	(bind ?i 0)
+	(bind ?EX 0)
 	(bind ?EX2 0)	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -965,12 +1006,12 @@
 	;;; print the reduced centered variable ?l0
 	(open ?X-file "X-file" "r")
 	(open ?out-file "out-file" "w")
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(printout "out-file" (/ (- ?xi ?EX) ?SigmaX) crlf)
-		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 	(close "out-file")
@@ -982,16 +1023,16 @@
 	;;; read the data and compute EX and SigmaX
 	(open ?X-file "X-file" "r")
 	(bind ?l (create$))
-	(bind ?i 1)
-	(bind ?EX 0)	
+	(bind ?i 0)
+	(bind ?EX 0)
 	(bind ?EX2 0)	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?l (create$ ?l ?xi))
 		(bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
 		(bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
-		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 	(bind ?VX (- ?EX2 (* ?EX ?EX)))
@@ -1001,20 +1042,20 @@
 	
 	;;; create the reduced centered variable ?l0
 	(bind ?l0 (create$))
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?l0 (create$ ?l0 (/ (- (nth$ ?i ?l) ?EX) ?SigmaX)))
-		(bind ?i (+ ?i 1))
 	)
 	; (printout t "centered reduced sequence OK" crlf)
 	
 	(bind ?EX2X2k 0)
-	(bind ?i 1)
-	(while (< ?i (- (+ ?file-length 1) ?k))
-		(bind ?X2 (nth$ ?i ?l0)) 
+	(bind ?i 0)
+	(while (< ?i (- ?file-length ?k))
+        (bind ?i (+ ?i 1))
+		(bind ?X2 (nth$ ?i ?l0))
 		(bind ?X2k (nth$ (+ ?i ?k) ?l0)) 
 		(bind ?EX2X2k (+ ?EX2X2k (* ?X2 ?X2k)))
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?EX2X2k (/ ?EX2X2k (- ?file-length ?k)))
 	(printout t "EX2X2+k = " ?EX2X2k crlf)
@@ -1028,24 +1069,24 @@
 	;;; read the data
 	(open ?cr-X-file "cr-X-file" "r")
 	(bind ?l0 (create$))
-	(bind ?i 1)
-	(bind ?EX 0)	
+	(bind ?i 9)
+	(bind ?EX 0)
 	(bind ?EX2 0)	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "cr-X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?l0 (create$ ?l0 ?xi))
-		(bind ?i (+ ?i 1))
 	)
 	(close "cr-X-file")
 	
 	(bind ?EX2X2k 0)
-	(bind ?i 1)
-	(while (< ?i (- (+ ?file-length 1) ?k))
-		(bind ?X2 (nth$ ?i ?l0)) 
+	(bind ?i 0)
+	(while (< ?i (- ?file-length ?k))
+        (bind ?i (+ ?i 1))
+		(bind ?X2 (nth$ ?i ?l0))
 		(bind ?X2k (nth$ (+ ?i ?k) ?l0)) 
 		(bind ?EX2X2k (+ ?EX2X2k (* ?X2 ?X2k)))
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?EX2X2k (/ ?EX2X2k (- ?file-length ?k)))
 	(printout t ?EX2X2k crlf)
@@ -1058,15 +1099,15 @@
 	(close)
 	(open ?file-name "file-symb" "r")
 	(bind ?list (create$))
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?a (readline "file-symb"))
 		(if (member$ ?a ?list) 
 			then (printout t crlf ?i " already in list" crlf)
 			else (bind ?list (union$ ?list (create$ ?a )))
 		)
 		(printout t ?i " ")
-		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
 )
@@ -1086,14 +1127,14 @@
 (deffunction file-last-value (?X-file)
 	(close)
 	(open ?X-file "X-file" "r")
-	(bind ?i 1)
-	(bind ?last 1000000)
+	(bind ?i 0)
+	(bind ?last 10000000)
 	(while TRUE
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(if (eq ?xi EOF) then (close "X-file") (return ?last))
 		(bind ?last ?xi)
-		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 )
@@ -1106,6 +1147,7 @@
 	(bind ?S 0)
 	(bind ?S2 0)
 	(while TRUE
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(if (eq (eval ?xline) EOF) 
 			then 
@@ -1117,10 +1159,44 @@
 				(bind ?S2 (+ ?S2 (* ?xi ?xi)))
 		)
 		
-		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 )
+
+
+(deffunction file-nonZ0-mean-and-sd (?X-file ?Z-file)
+    (close)
+    (open ?X-file "X-file" "r")
+    (open ?Z-file "Z-file" "r")
+    (bind ?i 0)
+    (bind ?S 0)
+    (bind ?S2 0)
+    (bind ?nb 0)
+    (while TRUE
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (bind ?zline (readline "Z-file"))
+        (if (eq (eval ?xline) EOF)
+            then
+                (close "Z-file")
+                (close "X-file")
+                (return (create$ (/ ?S ?nb) (sqrt (- (/ ?S2 ?nb) (** (/ ?S ?nb) 2)))))
+            else
+                (bind ?xi (eval ?xline))
+                (bind ?zi (eval ?zline))
+                (if (neq ?zi 0) then
+                    (bind ?nb (+ ?nb 1))
+                    (bind ?S (+ ?S ?xi))
+                    (bind ?S2 (+ ?S2 (* ?xi ?xi)))
+                )
+        )
+        
+    )
+    (close "Z-file")
+    (close "X-file")
+)
+
+
 
 
 (deffunction file-mean-sd-kurtosis (?X-file)
@@ -1132,6 +1208,7 @@
 	(bind ?i 0)
 	(bind ?S4 0)
 	(while TRUE
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(if (eq (eval ?xline) EOF) 
 			then 
@@ -1141,8 +1218,6 @@
 				(bind ?xi (eval ?xline))
 				(bind ?S4 (+ ?S4 (** (- ?xi ?E) 4)))
 		)
-		
-		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 )
@@ -1158,6 +1233,7 @@
 	(bind ?S3 0)
 	(bind ?S4 0)
 	(while TRUE
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(if (eq (eval ?xline) EOF) 
 			then 
@@ -1169,7 +1245,6 @@
 				(bind ?S4 (+ ?S4 (** (- ?xi ?E) 4)))
 		)
 		
-		(bind ?i (+ ?i 1))
 	)
 	(close "X-file")
 )
@@ -1181,15 +1256,15 @@
 	(bind ?file-length (file-length ?file-name))
 	(open ?file-name "file-symb" "r")
 	(bind ?list (create$))
-	(bind ?i 1)
-	(while (<= ?i ?file-length)
+	(bind ?i 0)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?a (sub-string 1 81 (readline "file-symb")))
 		(if (member$ ?a ?list) 
 			then (printout t crlf ?i " already in list: " ?a crlf)
 			else (bind ?list (union$ ?list (create$ ?a )))
 		)
 		(printout t ?i " ")
-		(bind ?i (+ ?i 1))
 	)
 	(close "file-symb")
 )
@@ -1253,14 +1328,15 @@
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
-	(bind ?i 1)
+	(bind ?i 0)
 	(bind ?EX 0)
 	(bind ?EY 0)
 	(bind ?EX2 0)
 	(bind ?EY2 0)
 	(bind ?EXY 0)
 	
-	(while (<= ?i ?file-length)
+	(while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
 		(bind ?xline (readline "X-file"))
 		(bind ?xi (eval ?xline))
 		(bind ?yline (readline "Y-file"))
@@ -1271,7 +1347,6 @@
 		(bind ?EX2 (+ ?EX2 (* ?xi ?xi)))
 		(bind ?EY2 (+ ?EY2 (* ?yi ?yi)))
 		(bind ?EXY (+ ?EXY (* ?xi ?yi)))
-		(bind ?i (+ ?i 1))
 	)
 	(bind ?EX (/ ?EX ?i))
 	(bind ?EY (/ ?EY ?i))
@@ -1298,3 +1373,150 @@
 )
 
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Rank functions useful for computing Spearman's correlation
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(deffunction SER-to-rank (?SER)
+    (bind ?IP (integer ?SER))
+    (bind ?F10P (integer (- (* 10 ?SER) (* 10 ?IP))))
+    (bind ?FP10 (- 10 ?F10P))
+
+    (+ (* 10 (- 11 ?IP)) ?FP10)
+)
+(deffunction test-SER-to-rank()
+    (bind ?SER 12.0)
+    (while (> ?SER 0)
+        (bind ?SER (- ?SER 0.1))
+        (printout t (SER-to-rank ?SER) crlf)
+    )
+)
+
+(deffunction record-SER-ranks (?SER-file ?file-length ?rank-file)
+    (open ?SER-file "SER-file" "r")
+    (open ?rank-file "rank-file" "w")
+    (bind ?i 0)
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (readline "SER-file")
+        (printout "rank-file" (SER-to-rank (eval (readline "SER-file"))) crlf)
+    )
+)
+
+
+;;; useless in practice, because this is a linear transformation of the SER
+(deffunction Spearman-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
+    ;;; computes Spearman's correlation coefficient coefficient between ?X and SER-to-rank(?Y)
+    ;;; ?Y-name should be SER-rank, ?Y-file should be a file of SERs (not of SER-ranks)
+    ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
+    (close)
+    (open ?X-file "X-file" "r")
+    (open ?Y-file "Y-file" "r")
+    
+    (bind ?i 0)
+    (bind ?EX 0)
+    (bind ?EY 0)
+    (bind ?EX2 0)
+    (bind ?EY2 0)
+    (bind ?EXY 0)
+    
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (bind ?xi (eval ?xline))
+        (bind ?yline (readline "Y-file"))
+        ;;; only difference: SER-to-rank
+        (bind ?yi (SER-to-rank (eval ?yline)))
+        (bind ?EX (+ ?EX (/ (- ?xi  ?EX) ?i)))
+        (bind ?EY (+ ?EY (/ (- ?yi  ?EY) ?i)))
+        (bind ?EX2 (+ ?EX2 (/ (- (* ?xi ?xi)  ?EX2) ?i)))
+        (bind ?EY2 (+ ?EY2 (/ (- (* ?yi ?yi)  ?EY2) ?i)))
+        (bind ?EXY (+ ?EXY (/ (- (* ?xi ?yi)  ?EXY) ?i)))
+    )
+    
+    (bind ?VX (- ?EX2 (* ?EX ?EX)))
+    (bind ?VY (- ?EY2 (* ?EY ?EY)))
+    (bind ?CovXY (- ?EXY (* ?EX ?EY)))
+    (bind ?r (/ ?CovXY (* (sqrt ?VX) (sqrt ?VY))))
+    (bind ?a (/ ?CovXY ?VX))
+    (bind ?b (- ?EY (* ?a ?EX)))
+    ;;; only difference: log
+    (printout t "E(" ?X-name ") = " ?EX crlf)
+    (printout t "E(log(" ?Y-name ")) = " ?EY crlf)
+    (printout t "Sigma(" ?X-name ") = " (sqrt ?VX) crlf)
+    (printout t "Sigma(log(" ?Y-name ")) = " (sqrt ?VY) crlf)
+    (printout t "Spearman's correlation-coefficient(" ?X-name ", " ?Y-name ") = " ?r crlf)
+    (printout t "regression SER-to-rank(" ?Y-name ") = a * " ?X-name " + b" crlf)
+    (printout t "a = " ?a crlf)
+    (printout t "b = " ?b crlf)
+    (close "X-file")
+    (close "Y-file")
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Distribution of a variable with values from p to q
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction X-distribution-p-to-q (?X-file ?X-file-length ?p ?q)
+    (close)
+    (bind ?res (create$))
+    (loop-for-count (?val ?p ?q)
+        (open ?X-file "X-file" "r")
+        (bind ?count 0)
+        (bind ?i 0)
+        (while (< ?i ?X-file-length)
+            (bind ?i (+ ?i 1))
+            (bind ?xline (string-to-field (readline "X-file")))
+            (if (eq ?xline ?val) then (bind ?count (+ ?count 1)))
+        )
+        (bind ?res (create$ ?res ?count))
+        (printout t ?val ": " ?count crlf)
+        (close "X-file")
+    )
+    (bind ?res-percent (create$))
+    (foreach ?x ?res (bind ?res-percent (create$ ?res-percent (* 100 (/ (nth$ ?x-index ?res) ?X-file-length)))))
+    (printout t "% = "?res-percent crlf)
+    ?res
+)
+
+
+(deffunction X-distribution (?X-file ?X-file-length)
+    (X-distribution-p-to-q ?X-file ?X-file-length (file-min-value ?X-file) (file-min-value ?X-file))
+)
+
+
+;;; Mainly intended for dealing with the SER:
+(deffunction X-distribution-p-to-q-with-01-step (?X-file ?X-file-length ?p ?q)
+    (close)
+    (bind ?res (create$))
+    (loop-for-count (?val (* 10 ?p) (* 10 ?q))
+        (open ?X-file "X-file" "r")
+        (bind ?count 0)
+        (bind ?i 0)
+        (while (< ?i ?X-file-length)
+            (bind ?i (+ ?i 1))
+            (bind ?xline (integer (* 10 (string-to-field (readline "X-file")))))
+            (if (eq ?xline ?val) then (bind ?count (+ ?count 1)))
+        )
+        (bind ?res (create$ ?res ?count))
+        (printout t ?val ": " ?count crlf)
+        (close "X-file")
+    )
+    (bind ?res-percent (create$))
+    (foreach ?x ?res (bind ?res-percent (create$ ?res-percent (* 100 (/ (nth$ ?x-index ?res) ?X-file-length)))))
+    (printout t "% = "?res-percent crlf)
+    ?res
+)

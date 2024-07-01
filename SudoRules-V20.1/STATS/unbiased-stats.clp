@@ -31,11 +31,11 @@
 ;;; The functions in this file provide unbiased statistics when applied to collections of
 ;;; 9x9 Sudoku puzzles produced according to the principles of a top-down controlled-bias generator.
 ;;; Do not apply them to other collections; the results would make no sense.
-;;; Do not app;ly them to sub-collections of top-down controlled-bias ones.
+;;; Do not apply them to arbitrary sub-collections of top-down controlled-bias ones.
 
 
 ;;; This version is based on arbitrarily choosing the correction factor cf-17-35(26) = 1
-;;; (which makes the final values look better but doesn't change anything else).
+;;; (which makes the final values look better than other choices, but doesn't change anything else).
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -717,11 +717,13 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Complete calculations in a single function for a random variable X given in a file
 ;;; [0 1 2 ... 20, total] represents the 21 possible values of X + the total nb of puzzles
 ;;; Note: this is not adapted for non-integer ratings, such as the SER
 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction X-relative-distribution-for-nb-clues (?X-name ?X-file ?nb-clues-file ?chosen-nb-clues ?file-length)
@@ -754,7 +756,8 @@
 )
 
 
-;;; This is the function that automatically makes all the controlled-bias and unbiased calculations for a rating
+
+;;; This is the function that automatically makes all the controlled-bias and unbiased calculations for a rating:
 
 (deffunction unbiased-X-distribution-19-32 (?X-name ?X-file ?nb-clues-file ?file-length)
 	;;; nb-clues from 19 to 32
@@ -997,7 +1000,7 @@
     (printout t ?X-name " global distribution = " ?distrib-all crlf)
 	
     (printout t crlf)
-    (printout t "Distributions for " ?X-name ", expresed as percentages: " crlf)
+    (printout t "Distributions for " ?X-name ", expressed as percentages: " crlf)
 
 	(bind ?total (nth$ 22 ?distrib-all))
 	(bind ?percentages-all
@@ -1119,6 +1122,11 @@
 	(return (create$ ?sum (/ (sqrt ?global-variance) ?sum)))
 )
 
+
+;;; public name
+(deffunction unbiased-X-distribution (?X-name ?X-file ?nb-clues-file ?file-length)
+    (unbiased-X-distribution-19-32 ?X-name ?X-file ?nb-clues-file ?file-length)
+)
 
 
 
@@ -1412,7 +1420,7 @@
     (printout t "global distribution of abs(" ?Y-name "-" ?X-name ")  = " ?distrib-all crlf)
     
     (printout t crlf)
-    (printout t "Distributions for abs(" ?Y-name "-" ?X-name "), expresed as percentages: " crlf)
+    (printout t "Distributions for abs(" ?Y-name "-" ?X-name "), expressed as percentages: " crlf)
 
     (bind ?total (nth$ 22 ?distrib-all))
     (bind ?percentages-all
@@ -1472,5 +1480,12 @@
     )
     (printout t "real unbiased distribution: "  ?real-percentages crlf)
 )
+
+
+;;; public name:
+(deffunction diff-X-Y-unbiased-distribution (?X-name ?Y-name ?X-file ?Y-file ?nb-clues-file ?file-length)
+    (diff-X-Y-unbiased-distribution-19-32 ?X-name ?Y-name ?X-file ?Y-file ?nb-clues-file ?file-length)
+)
+
 
 

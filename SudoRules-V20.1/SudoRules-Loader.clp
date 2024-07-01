@@ -15,8 +15,8 @@
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                ;;;                                                    ;;;
                ;;;              copyright Denis Berthier              ;;;
-               ;;;     https://denis-berthier.pagesperso-orange.fr    ;;;
-               ;;;            January 2006 - January 2024             ;;;
+               ;;;  https://github.com/denis-berthier/CSP-Rules-V2.1  ;;;
+               ;;;            January 2006 - June 2024                ;;;
                ;;;                                                    ;;;
                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -44,7 +44,8 @@
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "NS.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "HS.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "solve-files.clp"))
-(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "record-levels.clp"))
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "record-results.clp"))
+(load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "data-filters.clp"))
 
 ;;; now loaded only if W1 is active:
 (if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids*) then
@@ -61,7 +62,6 @@
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "goodies.clp"))
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "shuffle.clp"))
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "pretty-print.clp"))
-(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "record-expansions.clp"))
 
 
 ;;; ADVANCED
@@ -493,7 +493,6 @@
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "stats.clp"))
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "unbiased-stats.clp"))
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "comparisons.clp"))
-(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "puzzle-filters.clp"))
 
 
 

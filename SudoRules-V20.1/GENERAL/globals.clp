@@ -463,7 +463,8 @@
     (if ?*has-tridagon* then (bind ?*tridagon-list* (create$ ?*tridagon-list* ?i)))
     ;(if ?*has-degenerate-cyclic-tridagon* then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* ?i)))
     ;;; 2024 May 17, changed to
-    (if (or ?*has-tridagon* ?*has-degenerate-cyclic-tridagon*) then (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* ?i)))
+    (if (or ?*has-tridagon* ?*has-degenerate-cyclic-tridagon*) then
+        (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* ?i)))
     (if ?*has-Imp630* then (bind ?*Imp630-list* (create$ ?*Imp630-list* ?i)))
 )
 

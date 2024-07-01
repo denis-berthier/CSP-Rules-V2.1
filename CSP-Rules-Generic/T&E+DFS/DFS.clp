@@ -220,7 +220,8 @@
 =>
     (assert (technique ?cont DFS))
     (if (eq ?cont 0) then
-        (printout t crlf "*** STARTING DFS IN CONTEXT " 0  " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf crlf)
+        (if ?*print-actions* then (printout t crlf "*** STARTING DFS IN CONTEXT " 0  " with " ?*nb-csp-variables-solved* " csp-variables solved and " ?*nb-candidates* " candidates remaining" crlf crlf)
+        )
         (bind ?*DFS-max-depth* 0)
     )
 )

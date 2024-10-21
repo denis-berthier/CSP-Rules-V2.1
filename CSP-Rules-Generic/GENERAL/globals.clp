@@ -772,7 +772,7 @@
 
 
 (defglobal ?*Templates* = FALSE)
-(defglobal ?*Templates-max-length* = 1)
+(defglobal ?*templates-max-combinations* = 0)
 
 (defglobal ?*special-DFS* = FALSE) ;;; by default, there is no depth-first search
 (defglobal ?*DFS* = FALSE) ;;; by default, there is no depth-first search
@@ -3482,7 +3482,7 @@
     ?*print-forcing-gbraid-36* = FALSE
 )
 
-
+(defglobal ?*print-templates* = FALSE)
 
 
 

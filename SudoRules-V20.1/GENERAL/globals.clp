@@ -435,6 +435,7 @@
     ?*tridagon-list* = (create$)
     ?*degenerate-cyclic-tridagon-list* = (create$)
     ?*Imp630-list* = (create$)
+    ?*eleven-tried-blocks* = (create$)
 )
 
 
@@ -445,6 +446,7 @@
     (bind ?*has-tridagon* FALSE)
     (bind ?*has-degenerate-cyclic-tridagon* FALSE)
     (bind ?*has-Imp630* FALSE)
+    (bind ?*eleven-tried-blocks* (create$))
 )
 
 (deffunction init-specific-lists-for-files ()

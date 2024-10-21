@@ -28,14 +28,17 @@
 
 
 
-(defglobal ?*eleven-replacement-applied* = FALSE)
-
 (deffunction modify-RS-by-eleven-replacement (?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 $?sukaku-list)
-    (do-for-all-facts
-        ((?f candidate))
-        TRUE
-        (retract ?f)
-    )
+    ;;; This function works but is unsafe (in case non-structural templates would be added)
+    (do-for-all-facts ((?f candidate)) TRUE (retract ?f))
+    (do-for-all-facts ((?f g-candidate)) TRUE (retract ?f))
+    (do-for-all-facts ((?f chain)) TRUE (retract ?f))
+    (do-for-all-facts ((?f typed-chain)) TRUE (retract ?f))
+    (do-for-all-facts ((?f csp-chain)) TRUE (retract ?f))
+    (do-for-all-facts ((?f chain2r)) TRUE (retract ?f))
+    (do-for-all-facts ((?f ORk-relation)) TRUE (retract ?f))
+    (do-for-all-facts ((?f ORk-chain)) TRUE (retract ?f))
+    (do-for-all-facts ((?f contrad-chain)) TRUE (retract ?f))
     (bind ?new-RS
         (fix-3-digits-in-3-rc-cells-of-sukaku-list
             ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3
@@ -244,7 +247,8 @@
     (candidate (context ?cont) (status cand) (block ?b11) (square ?sq13) (number ?nb3))
     (not (candidate (context ?cont) (status cand) (block ?b11) (square ?sq13) (number ?nbx&~?nb1&~?nb2&~?nb3)))
     
-    (not (eleven-tried-block ?cont ?b11))
+    ;(not (eleven-tried-block ?cont ?b11))
+    (test (not (member$ ?b11 ?*eleven-tried-blocks*)))
 =>
     (bind ?RS (compute-current-resolution-state))
     (printout t crlf)
@@ -252,8 +256,11 @@
     (printout t "***** STARTING ELEVEN''S REPLACEMENT TECHNIQUE *****" crlf)
     (printout t "RELEVANT DIGIT REPLACEMENTS WILL BE NECESSARY AT THE END, based on the original givens." crlf)
     (printout t "Trying in block " ?b11 crlf)
-    (bind ?RS (modify-RS-by-eleven-replacement ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 ?RS))
-    (pretty-print-RS)
-    (run)
-    (assert (eleven-tried-block ?cont ?b11))
+    ;;; It is safer to have a global variable "eleven-tried-blocks" and to use "solve-sukaku-list-by-eleven-replacement"
+    ;(bind ?RS (modify-RS-by-eleven-replacement ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 ?RS))
+    ;(pretty-print-RS)
+    ;(run)
+    ;(assert (eleven-tried-block ?cont ?b11))
+    (bind ?*eleven-tried-blocks* (create$ ?*eleven-tried-blocks* ?b11))
+    (solve-sukaku-list-by-eleven-replacement ?nb1 ?nb2 ?nb3 ?row1 ?col1 ?row2 ?col2 ?row3 ?col3 ?RS)
 )

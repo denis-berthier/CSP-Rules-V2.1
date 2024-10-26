@@ -109,7 +109,7 @@
 ;;; SudoRules has its own way of dealing with the size of puzzles
 ;;; and this can only be done here; maximum segment size is 9
 ;;; you don't need do change anything for the standard 9x9 puzzles
- (bind ?*segment-size* 3) ;                                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; (bind ?*segment-size* 3) ;                                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 
@@ -683,7 +683,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 3c) for computing the BpB classification
+;;; 3c) for computing the BxB classification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Choose one of the following forms of T&E(1)
@@ -700,7 +700,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 3d) for computing the BpBB classification for puzzles in T&E(3)
+;;; 3d) for computing the BxBB classification for puzzles in T&E(3)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Added after the discovery that there are (extremely rare) Sudoku puzzles in T&E(3).
@@ -755,12 +755,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 4) Choose DFS (depth-first search) options
+;;; 4) Choose TEMPLATES OR DFS (depth-first search) options
 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 4.1 Choose Templates
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; (bind ?*Templates* TRUE)
+;;; default vlaue for ?*templates-max-combinations* is 0 (i.e. no Template is used);
+;;; max value for all the known puzzles is 4.
+; (bind ?*templates-max-combinations*  4)
+;;; ?*print-templates* is FALSE by default;
+;;; don't change this unless you want to see a deluge of template retraction messages:
+; (bind ?*print-templates* TRUE)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 4.2 Choose DFS
 ;;; DO NOT FORGET TO DISABLE ALL THE RULES IN THE OTHER SECTIONS BEFORE ACTIVATING DFS
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; DFS can be used to provide a relatively fast solution
 

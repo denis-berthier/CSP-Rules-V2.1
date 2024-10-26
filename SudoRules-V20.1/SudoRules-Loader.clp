@@ -47,8 +47,8 @@
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "record-results.clp"))
 (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "data-filters.clp"))
 
-;;; now loaded only if W1 is active:
-(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids*) then
+;;; now loaded only if W1 is active (or in rarely used calculations):
+(if (or ?*Whips[1]* ?*Bi-Whips* ?*Bi-Braids* ?*Templates*) then
     (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 )
 
@@ -469,15 +469,15 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(if (and ?*Templates* (<= 1 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[1].clp")))
-(if (and ?*Templates* (<= 2 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[2].clp")))
-(if (and ?*Templates* (<= 3 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[3].clp")))
-(if (and ?*Templates* (<= 4 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[4].clp")))
-(if (and ?*Templates* (<= 5 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[5].clp")))
-(if (and ?*Templates* (<= 6 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[6].clp")))
-(if (and ?*Templates* (<= 7 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[7].clp")))
-(if (and ?*Templates* (<= 8 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[8].clp")))
-(if (and ?*Templates* (<= 9 ?*Templates-max-length*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[9].clp")))
+(if (and ?*Templates* (<= 1 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[1].clp")))
+(if (and ?*Templates* (<= 2 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[2].clp")))
+(if (and ?*Templates* (<= 3 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[3].clp")))
+(if (and ?*Templates* (<= 4 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[4].clp")))
+(if (and ?*Templates* (<= 5 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[5].clp")))
+(if (and ?*Templates* (<= 6 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[6].clp")))
+(if (and ?*Templates* (<= 7 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[7].clp")))
+(if (and ?*Templates* (<= 8 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[8].clp")))
+(if (and ?*Templates* (<= 9 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[9].clp")))
 
 
 
@@ -558,6 +558,15 @@
             (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "pImp630") else "pImp630")
         )
     )
+    (if ?*Templates* then
+        (bind ?*application-specific-rating-type*
+            (if (neq ?*application-specific-rating-type* "")
+                then (str-cat ?*application-specific-rating-type* "+" "Templates[" ?*templates-max-combinations* "]")
+                else (str-cat "Templates[" ?*templates-max-combinations* "]")
+            )
+        )
+    )
+
     ?*application-specific-rating-type*
 )
 

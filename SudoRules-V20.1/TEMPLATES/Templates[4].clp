@@ -54,7 +54,7 @@
 
 
 
-;;; Only the templates[4] with (?nba < ?nbb <) ?nbc < ?nbd are recorded
+;;; Only the templates[4] with ?nba < ?nbb < ?nbc < ?nbd are recorded
 ;;; (this divides by ~4 the memory requirements and the computation time)
 
 (defrule template[4]
@@ -98,7 +98,7 @@
 
 
 
-;;; As a result, there must be four elimnation rules of templates[3]
+;;; As a result, there must be four elimination rules of templates[3]
 ;;; (reminder: all the recorded templates[3] have ?nba < ?nbb < ?nbc)
 
 ;;; Case of incompatibility with some nbd such that nba < nbb < nbc < nbd
@@ -134,7 +134,7 @@
     )
 =>
     (retract ?temp3)
-    (if ?*print-templates* then (printout t "Retracting a 3-template for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the 1-templates for digit " ?nbd crlf))
+    (if ?*print-templates* then (printout t "Retracting a template[3] for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the templates[1] for digit " ?nbd crlf))
 )
 
 
@@ -171,11 +171,11 @@
     )
 =>
     (retract ?temp3)
-    (if ?*print-templates* then (printout t "Retracting a 3-template for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the 1-templates for digit " ?nbd crlf))
+    (if ?*print-templates* then (printout t "Retracting a template[3] for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the templates[1] for digit " ?nbd crlf))
 )
 
 
-;;; Case of incompatibility with some nbd such that nba< nbd  < nbb < nbc
+;;; Case of incompatibility with some nbd such that nba < nbd  < nbb < nbc
 (defrule template[4]-elim-adbc
     (declare (salience ?*template-4-elim-salience*))
     ?temp3 <- (template-3 ?cont ?nba ?nbb ?nbc
@@ -208,7 +208,7 @@
     )
 =>
     (retract ?temp3)
-    (if ?*print-templates* then (printout t "Retracting a 3-template for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the 1-templates for digit " ?nbd crlf))
+    (if ?*print-templates* then (printout t "Retracting a template[3] for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the templates[1] for digit " ?nbd crlf))
 )
 
 
@@ -245,7 +245,7 @@
     )
 =>
     (retract ?temp3)
-    (if ?*print-templates* then (printout t "Retracting a 3-template for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the 1-templates for digit " ?nbd crlf))
+    (if ?*print-templates* then (printout t "Retracting a template[3] for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the templates[1] for digit " ?nbd crlf))
 )
 
 

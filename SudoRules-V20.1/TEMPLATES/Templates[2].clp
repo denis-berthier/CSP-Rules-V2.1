@@ -57,7 +57,7 @@
 	(logical (play))
 	?level <- (technique ?cont template[2])
 =>
-	(if ?*print-main-levels* then (printout t _with_ ?level crlf))
+	(if ?*print-main-levels* then (printout t " with " ?level crlf))
 )
 
 
@@ -97,7 +97,7 @@
 
 
 
-;;; As a result, there must be two elimnation rules of templates[1]
+;;; As a result, there must be two elimination rules of templates[1]
 
 ;;; Case of incompatibility with some nbb such that nba < nbb
 (defrule template[2]-elim-ab
@@ -119,7 +119,7 @@
     ))
 =>
     (retract ?temp1)
-    (if ?*print-templates* then (printout t "Retracting a 1-template for digit " ?nba " incompatible with all the 1-templates for digit " ?nbb crlf))
+    (if ?*print-templates* then (printout t "Retracting a template[1] for digit " ?nba " incompatible with all the templates[1] for digit " ?nbb crlf))
 )
 
 
@@ -143,5 +143,5 @@
     ))
 =>
     (retract ?temp1)
-    (if ?*print-templates* then (printout t "Retracting a 1-template for digit " ?nba " incompatible with all the 1-templates for digit " ?nbb crlf))
+    (if ?*print-templates* then (printout t "Retracting a template[1] for digit " ?nba " incompatible with all the templates[1] for digit " ?nbb crlf))
 )

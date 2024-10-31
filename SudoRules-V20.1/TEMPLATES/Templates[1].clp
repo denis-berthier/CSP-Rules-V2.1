@@ -29,9 +29,9 @@
 
 
 ;;; There are 2 possible conclusions for a single-digit template analysis:
-;;; - any candidate that belongs to all the instantiations of the template for its digit
+;;; - any candidate that belongs to all the instantiations of the template[1] for its digit
 ;;;   must be True (and asserted as a c-value);
-;;; - any candidate that belongs to no instantiation of a template for its digit
+;;; - any candidate that belongs to no instantiation of the template[1] for its digit
 ;;;   must be False (and eliminated).
 
 
@@ -55,7 +55,7 @@
 	(logical (play))
 	?level <- (technique ?cont template[1])
 =>
-	(if ?*print-main-levels* then (printout t _with_ ?level crlf))
+	(if ?*print-main-levels* then (printout t " with " ?level crlf))
 )
 
 
@@ -113,7 +113,7 @@
 
 
 (defrule template[1]-assert
-    ;;; Any candidate that belongs to all the instantiations of the template for its digit
+    ;;; Any candidate that belongs to all the instantiations of the template[1] for its digit
     ;;;  must be True (and asserted as a c-value)
     (declare (salience ?*template-1-assert-salience*))
     ?cand <- (candidate (context ?cont) (status cand) (number ?nb) (label ?lab) (row ?row) (column ?col))
@@ -124,42 +124,42 @@
             )
         (or
             (template-1 ?cont ?nb
-                        ?lab ?lab2 ?lab3 ?lab4 ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
+                        ?lab  ?lab2 ?lab3 ?lab4 ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
             (template-1 ?cont ?nb
-                        ?lab1 ?lab ?lab3 ?lab4 ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
+                        ?lab1 ?lab  ?lab3 ?lab4 ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
             (template-1 ?cont ?nb
-                        ?lab1 ?lab2 ?lab ?lab4 ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
+                        ?lab1 ?lab2 ?lab  ?lab4 ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
             (template-1 ?cont ?nb
-                        ?lab1 ?lab2 ?lab3 ?lab ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
+                        ?lab1 ?lab2 ?lab3 ?lab  ?lab5 ?lab6 ?lab7 ?lab8 ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
             (template-1 ?cont ?nb
-                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab ?lab6 ?lab7 ?lab8 ?lab9
+                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab  ?lab6 ?lab7 ?lab8 ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
             (template-1 ?cont ?nb
-                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab5 ?lab ?lab7 ?lab8 ?lab9
+                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab5 ?lab  ?lab7 ?lab8 ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
             (template-1 ?cont ?nb
-                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab5 ?lab6 ?lab ?lab8 ?lab9
+                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab5 ?lab6 ?lab  ?lab8 ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
             (template-1 ?cont ?nb
-                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab5 ?lab6 ?lab7 ?lab ?lab9
+                        ?lab1 ?lab2 ?lab3 ?lab4 ?lab5 ?lab6 ?lab7 ?lab  ?lab9
                         ?col1 ?col2 ?col3 ?col4 ?col5 ?col6 ?col7 ?col8 ?col9
                         ?blk1 ?blk2 ?blk3 ?blk4 ?blk5 ?blk6 ?blk7 ?blk8 ?blk9
             )
@@ -184,7 +184,7 @@
 
 
 (defrule template[1]-elim
-    ;;; Any candidate that belongs to no instantiation of a template for its digit
+    ;;; Any candidate that belongs to no instantiation of the template[1] for its digit
     ;;; must be False (and eliminated).
     (declare (salience ?*template-1-elim-salience*))
     ?cand <- (candidate (context ?cont) (status cand) (number ?nb) (label ?lab) (row ?row) (column ?col))

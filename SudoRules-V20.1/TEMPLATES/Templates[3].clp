@@ -69,6 +69,9 @@
             ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
         )
         (technique ?cont template[3])
+        ;;; the templates[1] for the third digit (?nbc) have the only constraint
+        ;;; that they shoudln't overlap the template[2] for the first two digits (?nba ?nbb)
+        ;;; i.e. that for each row, they are in a different column
         (template-1 ?cont ?nbc&:(< ?nbb ?nbc)
             ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
             ?col1c&~?col1b&~?col1a ?col2c&~?col2b&~?col2a ?col3c&~?col3b&~?col3a ?col4c&~?col4b&~?col4a ?col5c&~?col5b&~?col5a ?col6c&~?col6b&~?col6a ?col7c&~?col7b&~?col7a ?col8c&~?col8b&~?col8a ?col9c&~?col9b&~?col9a
@@ -157,7 +160,7 @@
 )
 
 
-;;; Case of incompatibility with some nbc such that nbc < nba < nbb
+;;; Case of incompatibility with some nbc such that nbc < nba (< nbb)
 (defrule template[3]-elim-cab
     (declare (salience ?*template-3-elim-salience*))
     ?temp2 <- (template-2 ?cont ?nba ?nbb
@@ -189,4 +192,61 @@
 
 
 
+;;; When a template[2] is deleted, all the templates[3] that extend it must be deleted.
+;;; That's automatic thanks to the "logical" in the construction rule,
+;;; when the extension is at the end (i.e. for a number > the two in the template[2].
+;;; But this must be done manually (i.e. by cleaning rules) in other case.
+
+(defrule template[3]-clean-acb
+    (declare (salience ?*template-3-clean-salience*))
+    ?temp3 <- (template-3 ?cont ?nba ?nbc ?nbb
+                ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+                ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+                ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+                ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+                ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+                ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+                ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+                ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+                ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+            )
+    (not (template-2 ?cont ?nba ?nbb
+            ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+            ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+            ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+            ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+            ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+        )
+    )
+=>
+    (retract ?temp3)
+)
+
+
+(defrule template[3]-clean-cab
+    (declare (salience ?*template-3-clean-salience*))
+    ?temp3 <- (template-3 ?cont ?nbc ?nba ?nbb
+                ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+                ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+                ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+                ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+                ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+                ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+                ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+                ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+                ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+            )
+    (not (template-2 ?cont ?nba ?nbb
+            ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+            ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+            ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+            ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+            ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+        )
+    )
+=>
+    (retract ?temp3)
+)
 

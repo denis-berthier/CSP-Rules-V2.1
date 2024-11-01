@@ -72,6 +72,9 @@
             ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
         )
         (technique ?cont template[4])
+        ;;; the templates[1] for the fourth digit (?nbd) have the only constraint
+        ;;; that they shoudln't overlap the template[3] for the first three digits (?nba ?nbb ?nbc)
+        ;;; i.e. that for each row, they are in a different column
         (template-1 ?cont ?nbd&:(< ?nbc ?nbd)
             ?lab1d ?lab2d ?lab3d ?lab4d ?lab5d ?lab6d ?lab7d ?lab8d ?lab9d
             ?col1d&~?col1c&~?col1b&~?col1a ?col2d&~?col2c&~?col2b&~?col2a ?col3d&~?col3c&~?col3b&~?col3a ?col4d&~?col4c&~?col4b&~?col4a ?col5d&~?col5c&~?col5b&~?col5a ?col6d&~?col6c&~?col6b&~?col6a ?col7d&~?col7c&~?col7b&~?col7a ?col8d&~?col8c&~?col8b&~?col8a ?col9d&~?col9c&~?col9b&~?col9a
@@ -248,6 +251,110 @@
     (if ?*print-templates* then (printout t "Retracting a template[3] for digits " ?nba ", " ?nbb " and " ?nbc " incompatible with all the templates[1] for digit " ?nbd crlf))
 )
 
+
+
+;;; When a template[3] is deleted, all the templates[4] that extend it must be deleted.
+;;; That's automatic thanks to the "logical" in the construction rule,
+;;; when the extension is at the end (i.e. for a number > the three in the template[3].
+;;; But this must be done manually (i.e. by cleaning rules) in other cases.
+
+(defrule template[4]-clean-abdc
+    (declare (salience ?*template-3-clean-salience*))
+    ?temp4 <- (template-4 ?cont ?nba ?nbb ?nbd ?nbc
+                ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+                ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+                ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+                ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+                ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+                ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+                ?lab1d ?lab2d ?lab3d ?lab4d ?lab5d ?lab6d ?lab7d ?lab8d ?lab9d
+                ?col1d ?col2d ?col3d ?col4d ?col5d ?col6d ?col7d ?col8d ?col9d
+                ?blk1d ?blk2d ?blk3d ?blk4d ?blk5d ?blk6d ?blk7d ?blk8d ?blk9d
+                ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+                ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+                ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+            )
+    (not (template-3 ?cont ?nba ?nbb ?nbc
+            ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+            ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+            ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+            ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+            ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+            ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+            ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+            ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+        )
+    )
+=>
+    (retract ?temp4)
+)
+
+
+(defrule template[4]-clean-adbc
+    (declare (salience ?*template-3-clean-salience*))
+    ?temp4 <- (template-4 ?cont ?nba ?nbd ?nbb ?nbc
+                ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+                ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+                ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+                ?lab1d ?lab2d ?lab3d ?lab4d ?lab5d ?lab6d ?lab7d ?lab8d ?lab9d
+                ?col1d ?col2d ?col3d ?col4d ?col5d ?col6d ?col7d ?col8d ?col9d
+                ?blk1d ?blk2d ?blk3d ?blk4d ?blk5d ?blk6d ?blk7d ?blk8d ?blk9d
+                ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+                ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+                ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+                ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+                ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+                ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+            )
+    (not (template-3 ?cont ?nba ?nbb ?nbc
+            ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+            ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+            ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+            ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+            ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+            ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+            ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+            ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+        )
+    )
+=>
+    (retract ?temp4)
+)
+
+
+(defrule template[4]-clean-dabc
+    (declare (salience ?*template-3-clean-salience*))
+    ?temp4 <- (template-4 ?cont ?nbd ?nba ?nbb ?nbc
+                ?lab1d ?lab2d ?lab3d ?lab4d ?lab5d ?lab6d ?lab7d ?lab8d ?lab9d
+                ?col1d ?col2d ?col3d ?col4d ?col5d ?col6d ?col7d ?col8d ?col9d
+                ?blk1d ?blk2d ?blk3d ?blk4d ?blk5d ?blk6d ?blk7d ?blk8d ?blk9d
+                ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+                ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+                ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+                ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+                ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+                ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+                ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+                ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+                ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+            )
+    (not (template-3 ?cont ?nba ?nbb ?nbc
+            ?lab1a ?lab2a ?lab3a ?lab4a ?lab5a ?lab6a ?lab7a ?lab8a ?lab9a
+            ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ?blk1a ?blk2a ?blk3a ?blk4a ?blk5a ?blk6a ?blk7a ?blk8a ?blk9a
+            ?lab1b ?lab2b ?lab3b ?lab4b ?lab5b ?lab6b ?lab7b ?lab8b ?lab9b
+            ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+            ?blk1b ?blk2b ?blk3b ?blk4b ?blk5b ?blk6b ?blk7b ?blk8b ?blk9b
+            ?lab1c ?lab2c ?lab3c ?lab4c ?lab5c ?lab6c ?lab7c ?lab8c ?lab9c
+            ?col1c ?col2c ?col3c ?col4c ?col5c ?col6c ?col7c ?col8c ?col9c
+            ?blk1c ?blk2c ?blk3c ?blk4c ?blk5c ?blk6c ?blk7c ?blk8c ?blk9c
+        )
+    )
+=>
+    (retract ?temp4)
+)
 
 
 

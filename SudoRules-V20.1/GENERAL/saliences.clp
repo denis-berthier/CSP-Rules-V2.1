@@ -856,36 +856,43 @@
 (defglobal ?*activate-template-3-salience* = 0)
 (defglobal ?*template-3-salience* = 0)
 (defglobal ?*template-3-assert-salience* = 0)
+(defglobal ?*template-3-clean-salience* = 0)
 (defglobal ?*template-3-elim-salience* = 0)
 
 (defglobal ?*activate-template-4-salience* = 0)
 (defglobal ?*template-4-salience* = 0)
 (defglobal ?*template-4-assert-salience* = 0)
+(defglobal ?*template-4-clean-salience* = 0)
 (defglobal ?*template-4-elim-salience* = 0)
 
 (defglobal ?*activate-template-5-salience* = 0)
 (defglobal ?*template-5-salience* = 0)
 (defglobal ?*template-5-assert-salience* = 0)
+(defglobal ?*template-5-clean-salience* = 0)
 (defglobal ?*template-5-elim-salience* = 0)
 
 (defglobal ?*activate-template-6-salience* = 0)
 (defglobal ?*template-6-salience* = 0)
 (defglobal ?*template-6-assert-salience* = 0)
+(defglobal ?*template-6-clean-salience* = 0)
 (defglobal ?*template-6-elim-salience* = 0)
 
 (defglobal ?*activate-template-7-salience* = 0)
 (defglobal ?*template-7-salience* = 0)
 (defglobal ?*template-7-assert-salience* = 0)
+(defglobal ?*template-7-clean-salience* = 0)
 (defglobal ?*template-7-elim-salience* = 0)
 
 (defglobal ?*activate-template-8-salience* = 0)
 (defglobal ?*template-8-salience* = 0)
 (defglobal ?*template-8-assert-salience* = 0)
+(defglobal ?*template-8-clean-salience* = 0)
 (defglobal ?*template-8-elim-salience* = 0)
 
 (defglobal ?*activate-template-9-salience* = 0)
 (defglobal ?*template-9-salience* = 0)
 (defglobal ?*template-9-assert-salience* = 0)
+(defglobal ?*template-9-clean-salience* = 0)
 (defglobal ?*template-9-elim-salience* = 0)
 
 
@@ -903,36 +910,43 @@
     (bind ?*activate-template-3-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-3-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-3-assert-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*template-3-clean-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-3-elim-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-template-4-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-4-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-4-assert-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*template-4-clean-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-4-elim-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-template-5-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-5-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-5-assert-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*template-5-clean-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-5-elim-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-template-6-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-6-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-6-assert-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*template-6-clean-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-6-elim-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-template-7-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-7-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-7-assert-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*template-7-clean-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-7-elim-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-template-8-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-8-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-8-assert-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*template-8-clean-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-8-elim-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-template-9-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-9-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-9-assert-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    (bind ?*template-9-clean-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*template-9-elim-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 )
 

@@ -765,9 +765,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; (bind ?*Templates* TRUE)
-;;; default vlaue for ?*templates-max-combinations* is 0 (i.e. no Template is used);
-;;; max value for all the known puzzles is 4.
-; (bind ?*templates-max-combinations*  4)
+;;; default value for ?*templates-max-combinations* is 0 (i.e. no Template is used);
+;;; max value for all the known puzzles is 3.
+; (bind ?*templates-max-combinations* 3)
 ;;; ?*print-templates* is FALSE by default;
 ;;; don't change this unless you want to see a deluge of template retraction messages:
 ; (bind ?*print-templates* TRUE)

@@ -225,3 +225,52 @@
     ?puzzle
 )
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Randomly relabel of the digits of a puzzle
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction random-permutation-1-9()
+    (bind ?list (create$))
+    (while (< (length$ ?list) 9)
+        (bind ?i (random 1 9))
+        (if (not (member$ ?i ?list)) then (bind ?list (create$ ?list ?i)))
+    )
+    ?list
+)
+
+(deffunction relabel-9x9-puzzle-with-permutation (?puzzle-string ?perm)
+    ;;; number ?i in the given puzzle becomes perm(?i) in the new puzzle
+    (bind ?new-puzzle "")
+    (loop-for-count (?i 1 81)
+        (bind ?j (sub-string ?i ?i ?puzzle-string))
+        (if (or (eq ?j ".") (eq ?j "0"))
+            then (bind ?new-puzzle (str-cat ?new-puzzle ?j))
+            else (bind ?new-puzzle (str-cat ?new-puzzle (nth$ (eval ?j) ?perm)))
+        )
+    )
+    ?new-puzzle
+)
+
+
+(deffunction random-relabel-9x9-puzzle (?puzzle-string)
+    (relabel-9x9-puzzle-with-permutation ?puzzle-string (random-permutation-1-9))
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Find a random puzzle isomorphic to a given one
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction random-isomorphic-9x9-puzzle (?puzzle-string)
+    (random-relabel-9x9-puzzle
+        (random-shuffle-9x9-puzzle ?puzzle-string)
+    )
+)
+

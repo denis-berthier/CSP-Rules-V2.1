@@ -466,6 +466,17 @@
 ; (bind ?*Imp630-all* TRUE)
 
 
+;;; 2.3.2c) Use your own selection of impossible patterns in two bands or two stacks
+;;; Usually, you'll want to do this after running a larger selection
+;;; and checking the patterns effectively used in the solution;
+;;; This will clean the resolution path of all the useless patterns.
+;;; First declare you want to make your own selection (compulsory)
+;;; this will cancel all previous selections of Imp630 (but not the tridagons):
+; (bind ?*Select-Imp630-list* TRUE)
+;;; Then select impossbile patterns by their names, e.g.:
+; (bind ?*Selected-Imp630-list* (create$ EL14c30 EL13c259 EL16c40))
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

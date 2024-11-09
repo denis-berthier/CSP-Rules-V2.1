@@ -207,6 +207,104 @@
 ;;; - or all the rules at once:
 (defglobal ?*Imp630-all* = FALSE)
 
+;;; For allowing your own selection of impossible patterns:
+(defglobal ?*Imp630-10c-list* = (create$))
+(defglobal ?*Imp630-12c-list* = (create$))
+(defglobal ?*Imp630-13c-list* = (create$))
+(defglobal ?*Imp630-14c-list* = (create$))
+(defglobal ?*Imp630-15c-list* = (create$))
+(defglobal ?*Imp630-16c-list* = (create$))
+(defglobal ?*Imp630-full-list* = (create$))
+(defglobal ?*Dummy-Imp630-full-list* = (progn
+        ;;; 10 cells
+        (loop-for-count (?i 1 31)
+            (if (neq ?i 11) then ; #11 has 4 cells in block 6
+                (bind ?*Imp630-10c-list* (create$ ?*Imp630-10c-list* (sym-cat EL10c ?i)))
+            )
+        )
+        ;;; 12 cells
+        (loop-for-count (?i 1 38)
+            (if (and
+                    (neq ?i 38) ; #38 is Tridagon, it must be loaded separately
+                    (neq ?i 2) ; #i has enough free cells
+                ) then
+                (bind ?*Imp630-12c-list* (create$ ?*Imp630-12c-list* (sym-cat EL12c ?i)))
+            )
+        )
+        ;;; 13 cells
+        (loop-for-count (?i 1 290)
+            (if (not (member$ ?i (create$ 207 211 217 218 219))) then ; #i has enough free cells
+                (bind ?*Imp630-13c-list* (create$ ?*Imp630-13c-list* (sym-cat EL13c ?i)))
+            )
+        )
+        ;;; 14 cells
+        (loop-for-count (?i 1 159)
+            (if (not (member$ ?i (create$ 23 33 36 73 92 112 113))) then ; #i has enough free cells
+                (bind ?*Imp630-14c-list* (create$ ?*Imp630-14c-list* (sym-cat EL14c ?i)))
+            )
+        )
+        ;;; 15 cells
+        (loop-for-count (?i 1 102)
+            (if (not (member$ ?i (create$ 11 16 18 30 32 36 38 40 42 45 47 49 51 53 56 57 66 68 69 80 83 85 100 101)))  then ; #i has enough free cells
+                (bind ?*Imp630-15c-list* (create$ ?*Imp630-15c-list* (sym-cat EL15c ?i)))
+            )
+        )
+        ;;; 16 cells
+        (loop-for-count (?i 1 16)
+            (if (not (member$ ?i (create$ 9 10))) then ; #i has enough free cells
+                (bind ?*Imp630-16c-list* (create$ ?*Imp630-16c-list* (sym-cat EL16c ?i)))
+            )
+        )
+        (bind ?*Imp630-full-list*
+            (create$ ?*Imp630-10c-list* ?*Imp630-12c-list* ?*Imp630-13c-list*
+                ?*Imp630-14c-list* ?*Imp630-15c-list* ?*Imp630-16c-list*)
+        )
+        ?*Imp630-full-list*
+    )
+)
+
+(defglobal ?*Select-Imp630-list* = FALSE)
+(defglobal ?*Selected-Imp630-list* = (create$))
+;;; This is in GENERIC.utils.clp, but not vailable at this point:
+(deffunction set-difference (?l1 ?l2)
+    ;;; Sets are represented as lists
+    ;;; No check is made for non repetition of elements in the given lists
+    ;;; ?l1 minus ?l2
+    (bind ?diff (create$))
+    (foreach ?x ?l1
+        (if (not (member$ ?x ?l2)) then (bind ?diff (create$ ?diff ?x)))
+    )
+    ?diff
+)
+
+(deffunction check-Imp630-selection ()
+    (if (or
+            (and ?*Select-Imp630-list* (subsetp ?*Selected-Imp630-list* ?*Imp630-full-list*))
+            (eq 0 (length$ ?*Selected-Imp630-list*))
+        )
+        then TRUE
+        else (if (not ?*Select-Imp630-list*) then
+                (printout t "INVALID SELECTION: in order to use a personalised list of impossible patterns," crlf
+                    "?*Select-Imp630-list* must first be set to TRUE" crlf)
+            )
+            (bind ?dif (set-difference ?*Selected-Imp630-list* ?*Imp630-full-list*))
+            (if (> (length$ ?dif) 0) then
+                (printout t "INVALID SELECTION; the full allowed list is: " crlf
+                    ?*Imp630-10c-list* crlf
+                    ?*Imp630-12c-list* crlf
+                    ?*Imp630-13c-list* crlf
+                    ?*Imp630-14c-list* crlf
+                    ?*Imp630-15c-list* crlf
+                    ?*Imp630-16c-list* crlf
+                )
+                (printout t "INVALID SELECTION: " crlf
+                    ?dif " is/are not in the existing list of impossible patterns" crlf
+                )
+           )
+            FALSE
+    )
+)
+
 
 
 

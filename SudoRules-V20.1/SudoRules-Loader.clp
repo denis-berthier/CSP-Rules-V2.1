@@ -212,6 +212,41 @@
 
 ;;; eleven's 630 impossible patterns in two bands or two stacks:
 (defglobal ?*dummy-Imp630* = (progn
+    (if ?*Select-Imp630-list* then ;;; cancel any other selection
+        (bind ?*Imp630-Select4* FALSE)
+        (bind ?*Imp630-Select3* FALSE)
+        (bind ?*Imp630-Select2* FALSE)
+        (bind ?*Imp630-Select1* FALSE)
+        (bind ?*Imp630-all* FALSE)
+        (bind ?*EL13c290* FALSE)
+        (bind ?*EL14c30* FALSE)
+        (bind ?*EL14c159* FALSE)
+        (bind ?*EL14c1* FALSE)
+        (bind ?*EL14c13* FALSE)
+        (bind ?*EL10c28* FALSE)
+        (bind ?*EL13c179* FALSE)
+        (bind ?*EL13c30* FALSE)
+        (bind ?*EL13c171* FALSE)
+        (bind ?*EL13c234* FALSE)
+        (bind ?*EL13c176* FALSE)
+        (bind ?*EL10c6* FALSE)
+        (bind ?*EL13c259* FALSE)
+        (bind ?*EL10c8* FALSE)
+        (bind ?*EL13c172* FALSE)
+        (bind ?*EL14c19* FALSE)
+        (bind ?*EL10c4* FALSE)
+        (bind ?*EL13c175* FALSE)
+        (bind ?*EL13c136* FALSE)
+        (bind ?*EL15c97* FALSE)
+        (bind ?*EL13c187* FALSE)
+        (bind ?*EL14c93* FALSE)
+        (bind ?*EL12c2* FALSE)
+        (bind ?*EL14c154* FALSE)
+        (bind ?*EL13c19* FALSE)
+        (bind ?*EL13c170* FALSE)
+        (bind ?*EL13c168* FALSE)
+        (bind ?*EL10c10* FALSE)
+    )
     (if ?*Imp630-Select4* then (bind ?*Imp630-Select3* TRUE))
     (if ?*Imp630-Select3* then (bind ?*Imp630-Select2* TRUE))
     (if ?*Imp630-Select2* then (bind ?*Imp630-Select1* TRUE))
@@ -254,6 +289,7 @@
     )
     TRUE
 ))
+
 
 ;;; Load selected lists of impossible patterns:
 ;;; ?*Imp630-Select1*
@@ -440,6 +476,50 @@
         )
     )
 )
+
+
+
+;;; load selected list
+
+(if (and ?*Select-Imp630-list* (check-Imp630-selection)) then
+    ;;; 10 cells
+    (loop-for-count (?i 1 31)
+        (if (member$ (sym-cat EL10c ?i) ?*Selected-Imp630-list*) then
+            (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/10c" ?*Directory-symbol* "EL10c" ?i ".clp"))
+        )
+    )
+    ;;; 12 cells
+    (loop-for-count (?i 1 38)
+        (if (member$ (sym-cat EL12c ?i) ?*Selected-Imp630-list*) then
+            (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/12c" ?*Directory-symbol* "EL12c" ?i ".clp"))
+        )
+    )
+    ;;; 13 cells
+    (loop-for-count (?i 1 290)
+        (if (member$ (sym-cat EL13c ?i) ?*Selected-Imp630-list*) then
+            (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/13c" ?*Directory-symbol* "EL13c" ?i ".clp"))
+        )
+    )
+    ;;; 14 cells
+    (loop-for-count (?i 1 159)
+        (if (member$ (sym-cat EL14c ?i) ?*Selected-Imp630-list*) then
+            (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/14c" ?*Directory-symbol* "EL14c" ?i ".clp"))
+        )
+    )
+    ;;; 15 cells
+    (loop-for-count (?i 1 102)
+        (if (member$ (sym-cat EL15c ?i) ?*Selected-Imp630-list*) then
+            (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/15c" ?*Directory-symbol* "EL15c" ?i ".clp"))
+        )
+    )
+    ;;; 16 cells
+    (loop-for-count (?i 1 16)
+        (if (member$ (sym-cat EL16c ?i) ?*Selected-Imp630-list*) then
+            (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Imp630/16c" ?*Directory-symbol* "EL16c" ?i ".clp"))
+        )
+    )
+)
+
 
 
 

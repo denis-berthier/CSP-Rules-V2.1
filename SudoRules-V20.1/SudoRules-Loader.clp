@@ -395,7 +395,7 @@
                 (not (and (eq ?i 4) ?*EL10c4*))
                 (not (and (eq ?i 6) ?*EL10c6*))
                 (not (and (eq ?i 8) ?*EL10c8*))
-                (not (and (eq ?i 8) ?*EL10c10*))
+                (not (and (eq ?i 10) ?*EL10c10*))
                 (not (and (eq ?i 28) ?*EL10c28*))
                 )then ; already loaded as a special case
                 (load (str-cat

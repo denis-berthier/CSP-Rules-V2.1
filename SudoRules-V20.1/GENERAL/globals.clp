@@ -224,11 +224,8 @@
         )
         ;;; 12 cells
         (loop-for-count (?i 1 38)
-            (if (and
-                    (neq ?i 38) ; #38 is Tridagon, it must be loaded separately
-                    (neq ?i 2) ; #i has enough free cells
-                ) then
-                (bind ?*Imp630-12c-list* (create$ ?*Imp630-12c-list* (sym-cat EL12c ?i)))
+            (if (neq ?i 38) ; #38 is Tridagon, it must be loaded separately
+                then (bind ?*Imp630-12c-list* (create$ ?*Imp630-12c-list* (sym-cat EL12c ?i)))
             )
         )
         ;;; 13 cells
@@ -250,7 +247,7 @@
             )
         )
         ;;; 16 cells
-        (loop-for-count (?i 1 16)
+        (loop-for-count (?i 1 10)
             (if (not (member$ ?i (create$ 9 10))) then ; #i has enough free cells
                 (bind ?*Imp630-16c-list* (create$ ?*Imp630-16c-list* (sym-cat EL16c ?i)))
             )

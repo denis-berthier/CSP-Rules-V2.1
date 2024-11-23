@@ -849,7 +849,7 @@
     then (printout t
         "BEWARE: g-labels, g-bivalue-chains, g-whips and g-braids are not managed” crlf
         “for segment size larger than 4, i.e. grid size larger than 16" crlf)
-    else (batch ?*CSP-Rules-Generic-Loader*)
+    else (if (check-Imp630-selection) then (batch ?*CSP-Rules-Generic-Loader*))
 )
 
 

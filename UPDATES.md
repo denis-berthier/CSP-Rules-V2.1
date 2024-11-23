@@ -12,9 +12,20 @@
 
 
 
-#### 2023 December 4 (SudoRules):
-* add functions for filtering puzzles that have some fixed rating or have their rating above some fixed raing. This may be useful e.g. for extracting T&E(2) or T&E(3) puzzles from a mixed list of hard puzzles, or for extracting T&E(2) puzzles with a high value of their BpB rating.
+#### 2024 Oct 26 (SudoRules):
+* Add (extended) resolution rules seeing templates as patterns, usable as and combinable with any other resolution rules; templates have the lowest priorities.
 
+#### 2024 Jul 01 (SudoRules):
+* Add functions for recording some types of calculations in appropriate files, functions for filtering the contents of resulting files according to various criteria;  clean and expand the set of statistical functions.
+
+#### 2024 Jan 26 (SudoRules):
+* Add functions for recording the expansions of puzzles (e.g. the BRT-expansions)
+
+#### 2024 Jan 05 (SudoRules):
+* Add statistical functions and functions for comparing files (e.g. of ratings).
+
+#### 2023 December 4 (SudoRules):
+* add functions for extracting puzzles that have some fixed rating or have their rating above some fixed rating. This may be useful e.g. for extracting T&E(2) or T&E(3) puzzles from a mixed list of hard puzzles, or for extracting T&E(2) puzzles with a high value of their BxB rating.
 
 #### 2023 November 11 (Generic):
 * Extend ORk splitting rules upto length 16 (instead of 12).
@@ -25,14 +36,12 @@
 * Add ORk-degenerate-cyclic-anti-tridagon.
 * Add function solve-knowing-solution-sukaku-grid.
 
-
-
 #### 2023 August 25 (Generic):
 * Update of the generic T&E(n) procedures, addition of extra conditions in whips[1] and partial-whips[1] so as to allow compatibility with function solve-knowing-solution.
 Computation times are decreased in various porportions for BpB and T&E(2).
-#### 2023 August 25 (SudoRules):
-Addition of corresponding functions for solving files of puzzles knowing solutions.
 
+#### 2023 August 25 (SudoRules):
+* Addition of corresponding functions for solving files of puzzles knowing solutions.
 
 #### 2023 July 14 (SudoRules):
 * Update of the four subsets of selected impossible patterns, taking into account the latest classification of all the known T&E(3) puzzles.
@@ -44,10 +53,8 @@ Addition of corresponding functions for solving files of puzzles knowing solutio
 * Add the IMP630-ORk-W module for the impossible patterns in two bands or two stacks. Note that impossible patterns and ORk-whips effectively loaded in this module are those defined in the configuration file. This module also contains Tridagons and the reversible patterns: Subsets, bivalue-chains and z-chains. It allows to try a solution with mainly impossible patterns before allowing more advanced "regular" chains (t-whips, whips, g-whips, braids...).<br>
 * Add ORk-persistency rules to all the ORk-modules.<br>
 
-
 #### 2023 Apr 1 (SudoRules):
 * Fine tune the four pre-selections of impossible patterns, based on their “usefulness” (see details in release 5 of the Augmented User Manual), a major step in finding the really useful patterns.<br>
-
 
 #### 2023 Mar 16 (Docs):
 * Update the Augmented User Manual with a full new chapter about the impossible patterns and the general question of how to deal with large numbers of patterns.<br>
@@ -63,7 +70,6 @@ Addition of corresponding functions for solving files of puzzles knowing solutio
 * Add functions to normalise patterns, to do some elementary analysis of them and to pretty-print them with additional information (free cells...).<br>
 * Note that the Sudoku-specific part of the "candidate" template in SudoRules has been extended with two slots (band and stack) for easier writing of the rules detecting the 630 impossible patterns. This has strictly no impact on anything existing before this change (especially on generic chain rules, which never use any application-specific slot, or on rules such as Subsets that do use Sudoku-specific slots, but continue not to use the two new ones).<br>
 
-
 #### 2023 Feb 04 (SudoRules):
 * Add functions for the analysis of k and kl digit patterns in SudoRules/Advanced; they allow in particular to find which 3-digit patterns are in T&E(2) - both restricted form (already published before) and full form (that's the new part).
 *In functions that solve lists of puzzles, add global variables to check in how many puzzles any specified ORk relation has effectively been used and to estimate the resolution power of each impossible pattern.<br>
@@ -76,7 +82,6 @@ Addition of corresponding functions for solving files of puzzles knowing solutio
 * Add the full ORk-g-Whips for k ≤ 6.
 * Add the ORk-forcing-g-whips, for k ≤ 6. <br>
 This completes the set of ORk chain and g-chain rules, now all defined for 2 ≤ k ≤ 6.
-
 
 #### 2022 Dec 19 (Generic):
 * Add the ORk-contrad-g-whips, for k ≤ 5 (and corresponding global variables allowing to use them in the SudoRules config file).
@@ -184,7 +189,6 @@ When T&E is involved, they restrict the candidates that may be tried at each lev
 
 #### 2021 Apr 06 (SudoRules/Goodies): 
 * add functions: "pretty-print-sudoku-string" (also "pretty-print"), "pretty-print-sukaku-list" and "random-shuffle-9x9-puzzle" .
-
 
 #### 2021 Mar 11 (SudoRules): 
 * add functions for printing the rc, rn, cn and bn views first introduced in [HLS 2007]: <br>

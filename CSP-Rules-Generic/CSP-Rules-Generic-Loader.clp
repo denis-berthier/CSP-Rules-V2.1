@@ -28,9 +28,9 @@
 
 
 
-(if (eq ?*inference-engine* CLIPS) then (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "CLIPS-utils.clp")))
-
 ;;; Notice that this generic loader also loads the application-specific files
+
+(if (eq ?*inference-engine* CLIPS) then (load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "CLIPS-utils.clp")))
 
 
 
@@ -812,7 +812,8 @@
 ;;; initialise the saliences within a load, using a dummy variable
 (defglobal ?*dummy-variable-for-saliences* = (initialise-saliences))
 
-(load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "utils.clp"))
+(load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "utils.clp"))
+(load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "file-utils.clp"))
 
 ;;; load generic templates
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "templates.clp"))

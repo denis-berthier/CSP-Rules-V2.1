@@ -814,6 +814,7 @@
 
 (load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "utils.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "file-utils.clp"))
+(load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "stats.clp"))
 
 ;;; load generic templates
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "templates.clp"))

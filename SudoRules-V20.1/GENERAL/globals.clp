@@ -57,20 +57,24 @@
 
 
 
-;;; because grid size may be changed in this file, use this function to redefine the associated internal factors
+;;; Because grid size may be changed in this file, use this function to redefine the associated internal factors
 ;;; As most Sudoku puzzles are 9x9, we consider it simpler to take them as the default case
 ;;; (the alternative would be to add an optional variable ?segment-size with default value 3
 ;;;  to function "solve" and to all the similar functions in file "GENERAL/solve.clp"
 ;;; ?segment-size could even be computed automatically from the length of the string of givens
 ;;; but this seems quite useless in most cases
+;;; The G conditions below should be summarised by ?*G-Labels* = TRUE,
+;;; but G-Labels is not yet available when this fucntion is called
 
 (deffunction redefine-internal-factors ()
     (bind ?*internal-factor-0*  (if (or (eq ?*segment-size* 2) (eq ?*segment-size* 3))then 10 else 100))
     (bind ?*internal-factor* ?*internal-factor-0*)
+    ;;; ?*G-Labels* = TRUE is not yet setup when this is used
     (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*
             ?*Typed-G-Whips*
             ?*Forcing-G-Whips* ?*Forcing-G-Braids*
             ?*All-generic-chain-rules*
+            ?*OR2-Forcing-G-Whips* ?*OR2-Contrad-G-Whips* ?*OR2-G-Whips*
         ) then
         (bind ?*internal-factor* ?*internal-factor-0*)
         (bind ?i 1)
@@ -262,7 +266,7 @@
 
 (defglobal ?*Select-Imp630-list* = FALSE)
 (defglobal ?*Selected-Imp630-list* = (create$))
-;;; This is in GENERIC.utils.clp, but not vailable at this point:
+;;; This is in GENERIC/utils.clp, but not vailable at this point:
 (deffunction set-difference (?l1 ?l2)
     ;;; Sets are represented as lists
     ;;; No check is made for non repetition of elements in the given lists
@@ -297,10 +301,23 @@
                 (printout t "INVALID SELECTION: " crlf
                     ?dif " is/are not in the existing list of impossible patterns" crlf
                 )
-           )
+            )
             FALSE
     )
 )
+
+(deffunction check-application-specific-config-selection ()
+    ;;; This function is only intended for being called within generic check-config-selection
+    ;;; after the generic checks have been done (e.g. ?*G-Labels* updated)
+    (if (and ?*G-Labels* (> ?*segment-size* 4))
+        then (printout t
+                "BEWARE: g-labels, g-bivalue-chains, g-whips and g-braids are not managed” crlf
+                “for segment size larger than 4, i.e. grid size larger than 16" crlf)
+            (return FALSE)
+        else (check-Imp630-selection)
+    )
+)
+        
 
 
 

@@ -783,6 +783,39 @@
 (defglobal ?*application-specific-rating-type* = "") ;;; this will be computed by the application loader
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Functions for checking user selection in config file before loading
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction set-G-Labels ()
+    (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*
+            ?*Typed-G-Whips*
+            ?*Forcing-G-Whips* ?*Forcing-G-Braids*
+            ?*All-generic-chain-rules*
+            ?*OR2-Forcing-G-Whips* ?*OR2-Contrad-G-Whips* ?*OR2-G-Whips*
+        )
+        then (bind ?*G-Labels* TRUE)
+    )
+    TRUE
+)
+
+(deffunction check-application-specific-config-selection ()
+    ;;; This function is only intended for being called within generic check-config-selection
+    ;;; after the generic checks have been done
+    TRUE
+)
+
+
+;;; May be redefined by any application if necessary
+(deffunction check-config-selection ()
+    (set-G-Labels)
+    (check-application-specific-config-selection)
+)
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

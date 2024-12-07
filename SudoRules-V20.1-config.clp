@@ -176,7 +176,7 @@
 ; (bind ?*print-ECP-details* TRUE)
 ; (bind ?*print-actions* FALSE)
 ; (bind ?*print-levels* TRUE)
-; (bind ?*print-main-levels* TRUE)
+ (bind ?*print-main-levels* TRUE)
 ; (bind ?*print-solution* FALSE)
 
 ;;; Note that the following print options are time consuming.
@@ -521,7 +521,7 @@
 ; (bind ?*OR6-Contrad-Whips* True)
 
 ;;; 2.4.4) Use ORk-Whips in combination with the selected ORk-relations:
-;;; (Remember that ORk-Whips[n] => ORk-Contrad-Whips[n] => Tridagons)
+;;; (Remember that ORk-Whips[n] => ORk-Contrad-Whips[n])
 ; (bind ?*OR2-Whips* True)
 ; (bind ?*OR3-Whips* True)
 ; (bind ?*OR4-Whips* True)
@@ -555,7 +555,7 @@
 
 ;;; 2.4.8) If you use ORk chains or g-chains,
 ;;; it is highly recommended to put a strict upper bound on their lengths;
-;;; 5 is a good starting point ; try to increase these lengths progressively.
+;;; 8 is a good starting point ; try to increase these lengths progressively.
 
 ;;; 2.4.8.a) restrict all the ORk-chains and ORk-g-chains at once;
 ;;; Notice that this global restriction will prevail on any of the individual restrictions further below.
@@ -609,7 +609,7 @@
 ;;; 2.5) Eleven's replacement technique:
 ;;; Allow the automatic use of eleven's replacement method based on tridagons.
 ;;; (Note that the method is much more general;
-;;; here, the anti-tridaon structure is only used to define a starting point).
+;;; here, the anti-tridagon structure is only used to define a starting point).
 ;;; The method will be applied only when no other rule is applicable.
 ; (bind ?*Anti-Tridagons* TRUE)
 ; (bind ?*Eleven-Replacement-in-Tridagons* TRUE)
@@ -845,12 +845,7 @@
 
 
 ;;; Now, load all. The generic loader also loads the application-specific files:
-(if (and (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*) (> ?*segment-size* 4))
-    then (printout t
-        "BEWARE: g-labels, g-bivalue-chains, g-whips and g-braids are not managed” crlf
-        “for segment size larger than 4, i.e. grid size larger than 16" crlf)
-    else (if (check-Imp630-selection) then (batch ?*CSP-Rules-Generic-Loader*))
-)
+(if (check-config-selection) then (batch ?*CSP-Rules-Generic-Loader*))
 
 
 

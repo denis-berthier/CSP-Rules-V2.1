@@ -404,7 +404,7 @@
 
 ;;; now, load all
 ;;; Notice that the generic loader also loads the application-specific files
-(batch ?*CSP-Rules-Generic-Loader*)
+(if (check-config-selection) then (batch ?*CSP-Rules-Generic-Loader*))
 
 
 

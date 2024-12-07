@@ -429,7 +429,5 @@
 
 ;;; now, load all
 ;;; Notice that the generic loader also loads the application-specific files
-(if (and ?*Pandiagonal* (or (evenp ?*grid-size*) (eq (mod ?*grid-size* 3) 0)))
-    then (printout t "Pandiagonal Latin Squares can only be defined on grids of size not divisible by 2 or 3" crlf crlf)
-    else (batch ?*CSP-Rules-Generic-Loader*)
-)
+(if (check-config-selection) then (batch ?*CSP-Rules-Generic-Loader*))
+

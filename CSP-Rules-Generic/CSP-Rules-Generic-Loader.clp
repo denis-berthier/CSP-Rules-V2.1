@@ -53,7 +53,8 @@
 
 (defglobal ?*dummy-variable-for-setting-generic-rules-dependencies* = (progn
     ;;; Function redefine-all-chains-max-length is called before setting all the other dependencies,
-    ;;; so as to ensure priority to the global declarations such as ?*all-chains-max-length*,
+    ;;; so as to ensure the priority of the global declarations such as
+    ;;; ?*all-chains-max-length*, ?*all-ORk-chains-max-length*
     ;;; ?*all-ORk-forcing-whips-max-length*, ?*all-ORk-contrad-whips-max-length*, ?*all-ORk-whips-max-length*
     ;;; ?*all-ORk-forcing-gwhips-max-length*, ?*all-ORk-contrad-gwhips-max-length* and ?*all-ORk-gwhips-max-length*
     (redefine-all-chains-max-length)
@@ -421,7 +422,15 @@
     (if ?*G-Bivalue-Chains* then (bind ?*Bivalue-Chains* TRUE))
     (if ?*Typed-z-Chains* then (bind ?*Typed-Bivalue-Chains* TRUE))
 
-    (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*) then (bind ?*G-Labels* TRUE))
+    ;;; now done within check-config
+    ;(if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*
+    ;        ?*Typed-G-Whips*
+    ;        ?*Forcing-G-Whips* ?*Forcing-G-Braids*
+    ;        ?*All-generic-chain-rules*
+    ;        ?*OR2-Forcing-G-Whips* ?*OR2-Contrad-G-Whips* ?*OR2-G-Whips*
+    ;    ) then
+    ;    (bind ?*G-Labels* TRUE)
+    ;)
     
     ;;; Typed-whips
     (if ?*Typed-G-Whips* then
@@ -499,7 +508,7 @@
     (if ?*G-Whips* then (bind ?*partial-gwhips-max-length* (- ?*gwhips-max-length* 1)))
     
     ;;; Contrary to ORk-Forcing-G-Whips, whose length is (indirectly) further restricted by ?*all-chains-max-length*,
-    ;;; ORk-Contrad-G-Whips and ORk-G-Whips need access to partial-gwhips
+    ;;; ORk-Contrad-G-Whips and ORk-G-Whips neeed access to partial-gwhips
     (if ?*OR2-Contrad-G-Whips* then (bind ?*partial-gwhips-max-length* (max ?*partial-gwhips-max-length* (- ?*OR2-contrad-gwhips-max-length* 1))))
 
     (printout t "Generic consistency-preserving rules dependencies set" crlf)
@@ -1064,7 +1073,7 @@
 )
 
 ;;; g-labels and g-links
-(if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids* ?*OR2-Forcing-G-Whips* ?*OR2-Contrad-G-Whips* ?*OR2-G-Whips*) then
+(if ?*G-Labels* then
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "glabels.clp"))
     (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "init-glinks.clp"))
 )

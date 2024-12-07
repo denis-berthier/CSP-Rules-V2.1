@@ -52,7 +52,7 @@
     (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "init-links.clp"))
 )
 
-(if (or ?*G-Bivalue-Chains* ?*G-Whips*  ?*G-Braids*) then 
+(if ?*G-Labels* then 
     (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "glabels.clp"))
     (load (str-cat ?*Application-Dir* "GENERAL" ?*Directory-symbol* "init-glinks.clp"))
 )

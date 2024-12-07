@@ -98,6 +98,16 @@
 
 (defglobal ?*Pandiagonal* = FALSE)
 
+(deffunction check-application-specific-config-selection ()
+    ;;; This function is only intended for being called within generic check-config-selection
+    ;;; after the generic checks have been done (e.g. ?*G-Labels* updated)
+    (if (and ?*Pandiagonal* (or (evenp ?*grid-size*) (eq (mod ?*grid-size* 3) 0)))
+        then (printout t "Pandiagonal Latin Squares can only be defined on grids of size not divisible by 2 or 3" crlf crlf)
+            FALSE
+        else TRUE
+    )
+)
+
 
 
 

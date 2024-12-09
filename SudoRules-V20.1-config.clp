@@ -612,9 +612,13 @@
 ;;; here, the anti-tridagon structure is only used to define a starting point).
 ;;; The method will be applied only when no other rule is applicable.
 ; (bind ?*Anti-Tridagons* TRUE)
-; (bind ?*Eleven-Replacement-in-Tridagons* TRUE)
+; (bind ?*Eleven-Replacement-in-Tridagon-block* TRUE)
 
-;;; If you use Eleven-Replacement-in-Tridagons,
+;;; Allow the automatic use of eleven's replacement method based on degenerate-cyclic-tridagons.
+; (bind ?*Degen-Cyclic-Anti-Tridagons* TRUE)
+; (bind ?*Eleven-Replacement-in-Degen-Cyclic-Tridagon-block* TRUE)
+
+;;; If you use Eleven-Replacement-in-Tridagon-block or Eleven-Replacement-in-Degen-Cyclic-Tridagon-block,
 ;;; it is highly recommended to put a strict upper bound on the lengths of all the chains and ORk-chains;
 ;;; see above
 

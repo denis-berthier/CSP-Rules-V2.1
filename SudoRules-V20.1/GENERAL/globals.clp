@@ -147,7 +147,8 @@
 (defglobal ?*Anti-Tridagons* = FALSE)
 (defglobal ?*Anti-Tridagons* = FALSE)
 (defglobal ?*Degen-Cyclic-Anti-Tridagons* = FALSE)
-(defglobal ?*Eleven-Replacement-in-Tridagons* = FALSE)
+(defglobal ?*Eleven-Replacement-in-Tridagon-block* = FALSE)
+(defglobal ?*Eleven-Replacement-in-Degen-Cyclic-Tridagon-block* = FALSE)
 
 ;;; This is now set to TRUE by default in order to allow the early detection of Tridagons and anti-tridagons;
 ;;; it can be changed in the configuration file:

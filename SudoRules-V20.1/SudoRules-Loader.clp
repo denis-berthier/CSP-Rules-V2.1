@@ -202,13 +202,18 @@
 
 
 ;;; modified eleven digit replacement method
-(if ?*Eleven-Replacement-in-Tridagons* then
+(if ?*Eleven-Replacement-in-Tridagon-block* then
     (if ?*Tridagon-Forcing-Whips* then
         (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol* "Replacement-based-on-Tridagon-links.clp"))
     )
     (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol*
-        "Replacement-based-on-general-Tridagon.clp"))
+        "replacement-in-Tridagon-block.clp"))
 )
+(if ?*Eleven-Replacement-in-Degen-Cyclic-Tridagon-block* then
+    (load (str-cat ?*Application-Dir* "EXOTIC" ?*Directory-symbol* "Tridagons" ?*Directory-symbol*
+        "replacement-in-dct-block.clp"))
+)
+
 
 ;;; eleven's 630 impossible patterns in two bands or two stacks:
 (defglobal ?*dummy-Imp630* = (progn

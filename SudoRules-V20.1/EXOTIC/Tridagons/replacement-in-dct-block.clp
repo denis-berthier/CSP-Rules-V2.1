@@ -68,17 +68,17 @@
     (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (row ?row1) (column ?col1) (number ?nb1a))
     (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (number ?nb2a))
     (not (candidate (context ?cont) (status cand) (block ?b11) (square ?sq11) (number ?nbx&~?nb1&~?nb2&~?nb3)))
-    (test (progn (printout t "OK1" crlf) TRUE))
+    ;(test (progn (printout t "OK1" crlf) TRUE))
 
     (candidate (context ?cont) (status cand) (block ?b11) (square ?sq12&~?sq11) (row ?row2&:(< ?row1 ?row2)) (column ?col2&~?col1) (number ?nb2a))
     (candidate (context ?cont) (status cand) (block ?b11) (square ?sq12) (number ?nb3a))
     (not (candidate (context ?cont) (status cand) (block ?b11) (square ?sq12) (number ?nbx&~?nb1&~?nb2&~?nb3)))
-    (test (progn (printout t "OK2" crlf) TRUE))
+    ;(test (progn (printout t "OK2" crlf) TRUE))
 
     (candidate (context ?cont) (status cand) (block ?b11) (square ?sq13&~?sq11&~?sq12) (row ?row3&:(< ?row2 ?row3)) (column ?col3&~?col1&~?col2) (number ?nb3a))
     (candidate (context ?cont) (status cand) (block ?b11) (square ?sq13) (number ?nb1a))
     (not (candidate (context ?cont) (status cand) (block ?b11) (square ?sq13) (number ?nbx&~?nb1&~?nb2&~?nb3)))
-    (test (progn (printout t "OK3" crlf) TRUE))
+    ;(test (progn (printout t "OK3" crlf) TRUE))
 
     ;(not (eleven-tried-block ?cont ?b11))
     (test (not (member$ ?b11 ?*eleven-tried-blocks*)))

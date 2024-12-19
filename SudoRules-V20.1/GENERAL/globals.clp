@@ -606,7 +606,7 @@
 
 (defglobal ?*CBGC* = (str-cat ?*CSP-Rules* "CBGC" ?*Directory-symbol*))
 (defglobal ?*SUDCL* = (str-cat ?*CSP-Rules* "SUDCL" ?*Directory-symbol*))
-(defglobal ?*TE3* = (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
+(defglobal ?*TE3-Mi* = (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
 (defglobal ?*TE2-EL* = (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
 (defglobal ?*TE2-PH* = (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
 (defglobal ?*TE2-Paq* = (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))
@@ -618,7 +618,7 @@
 (defglobal ?*39c* = (str-cat ?*SUDCL* "dob-2650-39c" ?*Directory-symbol*))
 
 (deffunction relocate-companion-folders ()
-    (bind ?*TE3* (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
+    (bind ?*TE3-Mi* (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
     (bind ?*TE2-EL* (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
     (bind ?*TE2-PH* (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
     (bind ?*TE2-Paq* (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))

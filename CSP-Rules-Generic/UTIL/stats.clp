@@ -512,3 +512,103 @@
 )
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Distribution of an integer variable with values from p to q
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction X-distribution-p-to-q (?X-file ?X-file-length ?p ?q)
+    (close)
+    (bind ?res (create$))
+    (loop-for-count (?val ?p ?q)
+        (open ?X-file "X-file" "r")
+        (bind ?count 0)
+        (bind ?i 0)
+        (while (< ?i ?X-file-length)
+            (bind ?i (+ ?i 1))
+            (bind ?xline (string-to-field (readline "X-file")))
+            (if (eq ?xline ?val) then (bind ?count (+ ?count 1)))
+        )
+        (bind ?res (create$ ?res ?count))
+        (printout t ?val ": " ?count crlf)
+        (close "X-file")
+    )
+    (bind ?res-percent (create$))
+    (foreach ?x ?res (bind ?res-percent (create$ ?res-percent (* 100 (/ (nth$ ?x-index ?res) ?X-file-length)))))
+    (printout t "% = "?res-percent crlf)
+    ?res
+)
+
+
+(deffunction X-distribution (?X-file ?X-file-length)
+    ;;; same, with automatic selection  of the range
+    (X-distribution-p-to-q ?X-file ?X-file-length (file-min-value ?X-file) (file-max-value ?X-file))
+)
+
+
+;;; Mainly intended for dealing with non-integer variables (like the SER in Sudoku):
+(deffunction X-distribution-p-to-q-with-01-step (?X-file ?X-file-length ?p ?q)
+    (close)
+    (bind ?res (create$))
+    (loop-for-count (?val (* 10 ?p) (* 10 ?q))
+        (open ?X-file "X-file" "r")
+        (bind ?count 0)
+        (bind ?i 0)
+        (while (< ?i ?X-file-length)
+            (bind ?i (+ ?i 1))
+            (bind ?xline (integer (* 10 (string-to-field (readline "X-file")))))
+            (if (eq ?xline ?val) then (bind ?count (+ ?count 1)))
+        )
+        (bind ?res (create$ ?res ?count))
+        (printout t ?val ": " ?count crlf)
+        (close "X-file")
+    )
+    (bind ?res-percent (create$))
+    (foreach ?x ?res (bind ?res-percent (create$ ?res-percent (* 100 (/ (nth$ ?x-index ?res) ?X-file-length)))))
+    (printout t "% = "?res-percent crlf)
+    ?res
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Distribution of the absolute difference between two integer variables with values from p to q
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction diff-X-Y-distribution-p-to-q (?X-file ?Y-file ?file-length ?p ?q)
+    (close)
+    (bind ?res (create$))
+    (loop-for-count (?val 0 ?q)
+        (open ?X-file "X-file" "r")
+        (open ?Y-file "Y-file" "r")
+        (bind ?count 0)
+        (bind ?i 0)
+        (while (< ?i ?file-length)
+            (bind ?i (+ ?i 1))
+            (bind ?xline (string-to-field (readline "X-file")))
+            (bind ?yline (string-to-field (readline "Y-file")))
+            (if (eq (abs (- ?yline ?xline)) ?val) then (bind ?count (+ ?count 1)))
+        )
+        (bind ?res (create$ ?res ?count))
+        (printout t ?val ": " ?count crlf)
+        (close "X-file")
+        (close "Y-file")
+    )
+    (bind ?res-percent (create$))
+    (foreach ?x ?res (bind ?res-percent (create$ ?res-percent (* 100 (/ (nth$ ?x-index ?res) ?file-length)))))
+    (printout t "% = "?res-percent crlf)
+    ?res
+)
+
+
+(deffunction diff-X-Y-distribution (?X-file ?Y-file ?file-length)
+    ;;; same, with automatic selection  of the range
+    (diff-X-Y-distribution-p-to-q ?X-file ?Y-file ?file-length 0 (max (file-max-value ?X-file) (file-max-value ?Y-file)))
+)
+
+
+

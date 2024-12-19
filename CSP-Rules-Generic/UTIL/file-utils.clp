@@ -336,7 +336,7 @@
 ;;; This is not very elegant.
 ;;; But "while" is the only iterative control structure common to CLIPS and JESS.
 
-;;; The contents of the compared files must be integers or reals
+;;; The contents of the compared files must be integers (or reals in compare-diff-ratings-in-files)
 
 
 (deffunction compare-files (?file1 ?file2 ?file-length)
@@ -351,8 +351,8 @@
 		(bind ?i (+ ?i 1))
 		(bind ?x1 (string-to-field (readline "file1")))
 		(bind ?x2 (string-to-field (readline "file2")))
-		(if (> ?x1 ?x2) then (bind ?plus (+ ?plus 1)) (printout t ?x1 "  " ?x2 "  " ?i  "   +" (- ?x1 ?x2) crlf))
-		(if (< ?x1 ?x2) then (bind ?minus (+ ?minus 1)) (printout t ?x1 "  " ?x2 "  " ?i  "   " (- ?x1 ?x2) crlf))
+		(if (> ?x1 ?x2) then (bind ?plus (+ ?plus 1)) (printout t ?x1 "  " ?x2 "   #" ?i  "   +" (- ?x1 ?x2) crlf))
+		(if (< ?x1 ?x2) then (bind ?minus (+ ?minus 1)) (printout t ?x1 "  " ?x2 "   #" ?i  "   " (- ?x1 ?x2) crlf))
         (if (<> ?x1 ?x2) then (bind ?diff (+ ?diff 1)))
 	)
 	(close "file1")
@@ -429,3 +429,111 @@
 )
 
 
+
+;;; Again with a different style of output
+(deffunction compare-levels-in-2-files (?file1 ?file2 ?file-length)
+    ;;; each line of the two files must be a real number
+    (bind ?different-lines (create$))
+    (open ?file1 "file1" "r")
+    (open ?file2 "file2" "r")
+    (bind ?i 0)
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?L1 (string-to-field (readline "file1")))
+        (bind ?L2 (string-to-field (readline "file2")))
+        
+        (if (not (eq ?L1 ?L2)) then
+            (printout t ?i "   " ?L1)
+            
+            (if (> ?L1 ?L2) then (printout t " > " ?L2))
+            (if (= ?L1 ?L2) then (printout t " = " ?L2))
+            (if (< ?L1 ?L2) then (printout t " < " ?L2))
+                        
+            (printout t crlf)
+            (bind ?different-lines (create$ ?different-lines ?i))
+        )
+    )
+    (close "file2")
+    (close "file1")
+    (printout t "Different lines: " ?different-lines crlf)
+    (length$ ?different-lines)
+)
+
+
+(deffunction compare-levels-in-3-files (?file1 ?file2 ?file3 ?file-length)
+    ;;; each line of the two files must be a real number
+    (bind ?different-lines (create$))
+    (open ?file1 "file1" "r")
+    (open ?file2 "file2" "r")
+    (open ?file3 "file3" "r")
+    (bind ?i 0)
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?L1 (string-to-field (readline "file1")))
+        (bind ?L2 (string-to-field (readline "file2")))
+        (bind ?L3 (string-to-field (readline "file3")))
+        
+        (if (not (eq ?L1 ?L2 ?L3)) then
+            (printout t ?i "   " ?L1)
+            
+            (if (> ?L1 ?L2) then (printout t " > " ?L2))
+            (if (= ?L1 ?L2) then (printout t " = " ?L2))
+            (if (< ?L1 ?L2) then (printout t " < " ?L2))
+            
+            (if (> ?L2 ?L3) then (printout t " > " ?L3))
+            (if (= ?L2 ?L3) then (printout t " = " ?L3))
+            (if (< ?L2 ?L3) then (printout t " < " ?L3))
+            
+            (printout t crlf)
+            (bind ?different-lines (create$ ?different-lines ?i))
+        )
+    )
+    (close "file3")
+    (close "file2")
+    (close "file1")
+    (printout t "Different lines: " ?different-lines crlf)
+    (length$ ?different-lines)
+)
+
+
+(deffunction compare-levels-in-4-files (?file1 ?file2 ?file3 ?file4 ?file-length)
+    ;;; each line of the two files must be a real number
+    (bind ?different-lines (create$))
+    (open ?file1 "file1" "r")
+    (open ?file2 "file2" "r")
+    (open ?file3 "file3" "r")
+    (open ?file4 "file4" "r")
+    (bind ?i 0)
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?L1 (string-to-field (readline "file1")))
+        (bind ?L2 (string-to-field (readline "file2")))
+        (bind ?L3 (string-to-field (readline "file3")))
+        (bind ?L4 (string-to-field (readline "file4")))
+        
+        (if (not (eq ?L1 ?L2 ?L3 ?L4)) then
+            (printout t ?i "   " ?L1)
+            
+            (if (> ?L1 ?L2) then (printout t " > " ?L2))
+            (if (= ?L1 ?L2) then (printout t " = " ?L2))
+            (if (< ?L1 ?L2) then (printout t " < " ?L2))
+            
+            (if (> ?L2 ?L3) then (printout t " > " ?L3))
+            (if (= ?L2 ?L3) then (printout t " = " ?L3))
+            (if (< ?L2 ?L3) then (printout t " < " ?L3))
+
+            (if (> ?L3 ?L4) then (printout t " > " ?L4))
+            (if (= ?L3 ?L4) then (printout t " = " ?L4))
+            (if (< ?L3 ?L4) then (printout t " < " ?L4))
+            
+            (printout t crlf)
+            (bind ?different-lines (create$ ?different-lines ?i))
+        )
+    )
+    (close "file4")
+    (close "file3")
+    (close "file2")
+    (close "file1")
+    (printout t "Different lines: " ?different-lines crlf)
+    (length$ ?different-lines)
+)

@@ -56,6 +56,10 @@
     (set-reset-globals FALSE)
 ))
 
+;;; Access to companion repository of examples
+(defglobal ?*CSP-EX* = (str-cat ?*CSP-Rules* "CSP-Rules-Examples" ?*Directory-symbol*))
+
+
 
 
 

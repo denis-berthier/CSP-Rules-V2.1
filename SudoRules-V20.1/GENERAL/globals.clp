@@ -597,3 +597,36 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defglobal ?*cosmetic-signs-in-grid* = (create$ "*" ":" "+" "-" "!"))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; VARIABLES USED FOR ACCESSING VARIOUS COMPANION REPOSITORIES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defglobal ?*CBGC* = (str-cat ?*CSP-Rules* "CBGC" ?*Directory-symbol*))
+(defglobal ?*SUDCL* = (str-cat ?*CSP-Rules* "SUDCL" ?*Directory-symbol*))
+(defglobal ?*TE3* = (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
+(defglobal ?*TE2-EL* = (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
+(defglobal ?*TE2-PH* = (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
+(defglobal ?*TE2-Paq* = (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))
+(defglobal ?*TE23-Mon* = (str-cat ?*SUDCL* "Monhard-until-2023-08-15-TE23" ?*Directory-symbol*))
+(defglobal ?*TE2-Col* = (str-cat ?*SUDCL* "Coloin-2024-09-03-B7B+" ?*Directory-symbol*))
+(defglobal ?*17c* = (str-cat ?*SUDCL* "Royle-49158-17c" ?*Directory-symbol*))
+(defglobal ?*18c* = (str-cat ?*SUDCL* "Mat-2000000-18c" ?*Directory-symbol*))
+(defglobal ?*38c* = (str-cat ?*SUDCL* "dob-2014078-38c" ?*Directory-symbol*))
+(defglobal ?*39c* = (str-cat ?*SUDCL* "dob-2650-39c" ?*Directory-symbol*))
+
+(deffunction relocate-companion-folders ()
+    (bind ?*TE3* (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
+    (bind ?*TE2-EL* (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
+    (bind ?*TE2-PH* (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
+    (bind ?*TE2-Paq* (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))
+    (bind ?*TE23-Mon* (str-cat ?*SUDCL* "Monhard-until-2023-08-15-TE23" ?*Directory-symbol*))
+    (bind ?*TE2-Col* (str-cat ?*SUDCL* "Coloin-2024-09-03-B7B+" ?*Directory-symbol*))
+    (bind ?*17c* (str-cat ?*SUDCL* "Royle-49158-17c" ?*Directory-symbol*))
+    (bind ?*18c* (str-cat ?*SUDCL* "JPF-2000000-18c" ?*Directory-symbol*))
+    (bind ?*38c* (str-cat ?*SUDCL* "dob-2014078-38c" ?*Directory-symbol*))
+    (bind ?*39c* (str-cat ?*SUDCL* "dob-2650-39c" ?*Directory-symbol*))
+    TRUE
+)

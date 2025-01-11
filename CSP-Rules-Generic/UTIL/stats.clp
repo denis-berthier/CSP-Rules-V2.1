@@ -41,7 +41,6 @@
 (deffunction correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
     ;;; computes Pearson's correlation coefficient between ?X and ?Y
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -89,7 +88,6 @@
 (deffunction nonZ0-correlation-coefficient (?X-name ?Y-name ?Z-name ?X-file ?Y-file ?Z-file ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and ?Y, excluding data with  ?Z = 0
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-    (close)
     (open ?X-file "X-file" "r")
     (open ?Y-file "Y-file" "r")
     (open ?Z-file "Z-file" "r")
@@ -145,7 +143,6 @@
 (deffunction Zgtz-correlation-coefficient (?X-name ?Y-name ?Z-name ?X-file ?Y-file ?Z-file ?zmin ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and ?Y, restricted to data with ?Z > ?z
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-    (close)
     (open ?X-file "X-file" "r")
     (open ?Y-file "Y-file" "r")
     (open ?Z-file "Z-file" "r")
@@ -208,7 +205,6 @@
 (deffunction log-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and log(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -257,7 +253,6 @@
 (deffunction sqr-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -306,7 +301,6 @@
 (deffunction sqr4-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr4(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -355,7 +349,6 @@
 (deffunction sqr6-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr6(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -404,7 +397,6 @@
 (deffunction sqr8-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr8(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -453,7 +445,6 @@
 (deffunction sqr16-correlation-coefficient (?X-name ?Y-name ?X-file ?Y-file ?file-length)
     ;;; computes Pearson's correlation coefficient coefficient between ?X and sqr16(?Y)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -521,7 +512,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction X-distribution-p-to-q (?X-file ?X-file-length ?p ?q)
-    (close)
     (bind ?res (create$))
     (loop-for-count (?val ?p ?q)
         (open ?X-file "X-file" "r")
@@ -551,7 +541,6 @@
 
 ;;; Mainly intended for dealing with non-integer variables (like the SER in Sudoku):
 (deffunction X-distribution-p-to-q-with-01-step (?X-file ?X-file-length ?p ?q)
-    (close)
     (bind ?res (create$))
     (loop-for-count (?val (* 10 ?p) (* 10 ?q))
         (open ?X-file "X-file" "r")
@@ -580,7 +569,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction diff-X-Y-distribution-p-to-q (?X-file ?Y-file ?file-length ?p ?q)
-    (close)
     (bind ?res (create$))
     (loop-for-count (?val 0 ?q)
         (open ?X-file "X-file" "r")

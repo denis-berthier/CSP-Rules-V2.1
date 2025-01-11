@@ -357,7 +357,6 @@
 
 ;;; correlation for the subset of the sample with ?fixed-nb-clues clues
 (deffunction fixed-nb-clues-correlation (?x-file ?y-file ?nb-clues-file ?fixed-nb-clues ?file-length)
-	(close)
 	(open ?x-file "x-file" "r")
 	(open ?y-file "y-file" "r")
 	(open ?nb-clues-file "nb-clues-file" "r")
@@ -402,16 +401,15 @@
 ;	(printout t "regression Y = aX+b" crlf)
 ;	(printout t "a = " ?a crlf)
 ;	(printout t "b = " ?b crlf)
+    (close "nb-clues-file")
+    (close "y-file")
 	(close "x-file")
-	(close "y-file")
-	(close "nb-clues-file")
 )
 
 
 
 
 (deffunction fixed-nb-clues-log-correlation (?x-file ?y-file ?nb-clues-file ?fixed-nb-clues ?n)
-	(close)
 	(open ?x-file "x-file" "r")
 	(open ?y-file "y-file" "r")
 	(open ?nb-clues-file "nb-clues-file" "r")
@@ -456,15 +454,14 @@
 ;	(printout t "regression Y = aX+b" crlf)
 ;	(printout t "a = " ?a crlf)
 ;	(printout t "b = " ?b crlf)
-	(close "x-file")
-	(close "y-file")
-	(close "nb-clues-file")
+    (close "nb-clues-file")
+    (close "y-file")
+    (close "x-file")
 )
 
 
 
 (deffunction stat-number-of-complete-grids-n-after-first-p (?puzzles-file ?p ?file-length)
-	(close)
 	(bind ?T 0.0)
 	(bind ?EX 0.0)
 	(bind ?EX2 0.0)
@@ -514,7 +511,6 @@
 
 
 (deffunction extract-tries (?pairs-file ?tries-file ?nb)
-	(close)
 	(open ?pairs-file "pairs-file" "r")
 	(open ?tries-file "tries-file" "w")
 	(bind ?i 0)
@@ -524,8 +520,8 @@
 		(printout "tries-file" ?tries crlf)
 		(bind ?i (+ ?i 1))
 	)
-	(close "pairs-file")
 	(close "tries-file")
+    (close "pairs-file")
 )
 
 
@@ -729,7 +725,6 @@
 (deffunction X-relative-distribution-for-nb-clues (?X-name ?X-file ?nb-clues-file ?chosen-nb-clues ?file-length)
 	;;; X distrib in [0 1 2 ... 20, total], restricted to the puzzles having ?chosen-nb-clues
     ;;; the last element, the 22th, is the total number of puzzles with ?chosen-nb-clues
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?nb-clues-file "nb-clues-file" "r")
 	(bind ?X-distrib (create$ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
@@ -749,8 +744,8 @@
 		)
 		(bind ?i (+ ?i 1))
 	)
+    (close "nb-clues-file")
 	(close "X-file")
-	(close "nb-clues-file")
     (printout t ?X-name " distribution for " ?chosen-nb-clues "-clue puzzles [0 ... , total] = " ?X-distrib crlf)
 	(return ?X-distrib)
 )
@@ -1146,7 +1141,6 @@
     ;;; X distrib in [0 1 2 ... 20, total], restricted to the puzzles having ?chosen-nb-clues
     ;;; Y distrib in [0 1 2 ... 20, total], restricted to the puzzles having ?chosen-nb-clues
     ;;; the last element, the 22th, is the total number of puzzles with ?chosen-nb-clues
-    (close)
     (open ?X-file "X-file" "r")
     (open ?Y-file "Y-file" "r")
     (open ?nb-clues-file "nb-clues-file" "r")
@@ -1168,9 +1162,9 @@
         )
         (bind ?i (+ ?i 1))
     )
+    (close "nb-clues-file")
     (close "Y-file")
     (close "X-file")
-    (close "nb-clues-file")
     (printout t "distribution of abs(" ?Y-name "-" ?X-name ") for " ?chosen-nb-clues "-clue puzzles [0 ... , total] = " ?diff-X-Y-distrib crlf)
     (return ?diff-X-Y-distrib)
 )

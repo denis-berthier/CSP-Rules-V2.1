@@ -42,7 +42,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction number-by-level (?fixed-level ?levels-file ?file-length)
-	(close)
 	(open ?levels-file "levels-file" "r")
 	(bind ?i 0)
 	(bind ?nb-puzzles 0)
@@ -61,7 +60,6 @@
 
 
 (deffunction mean-sd-by-level (?fixed-level ?levels-file ?times-file ?facts-file ?file-length)
-	(close)
 	(open ?levels-file "levels-file" "r")
 	(open ?times-file "times-file" "r")
 	(open ?facts-file "facts-file" "r")
@@ -92,15 +90,14 @@
 	(bind ?SigmaTimes (sqrt (- ?ETimes2 (* ?ETimes ?ETimes))))
 	(bind ?SigmaFacts (sqrt (- ?EFacts2 (* ?EFacts ?EFacts))))
 	(printout t ?fixed-level "   " ?nb-puzzles "   " ?ETimes "   " ?SigmaTimes "   " ?EFacts "   " ?SigmaFacts crlf)
-	(close "levels-file")
+    (close "facts-file")
 	(close "times-file")
-	(close "facts-file")
+    (close "levels-file")
 )
 
 
 
 (deffunction mean-sd-by-level-with-SER (?fixed-level ?levels-file ?times-file ?facts-file ?SER-file ?file-length)
-	(close)
 	(open ?levels-file "levels-file" "r")
 	(open ?times-file "times-file" "r")
 	(open ?facts-file "facts-file" "r")
@@ -139,16 +136,15 @@
 	(bind ?SigmaFacts (sqrt (- ?EFacts2 (* ?EFacts ?EFacts))))
 	(bind ?SigmaSER (sqrt (- ?ESER2 (* ?ESER ?ESER))))
 	(printout t ?fixed-level "     " ?nb-puzzles "     " ?ETimes "   " ?SigmaTimes "     " ?EFacts "   " ?SigmaFacts "     " ?ESER "   " ?SigmaSER crlf)
+    (close "SER-file")
+    (close "facts-file")
+    (close "times-file")
 	(close "levels-file")
-	(close "times-file")
-	(close "facts-file")
-	(close "SER-file")
 )
 
 
 
 (deffunction mean-sd-by-level-with-SER-and-nb-clues (?fixed-level ?levels-file ?times-file ?facts-file ?SER-file ?nb-clues-file ?file-length)
-	(close)
 	(open ?levels-file "levels-file" "r")
 	(open ?times-file "times-file" "r")
 	(open ?facts-file "facts-file" "r")
@@ -195,17 +191,16 @@
 	(bind ?SigmaSER (sqrt (- ?ESER2 (* ?ESER ?ESER))))
 	(bind ?SigmaNbClues (sqrt (- ?ENbClues2 (* ?ENbClues ?ENbClues))))
 	(printout t ?fixed-level "     " ?nb-puzzles "     " ?ETimes "   " ?SigmaTimes "     " ?EFacts "   " ?SigmaFacts "     " ?ESER "   " ?SigmaSER "     " ?ENbClues "   " ?SigmaNbClues crlf)
-	(close "levels-file")
-	(close "times-file")
-	(close "facts-file")
-	(close "SER-file")
 	(close "nb-clues-file")
+    (close "SER-file")
+    (close "facts-file")
+    (close "times-file")
+    (close "levels-file")
 )
 
 
 
 (deffunction mean-sd-by-nb-clues-with-SER (?fixed-nb-clues ?nb-clues-file ?levels-file ?times-file ?facts-file ?SER-file ?file-length)
-	(close)
 	(open ?nb-clues-file "nb-clues-file" "r")
 	(open ?levels-file "levels-file" "r")
 	(open ?times-file "times-file" "r")
@@ -252,17 +247,16 @@
 	(bind ?SigmaFacts (sqrt (- ?EFacts2 (* ?EFacts ?EFacts))))
 	(bind ?SigmaSER (sqrt (- ?ESER2 (* ?ESER ?ESER))))
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?ELevels "     " ?SigmaLevels "     " ?ETimes "   " ?SigmaTimes "     " ?EFacts "   " ?SigmaFacts "     " ?ESER "   " ?SigmaSER crlf)
+    (close "SER-file")
+    (close "facts-file")
+    (close "times-file")
+    (close "levels-file")
 	(close "nb-clues-file")
-	(close "levels-file")
-	(close "times-file")
-	(close "facts-file")
-	(close "SER-file")
 )
 
 
 
 (deffunction mean-SER-by-nb-clues (?fixed-nb-clues ?nb-clues-file ?SER-file ?file-length)
-	(close)
 	(open ?nb-clues-file "nb-clues-file" "r")
 	(open ?SER-file "SER-file" "r")
 	
@@ -285,8 +279,8 @@
 	)
 	(bind ?SigmaSER (sqrt (- ?ESER2 (** ?ESER 2))))
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?ESER "   " ?SigmaSER crlf)
-	(close "nb-clues-file")
 	(close "SER-file")
+    (close "nb-clues-file")
 	(return (create$ ?fixed-nb-clues ?nb-puzzles ?ESER ?SigmaSER))
 )
 
@@ -303,7 +297,6 @@
 
 (deffunction X-mean-sd-for-nb-clues (?X-file ?nb-clues-file ?file-length ?fixed-nb-clues)
     ;;; computes the mean and standard deviation of ?X, restricted to cases with value ?fixed-nb-clues of ?nb-clues
-	(close)
 	(open ?nb-clues-file "nb-clues-file" "r")
 	(open ?X-file "X-file" "r")
 	
@@ -326,8 +319,8 @@
 	)
 	(bind ?SigmaX (sqrt (- ?EX2 (** ?EX 2))))
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?EX "   " ?SigmaX crlf)
+    (close "X-file")
 	(close "nb-clues-file")
-	(close "X-file")
 	(return (create$ ?fixed-nb-clues ?nb-puzzles ?EX ?SigmaX))
 )
 
@@ -362,8 +355,8 @@
 		else (bind ?Kurt (- (/ ?S4 (* ?nb-puzzles (** ?Sigma 4))) 3))
 	)
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?E "   " ?Sigma "   " ?Kurt crlf)
+    (close "X-file")
 	(close "nb-clues-file")
-	(close "X-file")
 	(return (create$ ?fixed-nb-clues ?nb-puzzles ?E ?Sigma ?Kurt))
 )
 
@@ -403,8 +396,8 @@
 			(bind ?Kurt (- (/ ?S4 (* ?nb-puzzles (** ?Sigma 4))) 3))
 	)
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?E "   " ?Sigma "   " ?Skewness "   " ?Kurt crlf)
+    (close "X-file")
 	(close "nb-clues-file")
-	(close "X-file")
 	(return (create$ ?fixed-nb-clues ?nb-puzzles ?E ?Sigma ?Skewness ?Kurt))
 )
 
@@ -438,9 +431,9 @@
 	)
 	(bind ?SigmaX (sqrt (- ?EX2 (* ?EX ?EX))))
 	(printout t ?fixed-nb-clues "     " ?nb-puzzles "     " ?EX "   " ?SigmaX crlf)
+    (close "levels-file")
+    (close "X-file")
 	(close "nb-clues-file")
-	(close "X-file")
-	(close "levels-file")
     (return (create$ ?fixed-nb-clues ?nb-puzzles ?EX ?SigmaX))
 )
 
@@ -491,7 +484,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction center-reduce (?X-file ?out-file ?file-length)
-	(close)
 	;;; read the data and compute EX and SigmaX
 	(open ?X-file "X-file" "r")
 	(bind ?i 0)
@@ -526,7 +518,6 @@
 
 
 (deffunction auto-correlation (?X-file ?file-length ?k)
-	(close)
 	;;; read the data and compute EX and SigmaX
 	(open ?X-file "X-file" "r")
 	(bind ?l (create$))
@@ -572,7 +563,6 @@
 (deffunction cr-auto-correlation (?cr-X-file ?file-length ?k)
 	"autocorrelation for a sequence of centered reduced instances; 
 	may introduce errors if computed on a subsequence while mean and sigma have been computed on the full sequence"
-	(close)
 	;;; read the data
 	(open ?cr-X-file "cr-X-file" "r")
 	(bind ?l0 (create$))
@@ -603,7 +593,6 @@
 ;;; test whether a file contains identical puzzles
 
 (deffunction test-repetitions (?file-name ?file-length)
-	(close)
 	(open ?file-name "file-symb" "r")
 	(bind ?list (create$))
 	(bind ?i 0)
@@ -632,7 +621,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction file-last-value (?X-file)
-	(close)
 	(open ?X-file "X-file" "r")
 	(bind ?i 0)
 	(bind ?last 10000000)
@@ -648,7 +636,6 @@
 
 
 (deffunction file-mean-and-sd (?X-file)
-	(close)
 	(open ?X-file "X-file" "r")
 	(bind ?i 0)
 	(bind ?S 0)
@@ -672,7 +659,6 @@
 
 
 (deffunction file-nonZ0-mean-and-sd (?X-file ?Z-file)
-    (close)
     (open ?X-file "X-file" "r")
     (open ?Z-file "Z-file" "r")
     (bind ?i 0)
@@ -759,7 +745,6 @@
 
 
 (deffunction file-test-repetitions (?file-name)
-	(close)
 	(bind ?file-length (file-length ?file-name))
 	(open ?file-name "file-symb" "r")
 	(bind ?list (create$))
@@ -831,7 +816,6 @@
 
 
 (deffunction correlation-coefficient-bis (?X-file ?Y-file ?file-length)
-	(close)
 	(open ?X-file "X-file" "r")
 	(open ?Y-file "Y-file" "r")
 	
@@ -875,8 +859,8 @@
 	(printout t "regression Y = aX+b" crlf)
 	(printout t "a = " ?a crlf)
 	(printout t "b = " ?b crlf)
+    (close "Y-file")
 	(close "X-file")
-	(close "Y-file")
 )
 
 
@@ -923,7 +907,6 @@
     ;;; computes Spearman's correlation coefficient coefficient between ?X and SER-to-rank(?Y)
     ;;; ?Y-name should be SER-rank, ?Y-file should be a file of SERs (not of SER-ranks)
     ;;; ?file-length must be <= to the lengths of ?X-file and ?Y-file
-    (close)
     (open ?X-file "X-file" "r")
     (open ?Y-file "Y-file" "r")
     
@@ -963,8 +946,8 @@
     (printout t "regression SER-to-rank(" ?Y-name ") = a * " ?X-name " + b" crlf)
     (printout t "a = " ?a crlf)
     (printout t "b = " ?b crlf)
-    (close "X-file")
     (close "Y-file")
+    (close "X-file")
 )
 
 

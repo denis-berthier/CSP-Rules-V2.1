@@ -51,8 +51,8 @@
 (defglobal ?*bug-salience* = 0)
 (defglobal ?*uniqueness-salience* = 0)
 
-;;; Rules for sk-loops
 
+;;; Rules for sk-loops:
 (defglobal ?*cross-salience* = 0)
 (defglobal ?*belt4-salience* = 0)
 (defglobal ?*belt4-identify-salience* = 0)
@@ -111,7 +111,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; SUBSETS and TRIDAGONS
+;;; SUBSETS, DEADLY PATTERNS, TRIDAGONS and IMPOSSIBLE PATTERNS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -167,6 +167,28 @@
 (defglobal ?*g-quads-salience* = 0)
 
 
+;;; deadly patterns:
+(defglobal ?*activate-deadly-pattern-rule[4-2]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[4-2]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[6-2]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[6-2]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[6-3]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[6-3]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[8-2]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[8-2]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[8-2]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[8-2]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[8-3]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[8-3]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[8-4]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[8-4]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[9-3]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[9-3]-salience* = 0)
+(defglobal ?*activate-deadly-pattern-rule[9-4]-salience* = 0)
+(defglobal ?*deadly-pattern-rule[9-4]-salience* = 0)
+
+
+;;; impossible patterns
 (defglobal ?*activate-tridagon[12]-salience* = 0)
 (defglobal ?*tridagon[12]-salience* = 0)
 (defglobal ?*activate-ork-anti-tridagon[12]-salience* = 0)
@@ -279,7 +301,28 @@
 
 
 (deffunction define-specific-saliences-at-L2 ()
-    (bind ?*one-step-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+    
+     ;;; more complex use of deadly patterns:
+     (bind ?*activate-deadly-pattern-rule[4-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[4-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[6-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[6-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[6-3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[6-3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[8-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[8-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[8-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[8-2]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[8-3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[8-3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[8-4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[8-4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[9-3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[9-3]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*activate-deadly-pattern-rule[9-4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+     (bind ?*deadly-pattern-rule[9-4]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
+
+     (bind ?*one-step-candidate-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
 
     (bind ?*activate-pairs-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*naked-pairs-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
@@ -379,7 +422,8 @@
     
     (bind ?*activate-g-triplets-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
     (bind ?*g-triplets-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1)))
-    
+
+
     ;;; Tridagon and anti-tridagon detection (by default, will possibly be redefined at level 12)
     (bind ?*activate-tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
     (bind ?*tridagon[12]-salience* (bind ?*next-rule-salience* (- ?*next-rule-salience* 1))) ;;;; tridagon
@@ -543,7 +587,6 @@
         (bind ?*activate-ork-EL10c10-salience* ?*activate-ork-Imp630-10c-salience*)
         (bind ?*ork-EL10c10-salience* ?*ork-Imp630-10c-salience*)
     )
-
 )
 
 

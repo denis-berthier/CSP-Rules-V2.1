@@ -137,6 +137,11 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; For rules based on the assumption of uniquness and deadly patterns
+(defglobal ?*Deadly-Patterns* = FALSE)
+(defglobal ?*max-deadly-guardians* = 8)
+
+
 ;;; For all the rules that produce ORk-relations between "guardians", except for tridagons:
 (defglobal ?*max-guardians* = 8)
 
@@ -539,6 +544,7 @@
     ?*has-tridagon* = FALSE
     ?*has-degenerate-cyclic-tridagon* = FALSE
     ?*has-Imp630* = FALSE
+    ?*has-deadly-pattern* = FALSE
 )
 
 (defglobal
@@ -548,6 +554,7 @@
     ?*tridagon-list* = (create$)
     ?*degenerate-cyclic-tridagon-list* = (create$)
     ?*Imp630-list* = (create$)
+    ?*deadly-pattern-list* = (create$)
     ?*eleven-tried-blocks* = (create$)
 )
 
@@ -559,6 +566,7 @@
     (bind ?*has-tridagon* FALSE)
     (bind ?*has-degenerate-cyclic-tridagon* FALSE)
     (bind ?*has-Imp630* FALSE)
+    (bind ?*has-deadly-pattern* FALSE)
     (bind ?*eleven-tried-blocks* (create$))
 )
 
@@ -569,6 +577,7 @@
     (bind ?*tridagon-list* (create$))
     (bind ?*degenerate-cyclic-tridagon-list* (create$))
     (bind ?*Imp630-list* (create$))
+    (bind ?*deadly-pattern-list* (create$))
 )
 
 (deffunction add-i-to-specific-lists-for-files (?i)
@@ -581,6 +590,8 @@
     (if (or ?*has-tridagon* ?*has-degenerate-cyclic-tridagon*) then
         (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* ?i)))
     (if ?*has-Imp630* then (bind ?*Imp630-list* (create$ ?*Imp630-list* ?i)))
+    (if ?*has-Imp630* then (bind ?*Imp630-list* (create$ ?*Imp630-list* ?i)))
+    (if ?*has-deadly-pattern* then (bind ?*deadly-pattern-list* (create$ ?*deadly-pattern-list* ?i)))
 )
 
 
@@ -600,33 +611,46 @@
 
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; VARIABLES USED FOR ACCESSING VARIOUS COMPANION REPOSITORIES
+;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defglobal ?*CBGC* = (str-cat ?*CSP-Rules* "CBGC" ?*Directory-symbol*))
+
 (defglobal ?*SUDCL* = (str-cat ?*CSP-Rules* "SUDCL" ?*Directory-symbol*))
-(defglobal ?*TE3-Mi* = (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
 (defglobal ?*TE2-EL* = (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
 (defglobal ?*TE2-PH* = (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
-(defglobal ?*TE2-Paq* = (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))
+
+(defglobal ?*TE3-Mi* = (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
 (defglobal ?*TE23-Mon* = (str-cat ?*SUDCL* "Monhard-until-2023-08-15-TE23" ?*Directory-symbol*))
+(defglobal ?*TE2-Paq* = (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))
 (defglobal ?*TE2-Col* = (str-cat ?*SUDCL* "Coloin-2024-09-03-B7B+" ?*Directory-symbol*))
+
 (defglobal ?*17c* = (str-cat ?*SUDCL* "Royle-49158-17c" ?*Directory-symbol*))
 (defglobal ?*18c* = (str-cat ?*SUDCL* "Mat-2000000-18c" ?*Directory-symbol*))
 (defglobal ?*38c* = (str-cat ?*SUDCL* "dob-2014078-38c" ?*Directory-symbol*))
 (defglobal ?*39c* = (str-cat ?*SUDCL* "dob-2650-39c" ?*Directory-symbol*))
 
+(defglobal ?*TEMP* = (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
+
+
 (deffunction relocate-companion-folders ()
-    (bind ?*TE3-Mi* (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
     (bind ?*TE2-EL* (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
     (bind ?*TE2-PH* (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
-    (bind ?*TE2-Paq* (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))
+    
+    (bind ?*TE3-Mi* (str-cat ?*SUDCL* "mith-158276-TE3" ?*Directory-symbol*))
     (bind ?*TE23-Mon* (str-cat ?*SUDCL* "Monhard-until-2023-08-15-TE23" ?*Directory-symbol*))
+    (bind ?*TE2-Paq* (str-cat ?*SUDCL* "Paquita-2023-sept-dec-TE2" ?*Directory-symbol*))
     (bind ?*TE2-Col* (str-cat ?*SUDCL* "Coloin-2024-09-03-B7B+" ?*Directory-symbol*))
+
     (bind ?*17c* (str-cat ?*SUDCL* "Royle-49158-17c" ?*Directory-symbol*))
     (bind ?*18c* (str-cat ?*SUDCL* "JPF-2000000-18c" ?*Directory-symbol*))
     (bind ?*38c* (str-cat ?*SUDCL* "dob-2014078-38c" ?*Directory-symbol*))
     (bind ?*39c* (str-cat ?*SUDCL* "dob-2650-39c" ?*Directory-symbol*))
+    
+    (bind ?*TEMP* (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
     TRUE
 )

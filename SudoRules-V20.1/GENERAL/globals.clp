@@ -115,7 +115,7 @@
 (defglobal ?*FinnedFish[3]* = FALSE)
 (defglobal ?*FinnedFish[4]* = FALSE)
 
-;;; Uniqueness
+;;; Elementary uniqueness
 (defglobal ?*Unique-Rectangles* = FALSE)
 (defglobal ?*BUG* = FALSE)
 
@@ -132,18 +132,153 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Rules producing ORk relations
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; For rules based on the assumption of uniquness and deadly patterns
+;;; This utility is in GENERIC/utils.clp, but it is not available at this point:
+(deffunction set-difference (?l1 ?l2)
+    ;;; Sets are represented as lists
+    ;;; No check is made for non repetition of elements in the given lists
+    ;;; ?l1 minus ?l2
+    (bind ?diff (create$))
+    (foreach ?x ?l1
+        (if (not (member$ ?x ?l2)) then (bind ?diff (create$ ?diff ?x)))
+    )
+    ?diff
+)
+
+
+;;; Variables and lists of rules based on the assumption of uniquness and on deadly patterns
 (defglobal ?*Deadly-Patterns* = FALSE)
+(defglobal ?*max-deadly-cells* = 9)
 (defglobal ?*max-deadly-guardians* = 8)
 
+(defglobal ?*Select-DP-list* = FALSE)
+(defglobal ?*Selected-DP-list* = (create$))
 
-;;; For all the rules that produce ORk-relations between "guardians", except for tridagons:
-(defglobal ?*max-guardians* = 8)
+;;; Lists of rules leading to deadly  patterns
+(defglobal ?*deadly-patterns-rules-list-0* = (create$))
+(defglobal ?*deadly-patterns-rules-list-4* = (create$ "4c/DP4-2-1"))
+(defglobal ?*deadly-patterns-rules-list-5* = ?*deadly-patterns-rules-list-4*))
+(defglobal ?*deadly-patterns-rules-list-6* = (create$
+    ?*deadly-patterns-rules-list-4*
+    "6c/DP6-3-1" "6c/DP6-3-2" "6c/DP6-2-3" "6c/DP6-2-4"
+))
+(defglobal ?*deadly-patterns-rules-list-7* = ?*deadly-patterns-rules-list-6*))
+(defglobal ?*deadly-patterns-rules-list-8* = (create$
+    ?*deadly-patterns-rules-list-7*
+    "8c/DP8-4-1" "8c/DP8-4-2" "8c/DP8-4-3" "8c/DP8-3-4" "8c/DP8-3-5"
+    "8c/DP8-2-6" "8c/DP8-2-7" "8c/DP8-2-8" "8c/DP8-2-9"
+))
+(defglobal ?*deadly-patterns-rules-list-9* = (create$
+    ?*deadly-patterns-rules-list-8*
+    "9c/DP9-4-1" "9c/DP9-3-2" "9c/DP9-3-3"
+))
+(defglobal ?*deadly-patterns-rules-list-10* = (create$
+    ?*deadly-patterns-rules-list-9*
+    "10c/DP10-5-1" "10c/DP10-5-2" "10c/DP10-5-3" "10c/DP10-4-4" "10c/DP10-4-5"
+    "10c/DP10-5-6" "10c/DP10-4-7" "10c/DP10-5-8" "10c/DP10-4-9" "10c/DP10-4-10"
+    "10c/DP10-4-11" "10c/DP10-4-12" "10c/DP10-5-13" "10c/DP10-4-14" "10c/DP10-4-15"
+    "10c/DP10-4-16" "10c/DP10-4-17" "10c/DP10-3-18" "10c/DP10-4-19" "10c/DP10-3-20"
+    "10c/DP10-4-21" "10c/DP10-3-22" "10c/DP10-2-23" "10c/DP10-3-24" "10c/DP10-3-25"
+    "10c/DP10-4-26" "10c/DP10-3-27" "10c/DP10-3-28" "10c/DP10-4-29" "10c/DP10-2-30"
+    "10c/DP10-3-31" "10c/DP10-3-32" "10c/DP10-3-33" "10c/DP10-2-34" "10c/DP10-3-35"
+    "10c/DP10-2-36" "10c/DP10-3-37" "10c/DP10-3-38" "10c/DP10-4-39" "10c/DP10-3-40"
+    "10c/DP10-2-41" "10c/DP10-2-42" "10c/DP10-3-43")
+
+))
+(defglobal ?*deadly-patterns-rules-list-11* = (create$
+    ?*deadly-patterns-rules-list-10*
+    "11c/DP11-5-1" "11c/DP11-4-2" "11c/DP11-5-3" "11c/DP11-5-4" "11c/DP11-5-5"
+    "11c/DP11-5-6" "11c/DP11-4-7" "11c/DP11-4-8" "11c/DP11-5-9" "11c/DP11-5-10"
+    "11c/DP11-4-11" "11c/DP11-4-12" "11c/DP11-4-13" "11c/DP11-4-14" "11c/DP11-4-15"
+    "11c/DP11-3-16" "11c/DP11-4-17" "11c/DP11-3-18" "11c/DP11-4-19" "11c/DP11-3-20"
+    "11c/DP11-4-21" "11c/DP11-4-22" "11c/DP11-4-23" "11c/DP11-3-24" "11c/DP11-4-25"
+    "11c/DP11-3-26" "11c/DP11-3-27" "11c/DP11-3-28" "11c/DP11-4-29" "11c/DP11-3-30"
+    "11c/DP11-3-31" "11c/DP11-3-32")
+
+))
+(defglobal ?*deadly-patterns-rules-list-12* = (create$
+    ?*deadly-patterns-rules-list-11*
+    "12c/DP12-6-1" "12c/DP12-6-2" "12c/DP12-6-3" "12c/DP12-6-4" "12c/DP12-5-5"
+    "12c/DP12-6-6" "12c/DP12-4-7" "12c/DP12-4-8" "12c/DP12-6-9" "12c/DP12-5-10"
+    "12c/DP12-5-11" "12c/DP12-6-12" "12c/DP12-5-13" "12c/DP12-6-14" "12c/DP12-6-15"
+    "12c/DP12-5-16" "12c/DP12-5-17" "12c/DP12-6-18" "12c/DP12-5-19" "12c/DP12-6-20"
+    "12c/DP12-5-21" "12c/DP12-5-22" "12c/DP12-5-23" "12c/DP12-5-24" "12c/DP12-5-25"
+    "12c/DP12-5-26" "12c/DP12-4-27" "12c/DP12-4-28" "12c/DP12-4-29" "12c/DP12-5-30"
+    "12c/DP12-5-31" "12c/DP12-5-32" "12c/DP12-5-33" "12c/DP12-6-34" "12c/DP12-6-35"
+    "12c/DP12-4-36" "12c/DP12-5-37" "12c/DP12-5-38" "12c/DP12-6-39" "12c/DP12-6-40"
+    "12c/DP12-5-41" "12c/DP12-5-42" "12c/DP12-4-43" "12c/DP12-4-44" "12c/DP12-4-45"
+    "12c/DP12-5-46" "12c/DP12-5-47" "12c/DP12-5-48" "12c/DP12-5-49" "12c/DP12-4-50"
+    "12c/DP12-5-51" "12c/DP12-6-52" "12c/DP12-5-53" "12c/DP12-5-54" "12c/DP12-6-55"
+    "12c/DP12-5-56" "12c/DP12-4-57" "12c/DP12-5-58" "12c/DP12-5-59" "12c/DP12-4-60"
+    "12c/DP12-4-61" "12c/DP12-5-62" "12c/DP12-5-63" "12c/DP12-5-64" "12c/DP12-5-65"
+    "12c/DP12-5-66" "12c/DP12-4-67" "12c/DP12-5-68" "12c/DP12-5-69" "12c/DP12-5-70"
+    "12c/DP12-5-71" "12c/DP12-6-72" "12c/DP12-6-73" "12c/DP12-5-74" "12c/DP12-4-75"
+    "12c/DP12-5-76" "12c/DP12-6-77" "12c/DP12-5-78" "12c/DP12-4-79" "12c/DP12-5-80"
+    "12c/DP12-5-81" "12c/DP12-4-82" "12c/DP12-4-83" "12c/DP12-5-84" "12c/DP12-4-85"
+    "12c/DP12-4-86" "12c/DP12-5-87" "12c/DP12-5-88" "12c/DP12-4-89" "12c/DP12-4-90"
+    "12c/DP12-4-91" "12c/DP12-4-92" "12c/DP12-4-93" "12c/DP12-4-94" "12c/DP12-4-95"
+    "12c/DP12-5-96" "12c/DP12-4-97" "12c/DP12-4-98" "12c/DP12-6-99" "12c/DP12-5-100"
+    "12c/DP12-4-101" "12c/DP12-5-102" "12c/DP12-5-103" "12c/DP12-4-104" "12c/DP12-5-105"
+    "12c/DP12-4-106" "12c/DP12-4-107" "12c/DP12-4-108" "12c/DP12-4-109" "12c/DP12-4-110"
+    "12c/DP12-3-111" "12c/DP12-3-112" "12c/DP12-3-113" "12c/DP12-4-114" "12c/DP12-4-115"
+    "12c/DP12-4-116" "12c/DP12-4-117" "12c/DP12-4-118" "12c/DP12-4-119" "12c/DP12-5-120"
+    "12c/DP12-5-121" "12c/DP12-3-122" "12c/DP12-3-123" "12c/DP12-4-124" "12c/DP12-4-125"
+    "12c/DP12-4-126" "12c/DP12-5-127" "12c/DP12-5-128" "12c/DP12-4-129" "12c/DP12-4-130"
+    "12c/DP12-4-131" "12c/DP12-4-132" "12c/DP12-4-133" "12c/DP12-4-134" "12c/DP12-4-135"
+    "12c/DP12-4-136" "12c/DP12-4-137" "12c/DP12-4-138" "12c/DP12-4-139" "12c/DP12-4-140"
+    "12c/DP12-4-141" "12c/DP12-4-142" "12c/DP12-5-143" "12c/DP12-4-144" "12c/DP12-4-145"
+    "12c/DP12-4-146" "12c/DP12-4-147" "12c/DP12-5-148" "12c/DP12-5-149" "12c/DP12-3-150"
+    "12c/DP12-3-151" "12c/DP12-3-152" "12c/DP12-3-153" "12c/DP12-3-154" "12c/DP12-3-155"
+    "12c/DP12-3-156" "12c/DP12-4-157" "12c/DP12-4-158" "12c/DP12-4-159" "12c/DP12-4-160"
+    "12c/DP12-4-161" "12c/DP12-4-162" "12c/DP12-4-163" "12c/DP12-4-164" "12c/DP12-4-165"
+    "12c/DP12-4-166" "12c/DP12-4-167" "12c/DP12-3-168" "12c/DP12-4-169" "12c/DP12-4-170"
+    "12c/DP12-4-171" "12c/DP12-4-172" "12c/DP12-3-173" "12c/DP12-3-174" "12c/DP12-3-175"
+    "12c/DP12-4-176" "12c/DP12-4-177" "12c/DP12-3-178" "12c/DP12-3-179" "12c/DP12-3-180"
+    "12c/DP12-3-181" "12c/DP12-4-182" "12c/DP12-3-183" "12c/DP12-3-184" "12c/DP12-4-185"
+    "12c/DP12-3-186" "12c/DP12-3-187" "12c/DP12-3-188" "12c/DP12-4-189" "12c/DP12-5-190"
+    "12c/DP12-4-191" "12c/DP12-4-192" "12c/DP12-4-193" "12c/DP12-4-194" "12c/DP12-4-195"
+    "12c/DP12-4-196" "12c/DP12-5-197" "12c/DP12-5-198" "12c/DP12-6-199" "12c/DP12-4-200"
+    "12c/DP12-4-201" "12c/DP12-4-202" "12c/DP12-5-203" "12c/DP12-5-204" "12c/DP12-5-205"
+    "12c/DP12-4-206" "12c/DP12-4-207" "12c/DP12-4-208" "12c/DP12-4-209" "12c/DP12-3-210"
+    "12c/DP12-3-211" "12c/DP12-4-212" "12c/DP12-3-213" "12c/DP12-3-214" "12c/DP12-4-215"
+    "12c/DP12-4-216" "12c/DP12-4-217" "12c/DP12-3-218" "12c/DP12-3-219" "12c/DP12-4-220"
+    "12c/DP12-4-221" "12c/DP12-3-222" "12c/DP12-4-223" "12c/DP12-3-224" "12c/DP12-3-225"
+    "12c/DP12-3-226" "12c/DP12-3-227" "12c/DP12-3-228" "12c/DP12-3-229" "12c/DP12-2-230"
+    "12c/DP12-3-231" "12c/DP12-2-232" "12c/DP12-2-233" "12c/DP12-2-234" "12c/DP12-3-235"
+    "12c/DP12-3-236" "12c/DP12-3-237" "12c/DP12-3-238" "12c/DP12-4-239" "12c/DP12-4-240"
+    "12c/DP12-3-241" "12c/DP12-3-242" "12c/DP12-3-243" "12c/DP12-3-244" "12c/DP12-2-245"
+    "12c/DP12-2-246" "12c/DP12-2-247" "12c/DP12-2-248" "12c/DP12-2-249" "12c/DP12-2-250"
+    "12c/DP12-4-251" "12c/DP12-5-252" "12c/DP12-4-253" "12c/DP12-5-254" "12c/DP12-6-255"
+    "12c/DP12-5-256" "12c/DP12-4-257" "12c/DP12-5-258" "12c/DP12-4-259" "12c/DP12-5-260"
+    "12c/DP12-5-261" "12c/DP12-5-262" "12c/DP12-4-263" "12c/DP12-5-264" "12c/DP12-4-265"
+    "12c/DP12-4-266" "12c/DP12-4-267" "12c/DP12-4-268" "12c/DP12-4-269" "12c/DP12-4-270"
+    "12c/DP12-4-271" "12c/DP12-4-272" "12c/DP12-4-273" "12c/DP12-4-274" "12c/DP12-4-275"
+    "12c/DP12-4-276" "12c/DP12-4-277" "12c/DP12-4-278" "12c/DP12-4-279" "12c/DP12-4-280"
+    "12c/DP12-4-281" "12c/DP12-4-282" "12c/DP12-4-283" "12c/DP12-4-284" "12c/DP12-4-285"
+    "12c/DP12-5-286" "12c/DP12-4-287" "12c/DP12-4-288" "12c/DP12-4-289" "12c/DP12-4-290"
+    "12c/DP12-4-291" "12c/DP12-3-292" "12c/DP12-3-293" "12c/DP12-3-294" "12c/DP12-4-295"
+    "12c/DP12-3-296" "12c/DP12-3-297" "12c/DP12-3-298" "12c/DP12-4-299" "12c/DP12-4-300"
+    "12c/DP12-2-301" "12c/DP12-2-302" "12c/DP12-3-303" "12c/DP12-3-304" "12c/DP12-4-305"
+    "12c/DP12-2-306" "12c/DP12-3-307" "12c/DP12-2-308" "12c/DP12-2-309" "12c/DP12-2-310"
+    "12c/DP12-3-311" "12c/DP12-3-312" "12c/DP12-3-313" "12c/DP12-3-314" "12c/DP12-4-315"
+    "12c/DP12-3-316")
+))
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; For all the other rules that produce ORk-relations between "guardians",
+;;; except for deadly patterns
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defglobal ?*max-guardians* = 8) ; not applied to Tridagons
 
 ;;; Tridagons:
 (defglobal ?*Tridagons* = FALSE)
@@ -160,7 +295,9 @@
 (defglobal ?*use-high-Tridagon-salience* = TRUE)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Other impossible patterns in two bands or two stacks:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defglobal ?*raise-selected-Imp630-saliences* = TRUE)
 
@@ -272,17 +409,7 @@
 
 (defglobal ?*Select-Imp630-list* = FALSE)
 (defglobal ?*Selected-Imp630-list* = (create$))
-;;; This is in GENERIC/utils.clp, but not vailable at this point:
-(deffunction set-difference (?l1 ?l2)
-    ;;; Sets are represented as lists
-    ;;; No check is made for non repetition of elements in the given lists
-    ;;; ?l1 minus ?l2
-    (bind ?diff (create$))
-    (foreach ?x ?l1
-        (if (not (member$ ?x ?l2)) then (bind ?diff (create$ ?diff ?x)))
-    )
-    ?diff
-)
+
 
 (deffunction check-Imp630-selection ()
     (if (or
@@ -311,6 +438,15 @@
             FALSE
     )
 )
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Check selection before loading
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (deffunction check-application-specific-config-selection ()
     ;;; This function is only intended for being called within generic check-config-selection
@@ -619,6 +755,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defglobal ?*CBGC* = (str-cat ?*CSP-Rules* "CBGC" ?*Directory-symbol*))
+;;; because it holds a special place in shorter computations:
+(defglobal ?*cbg-000* = (str-cat ?*CBGC* "SMALL-CB-COLLECTIONS/000/"))
 
 (defglobal ?*SUDCL* = (str-cat ?*CSP-Rules* "SUDCL" ?*Directory-symbol*))
 (defglobal ?*TE2-EL* = (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
@@ -635,9 +773,12 @@
 (defglobal ?*39c* = (str-cat ?*SUDCL* "dob-2650-39c" ?*Directory-symbol*))
 
 (defglobal ?*TEMP* = (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
+(defglobal ?*DP* = (str-cat ?*SUDCL* "Deadly-Patterns" ?*Directory-symbol*))
 
 
 (deffunction relocate-companion-folders ()
+    (bind ?*cbg-000* (str-cat ?*CBGC* "SMALL-CB-COLLECTIONS/000/"))
+    
     (bind ?*TE2-EL* (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
     (bind ?*TE2-PH* (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
     
@@ -652,5 +793,6 @@
     (bind ?*39c* (str-cat ?*SUDCL* "dob-2650-39c" ?*Directory-symbol*))
     
     (bind ?*TEMP* (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
+    (bind ?*DP* (str-cat ?*SUDCL* "Deadly-Patterns" ?*Directory-symbol*))
     TRUE
 )

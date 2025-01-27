@@ -54,7 +54,7 @@
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.33-r890");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.33-r944");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used to run CSP-Rules
@@ -425,7 +425,7 @@
 (redefine-internal-factors) ; this has to be done BEFORE loading
 
 
-;;; now, load all
-;;; Notice that the generic loader also loads the application-specific files
+;;; Now, after checking consistency of the config, load all.
+;;; The generic loader also loads the application-specific files:
 (if (check-config-selection) then (batch ?*CSP-Rules-Generic-Loader*))
 

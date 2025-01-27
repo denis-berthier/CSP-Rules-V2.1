@@ -53,7 +53,7 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.33-r890");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.33-r944");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used to run CSP-Rules
@@ -320,7 +320,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2.1 Sudoku-specific rules : U-resolution rules for uniqueness
+;;; 2.1 Sudoku-specific rules (besides Subsets): U-resolution rules for uniqueness
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; BEWARE: don't activate the following uniqueness rules,
@@ -622,6 +622,35 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2.6 Combine Sudoku-specific uniqueness rules producing ORk-relations
+;;;     with generic ORk-chains
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Beware that this supposes the puzzle has a unique solution
+
+;;; Activate Deadly Patterns:
+; (bind ?*Deadly-Patterns* TRUE)
+
+;;; change the max-value of the number of cells in the deadly patterns (between 4 and 12, default is 9):
+;;; (beware that large values can lead to memory overflow)
+; (bind ?*max-deadly-cells* 9)
+;;; change the max-value of the number of guardians (default value is 8)
+; (bind ?*max-deadly-guardians* 6)
+
+;;; Use your own selection of deadly patterns in two bands or two stacks
+;;; Usually, you'll want to do this after running a larger selection
+;;; and checking the patterns effectively used in the solution;
+;;; This will clean the resolution path of all the useless patterns.
+;;; First declare you want to make your own selection (compulsory)
+;;; this will cancel any previous selection of DPs by their number of cells:
+; (bind ?*Select-DP-list* TRUE)
+;;; Then select DPs by their number of clues and names,  as in:
+; (bind ?*Selected-DP-list* = (create$ 4c/DP4-2-1 6c/DP6-2-3 6c/DP6-2-4))
+
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -778,9 +807,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; (bind ?*Templates* TRUE)
-;;; default value for ?*templates-max-combinations* is 0 (i.e. no Template is used);
-;;; max value for all the known puzzles is 3.
-; (bind ?*templates-max-combinations* 3)
+;;; The default value for ?*templates-max-combinations* is 0;
+;;; but the max value for all the known puzzles is 4; set it here:
+;;; (beware that setting it to 4 - or even to 3 in rare cases - can lead to memory overflow.)
+; (bind ?*templates-max-combinations* 4)
 ;;; ?*print-templates* is FALSE by default;
 ;;; don't change this unless you want to see a deluge of template retraction messages:
 ; (bind ?*print-templates* TRUE)
@@ -846,7 +876,8 @@
 (redefine-internal-factors)
 
 
-;;; Now, load all. The generic loader also loads the application-specific files:
+;;; Now, after checking consistency of the config, load all.
+;;; The generic loader also loads the application-specific files:
 (if (check-config-selection) then (batch ?*CSP-Rules-Generic-Loader*))
 
 

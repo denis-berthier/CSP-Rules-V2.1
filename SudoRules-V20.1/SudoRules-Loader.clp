@@ -62,6 +62,7 @@
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "goodies.clp"))
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "shuffle.clp"))
 (load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "pretty-print.clp"))
+(load (str-cat ?*Application-Dir* "GOODIES" ?*Directory-symbol* "deadly.clp"))
 
 
 ;;; ADVANCED
@@ -94,12 +95,42 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Elementary uniqueness rules
 (if ?*Unique-Rectangles* then (load (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol* "UR1.clp")))
 (if ?*Unique-Rectangles* then (load (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol* "UR2.clp")))
 (if ?*Unique-Rectangles* then (load (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol* "UR2b.clp")))
 (if ?*Unique-Rectangles* then (load (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol* "UR3.clp")))
 (if ?*Unique-Rectangles* then (load (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol* "UR4.clp")))
 (if ?*BUG* then (load (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol* "BUG.clp")))
+
+
+(defglobal ?*deadly-patterns-rules-list* =
+    (if ?*Select-DP-list*
+        then ?*Selected-DP-list*
+        else
+        (progn
+            (bind ?*max-deadly-cells* (min ?*max-deadly-cells* 12))
+            (switch ?*max-deadly-cells*
+                (case 4 then ?*deadly-patterns-rules-list-4*)
+                (case 5 then ?*deadly-patterns-rules-list-5*)
+                (case 6 then ?*deadly-patterns-rules-list-6*)
+                (case 7 then ?*deadly-patterns-rules-list-7*)
+                (case 8 then ?*deadly-patterns-rules-list-8*)
+                (case 9 then ?*deadly-patterns-rules-list-9*)
+                (case 10 then ?*deadly-patterns-rules-list-10*)
+                (case 11 then ?*deadly-patterns-rules-list-11*)
+                (case 12 then ?*deadly-patterns-rules-list-12*)
+                (default ?*deadly-patterns-rules-list-0*)
+            )
+        )
+    )
+)
+
+(if ?*Deadly-Patterns* then
+    (foreach ?file ?*deadly-patterns-rules-list*
+        (load (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol* "Deadly-Patterns" ?*Directory-symbol* ?file ".clp"))
+    )
+)
 
 
 
@@ -619,6 +650,12 @@
         )
     )
     
+    (if ?*Deadly-Patterns* then
+        (bind ?*application-specific-rating-type*
+            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "DP") else "DP")
+        )
+    )
+
     (if (and ?*Tridagons* (not ?*Tridagon-Forcing-Whips*)) then
         (bind ?*application-specific-rating-type*
             (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "Trid") else "Trid")

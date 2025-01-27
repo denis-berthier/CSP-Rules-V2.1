@@ -67,18 +67,20 @@
 
 
 ;;; Same functions with file length computed automatically
+;;; As file-symbols are global, an akward name  must be used
+;;; in order to make this function usable within other file functions
 
 (deffunction file-length (?file)
     ;;; each line is supposed to be an integer or a real (no check is made)
-    (open ?file "file" "r")
+    (open ?file "file-dxvffghvjkvds" "r")
     (bind ?i 0)
     (while TRUE
-        (bind ?line (readline "file"))
+        (bind ?line (readline "file-dxvffghvjkvds"))
         (bind ?li ?line)
         (if (eq ?li EOF) then (return ?i))
         (bind ?i (+ ?i 1))
     )
-    (close "file")
+    (close "file-dxvffghvjkvds")
 )
 
 
@@ -628,6 +630,56 @@
             (bind ?different-lines (create$ ?different-lines ?i))
         )
     )
+    (close "file4")
+    (close "file3")
+    (close "file2")
+    (close "file1")
+    (printout t "Different lines: " ?different-lines crlf)
+    (length$ ?different-lines)
+)
+
+
+(deffunction compare-levels-in-5-files (?file1 ?file2 ?file3 ?file4 ?file5 ?file-length)
+    ;;; each line of the two files must be a real number
+    (bind ?different-lines (create$))
+    (open ?file1 "file1" "r")
+    (open ?file2 "file2" "r")
+    (open ?file3 "file3" "r")
+    (open ?file4 "file4" "r")
+    (open ?file5 "file5" "r")
+    (bind ?i 0)
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?L1 (string-to-field (readline "file1")))
+        (bind ?L2 (string-to-field (readline "file2")))
+        (bind ?L3 (string-to-field (readline "file3")))
+        (bind ?L4 (string-to-field (readline "file4")))
+        (bind ?L5 (string-to-field (readline "file5")))
+
+        (if (not (eq ?L1 ?L2 ?L3 ?L4 ?L5)) then
+            (printout t ?i "   " ?L1)
+            
+            (if (> ?L1 ?L2) then (printout t " > " ?L2))
+            (if (= ?L1 ?L2) then (printout t " = " ?L2))
+            (if (< ?L1 ?L2) then (printout t " < " ?L2))
+            
+            (if (> ?L2 ?L3) then (printout t " > " ?L3))
+            (if (= ?L2 ?L3) then (printout t " = " ?L3))
+            (if (< ?L2 ?L3) then (printout t " < " ?L3))
+
+            (if (> ?L3 ?L4) then (printout t " > " ?L4))
+            (if (= ?L3 ?L4) then (printout t " = " ?L4))
+            (if (< ?L3 ?L4) then (printout t " < " ?L4))
+ 
+            (if (> ?L4 ?L5) then (printout t " > " ?L5))
+            (if (= ?L4 ?L5) then (printout t " = " ?L5))
+            (if (< ?L4 ?L5) then (printout t " < " ?L5))
+
+            (printout t crlf)
+            (bind ?different-lines (create$ ?different-lines ?i))
+        )
+    )
+    (close "file5")
     (close "file4")
     (close "file3")
     (close "file2")

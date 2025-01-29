@@ -268,7 +268,7 @@
 
 ;;; row-column symmetric version of the original pattern
 ;;; (redundant for symmetric patterns)
-;;; (. . . . . . . . . . . . . . . . . . . . . . . . 12 15 25 . . . . . . . . . . . . . . . . . . . . . . . . 34 36 46 . . . . . . . 56 56 . . . . . . 13 13 . . . . . . . 24 . 24)
+;;; (. . . . . . . . . . . . . . . . . . . . . . . . 12 13 23 . . . . . . . . . . . . . . . . . . . . . . . . 45 46 56 . . . . . . . 36 36 . . . . . . 14 14 . . . . . . . 25 . 25)
 ;;; Variables in the following rule are named after this pattern
 
 
@@ -280,7 +280,7 @@
    )
 =>
    (if ?*print-levels* then (printout t Entering_level DP12-6-15s))
-   (assert (deadly-pattern DP12-6-15s . . . . . . . . . . . . . . . . . . . . . . . . 12 15 25 . . . . . . . . . . . . . . . . . . . . . . . . 34 36 46 . . . . . . . 56 56 . . . . . . 13 13 . . . . . . . 24 . 24))
+   (assert (deadly-pattern DP12-6-15s . . . . . . . . . . . . . . . . . . . . . . . . 12 13 23 . . . . . . . . . . . . . . . . . . . . . . . . 45 46 56 . . . . . . . 36 36 . . . . . . 14 14 . . . . . . . 25 . 25))
 )
 
 
@@ -298,37 +298,37 @@
    (candidate (context ?cont) (status cand) (number ?nb2) (row ?row3) (column ?col7) (block ?blk3) (band ?bnd1) (stack ?stk3))
 
    (candidate (context ?cont) (status cand) (number ?nb1) (row ?row3) (column ?col8&~?col7) (block ?blk3) (band ?bnd1) (stack ?stk3))
-   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row3) (column ?col8) (block ?blk3) (band ?bnd1) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row3) (column ?col8) (block ?blk3) (band ?bnd1) (stack ?stk3))
 
    (candidate (context ?cont) (status cand) (number ?nb2) (row ?row3) (column ?col9&~?col7&~?col8) (block ?blk3) (band ?bnd1) (stack ?stk3))
-   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row3) (column ?col9) (block ?blk3) (band ?bnd1) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row3) (column ?col9) (block ?blk3) (band ?bnd1) (stack ?stk3))
 
-   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row6&~?row3) (column ?col7) (block ?blk6&~?blk3) (band ?bnd2&~?bnd1) (stack ?stk3))
-   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row6) (column ?col7) (block ?blk6) (band ?bnd2) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row6&~?row3) (column ?col7) (block ?blk6&~?blk3) (band ?bnd2&~?bnd1) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row6) (column ?col7) (block ?blk6) (band ?bnd2) (stack ?stk3))
 
-   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row6) (column ?col8) (block ?blk6) (band ?bnd2) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row6) (column ?col8) (block ?blk6) (band ?bnd2) (stack ?stk3))
    (candidate (context ?cont) (status cand) (number ?nb6) (row ?row6) (column ?col8) (block ?blk6) (band ?bnd2) (stack ?stk3))
 
-   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row6) (column ?col9) (block ?blk6) (band ?bnd2) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row6) (column ?col9) (block ?blk6) (band ?bnd2) (stack ?stk3))
    (candidate (context ?cont) (status cand) (number ?nb6) (row ?row6) (column ?col9) (block ?blk6) (band ?bnd2) (stack ?stk3))
 
-   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row7&~?row3&~?row6) (column ?col8) (block ?blk9&~?blk3&~?blk6) (band ?bnd3&~?bnd1&~?bnd2) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row7&~?row3&~?row6) (column ?col8) (block ?blk9&~?blk3&~?blk6) (band ?bnd3&~?bnd1&~?bnd2) (stack ?stk3))
    (candidate (context ?cont) (status cand) (number ?nb6) (row ?row7) (column ?col8) (block ?blk9) (band ?bnd3) (stack ?stk3))
 
-   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row7) (column ?col9) (block ?blk9) (band ?bnd3) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row7) (column ?col9) (block ?blk9) (band ?bnd3) (stack ?stk3))
    (candidate (context ?cont) (status cand) (number ?nb6) (row ?row7) (column ?col9) (block ?blk9) (band ?bnd3) (stack ?stk3))
 
    (candidate (context ?cont) (status cand) (number ?nb1) (row ?row8&~?row3&~?row6&~?row7) (column ?col7) (block ?blk9) (band ?bnd3) (stack ?stk3))
-   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row8) (column ?col7) (block ?blk9) (band ?bnd3) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row8) (column ?col7) (block ?blk9) (band ?bnd3) (stack ?stk3))
 
    (candidate (context ?cont) (status cand) (number ?nb1) (row ?row8) (column ?col8) (block ?blk9) (band ?bnd3) (stack ?stk3))
-   (candidate (context ?cont) (status cand) (number ?nb3) (row ?row8) (column ?col8) (block ?blk9) (band ?bnd3) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row8) (column ?col8) (block ?blk9) (band ?bnd3) (stack ?stk3))
 
    (candidate (context ?cont) (status cand) (number ?nb2) (row ?row9&~?row3&~?row6&~?row7&~?row8) (column ?col7) (block ?blk9) (band ?bnd3) (stack ?stk3))
-   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row9) (column ?col7) (block ?blk9) (band ?bnd3) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row9) (column ?col7) (block ?blk9) (band ?bnd3) (stack ?stk3))
 
    (candidate (context ?cont) (status cand) (number ?nb2) (row ?row9) (column ?col9) (block ?blk9) (band ?bnd3) (stack ?stk3))
-   (candidate (context ?cont) (status cand) (number ?nb4) (row ?row9) (column ?col9) (block ?blk9) (band ?bnd3) (stack ?stk3))
+   (candidate (context ?cont) (status cand) (number ?nb5) (row ?row9) (column ?col9) (block ?blk9) (band ?bnd3) (stack ?stk3))
 
 =>
 

@@ -99,7 +99,7 @@
 )
 
 
-(deffunction put-deadly-pattern-in-minlex-form ($?pattern-list)
+(deffunction put-deadly-pattern-in-digit-minlex-form ($?pattern-list)
     (bind ?digit-order (find-digit-order-of-deadly-pattern ?pattern-list))
     (bind ?minlex-pattern (create$))
     (foreach ?x ?pattern-list
@@ -128,7 +128,7 @@
             (bind ?sym-pat-list (create$ ?sym-pat-list (nth$ ?cll ?pattern-list)))
         )
     )
-    (put-deadly-pattern-in-minlex-form ?sym-pat-list)
+    ?sym-pat-list
 )
 
 
@@ -150,3 +150,106 @@
         (pretty-print-sukaku-list ?pattern-list)
     )
 )
+
+
+
+(deffunction pretty-print-digit-minlex-diag-sym-of-deadly-pattern (?c ?n)
+    (if (or (< ?c 4) (eq ?c 5) (eq ?c 7) (> ?c 12))
+        then (printout t "SudoRules has no deadly pattern on " ?c " cells." crlf) (return FALSE)
+        else
+        (bind ?file
+            (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol*
+                    "Deadly-Patterns" ?*Directory-symbol* "DP" ?c ".txt")
+        )
+        (open ?file "file" "r")
+        (loop-for-count (- ?n 1) (readline "file"))
+        (bind ?pattern-string (readline "file"))
+        (close "file")
+        (bind ?pattern-list (deadly-pattern-diagonal-symmetry-list (subseq$ (explode$ ?pattern-string) 1 81)))
+        (bind ?pattern-list (put-deadly-pattern-in-digit-minlex-form ?pattern-list))
+        (printout t ?pattern-list crlf)
+        (pretty-print-sukaku-list ?pattern-list)
+    )
+)
+
+
+(deffunction same-deadly-patterns (?DP1 ?DP2)
+    (bind ?result TRUE)
+    (loop-for-count (?i 1 81)
+        (if (neq (nth$ ?i ?DP1) (nth$ ?i ?DP2)) then (bind ?result FALSE) (return ?result))
+    )
+    ?result
+)
+
+
+
+(deffunction auto-symmetric-deadly-pattern (?c ?n)
+    (if (or (< ?c 4) (eq ?c 5) (eq ?c 7) (> ?c 12))
+        then (printout t "SudoRules has no deadly pattern on " ?c " cells." crlf) (return FALSE)
+        else
+        (bind ?file
+            (str-cat ?*Application-Dir* "UNIQUENESS" ?*Directory-symbol*
+                    "Deadly-Patterns" ?*Directory-symbol* "DP" ?c ".txt")
+        )
+        (open ?file "file" "r")
+        (loop-for-count (- ?n 1) (readline "file"))
+        (bind ?pattern-string (readline "file"))
+        (close "file")
+        (bind ?pattern-list (subseq$ (explode$ ?pattern-string) 1 81))
+        (bind ?minlex-sym-pat-list
+            (put-deadly-pattern-in-digit-minlex-form
+                (deadly-pattern-diagonal-symmetry-list ?pattern-list)
+            )
+        )
+        (same-deadly-patterns ?pattern-list ?minlex-sym-pat-list)
+    )
+)
+
+
+(deffunction list-of-auto-symmetric-deadly-patterns ()
+    (bind ?list (create$))
+    ;;; the only 4c is not auto-symmetric
+    ;;; 6c
+    (loop-for-count (?n 1 4)
+        (if (auto-symmetric-deadly-pattern 6 ?n)
+            then (bind ?list (create$ ?list (str-cat "6-" ?n)))
+        )
+    )
+    ;;; no 7c
+    ;;; 8c
+    (loop-for-count (?n 1 9)
+        (if (auto-symmetric-deadly-pattern 8 ?n)
+            then (bind ?list (create$ ?list (str-cat "8-" ?n)))
+        )
+    )
+    ;;; 9c
+    (loop-for-count (?n 1 3)
+        (if (auto-symmetric-deadly-pattern 9 ?n)
+            then (bind ?list (create$ ?list (str-cat "9-" ?n)))
+        )
+    )
+    ;;; 10c
+    (loop-for-count (?n 1 43)
+        (if (auto-symmetric-deadly-pattern 10 ?n)
+            then (bind ?list (create$ ?list (str-cat "10-" ?n)))
+        )
+    )
+    ;;; 11c
+    (loop-for-count (?n 1 32)
+        (if (auto-symmetric-deadly-pattern 11 ?n)
+            then (bind ?list (create$ ?list (str-cat "11-" ?n)))
+        )
+    )
+    ;;; 12c
+    (loop-for-count (?n 1 316)
+        (if (auto-symmetric-deadly-pattern 12 ?n)
+            then (bind ?list (create$ ?list (str-cat "12-" ?n)))
+        )
+    )
+    ?list
+)
+
+;;; test
+;;; (list-of-auto-symmetric-deadly-patterns)
+;;; ("6-4" "8-9" "9-3" "10-17" "10-37" "10-38" "10-41" "12-185" "12-207" "12-308" "12-312")
+

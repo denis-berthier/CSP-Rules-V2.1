@@ -125,7 +125,13 @@
     )
 =>
     (retract ?temp2)
-    (if ?*print-templates* then (printout t "Retracting a template[2] for digits " ?nba " and " ?nbb " incompatible with all the templates[1] for digit " ?nbc crlf))
+    (if ?*print-templates* then
+        (printout t "retracting template[2]: "
+            "(n" ?nba "c"  ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ", n" ?nbb "c"  ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b  
+            ") incompatible with all the templates[1] for digit " ?nbc crlf
+        )
+    )
 )
 
 
@@ -156,7 +162,13 @@
     )
 =>
     (retract ?temp2)
-    (if ?*print-templates* then (printout t "Retracting a template[2] for digits " ?nba " and " ?nbb " incompatible with all the templates[1] for digit " ?nbc crlf))
+    (if ?*print-templates* then
+        (printout t "retracting template[2]: "
+            "(n" ?nba "c"  ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ", n" ?nbb "c"  ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+            ") incompatible with all the templates[1] for digit " ?nbc crlf
+        )
+    )
 )
 
 
@@ -187,7 +199,13 @@
     )
 =>
     (retract ?temp2)
-    (if ?*print-templates* then (printout t "Retracting a template[2] for digits " ?nba " and " ?nbb " incompatible with all the templates[1] for digit " ?nbc crlf))
+    (if ?*print-templates* then
+        (printout t "retracting template[2]: "
+            "(n" ?nba "c"  ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ", n" ?nbb "c"  ?col1b ?col2b ?col3b ?col4b ?col5b ?col6b ?col7b ?col8b ?col9b
+            ") incompatible with all the templates[1] for digit " ?nbc crlf
+        )
+    )
 )
 
 

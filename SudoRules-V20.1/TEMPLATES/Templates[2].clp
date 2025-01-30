@@ -119,7 +119,12 @@
     ))
 =>
     (retract ?temp1)
-    (if ?*print-templates* then (printout t "Retracting a template[1] for digit " ?nba " incompatible with all the templates[1] for digit " ?nbb crlf))
+    (if ?*print-templates* then
+        (printout t "retracting template[1]: "
+            "(n" ?nba "c"  ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ") incompatible with all the templates[1] for digit " ?nbb crlf
+        )
+    )
 )
 
 
@@ -143,5 +148,10 @@
     ))
 =>
     (retract ?temp1)
-    (if ?*print-templates* then (printout t "Retracting a template[1] for digit " ?nba " incompatible with all the templates[1] for digit " ?nbb crlf))
+    (if ?*print-templates* then
+        (printout t "retracting template[1]: "
+            "(n" ?nba "c"  ?col1a ?col2a ?col3a ?col4a ?col5a ?col6a ?col7a ?col8a ?col9a
+            ") incompatible with all the templates[1] for digit " ?nbb crlf
+        )
+    )
 )

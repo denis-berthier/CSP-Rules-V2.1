@@ -32,7 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GENERAL VARIABLES AND CLIPS GENERAL BEHAVIOUR
+;;; 1) GENERAL VARIABLES AND CLIPS GENERAL BEHAVIOUR
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -67,7 +67,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GENERAL GLOBAL VARIABLES RELATED TO INSTANCES
+;;; 2) GENERAL GLOBAL VARIABLES RELATED TO INSTANCES
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -235,7 +235,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GLOBAL VARIABLES USED FOR BATCH PROCESSING
+;;; 3) GLOBAL VARIABLES USED FOR BATCH PROCESSING
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -333,13 +333,12 @@
 
 
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; GLOBAL VARIABLES USED FOR SELECTING WHICH RULES WILL BE LOADED, AND THEIR DEFAULT VALUES
+;;; 4) GLOBAL VARIABLES USED IN THE CONFIG FILE FOR SELECTING WHICH RULES WILL BE LOADED,
+;;; AND THEIR DEFAULT VALUES
 ;;;
 ;;; BY DEFAULT, ALL THE RULES IN BRT AND ONLY THESE RULES ARE LOADED; THEY CANNOT BE DISABLED
 ;;;
@@ -347,6 +346,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 4.1) Selection of global behaviour (optimisation type, blocked, ...)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Type of optimisation for the chain rules (SPEED or MEMORY)
 (defglobal ?*chain-rules-optimisation-type* = SPEED)
@@ -378,6 +383,13 @@
 ;;; The globally "unblocked" behaviour can be reset by setting the following variable to TRUE in the configuration file
 (defglobal ?*unblocked-behaviour* = FALSE)
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 4.2) Selection of rules
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Although CSP-Rules doesn't have generic Subsets or g-Subset rules,
 ;;; it provides the general global variables to manage them, up to size 4
@@ -535,6 +547,12 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 4.3) Selection of chains lengths
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; By default, all the chain rules of any coded length are loaded when their pattern is activated,
 ;;; but this can be changed by the user.
 
@@ -634,15 +652,150 @@
 (defglobal ?*max-level* = 0)
 
 
-
-;;; Maximum lengths can be lowered individually in the application configuration file
-;;; The maximaum length can also be lowered at once for all the chains:
+;;; Maximum lengths can be lowered individually for various types of chains in the application configuration file.
+;;; The maximaum length can also be lowered at once for all the chains, by changing the value of the following variable:
 (defglobal ?*all-chains-max-length* = ?*absolute-chains-max-length*)
 
-(deffunction redefine-all-chains-max-length ()
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 4.4 GLOBAL VARIABLES RELATED TO BI-WHIPS, BI-BRAIDS, BI-T&E, W*-WHIPS AND W*-BRAIDS
+;;; (not in the public release)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; if w*-whips or b*-braids are activated,
+;;; one must first activate Bi-Whips or Bi-Braids or Bi-T&E,
+;;; unless all the bi-braid contradictions have been pre-computed
+(defglobal ?*Bi-Whips* = FALSE)
+(defglobal ?*Bi-Braids* = FALSE)
+(defglobal ?*pre-computed-all-bi-braid-contrads* = FALSE)
+
+;;; if bi-braids are used, bi-whips of minimum length up to 2 must be used
+(defglobal ?*biwhips-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*bibraids-max-length* = (min 20 ?*all-chains-max-length*))
+
+;;; When W*-Whips or B*-Braids are used, ?*ECP** is automatically set to True
+;;; but it can be used independently of W*-Whips or B*-Braids
+(defglobal ?*ECP** = FALSE)
+
+
+(defglobal ?*W*-Whips* = FALSE)
+(defglobal ?*w*-whips-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*B*-Braids* = FALSE)
+(defglobal ?*b*-braids-max-length* = (min 20 ?*all-chains-max-length*))
+
+
+(defglobal ?*simple-bi-TE* = FALSE)
+(defglobal ?*Bi-TE* = FALSE)
+(defglobal ?*print-Bi-TE-hypothesis* = TRUE) ; ; used only for bi-T&E; by default, Bi-T&E hypotheses are printed when Bi-T&E is on
+(defglobal ?*print-contradictions* = TRUE) ; used for bi-whip, bi-braid or bi-T&E contradictions
+;;; used for not testing again pairs that have already been shown incompatible
+(defglobal ?*excluded-pairs* = (create$))
+
+
+;;; ?*all-contrads* is used as the generic form for a list of binary contradictions,
+;;; whichever way it was obtained
+(defglobal ?*all-contrads* = (create$))
+
+;;; the following are used for specific lists of binary contradictions,
+;;; with the name reflecting how they were obtained
+;;; not used directly within CSP-Rules
+;;; but used for keeping track of calculation in specific examples
+(defglobal ?*all-bi-TE-contrads* = (create$))
+(defglobal ?*all-bi-TEW1-contrads* = (create$))
+(defglobal ?*all-bi-TEW2-contrads* = (create$))
+(defglobal ?*all-bi-TEW3-contrads* = (create$))
+(defglobal ?*all-bi-TEW4-contrads* = (create$))
+(defglobal ?*all-bi-TEW5-contrads* = (create$))
+(defglobal ?*all-bi-TEW6-contrads* = (create$))
+(defglobal ?*all-bi-TEW7-contrads* = (create$))
+(defglobal ?*all-bi-TEW8-contrads* = (create$))
+(defglobal ?*all-bi-TEW9-contrads* = (create$))
+(defglobal ?*all-bi-TEW10-contrads* = (create$))
+
+(defglobal ?*all-bi-TEB2-contrads* = (create$))
+(defglobal ?*all-bi-TEB3-contrads* = (create$))
+(defglobal ?*all-bi-TEB4-contrads* = (create$))
+(defglobal ?*all-bi-TEB5-contrads* = (create$))
+(defglobal ?*all-bi-TEB6-contrads* = (create$))
+(defglobal ?*all-bi-TEB7-contrads* = (create$))
+(defglobal ?*all-bi-TEB8-contrads* = (create$))
+(defglobal ?*all-bi-TEB9-contrads* = (create$))
+(defglobal ?*all-bi-TEB10-contrads* = (create$))
+
+
+(defglobal ?*Forcing-Bi-Whips* = FALSE)
+(defglobal ?*Forcing-Bi-Braids* = FALSE)
+(defglobal ?*Forcing-bi-TE* = FALSE)
+
+(defglobal ?*W-Whips* = FALSE)
+(defglobal ?*B-Braids* = FALSE)
+(defglobal ?*w-whips-max-length* = (min 20 ?*all-chains-max-length*))
+(defglobal ?*b-braids-max-length* = (min 20 ?*all-chains-max-length*))
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 4.5) Selection of T&E, DFS, Backdoors, Templates...
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defglobal ?*special-TE* = FALSE) ;;; by default, there is no priority in T&E for bivalue candidates
+(defglobal ?*restrict-TE-targets* = FALSE) ;;; by default, any candidate can be a target for T&E
+
+(defglobal ?*TE1* = FALSE) ;;; by default, there is no Trial and Error at depth 1
+(defglobal ?*TE2* = FALSE) ;;; by default, there is no Trial and Error at depth 2
+(defglobal ?*TE3* = FALSE) ;;; by default, there is no Trial and Error at depth 3
+(defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
+(defglobal ?*Forcing{2}-TE* = FALSE) ;;; by default, there is no Forcing{2} Trial and Error
+(defglobal ?*Forcing{3}-TE* = FALSE) ;;; by default, there is no Forcing{3} Trial and Error
+(defglobal ?*Forcing{4}-TE* = FALSE) ;;; by default, there is no Forcing{4} Trial and Error
+
+
+(defglobal ?*Backdoors* = FALSE)
+(defglobal ?*Anti-backdoors* = FALSE)
+(defglobal ?*Anti-backdoor-pairs* = FALSE)
+(defglobal ?*list-of-backdoors* = (create$))
+(defglobal ?*list-of-anti-backdoors* = (create$))
+(defglobal ?*list-of-anti-backdoor-pairs* = (create$))
+
+
+
+(defglobal ?*Templates* = FALSE)
+(defglobal ?*templates-max-combinations* = 0)
+
+(defglobal ?*special-DFS* = FALSE) ;;; by default, there is no depth-first search
+(defglobal ?*DFS* = FALSE) ;;; by default, there is no depth-first search
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 5) FUNCTIONS FOF ENFORCING THE CONSISTENCY OF USER SELECTION OF RULES AND LENGTHS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 5.1) Enforce consitency of chains lengths selection
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction redefine-all-generic-chains-max-length ()
     ;;; This function only deals with the various user choices of global lengths in the configuration file.
     ;;; Global length choices supersede local ones, for each family of rules.
-    ;;; Detailed consitency-preserving rules will be applied in the generic loader before any rule is loaded.
+    ;;; It is only a preliminary to other consistency enforcement rules.
     
     ;;; All the lengths of standard chains are restricted by ?*all-chains-max-length*
     (if (< ?*all-chains-max-length* ?*absolute-chains-max-length*) then
@@ -671,8 +824,8 @@
         (bind ?*forcing-gbraids-max-length* (min ?*forcing-gbraids-max-length* ?*all-chains-max-length*))
     )
     
-    ;;; All ORk chains and g-chains
-    ;;; The lengths of all the ORk chains and g-chains are restricted by ?*all-ORk-chains-max-length*:
+    ;;; All ORk chains and ORk g-chains
+    ;;; The lengths of all the ORk chains and ORk g-chains are restricted by ?*all-ORk-chains-max-length*:
     (if (< ?*all-ORk-chains-max-length* ?*absolute-chains-max-length*) then
         (bind ?*all-ORk-forcing-whips-max-length* ?*all-ORk-chains-max-length*)
         (bind ?*all-ORk-contrad-whips-max-length* ?*all-ORk-chains-max-length*)
@@ -754,37 +907,833 @@
 
 
 
-(defglobal ?*special-TE* = FALSE) ;;; by default, there is no priority in T&E for bivalue candidates
-(defglobal ?*restrict-TE-targets* = FALSE) ;;; by default, any candidate can be a target for T&E
 
-(defglobal ?*TE1* = FALSE) ;;; by default, there is no Trial and Error at depth 1
-(defglobal ?*TE2* = FALSE) ;;; by default, there is no Trial and Error at depth 2
-(defglobal ?*TE3* = FALSE) ;;; by default, there is no Trial and Error at depth 3
-(defglobal ?*Forcing-TE* = FALSE) ;;; by default, there is no Forcing Trial and Error
-(defglobal ?*Forcing{2}-TE* = FALSE) ;;; by default, there is no Forcing{2} Trial and Error
-(defglobal ?*Forcing{3}-TE* = FALSE) ;;; by default, there is no Forcing{3} Trial and Error
-(defglobal ?*Forcing{4}-TE* = FALSE) ;;; by default, there is no Forcing{4} Trial and Error
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 5.2) Enforce consitency of rules selection (i.e. rules dependencies)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; For pure logical reasons
+;;; and in order to respect the definitions of resolution theories in PBCS,
+;;; the loading of some rules implies the loading of other rules,
+;;; as specified by the following implications.
+;;; The following function is used for setting these dependencies before loading.
+
+(deffunction enforce-generic-rules-dependencies ()
+    ;;; Function redefine-all-chains-max-length is called before setting all the other dependencies,
+    ;;; so as to ensure the priority of the global declarations such as
+    ;;; ?*all-chains-max-length*, ?*all-ORk-chains-max-length*
+    ;;; ?*all-ORk-forcing-whips-max-length*, ?*all-ORk-contrad-whips-max-length*, ?*all-ORk-whips-max-length*
+    ;;; ?*all-ORk-forcing-gwhips-max-length*, ?*all-ORk-contrad-gwhips-max-length* and ?*all-ORk-gwhips-max-length*
+    
+    ;;; Subsets and gSubsets
+    ;;; Finned Fish have no predefined generic variables, but there are some for g-Subsets
+    (if ?*g-Subsets* then (bind ?*g-Subsets[4]* TRUE) (bind ?*Subsets* TRUE))
+    (if ?*g-Subsets[4]* then (bind ?*g-Subsets[3]* TRUE) (bind ?*Subsets[3]* TRUE))
+    (if ?*g-Subsets[3]* then (bind ?*g-Subsets[2]* TRUE) (bind ?*Subsets[3]* TRUE))
+    
+    ;;; Subsets are not coded generically,
+    ;;; but they have pre-defined generic globals, saliences and print nrc functions
+    (if ?*Subsets* then (bind ?*Subsets[4]* TRUE))
+    (if ?*Subsets[4]* then (bind ?*Subsets[3]* TRUE))
+    (if ?*Subsets[3]* then (bind ?*Subsets[2]* TRUE))
+    
+    
+    ;;; All the generic chain-rules
+    (if ?*All-generic-chain-rules* then
+        (bind ?*Typed-Bivalue-Chains* TRUE)
+        (bind ?*Typed-z-Chains* TRUE)
+        (bind ?*Typed-t-Whips* TRUE)
+        (bind ?*Typed-Whips* TRUE)
+        (bind ?*Typed-G-Whips* TRUE)
+        (bind ?*Forcing-G-Braids* TRUE) ; which will imply all whips, braids...
+        ;;; add those that are not implied by the previous ones:
+        (bind ?*Bivalue-Chains* TRUE)
+        (bind ?*G-Bivalue-Chains* TRUE)
+        (bind ?*z-Chains* TRUE)
+        (bind ?*t-Whips* TRUE)
+    )
+        
+    ;;; Bi-Whips, Bi-Braids, ...
+    (if ?*Bi-Braids* then
+        (bind ?*Bi-Whips* TRUE) (bind ?*biwhips-max-length* (max 2 ?*bibraids-max-length* ?*biwhips-max-length*))
+    )
+    (if ?*B*-Braids* then
+        ;;; not => W*-Whips, because, as  they are coded,
+        ;;; B*-Braids can be used in conjunction with Bi-T&E-contrads, while W*-Whips can only use bi-whips contrads
+        (bind ?*Braids* TRUE) (bind ?*braids-max-length* (max ?*bibraids-max-length* ?*braids-max-length*))
+    )
+    (if ?*W*-Whips* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*w*-whips-max-length* ?*whips-max-length*))
+    )
+
+    ;;; Forcing-whips, forcing-gwhips, forcing-braids, forcing-gbraids
+    (if ?*Forcing-G-Braids* then
+        (bind ?*Forcing-G-Whips* TRUE) (bind ?*forcing-gwhips-max-length* (max ?*forcing-gbraids-max-length* ?*forcing-gwhips-max-length*))
+        (bind ?*Forcing-Braids* TRUE) (bind ?*forcing-braids-max-length* (max ?*forcing-gbraids-max-length* ?*forcing-braids-max-length*))
+        (bind ?*G-Braids* TRUE) (bind ?*gbraids-max-length* (max ?*forcing-gbraids-max-length* ?*gbraids-max-length*))
+    )
+    (if ?*Forcing-G-Whips* then
+        (bind ?*Forcing-Whips* TRUE) (bind ?*forcing-whips-max-length* (max ?*forcing-gwhips-max-length* ?*forcing-whips-max-length*))
+        (bind ?*G-Whips* TRUE) (bind ?*gwhips-max-length* (max ?*forcing-gwhips-max-length* ?*gwhips-max-length*))
+    )
+    (if ?*Forcing-Braids* then
+        (bind ?*Forcing-Whips* TRUE) (bind ?*forcing-whips-max-length* (max ?*forcing-braids-max-length* ?*forcing-whips-max-length*))
+        (bind ?*Braids* TRUE) (bind ?*braids-max-length* (max ?*forcing-braids-max-length* ?*braids-max-length*))
+    )
+    (if ?*Forcing-Whips* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*forcing-whips-max-length* ?*whips-max-length*))
+    )
+    (if ?*Forcing5-Whips* then (bind ?*Forcing4-Whips* TRUE))
+    (if ?*Forcing4-Whips* then (bind ?*Forcing3-Whips* TRUE))
+    (if ?*Forcing3-Whips* then (bind ?*Forcing2-Whips* TRUE))
+    (if ?*Forcing2-Whips* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*forcing-whips-max-length* ?*whips-max-length*))
+    )
+    
+    
+    ;;; ORk-forcing-g-whips, ORk-contrad-g-whips, ORk-g-whips
+    ;;; The following is in case the lengths have been set independently by the user:
+    
+    ;;; ORk-Forcing-G-Whips have standard consistency-preserving dependencies,
+    ;;; and they imply ORk-Forcing-Whips
+    (if ?*OR6-Forcing-G-Whips* then
+        (bind ?*OR5-Forcing-G-Whips* TRUE)
+        (if (< ?*OR5-forcing-gwhips-max-length* ?*OR6-forcing-gwhips-max-length*) then
+            (bind ?*OR5-forcing-gwhips-max-length* ?*OR6-forcing-gwhips-max-length*)
+        )
+        (bind ?*OR6-Forcing-Whips* TRUE)
+        (if (< ?*OR6-forcing-whips-max-length* ?*OR6-forcing-gwhips-max-length*) then
+            (bind ?*OR6-forcing-whips-max-length* ?*OR6-forcing-gwhips-max-length*)
+        )
+    )
+    (if ?*OR5-Forcing-G-Whips* then
+        (bind ?*OR4-Forcing-G-Whips* TRUE)
+        (if (< ?*OR4-forcing-gwhips-max-length* ?*OR5-forcing-gwhips-max-length*) then
+            (bind ?*OR4-forcing-gwhips-max-length* ?*OR5-forcing-gwhips-max-length*)
+        )
+        (bind ?*OR5-Forcing-Whips* TRUE)
+        (if (< ?*OR5-forcing-whips-max-length* ?*OR5-forcing-gwhips-max-length*) then
+            (bind ?*OR5-forcing-whips-max-length* ?*OR5-forcing-gwhips-max-length*)
+        )
+    )
+    (if ?*OR4-Forcing-G-Whips* then
+        (bind ?*OR3-Forcing-G-Whips* TRUE)
+        (if (< ?*OR3-forcing-gwhips-max-length* ?*OR4-forcing-gwhips-max-length*) then
+            (bind ?*OR3-forcing-gwhips-max-length* ?*OR4-forcing-gwhips-max-length*)
+        )
+        (bind ?*OR4-Forcing-Whips* TRUE)
+        (if (< ?*OR4-forcing-whips-max-length* ?*OR4-forcing-gwhips-max-length*) then
+            (bind ?*OR4-forcing-whips-max-length* ?*OR4-forcing-gwhips-max-length*)
+        )
+    )
+    (if ?*OR3-Forcing-G-Whips* then
+        (bind ?*OR2-Forcing-G-Whips* TRUE)
+        (if (< ?*OR2-forcing-gwhips-max-length* ?*OR3-forcing-gwhips-max-length*) then
+            (bind ?*OR2-forcing-gwhips-max-length* ?*OR3-forcing-gwhips-max-length*)
+        )
+        (bind ?*OR3-Forcing-Whips* TRUE)
+        (if (< ?*OR3-forcing-whips-max-length* ?*OR3-forcing-gwhips-max-length*) then
+            (bind ?*OR3-forcing-whips-max-length* ?*OR3-forcing-gwhips-max-length*)
+        )
+    )
+    (if ?*OR2-Forcing-G-Whips* then
+        (bind ?*OR2-Forcing-Whips* TRUE)
+        (if (< ?*OR2-forcing-whips-max-length* ?*OR2-forcing-gwhips-max-length*) then
+            (bind ?*OR2-forcing-whips-max-length* ?*OR2-forcing-gwhips-max-length*)
+        )
+    )
 
 
-(defglobal ?*Backdoors* = FALSE)
-(defglobal ?*Anti-backdoors* = FALSE)
-(defglobal ?*Anti-backdoor-pairs* = FALSE)
-(defglobal ?*list-of-backdoors* = (create$))
-(defglobal ?*list-of-anti-backdoors* = (create$))
-(defglobal ?*list-of-anti-backdoor-pairs* = (create$))
+    ;;; ORk-G-Whips have standard consistency-preserving dependencies,
+    ;;; they imply ORk-Contrad-G-whips of same length and same k, which are indeed a special case,
+    ;;; and they also imply ORk-Whips
+    (if ?*OR6-G-Whips* then
+        (bind ?*OR5-G-Whips* TRUE)
+        (bind ?*OR5-gwhips-max-length* (max ?*OR6-gwhips-max-length* ?*OR5-gwhips-max-length*))
+        (bind ?*OR6-Contrad-G-Whips* TRUE)
+        (if (< ?*OR6-contrad-gwhips-max-length* ?*OR6-gwhips-max-length*) then
+            (bind ?*OR6-contrad-gwhips-max-length* ?*OR6-gwhips-max-length*)
+        )
+        (bind ?*OR6-Whips* TRUE)
+        (bind ?*OR6-whips-max-length* (max ?*OR5-whips-max-length* ?*OR5-gwhips-max-length*))
+    )
+    (if ?*OR5-G-Whips* then
+        (bind ?*OR4-G-Whips* TRUE)
+        (bind ?*OR4-gwhips-max-length* (max ?*OR5-gwhips-max-length* ?*OR4-gwhips-max-length*))
+        (bind ?*OR5-Contrad-G-Whips* TRUE)
+        (if (< ?*OR5-contrad-gwhips-max-length* ?*OR5-gwhips-max-length*) then
+            (bind ?*OR5-contrad-gwhips-max-length* ?*OR5-gwhips-max-length*)
+        )
+        (bind ?*OR5-Whips* TRUE)
+        (bind ?*OR5-whips-max-length* (max ?*OR5-whips-max-length* ?*OR5-gwhips-max-length*))
+    )
+    (if ?*OR4-G-Whips* then
+        (bind ?*OR3-G-Whips* TRUE)
+        (bind ?*OR3-gwhips-max-length* (max ?*OR4-gwhips-max-length* ?*OR3-gwhips-max-length*))
+        (bind ?*OR4-Contrad-G-Whips* TRUE)
+        (if (< ?*OR4-contrad-gwhips-max-length* ?*OR4-gwhips-max-length*) then
+            (bind ?*OR4-contrad-gwhips-max-length* ?*OR4-gwhips-max-length*)
+        )
+        (bind ?*OR4-Whips* TRUE)
+        (bind ?*OR4-whips-max-length* (max ?*OR4-whips-max-length* ?*OR4-gwhips-max-length*))
+    )
+    (if ?*OR3-G-Whips* then
+        (bind ?*OR2-G-Whips* TRUE)
+        (bind ?*OR2-gwhips-max-length* (max ?*OR3-gwhips-max-length* ?*OR2-gwhips-max-length*))
+        (bind ?*OR3-Contrad-G-Whips* TRUE)
+        (if (< ?*OR3-contrad-gwhips-max-length* ?*OR3-gwhips-max-length*) then
+            (bind ?*OR3-contrad-gwhips-max-length* ?*OR3-gwhips-max-length*)
+        )
+        (bind ?*OR3-Whips* TRUE)
+        (bind ?*OR3-whips-max-length* (max ?*OR3-whips-max-length* ?*OR3-gwhips-max-length*))
+    )
+    (if ?*OR2-G-Whips* then
+        (bind ?*OR2-Contrad-G-Whips* TRUE)
+        (if (< ?*OR2-contrad-gwhips-max-length* ?*OR2-gwhips-max-length*) then
+            (bind ?*OR2-contrad-gwhips-max-length* ?*OR2-gwhips-max-length*)
+        )
+        (bind ?*OR2-Whips* TRUE)
+        (bind ?*OR2-whips-max-length* (max ?*OR2-whips-max-length* ?*OR2-gwhips-max-length*))
+    )
+    
+    ;;; ORk-Contrad-G-Whips have standard consistency-preserving dependencies and they imply ORk-Contrad-Whips
+    (if ?*OR6-Contrad-G-Whips* then
+        (bind ?*OR5-Contrad-G-Whips* TRUE)
+        (bind ?*OR5-contrad-gwhips-max-length* (max ?*OR6-contrad-gwhips-max-length* ?*OR5-contrad-gwhips-max-length*))
+        (bind ?*OR6-Contrad-Whips* TRUE)
+        (if (< ?*OR6-contrad-whips-max-length* ?*OR6-contrad-gwhips-max-length*) then
+            (bind ?*OR6-contrad-whips-max-length* ?*OR6-contrad-gwhips-max-length*)
+        )
+    )
+    (if ?*OR5-Contrad-G-Whips* then
+        (bind ?*OR4-Contrad-G-Whips* TRUE)
+        (bind ?*OR4-contrad-gwhips-max-length* (max ?*OR5-contrad-gwhips-max-length* ?*OR4-contrad-gwhips-max-length*))
+        (bind ?*OR5-Contrad-Whips* TRUE)
+        (if (< ?*OR5-contrad-whips-max-length* ?*OR5-contrad-gwhips-max-length*) then
+            (bind ?*OR5-contrad-whips-max-length* ?*OR5-contrad-gwhips-max-length*)
+        )
+    )
+    (if ?*OR4-Contrad-G-Whips* then
+        (bind ?*OR3-Contrad-G-Whips* TRUE)
+        (bind ?*OR3-contrad-gwhips-max-length* (max ?*OR4-contrad-gwhips-max-length* ?*OR3-contrad-gwhips-max-length*))
+        (bind ?*OR4-Contrad-Whips* TRUE)
+        (if (< ?*OR4-contrad-whips-max-length* ?*OR4-contrad-gwhips-max-length*) then
+            (bind ?*OR4-contrad-whips-max-length* ?*OR4-contrad-gwhips-max-length*)
+        )
+    )
+    (if ?*OR3-Contrad-G-Whips* then
+        (bind ?*OR2-Contrad-G-Whips* TRUE)
+        (bind ?*OR2-contrad-gwhips-max-length* (max ?*OR3-contrad-gwhips-max-length* ?*OR2-contrad-gwhips-max-length*))
+        (bind ?*OR3-Contrad-Whips* TRUE)
+        (if (< ?*OR3-contrad-whips-max-length* ?*OR3-contrad-gwhips-max-length*) then
+            (bind ?*OR3-contrad-whips-max-length* ?*OR3-contrad-gwhips-max-length*)
+        )
+    )
+    (if ?*OR2-Contrad-G-Whips* then
+        (bind ?*OR2-Contrad-Whips* TRUE)
+        (if (< ?*OR2-contrad-whips-max-length* ?*OR2-contrad-gwhips-max-length*) then
+            (bind ?*OR2-contrad-whips-max-length* ?*OR2-contrad-gwhips-max-length*)
+        )
+    )
+
+    
+    ;;; ORk-forcing-whips, ORk-contrad-whips, ORk-whips
+    ;;; The following is in case the lengths have been set independently by the user:
+
+    ;;; ORk-Forcing-Whips have standard consistency-preserving dependencies.
+    (if ?*OR8-Forcing-Whips* then
+        (bind ?*OR7-Forcing-Whips* TRUE)
+        (if (< ?*OR7-forcing-whips-max-length* ?*OR8-forcing-whips-max-length*) then
+            (bind ?*OR7-forcing-whips-max-length* ?*OR8-forcing-whips-max-length*)
+        )
+    )
+    (if ?*OR7-Forcing-Whips* then
+        (bind ?*OR6-Forcing-Whips* TRUE)
+        (if (< ?*OR6-forcing-whips-max-length* ?*OR7-forcing-whips-max-length*) then
+            (bind ?*OR6-forcing-whips-max-length* ?*OR7-forcing-whips-max-length*)
+        )
+    )
+    (if ?*OR6-Forcing-Whips* then
+        (bind ?*OR5-Forcing-Whips* TRUE)
+        (if (< ?*OR5-forcing-whips-max-length* ?*OR6-forcing-whips-max-length*) then
+            (bind ?*OR5-forcing-whips-max-length* ?*OR6-forcing-whips-max-length*)
+        )
+    )
+    (if ?*OR5-Forcing-Whips* then
+        (bind ?*OR4-Forcing-Whips* TRUE)
+        (if (< ?*OR4-forcing-whips-max-length* ?*OR5-forcing-whips-max-length*) then
+            (bind ?*OR4-forcing-whips-max-length* ?*OR5-forcing-whips-max-length*)
+        )
+    )
+    (if ?*OR4-Forcing-Whips* then
+        (bind ?*OR3-Forcing-Whips* TRUE)
+        (if (< ?*OR3-forcing-whips-max-length* ?*OR4-forcing-whips-max-length*) then
+            (bind ?*OR3-forcing-whips-max-length* ?*OR4-forcing-whips-max-length*)
+        )
+    )
+    (if ?*OR3-Forcing-Whips* then
+        (bind ?*OR2-Forcing-Whips* TRUE)
+        (if (< ?*OR2-forcing-whips-max-length* ?*OR3-forcing-whips-max-length*) then
+            (bind ?*OR2-forcing-whips-max-length* ?*OR3-forcing-whips-max-length*)
+        )
+    )
+    
+    ;;; ORk-Whips have standard consistency-preserving dependencies,
+    ;;; and they imply ORk-contrad-whips of same length and same k, which are indeed a special case.
+    (if ?*OR8-Whips* then
+        (bind ?*OR7-Whips* TRUE)
+        (bind ?*OR7-whips-max-length* (max ?*OR8-whips-max-length* ?*OR7-whips-max-length*))
+        (bind ?*OR8-Contrad-Whips* TRUE)
+        (if (< ?*OR8-contrad-whips-max-length* ?*OR8-whips-max-length*) then
+            (bind ?*OR8-contrad-whips-max-length* ?*OR8-whips-max-length*)
+        )
+    )
+    (if ?*OR7-Whips* then
+        (bind ?*OR6-Whips* TRUE)
+        (bind ?*OR6-whips-max-length* (max ?*OR7-whips-max-length* ?*OR6-whips-max-length*))
+        (bind ?*OR7-Contrad-Whips* TRUE)
+        (if (< ?*OR7-contrad-whips-max-length* ?*OR7-whips-max-length*) then
+            (bind ?*OR7-contrad-whips-max-length* ?*OR7-whips-max-length*)
+        )
+    )
+    (if ?*OR6-Whips* then
+        (bind ?*OR5-Whips* TRUE)
+        (bind ?*OR5-whips-max-length* (max ?*OR6-whips-max-length* ?*OR5-whips-max-length*))
+        (bind ?*OR6-Contrad-Whips* TRUE)
+        (if (< ?*OR6-contrad-whips-max-length* ?*OR6-whips-max-length*) then
+            (bind ?*OR6-contrad-whips-max-length* ?*OR6-whips-max-length*)
+        )
+    )
+    (if ?*OR5-Whips* then
+        (bind ?*OR4-Whips* TRUE)
+        (bind ?*OR4-whips-max-length* (max ?*OR5-whips-max-length* ?*OR4-whips-max-length*))
+        (bind ?*OR5-Contrad-Whips* TRUE)
+        (if (< ?*OR5-contrad-whips-max-length* ?*OR5-whips-max-length*) then
+            (bind ?*OR5-contrad-whips-max-length* ?*OR5-whips-max-length*)
+        )
+    )
+    (if ?*OR4-Whips* then
+        (bind ?*OR3-Whips* TRUE)
+        (bind ?*OR3-whips-max-length* (max ?*OR4-whips-max-length* ?*OR3-whips-max-length*))
+        (bind ?*OR4-Contrad-Whips* TRUE)
+        (if (< ?*OR4-contrad-whips-max-length* ?*OR4-whips-max-length*) then
+            (bind ?*OR4-contrad-whips-max-length* ?*OR4-whips-max-length*)
+        )
+    )
+    (if ?*OR3-Whips* then
+        (bind ?*OR2-Whips* TRUE)
+        (bind ?*OR2-whips-max-length* (max ?*OR3-whips-max-length* ?*OR2-whips-max-length*))
+        (bind ?*OR3-Contrad-Whips* TRUE)
+        (if (< ?*OR3-contrad-whips-max-length* ?*OR3-whips-max-length*) then
+            (bind ?*OR3-contrad-whips-max-length* ?*OR3-whips-max-length*)
+        )
+    )
+    (if ?*OR2-Whips* then
+        (bind ?*OR2-Contrad-Whips* TRUE)
+        (if (< ?*OR2-contrad-whips-max-length* ?*OR2-whips-max-length*) then
+            (bind ?*OR2-contrad-whips-max-length* ?*OR2-whips-max-length*)
+        )
+    )
+
+    ;;; ORk-Contrad-Whips are a special case of ORk-Whips, but an interesting one.
+    ;;; They have standard consistency-preserving dependencies:
+    (if ?*OR8-Contrad-Whips* then
+        (bind ?*OR7-Contrad-Whips* TRUE)
+        (bind ?*OR7-contrad-whips-max-length* (max ?*OR8-contrad-whips-max-length* ?*OR7-contrad-whips-max-length*))
+    )
+    (if ?*OR7-Contrad-Whips* then
+        (bind ?*OR6-Contrad-Whips* TRUE)
+        (bind ?*OR6-contrad-whips-max-length* (max ?*OR7-contrad-whips-max-length* ?*OR6-contrad-whips-max-length*))
+    )
+    (if ?*OR6-Contrad-Whips* then
+        (bind ?*OR5-Contrad-Whips* TRUE)
+        (bind ?*OR5-contrad-whips-max-length* (max ?*OR6-contrad-whips-max-length* ?*OR5-contrad-whips-max-length*))
+    )
+    (if ?*OR5-Contrad-Whips* then
+        (bind ?*OR4-Contrad-Whips* TRUE)
+        (bind ?*OR4-contrad-whips-max-length* (max ?*OR5-contrad-whips-max-length* ?*OR4-contrad-whips-max-length*))
+    )
+    (if ?*OR4-Contrad-Whips* then
+        (bind ?*OR3-Contrad-Whips* TRUE)
+        (bind ?*OR3-contrad-whips-max-length* (max ?*OR4-contrad-whips-max-length* ?*OR3-contrad-whips-max-length*))
+    )
+    (if ?*OR3-Contrad-Whips* then
+        (bind ?*OR2-Contrad-Whips* TRUE)
+        (bind ?*OR2-contrad-whips-max-length* (max ?*OR3-contrad-whips-max-length* ?*OR2-contrad-whips-max-length*))
+    )
+    
+    
+    ;;; Bivalue-chains, whips, g-bivalue-chains, gwhips, braids, gbraids
+    (if ?*G-Braids* then
+        (bind ?*G-Whips* TRUE) (bind ?*gwhips-max-length* (max ?*gbraids-max-length* ?*gwhips-max-length*))
+        (bind ?*Braids* TRUE) (bind ?*braids-max-length* (max ?*gbraids-max-length* ?*braids-max-length*))
+    )
+    (if ?*G-Whips* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*gwhips-max-length* ?*whips-max-length*))
+    )
+    (if ?*G2-Whips* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*g2whips-max-length* ?*whips-max-length*))
+    )
+    (if ?*Braids* then
+        (bind ?*Whips* TRUE) (bind ?*whips-max-length* (max ?*braids-max-length* ?*whips-max-length*))
+    )
+    
+    ;;; (typed or not) z-chains and g-bivalue chains imply (similarly typed or not) bivalue-chains
+    (if ?*z-Chains* then (bind ?*Bivalue-Chains* TRUE))
+    (if ?*G-Bivalue-Chains* then (bind ?*Bivalue-Chains* TRUE))
+    (if ?*Typed-z-Chains* then (bind ?*Typed-Bivalue-Chains* TRUE))
+
+    ;;; Redefine ?*G-Labels* if necessary
+    (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*
+            ?*Typed-G-Whips*
+            ?*Forcing-G-Whips* ?*Forcing-G-Braids*
+            ?*All-generic-chain-rules*
+            ?*OR2-Forcing-G-Whips* ?*OR2-Contrad-G-Whips* ?*OR2-G-Whips*
+        ) then
+        (bind ?*G-Labels* TRUE)
+    )
+    
+    ;;; Typed-whips
+    (if ?*Typed-G-Whips* then
+        (bind ?*Typed-Whips* TRUE) (bind ?*typed-whips-max-length* (max ?*typed-gwhips-max-length* ?*typed-whips-max-length*))
+    )
+
+    
+    ;;; All the resolution theories, apart from BRT, must have Whips[1]
+    ;;; There is a special global variable ?*Whips[1]* to take this into account
+    ;;; Whips[1] are required by any other resolution theory
+    (if (or ?*Subsets[2]*
+            ?*Typed-Bivalue-Chains*
+            ?*Bivalue-Chains*
+            ?*Typed-z-Chains*
+            ?*z-Chains*
+            ?*Oddagons*
+            ?*Typed-t-Whips*
+            ?*t-Whips*
+            ?*Typed-Whips*
+            ?*Whips*
+            ?*Quick-B-Rating*
+            ?*OR2-Forcing-Whips*
+            ?*OR2-Contrad-Whips*
+            ?*OR2-Whips*
+        )
+        then (bind ?*Whips[1]* TRUE)
+    )
+    (if (or ?*OR2-Forcing-Whips* ?*OR2-Contrad-Whips* ?*OR2-Whips*)
+        then (bind ?*OR2-Whips[1]* TRUE)
+    )
+    (if (or ?*OR3-Forcing-Whips* ?*OR3-Contrad-Whips* ?*OR3-Whips*)
+        then (bind ?*OR3-Whips[1]* TRUE)
+    )
+    (if (or ?*OR4-Forcing-Whips* ?*OR4-Contrad-Whips* ?*OR4-Whips*)
+        then (bind ?*OR4-Whips[1]* TRUE)
+    )
+    (if (or ?*OR5-Forcing-Whips* ?*OR5-Contrad-Whips* ?*OR5-Whips*)
+        then (bind ?*OR5-Whips[1]* TRUE)
+    )
+    (if (or ?*OR6-Forcing-Whips* ?*OR6-Contrad-Whips* ?*OR6-Whips*)
+        then (bind ?*OR6-Whips[1]* TRUE)
+    )
+    (if (or ?*OR7-Forcing-Whips* ?*OR7-Contrad-Whips* ?*OR7-Whips*)
+        then (bind ?*OR7-Whips[1]* TRUE)
+    )
+    (if (or ?*OR8-Forcing-Whips* ?*OR8-Contrad-Whips* ?*OR8-Whips*)
+        then (bind ?*OR8-Whips[1]* TRUE)
+    )
+
+    ;;; Typed-Chains is an abstract name for any kind of typed chain
+    ;;; It can be used in links.clp and glinks.clp as a condition for adding
+    ;;; the relevant typed forms of predicates (csp-linked ....
+    (if (or ?*Typed-Bivalue-Chains*
+            ?*Typed-z-Chains*
+            ?*Typed-t-Whips*
+            ?*Typed-Whips*
+            ?*Typed-G-Whips*
+        )
+        then
+            (bind ?*Typed-Chains* TRUE)
+            (bind ?*Typed-Partial-Whips[1]* TRUE)
+    )
+    
+
+    ;;; partial-whips[i] must be loaded for some rules to work:
+    (if ?*z-Chains* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* 1)))
+    (if ?*t-Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*t-whips-max-length* 1))))
+    (if ?*Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*whips-max-length* 1))))
+    
+    ;;; Contrary to ORk-Forcing-Whips, whose length is (indirectly) further restricted by ?*all-chains-max-length*,
+    ;;; ORk-Contrad-Whips and ORk-Whips need access to partial-whips
+    (if ?*OR2-Contrad-Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*OR2-contrad-whips-max-length* 1))))
+
+    ;;; partial-gwhips[i] must be loaded for some rules to work:
+    (if ?*G-Whips* then (bind ?*partial-gwhips-max-length* (- ?*gwhips-max-length* 1)))
+    
+    ;;; Contrary to ORk-Forcing-G-Whips, whose length is (indirectly) further restricted by ?*all-chains-max-length*,
+    ;;; ORk-Contrad-G-Whips and ORk-G-Whips neeed access to partial-gwhips
+    (if ?*OR2-Contrad-G-Whips* then (bind ?*partial-gwhips-max-length* (max ?*partial-gwhips-max-length* (- ?*OR2-contrad-gwhips-max-length* 1))))
+
+    (printout t "Generic consistency-preserving rules dependencies set" crlf)
+    
+    ;;; Check consitency of the blocked choices
+    (if (or ?*blocked-Subsets* ?*blocked-chains* ?*blocked-oddagons*)
+        then (bind ?*blocked-Whips[1]* TRUE)
+    )
+    ;;; define values of secondary variables:
+    (bind ?*blocked-bivalue-chains* ?*blocked-chains*)
+    (bind ?*blocked-z-chains* ?*blocked-chains*)
+    (bind ?*blocked-t-Whips* ?*blocked-chains*)
+
+    ;;; If unblocked-behaviour is selected in the configuration file, reset the global unblocked behaviour:
+    (if ?*unblocked-behaviour* then
+        (bind ?*blocked-Whips[1]* FALSE)
+        (bind ?*blocked-bivalue-chains* FALSE)
+        (bind ?*blocked-z-chains* FALSE)
+        (bind ?*blocked-t-Whips* FALSE)
+        (bind ?*blocked-Subsets* FALSE)
+        (bind ?*blocked-oddagons* FALSE)
+    )
+    
+    ;;; Now compute the maximum level reached by at least one generic rule:
+    (if ?*Bivalue-Chains* then (bind ?*max-level* (max ?*max-level* ?*bivalue-chains-max-length*)))
+    (if ?*z-Chains* then (bind ?*max-level* (max ?*max-level* ?*z-chains-max-length*)))
+    (if ?*Oddagons* then (bind ?*max-level* (max ?*max-level* ?*oddagons-max-length*)))
+    (if ?*t-Whips* then (bind ?*max-level* (max ?*max-level* ?*t-whips-max-length*)))
+    (if ?*Whips* then (bind ?*max-level* (max ?*max-level* ?*whips-max-length*)))
+    (if ?*Braids* then (bind ?*max-level* (max ?*max-level* ?*braids-max-length*)))
+
+    (if ?*G-Bivalue-Chains* then (bind ?*max-level* (max ?*max-level* ?*g-bivalue-chains-max-length*)))
+    (if ?*G2-Whips* then (bind ?*max-level* (max ?*max-level* ?*g2whips-max-length*)))
+    (if ?*G-Whips* then (bind ?*max-level* (max ?*max-level* ?*gwhips-max-length*)))
+    (if ?*G2-Braids* then (bind ?*max-level* (max ?*max-level* ?*g2braids-max-length*)))
+    (if ?*G-Braids* then (bind ?*max-level* (max ?*max-level* ?*gbraids-max-length*)))
+    
+    (if ?*Typed-Bivalue-Chains* then (bind ?*max-level* (max ?*max-level* ?*typed-bivalue-chains-max-length*)))
+    (if ?*Typed-z-Chains* then (bind ?*max-level* (max ?*max-level* ?*typed-z-chains-max-length*)))
+    (if ?*Typed-t-Whips* then (bind ?*max-level* (max ?*max-level* ?*typed-t-whips-max-length*)))
+    (if ?*Typed-Whips* then (bind ?*max-level* (max ?*max-level* ?*typed-whips-max-length*)))
+    (if ?*Typed-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*typed-gwhips-max-length*)))
+    
+    
+    (if ?*OR2-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-forcing-whips-max-length*)))
+    (if ?*OR3-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-forcing-whips-max-length*)))
+    (if ?*OR4-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-forcing-whips-max-length*)))
+    (if ?*OR5-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-forcing-whips-max-length*)))
+    (if ?*OR6-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-forcing-whips-max-length*)))
+    (if ?*OR7-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-forcing-whips-max-length*)))
+    (if ?*OR8-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-forcing-whips-max-length*)))
+    
+    (if ?*OR2-Contrad-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-contrad-whips-max-length*)))
+    (if ?*OR3-Contrad-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-contrad-whips-max-length*)))
+    (if ?*OR4-Contrad-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-contrad-whips-max-length*)))
+    (if ?*OR5-Contrad-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-contrad-whips-max-length*)))
+    (if ?*OR5-Contrad-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-contrad-whips-max-length*)))
+    (if ?*OR7-Contrad-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-contrad-whips-max-length*)))
+    (if ?*OR8-Contrad-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-contrad-whips-max-length*)))
+    
+    (if ?*OR2-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-whips-max-length*)))
+    (if ?*OR3-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-whips-max-length*)))
+    (if ?*OR4-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-whips-max-length*)))
+    (if ?*OR5-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-whips-max-length*)))
+    (if ?*OR6-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-whips-max-length*)))
+    (if ?*OR7-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-whips-max-length*)))
+    (if ?*OR8-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-whips-max-length*)))
+    
+    (if (not ?*ORk-Forcing-Whips-before-ORk-Whips*) then
+        (if ?*OR2-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-forcing-whips-max-length*)))
+        (if ?*OR3-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-forcing-whips-max-length*)))
+        (if ?*OR4-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-forcing-whips-max-length*)))
+        (if ?*OR5-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-forcing-whips-max-length*)))
+        (if ?*OR6-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-forcing-whips-max-length*)))
+        (if ?*OR7-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-forcing-whips-max-length*)))
+        (if ?*OR8-Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-forcing-whips-max-length*)))
+    )
+    
+    
+    (if ?*OR2-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-forcing-gwhips-max-length*)))
+    (if ?*OR3-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-forcing-gwhips-max-length*)))
+    (if ?*OR4-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-forcing-gwhips-max-length*)))
+    (if ?*OR5-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-forcing-gwhips-max-length*)))
+    (if ?*OR6-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-forcing-gwhips-max-length*)))
+    (if ?*OR7-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-forcing-gwhips-max-length*)))
+    (if ?*OR8-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-forcing-gwhips-max-length*)))
+    
+    (if ?*OR2-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-contrad-gwhips-max-length*)))
+    (if ?*OR3-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-contrad-gwhips-max-length*)))
+    (if ?*OR4-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-contrad-gwhips-max-length*)))
+    (if ?*OR5-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-contrad-gwhips-max-length*)))
+    (if ?*OR5-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-contrad-gwhips-max-length*)))
+    (if ?*OR7-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-contrad-gwhips-max-length*)))
+    (if ?*OR8-Contrad-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-contrad-gwhips-max-length*)))
+    
+    (if ?*OR2-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-gwhips-max-length*)))
+    (if ?*OR3-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-gwhips-max-length*)))
+    (if ?*OR4-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-gwhips-max-length*)))
+    (if ?*OR5-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-gwhips-max-length*)))
+    (if ?*OR6-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-gwhips-max-length*)))
+    (if ?*OR7-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-gwhips-max-length*)))
+    (if ?*OR8-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-gwhips-max-length*)))
+    
+    (if (not ?*ORk-Forcing-Whips-before-ORk-Whips*) then
+        (if ?*OR2-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR2-forcing-gwhips-max-length*)))
+        (if ?*OR3-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR3-forcing-gwhips-max-length*)))
+        (if ?*OR4-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR4-forcing-gwhips-max-length*)))
+        (if ?*OR5-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR5-forcing-gwhips-max-length*)))
+        (if ?*OR6-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR6-forcing-gwhips-max-length*)))
+        (if ?*OR7-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR7-forcing-gwhips-max-length*)))
+        (if ?*OR8-Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*OR8-forcing-gwhips-max-length*)))
+    )
+    
+    
+    (if ?*Forcing-Whips* then (bind ?*max-level* (max ?*max-level* ?*forcing-whips-max-length*)))
+    (if ?*Forcing-G-Whips* then (bind ?*max-level* (max ?*max-level* ?*forcing-gwhips-max-length*)))
+    (if ?*Forcing-Braids* then (bind ?*max-level* (max ?*max-level* ?*forcing-braids-max-length*)))
+    (if ?*Forcing-G-Braids* then (bind ?*max-level* (max ?*max-level* ?*forcing-gbraids-max-length*)))
+
+    TRUE
+))
 
 
 
-(defglobal ?*Templates* = FALSE)
-(defglobal ?*templates-max-combinations* = 0)
 
-(defglobal ?*special-DFS* = FALSE) ;;; by default, there is no depth-first search
-(defglobal ?*DFS* = FALSE) ;;; by default, there is no depth-first search
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; 5.3) Compute the generic rating type and the rating type
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*rating-type* = "") ;;; the final value will be computed automatically in the application loader
-(defglobal ?*generic-rating-type* = "") ;;; this will be computed by the generic loader
-(defglobal ?*application-specific-rating-type* = "") ;;; this will be computed by the application loader
+(defglobal ?*generic-rating-type* = "") ;;; this will be computed by function define-generic-rating-type
+(defglobal ?*application-specific-rating-type* = "") ;;; this will be computed by the application
+(defglobal ?*rating-type* = "") ;;; the final value combining the previous two will be computed automatically
+
+;;; Notice that the generic rating doesn't take into account the application-specific rules
+
+(deffunction define-generic-rating-type ()
+    ;;; typed-chains
+    (bind ?typed-generic-rating-type "")
+    (if ?*Typed-Bivalue-Chains* then (bind ?typed-generic-rating-type "TyBC"))
+    (if ?*Typed-z-Chains* then (bind ?typed-generic-rating-type "TyZ"))
+    (if ?*Typed-t-Whips* then (bind ?typed-generic-rating-type "TytW"))
+    (if (and ?*Typed-z-Chains* ?*Typed-t-Whips*) then (bind ?typed-generic-rating-type "TyZ+TytW"))
+    (if ?*Typed-Whips* then (bind ?typed-generic-rating-type "TyW"))
+    (if ?*Typed-G-Whips* then (bind ?typed-generic-rating-type "TygW"))
+
+    ;;; Untyped-chain-rules with no g-labels
+    (bind ?*generic-rating-type* "")
+    (if ?*Whips[1]* then (bind ?*generic-rating-type* "W1"))
+    (if ?*Bivalue-Chains* then (bind ?*generic-rating-type* "BC"))
+    (if ?*z-Chains* then (bind ?*generic-rating-type* "Z"))
+    (if ?*t-Whips* then (bind ?*generic-rating-type* "tW"))
+    (if (and ?*z-Chains* ?*t-Whips*) then (bind ?*generic-rating-type* "Z+tW"))
+    (if ?*Whips* then (bind ?*generic-rating-type* "W"))
+    (if ?*Braids* then (bind ?*generic-rating-type* "B"))
+    ;;; not yet implemented:
+    (if ?*Quick-B-Rating* then (bind ?*generic-rating-type* "QB"))
+
+    ;;; Untyped-chain-rules with g-labels
+    (if ?*G-Bivalue-Chains* then
+        (bind ?*generic-rating-type* "gBC")
+        (if ?*z-Chains* then (bind ?*generic-rating-type* "Z+gBC"))
+        (if ?*t-Whips* then (bind ?*generic-rating-type* "tW+gBC"))
+        (if (and ?*z-Chains* ?*t-Whips*) then (bind ?*generic-rating-type* "Z+tW+gBC"))
+        (if ?*Whips* then (bind ?*generic-rating-type* "W+gBC"))
+        (if ?*Braids* then (bind ?*generic-rating-type* "B+gBC"))
+    )
+    ;;; remember that g2-Whips and g-Whips subsume bivalue-chains, z-chains and t-whips
+    (if ?*G2-Whips* then
+        (bind ?*generic-rating-type* "g2W")
+        (if ?*Braids* then (bind ?*generic-rating-type* "B+g2W"))
+    )
+    (if ?*G-Whips* then
+        (bind ?*generic-rating-type* "gW")
+        (if ?*Braids* then (bind ?*generic-rating-type* "B+gW"))
+    )
+    (if ?*G-Braids* then (bind ?*generic-rating-type* "gB"))
+    
+    ;;; exotic chains:
+    (if ?*Oddagons* then
+        (bind ?*generic-rating-type*
+            (if (eq ?*generic-rating-type* "") then "O" else (str-cat ?*generic-rating-type* "+O"))
+        )
+    )
+
+    ;;; Fuse the typed and untyped ratings:
+    (bind ?*generic-rating-type*
+        (if (eq ?typed-generic-rating-type "")
+            then ?*generic-rating-type*
+            else (str-cat ?typed-generic-rating-type "+" ?*generic-rating-type*)
+        )
+    )
+
+    ;;; Forcing
+    ;;; Note that Forcing Chains and ORk-Forcing chains are normally not intended to be used at the same time
+    (bind ?forcing-type "")
+    
+    ;;; Forcing chains
+    (if ?*Forcing-Whips* then (bind ?forcing-type "FW"))
+    (if ?*Forcing3-Whips* then (bind ?forcing-type "F3W"))
+    (if ?*Forcing4-Whips* then (bind ?forcing-type "F4W"))
+    (if ?*Forcing5-Whips* then (bind ?forcing-type "F5W"))
+    (if ?*Forcing-G-Whips* then (bind ?forcing-type "FgW"))
+    (if ?*Forcing-Braids* then (bind ?forcing-type "FB"))
+    (if (and ?*Forcing-G-Whips* ?*Forcing-Braids*) then (bind ?forcing-type "FgW+FB"))
+    (if ?*Forcing-G-Braids* then (bind ?forcing-type "FgB"))
+
+    
+    ;;; ORk-forcing-whips
+    (bind ?ORk-forcing-type "")
+    (if ?*OR2-Forcing-Whips* then (bind ?ORk-forcing-type "OR2FW"))
+    (if ?*OR3-Forcing-Whips* then (bind ?ORk-forcing-type "OR3FW"))
+    (if ?*OR4-Forcing-Whips* then (bind ?ORk-forcing-type "OR4FW"))
+    (if ?*OR5-Forcing-Whips* then (bind ?ORk-forcing-type "OR5FW"))
+    (if ?*OR6-Forcing-Whips* then (bind ?ORk-forcing-type "OR6FW"))
+    (if ?*OR7-Forcing-Whips* then (bind ?ORk-forcing-type "OR7FW"))
+    (if ?*OR8-Forcing-Whips* then (bind ?ORk-forcing-type "OR8FW"))
+    
+    ;;; ORk-forcing-gwhips
+    (if ?*OR2-Forcing-G-Whips* then (bind ?ORk-forcing-type "OR2FgW"))
+    (if ?*OR3-Forcing-G-Whips* then (bind ?ORk-forcing-type "OR3FgW"))
+    (if ?*OR4-Forcing-G-Whips* then (bind ?ORk-forcing-type "OR4FgW"))
+    (if ?*OR5-Forcing-G-Whips* then (bind ?ORk-forcing-type "OR5FgW"))
+    (if ?*OR6-Forcing-G-Whips* then (bind ?ORk-forcing-type "OR6FgW"))
+    (if ?*OR7-Forcing-G-Whips* then (bind ?ORk-forcing-type "OR7FgW"))
+    (if ?*OR8-Forcing-G-Whips* then (bind ?ORk-forcing-type "OR8FgW"))
+
+    (if (neq ?ORk-forcing-type "") then
+        (bind ?forcing-type (if (eq ?forcing-type "") then ?ORk-forcing-type else (str-cat ?forcing-type "+" ?ORk-forcing-type)))
+    )
+
+    ;;; ORk-contrad-whips
+    (bind ?ORk-contrad-type "")
+    (if ?*OR2-Contrad-Whips* then (bind ?ORk-contrad-type "OR2CW"))
+    (if ?*OR3-Contrad-Whips* then (bind ?ORk-contrad-type "OR3CW"))
+    (if ?*OR4-Contrad-Whips* then (bind ?ORk-contrad-type "OR4CW"))
+    (if ?*OR5-Contrad-Whips* then (bind ?ORk-contrad-type "OR5CW"))
+    (if ?*OR6-Contrad-Whips* then (bind ?ORk-contrad-type "OR6CW"))
+    (if ?*OR7-Contrad-Whips* then (bind ?ORk-contrad-type "OR7CW"))
+    (if ?*OR8-Contrad-Whips* then (bind ?ORk-contrad-type "OR8CW"))
+
+    ;;; ORk-whips
+    (bind ?ORk-whip-type "")
+    (if ?*OR2-Whips* then (bind ?ORk-whip-type "OR2W"))
+    (if ?*OR3-Whips* then (bind ?ORk-whip-type "OR3W"))
+    (if ?*OR4-Whips* then (bind ?ORk-whip-type "OR4W"))
+    (if ?*OR5-Whips* then (bind ?ORk-whip-type "OR5W"))
+    (if ?*OR6-Whips* then (bind ?ORk-whip-type "OR6W"))
+    (if ?*OR7-Whips* then (bind ?ORk-whip-type "OR7W"))
+    (if ?*OR8-Whips* then (bind ?ORk-whip-type "OR8W"))
+    
+
+    ;;; ORk-contrad-gwhips
+    (if ?*OR2-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR2CgW"))
+    (if ?*OR3-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR3CgW"))
+    (if ?*OR4-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR4CgW"))
+    (if ?*OR5-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR5CgW"))
+    (if ?*OR6-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR6CgW"))
+    (if ?*OR7-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR7CgW"))
+    (if ?*OR8-Contrad-G-Whips* then (bind ?ORk-contrad-type "OR8CgW"))
+
+    ;;; ORk-gwhips
+    (if ?*OR2-G-Whips* then (bind ?ORk-whip-type "OR2gW"))
+    (if ?*OR3-G-Whips* then (bind ?ORk-whip-type "OR3gW"))
+    (if ?*OR4-G-Whips* then (bind ?ORk-whip-type "OR4gW"))
+    (if ?*OR5-G-Whips* then (bind ?ORk-whip-type "OR5gW"))
+    (if ?*OR6-G-Whips* then (bind ?ORk-whip-type "OR6gW"))
+    (if ?*OR7-G-Whips* then (bind ?ORk-whip-type "OR7gW"))
+    (if ?*OR8-G-Whips* then (bind ?ORk-whip-type "OR8gW"))
+
+    
+    (if (neq ?ORk-whip-type "") then (bind ?ORk-contrad-type ?ORk-whip-type))
+    (if (neq ?ORk-contrad-type "") then
+        (bind ?forcing-type (if (eq ?forcing-type "") then ?ORk-contrad-type else (str-cat ?forcing-type "+" ?ORk-contrad-type)))
+    )
+
+    (if (neq ?forcing-type "") then (bind ?*generic-rating-type* (str-cat ?*generic-rating-type* "+" ?forcing-type)))
+
+    ;;; Add the relevant part for Bi-Whips, Bi-Braids, ...
+
+    ?*generic-rating-type*
+)
+
+
+;;; This function will be changed by any application with application-specific rules
+(deffunction define-application-specific-rating-type ()
+    (bind ?*application-specific-rating-type* "")
+)
+
+;;; Now that the generic and application-specific rating types  are defined, define the global rating type
+
+(deffunction define-rating-type ()
+    ;;; generic part
+    (define-generic-rating-type)
+    ;;; application-specific part
+    (define-application-specific-rating-type)
+    ;;; combine the two
+    (bind ?*rating-type*
+        (if (eq ?*application-specific-rating-type* "")
+            then ?*generic-rating-type*
+            else (if (eq ?*generic-rating-type* "")
+                    then ?*application-specific-rating-type*
+                    else (if (eq ?*generic-rating-type* "W1")
+                            then ?*application-specific-rating-type*
+                            else (str-cat ?*generic-rating-type* "+" ?*application-specific-rating-type*)
+                        )
+                )
+        )
+    )
+    (if (eq ?*rating-type* "") then (bind ?*rating-type* "BRT"))
+
+    ;;; deal with T&E
+    (if (and ?*TE1* (not ?*TE2*) (not ?*TE3*)) then
+        (if (eq ?*rating-type* "")
+            then (bind ?*rating-type* "T&E(1)")
+            else (bind ?*rating-type* (str-cat "T&E(" ?*rating-type* ", 1)"))
+        )
+    )
+    (if (and ?*TE2* (not ?*TE1*) (not ?*TE3*)) then
+        (if (eq ?*rating-type* "")
+            then (bind ?*rating-type* "T&E(2)")
+            else (bind ?*rating-type* (str-cat "T&E(" ?*rating-type* ", 2)"))
+        )
+    )
+    (if (and ?*TE3* (not ?*TE1*) (not ?*TE2*)) then
+        (if (eq ?*rating-type* "")
+            then (bind ?*rating-type* "T&E(3)")
+            else (bind ?*rating-type* (str-cat "T&E(" ?*rating-type* ", 3)"))
+        )
+    )
+    
+    
+    ;;; Should be used only to produce bi-T&E contradictions, with no other rule activated:
+    (if (and ?*simple-bi-TE* (not ?*TE1*) (not ?*TE2*) (not ?*TE3*)) then
+        (if (neq ?*rating-type* "BRT")
+            then (printout t "Config error for bi-T&E" crlf) (halt)
+            else (bind ?*rating-type* "Bi-T&E-contrads")
+        )
+    )
+    ;;; NEEDS TO BE UPDATED (not public):
+    (if (and ?*TE1* ?*simple-bi-TE* ?*Forcing-bi-TE* (not ?*TE2*) (not ?*TE3*)) then
+        (if (neq ?*rating-type* "in-B*B-test")
+            then (printout t "Config error for Forcing-bi-T&E" crlf) (halt)
+            else (bind ?*rating-type* "in-Forcing-B*-braids-test")
+        )
+    )
+    ;;; END TO BE UPDATED
+
+    ;;; deal with DFS
+    (if ?*DFS* then
+        (if (eq ?*rating-type* "")
+            then (bind ?*rating-type* "DFS")
+            else (bind ?*rating-type* (str-cat "DFS(" ?*rating-type* ")"))
+        )
+    )
+        
+    ?*rating-type*
+)
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -793,17 +1742,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction set-G-Labels ()
-    (if (or ?*G-Bivalue-Chains* ?*G-Whips* ?*G-Braids*
-            ?*Typed-G-Whips*
-            ?*Forcing-G-Whips* ?*Forcing-G-Braids*
-            ?*All-generic-chain-rules*
-            ?*OR2-Forcing-G-Whips* ?*OR2-Contrad-G-Whips* ?*OR2-G-Whips*
-        )
-        then (bind ?*G-Labels* TRUE)
-    )
-    TRUE
-)
+;;; To be redefined by any application if necessary:
 
 (deffunction check-application-specific-config-selection ()
     ;;; This function is only intended for being called within generic check-config-selection
@@ -812,11 +1751,17 @@
 )
 
 
-;;; May be redefined by any application if necessary
 (deffunction check-config-selection ()
-    (set-G-Labels)
-    (check-application-specific-config-selection)
+    (redefine-all-generic-chains-max-length)
+    (enforce-generic-rules-dependencies)
+    (if (check-application-specific-config-selection)
+        then (define-rating-type) TRUE
+        else FALSE
+    )
 )
+
+
+
 
 
 
@@ -3527,74 +4472,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; GLOBAL VARIABLES RELATED TO BI-WHIPS, BI-BRAIDS, BI-T&E, W*-WHIPS AND W*-BRAIDS
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; if w*-whips or b*-braids are activated,
-;;; one must first activate Bi-Whips or Bi-Braids or Bi-T&E,
-;;; unless all the bi-braid contradictions have been pre-computed
-(defglobal ?*Bi-Whips* = FALSE)
-(defglobal ?*Bi-Braids* = FALSE)
-(defglobal ?*pre-computed-all-bi-braid-contrads* = FALSE)
-
-;;; if bi-braids are used, bi-whips of minimum length up to 2 must be used
-(defglobal ?*biwhips-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*bibraids-max-length* = (min 20 ?*all-chains-max-length*))
-
-;;; When W*-Whips or B*-Braids are used, ?*ECP** is automatically set to True
-;;; but it can be used independently of W*-Whips or B*-Braids
-(defglobal ?*ECP** = FALSE)
-
-
-(defglobal ?*W*-Whips* = FALSE)
-(defglobal ?*w*-whips-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*B*-Braids* = FALSE)
-(defglobal ?*b*-braids-max-length* = (min 20 ?*all-chains-max-length*))
-
-
-(defglobal ?*simple-bi-TE* = FALSE)
-(defglobal ?*Bi-TE* = FALSE)
-(defglobal ?*print-Bi-TE-hypothesis* = TRUE) ; ; used only for bi-T&E; by default, Bi-T&E hypotheses are printed when Bi-T&E is on
-(defglobal ?*print-contradictions* = TRUE) ; used for bi-whip, bi-braid or bi-T&E contradictions
-;;; used for not testing again pairs that have already been shown incompatible
-(defglobal ?*excluded-pairs* = (create$))
-
-
-;;; ?*all-contrads* is used as the generic form for a list of binary contradictions,
-;;; whichever way it was obtained
-(defglobal ?*all-contrads* = (create$))
-
-;;; the following are used for specific lists of binary contradictions,
-;;; with the name reflecting how they were obtained
-;;; not used directly within CSP-Rules
-;;; but used for keeping track of calculation in specific examples
-(defglobal ?*all-bi-TE-contrads* = (create$))
-(defglobal ?*all-bi-TEW1-contrads* = (create$))
-(defglobal ?*all-bi-TEW2-contrads* = (create$))
-(defglobal ?*all-bi-TEW3-contrads* = (create$))
-(defglobal ?*all-bi-TEW4-contrads* = (create$))
-(defglobal ?*all-bi-TEW5-contrads* = (create$))
-(defglobal ?*all-bi-TEW6-contrads* = (create$))
-(defglobal ?*all-bi-TEW7-contrads* = (create$))
-(defglobal ?*all-bi-TEW8-contrads* = (create$))
-(defglobal ?*all-bi-TEW9-contrads* = (create$))
-(defglobal ?*all-bi-TEW10-contrads* = (create$))
-
-(defglobal ?*all-bi-TEB2-contrads* = (create$))
-(defglobal ?*all-bi-TEB3-contrads* = (create$))
-(defglobal ?*all-bi-TEB4-contrads* = (create$))
-(defglobal ?*all-bi-TEB5-contrads* = (create$))
-(defglobal ?*all-bi-TEB6-contrads* = (create$))
-(defglobal ?*all-bi-TEB7-contrads* = (create$))
-(defglobal ?*all-bi-TEB8-contrads* = (create$))
-(defglobal ?*all-bi-TEB9-contrads* = (create$))
-(defglobal ?*all-bi-TEB10-contrads* = (create$))
-
 
 
 (defglobal
@@ -3927,24 +4804,6 @@
     (bind ?*bibraid-contrads[36]-count* 0)
     (bind ?*all-bibraid-contrads-count* 0)
 )
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; let's keep this for later
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defglobal ?*Forcing-Bi-Whips* = FALSE)
-(defglobal ?*Forcing-Bi-Braids* = FALSE)
-(defglobal ?*Forcing-bi-TE* = FALSE)
-
-(defglobal ?*W-Whips* = FALSE)
-(defglobal ?*B-Braids* = FALSE)
-(defglobal ?*w-whips-max-length* = (min 20 ?*all-chains-max-length*))
-(defglobal ?*b-braids-max-length* = (min 20 ?*all-chains-max-length*))
 
 
 

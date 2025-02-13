@@ -32,25 +32,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;
-;;; SET THE DEPENDENCIES BETWEEN RULES
-;;;
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defglobal ?*dummy-variable-for-setting-specific-rules-dependencies* = (progn
-    (if ?*xtd-Loops* then (bind ?*Loops* TRUE))
-    TRUE
-))
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;
 ;;; LOAD SLITHERLINK-SPECIFIC FUNCTIONS AND RULES
 ;;;
 ;;;
@@ -307,34 +288,4 @@
     (load (str-cat ?*Application-Dir* "T&E+DFS" ?*Directory-symbol* "DFS.clp"))
 )
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; REDEFINE APPLICATION-SPECIFIC RATING-TYPE
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(deffunction define-application-specific-rating-type ()
-    (bind ?*application-specific-rating-type* "")
-    (if ?*non-W1-equiv-patterns* then (bind ?*application-specific-rating-type* "nW1eq"))
-    (if ?*Colours* then
-        (bind ?*application-specific-rating-type*
-            (if (eq ?*application-specific-rating-type* "")
-                then "Col"
-                else (str-cat ?*application-specific-rating-type* "+Col")
-            )
-        )
-    )
-    (if ?*Loops* then
-        (bind ?*application-specific-rating-type*
-            (if (eq ?*application-specific-rating-type* "")
-                then (if ?*xtd-Loops* then "xtd-Loop" else "Loop")
-                else (str-cat ?*application-specific-rating-type* (if ?*xtd-Loops* then "+xtd-Loop" else "+Loop"))
-            )
-        )
-    )
-    ?*application-specific-rating-type*
-)
 

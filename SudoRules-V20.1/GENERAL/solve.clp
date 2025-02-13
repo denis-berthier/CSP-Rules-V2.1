@@ -154,7 +154,6 @@
 
 ;;;;;;;; changed the order CSP-Variables and is-csp-variable predicates are asserted
 ;;; it allows rc, rn and cn variables to be considered before bn variables
-;;; and it reduces the (rare) problems in whips and g-whips due to the no-repeat conditions bearing only on $rlcs and not on $csps
 
 (deffunction init-csp-variables ()
     (foreach ?blk ?*blocks*

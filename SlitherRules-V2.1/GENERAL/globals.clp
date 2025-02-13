@@ -112,6 +112,46 @@
 (defglobal ?*loops-max-length* = 300)
 
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; DEFINE APPLICATION-SPECIFIC SELECTION and RATING-TYPE
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(deffunction check-application-specific-config-selection ()
+    (if ?*xtd-Loops* then (bind ?*Loops* TRUE))
+    TRUE
+)
+
+(deffunction define-application-specific-rating-type ()
+    (bind ?*application-specific-rating-type* "")
+    (if ?*non-W1-equiv-patterns* then (bind ?*application-specific-rating-type* "nW1eq"))
+    (if ?*Colours* then
+        (bind ?*application-specific-rating-type*
+            (if (eq ?*application-specific-rating-type* "")
+                then "Col"
+                else (str-cat ?*application-specific-rating-type* "+Col")
+            )
+        )
+    )
+    (if ?*Loops* then
+        (bind ?*application-specific-rating-type*
+            (if (eq ?*application-specific-rating-type* "")
+                then (if ?*xtd-Loops* then "xtd-Loop" else "Loop")
+                else (str-cat ?*application-specific-rating-type* (if ?*xtd-Loops* then "+xtd-Loop" else "+Loop"))
+            )
+        )
+    )
+    ?*application-specific-rating-type*
+)
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

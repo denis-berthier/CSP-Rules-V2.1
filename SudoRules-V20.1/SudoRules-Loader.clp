@@ -246,86 +246,6 @@
 )
 
 
-;;; eleven's 630 impossible patterns in two bands or two stacks:
-(defglobal ?*dummy-Imp630* = (progn
-    (if ?*Select-Imp630-list* then ;;; cancel any other selection
-        (bind ?*Imp630-Select4* FALSE)
-        (bind ?*Imp630-Select3* FALSE)
-        (bind ?*Imp630-Select2* FALSE)
-        (bind ?*Imp630-Select1* FALSE)
-        (bind ?*Imp630-all* FALSE)
-        (bind ?*EL13c290* FALSE)
-        (bind ?*EL14c30* FALSE)
-        (bind ?*EL14c159* FALSE)
-        (bind ?*EL14c1* FALSE)
-        (bind ?*EL14c13* FALSE)
-        (bind ?*EL10c28* FALSE)
-        (bind ?*EL13c179* FALSE)
-        (bind ?*EL13c30* FALSE)
-        (bind ?*EL13c171* FALSE)
-        (bind ?*EL13c234* FALSE)
-        (bind ?*EL13c176* FALSE)
-        (bind ?*EL10c6* FALSE)
-        (bind ?*EL13c259* FALSE)
-        (bind ?*EL10c8* FALSE)
-        (bind ?*EL13c172* FALSE)
-        (bind ?*EL14c19* FALSE)
-        (bind ?*EL10c4* FALSE)
-        (bind ?*EL13c175* FALSE)
-        (bind ?*EL13c136* FALSE)
-        (bind ?*EL15c97* FALSE)
-        (bind ?*EL13c187* FALSE)
-        (bind ?*EL14c93* FALSE)
-        (bind ?*EL12c2* FALSE)
-        (bind ?*EL14c154* FALSE)
-        (bind ?*EL13c19* FALSE)
-        (bind ?*EL13c170* FALSE)
-        (bind ?*EL13c168* FALSE)
-        (bind ?*EL10c10* FALSE)
-    )
-    (if ?*Imp630-Select4* then (bind ?*Imp630-Select3* TRUE))
-    (if ?*Imp630-Select3* then (bind ?*Imp630-Select2* TRUE))
-    (if ?*Imp630-Select2* then (bind ?*Imp630-Select1* TRUE))
-    
-    (if ?*Imp630-Select1* then
-        (bind ?*EL13c290* TRUE)
-        (bind ?*EL14c30* TRUE)
-        (bind ?*EL14c159* TRUE)
-        (bind ?*EL14c1* TRUE)
-        (bind ?*EL14c13* TRUE)
-    )
-    (if ?*Imp630-Select2* then
-        (bind ?*EL10c28* TRUE)
-        (bind ?*EL13c179* TRUE)
-        (bind ?*EL13c30* TRUE)
-        (bind ?*EL13c171* TRUE)
-        (bind ?*EL13c234* TRUE)
-        (bind ?*EL13c176* TRUE)
-        (bind ?*EL10c6* TRUE)
-    )
-    (if ?*Imp630-Select3* then
-        (bind ?*EL13c259* TRUE)
-        (bind ?*EL10c8* TRUE)
-        (bind ?*EL13c172* TRUE)
-        (bind ?*EL14c19* TRUE)
-        (bind ?*EL10c4* TRUE)
-    )
-    (if ?*Imp630-Select3* then
-        (bind ?*EL13c175* TRUE)
-        (bind ?*EL13c136* TRUE)
-        (bind ?*EL15c97* TRUE)
-        (bind ?*EL13c187* TRUE)
-        (bind ?*EL14c93* TRUE)
-        (bind ?*EL12c2* TRUE)
-        (bind ?*EL14c154* TRUE)
-        (bind ?*EL13c19* TRUE)
-        (bind ?*EL13c170* TRUE)
-        (bind ?*EL13c168* TRUE)
-        (bind ?*EL10c10* TRUE)
-    )
-    TRUE
-))
-
 
 ;;; Load selected lists of impossible patterns:
 ;;; ?*Imp630-Select1*
@@ -517,7 +437,7 @@
 
 ;;; load selected list
 
-(if (and ?*Select-Imp630-list* (check-Imp630-selection)) then
+(if ?*Select-Imp630-list* then ; validity has been checked before loading
     ;;; 10 cells
     (loop-for-count (?i 1 31)
         (if (member$ (sym-cat EL10c ?i) ?*Selected-Imp630-list*) then
@@ -611,86 +531,6 @@
 (load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "comparisons.clp"))
 
 
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; REDEFINE APPLICATION-SPECIFIC RATING-TYPE
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(deffunction define-application-specific-rating-type ()
-    (bind ?*application-specific-rating-type*
-        (if ?*FinnedFish*
-            then "SFin"
-            else (if ?*Subsets* then "S" else "")
-        )
-    )
-    
-    (if ?*Belt4* then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+sk") else "sk")
-        )
-    )
-
-    (if ?*J-Exocet* then
-        (bind ?*J2-Exocet* TRUE)
-        (bind ?*J3-Exocet* TRUE)
-        (bind ?*J4-Exocet* TRUE)
-        (bind ?*J5-Exocet* TRUE)
-    )
-    
-    (if ?*J-Exocet* then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "JE") else "JE")
-        )
-    )
-    
-    (if ?*Deadly-Patterns* then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "DP") else "DP")
-        )
-    )
-
-    (if (and ?*Tridagons* (not ?*Tridagon-Forcing-Whips*)) then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "Trid") else "Trid")
-        )
-    )
-    
-    (if ?*Tridagon-Forcing-Whips* then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "TridFW") else "TridFW")
-        )
-    )
-    (if (or ?*Imp630-all* (and ?*Imp630-10c* ?*Imp630-12c* ?*Imp630-13c* ?*Imp630-14c* ?*Imp630-15c* ?*Imp630-16c*)) then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "Imp630") else "Imp630")
-        )
-    )
-    (if (and (or ?*Imp630-10c* ?*Imp630-12c* ?*Imp630-13c* ?*Imp630-14c* ?*Imp630-15c* ?*Imp630-16c*)
-            (not (or ?*Imp630-all* (and ?*Imp630-10c* ?*Imp630-12c* ?*Imp630-13c* ?*Imp630-14c* ?*Imp630-15c* ?*Imp630-16c*)))
-            
-        ) then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "") then (str-cat ?*application-specific-rating-type* "+" "pImp630") else "pImp630")
-        )
-    )
-    (if ?*Templates* then
-        (bind ?*application-specific-rating-type*
-            (if (neq ?*application-specific-rating-type* "")
-                then (str-cat ?*application-specific-rating-type* "+" "Templates[" ?*templates-max-combinations* "]")
-                else (str-cat "Templates[" ?*templates-max-combinations* "]")
-            )
-        )
-    )
-
-    ?*application-specific-rating-type*
-)
 
 
 

@@ -53,7 +53,7 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.33-r944");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.33-r951");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used to run CSP-Rules
@@ -505,49 +505,49 @@
 
 
 ;;; 2.4.2) Use ORk-Forcing-Whips in combination with the selected ORk-relations:
-; (bind ?*OR2-Forcing-Whips* True)
-; (bind ?*OR3-Forcing-Whips* True)
-; (bind ?*OR4-Forcing-Whips* True)
-; (bind ?*OR5-Forcing-Whips* True)
-; (bind ?*OR6-Forcing-Whips* True)
+; (bind ?*OR2-Forcing-Whips* TRUE)
+; (bind ?*OR3-Forcing-Whips* TRUE)
+; (bind ?*OR4-Forcing-Whips* TRUE)
+; (bind ?*OR5-Forcing-Whips* TRUE)
+; (bind ?*OR6-Forcing-Whips* TRUE)
 
 ;;; 2.4.3) Use ORk-Contrad-Whips in combination with the selected ORk-relations:
-; (bind ?*OR2-Contrad-Whips* True)
-; (bind ?*OR3-Contrad-Whips* True)
-; (bind ?*OR4-Contrad-Whips* True)
-; (bind ?*OR5-Contrad-Whips* True)
-; (bind ?*OR6-Contrad-Whips* True)
+; (bind ?*OR2-Contrad-Whips* TRUE)
+; (bind ?*OR3-Contrad-Whips* TRUE)
+; (bind ?*OR4-Contrad-Whips* TRUE)
+; (bind ?*OR5-Contrad-Whips* TRUE)
+; (bind ?*OR6-Contrad-Whips* TRUE)
 
 ;;; 2.4.4) Use ORk-Whips in combination with the selected ORk-relations:
 ;;; (Remember that ORk-Whips[n] => ORk-Contrad-Whips[n])
-; (bind ?*OR2-Whips* True)
-; (bind ?*OR3-Whips* True)
-; (bind ?*OR4-Whips* True)
-; (bind ?*OR5-Whips* True)
-; (bind ?*OR6-Whips* True)
+; (bind ?*OR2-Whips* TRUE)
+; (bind ?*OR3-Whips* TRUE)
+; (bind ?*OR4-Whips* TRUE)
+; (bind ?*OR5-Whips* TRUE)
+; (bind ?*OR6-Whips* TRUE)
 
 
 ;;; 2.4.5) Use ORk-Forcing-G-Whips in combination with the selected ORk-relations:
-; (bind ?*OR2-Forcing-G-Whips* True)
-; (bind ?*OR3-Forcing-G-Whips* True)
-; (bind ?*OR4-Forcing-G-Whips* True)
-; (bind ?*OR5-Forcing-G-Whips* True)
-; (bind ?*OR6-Forcing-G-Whips* True)
+; (bind ?*OR2-Forcing-G-Whips* TRUE)
+; (bind ?*OR3-Forcing-G-Whips* TRUE)
+; (bind ?*OR4-Forcing-G-Whips* TRUE)
+; (bind ?*OR5-Forcing-G-Whips* TRUE)
+; (bind ?*OR6-Forcing-G-Whips* TRUE)
 
 ;;; 2.4.6) Use ORk-Contrad-G-Whips in combination with the selected ORk-relations:
-; (bind ?*OR2-Contrad-G-Whips* True)
-; (bind ?*OR3-Contrad-G-Whips* True)
-; (bind ?*OR4-Contrad-G-Whips* True)
-; (bind ?*OR5-Contrad-G-Whips* True)
-; (bind ?*OR6-Contrad-G-Whips* True)
+; (bind ?*OR2-Contrad-G-Whips* TRUE)
+; (bind ?*OR3-Contrad-G-Whips* TRUE)
+; (bind ?*OR4-Contrad-G-Whips* TRUE)
+; (bind ?*OR5-Contrad-G-Whips* TRUE)
+; (bind ?*OR6-Contrad-G-Whips* TRUE)
 
 
 ;;; 2.4.7) Use ORk-G-Whips in combination with the selected ORk-relations:
-; (bind ?*OR2-G-Whips* True)
-; (bind ?*OR3-G-Whips* True)
-; (bind ?*OR4-G-Whips* True)
-; (bind ?*OR5-G-Whips* True)
-; (bind ?*OR6-G-Whips* True)
+; (bind ?*OR2-G-Whips* TRUE)
+; (bind ?*OR3-G-Whips* TRUE)
+; (bind ?*OR4-G-Whips* TRUE)
+; (bind ?*OR5-G-Whips* TRUE)
+; (bind ?*OR6-G-Whips* TRUE)
 
 
 

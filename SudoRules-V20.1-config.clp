@@ -53,7 +53,7 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.33-r951");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.33-r952");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used to run CSP-Rules
@@ -632,11 +632,18 @@
 ;;; Activate Deadly Patterns:
 ; (bind ?*Deadly-Patterns* TRUE)
 
-;;; change the max-value of the number of cells in the deadly patterns (between 4 and 12, default is 9):
+;;; Change the max-value of the number of cells in the deadly patterns (between 4 and 12, default is 9):
 ;;; (beware that large values can lead to memory overflow)
 ; (bind ?*max-deadly-cells* 9)
-;;; change the max-value of the number of guardians (default value is 8)
+;;; Change the max-value of the number of guardians (default value is 8)
 ; (bind ?*max-deadly-guardians* 6)
+;;; Raise the priority of deadly patterns so that they're applied
+;;; - either just before Singles,
+;;; - or just after Singles;
+;;; beware that this may produce lots of deadly patterns.
+; (bind ?*deadly-patterns-before-singles* TRUE)
+; (bind ?*deadly-patterns-after-singles* TRUE)
+
 
 ;;; Use your own selection of deadly patterns in two bands or two stacks
 ;;; Usually, you'll want to do this after running a larger selection
@@ -647,7 +654,6 @@
 ; (bind ?*Select-DP-list* TRUE)
 ;;; Then select DPs by their number of clues and names,  as in:
 ; (bind ?*Selected-DP-list* = (create$ 4c/DP4-2-1 6c/DP6-2-3 6c/DP6-2-4))
-
 
 
 

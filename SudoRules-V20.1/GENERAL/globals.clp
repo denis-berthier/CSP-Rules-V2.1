@@ -156,6 +156,8 @@
 (defglobal ?*Deadly-Patterns* = FALSE)
 (defglobal ?*max-deadly-cells* = 9)
 (defglobal ?*max-deadly-guardians* = 8)
+(defglobal ?*deadly-patterns-before-singles* = FALSE)
+(defglobal ?*deadly-patterns-after-singles* = FALSE)
 
 (defglobal ?*Select-DP-list* = FALSE)
 (defglobal ?*Selected-DP-list* = (create$))

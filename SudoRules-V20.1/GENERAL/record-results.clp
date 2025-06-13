@@ -340,6 +340,7 @@
 	(while (< ?i (+ ?p ?n 1))
         (printout t "Solving puzzle #" ?i crlf)
 		(solve-grid-from-text-file "puzles-file-symb" ?i)
+        (add-i-to-lists-for-files ?i)
 		(printout "levels-file-symb" ?*technique* crlf)
 		(printout "times-file-symb" ?*total-instance-time* crlf)
         (printout "nb-facts-file-symb" ?*nb-facts* crlf)
@@ -403,6 +404,7 @@
     (while (< ?i (+ ?p ?n 1))
         (printout t "Solving puzzle #" ?i crlf)
         (solve-grid-from-text-file "puzles-file-symb" ?i)
+        (add-i-to-lists-for-files ?i)
         (printout "levels-file-symb" ?*main-level* crlf)
         (bind ?*all-ORk-relations-used-in-list* (create$ ?*all-ORk-relations-used-in-list* ?*ORk-relations-used*))
         (if ?*solution-found* then
@@ -448,6 +450,7 @@
     (while (< ?i (+ ?p ?n 1))
         (printout t "Solving puzzle #" ?i crlf)
         (solve-grid-from-text-file "puzles-file-symb" ?i)
+        (add-i-to-lists-for-files ?i)
         (printout "solns-file-symb" (compute-solution-string) crlf)
         
         (bind ?*all-ORk-relations-used-in-list* (create$ ?*all-ORk-relations-used-in-list* ?*ORk-relations-used*))

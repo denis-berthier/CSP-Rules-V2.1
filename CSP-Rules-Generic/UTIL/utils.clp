@@ -72,6 +72,13 @@
 )
 
 
+(deffunction string= (?a ?b)
+    ;;; applies to strings and to symbols
+    ;;; "abc" is considered as the same as abc
+    (eq (str-compare ?a ?b) 0)
+)
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -127,6 +134,7 @@
 (deffunction set-union (?l1 ?l2)
     ;;; Sets are represented as lists
     ;;; No check is made for non repetition of elements in the given lists
+    ;;; The order of elements is guaranteed, with the new ones in ?list2 added after those in ?list1
     (bind ?union ?l1)
     (foreach ?x ?l2
         (if (not (member$ ?x ?l1)) then (bind ?union (create$ ?union ?x)))
@@ -138,6 +146,7 @@
 (deffunction set-intersection (?l1 ?l2)
     ;;; Sets are represented as lists
     ;;; No check is made for non repetition of elements in the given lists
+    ;;; The order of elements is guaranteed, with those not in ?list2 deleted from ?list1
     (bind ?diff (create$))
     (foreach ?x ?l1
         (if (member$ ?x ?l2) then (bind ?diff (create$ ?diff ?x)))
@@ -150,6 +159,7 @@
     ;;; Sets are represented as lists
     ;;; No check is made for non repetition of elements in the given lists
     ;;; ?l1 minus ?l2
+    ;;; The order of elements is guaranteed, with those in ?list2 deleted from ?list1
     (bind ?diff (create$))
     (foreach ?x ?l1
         (if (not (member$ ?x ?l2)) then (bind ?diff (create$ ?diff ?x)))
@@ -159,6 +169,7 @@
 
 
 (deffunction list-to-non-redundant-list ($?list)
+    ;;; The order of first apparition of elements is guaranteed, with duplicates removed
     (bind ?nodup-list (create$))
     (foreach ?x ?list
         (if (not (member$ ?x ?nodup-list)) then (bind ?nodup-list (create$ ?nodup-list ?x)))

@@ -30,6 +30,122 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
+;;; Basic stats: mean and stan drad deviation
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction file-mean-and-sd (?X-file)
+    (open ?X-file "X-file" "r")
+    (bind ?i 0)
+    (bind ?S 0)
+    (bind ?S2 0)
+    (while TRUE
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (if (eq (eval ?xline) EOF)
+            then
+                (close "X-file")
+                (return (create$ (/ ?S ?i) (sqrt (- (/ ?S2 ?i) (** (/ ?S ?i) 2)))))
+            else
+                (bind ?xi (eval ?xline))
+                (bind ?S (+ ?S ?xi))
+                (bind ?S2 (+ ?S2 (* ?xi ?xi)))
+        )
+        
+    )
+    (close "X-file")
+)
+
+
+(deffunction file-nonZ0-mean-and-sd (?X-file ?Z-file)
+    (open ?X-file "X-file" "r")
+    (open ?Z-file "Z-file" "r")
+    (bind ?i 0)
+    (bind ?S 0)
+    (bind ?S2 0)
+    (bind ?nb 0)
+    (while TRUE
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (bind ?zline (readline "Z-file"))
+        (if (eq (eval ?xline) EOF)
+            then
+                (close "Z-file")
+                (close "X-file")
+                (return (create$ (/ ?S ?nb) (sqrt (- (/ ?S2 ?nb) (** (/ ?S ?nb) 2)))))
+            else
+                (bind ?xi (eval ?xline))
+                (bind ?zi (eval ?zline))
+                (if (neq ?zi 0) then
+                    (bind ?nb (+ ?nb 1))
+                    (bind ?S (+ ?S ?xi))
+                    (bind ?S2 (+ ?S2 (* ?xi ?xi)))
+                )
+        )
+        
+    )
+    (close "Z-file")
+    (close "X-file")
+)
+
+
+
+
+(deffunction file-mean-sd-kurtosis (?X-file)
+    (bind ?l (file-mean-and-sd ?X-file))
+    (bind ?E (nth$ 1 ?l))
+    (bind ?Sigma (nth$ 2 ?l))
+    (bind ?V (** ?Sigma 2))
+    (open ?X-file "X-file" "r")
+    (bind ?i 0)
+    (bind ?S4 0)
+    (while TRUE
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (if (eq (eval ?xline) EOF)
+            then
+                (close "X-file")
+                (return (create$ ?E ?Sigma (- (/ ?S4 (* ?i (** ?V 2))) 3)))
+            else
+                (bind ?xi (eval ?xline))
+                (bind ?S4 (+ ?S4 (** (- ?xi ?E) 4)))
+        )
+    )
+    (close "X-file")
+)
+
+
+(deffunction file-mean-sd-skewness-kurtosis (?X-file)
+    (bind ?l (file-mean-and-sd ?X-file))
+    (bind ?E (nth$ 1 ?l))
+    (bind ?Sigma (nth$ 2 ?l))
+    (bind ?V (** ?Sigma 2))
+    (open ?X-file "X-file" "r")
+    (bind ?i 0)
+    (bind ?S3 0)
+    (bind ?S4 0)
+    (while TRUE
+        (bind ?i (+ ?i 1))
+        (bind ?xline (readline "X-file"))
+        (if (eq (eval ?xline) EOF)
+            then
+                (close "X-file")
+                (return (create$ ?E ?Sigma (/ ?S3 (* ?i (** ?Sigma 3))) (- (/ ?S4 (* ?i (** ?V 2))) 3)))
+            else
+                (bind ?xi (eval ?xline))
+                (bind ?S3 (+ ?S3 (** (- ?xi ?E) 3)))
+                (bind ?S4 (+ ?S4 (** (- ?xi ?E) 4)))
+        )
+        
+    )
+    (close "X-file")
+)
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; General functions for computing Pearson's linear correlation coefficient
 ;;; between two integer or real random variables X and Y (or some function of Y)
 ;;; written as sequences of values in two text files for a series of instances (one value per line).

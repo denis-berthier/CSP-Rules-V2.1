@@ -79,14 +79,44 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
 ;;; MODULES
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (load (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "modules.clp"))
 (load (str-cat ?*Application-Dir* "MODULES" ?*Directory-symbol* "solve-w-preferences.clp"))
+
+
+
+;;; STATISTICS
+;;; most of this could be extended to the general CSP
+
+(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "stats.clp"))
+(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "unbiased-stats.clp"))
+(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "comparisons.clp"))
+
+
+
+;;; EXPANSIONS
+
+(if ?*Expansions* then
+    (load (str-cat ?*Application-Dir* "EXPANSION/sample-defs.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/Unix-commands.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/external-programs.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/sample-preparations.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/compare-puzzles.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/sample-functions.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/sample-stats.clp"))
+    
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE3-expansion-globals.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE2-expansion-globals.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE1-expansion-globals.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE3-expansion-scripts.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE2-expansion-scripts.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE1-expansion-scripts.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE3-expansion-paths.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE2-expansion-paths.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE1-expansion-paths.clp"))
+)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -514,23 +544,3 @@
 (if (and ?*Templates* (<= 7 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[7].clp")))
 (if (and ?*Templates* (<= 8 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[8].clp")))
 (if (and ?*Templates* (<= 9 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[9].clp")))
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; STATISTICS
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; most of this could be extended to the general CSP
-
-(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "stats.clp"))
-(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "unbiased-stats.clp"))
-(load (str-cat ?*Application-Dir* "STATS" ?*Directory-symbol* "comparisons.clp"))
-
-
-
-
-

@@ -12,6 +12,18 @@
 
 
 
+#### 2025 Feb 01 (CSP-Rules):
+* Publication of the second editiopn of the "User Manual and Research Notebooks for CSP-Rules".
+
+#### 2025 Jan 27 (SudoRules):
+* Add possibility to select upto 408 deadly patterns.
+
+#### 2024 Dec 09 (SudoRules):
+* Add possibility to allow automatic application of eleven replacement technique in a tridagon block.
+
+#### 2024 Nov 09 (SudoRules):
+* Add possibilities more selecting impossible patterns.
+
 #### 2024 Oct 26 (SudoRules):
 * Add (extended) resolution rules seeing templates as patterns, usable as and combinable with any other resolution rules; templates have the lowest priorities.
 

@@ -110,6 +110,31 @@
 )
 
 
+(deffunction record-nb-clues-and-cands-at-start (?puzzles-file ?file-length ?nb-clues-file ?nb-cands-file)
+    ;;; Computes the number of candidates just after initialisation for all the puzzles in the file
+    (close "puzzles-file")
+    (close "nb-clues-file")
+    (close "nb-cands-file")
+    (open ?puzzles-file "puzzles-file" "r")
+    (open ?nb-clues-file "nb-clues-file" "w")
+    (open ?nb-cands-file "nb-cands-file" "w")
+
+    (mute-print-options)
+    (bind ?i 0)
+    (while (< ?i ?file-length)
+        (bind ?i (+ ?i 1))
+        (bind ?puzzles-line (readline "puzzles-file"))
+        (printout "nb-clues-file" (compute-nb-clues ?puzzles-line) crlf)
+        (init ?puzzles-line)
+        (printout "nb-cands-file" ?*nb-candidates* crlf)
+    )
+    (restore-print-options)
+    (close "nb-cands-file")
+    (close "nb-clues-file")
+    (close "puzzles-file")
+)
+
+
 
 (deffunction record-nb-cands-after-T (?puzzles-file ?file-length ?nb-cands-file)
     ;;; Computes the number of candidates remaining after the current set of rules T has been applied.
@@ -662,83 +687,6 @@
     (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
 )
 
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; Function for recording the 1-expansions of puzzles
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(deffunction sudoku-strings-minus (?string2 ?string1)
-    ;;; Only for 9x9 puzzles
-    ;;; ?string1 and ?string2 are supposed to be Sudoku-strings, with ?string2 an expansion of ?string1
-    ;;; They are supposed to have the same "." or "0" for no clue.
-    ;;; Typically, ?string2 will be a solution of ?string1
-    (bind ?minus "")
-    (loop-for-count (?i 1 81)
-        (bind ?nth1 (sub-string ?i ?i ?string1))
-        (bind ?nth2 (sub-string ?i ?i ?string2))
-        (if (eq ?nth1 ?nth2)
-            then (bind ?minus (str-cat ?minus "."))
-            else (bind ?minus (str-cat ?minus ?nth2))
-        )
-    )
-    ?minus
-)
-
-
-(deffunction record-1-expand-puzzles-n-grids-after-first-p-from-text-file (?puzzles-file ?solns-file ?p ?n ?expands-file)
-    (if ?*print-actions* then (print-banner))
-    (init-lists-for-files)
-    (bind ?*total-time* 0)
-    (bind ?*max-time* 0)
-    (bind ?*total-outer-time* (time))
-    (close "puzzles-file-symb")
-    (close "solns-file-symb")
-    (close "expands-file-symb")
-    (open ?puzzles-file "puzzles-file-symb" "r")
-    (open ?solns-file "solns-file-symb" "r")
-    (open ?expands-file "expands-file-symb" "w")
-    (bind ?i 0)
-    (while (< ?i ?p) (bind ?i (+ ?i 1)) (readline "puzzles-file-symb") (readline "solns-file-symb"))
-    (bind ?i ?p )
-    (while (< ?i (+ ?p ?n))
-        (bind ?i (+ ?i 1))
-        (printout t "expand puzzle # " ?i crlf)
-        (bind ?puzzle (readline "puzzles-file-symb"))
-        (bind ?soln (readline "solns-file-symb"))
-        (bind ?poss-add-clues (sudoku-strings-minus ?soln ?puzzle))
-        (loop-for-count (?j 1 81)
-            (bind ?exp-puzzle ?puzzle)
-            (bind ?jth-add (sub-string ?j ?j ?poss-add-clues))
-            (if (neq ?jth-add ".") then
-                (printout "expands-file-symb"
-                    (str-cat (sub-string 1 (- ?j 1) ?puzzle)
-                        ?jth-add
-                        (sub-string (+ ?j 1) 81 ?puzzle)
-                    )
-                    " orig#" ; added
-                    ?i ; added
-                    crlf
-                )
-            )
-        )
-    )
-    (close "expands-file-symb")
-    (close "solns-file-symb")
-    (close "puzzles-file-symb")
-    ;;; cancel the simulated eliminations:
-    (bind ?*simulated-eliminations* (create$))
-    (bind ?*total-outer-time* (- (time) ?*total-outer-time*))
-    (printout t ";;; computer = " ?*Computer-description* crlf)
-    (printout t ";;; TOTAL OUTER TIME = " (seconds-to-hours ?*total-outer-time*) crlf)
-    (printout t ";;; TOTAL RESOLUTION TIME = " (seconds-to-hours ?*total-time*) crlf)
-    (printout t ";;; MAX TIME = " (seconds-to-hours ?*max-time*) crlf)
-)
 
 
 

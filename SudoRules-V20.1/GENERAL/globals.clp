@@ -284,17 +284,20 @@
 
 ;;; Tridagons:
 (defglobal ?*Tridagons* = FALSE)
-(defglobal ?*Tridagon-Forcing-Whips* = FALSE)
-(defglobal ?*tridagon-forcing-whips-max-length* = 36)
 (defglobal ?*Anti-Tridagons* = FALSE)
 (defglobal ?*Anti-Tridagons* = FALSE)
 (defglobal ?*Degen-Cyclic-Anti-Tridagons* = FALSE)
-(defglobal ?*Eleven-Replacement-in-Tridagon-block* = FALSE)
-(defglobal ?*Eleven-Replacement-in-Degen-Cyclic-Tridagon-block* = FALSE)
+(defglobal ?*Decided-Tridagons* = FALSE)
 
 ;;; This is now set to TRUE by default in order to allow the early detection of Tridagons and anti-tridagons;
 ;;; it can be changed in the configuration file:
 (defglobal ?*use-high-Tridagon-salience* = TRUE)
+
+(defglobal ?*Tridagon-Forcing-Whips* = FALSE)
+(defglobal ?*tridagon-forcing-whips-max-length* = 36)
+
+(defglobal ?*Eleven-Replacement-in-Tridagon-block* = FALSE)
+(defglobal ?*Eleven-Replacement-in-Degen-Cyclic-Tridagon-block* = FALSE)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -852,6 +855,7 @@
     ;;; the following three variables don't put any restriction on the number of guardians
     ?*has-tridagon* = FALSE
     ?*has-degenerate-cyclic-tridagon* = FALSE
+    ?*has-decided-tridagon* = FALSE
     ?*has-Imp630* = FALSE
     ?*has-deadly-pattern* = FALSE
 )
@@ -862,6 +866,7 @@
     ?*J-exocet-list* = (create$)
     ?*tridagon-list* = (create$)
     ?*degenerate-cyclic-tridagon-list* = (create$)
+    ?*decided-tridagon-list* = (create$)
     ?*Imp630-list* = (create$)
     ?*deadly-pattern-list* = (create$)
     ?*eleven-tried-blocks* = (create$)
@@ -874,6 +879,7 @@
     (bind ?*has-J-exocet* FALSE)
     (bind ?*has-tridagon* FALSE)
     (bind ?*has-degenerate-cyclic-tridagon* FALSE)
+    (bind ?*has-decided-tridagon* FALSE)
     (bind ?*has-Imp630* FALSE)
     (bind ?*has-deadly-pattern* FALSE)
     (bind ?*eleven-tried-blocks* (create$))
@@ -885,6 +891,7 @@
     (bind ?*J-exocet-list* (create$))
     (bind ?*tridagon-list* (create$))
     (bind ?*degenerate-cyclic-tridagon-list* (create$))
+    (bind ?*decided-tridagon-list* (create$))
     (bind ?*Imp630-list* (create$))
     (bind ?*deadly-pattern-list* (create$))
 )
@@ -898,6 +905,7 @@
     ;;; 2024 May 17, changed to
     (if (or ?*has-tridagon* ?*has-degenerate-cyclic-tridagon*) then
         (bind ?*degenerate-cyclic-tridagon-list* (create$ ?*degenerate-cyclic-tridagon-list* ?i)))
+    (if ?*has-decided-tridagon* then (bind ?*decided-tridagon-list* (create$ ?*decided-tridagon-list* ?i)))
     (if ?*has-Imp630* then (bind ?*Imp630-list* (create$ ?*Imp630-list* ?i)))
     (if ?*has-Imp630* then (bind ?*Imp630-list* (create$ ?*Imp630-list* ?i)))
     (if ?*has-deadly-pattern* then (bind ?*deadly-pattern-list* (create$ ?*deadly-pattern-list* ?i)))
@@ -921,10 +929,13 @@
 
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; VARIABLES USED FOR ACCESSING VARIOUS COMPANION REPOSITORIES
 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defglobal ?*CBGC* = (str-cat ?*CSP-Rules* "CBGC" ?*Directory-symbol*))

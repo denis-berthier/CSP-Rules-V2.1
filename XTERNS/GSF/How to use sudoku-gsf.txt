@@ -1,0 +1,36 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Source code here:
+
+/Users/berthier/Documents/Projets/Sudoku_Software/Other-Solvers/gsf solver/gsf
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Compile gsf:
+cd src/cmd/sudoku
+gcc sudzlib.c sudata.c subcanon.c sudoku.c -o ../../../sudoku-gsf.exe
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+generate 100 minimal puzzles with the pattern in "pattern.txt" :
+
+./sudoku-gsf.exe -n100 -gt -euniq'()*(1==minimal)' < pattern.txt > puzzles.txt
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+solve a puzzle
+sudoku -qFN inputfile [> outputfile]
+The number after 'M' in each line is the backdoor size.
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+output the backdoor size alone:
+-qFN -f'%v %#bM'
+If you want it in another format, you can add printing characters:
+-qFN -f'%v backdoor size:%#bM'
+[Added:] You maybe don't need the puzzle: -qFN -f'%#bM'
+
+
+

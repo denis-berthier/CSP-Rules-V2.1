@@ -934,6 +934,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; VARIABLES USED FOR ACCESSING VARIOUS COMPANION REPOSITORIES
+;;; AND EXTERNAL PROGRAMS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -959,6 +960,9 @@
 (defglobal ?*TEMP* = (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
 (defglobal ?*DP* = (str-cat ?*SUDCL* "Deadly-Patterns" ?*Directory-symbol*))
 
+(defglobal ?*GSF-DIR* = (str-cat ?*XTERNS* "GSF" ?*Directory-symbol*))
+
+
 
 (deffunction relocate-companion-folders ()
     (bind ?*cbg-000* (str-cat ?*CBGC* "SMALL-CB-COLLECTIONS/000/"))
@@ -978,5 +982,8 @@
     
     (bind ?*TEMP* (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
     (bind ?*DP* (str-cat ?*SUDCL* "Deadly-Patterns" ?*Directory-symbol*))
+    
+    ;;; external programs
+    (bind ?*GSF-DIR* (str-cat ?*XTERNS* "GSF" ?*Directory-symbol*))
     TRUE
 )

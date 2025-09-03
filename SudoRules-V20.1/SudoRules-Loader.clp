@@ -101,21 +101,37 @@
     (load (str-cat ?*Application-Dir* "EXPANSION/sample-defs.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/Unix-commands.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/external-programs.clp"))
-    (load (str-cat ?*Application-Dir* "EXPANSION/sample-preparations.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/sample-file-utils.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/compare-puzzles.clp"))
+    
+    (load (str-cat ?*Application-Dir* "EXPANSION/sample-creation.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/sample-functions.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/sample-stats.clp"))
     
     (load (str-cat ?*Application-Dir* "EXPANSION/TE3-expansion-globals.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/TE2-expansion-globals.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/TE1-expansion-globals.clp"))
+    
     (load (str-cat ?*Application-Dir* "EXPANSION/TE3-expansion-scripts.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/TE2-expansion-scripts.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/TE1-expansion-scripts.clp"))
+    
     (load (str-cat ?*Application-Dir* "EXPANSION/TE3-expansion-paths.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/TE2-expansion-paths.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/TE1-expansion-paths.clp"))
+    
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE3-distances.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE2-distances.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE1-distances.clp"))
+    
+    (load (str-cat ?*Application-Dir* "EXPANSION/TEd-to-high-B-scripts.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TEd-to-high-BxB-scripts.clp"))
+    
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE3exp-p1-expands.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE2exp-p1-expands.clp"))
 )
+
+
 
 
 
@@ -164,6 +180,8 @@
 
 
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; SUBSETS
@@ -206,6 +224,8 @@
 (if (or ?*FinnedFish* ?*FinnedFish[4]*) then
     (load (str-cat ?*Application-Dir* "SUBSETS" ?*Directory-symbol* "FSH4-finned-jellyfish.clp"))
 )
+
+
 
 
 
@@ -509,6 +529,7 @@
 
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; BACKDOORS, ANTI-BACKDOORS AND ANTI-BACKDOOR PAIRS
@@ -529,6 +550,9 @@
 )
 
 
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; TEMPLATES
@@ -544,3 +568,7 @@
 (if (and ?*Templates* (<= 7 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[7].clp")))
 (if (and ?*Templates* (<= 8 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[8].clp")))
 (if (and ?*Templates* (<= 9 ?*templates-max-combinations*)) then (load (str-cat ?*Application-Dir* "TEMPLATES" ?*Directory-symbol* "Templates[9].clp")))
+
+
+
+

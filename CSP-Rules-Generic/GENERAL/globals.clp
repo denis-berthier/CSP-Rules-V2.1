@@ -59,6 +59,9 @@
 ;;; Access to companion repository of examples
 (defglobal ?*CSP-EX* = (str-cat ?*CSP-Rules* "CSP-Rules-Examples" ?*Directory-symbol*))
 
+;;; Access to external programs
+(defglobal ?*XTERNS* = (str-cat ?*CSP-Rules* "XTERNS" ?*Directory-symbol*))
+
 
 
 

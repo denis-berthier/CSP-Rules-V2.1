@@ -183,7 +183,7 @@
 
 
 (deffunction print-partial-g2-chain (?type ?len ?zzz ?llcs ?rlcsa ?rlcsb ?csp-vars)
-    (bind ?n (length$ llcs))
+    (bind ?n (length$ ?llcs))
     (printout t ?type "[" ?len "]: ")
     (bind ?k 1)
     (while (< ?k ?len)

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Specification-Title: "Sudoku Explainer with serate entry point" 
+Created-By: 1.5.0_12 (Sun Microsystems Inc.)
+Main-Class: diuf.sudoku.gui.SudokuExplainer
+Implementation-Title: "formatted rate entry point" 
+Specification-Vendor: "Nicolas Juillerat"
+Specification-Version: "1.2.1"
+Implementation-Version: "1.2.1.2"
+Name: SudokuExplainer+serate
+Implementation-Vendor: "Nicolas Juillerat"
+

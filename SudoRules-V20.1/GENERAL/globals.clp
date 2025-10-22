@@ -170,7 +170,7 @@
     ?*deadly-patterns-rules-list-4*
     "6c/DP6-3-1" "6c/DP6-3-2" "6c/DP6-2-3" "6c/DP6-2-4"
 ))
-(defglobal ?*deadly-patterns-rules-list-7* = ?*deadly-patterns-rules-list-6*))
+(defglobal ?*deadly-patterns-rules-list-7* = ?*deadly-patterns-rules-list-6*)
 (defglobal ?*deadly-patterns-rules-list-8* = (create$
     ?*deadly-patterns-rules-list-7*
     "8c/DP8-4-1" "8c/DP8-4-2" "8c/DP8-4-3" "8c/DP8-3-4" "8c/DP8-3-5"
@@ -190,8 +190,7 @@
     "10c/DP10-4-26" "10c/DP10-3-27" "10c/DP10-3-28" "10c/DP10-4-29" "10c/DP10-2-30"
     "10c/DP10-3-31" "10c/DP10-3-32" "10c/DP10-3-33" "10c/DP10-2-34" "10c/DP10-3-35"
     "10c/DP10-2-36" "10c/DP10-3-37" "10c/DP10-3-38" "10c/DP10-4-39" "10c/DP10-3-40"
-    "10c/DP10-2-41" "10c/DP10-2-42" "10c/DP10-3-43")
-
+    "10c/DP10-2-41" "10c/DP10-2-42" "10c/DP10-3-43"
 ))
 (defglobal ?*deadly-patterns-rules-list-11* = (create$
     ?*deadly-patterns-rules-list-10*
@@ -201,8 +200,7 @@
     "11c/DP11-3-16" "11c/DP11-4-17" "11c/DP11-3-18" "11c/DP11-4-19" "11c/DP11-3-20"
     "11c/DP11-4-21" "11c/DP11-4-22" "11c/DP11-4-23" "11c/DP11-3-24" "11c/DP11-4-25"
     "11c/DP11-3-26" "11c/DP11-3-27" "11c/DP11-3-28" "11c/DP11-4-29" "11c/DP11-3-30"
-    "11c/DP11-3-31" "11c/DP11-3-32")
-
+    "11c/DP11-3-31" "11c/DP11-3-32"
 ))
 (defglobal ?*deadly-patterns-rules-list-12* = (create$
     ?*deadly-patterns-rules-list-11*
@@ -269,7 +267,7 @@
     "12c/DP12-2-301" "12c/DP12-2-302" "12c/DP12-3-303" "12c/DP12-3-304" "12c/DP12-4-305"
     "12c/DP12-2-306" "12c/DP12-3-307" "12c/DP12-2-308" "12c/DP12-2-309" "12c/DP12-2-310"
     "12c/DP12-3-311" "12c/DP12-3-312" "12c/DP12-3-313" "12c/DP12-3-314" "12c/DP12-4-315"
-    "12c/DP12-3-316")
+    "12c/DP12-3-316"
 ))
 
 
@@ -933,16 +931,27 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; VARIABLES USED FOR ACCESSING VARIOUS COMPANION REPOSITORIES
-;;; AND EXTERNAL PROGRAMS
+;;; VARIABLES USED FOR ACCESSING:
+;;;  - EXTERNAL PROGRAMS
+;;;  - COMPANION REPOSITORIES
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Access to external Sudoku specific programs
+(defglobal ?*SHC* = (str-cat ?*XTERNS* "SHC" ?*Directory-symbol*))
+(defglobal ?*GSF* = (str-cat ?*XTERNS* "GSF" ?*Directory-symbol*))
+(defglobal ?*SER* = (str-cat ?*XTERNS* "SudokuExplainer/"))
+(defglobal ?*FPGX* = (str-cat ?*XTERNS* "FPGX/"))
+
+
+;;; controlled-bias collection
 (defglobal ?*CBGC* = (str-cat ?*CSP-Rules* "CBGC" ?*Directory-symbol*))
 ;;; because it holds a special place in shorter computations:
 (defglobal ?*cbg-000* = (str-cat ?*CBGC* "SMALL-CB-COLLECTIONS/000/"))
 
+
+;;; classification directories
 (defglobal ?*SUDCL* = (str-cat ?*CSP-Rules* "SUDCL" ?*Directory-symbol*))
 (defglobal ?*TE2-EL* = (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
 (defglobal ?*TE2-PH* = (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
@@ -960,13 +969,25 @@
 (defglobal ?*TEMP* = (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
 (defglobal ?*DP* = (str-cat ?*SUDCL* "Deadly-Patterns" ?*Directory-symbol*))
 
-(defglobal ?*GSF-DIR* = (str-cat ?*XTERNS* "GSF" ?*Directory-symbol*))
+
+;;; expansion directories
+(defglobal ?*SUDEXP* = (str-cat ?*CSP-Rules* "SUDEXP" ?*Directory-symbol*))
 
 
 
 (deffunction relocate-companion-folders ()
+    ;;; external programs:
+    (bind ?*SHC* (str-cat ?*XTERNS* "SHC" ?*Directory-symbol*))
+    (bind ?*GSF* (str-cat ?*XTERNS* "GSF" ?*Directory-symbol*))
+    (bind ?*SER* (str-cat ?*XTERNS* "SER" ?*Directory-symbol*))
+    (bind ?*FPGX* (str-cat ?*XTERNS* "FPGX" ?*Directory-symbol*))
+
+    ;;; controlled-bias collection
+    (bind ?*CBGC* (str-cat ?*CSP-Rules* "CBGC" ?*Directory-symbol*))
     (bind ?*cbg-000* (str-cat ?*CBGC* "SMALL-CB-COLLECTIONS/000/"))
     
+    ;;; classification directories
+    (bind ?*SUDCL* (str-cat ?*CSP-Rules* "SUDCL" ?*Directory-symbol*))
     (bind ?*TE2-EL* (str-cat ?*SUDCL* "eleven-26370-TE2" ?*Directory-symbol*))
     (bind ?*TE2-PH* (str-cat ?*SUDCL* "ph2010-3103972-TE2" ?*Directory-symbol*))
     
@@ -983,7 +1004,6 @@
     (bind ?*TEMP* (str-cat ?*SUDCL* "Templates" ?*Directory-symbol*))
     (bind ?*DP* (str-cat ?*SUDCL* "Deadly-Patterns" ?*Directory-symbol*))
     
-    ;;; external programs
-    (bind ?*GSF-DIR* (str-cat ?*XTERNS* "GSF" ?*Directory-symbol*))
-    TRUE
+    ;;; expansion directories
+    (bind ?*SUDEXP* (str-cat ?*CSP-Rules* "SUDEXP" ?*Directory-symbol*))
 )

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Main-Class: sudoku.serate
+Specification-Title: "Faster Sudoku Explainer with serate entry point"
+Implementation-Title: "formatted rate entry point"
+Specification-Vendor: "Nicolas Juillerat"
+Specification-Version: "2023.10.22"
+Implementation-Version: "2023.10.22"
+Name: FPGX 5faster PGXplainer)
+Implementation-Vendor: "1to9only+creint+DB"

@@ -178,6 +178,18 @@
 )
 
 
+;;; same function
+;;; different name used in different contexts
+(deffunction eliminate-duplicates-from-list ($?list)
+    ;;; The order of first apparition of elements is guaranteed, with duplicates removed
+    (bind ?ulist (create$))
+    (foreach ?element ?list
+        (if (not (member$ ?element ?ulist)) then (bind ?ulist (create$ ?ulist ?element)))
+    )
+    ?ulist
+)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -268,11 +280,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Extracting random subsets of numbers from the {1 ... n} interval
+;;; (possibly disjoint from a previous subset)
 ;;; or of lines from a file
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction p-different-numbers-out-of-n (?p ?n)
+    ;;; outputs a list of ?p numbers randomly chosen in [1 ?n]
     ;;; p is supposed to be much less than n
     ;;; (and less than n/2 for efficiency)
     (bind ?list (create$))
@@ -289,9 +303,41 @@
 )
 
 (deffunction p-different-ordered-numbers-out-of-n (?p ?n)
+    ;;; outputs an ordered list of ?p numbers randomly chosen in [1 ?n]
     ;;; p is supposed to be much less than n
     ;;; (and less than n/2 for efficiency)
     (bind ?list (p-different-numbers-out-of-n ?p ?n))
+    (bind ?list2 (create$))
+    (bind ?i 0)
+    (while (< ?i ?n)
+        (bind ?i (+ ?i 1))
+        (if (member$ ?i ?list) then (bind ?list2 (create$ ?list2 ?i)))
+    )
+    ?list2
+)
+
+
+(deffunction p-new-different-numbers-out-of-n (?p ?n $?old-lists)
+    ;;; outputs a list of ?p numbers randomly chosen in [1 ?n] but not in ?old-list
+    ;;; p is supposed to be much less than n
+    ;;; (and less than n/2 for efficiency)
+    ;;;
+    (bind ?list (create$))
+    (seed (round (time)))
+    (bind ?i 0)
+    (while (< ?i ?p)
+        (bind ?nb (random 1 ?n))
+        (if (and (not (member$ ?nb ?list)) (not (member$ ?nb ?old-lists))) then
+            (bind ?list (create$ ?list ?nb))
+            (bind ?i (+ ?i 1))
+        )
+    )
+    ?list
+)
+
+
+(deffunction p-new-different-ordered-numbers-out-of-n (?p ?n $?old-lists)
+    (bind ?list (p-new-different-numbers-out-of-n ?p ?n ?old-lists))
     (bind ?list2 (create$))
     (bind ?i 0)
     (while (< ?i ?n)
@@ -364,5 +410,31 @@
 )
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Dealing with ordinal numbers in output
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Used for printing the correct endings in ordinals
+
+(deffunction print-odinal-with-ending (?n)
+    (bind ?res "")
+    (bind ?p (div (mod ?n 100) 10))
+    (if (eq ?p 1)
+        then (bind ?res (sym-cat ?n th))
+        else
+        (bind ?q (mod ?n 10))
+        (switch ?q
+            (case 0 then (bind ?res (sym-cat ?n th)))
+            (case 1 then (bind ?res (sym-cat ?n st)))
+            (case 2 then (bind ?res (sym-cat ?n nd)))
+            (case 3 then (bind ?res (sym-cat ?n rd)))
+            (default (bind ?res (sym-cat ?n th)))
+        )
+    )
+    ?res
+)
 
 

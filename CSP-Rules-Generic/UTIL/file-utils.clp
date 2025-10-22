@@ -40,7 +40,6 @@
     ?res
 )
 
-
 (deffunction empty-file (?file)
     (open ?file "empty-file-dxvffghvjkvds" "r")
     (bind ?line (readline "empty-file-dxvffghvjkvds"))
@@ -48,11 +47,13 @@
     (if (eq ?line EOF) then TRUE else FALSE)
 )
 
-
 (deffunction nonexistent-or-empty-file (?file)
     (or (not (file-exists ?file)) (empty-file ?file))
 )
 
+(deffunction file-exists-and-nonempty (?file)
+    (and (file-exists ?file) (not (empty-file ?file)))
+)
 
 (deffunction create-empty-file (?file)
     ;;; create the file if it doesn't exist, empty it otherwise
@@ -60,14 +61,12 @@
     (close "create-empty-file-fwsjcdwswqs")
 )
 
-
 (deffunction file-length (?file)
     (open ?file "file-length-dxvffghvjkvds" "r")
     (bind ?i 0)
     (while TRUE
         (bind ?line (readline "file-length-dxvffghvjkvds"))
-        (bind ?li ?line)
-        (if (eq ?li EOF) then (close "file-length-dxvffghvjkvds") (return ?i))
+        (if (eq ?line EOF) then (close "file-length-dxvffghvjkvds") (return ?i))
         (bind ?i (+ ?i 1))
     )
     (close "file-length-dxvffghvjkvds")
@@ -76,35 +75,39 @@
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; General utility functions for files of integers or reals (min and max values)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (deffunction max-value-in-file (?X-file ?file-length)
     ;;; each line is supposed to be an integer or a real (no check is made)
-    (open ?X-file "X-file" "r")
-    (bind ?i 1)
     (bind ?max -1000000)
-    (while (<= ?i ?file-length)
-        (bind ?xline (readline "X-file"))
-        (bind ?xi (eval ?xline))
-        (bind ?max (max ?max ?xi))
+    (open ?X-file "max-value-in-file-X-file" "r")
+    (bind ?i 0)
+    (while (< ?i ?file-length)
         (bind ?i (+ ?i 1))
+        (bind ?xi (eval (readline "max-value-in-file-X-file")))
+        (bind ?max (max ?max ?xi))
     )
     (printout t "max = " ?max crlf)
-    (close "X-file")
+    (close "max-value-in-file-X-file")
 )
 
 
 (deffunction min-value-in-file (?X-file ?file-length)
     ;;; each line is supposed to be an integer or a real (no check is made)
-    (open ?X-file "X-file" "r")
-    (bind ?i 1)
     (bind ?min 1000000)
-    (while (<= ?i ?file-length)
-        (bind ?xline (readline "X-file"))
-        (bind ?xi (eval ?xline))
-        (bind ?min (min ?min ?xi))
+    (open ?X-file "min-value-in-file-X-file" "r")
+    (bind ?i 0)
+    (while (< ?i ?file-length)
         (bind ?i (+ ?i 1))
+        (bind ?xi (eval (readline "min-value-in-file-X-file")))
+        (bind ?min (min ?min ?xi))
     )
     (printout t "min = " ?min crlf)
-    (close "X-file")
+    (close "min-value-in-file-X-file")
 )
 
 
@@ -114,63 +117,250 @@
 
 (deffunction file-max-value (?X-file)
     ;;; each line is supposed to be an integer or a real (no check is made)
-    (open ?X-file "X-file" "r")
-    (bind ?i 1)
     (bind ?max -1000000)
+    (open ?X-file "file-max-value-X-file" "r")
     (while TRUE
-        (bind ?xline (readline "X-file"))
-        (bind ?xi (eval ?xline))
-        (if (eq ?xi EOF) then (close "X-file") (return ?max))
+        (bind ?xi (eval (readline "file-max-value-X-file")))
+        (if (eq ?xi EOF) then (close "file-max-value-X-file") (return ?max))
         (bind ?max (max ?max ?xi))
-        (bind ?i (+ ?i 1))
     )
-    (close "X-file")
+    (close "file-max-value-X-file")
     ?max
 )
 
 
 (deffunction file-min-value (?X-file)
     ;;; each line is supposed to be an integer or a real (no check is made)
-    (open ?X-file "X-file" "r")
-    (bind ?i 1)
     (bind ?min 1000000)
+    (open ?X-file "file-min-value-X-file" "r")
     (while TRUE
-        (bind ?xline (readline "X-file"))
-        (bind ?xi (eval ?xline))
-        (if (eq ?xi EOF) then (close "X-file") (return ?min))
+        (bind ?xi (eval (readline "file-min-value-X-file")))
+        (if (eq ?xi EOF) then (close "file-min-value-X-file") (return ?min))
         (bind ?min (min ?min ?xi))
-        (bind ?i (+ ?i 1))
     )
-    (close "X-file")
+    (close "file-min-value-X-file")
     ?min
 )
 
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Extract nth datum from each line
+;;; General utility functions for files of elements of any kind
+;;; each line is considered as a string
+;;; Conversions  between lists and files
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deffunction extract-nth-data-from-each-line (?input-file ?output-file ?file-len ?nth-place)
+(deffunction element-file-to-element-list (?file)
+    (bind ?list (create$))
+    (if (file-exists-and-nonempty ?file) then
+        (open ?file "element-file-to-element-list-file" "r")
+        (loop-for-count (?i 1 (file-length ?file))
+            (bind ?list (create$ ?list (readline "element-file-to-element-list-file")))
+        )
+        (close "element-file-to-element-list-file")
+    )
+    ?list
+)
+
+
+(deffunction element-list-to-element-file (?list ?file)
+    (if (> (length$ ?list) 0) then
+        (open ?file "element-list-to-element-file-file" "w")
+        (foreach ?element ?list
+            (printout "element-list-to-element-file-file" ?element crlf)
+        )
+        (close "element-list-to-element-file-file")
+    )
+    TRUE
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Elimination of duplicate lines in a file (= lines that are identical as strings)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; only for small input files:
+(deffunction eliminate-duplicates-from-small-file (?file-in ?file-out)
+    (element-list-to-element-file
+        (eliminate-duplicates-from-list (element-file-to-element-list ?file-in))
+        ?file-out
+    )
+)
+
+
+;;; The rest is for potentially very large files
+
+(deffunction line-string-in-file (?line ?file)
+    (bind ?ans FALSE)
+    (if (file-exists-and-nonempty ?file) then
+        (open ?file "line-string-in-file-file" "r")
+        (bind ?file-line (readline "line-string-in-file-file"))
+        (while (neq ?file-line EOF)
+            (if (string= ?line ?file-line) then
+                (bind ?ans TRUE) (close "line-string-in-file-file") (return ?ans)
+            )
+            (bind ?file-line (readline "line-string-in-file-file"))
+        )
+        (close "line-string-in-file-file")
+    )
+    ?ans
+)
+
+
+;;; Eliminate the risk of collision between read and write
+;;; but very slow  due to many re-openings of and appending to file-out:
+(deffunction eliminate-duplicates-from-large-file (?file-in ?file-out)
+    ;;; eliminates duplicate lines (if they are identical as string)
+    (if (file-exists-and-nonempty ?file-in) then
+        ;;; file-out cannot be empty at the end; create it, in empty state:
+        (create-empty-file ?file-out)
+        
+        (open ?file-in "eliminate-duplicates-from-large-file-file-in" "r")
+        (bind ?line (readline "eliminate-duplicates-from-large-file-file-in"))
+        (while (neq ?line EOF)
+            (if (line-string-in-file ?line ?file-out) then
+                (open ?file-out "eliminate-duplicates-from-large-file-file-out" "a")
+                (printout "eliminate-duplicates-from-large-file-file-out" ?line crlf)
+                ;;; make sure file-out is totally available to the next call to function line-string-in-file:
+                (close "eliminate-duplicates-from-large-file-file-out")
+            )
+            (bind ?line (readline "eliminate-duplicates-from-large-file-file-in"))
+        )
+        (close "eliminate-duplicates-from-large-file-file-in")
+    )
+)
+
+
+;;; Second version, using a full intermediate no-dup list
+;;; But it may create a very long list; very inefficient
+(deffunction eliminate-duplicates-from-large-file (?file-in ?file-out)
+    (bind ?nodup-list (create$))
+    (if (file-exists-and-nonempty ?file-in) then
+        ;;; file-out will not be empty
+        (open ?file-in "eliminate-duplicates-from-large-file-file-in" "r")
+        (bind ?line (readline "eliminate-duplicates-from-large-file-file-in"))
+        (while (neq ?line EOF)
+            (if (not (member$ ?line ?nodup-list)) then
+                (bind ?nodup-list (create$ ?nodup-list ?line))
+            )
+            (bind ?line (readline "eliminate-duplicates-from-large-file-file-in"))
+        )
+        (close "eliminate-duplicates-from-large-file-file-in")
+    )
+    (element-list-to-element-file ?nodup-list ?file-out)
+)
+
+
+
+;;; Intermediate version:
+;;; Designed to handle large files
+;;; by storing intermediate results in a buffer list: ?new-lines-buffer
+;;; But there's no good way to choose the value of ?*list-buffer-size-for-files*
+;;; (defined in GENERIC/GENERAL/globals.clp)
+;;; See the XTERNS functions for a faster pure C version
+
+(deffunction eliminate-duplicates-from-file (?file-in ?file-out)
+    (if (file-exists-and-nonempty ?file-in) then
+        ;;; create and/or empty ?file out:
+        (create-empty-file ?file-out)
+        
+        (bind ?new-lines-buffer (create$))
+        (bind ?nb-new-lines 0)
+        
+        (open ?file-in "eliminate-duplicates-from-file-file-in" "r")
+        (bind ?line (readline "eliminate-duplicates-from-file-file-in"))
+        (while (neq ?line EOF)
+           (bind ?line-already-found FALSE)
+           ;;; first, check presence in the new lines buffer
+           (if (member$ ?line ?new-lines-buffer) then (bind ?line-already-found TRUE))
+           ;;; if not in the new lines buffer, check presence in the output file
+           (if (not ?line-already-found) then
+               (if (line-string-in-file ?line ?file-out) then (bind ?line-already-found TRUE))
+           )
+           ;;; if line is new, add it to the new lines buffer:
+           (if (not ?line-already-found) then
+              (bind ?new-lines-buffer (create$ ?new-lines-buffer ?line))
+              (bind ?nb-new-lines (+ ?nb-new-lines 1))
+           )
+           ;;; if list size is reached, flush the new lines buffer to the output file:
+           (if (>= ?nb-new-lines ?*list-buffer-size-for-files*) then
+               (open ?file-out "eliminate-duplicates-from-file-file-out" "a")
+               (foreach ?str ?new-lines-buffer
+                   (printout "eliminate-duplicates-from-file-file-out" ?str crlf)
+               )
+               (close "eliminate-duplicates-from-file-file-out")
+               ;;; reset the new lines buffer:
+               (bind ?new-lines-buffer (create$))
+               (bind ?nb-new-lines 0)
+            )
+            (bind ?line (readline "eliminate-duplicates-from-file-file-in"))
+        )
+        (close "eliminate-duplicates-from-file-file-in")
+        
+        ;;; at the end, flush lines still in buffer list
+        (if (> (length$ ?new-lines-buffer) 0) then
+            (open ?file-out "eliminate-duplicates-from-file-file-out" "a")
+            (foreach ?str ?new-lines-buffer
+               (printout "eliminate-duplicates-from-file-file-out" ?str crlf)
+            )
+            (close "eliminate-duplicates-from-file-file-out")
+        )
+    )
+ )
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Extract nth datum or truncated data from each line
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deffunction extract-nth-data-from-each-line (?file-in ?file-out ?file-len ?nth-place)
     (bind ?skip (- ?nth-place 1))
     (bind ?data "")
-    (open ?input-file "extract-nth-data-from-each-line-input-file" "r")
-    (open ?output-file "extract-nth-data-from-each-line-output-file" "w")
+    (open ?file-in "extract-nth-data-from-each-line-file-in" "r")
+    (open ?file-out "extract-nth-data-from-each-line-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ; (printout t "#" ?i crlf)
-        (loop-for-count ?skip (read "extract-nth-data-from-each-line-input-file"))
-        (bind ?data (read "extract-nth-data-from-each-line-input-file"))
-        (readline "extract-nth-data-from-each-line-input-file")
-        (printout "extract-nth-data-from-each-line-output-file" ?data crlf)
+        (loop-for-count ?skip (read "extract-nth-data-from-each-line-file-in"))
+        (bind ?data (read "extract-nth-data-from-each-line-file-in"))
+        (readline "extract-nth-data-from-each-line-file-in")
+        (printout "extract-nth-data-from-each-line-file-out" ?data crlf)
     )
-    (close "extract-nth-data-from-each-line-output-file")
+    (close "extract-nth-data-from-each-line-file-out")
     (close "extract-nth-data-from-each-line-file-in")
     TRUE
 )
+
+
+(deffunction extract-truncated-data-for-each-line (?file-in ?file-out ?file-len ?nb-car)
+    ;;; extract lines that have a value >= fixed value ?X-value in ?X-values-file
+    ;;; keep only the first ?nb-car characters of each line
+    ;;; record them in ?file-out
+    (bind ?line "")
+    (open ?file-in "extract-truncated-data-for-each-line-file-in" "r")
+    (open ?file-out "extract-truncated-data-for-each-line-file-out" "w")
+    (bind ?i 0)
+    (while (< ?i ?file-len)
+        (bind ?i (+ ?i 1))
+        (bind ?line (sub-string 1 ?nb-car (readline "extract-truncated-data-for-each-line-file-in")))
+        (printout "extract-truncated-data-for-each-line-file-out" ?line crlf)
+    )
+    (close "extract-truncated-data-for-each-line-file-out")
+    (close "extract-truncated-data-for-each-line-file-in")
+)
+
 
 
 
@@ -182,6 +372,7 @@
 
 ;;; Extract lines in a file whose value for a variable X in another file is equal to a given value
 ;;; Full lines of the input file are copied.
+;;; See the XTERNS functions for a faster pure C version
 
 (deffunction extract-lines-with-X-value (?file-in ?X-values-file ?file-len ?X-value ?file-out)
     ;;; extract lines that have the fixed value ?X-value in ?X-values-file
@@ -189,26 +380,62 @@
     (bind ?lines-out-list (create$))
     (bind ?line-value 0)
     (bind ?line "")
-    (open ?file-in "file-in" "r")
-    (open ?X-values-file "values-file" "r")
-    (open ?file-out "file-out" "w")
+    (open ?file-in "extract-lines-with-X-value-file-in" "r")
+    (open ?X-values-file "extract-lines-with-X-value-values-file" "r")
+    (open ?file-out "extract-lines-with-X-value-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ; (printout t "#" ?i crlf)
-        (bind ?line-value (read "values-file"))
-        (readline "values-file")
-        (bind ?line (readline "file-in"))
+        (bind ?line-value (read "extract-lines-with-X-value-values-file"))
+        (readline "extract-lines-with-X-value-values-file")
+        (bind ?line (readline "extract-lines-with-X-value-file-in"))
         (if (eq ?line-value ?X-value) then
             (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "file-out" ?line crlf)
+            (printout "extract-lines-with-X-value-file-out" ?line crlf)
         )
     )
-    (close "file-out")
-    (close "values-file")
-    (close "file-in")
+    (close "extract-lines-with-X-value-file-out")
+    (close "extract-lines-with-X-value-values-file")
+    (close "extract-lines-with-X-value-file-in")
     ?lines-out-list
 )
+
+
+;;; Extract lines in a file whose value for a variable X in another file
+;;; is equal to or above a given value.
+;;; Full lines of the input file are copied.
+;;; See the XTERNS functions for a faster pure C version
+
+(deffunction extract-lines-with-X-value-greater (?file-in ?X-values-file ?file-len ?X-value ?file-out)
+    ;;; extract lines that have a value >= a fixed value ?X-value in ?X-values-file
+    ;;; record them in ?file-out
+    (bind ?lines-out-list (create$))
+    (bind ?line-value 0)
+    (bind ?line "")
+    (open ?file-in "extract-lines-with-X-value-greater-file-in" "r")
+    (open ?X-values-file "extract-lines-with-X-value-greater-values-file" "r")
+    (open ?file-out "extract-lines-with-X-value-greater-file-out" "w")
+    (bind ?i 0)
+    (while (< ?i ?file-len)
+        (bind ?i (+ ?i 1))
+        ; (printout t "#" ?i crlf)
+        (bind ?line-value (read "extract-lines-with-X-value-greater-values-file"))
+        (readline "extract-lines-with-X-value-greater-values-file")
+        (bind ?line (readline "extract-lines-with-X-value-greater-file-in"))
+        (if (>= ?line-value ?X-value) then
+            (bind ?lines-out-list (create$ ?lines-out-list ?i))
+            (printout "extract-lines-with-X-value-greater-file-out" ?line crlf)
+        )
+    )
+    (close "extract-lines-with-X-value-greater-file-out")
+    (close "extract-lines-with-X-value-greater-values-file")
+    (close "extract-lines-with-X-value-greater-file-in")
+    ?lines-out-list
+)
+
+
+
 
 (deffunction extract-truncated-lines-with-X-value (?nb-car ?file-in ?X-values-file ?file-len ?X-value ?file-out)
     ;;; extract lines that have the fixed value ?X-value in ?X-values-file
@@ -217,56 +444,24 @@
     (bind ?lines-out-list (create$))
     (bind ?line-value 0)
     (bind ?line "")
-    (open ?file-in "file-in" "r")
-    (open ?X-values-file "values-file" "r")
-    (open ?file-out "file-out" "w")
+    (open ?file-in "extract-truncated-lines-with-X-value-file-in" "r")
+    (open ?X-values-file "extract-truncated-lines-with-X-value-values-file" "r")
+    (open ?file-out "extract-truncated-lines-with-X-value-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ; (printout t "#" ?i crlf)
-        (bind ?line-value (read "values-file"))
-        (readline "values-file")
-        (bind ?line (sub-string 1 ?nb-car (readline "file-in")))
+        (bind ?line-value (read "extract-truncated-lines-with-X-value-values-file"))
+        (readline "extract-truncated-lines-with-X-value-values-file")
+        (bind ?line (sub-string 1 ?nb-car (readline "extract-truncated-lines-with-X-value-file-in")))
         (if (eq ?line-value ?X-value) then
             (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "file-out" ?line crlf)
+            (printout "extract-truncated-lines-with-X-value-file-out" ?line crlf)
         )
     )
-    (close "file-out")
-    (close "values-file")
-    (close "file-in")
-    ?lines-out-list
-)
-
-
-;;; Extract lines in a file whose value for a variable X in another file
-;;; is equal to or above a given value.
-;;; Full lines of the input file are copied.
-
-(deffunction extract-lines-with-X-value-greater (?file-in ?X-values-file ?file-len ?X-value ?file-out)
-    ;;; extract lines that have a value >= a fixed value ?X-value in ?X-values-file
-    ;;; record them in ?file-out
-    (bind ?lines-out-list (create$))
-    (bind ?line-value 0)
-    (bind ?line "")
-    (open ?file-in "file-in" "r")
-    (open ?X-values-file "values-file" "r")
-    (open ?file-out "file-out" "w")
-    (bind ?i 0)
-    (while (< ?i ?file-len)
-        (bind ?i (+ ?i 1))
-        ; (printout t "#" ?i crlf)
-        (bind ?line-value (read "values-file"))
-        (readline "values-file")
-        (bind ?line (readline "file-in"))
-        (if (>= ?line-value ?X-value) then
-            (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "file-out" ?line crlf)
-        )
-    )
-    (close "file-out")
-    (close "values-file")
-    (close "file-in")
+    (close "extract-truncated-lines-with-X-value-file-out")
+    (close "extract-truncated-lines-with-X-value-values-file")
+    (close "extract-truncated-lines-with-X-value-file-in")
     ?lines-out-list
 )
 
@@ -277,26 +472,27 @@
     (bind ?lines-out-list (create$))
     (bind ?line-value 0)
     (bind ?line "")
-    (open ?file-in "file-in" "r")
-    (open ?X-values-file "values-file" "r")
-    (open ?file-out "file-out" "w")
+    (open ?file-in "extract-truncated-lines-with-X-value-greater-file-in" "r")
+    (open ?X-values-file "extract-truncated-lines-with-X-value-greater-values-file" "r")
+    (open ?file-out "extract-truncated-lines-with-X-value-greater-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ; (printout t "#" ?i crlf)
-        (bind ?line-value (read "values-file"))
-        (readline "values-file")
-        (bind ?line (sub-string 1 ?nb-car (readline "file-in")))
+        (bind ?line-value (read "extract-truncated-lines-with-X-value-greater-values-file"))
+        (readline "extract-truncated-lines-with-X-value-greater-values-file")
+        (bind ?line (sub-string 1 ?nb-car (readline "extract-truncated-lines-with-X-value-greater-file-in")))
         (if (>= ?line-value ?X-value) then
             (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "file-out" ?line crlf)
+            (printout "extract-truncated-lines-with-X-value-greater-file-out" ?line crlf)
         )
     )
-    (close "file-out")
-    (close "values-file")
-    (close "file-in")
+    (close "extract-truncated-lines-with-X-value-greater-file-out")
+    (close "extract-truncated-lines-with-X-value-greater-values-file")
+    (close "extract-truncated-lines-with-X-value-greater-file-in")
     ?lines-out-list
 )
+
 
 
 
@@ -313,25 +509,25 @@
     (bind ?lines-out-list (create$))
     (bind ?datum-value 0)
     (bind ?datum "")
-    (open ?data-file-in "data-file-in" "r")
-    (open ?X-values-file "X-values-file" "r")
-    (open ?data-file-out "data-file-out" "w")
+    (open ?data-file-in "extract-data-from-lines-with-X-value-data-file-in" "r")
+    (open ?X-values-file "extract-data-from-lines-with-X-value-X-values-file" "r")
+    (open ?data-file-out "extract-data-from-lines-with-X-value-data-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ; (printout t "#" ?i crlf)
-        (bind ?X-file-value (read "X-values-file"))
+        (bind ?X-file-value (read "extract-data-from-lines-with-X-value-X-values-file"))
         ; (printout t ?X-file-value crlf)
-        (bind ?datum (read "data-file-in"))
-        (readline "data-file-in")
+        (bind ?datum (read "extract-data-from-lines-with-X-value-data-file-in"))
+        (readline "extract-data-from-lines-with-X-value-data-file-in")
         (if (eq ?X-file-value ?X-value) then
             (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "data-file-out" ?datum crlf)
+            (printout "extract-data-from-lines-with-X-value-data-file-out" ?datum crlf)
         )
     )
-    (close "data-file-out")
-    (close "X-values-file")
-    (close "data-file-in")
+    (close "extract-data-from-lines-with-X-value-data-file-out")
+    (close "extract-data-from-lines-with-X-value-X-values-file")
+    (close "extract-data-from-lines-with-X-value-data-file-in")
     ?lines-out-list
 )
 
@@ -341,25 +537,25 @@
     (bind ?lines-out-list (create$))
     (bind ?datum-value 0)
     (bind ?datum "")
-    (open ?data-file-in "data-file-in" "r")
-    (open ?X-values-file "X-values-file" "r")
-    (open ?data-file-out "data-file-out" "w")
+    (open ?data-file-in "extract-data-from-lines-with-X-value-greater-data-file-in" "r")
+    (open ?X-values-file "extract-data-from-lines-with-X-value-greater-X-values-file" "r")
+    (open ?data-file-out "extract-data-from-lines-with-X-value-greater-data-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ; (printout t "#" ?i crlf)
-        (bind ?X-file-value (read "X-values-file"))
-        (readline "X-values-file")
-        (bind ?datum (read "data-file-in"))
-        (readline "data-file-in")
+        (bind ?X-file-value (read "extract-data-from-lines-with-X-value-greater-X-values-file"))
+        (readline "extract-data-from-lines-with-X-value-greater-X-values-file")
+        (bind ?datum (read "extract-data-from-lines-with-X-value-greater-data-file-in"))
+        (readline "extract-data-from-lines-with-X-value-greater-data-file-in")
         (if (>= ?X-file-value ?X-value) then
             (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "data-file-out" ?datum crlf)
+            (printout "extract-data-from-lines-with-X-value-greater-data-file-out" ?datum crlf)
         )
     )
-    (close "data-file-out")
-    (close "X-values-file")
-    (close "data-file-in")
+    (close "extract-data-from-lines-with-X-value-greater-data-file-out")
+    (close "extract-data-from-lines-with-X-value-greater-X-values-file")
+    (close "extract-data-from-lines-with-X-value-greater-data-file-in")
     ?lines-out-list
 )
 
@@ -371,26 +567,26 @@
     (bind ?lines-out-list (create$))
     (bind ?datum-value 0)
     (bind ?datum "")
-    (open ?data-file-in "data-file-in" "r")
-    (open ?X-values-file "X-values-file" "r")
-    (open ?data-file-out "data-file-out" "w")
+    (open ?data-file-in "extract-nth-data-from-lines-with-X-value-data-file-in" "r")
+    (open ?X-values-file "extract-nth-data-from-lines-with-X-value-X-values-file" "r")
+    (open ?data-file-out "extract-nth-data-from-lines-with-X-value-data-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ; (printout t "#" ?i crlf)
-        (loop-for-count ?skip (read "X-values-file"))
-        (bind ?X-file-value (read "X-values-file"))
+        (loop-for-count ?skip (read "extract-nth-data-from-lines-with-X-value-X-values-file"))
+        (bind ?X-file-value (read "extract-nth-data-from-lines-with-X-value-X-values-file"))
         (printout t ?X-file-value crlf)
-        (bind ?datum (read "data-file-in"))
-        (readline "data-file-in")
+        (bind ?datum (read "extract-nth-data-from-lines-with-X-value-data-file-in"))
+        (readline "extract-nth-data-from-lines-with-X-value-data-file-in")
         (if (eq ?X-file-value ?X-value) then
             (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "data-file-out" ?datum crlf)
+            (printout "extract-nth-data-from-lines-with-X-value-data-file-out" ?datum crlf)
         )
     )
-    (close "data-file-out")
-    (close "X-values-file")
-    (close "data-file-in")
+    (close "extract-nth-data-from-lines-with-X-value-data-file-out")
+    (close "extract-nth-data-from-lines-with-X-value-X-values-file")
+    (close "extract-nth-data-from-lines-with-X-value-data-file-in")
     ?lines-out-list
 )
 
@@ -401,28 +597,29 @@
     (bind ?lines-out-list (create$))
     (bind ?datum-value 0)
     (bind ?datum "")
-    (open ?data-file-in "data-file-in" "r")
-    (open ?X-values-file "X-values-file" "r")
-    (open ?data-file-out "data-file-out" "w")
+    (open ?data-file-in "extract-nth-data-from-lines-with-X-value-greater-data-file-in" "r")
+    (open ?X-values-file "extract-nth-data-from-lines-with-X-value-greater-X-values-file" "r")
+    (open ?data-file-out "extract-nth-data-from-lines-with-X-value-greater-data-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         (printout t "#" ?i crlf)
-        (loop-for-count ?skip (read "X-values-file"))
-        (bind ?X-file-value (read "X-values-file"))
-        (readline "X-values-file")
-        (bind ?datum (read "data-file-in"))
-        (readline "data-file-in")
+        (loop-for-count ?skip (read "extract-nth-data-from-lines-with-X-value-greater-X-values-file"))
+        (bind ?X-file-value (read "extract-nth-data-from-lines-with-X-value-greater-X-values-file"))
+        (readline "extract-nth-data-from-lines-with-X-value-greater-X-values-file")
+        (bind ?datum (read "extract-nth-data-from-lines-with-X-value-greater-data-file-in"))
+        (readline "extract-nth-data-from-lines-with-X-value-greater-data-file-in")
         (if (>= ?X-file-value ?X-value) then
             (bind ?lines-out-list (create$ ?lines-out-list ?i))
-            (printout "data-file-out" ?datum crlf)
+            (printout "extract-nth-data-from-lines-with-X-value-greater-data-file-out" ?datum crlf)
         )
     )
-    (close "data-file-out")
-    (close "X-values-file")
-    (close "data-file-in")
+    (close "extract-nth-data-from-lines-with-X-value-greater-data-file-out")
+    (close "extract-nth-data-from-lines-with-X-value-greater-X-values-file")
+    (close "extract-nth-data-from-lines-with-X-value-greater-data-file-in")
     ?lines-out-list
 )
+
 
 
 
@@ -433,54 +630,55 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deffunction extract-lines-in-list (?file-in ?file-len ?list ?file-out)
-    (open ?file-in "file-in" "r")
-    (open ?file-out "file-out" "w")
+    (open ?file-in "extract-lines-in-list-file-in" "r")
+    (open ?file-out "extract-lines-in-list-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ;(printout t "#" ?i crlf)
-        (bind ?file-in-data (readline "file-in"))
-        (if (member$ ?i ?list) then (printout "file-out" ?file-in-data crlf))
+        (bind ?file-in-data (readline "extract-lines-in-list-file-in"))
+        (if (member$ ?i ?list) then (printout "extract-lines-in-list-file-out" ?file-in-data crlf))
     )
-    (close "file-out")
-    (close "file-in")
+    (close "extract-lines-in-list-file-out")
+    (close "extract-lines-in-list-file-in")
     TRUE
 )
 
 
 (deffunction extract-data-from-lines-in-list (?file-in ?file-len ?list ?file-out)
-    (open ?file-in "file-in" "r")
-    (open ?file-out "file-out" "w")
+    (open ?file-in "extract-data-from-lines-in-list-file-in" "r")
+    (open ?file-out "extract-data-from-lines-in-list-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ;(printout t "#" ?i crlf)
-        (bind ?file-in-data (read "file-in"))
+        (bind ?file-in-data (read "extract-data-from-lines-in-list-file-in"))
         (readline "file-in")
-        (if (member$ ?i ?list) then (printout "file-out" ?file-in-data crlf))
+        (if (member$ ?i ?list) then (printout "extract-data-from-lines-in-list-file-out" ?file-in-data crlf))
     )
-    (close "file-out")
-    (close "file-in")
+    (close "extract-data-from-lines-in-list-file-out")
+    (close "extract-data-from-lines-in-list-file-in")
     TRUE
 )
 
 
 (deffunction extract-nth-data-from-lines-in-list (?file-in ?file-len ?nth-place ?list ?file-out)
-    (open ?file-in "file-in" "r")
-    (open ?file-out "file-out" "w")
+    (open ?file-in "extract-nth-data-from-lines-in-list-file-in" "r")
+    (open ?file-out "extract-nth-data-from-lines-in-list-file-out" "w")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
         ;(printout t "#" ?i crlf)
-        (loop-for-count (?i (- ?nth-place 1)) (read "file-in"))
-        (bind ?file-in-data (read "file-in"))
+        (loop-for-count (?i (- ?nth-place 1)) (read "extract-nth-data-from-lines-in-list-file-in"))
+        (bind ?file-in-data (read "extract-nth-data-from-lines-in-list-file-in"))
         (readline "file-in")
-        (if (member$ ?i ?list) then (printout "file-out" ?file-in-data crlf))
+        (if (member$ ?i ?list) then (printout "extract-nth-data-from-lines-in-list-file-out" ?file-in-data crlf))
     )
-    (close "file-out")
-    (close "file-in")
+    (close "extract-nth-data-from-lines-in-list-file-out")
+    (close "extract-nth-data-from-lines-in-list-file-in")
     TRUE
 )
+
 
 
 
@@ -494,20 +692,21 @@
 (deffunction extract-members-from-list-with-X-value (?list ?X-values-file ?file-len ?X-value)
     (bind ?filtered-list (create$))
     (bind ?X-values-file-value 0)
-    (open ?X-values-file "X-values-file" "r")
+    (open ?X-values-file "extract-members-from-list-with-X-value-X-values-file" "r")
     (bind ?i 0)
     (while (< ?i ?file-len)
         (bind ?i (+ ?i 1))
-        (bind ?X-values-file-value (string-to-field (readline "X-values-file")))
+        (bind ?X-values-file-value (string-to-field (readline "extract-members-from-list-with-X-value-X-values-file")))
         ;(readline "X-values-file")
         (printout t "#" ?i " " ?X-values-file-value crlf)
         (if (and (eq ?X-values-file-value ?X-value) (member$ ?i ?list)) then
             (bind ?filtered-list (create$ ?filtered-list ?i))
         )
     )
-    (close "X-values-file")
+    (close "extract-members-from-list-with-X-value-X-values-file")
     ?filtered-list
 )
+
 
 
 

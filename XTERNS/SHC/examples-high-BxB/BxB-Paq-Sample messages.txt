@@ -1,0 +1,87 @@
+*******************************************************
+Rating category: BxB
+max-length = 30
+buffer-size = 1000000
+Rating all sudokus in this file: /Users/berthier/Desktop/BxB-Paq-Sample.txt
+Output file: /Users/berthier/Desktop/BxB-Paq-Sample-BxB.txt
+This output file already exists. It will be emptied before writing.
+sudoku 1  x = 7  Time = 2s  Cumulated time = 2s  Chains buffer: 4389 - 4801 /1000000
+sudoku 2  x = 7  Time = 3s  Cumulated time = 5s  Chains buffer: 32041 - 32041 /1000000
+sudoku 3  x = 7  Time = 3s  Cumulated time = 7s  Chains buffer: 32041 - 32041 /1000000
+sudoku 4  x = 7  Time = 2s  Cumulated time = 9s  Chains buffer: 4389 - 4801 /1000000
+sudoku 5  x = 7  Time = 2s  Cumulated time = 11s  Chains buffer: 3256 - 6352 /1000000
+sudoku 6  x = 7  Time = 10s  Cumulated time = 21s  Chains buffer: 8614 - 15861 /1000000
+sudoku 7  x = 7  Time = 2s  Cumulated time = 23s  Chains buffer: 4022 - 11219 /1000000
+sudoku 8  x = 7  Time = 1s  Cumulated time = 25s  Chains buffer: 4530 - 5616 /1000000
+sudoku 9  x = 7  Time = 2s  Cumulated time = 27s  Chains buffer: 4998 - 7487 /1000000
+sudoku 10  x = 7  Time = 2s  Cumulated time = 29s  Chains buffer: 2891 - 13151 /1000000 => mean7 = 2.9s
+sudoku 11  x = 8  Time = 4s  Cumulated time = 33s  Chains buffer: 4249 - 21314 /1000000
+sudoku 12  x = 8  Time = 4s  Cumulated time = 37s  Chains buffer: 14247 - 36423 /1000000
+sudoku 13  x = 8  Time = 4s  Cumulated time = 41s  Chains buffer: 6200 - 18621 /1000000
+sudoku 14  x = 8  Time = 4s  Cumulated time = 45s  Chains buffer: 6200 - 18621 /1000000
+sudoku 15  x = 8  Time = 4s  Cumulated time = 49s  Chains buffer: 6200 - 18621 /1000000
+sudoku 16  x = 8  Time = 4s  Cumulated time = 54s  Chains buffer: 6200 - 18621 /1000000
+sudoku 17  x = 8  Time = 3s  Cumulated time = 56s  Chains buffer: 3955 - 6288 /1000000
+sudoku 18  x = 8  Time = 4s  Cumulated time = 1m0s  Chains buffer: 6200 - 18621 /1000000
+sudoku 19  x = 8  Time = 3s  Cumulated time = 1m3s  Chains buffer: 8178 - 18984 /1000000
+sudoku 20  x = 8  Time = 5s  Cumulated time = 1m8s  Chains buffer: 3785 - 17296 /1000000 => mean8 = 3.9s
+sudoku 21  x = 9  Time = 7s  Cumulated time = 1m15s  Chains buffer: 21465 - 57013 /1000000
+sudoku 22  x = 9  Time = 9s  Cumulated time = 1m24s  Chains buffer: 26763 - 93595 /1000000
+sudoku 23  x = 9  Time = 1s  Cumulated time = 1m25s  Chains buffer: 4616 - 4616 /1000000
+sudoku 24  x = 9  Time = 11s  Cumulated time = 1m36s  Chains buffer: 54040 - 54040 /1000000
+sudoku 25  x = 9  Time = 11s  Cumulated time = 1m47s  Chains buffer: 54040 - 54040 /1000000
+sudoku 26  x = 9  Time = 6s  Cumulated time = 1m54s  Chains buffer: 2903 - 55327 /1000000
+sudoku 27  x = 9  Time = 5s  Cumulated time = 1m59s  Chains buffer: 4817 - 57013 /1000000
+sudoku 28  x = 9  Time = 3s  Cumulated time = 2m2s  Chains buffer: 37348 - 37348 /1000000
+sudoku 29  x = 9  Time = 12s  Cumulated time = 2m14s  Chains buffer: 14762 - 35818 /1000000
+sudoku 30  x = 9  Time = 8s  Cumulated time = 2m22s  Chains buffer: 39313 - 90736 /1000000 => mean9 = 7.4s
+sudoku 31  x = 10  Time = 41s  Cumulated time = 3m3s  Chains buffer: 36937 - 76835 /1000000
+sudoku 32  x = 10  Time = 31s  Cumulated time = 3m34s  Chains buffer: 30544 - 103054 /1000000
+sudoku 33  x = 10  Time = 30s  Cumulated time = 4m5s  Chains buffer: 105801 - 105801 /1000000
+sudoku 34  x = 10  Time = 31s  Cumulated time = 4m36s  Chains buffer: 30544 - 103054 /1000000
+sudoku 35  x = 10  Time = 27s  Cumulated time = 5m3s  Chains buffer: 10945 - 64029 /1000000
+sudoku 36  x = 10  Time = 31s  Cumulated time = 5m34s  Chains buffer: 105801 - 105801 /1000000
+sudoku 37  x = 10  Time = 28s  Cumulated time = 6m2s  Chains buffer: 17777 - 76051 /1000000
+sudoku 38  x = 10  Time = 1m20s  Cumulated time = 7m22s  Chains buffer: 49992 - 161903 /1000000
+sudoku 39  x = 10  Time = 1m19s  Cumulated time = 8m40s  Chains buffer: 49992 - 161903 /1000000
+sudoku 40  x = 10  Time = 1m19s  Cumulated time = 9m59s  Chains buffer: 49992 - 161903 /1000000 => mean10 = 30.7s
+sudoku 41  x = 11  Time = 22s  Cumulated time = 10m22s  Chains buffer: 77334 - 182180 /1000000
+sudoku 42  x = 11  Time = 18s  Cumulated time = 10m40s  Chains buffer: 26160 - 78913 /1000000
+sudoku 43  x = 11  Time = 27s  Cumulated time = 11m7s  Chains buffer: 180691 - 218675 /1000000
+sudoku 44  x = 11  Time = 37s  Cumulated time = 11m43s  Chains buffer: 79378 - 182180 /1000000
+sudoku 45  x = 11  Time = 40s  Cumulated time = 12m23s  Chains buffer: 73247 - 123868 /1000000
+sudoku 46  x = 11  Time = 40s  Cumulated time = 13m3s  Chains buffer: 73247 - 123868 /1000000
+sudoku 47  x = 11  Time = 40s  Cumulated time = 13m43s  Chains buffer: 73247 - 123868 /1000000
+sudoku 48  x = 11  Time = 19s  Cumulated time = 14m2s  Chains buffer: 63625 - 84762 /1000000
+sudoku 49  x = 11  Time = 20s  Cumulated time = 14m22s  Chains buffer: 97988 - 97988 /1000000
+sudoku 50  x = 11  Time = 19s  Cumulated time = 14m41s  Chains buffer: 63625 - 84762 /1000000 => mean11 = 28.2s
+sudoku 51  x = 12  Time = 2s  Cumulated time = 14m43s  Chains buffer: 31385 - 31624 /1000000
+sudoku 52  x = 12  Time = 3s  Cumulated time = 14m45s  Chains buffer: 47312 - 47312 /1000000
+sudoku 53  x = 12  Time = 3s  Cumulated time = 14m48s  Chains buffer: 47312 - 47312 /1000000
+sudoku 54  x = 12  Time = 3s  Cumulated time = 14m50s  Chains buffer: 47312 - 47312 /1000000
+sudoku 55  x = 12  Time = 2s  Cumulated time = 14m52s  Chains buffer: 50883 - 50883 /1000000
+sudoku 56  x = 12  Time = 2s  Cumulated time = 14m54s  Chains buffer: 50883 - 50883 /1000000
+sudoku 57  x = 12  Time = 2s  Cumulated time = 14m57s  Chains buffer: 50883 - 50883 /1000000
+sudoku 58  x = 12  Time = 3s  Cumulated time = 15m0s  Chains buffer: 51214 - 51214 /1000000
+sudoku 59  x = 12  Time = 2s  Cumulated time = 15m2s  Chains buffer: 34630 - 34630 /1000000
+sudoku 60  x = 12  Time = 3s  Cumulated time = 15m5s  Chains buffer: 55051 - 55051 /1000000 => mean12 = 2.4s
+sudoku 61  x = 13  Time = 3s  Cumulated time = 15m7s  Chains buffer: 31070 - 31070 /1000000
+sudoku 62  x = 13  Time = 3s  Cumulated time = 15m10s  Chains buffer: 31070 - 31070 /1000000
+sudoku 63  x = 13  Time = 2s  Cumulated time = 15m12s  Chains buffer: 44098 - 44098 /1000000
+sudoku 64  x = 13  Time = 2s  Cumulated time = 15m14s  Chains buffer: 44098 - 44098 /1000000
+sudoku 65  x = 13  Time = 2s  Cumulated time = 15m16s  Chains buffer: 41456 - 41456 /1000000
+sudoku 66  x = 13  Time = 2s  Cumulated time = 15m19s  Chains buffer: 44098 - 44098 /1000000
+sudoku 67  x = 13  Time = 2s  Cumulated time = 15m21s  Chains buffer: 44098 - 44098 /1000000
+sudoku 68  x = 13  Time = 3s  Cumulated time = 15m23s  Chains buffer: 31070 - 31070 /1000000
+sudoku 69  x = 13  Time = 2s  Cumulated time = 15m26s  Chains buffer: 31070 - 31070 /1000000
+sudoku 70  x = 13  Time = 2s  Cumulated time = 15m28s  Chains buffer: 31070 - 31070 /1000000 => mean13 = 2.3s
+sudoku 71  x = 14  Time = 2s  Cumulated time = 15m31s  Chains buffer: 53346 - 53346 /1000000
+sudoku 72  x = 14  Time = 2s  Cumulated time = 15m33s  Chains buffer: 53346 - 53346 /1000000
+sudoku 73  x = 14  Time = 3s  Cumulated time = 15m36s  Chains buffer: 53346 - 53346 /1000000
+sudoku 74  x = 14  Time = 2s  Cumulated time = 15m38s  Chains buffer: 53346 - 53346 /1000000
+sudoku 75  x = 14  Time = 3s  Cumulated time = 15m41s  Chains buffer: 53346 - 53346 /1000000
+sudoku 76  x = 14  Time = 2s  Cumulated time = 15m43s  Chains buffer: 53346 - 53346 /1000000
+sudoku 77  x = 14  Time = 3s  Cumulated time = 15m46s  Chains buffer: 53346 - 53346 /1000000
+sudoku 78  x = 14  Time = 3s  Cumulated time = 15m48s  Chains buffer: 53346 - 53346 /1000000
+sudoku 79  x = 14  Time = 2s  Cumulated time = 15m51s  Chains buffer: 53346 - 53346 /1000000
+sudoku 80  x = 14  Time = 2s  Cumulated time = 15m53s  Chains buffer: 53346 - 53346 /1000000 => mean14 = 2.5s

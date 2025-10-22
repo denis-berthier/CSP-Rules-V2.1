@@ -1,0 +1,38 @@
+SHC version 6.1 will run under the following conditions:
+*******************************************************
+Rating category: BxB
+Rating all puzzles in this file: /Users/berthier/Projects/CSP-Rules/SHC/SHC6/examples2/B8B_coloin.txt
+Output file: /Users/berthier/Projects/CSP-Rules/SHC/SHC6/examples2/B8B_coloin_output2.txt
+This output file does not exist, it will be created.
+max-length = 30
+buffer-size = 1000000
+*******************************************
+Puzzle 1  x = 8  Time = 8s  Cumulated time = 8s  Chains buffer: 17352 - 28441 /1000000
+Puzzle 2  x = 8  Time = 8s  Cumulated time = 16s  Chains buffer: 5727 - 28441 /1000000
+Puzzle 3  x = 8  Time = 6s  Cumulated time = 22s  Chains buffer: 4253 - 22228 /1000000
+Puzzle 4  x = 8  Time = 6s  Cumulated time = 28s  Chains buffer: 3610 - 22228 /1000000
+Puzzle 5  x = 8  Time = 6s  Cumulated time = 34s  Chains buffer: 3610 - 22228 /1000000
+Puzzle 6  x = 8  Time = 6s  Cumulated time = 40s  Chains buffer: 7380 - 22228 /1000000
+Puzzle 7  x = 8  Time = 6s  Cumulated time = 46s  Chains buffer: 4865 - 22228 /1000000
+Puzzle 8  x = 8  Time = 2s  Cumulated time = 48s  Chains buffer: 9163 - 9163 /1000000
+Puzzle 9  x = 8  Time = 4s  Cumulated time = 52s  Chains buffer: 11802 - 16931 /1000000
+Puzzle 10  x = 8  Time = 5s  Cumulated time = 57s  Chains buffer: 8454 - 20996 /1000000
+Puzzle 11  x = 8  Time = 5s  Cumulated time = 1m2s  Chains buffer: 10056 - 11801 /1000000
+Puzzle 12  x = 8  Time = 4s  Cumulated time = 1m6s  Chains buffer: 3481 - 20996 /1000000
+Puzzle 13  x = 8  Time = 5s  Cumulated time = 1m11s  Chains buffer: 16687 - 16687 /1000000
+Puzzle 14  x = 8  Time = 5s  Cumulated time = 1m16s  Chains buffer: 8059 - 15371 /1000000
+Puzzle 15  x = 8  Time = 3s  Cumulated time = 1m19s  Chains buffer: 3954 - 14913 /1000000
+Puzzle 16  x = 8  Time = 9s  Cumulated time = 1m28s  Chains buffer: 5366 - 33545 /1000000
+Puzzle 17  x = 8  Time = 8s  Cumulated time = 1m36s  Chains buffer: 31501 - 32900 /1000000
+Puzzle 18  x = 8  Time = 9s  Cumulated time = 1m45s  Chains buffer: 17244 - 40619 /1000000
+Puzzle 19  x = 8  Time = 11s  Cumulated time = 1m56s  Chains buffer: 5215 - 36155 /1000000
+Puzzle 20  x = 8  Time = 11s  Cumulated time = 2m7s  Chains buffer: 5215 - 36155 /1000000
+Puzzle 21  x = 8  Time = 11s  Cumulated time = 2m17s  Chains buffer: 5215 - 36155 /1000000
+Puzzle 22  x = 8  Time = 9s  Cumulated time = 2m27s  Chains buffer: 4563 - 36155 /1000000
+Puzzle 23  x = 8  Time = 10s  Cumulated time = 2m36s  Chains buffer: 5366 - 32900 /1000000
+Puzzle 24  x = 8  Time = 10s  Cumulated time = 2m46s  Chains buffer: 5366 - 32900 /1000000
+Puzzle 25  x = 8  Time = 3s  Cumulated time = 2m49s  Chains buffer: 3754 - 20996 /1000000
+Puzzle 26  x = 8  Time = 2s  Cumulated time = 2m51s  Chains buffer: 5172 - 11890 /1000000
+Puzzle 27  x = 8  Time = 6s  Cumulated time = 2m57s  Chains buffer: 5267 - 21220 /1000000
+Number of examined puzzles: 27
+Number of unsolved puzzles: 0

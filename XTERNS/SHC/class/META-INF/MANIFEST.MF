@@ -1,0 +1,6 @@
+Manifest-Version: 6.2
+Name: SHC
+Created-By: 1.8.0_331 (Oracle Corporation)
+Main-Class: SHC.U
+Implementation-Vendor: "Francois Cordoliani"
+

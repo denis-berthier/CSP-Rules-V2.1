@@ -28,7 +28,8 @@
 
 
 
-(clear)
+(clear) ; clean CLIPS of anything it may have had before.
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; INSTALLATION ONLY:
@@ -36,10 +37,18 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Default setting is for Unix and MacOS:
+;;; The Operating System is UNIX by default. Redefine it here is you're working on Windows.
+;;; Note: this is irrelevant if you are not using external programs
+; (bind ?*Operating-System* = WINDOWS)
+
+;;; Set the following varinale to TRUE
+;;; if you're using an "Apple silicon" Mac, i.e. with ARM processor
+; (bind ?*ARM* TRUE)
+
+
+;;; Default setting is for Unix and MacOS,
+;;; but it should also work for recent versions of Windows:
 (defglobal ?*Directory-symbol* = "/")
-;;; for Windows, un-comment this line:
-; (bind ?*Directory-symbol* "\") ;                                           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Define your general CSP-Rules installation directory (including the ending directory symbol / or \).
@@ -49,17 +58,17 @@
 ;;; For Unix (including MacOS):
  (defglobal ?*CSP-Rules* = "/Users/berthier/Projects/CSP-Rules/")   ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;;; For Windows:
-; (defglobal ?*CSP-Rules* = "c:\Users\berthier\Documents\Projets\CSP-Rules\") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; (defglobal ?*CSP-Rules* = "C:/Users/berthier/Projects/CSP-Rules/") ; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; compatibility with JESS is no longer guaranteed and CLIPS is the default inference engine
 ;;; the version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.33-r956");                                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.33-r961");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
-    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 14.4"
+    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 26.0"
 )                                                                            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 

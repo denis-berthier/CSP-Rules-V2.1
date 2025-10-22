@@ -39,6 +39,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defglobal ?*Operating-System* = UNIX)
+
+(deffunction OS-Windows()
+    (if (eq ?*Operating-System* WINDOWS) then TRUE else FALSE)
+)
+
+;;; set to TRUE if you're using an "Apple silicon" Mac, i.e. with ARM processor
+(defglobal ?*ARM* = FALSE)
+
+
 (defglobal ?*CSP-Rules-VersionNumber* = 2.1)
 
 ;;; compatibility with JESS has been given up
@@ -56,11 +66,12 @@
     (set-reset-globals FALSE)
 ))
 
-;;; Access to companion repository of examples
+;;; Access to companion repository of CSP-Rulles examples
 (defglobal ?*CSP-EX* = (str-cat ?*CSP-Rules* "CSP-Rules-Examples" ?*Directory-symbol*))
 
-;;; Access to external programs
-(defglobal ?*XTERNS* = (str-cat ?*CSP-Rules* "XTERNS" ?*Directory-symbol*))
+;;; Access to external generic programs
+(defglobal ?*XTERNS* = (str-cat ?*CSP-Rules-current-version* "XTERNS" ?*Directory-symbol*))
+(defglobal ?*XTERN-UTIL* = (str-cat ?*XTERNS* "UTIL" ?*Directory-symbol*))
 
 
 
@@ -243,6 +254,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; global variable used for buffering in a list the writing to files
+;;; currently used only in generic function "eliminate-duplicates-from-file"
+;;; (used only in the SudoRules Expansion kit)
+
+(defglobal ?*list-buffer-size-for-files* = 1000)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

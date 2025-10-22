@@ -60,6 +60,7 @@
 (load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "utils.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "file-utils.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "stats.clp"))
+(load (str-cat ?*CSP-Rules-Generic-Dir* "UTIL" ?*Directory-symbol* "system-utils.clp"))
 
 ;;; load generic templates
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "templates.clp"))
@@ -72,6 +73,8 @@
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "generic-output.clp"))
 (load (str-cat ?*CSP-Rules-Generic-Dir* "GENERAL" ?*Directory-symbol* "solve.clp"))
 
+;;; load external generic functions:
+(load (str-cat ?*XTERNS* ?*Directory-symbol* "xterns-generic.clp"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

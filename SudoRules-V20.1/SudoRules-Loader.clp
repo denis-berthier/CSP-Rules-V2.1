@@ -95,12 +95,15 @@
 
 
 
+;;; EXTERNAL PROGRAMS
+(load (str-cat ?*XTERNS* "xterns-Sudoku.clp"))
+
+
+
 ;;; EXPANSIONS
 
 (if ?*Expansions* then
     (load (str-cat ?*Application-Dir* "EXPANSION/sample-defs.clp"))
-    (load (str-cat ?*Application-Dir* "EXPANSION/Unix-commands.clp"))
-    (load (str-cat ?*Application-Dir* "EXPANSION/external-programs.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/sample-file-utils.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/compare-puzzles.clp"))
     
@@ -125,8 +128,9 @@
     (load (str-cat ?*Application-Dir* "EXPANSION/TE1-distances.clp"))
     
     (load (str-cat ?*Application-Dir* "EXPANSION/TEd-to-high-B-scripts.clp"))
-    (load (str-cat ?*Application-Dir* "EXPANSION/TEd-to-high-BxB-scripts.clp"))
-    
+    (load (str-cat ?*Application-Dir* "EXPANSION/TEd-to-insol-high-BxB-scripts.clp"))
+    (load (str-cat ?*Application-Dir* "EXPANSION/TE3-to-outsol-high-BxB-scripts.clp"))
+
     (load (str-cat ?*Application-Dir* "EXPANSION/TE3exp-p1-expands.clp"))
     (load (str-cat ?*Application-Dir* "EXPANSION/TE2exp-p1-expands.clp"))
 )

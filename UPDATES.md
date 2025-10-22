@@ -12,6 +12,12 @@
 
 
 
+#### 2025 Oct 22 (CSP-Rules and SudoRules):
+* Add external programs and CLIPS functions to call them.
+
+#### 2025 Oct 22 (CLIPS):
+* Update CLIPS to allow both versions 6.3 or 6.4, on any computer.
+
 #### 2025 Feb 01 (CSP-Rules):
 * Publication of the second editiopn of the "User Manual and Research Notebooks for CSP-Rules".
 

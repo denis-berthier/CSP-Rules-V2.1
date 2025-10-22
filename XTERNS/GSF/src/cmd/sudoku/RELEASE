@@ -1,0 +1,42 @@
+11-11-11 add %#ac to produce one of possible dihedral types
+11-08-02 subcanon.c: bug fix by MD (dobrichev) -- thanks
+08-12-04 stable
+07-12-06 constraint_Z.c: sync with ronk
+07-10-02 sudocoup.c,pseudocoup.c: validate input puzzles -- doh
+07-06-28 sudoku.c: -go tour only, sudz over -lbz2 for public consumption
+07-05-31 sudoku.c: -gnN -goN tours
+07-01-19 sudoku.c: O rookery overlay
+07-01-18 sudoku.c: row-normal canonical -- faster than box-normal
+07-01-18 sudoku.c: -gg rookery based solution grid generation -- fast
+07-01-18 sudoku.c: %c and %s now require #A for [A-IJ-R]
+07-01-11 sudoku.c: add per-group options
+07-01-08 sudoku.c: update -qhardest to included nested propositions
+06-11-23 sudoku.c: add insert() flatten() clear() for puzzle counting
+06-10-11 sudoku.c: add function(arg) for future expansion
+06-09-04 sudoku.c: add -q aliases, hard rating
+06-08-16 Nmakefile: drop :PACKAGE: ast
+06-07-17 pseudocoup.c: add
+06-06-11 sudoku.c: add -t, speed up solution grid generation
+06-06-07 sudoku.c: sync tests, fix dumps
+06-05-28 sudoku.c: handle #!sudoku data dependent options
+06-05-26 sudoku.c: allow -QF, add { boxline linebox endsteps endsingles }
+	 sudoku.c: add -o file for systems that don't have redirection
+06-05-09 sudoku.c: XY cycle ternary group working
+06-03-08 sudoku.c: XY cycle with algebraic tables almost in final form
+06-03-07 sudocoo.c: add
+06-03-06 sudocoup.c: tweak again
+06-03-01 sudoku.c: fix -nN to count listed puzzles, add -kqQ
+06-02-14 sudoku.c: add -C
+06-02-02 sudocoup.c: add CANON test for standalone canon.c
+05-12-25 add sudocoup generator
+05-12-11 add sudocoup.c
+05-11-01 combine X+Y=>X
+05-10-14 fix -kC... -ehp to capture grid in the correct state
+05-10-11 add -kCn -kM
+05-10-05 W method handles strict x-wing/swordfish missed by X method
+05-10-04 Y method unifies pair-vertex cycle methods { xy-wing colors }
+05-10-01 X method unifies single-valued cycle methods { x-wing swordfish }
+05-09-28 add -P
+05-08-11 add symmetrize(), optimal(), CONSTRAINT_Z
+05-07-17 fix tuple logic
+05-06-14 first release

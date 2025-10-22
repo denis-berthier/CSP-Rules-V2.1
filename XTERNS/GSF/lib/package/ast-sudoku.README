@@ -1,0 +1,139 @@
+The AT&T Software Technology ast-sudoku package from AT&T Research
+contains the standalone sudoku solver and generator sudoku(1), the
+standalone sudoku and QWH (quasigroup with holes) backtrack solver
+sudocoup(1) for N<=64, the standalone sudoku and QWH backtrack solver
+pseudocoup(1) for N<=1000, and the quick and dirty standalone solver
+sudocoo(1).
+
+Source Package Installation Instructions:
+
+  (1) Do not install packages as root/super-user. Although some components may
+      have setuid executables, few must be owned by root. These are best
+      changed manually when the security implications are understood.
+  (2) Choose a package root directory and cd to it. This will be a local work
+      area for all packages.
+  (3) These instructions bypass the click to download package links on the
+      download site. If you already clicked, or if your system does not have
+      curl(1), hurl(1), lynx(1) or wget(1) then use the alternate instructions
+      for (3),(4),(5) in plan B below. Plan B installs the hurl(1)
+      script which works with ksh and modern bash. The top level URL is:
+		URL=http://www.research.att.com/sw/download
+  (4) If the bin/package script does not exist then run:
+		test -d bin || mkdir bin
+		url=$URL/package
+		(wget -O - $url||curl -L $url||hurl $url) > bin/package
+		chmod +x bin/package
+  (5) Determine the list of package names you want from the download site, then
+      use the package(1) command to do the actual download:
+		bin/package authorize "NAME" password "PASSWORD" \
+			setup source $URL PACKAGE ...
+      (Refer to the AUTHORIZATION paragraph on the main download page for
+      NAME/PASSWORD details.)  This downloads the closure of the latest
+      source package(s); covered and up-to-date packages are not downloaded again unless
+      package force ... is specified. Package content is verified using md5sum.
+      If the package root will contain only one architecture then you can install in bin and
+      lib instead of arch/HOSTTYPE/bin and arch/HOSTTYPE/lib by running this
+      instead:
+		bin/package authorize "NAME" password "PASSWORD" \
+			flat setup source $URL PACKAGE ...
+      To update the same packages from the same URL run:
+		bin/package setup source
+  (6) Build and install; all generated files are placed under arch/HOSTTYPE
+      ($INSTALLROOT), where HOSTTYPE is the output of bin/package (with no
+      arguments.) name=value arguments are supported; CC and debug=1 (compile
+      with -g instead of -O) are likely candidates. The output is written to
+      the terminal and captured in $INSTALLROOT/lib/package/gen/make.out:
+		bin/package make
+  (7) List make results and interesting errors:
+		bin/package results
+      Run the regression tests:
+		bin/package test
+      List test results and errors:
+		bin/package results test
+  (8) The generated binaries are position independent, i.e., they do not
+      contain hard-coded paths. However, commands with related files, like
+      file(1) and nmake(1), require the path of the bin directory to be
+      exported in PATH.
+  (9) You can run the binaries directly from the package root, or you can
+      install them in a public root after you are satisfied with the make and
+      test actions (requires the AT&T nmake(1) command):
+		bin/package flat install DIRECTORY PACKAGE
+      This will install in DIRECTORY/bin and DIRECTORY/lib. If you want to
+      preserve the arch/HOSTTYPE hierarchy under DIRECTORY then omit the
+      flat argument. If you don't have nmake(1) then the following will do a
+      flat install:
+		cd $INSTALLROOT
+		cp -p -r bin lib include DIRECTORY
+  (10) To summarize, after the first time the download, build, and test cycle
+      for the latest source release is:
+		bin/package setup source
+		bin/package make
+		bin/package test
+
+Source Package Installation Instructions -- Plan B:
+
+  (3) Create the subdirectory lib/package/tgz and download all package archives
+      into that directory.
+  (4) If the bin/package script does not exist then manually read the INIT
+      source package:
+		gunzip < lib/package/tgz/INIT.YYYY-MM-DD.tgz | tar xvf -
+      Note that some browsers automatically unzip downloaded without warning.
+      If the gunzip fails try:
+		tar xvf - lib/package/tgz/INIT.YYYY-MM-DD.tgz
+      If your system does not have tar(1) or gunzip(1) then download the ratz
+      source package, compile it, and manually read the INIT
+      source package:
+		mkdir bin
+		cp lib/package/tgz/ratz.YYYY-MM-DD.c lib/package/tgz/ratz.c
+		cc -o bin/ratz lib/package/tgz/ratz.c
+		bin/ratz -lm < lib/package/tgz/INIT.YYYY-MM-DD.tgz
+  (5) Read all unread package archive(s):
+		bin/package read
+      Both source and binary packages will be read by this step.
+
+All recorded changes follow.
+
+:::::::: sudoku ::::::::
+
+11-11-11 add %#ac to produce one of possible dihedral types
+11-08-02 subcanon.c: bug fix by MD (dobrichev) -- thanks
+08-12-04 stable
+07-12-06 constraint_Z.c: sync with ronk
+07-10-02 sudocoup.c,pseudocoup.c: validate input puzzles -- doh
+07-06-28 sudoku.c: -go tour only, sudz over -lbz2 for public consumption
+07-05-31 sudoku.c: -gnN -goN tours
+07-01-19 sudoku.c: O rookery overlay
+07-01-18 sudoku.c: row-normal canonical -- faster than box-normal
+07-01-18 sudoku.c: -gg rookery based solution grid generation -- fast
+07-01-18 sudoku.c: %c and %s now require #A for [A-IJ-R]
+07-01-11 sudoku.c: add per-group options
+07-01-08 sudoku.c: update -qhardest to included nested propositions
+06-11-23 sudoku.c: add insert() flatten() clear() for puzzle counting
+06-10-11 sudoku.c: add function(arg) for future expansion
+06-09-04 sudoku.c: add -q aliases, hard rating
+06-08-16 Nmakefile: drop :PACKAGE: ast
+06-07-17 pseudocoup.c: add
+06-06-11 sudoku.c: add -t, speed up solution grid generation
+06-06-07 sudoku.c: sync tests, fix dumps
+06-05-28 sudoku.c: handle #!sudoku data dependent options
+06-05-26 sudoku.c: allow -QF, add { boxline linebox endsteps endsingles }
+	 sudoku.c: add -o file for systems that don't have redirection
+06-05-09 sudoku.c: XY cycle ternary group working
+06-03-08 sudoku.c: XY cycle with algebraic tables almost in final form
+06-03-07 sudocoo.c: add
+06-03-06 sudocoup.c: tweak again
+06-03-01 sudoku.c: fix -nN to count listed puzzles, add -kqQ
+06-02-14 sudoku.c: add -C
+06-02-02 sudocoup.c: add CANON test for standalone canon.c
+05-12-25 add sudocoup generator
+05-12-11 add sudocoup.c
+05-11-01 combine X+Y=>X
+05-10-14 fix -kC... -ehp to capture grid in the correct state
+05-10-11 add -kCn -kM
+05-10-05 W method handles strict x-wing/swordfish missed by X method
+05-10-04 Y method unifies pair-vertex cycle methods { xy-wing colors }
+05-10-01 X method unifies single-valued cycle methods { x-wing swordfish }
+05-09-28 add -P
+05-08-11 add symmetrize(), optimal(), CONSTRAINT_Z
+05-07-17 fix tuple logic
+05-06-14 first release

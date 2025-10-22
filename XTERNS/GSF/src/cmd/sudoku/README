@@ -1,0 +1,24 @@
+sudoku
+	9x9 sudoku solver and generator (9 hard coded)
+
+sudocoup
+	NxN sudoku / QWH (quasigroup with holes / latin square)
+	solver, N specified at compile time, 9 by default
+	see the source for other compile time options
+
+sudocoo
+	9x9 sudoku solver coded for size (9 hard coded)
+	solving rate more sensitive to input than sudocoup
+	faster than sudocoup on the easier ones, slower on the harder
+
+no configure -- just (AT&T) nmake or make
+
+use the --man or --html options to list the man page on standard error
+
+to test
+	nmake test
+or
+	make check
+
+Glenn Fowler <gsf@research.att.com>
+AT&T Research, Florham Park NJ

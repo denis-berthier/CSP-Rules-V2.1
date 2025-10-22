@@ -1,0 +1,288 @@
+info mam static 00000 1994-07-17 make (AT&T Research) 5.7 2012-06-20
+setv INSTALLROOT ../../..
+setv PACKAGEROOT ../../../../..
+setv AR ${mam_cc_AR} ${mam_cc_AR_ARFLAGS}
+setv ARFLAGS rc
+setv AS as
+setv ASFLAGS
+setv CC cc
+setv mam_cc_FLAGS
+setv CCFLAGS ${-debug-symbols?1?${mam_cc_DEBUG} -D_BLD_DEBUG?${mam_cc_OPTIMIZE}?}
+setv CCLDFLAGS ${-strip-symbols?1?${mam_cc_LD_STRIP}??}
+setv COTEMP $$
+setv CPIO cpio
+setv CPIOFLAGS
+setv CPP "${CC} -E"
+setv F77 f77
+setv HOSTCC ${CC}
+setv IGNORE
+setv LD ld
+setv LDFLAGS
+setv LEX lex
+setv LEXFLAGS
+setv LPR lpr
+setv LPRFLAGS
+setv M4FLAGS
+setv NMAKE nmake
+setv NMAKEFLAGS
+setv PR pr
+setv PRFLAGS
+setv SHELL /bin/sh
+setv SILENT
+setv TAR tar
+setv YACC yacc
+setv YACCFLAGS -d
+make install
+make sudoku
+make sudoku.o
+make sudoku.c
+make bbss.c implicit
+done bbss.c dontcare
+make constraint_Z.c implicit
+done constraint_Z.c
+make constraint_U.c implicit
+done constraint_U.c
+make constraint_J.c implicit
+done constraint_J.c
+make constraint_A.c implicit
+done constraint_A.c
+make windows.h implicit
+done windows.h dontcare virtual
+make sudz.h implicit
+make sudata.h implicit
+make process.h implicit
+done process.h dontcare virtual
+done sudata.h dontcare
+make shlib-compat.h implicit
+done shlib-compat.h dontcare virtual
+done sudz.h
+prev sudata.h implicit
+done sudoku.c
+meta sudoku.o %.c>%.o sudoku.c sudoku
+prev sudoku.c
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -I. -DBBSS -DSUDZ -c sudoku.c
+done sudoku.o generated
+make libsudz.a archive
+make sudz.req
+exec - set -
+exec - echo 'int main(){return 0;}' > 1.${COTEMP}.c
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -c 1.${COTEMP}.c &&
+exec - x=`${CC} ${mam_cc_FLAGS} ${CCFLAGS} ${LDFLAGS} -o 1.${COTEMP}.x 1.${COTEMP}.o -l'*' 2>&1 | sed -e 's/[][()+@?]/#/g' || :` &&
+exec - {
+exec - case "" in
+exec - *?) echo " " ;;
+exec - esac
+exec - for i in sudz bz2
+exec - do case $i in
+exec - "sudz"|sudz)
+exec - ;;
+exec - *) if test -f ${INSTALLROOT}/lib/lib/$i
+exec - then y=`cat ${INSTALLROOT}/lib/lib/$i`
+exec - case $y in
+exec - *-?*) echo "" $y ;;
+exec - esac
+exec - continue
+exec - elif test ! -f ${INSTALLROOT}/lib/lib$i.a
+exec - then case `{ ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -L${INSTALLROOT}/lib ${LDFLAGS} -o 1.${COTEMP}.x 1.${COTEMP}.o -l$i 2>&1 || echo '' $x ;} | sed -e 's/[][()+@?]/#/g' || :` in
+exec - *$x*) case `{ ${CC} ${mam_cc_FLAGS} ${CCFLAGS} ${LDFLAGS} -o 1.${COTEMP}.x 1.${COTEMP}.o -l$i 2>&1 || echo '' $x ;} | sed -e 's/[][()+@?]/#/g' || :` in
+exec - *$x*) continue ;;
+exec - esac
+exec - ;;
+exec - esac
+exec - fi
+exec - ;;
+exec - esac
+exec - echo " -l$i"
+exec - done
+exec - } > sudz.req
+exec - rm -f 1.${COTEMP}.*
+done sudz.req generated
+make sudzlib.o
+make sudzlib.c
+make io.h implicit
+done io.h dontcare virtual
+prev sudz.h implicit
+prev windows.h implicit
+make vcodex.h implicit
+done vcodex.h dontcare virtual
+prev sudata.h implicit
+done sudzlib.c
+meta sudzlib.o %.c>%.o sudzlib.c sudzlib
+prev sudzlib.c
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -I. -DSUDZ -c sudzlib.c
+done sudzlib.o generated
+make sudata.o
+make sudata.c
+prev sudata.h implicit
+done sudata.c
+meta sudata.o %.c>%.o sudata.c sudata
+prev sudata.c
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -I. -c sudata.c
+done sudata.o generated
+make subcanon.o
+make subcanon.c
+prev sudata.h implicit
+done subcanon.c
+meta subcanon.o %.c>%.o subcanon.c subcanon
+prev subcanon.c
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -I. -c subcanon.c
+done subcanon.o generated
+exec - ${AR} rc libsudz.a sudzlib.o sudata.o subcanon.o
+exec - (ranlib libsudz.a) >/dev/null 2>&1 || true
+done libsudz.a generated
+bind -lsudz
+exec - ${CC} ${CCLDFLAGS} ${mam_cc_FLAGS} ${CCFLAGS} ${LDFLAGS} ${mam_cc_L+-L.} -o sudoku sudoku.o ${mam_libsudz}
+done sudoku generated
+make sudz
+prev libsudz.a archive
+make sudz.o
+make sudz.c
+prev sudz.h implicit
+prev sudata.h implicit
+done sudz.c
+meta sudz.o %.c>%.o sudz.c sudz
+prev sudz.c
+setv _BLD_sudz -U_BLD_sudz
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -I. -DSUDZ -c sudz.c
+done sudz.o generated
+prev libsudz.a archive
+exec - ${CC} ${CCLDFLAGS} ${mam_cc_FLAGS} ${CCFLAGS} ${LDFLAGS} ${mam_cc_L+-L.} -o sudz libsudz.a sudz.o ${mam_libsudz}
+done sudz generated
+prev libsudz.a archive
+make pseudocoup
+make pseudocoup.o
+make pseudocoup.c
+prev windows.h implicit
+done pseudocoup.c
+meta pseudocoup.o %.c>%.o pseudocoup.c pseudocoup
+prev pseudocoup.c
+setv _BLD_sudz -U_BLD_sudz
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -DSUMMARY=0 -DPRINT -c pseudocoup.c
+done pseudocoup.o generated
+exec - ${CC} ${CCLDFLAGS} ${mam_cc_FLAGS} ${CCFLAGS} ${LDFLAGS} -o pseudocoup pseudocoup.o
+done pseudocoup generated
+make sudocoup
+make sudocoup.o
+make sudocoup.c
+make canon.c implicit
+done canon.c dontcare
+prev windows.h implicit
+done sudocoup.c
+meta sudocoup.o %.c>%.o sudocoup.c sudocoup
+prev sudocoup.c
+setv UNIQUE -DUNIQUE
+setv _BLD_sudz -U_BLD_sudz
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -I. -DSUMMARY=0 -DPRINT -DUNIQUE -c sudocoup.c
+done sudocoup.o generated
+setv UNIQUE -DUNIQUE
+exec - ${CC} ${CCLDFLAGS} ${mam_cc_FLAGS} ${CCFLAGS} ${LDFLAGS} -o sudocoup sudocoup.o
+done sudocoup generated
+make sudocoo
+make sudocoo.o
+make sudocoo.c
+done sudocoo.c
+meta sudocoo.o %.c>%.o sudocoo.c sudocoo
+prev sudocoo.c
+setv _BLD_sudz -U_BLD_sudz
+exec - ${CC} ${mam_cc_FLAGS} ${CCFLAGS} -c sudocoo.c
+done sudocoo.o generated
+exec - ${CC} ${CCLDFLAGS} ${mam_cc_FLAGS} ${CCFLAGS} ${LDFLAGS} -o sudocoo sudocoo.o
+done sudocoo generated
+make ${INSTALLROOT}/bin
+exec - if silent test ! -d ${INSTALLROOT}/bin
+exec - then mkdir -p ${INSTALLROOT}/bin
+exec - fi
+done ${INSTALLROOT}/bin generated
+make ${INSTALLROOT}/bin/sudoku
+prev ${INSTALLROOT}/bin
+prev sudoku
+exec - test '' = 'sudoku' || ${STDCMP} 2>/dev/null -s sudoku ${INSTALLROOT}/bin/sudoku || { ${STDMV} ${INSTALLROOT}/bin/sudoku ${INSTALLROOT}/bin/sudoku.old 2>/dev/null || true; ${STDCP} sudoku ${INSTALLROOT}/bin/sudoku ;}
+done ${INSTALLROOT}/bin/sudoku generated
+make ${INSTALLROOT}/lib
+exec - if silent test ! -d ${INSTALLROOT}/lib
+exec - then mkdir -p ${INSTALLROOT}/lib
+exec - fi
+done ${INSTALLROOT}/lib generated
+make ${INSTALLROOT}/lib/libsudz.a archive
+prev ${INSTALLROOT}/lib
+prev libsudz.a archive
+exec - test '' = 'libsudz.a' || ${STDCMP} 2>/dev/null -s libsudz.a ${INSTALLROOT}/lib/libsudz.a || { ${STDMV} ${INSTALLROOT}/lib/libsudz.a ${INSTALLROOT}/lib/libsudz.a.old 2>/dev/null || true; ${STDCP} libsudz.a ${INSTALLROOT}/lib/libsudz.a ;}
+exec - (ranlib ${INSTALLROOT}/lib/libsudz.a) >/dev/null 2>&1 || true
+done ${INSTALLROOT}/lib/libsudz.a generated
+make ${INSTALLROOT}/lib/lib
+exec - if silent test ! -d ${INSTALLROOT}/lib/lib
+exec - then mkdir -p ${INSTALLROOT}/lib/lib
+exec - fi
+done ${INSTALLROOT}/lib/lib generated
+make ${INSTALLROOT}/lib/lib/sudz
+prev ${INSTALLROOT}/lib/lib
+prev sudz.req
+exec - test '' = 'sudz.req' || ${STDCMP} 2>/dev/null -s sudz.req ${INSTALLROOT}/lib/lib/sudz || { ${STDMV} ${INSTALLROOT}/lib/lib/sudz ${INSTALLROOT}/lib/lib/sudz.old 2>/dev/null || true; ${STDCP} sudz.req ${INSTALLROOT}/lib/lib/sudz ;}
+done ${INSTALLROOT}/lib/lib/sudz generated
+make ${INSTALLROOT}/bin/pseudocoup
+prev pseudocoup
+exec - test '' = 'pseudocoup' || ${STDCMP} 2>/dev/null -s pseudocoup ${INSTALLROOT}/bin/pseudocoup || { ${STDMV} ${INSTALLROOT}/bin/pseudocoup ${INSTALLROOT}/bin/pseudocoup.old 2>/dev/null || true; ${STDCP} pseudocoup ${INSTALLROOT}/bin/pseudocoup ;}
+done ${INSTALLROOT}/bin/pseudocoup generated
+make ${INSTALLROOT}/bin/sudocoup
+prev sudocoup
+exec - test '' = 'sudocoup' || ${STDCMP} 2>/dev/null -s sudocoup ${INSTALLROOT}/bin/sudocoup || { ${STDMV} ${INSTALLROOT}/bin/sudocoup ${INSTALLROOT}/bin/sudocoup.old 2>/dev/null || true; ${STDCP} sudocoup ${INSTALLROOT}/bin/sudocoup ;}
+done ${INSTALLROOT}/bin/sudocoup generated
+make ${INSTALLROOT}/bin/sudocoo
+prev sudocoo
+exec - test '' = 'sudocoo' || ${STDCMP} 2>/dev/null -s sudocoo ${INSTALLROOT}/bin/sudocoo || { ${STDMV} ${INSTALLROOT}/bin/sudocoo ${INSTALLROOT}/bin/sudocoo.old 2>/dev/null || true; ${STDCP} sudocoo ${INSTALLROOT}/bin/sudocoo ;}
+done ${INSTALLROOT}/bin/sudocoo generated
+make ${INSTALLROOT}/bin/sudz
+prev sudz
+exec - test '' = 'sudz' || ${STDCMP} 2>/dev/null -s sudz ${INSTALLROOT}/bin/sudz || { ${STDMV} ${INSTALLROOT}/bin/sudz ${INSTALLROOT}/bin/sudz.old 2>/dev/null || true; ${STDCP} sudz ${INSTALLROOT}/bin/sudz ;}
+done ${INSTALLROOT}/bin/sudz generated
+done install virtual
+make test
+make test.sudoku
+prev sudoku
+make sudoku.tst
+meta sudoku.tst %.rt>%.tst sudoku.rt sudoku
+make sudoku.rt
+done sudoku.rt
+exec - if [[ "1" || "sudoku.rt" -nt "sudoku.tst" ]]
+exec - then mktest --style=regress sudoku.rt > sudoku.tst
+exec - fi
+done sudoku.tst generated
+exec - regress sudoku.tst sudoku
+done test.sudoku virtual
+make test.sudocoo
+prev sudocoo
+make sudocoo.tst
+meta sudocoo.tst %.rt>%.tst sudocoo.rt sudocoo
+make sudocoo.rt
+done sudocoo.rt
+exec - if [[ "1" || "sudocoo.rt" -nt "sudocoo.tst" ]]
+exec - then mktest --style=regress sudocoo.rt > sudocoo.tst
+exec - fi
+done sudocoo.tst generated
+exec - regress sudocoo.tst sudocoo
+done test.sudocoo virtual
+make test.sudocoup
+prev sudocoup
+make sudocoup.tst
+meta sudocoup.tst %.rt>%.tst sudocoup.rt sudocoup
+make sudocoup.rt
+done sudocoup.rt
+exec - if [[ "1" || "sudocoup.rt" -nt "sudocoup.tst" ]]
+exec - then mktest --style=regress sudocoup.rt > sudocoup.tst
+exec - fi
+done sudocoup.tst generated
+exec - regress sudocoup.tst sudocoup
+done test.sudocoup virtual
+make test.pseudocoup
+prev pseudocoup
+make pseudocoup.tst
+meta pseudocoup.tst %.rt>%.tst pseudocoup.rt pseudocoup
+make pseudocoup.rt
+done pseudocoup.rt
+exec - if [[ "1" || "pseudocoup.rt" -nt "pseudocoup.tst" ]]
+exec - then mktest --style=regress pseudocoup.rt > pseudocoup.tst
+exec - fi
+done pseudocoup.tst generated
+exec - regress pseudocoup.tst pseudocoup
+done test.pseudocoup virtual
+done test dontcare virtual

@@ -1,0 +1,1031 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>sudoku solver/generator man document</TITLE>
+</HEAD>
+<BODY bgcolor=white>
+<PRE>
+NAME
+  sudoku - sudoku solver / generator
+
+SYNOPSIS
+  sudoku [ options ] [ puzzle ... | [ < ] puzzle.file ... ]
+
+DESCRIPTION
+  sudoku solves 9x9 sudoku puzzles defined by the literal puzzle operands
+  (containing no lower case letters) and puzzle file operands, and prints the
+  puzzle properties and solutions, one line per puzzle, on the standard
+  output.  If there are no operands then puzzle descriptions are read from
+  the standard input.  The file "-" names the standard input.  A solvable
+  puzzle has exactly one solution.
+
+OPTIONS
+  -a   List all solutions.  Implies -ou.
+  -A   Force constraints to assume that constraints earlier in the default
+       order have already been applied.
+  -b   Enable breadth first search which is typically slower than the default
+       depth first first.  Breadth first search applies constraint propagation
+       to the lookahead candidates (guesses).
+  -B   Batch moves within one constraint group (or constraint if -G is on)
+       by first identifying all moves and then committing them in one
+       operation.  By default moves are made as they are identified.
+       Batching negates ordering affects between permutations of equivalent
+       puzzles but usually results in higher constraint counts.  If -v is
+       also on then the move trace is prefixed by the constraint
+       propagation iteration count.
+  -cNC File puzzle input is in the Nth C separated column counting from 1.
+       If C is ' ' or omitted then 1 or more space characters separate the
+       fields. C may be followed by C separated field names.  The fields may
+       be accessed by %(name)f, %(N)f, %(*)f (all fields, no separator), %#C(*)f
+       (all fields, C separator), or $N, $name in expressions.
+  -C[X]If X is p or omitted then list the minimum Hamming/edit distance of each
+       each input puzzle to the next input puzzle, the input puzzle in %v form,
+       and the "best" map of the input puzzle to the next, also in %v form.
+       Each odd-even pair of input puzzles is compared.  If X contains S then
+       list the maximum similarity instead of Hamming distance.  If X contains D
+       then list the default Hamming distance.  If X contains f then compare
+       the first puzzle to each subsequent puzzle.  If X contains l then compare
+       compare the last (previous) puzzle to the current input puzzle.
+       If X contains a then all mappings with best distance/similarity are listed.
+       The first puzzle can be listed by specifying width 1 in the grid -f format,
+       and the second puzzle by specifying width 2: e.g. %1v %2#.c
+  -d   Enable depth first search which is typically faster than breadth
+       first.  This is the default.
+  -DN  Set debug output level to N, or increment if N omitted.
+  -eE  Only list puzzles with constraint expression E that evaluates non-0.
+  -E   List puzzles just after applying the last easy (non-guess) constraint.
+  -fF  Format output according to F (default '%v # %5r %q %(CSM)#c#/q') after
+       each puzzle is processed.  If format is "-" then per-puzzle output
+       is disabled.  printf(3) style width, precision and fill apply.
+       [A][B]... before the format char treats value as an index: 0 for A, 1,
+       for B, etc.  Information for invalid puzzles represents the solver
+       state when the puzzle was determined to be invalid.  The formats are:
+        %XC Solution in canonical order.  X=#a: number of non-trivial
+            canonical solution automorphisms.
+        %XD Dump dictionaries and tables.  X=#u: uniq(FORMAT) dictionary; X=#U
+            uniq() grid dictionary.
+        %NF Flush the current output and: N=1: write to the standard output;
+            N=2: write to the standard error.
+        %G  The number of clues (givens).
+        %XI Puzzle file magic string.  X=#c: schema names separated by c.
+            X=#I: schema names with input file separator.
+        %XM The number of backdoors (magic cell sets).
+              #a: The number of cells that are part of a backdoor.
+              #b: The backdoor size.
+              #g: Estimated number of placement guesses before backdoor hit.
+              #u: The number of cells that are not part of a backdoor.
+        %XYZP Property list of Pi elements:
+              #c: Pi is the number of cells with i candidates.
+              #d: Pi is the number candidates with degree i, P1: total.
+              #g: Pi is the number of clue values with i-1 occurrences.
+              #o: Pi is the number of occurrences for clue value i.
+              #q: Pi is the constraint applied at constraint iteration i.
+              #r: Pi is the number of rookery templates for value i.
+              #s: Pi is the number placements at constraint iteration i.
+              #B: Pi is the number of clues for box i.
+              #C: Pi is the number of clues for col i.
+              #R: Pi is the number of clues for row i.
+              #S: #s with constraint id.
+              #v: Pi is the number of cells with candidate i.
+            Y=#S for separator S, otherwise no separator.
+            Z=#G for group separator G, otherwise Y separator.
+            -#: sorted high to low, +#: sorted low to high.
+        %XQ Equivalent to '%5r %-11q %#c#/q'.  If #X is specified:
+              #m: The magic/backdoor constraints.
+              #q: The quick constraints.
+              #s: The solver (-q) constraints.
+        %S  Default stats: equivalent to '%#nr/%02(C)x/%02(K)x/%04(I)x/%(M)x'.
+        %FT The current date formatted by strftime(3) using format F,
+            default ('%Y-%m-%d+%H:%M:%S').
+        %XX Miscellaneous:
+              #c: The number of solved cells.
+              #e: Elapsed time test. Format width interpreted as nsec.
+              #E: Simple Sudoku pencilmark exclusion list, one per line.
+              #f: The number of forced cells (naked singles).
+              #F: The full dihedral symmetry pattern id n-n-n-n-n.
+              #r: The current pseudo random number generator seed.
+              #R: The initial pseudo random number generator seed.
+              #t: The tuples of degree i, one per line.
+              #u: The solution unavoidables of size 4.
+              #v: The number of clue values (1-9).
+        %AXYc Puzzle in canonical order with solution cells listed as 0.
+            Leading 12345678945 omitted from row-order min-lex band values.
+              #A: Solution cells listed as [A-IJ-R].
+              #b: Band of 416 min-lex index 6-tuple, each 3-tuple sorted.
+              #B: #b not sorted.
+              #c: Grid symmetrized to minimize distance, dihedral order, and
+                  pattern lexicographic order, ignoring the center box.
+              #C: #c dihedral symmetry type and distance from symmetry.
+                  X may be:
+                  #s: Symmetry op.
+                  #S: Symmetry description.
+                  #t: Symmetry type.
+              #d: Grid symmetrized to minimize distance, dihedral order, and
+                  pattern lexicographic order.
+              #D: #d dihedral symmetry type and distance from symmetry.
+                  X is the same as for #C above.
+              #e: sudz compressed minlex band/grid encoding.
+              #g: Gang of 44 min-lex index 6-tuple, each 3-tuple sorted. The
+                  gang index is the largest 416 index the gang may produce.
+              #G: #g not sorted.
+             N#i: Band of 416 index N row order min-lex value.
+              #m: Puzzle in subgrid row order minlex canonical order with
+                  solution cells listed as 0.  The default canonical form is
+                  based on the solution grid; subgrid canonical does not
+                  require the grid to have a solution. %.27#mc and %.54#mc
+                  canonicalize the catenation of the first 3 and 6 rows
+                  (1 and 2 bands) respectively.
+              #o: The original grid dihedral symmetry id and distance from
+                  symmetry, minimizing distance and dihedral order.
+              #O: The original grid dihedral symmetry type and distance from
+                  symmetry, minimizing distance and dihedral order.
+              #p: Permutations mapping original to canonical.
+                  i:identity, v:value, r:row, c:column,
+                  a:#automorphisms.
+              #P: Row order pattern minlex canonical.
+              #s: Grid symmetrized to largest dihedral order, "assymmetric"
+                  if no symmetry (not a fast implementation). Y=#p: if symmetric
+                  then list the cyclic permutation that symmetrizes the input.
+              #t: Exemplar template with / cells in subgrid row order minlex
+                  canonical order. Y=#a: the number of canonical form
+                  automorphisms.  Y=#p: list the cyclic permutations that
+                  transform the exemplar to canonical order. A=(abc): exemplar
+                  cell values weighted a=1 b=2 c=3. A=((ab)c(de)): exemplar cell
+                  values weighted a=b=1 c=2 d=e=3.  Weights are in the range
+                  1..9.
+              #T: Exemplar template restricted to / cells in subgrid row order
+                  minlex canonical order. A: same as for #t, except listed cells
+                  are restricted to the cells specified by A.
+              #x: Clues treated as exemplar X in subgrid row order minlex canonical
+                  order. Y=#a: the number of canonical form automorphisms.  Y=#p: list
+                  the cyclic permutations that transform the puzzle to canonical
+                  order.
+              #X: Like #x, but list original puzzle in row order minlex canonical order.
+              #z: Like #t, but symmetrize instead of canonicalize.
+              #Z: Like #T, but symmetrize instead of canonicalize.
+              #c: Solution cells listed as 'c'.
+        %d  The default format '%v # %5r %q %(CSM)#c#/q'.
+        %Xf Input file base name. X=#p: input file path name, X=(N): -c field N,
+            X=(@)#C: all fields separated by C, X=(@): all fields, no separator.
+        %XYg 9x9 text puzzle grid with no frame (default or X=#n), X=#f:
+            framed player's, X=#g: gordon, X=#m: metcalf, X=#p: programmer's,
+            forum, X=#s: simple, X=#v solver. #isupper: solution. Y=#t: template
+            if current input is template or exemplar, Y=#i: inverse exemplar.
+            Y=(:label): label appended to last grid line.
+        %XYh 9x9 text puzzle grid with hints (pencilmarks) and no borders,
+            X=#b: {hint}, X=#f: framed player's forum, X=#p: programmer's
+            forum, X=#s: simple, X=#v solver. Y=#0: only list strong edges,
+            Y=#N: only list exact N-tuples. %N..: only list candidate(s) N,
+            Y=#c: only cell values (no singles constraint mask).
+            X=#e: experimental encodings:
+              0#e: (hex string) clues '0' - '8', #empty cells '9' - 'f':
+              1#e: (bit string) '0': empty, 11*0: nth clue in pencilmark bitmask
+              2#e: (bit binary) '0': empty, 11*0: nth clue in pencilmark bitmask
+        %Xi Current identification, or %f if none.
+              #C: The -C id: similarity for -CS, distance otherwise.
+        %XYm The position list of all backdoors (magic cells) (X=#a default),
+            X=#A lists #a with values, X=#u lists all non-backdoor solution
+            cells, X=#U lists #u with values. Y=#c for 'c ' on split lines.
+        %Xn Various counts and ordinals:
+              #a: The ordinal within all listed puzzles (-f- still counts).
+              #A: The number of automorphisms of the input sudz grid.
+              #B: The band index of the input sudz grid.
+              #c: The -g puzzle index.
+              #C: The -go puzzle partition index or -C distance/similarity.
+              #d: The -g number of unique puzzles.
+              #e: The -g puzzle duplication count.
+              #i: The ordinal within the all input files.
+              #I: The window index of the input sudz grid.
+              #l: Input file line number of the first puzzle row.
+              #m: The ordinal within the current -a (multiple solution count).
+              #n: The number of backtrack search nodes.
+              #o: The ordinal within the current %i.
+              #p: The ordinal within the current input file.
+              #r: The ordinal within the current -m or -go.
+              #R: The current -m or -go base puzzle ordinal.
+              #s: The number of searched (for solution) puzzles.
+              #S: The number of cell scans (currently for debugging).
+              #u: The number of uniqued puzzles (splay tree lookups/insertions).
+              #v: (default) The valid puzzle count.
+              #W: The number of grids in the input sudz window.
+        %Xq The constraints used to solve the puzzle.  X may be:
+              #c: Constraint counts (see EXPRESSIONS below).
+              #d: The diamond move (hardest up to first elimination).
+              #D: The diamond move index (constraint ordinal).
+              #h: The hardest move.
+              #H: The hardest move index (constraint ordinal).
+              #i: The -q index:method map.
+              #I: The highest -q method index.
+              #m: m: minimal, M: symmetric minimal, -: otherwise.
+              #M: #m description.
+              #o: The constraints and orders used to solve the puzzle.
+              #p: The pearl move (hardest up to first placement).
+              #P: The pearl move index (constraint ordinal).
+              #s: Symmetry op (see -s below).
+              #S: Symmetry description.
+              #t: Symmetry type (see -s below).
+            Trailing 0 values are dropped and only applied constraints are
+            listed. The list order is CSFNBTHWXYKOZPQGMV.
+        %Xr The puzzle rating from 1 (very easy) to 99999 (very difficult).
+            Use -B or -S to normalize algorithm order bias. X=(E) uses the
+            rating expression E instead of the -R option value. The
+            90000-99999 range is exponential. X=#r for raw (no exponential
+            normalization), X=#s for symbolic rating, X=#. for 99999 scaled
+            9.9, X=#n for normalized puzzle rating from 1 (very easy) to 9
+            (very difficult). The usual C integer arithmetic operators, ?:,
+            x**y (x to the y power) and x@y (x log y) are supported.
+        %Xs Puzzle in original order with solution cells listed as [1-9].
+            X=#A: solution cells listed as [A-IJ-R].
+        %Xt Various times.  X may be:
+              #e: Total elapsed time since program start.
+              #p: Elapsed time since the last %#pt.
+              #s: (default) Current puzzle solution time.
+              #t: Sum of all puzzle solution times.
+        %XYv Puzzle in original order with solution cells listed as '.'.
+            X and/or Y may be:
+              #i: inverse exemplar if current input is exemplar
+              #t: template if current input is template/exemplar
+              #N: (N non-alpha) solution cell listed as N
+        %Xx X=(E): the value of the expression (E).
+        %a  Deprecated: use %#an.
+        %e  Deprecated: use %#at.
+        %j  Deprecated: use %#pn.
+        %k  Deprecated: use %#in.
+        %l  Deprecated: use %#ln.
+        %o  Deprecated: use %#on.
+        %p  Deprecated: use %#pt.
+        %t  Deprecated: use %#st.
+        %u  Deprecated: use %#tt.
+        %y  Deprecated: use %#mn.
+        %z  Deprecated: use %#rn.
+        %@  Align to <width> characters past the previous %@, e.g., %-10@.
+        %N/ Multi-column output with column width N. Format output after the /
+            will be in the next column(s).
+        %?V%?I If the puzzle is valid then output format V, otherwise format I.
+            Empty V or I, whichever is selected, means no output.
+        %,  Space.
+        %:  Newline.
+        %%  Percent.
+        \c  C style escape.
+        c   Literal character.
+  -FCF Set output format default C to F.  The default is empty if not specified.
+       C may be:
+        a  Output after each puzzle is processed.  This format is used after
+           all -a solutions are determined for each puzzle.
+        b  Output before each puzzle is processed.
+        c  -goc format (default '%#0v # %#Rn.%#cn.%#rn').
+        d  The %d format (default '%v # %5r %q %(CSM)#c#/q').
+        e  Value equality operator (default '').
+        f  Output after all puzzles have been processed.  Puzzle property
+           counters are accumulated from all puzzles.
+        g  Value proposition (guess) operator (default '?').
+        h  The initial -gt grid before minimization/filtering.
+        i  Output before the first puzzle is processed.
+        m  The %S stats format (default '%#nr/%02(C)x/%02(K)x/%04(I)x/%(M)x').
+        n  Value inequality operator (default '^').
+        o  The -go omitted (and possibly invalid) grid format.
+        p  Cell position (coordinate) format (default '[%r%c]').
+           F is a printf-style format string with the following format
+           characters replacing the 'd' format:
+             r  row offset counting from 1
+             R  row offset counting from 0
+             c  column offset counting from 1
+             C  column offset counting from 0
+             x  column offset counting from 1
+             X  column offset counting from 0
+             y  (10-row) offset counting from 1
+             Y  (9-row) offset counting from 0
+           %Ar%ac lists the rows as ABCDEFGHI and columns as abcdefghi.
+           %Jr%c lists the rows as ABCDEFGHJ and columns as 123456789.
+           %kc%r lists the rows as 123456789 and columns as abcdefghk.
+        q  The %Q format (default '%5r %-11q %#c#/q').
+        r  Output as each -g solution grid is generated.
+        s  Output after each puzzle is solved. Equivalent to -fF.  Also used
+           for each -a solution (default '%v # %5r %q %(CSM)#c#/q').
+        t  The default %T time format (default '%Y-%m-%d+%H:%M:%S').
+        v  The < position operator value > format (default '%p%o%v'),
+           where %p is the -Fp position, %o is the -F[egn] operator, and
+           %v is the value.
+        w  Default exemplar canonicalization weights (see %#tc, default '/').
+        x  -p permutation output (default '%x').
+        y  The exemplar characters in order (default '/X#@*$&').
+           Up to nine characters may be specified.  The first seven have
+           specific meaning for the Z method.
+        C  The default -C output format (default '%#Ci %#Cn\n%1v\n%2#.c').
+  -gTNA Generate puzzles of type T with optional parameters N and A.
+       T may be:
+         b  Canonical solution grids for each band N class member.
+            If -m is also specified then only the min and max grids
+            for selected bands are listed. %i:band-index, %#pn:#grids,
+            %#in:#checked, %n:total#grids, %#on:total#checked,
+            %#ln:#3-band-prunes, %#mn:2-band-prunes. N,M lists
+            bands in the range N through M inclusive.
+         B  Canonical band index table with ordinals assigned by minlex order.
+            -gB44 lists the gang of 44, -gB44a lists all band indices with gang
+            of 44 labels.
+         d  -gdC.V generates pseudo puzzles (possibly more than one solution)
+            with C clues (default 14) using V different values (default 3).
+         g  Solution grids listed one per line (no other processing).
+         h  Hint-only (pencilmark-only) puzzles with at least N (default
+            162) candidates. Even N => candidates evenly distributed.
+         H  Generate using the hardest sudoku formula: at most one clue
+            per minirow/minicol and no repeated values in bands/chutes,
+            at most three clues per value, and minimal. N is the clue
+            fill step (default 31) -- factors of 3 are removed.
+         m  For each puzzle list the subgrid row order minlex canonical
+            grid (the default canonical form is based on the solution grid,
+            subgrid canonical does not require the grid to have a solution).
+         o  +/-NX...: a sequence of -N and/or +N operands with option suffixes.
+            -N: delete all combinations of N clues; +N: add all combinations
+            of N clues.  Puzzles are checked for single solution after each
+            addition phase. X may be one or more of the following options.
+            Each occurrence toggles the previous value.  Values are inherited
+            by subsequent operands in the sequence. X may be one or more of:
+              a  assume the last +M clues have already been cleared for @
+              c  use the -Fc format with no filtering, otherwise use the
+                 default -f format, -q constraints, and -e filtering
+              e  do not check off subpuzzles for duplicates
+              i  add implicit (superfluous) candidates, otherwise skip them
+              n  show off/on ops but do not execute
+              o  list one generated puzzle per input puzzle
+              p  the input puzzle is a pattern -- only change original clues
+              r  -nX random {-N+M} operations per input puzzle
+              @I start at clue index I counting from 1, clearing clues from
+                 from that index on
+              @  clear the last +M clues and start at the leftmost empty cell
+                 from the cleared clues
+            {...}xN repeats the bracketed group N times.  {...}:N repeats the
+            bracketed group 0 or more times until the number of clues is <= N.
+            Some sequences may exhaust memory.  {N}* (alternatively {N}!)
+            repeats {-N+N} until closure (no new puzzles generated). NOTE: a
+            recalcitrant bug sometimes omits a small number of puzzles in
+            combined off/on sequences that would otherwise be listed if the
+            sequence were done separately; if exact results are required (no
+            omissions) then use separate sequences.
+         p  (default) Puzzle grids.
+         q  Run the quick verification solver on all input puzzles. The output
+            one line containing: <#invalid> <#multi-solution> <#valid>.
+         s  Solution grids only.
+         t  Treat each input file as a template and generate -nN puzzles per
+            template, filling only the template clues.  N (default 10000)
+            limits the number of shuffles for each solution grid projected on
+            the template.  Template input may be a valid puzzle (but with
+            multiple solutions ok) or a grid with [XxOo] marking the template
+            clues.  Some templates may not admit valid puzzles.  There is no
+            known predictor (other than maybe 17 clues).  If there are no O
+            cells then -v lists improvements towards 1 solution in 4 columns:
+            column 1 is the random solution grid count, column 2 is the solution
+            grid shuffle count, column 3 is the number of soultions for the grid
+            in column 4.  At 2 solutions column 3 also contains the number of
+            unavoidable cells.  If any template cell value is O and -m is
+            specified then only O template cells will be considered for
+            minimization.  If O and clue values or candidate lists are
+            specified then the clue values and/or candidates are fixed in
+            generated solution grids, otherwise template clues are treated
+            as X.  If there are no more than .A (default 54) candidate
+            then an enumerative (as opposed to random) search is used. The
+            enumerative search tests all candidate combinations.  -gtpN.R.F.S
+            marks F% (default 60%) clues X cells at random, +/- S% (default
+            30%) and generates N random puzzles projected on the random
+            template.  R (default 0 -- no limit) limits the number of X
+            assignment rounds.  -gtpr ignores the enumerative checks and
+            forces random search.  -gtpri continues the search on the modified
+            candidate grid.  -gtm allows multiple solutions -- handy for
+            generating subgrids.  -gtm.0 generates all subgrids.  -gtpe
+            checks every pattern row-order minlex grid (not quite canonical
+            so there may be some duplication); -gtpei.N retains the first
+            N input grid clues; -gtpe.N.V sets clue N to V; -gtper stops checking
+            when the next input grid is matched (each input grid pair forms
+            a range.)
+         x  Minimal superfluous (any clue unnecessary) puzzles.
+         P  Input puzzle are treated as pattern exemplars with clue cells mapped
+            to X and are listed.
+         X  Input puzzles are treated as exemplars and are listed.
+  -G   Ignore constraint order {...} groups and treat each constraint
+       as if it were in its own group.  Group minima/maxima and iterations
+       are not affected.
+  -h   Add hints (pencilmarks) to the -P output.
+  -H   Copy the first input file magic header, if any, to the output.
+  -i   Force the constraint propagation iteration count to increment
+       with each constraint that produces a move rather than with each
+       constraint group.  This allows the capture of in-group pencilmarks.
+  -jCN For each -g type that operates on complete solution grids, operate
+       on the original and N (default 100) randomly shuffled automorphic
+       copies. N=0 repeatedly uses the first grid without shuffling.
+       If C is - then values are preserved.
+  -JCN Solve the original puzzle and, for N (default 100) repetitions,
+       randomly shuffle (rows, columns, bands, stacks, values) to an
+       automorphic copy and re-solve.  If C is - then values are preserved.
+       Handy for verifying order independent metrics.
+  -kCR Constraint propagation iteration and/or cycle trace control.  R is a
+       range of counts/lables on which the control is applied.  C may be:
+         c  Add XY cycles in range R to -P output with strong edges (red),
+            1-weak edges (green), 0-weak edges (purple), and eliminated cell
+            values (blue).
+         d  Add -P 0-weak details (yellow).
+         i  List intermediate puzzles with propagation iteration in range R.
+            If -v is also on then the move trace is prefixed by the constraint
+            propagation iteration count.
+         m  Add -P backdoor (magic cell) values (purple).
+         p  Add -P cycle pairs (cyan).
+  -KCL Constraint propagation iteration and/or cycle control.  L is a list
+       of counts/labels on which the control is applied.  C may be:
+         c  Disable XYW cycles list L.
+         i  Disable constraint iterations in list L.
+  -lX  Label -P output with text X.
+  -LN  Limit P constraint propositions to candidates with degree (number of
+       value/location choices) <= N.  The default is 0 for no limit.
+  -mCN.M.X For each puzzle, derive, by dropping clues, up to N puzzles with
+       the minimum number of clues.  If N is omitted then all minimal puzzles
+       are derived.  If -s is also specified then symmetry will be preserved
+       and symmetric minimal will be considered minimal.  If M is specified
+       only minimal puzzles with >= M clues are derived.  If X is specified
+       only minimal puzzles with <= X clues are derived.  If C is r then a
+       typically much quicker random search (inspired by dukosu) is used to
+       test N (default 10000) random minimal puzzle candidates.  If C is rc
+       then the -Fc format is used to list the minimal puzzles; this can be
+       a factor of 2 faster than the default that generates puzzle stats.
+  -MC  Restrict backdoor computations to the -q style constraints C (default
+       FNBTHW).  Use this to avoid bad timing behavior with some constraints.
+       If C is - then backdoor computations are disabled.
+  -nN  Limit -g to N puzzles (default 0 -- no limit).
+  -NN  Set the next -f %a and %n to N.
+  -oF  Write output to file F.
+  -OX  Attempt to find an optimal (shortest) solution within each constraint
+       application. This will induce sub-optimal performance but may produce
+       more reasonable ratings when XY constraints are involved. Currently
+       limited to the XYP constraints. -O minimizes cycle size, -OA attempts to
+       minimize steps.
+  -pP  If P is p or omitted then list the value (v), row (r) and column (c)
+       permutations that transform each input puzzle to the next input puzzle.
+       Each odd-even pair of input puzzles must be valid and have isomorphic
+       solutions.  Permutations are displayed in cyclic notation, where each
+       (...) defines a label map, read from left to right.  (137)(25) means:
+       1=>3, 3=>7, 7=>1, 2=>5, 5=>2; unspecified labels map to themselves.
+       'v', 'r' and 'c' appear to the left of the value, row, and column label
+       maps, respectively.  'x' denotes row-col transposition, identity v,r,c
+       components are omitted and 'i' denotes the identity, and 'aN' denotes
+       the number of automorphisms.  If P is f then list permutations that
+       transform the first puzzle to each subsequent puzzle.  If P is l then
+       list permutations that transform the last (previous) puzzle to the
+       current input puzzle.  Otherwise P specifies a cyclic permutation applied
+       to each input puzzle as it is read in.
+  -P   Solve the puzzle and generate postscript output. To generate images
+       for posting: 'convert -crop 490x490+30+20 -scale 60% t.ps t.png'.
+  -qC  Change the current constraints using C (default FNBTHWXYKOG).  If C
+       does not start with - or + then the current constraints are cleared.
+       If C is - then the input puzzles are not solved but are still listed.
+       Initial constraints and those following + are enabled or size specific
+       if a size is specified.  Constraints following - are disabled.
+       Constraints are applied left to right as specified. {...} groups
+       constraints to be treated as a single constraint.  : within a group
+       commits the moves up to that point but continues with the
+       remainder of the group.  : outside of {...} disables G and causes
+       the constraints to the left to be ignored when they fail to advance
+       the solution.  Multiple ;VARi=EXPRi may be appended; after the each -qC
+       is applied the VARi are evaluated and assigned.  This also enables
+       multiple -qC options, each with its own VAR assignments.  After all -qC
+       are applied for the current puzzle the -e expression and -f format are
+       are applied, where the VARi may be referenced in the expression / format.
+       C may also be a lower case or numeric identifier that names a common set
+       of options:
+        hardest|h  Sudoku Player's Forum hardest puzzle options.  Ratings are
+                   exponentially normalized to the range 95000..99999
+                   (fixed upper limit).  Fairly consistent across
+                   puzzle permutations, but may take few minutes
+                   on some puzzles.
+                   -q-G -BOX -MFN -Z'{FN}P*V(2)||{FN}BP*V(3)||{FN}B{T2H2}P*V(4)'
+       hardest-obsolete|o  Obsolete Sudoku Player's Forum hardest options.
+                   -q-G -B -Z'FNP(FN)V(P<=9)V(2)||-XY+P(FN)V(P<=9)V(3)||
+                           FNP(FNB)V(P<=9)V(4)||FNP(FNBT2H2)V(5)||
+                           FNP(FNBTHW)V(6)||FNP(FNBTHWX)V(7)||
+                           FNP(FNBTHWXY)V(8)||FNP(FNBTHWXYO)V(9)||
+                           FNP.3G||FNP.9G||FNBTHWXYP.9G'
+       inferior|i  Sudoku Player's Forum inferior puzzle options.
+                   -q{FN}-G -B -eV
+                1  Sudoku Player's Forum hardest puzzle Q1 rating options.
+                   Ratings are steps+iterations plus a weight for
+                   propositions requiring B constraints.  Values fall
+                   in the range 1 .. 99999.  Much faster than -qhardest,
+                   and may be of similar quality.
+                   -q'{FN}-G' -Z'{FN}P*V(2)||{FN}BP*V(3)' 
+                           -B -MFN -R'steps+iterations+B*1000'
+                2  Sudoku Player's Forum hardest puzzle Q2 rating options.
+                   Similar to Q1 but averages the worst case work of a
+                   candidate degree ordered backtrack solver.  Values fall
+                   in the range 1 .. 99999.
+                   -q'{FN}BP*-G' -B -MFN -RP?P9:I0
+        simple|ss  A close approximation to the Simple Sudoku constraint order.
+                   Differences will surface between SS coloring and X/Y cycles.
+                   With guessing off (-G) some valid puzzles will have no solution.
+                   -qT1H1T2BT3T4H2W2W3XH3H4Y-G
+       superior|s  Sudoku Player's Forum superior-plus puzzle options.
+                   -q{[B]T1H1BT2H2W2T3H3}{[B+]W3T4H4W4}-G -eV
+       superior2|s2  Sudoku Player's Forum superior-2 puzzle options.
+                   -q'{[B+]T1H1}{[B1]BT2H2W2T3H3}-G' -e'V&&S&&(W2||T3||H3)'
+       ulterior|u  Sudoku Player's Forum ulterior puzzle options.
+                   -q{B2:N}-G -Q!{FN} -AB -eV
+       Common option constraints may be modfied by appending +constraints
+       or -constraints to the common constraint name.
+  -QE  Valid puzzles must additionally satisfy the constraint expression E.
+       E is an expression of ( ! && || == != ?: ) operators and -qC style
+       constraint operands.  For example, -Q'!{FN}&&{N}' specifies FN-invalid
+       and N-valid.
+  -rN  Set the pseudo random number generator seed to N (default time based).
+       The %#rX value can be used to span most pseudo-random operations across
+       multiple sudoku(1) invocations. Does not work for -gt.
+  -RX  Set the %r rating expression to X. The default is
+         P?(G?[r]98000+G:(10000+(P5>=1000?(P5/100)*100:P5))*10+
+           (B0?10000000+B0*100:0)+
+           ((T0||H0)?50000000+((T2+H2)+(T3+H3)*8+(T4+H4)*32)*32:0)):
+           F+N*2+B*4+(T2+T3*4+T4*16)*8+(H2+H3*8+H4*32)*64+
+	   (W*2+W2+W3*4+W4*16)*256+(X*2+X3+(X4+X5*2+X6*4+X7*8)*4)*128+
+	   (Y*2+Y3+(Y4+Y5*2+Y6*4+Y7*8)*16)*128+
+	   (K*2+K3+(K4+K5*2+K6*4+K7*8)*16)*512+
+	   (Z*2+Z2+Z3*4+Z4*8+Z5*12+Z6*14+Z7*15+Z8*16)*512+
+	   O*128*256+(G?(G*(15**M-M1+64)+89985):0)
+  -sOS Generate puzzles with dihedral symmetry S (requires -g).  The symmetry,
+       names, type, (order), and descriptions are:
+          f   I (8) full dihedral
+          r  II (4) full rotational (90 180 270 degrees)
+         hv III (4) horizontal and vertical
+         da  IV (4) diagonal and antidiagonal
+          p   V (2) pi rotational (180 degrees)
+          v  VI (2) vertical
+          h  VI (2) horizontal
+          d VII (2) diagonal (main)
+          a VII (2) antidiagonal
+       -sA (or -sg) cycles through all symmetries for each -g solution grid.
+       -sE selects a pseudo-random symmetry before for each -g solution grid.
+       -sF selects a pseudo-random symmetry before the first -g solution grid.
+       -s[248][AEF] limits the symmetries to the specified consecutive orders.
+  -S   Restart constraint propagation after the first move in each group.
+  -tN  Limit solution count to N.
+  -TM  Enable test code defined by the mask M:
+        0x000010 List constraint orders.
+        0x000020 List P constraint stats.
+        0x000040 Don't cache P constraint propositions.
+        0x000080 Don't prune P constraint pairs.
+        0x000100 List sizeof(Grid_t) and exit.
+        0x000200 Disable directional y-edges.
+        0x000400 Enable directional y-edge ternary collapse.
+        0x000800 Disable x box hinges.
+        0x001000 Enable -v for backdoor (magic cell) search moves.
+        0x002000 Enable -v for -m search moves.
+        0x004000 List a -P empty grid and exit.
+        0x008000 List postscript output labels.
+        0x010000 Enable backdoor trace.
+        0x020000 Enable mutable() canonical puzzle trace.
+        0x040000 Disable the (not always) quick sub-solver.
+        0x100000 Disable Brian Turner's Bit Based Sudoku Solver quick check.
+  -u   Verify that there is exactly one puzzle solution.  By default
+       searching stops at the first solution.
+  -U   If -a is also set then the listed puzzle is the union of all
+       solutions.  -f%h lists the unavoidables as pencilmark hints.
+  -vN  Set verbose output level to N, or increment if N omitted.
+  -V   Print the program version on the standard error and exit.
+  -wN  Fold verbose output to be at most N characters wide (default 80).
+  -W   Pause before exiting.  Handy for viewing windows shortcut output.
+  -xS  Puzzle data is XML tagged by S (default question).
+  -X   Limit proposition constraint moves to eliminations (ignore backdoors).
+  -y   Use the original -Y grids instead of implied solution grids.
+  -YF  Generate puzzles from the solution grids for puzzles in file F rather
+       than random solution grids.
+  -ZE  Puzzles not solved by the -q constraints are rechecked with the -Q
+       style constraint expression E.  V(n) in each subexpression of a || list
+       can be used to label the first subexpression from the left that solves
+       the puzzle.  The -q constraint label is 1.  V(X), X not a number, within
+       a constraint subexpression requires the constraint subexpression to
+       solve the puzzle and the -e style expression X to evaluate non-zero,
+       otherwise the remaining subexpressions are tried.
+  -zX  Miscellaneous options (only -I is free!).  X may be:
+        8  Octdoku: all clues with value 9 present and not subject to minimization.
+        b  Set the process priority to "nice" ("background").
+        eN Exit with a diagnostic when any dictionary entry count exceeds N.
+
+DETAILS
+  There are two basic solution techniques: constraint propagation ("logic")
+  and searching.  Constraints limit candidate values for each cell.  Constraint
+  propagation iteratively applies constraints until the puzzle is solved or
+  until no more progress is made.  A constrained puzzle is solvable by
+  constraint propagation alone (pure logic / no guessing).  Searching applies
+  candidate cell values (guesses) and checks solutions using depth first or
+  breadth first search.  The best search strategies combine constraint
+  propagation with searching to prune the search tree.  The amount of guessing
+  is determined by the strength of the constraints and the order of guesses
+  already applied.  Some aficionados frown on solutions that require guessing,
+  but the lines between constraint propagation, lookahead, and guessing are
+  thin.  This topic is very subjective, your mileage will vary, and you will
+  not win a "logic" vs. "trial and error" debate.  I still can't figure out
+  out how my daughter solves so fast.
+
+  This solver uses a depth first search by default.  Candidate cells with the
+  least amount of choices are checked first.  The constraints are:
+
+    F  Forced cell (naked single or T1): only one value possible.
+    N  Only cell (hidden single or H1): only one value in row/col/box.
+    Bn Box claim: (2:boxline) candidates in box confined to one row/col.
+       (3:linebox) candidates in row/col confined to one box.
+    Tn (naked) tuple: order <= n (4) n exact n-tuples in row/col/box.
+    Hn (hidden) tuple: order <= n (4) n hidden n-tuples in row/col/box.
+    Wn Row/col claim: order <= n (4) pure x-wing/swordfish/jellyfish.
+    X  Singleton cycle: strong and 1-weak edges. Requires B, included in Y.
+    Y  Degree-2 cycle: strong, 1-weak and 0-weak (degree-2) edges. Includes X.
+       NOTE: y-edge (0-weak) path details are currently disabled pending
+       enhancement of the 2007-05-01 Y algorithm.
+    K  Degree-2 singles knots (bivalue/location contradiction chains).
+    O  Overlay: single digit 9-cell rookery templates (that WXY miss).
+    Zn Ronk's general fish finder.  n is the max fish size, 2 <= n <= 8.
+       .m is the max number of fins, 1 <= m <= 3.  Fish sizes in the range
+       2..n are searched.  .m always denotes a fin count range from 0..m.
+       n.m.1 limits the size search to n.
+       The default is Z5.2.
+    Pn Constrained proposition net P(C) -- constraints C applied to candidate
+       propositions.  n is the girth (constraint iteration) limit.
+       The default is 0 for no limit.  .m is the candidate degree
+       (value/location) limit; propositions are only made on cells/values
+       with degree <= m, in order from least to most.  The default is 0
+       for no limit.  Degree 1 limits propositions to bivalue cells only.
+       The basic constraints are used if (C) is omitted.  If singleton
+       propositions fail to advance the solution then: if P* or P..2
+       is specified then nested (paired) propositions are applied,
+       otherwise if G is enabled then normal backtrack logic is used.
+       -B is enabled and -S is disabled for this constraint.  With -O
+       the minimum girth/degree that advances the solution is used,
+       and all propositions for that girth/degree are attempted and
+       counted.  Without -O the minimum degree that advances the
+       solution is used.  Related to error nets, 3D-medusa, T&E.
+    Qn Experimental constraints QX. Q prefix optional. Q stats account
+       for all Q constraints applied. X may be:
+       b: Red Ed's BR net which propagates 16 vertex-vertex boolean
+          relationships derived from strong (3) and weak (1,2) edges
+          by applying a triangle relationship on groups of the vertices.
+          Q2 is the number of sweeps, Q3 is the number of triangle
+          state changes.  A sweep searches for triangle state changes.
+          Sweeps are repeated until there are no more state changes.
+       t(C): Michael McWilliams' red/green transport: select a degree 2
+          tuple and determine the common eliminations when one end and
+          then the other is assigned, using constraints C to propagate
+          (transport) the initial assignments.  The quick constraints
+          (FN) are used if (C) is omitted.  Related to the P constraint.
+          t1: test only bivalue cells, t2: test only bilocation cells.
+          Fails on puzzles matching -e 'P&&(P8!=1||P7!=2||V!=2)'.
+          Disables the XYKO constraints.
+    G  Guess: backtrack search guess (T&E).
+
+  The -q option enables, disables, groups and orders constraints (G must
+  be explicitly disabled).  The enabled constraints are called the constraint
+  set (default FNBTHWXYKOG).  The THW constraints are further split
+  by size: T2H2W2T3H3W3T4H4W4.
+
+  Constraint propagation is an iterative process controlled by the -B,
+  -G and -S options.  By default {...} constraint groups are applied as a
+  unit; when -G is on {...} are ignored and each constraint is applied
+  separately.  Constraints not enclosed in {...} are considered to be a
+  group of size 1.  Each iteration applies the constraints in order from
+  left to right as specified by -q.  The application of each constraint is
+  done in an unspecified but exhaustive order over the entire puzzle.  A
+  constraint advances the solution when it identifies a move (one or more
+  cell placements or candidate eliminations).  An identified move may be
+  committed (by actually making the placement(s) or elimination(s)), or it
+  may be recorded for later committal.  Within a single constraint
+  application, cells that do not advance the solution are not re-examined,
+  even if subsequent moves within the same constraint application would
+  allow them to do so.  This biases solutions to use constraints earlier
+  in the order.  A new iteration starts with the leftmost constraint.
+  When a constraint identifies a move:
+    -S  The move is committed and a new iteration is started.
+    -B  The move and all other moves in the current group are identified
+        and recorded.  After all moves in the group have been recorded
+        they are committed as a unit, and a new iteration is started.
+        : within {...} commits any moves up to that point but continues
+        with the remainder of the group.
+    --  (default) The move is committed and all other moves in the current
+        group are committed as they are identified.  After all moves in
+        the group have been committed a new iteration is started.
+  A step is a constraint propagation iteration that advances the
+  solution.  The number of steps for -S and default solutions depends on
+  the unspecified ordering within each constraint application; this ordering
+  bias also allows the step counts to be different for isomorphic permutations
+  of a given puzzle.  -B step counts, by design, are the same for a given
+  ordered constraint set over all isomorphic puzzles, so they are a suitable
+  puzzle metric.
+
+  [...] options may appear at the start of each constraint group.  Options
+  override the -A, -B, -O and -S command line options.  The options are:
+    A   Enable -A for the group -- -A is diabled if A omitted.
+    B   Enable -B for the group -- -B is diabled if B omitted.
+    O   Enable -O for the group -- -O is diabled if O omitted.
+    S   Enable -S for the group -- -S is diabled if S omitted.
+    *   The group may supply any number of moves each application (default).
+    ?   The group must supply zero or one move each application.
+    +   The group must supply one or more moves each application.
+    n   The group must supply exactly n moves each application.
+    n:m The group must supply between n and m moves inclusive each
+        application.  If m is * the at least n moves must be supplied.
+
+  If F is disabled then the solution may advance to a position where only F
+  constraints remain; these are attributed to most recent constraint applied. -d
+  (default) depth first search with guesses biased to cells with the least number
+  of candidates after constraint propagation.  X and Y are compute intensive
+  but produce aesthetic solutions.  -qFNB typically solves the fastest (with
+  backtracking).  If G is enabled then it is not applied until all other
+  other constraints fail.
+
+  Cycles are composed of edges between cells with the same candidate value
+  within a single row/col/box or segments between exact pairs with the
+  candidate value in both endpoints.  The vertices of a strong edge are the
+  only cells with the candidate value within the row/col/box containing the
+  edge.
+
+  The generator generates random solution grids, and then places clues at random
+  from the solution grid into an empty puzzle grid, honoring -sS if specified,
+  and with -m generates the derived minimal puzzles for each random puzzle.
+  A minimal puzzle has a minimal number of clues, i.e., removing any clue
+  produces a puzzle with multiple solutions.  There is no duplicate checking;
+  process generator output using -f%c as a duplicate/sort key.
+
+  A backdoor or magic cell set is the smallest set of moves that lead to a
+  constrained solution.  A puzzle with backdoor size N (magic cell set size N)
+  for constraint set C is C-N-constrained.  The conjecture that all puzzles
+  are FN-0, FN-1 or FN-2-constrained is false: a puzzle discovered by JPF has
+  566 FN backdoors of size 3 (3 FNBT2 backdoors of size 2). A %#nr rating in
+  [A-F] indicates a backdoor size of 3, 4 etc. Using -q may result in different
+  backdoors than the default.  For this reason always qualify "backdoor"
+  with the constraints used.
+
+EXPRESSIONS
+  Expressions are C language style signed long expressions on constraint
+  counters.  A constraint counter is named by the constraint identifier
+  and one optional digit.  The counters for constraint c:
+
+    c   The number of constraint applications.
+    c0  Equivalent to c.
+    c1  The number of constraint placements.  Grouped modifications to a cell
+        candidate list count as one placement.
+    cn  Structure order 2<=n<=9 count (e.g., pair, triple, x-wing,
+        swordfish).  c5..c9 are 0 for most constraints.
+
+  with the following (long name) exceptions and pseudo constraints:
+
+    B2  (boxline) Candidates in box confined to one row/col.
+    B3  (linebox) Candidates in row/col confined to one box.
+    C   (clues) The number of clues.
+    C1  (minimal) 1: minimal (irreducable), 2: symmetric minimal, 0: otherwise.
+    C2  (inherited) The number of forced moves inherited by the last constraint.
+    C3  (candidates) The number of initial (pencilmark) candidates.
+    D   (begsteps) Begin game singles steps.
+    D1  (begsingles) Begin game singles placements.
+    D2  (begbasic) Begin game basic constraint placements.
+    D3  (endsteps) End game singles steps.
+    D4  (endsingles) End game singles placements.
+    D5  (endbasic) End game basic constraint placements.
+    G   (guesses) The number of backtrack guesses.
+    G2  (depth) Backtrack depth, 0 for no backtracking.
+    I   (steps) The number of constraint propagation iterations.
+    In  (group) The number of steps for constraint group 1<=n<=8.
+    M   (backdoor) The backdoor (magic cell set) size.
+    M1  (magic) The number of backdoors (magic cell sets).
+    M2  (guesstimate) The estimated number of guesses before a backdoor hit.
+    P2  (propositions) The number of proposition net propositions.
+    P3  (luck) The number of proposition net solutions.
+    P4  (contradictions) The number of proposition net contradictions.
+    P5  (iterations) The number of proposition net iterations.
+    P6  (girth) Minimum maximum proposition net iteration.
+    P7  (degree) Minimum maximum proposition candidate degree.
+    P8  (nested) 2 for nested propositions, 1 for single propositions.
+    P9  (work) The average amount of successful proposition iterations.
+    R   (rating) The rating from 1 (very easy) to 99999 (very difficult).
+    S   (symmetric) The dihedral symmetry order, 0 if not symmetric.
+    S   (symmetry) Equivalent to symmetric.
+    S1  (dihedral) The dihedral symmetry operation.
+    V   (valid) 0 for invalid, the constraint index or 1 otherwise.
+    X2  Maximum X cycle size.
+    Xn  X cycle sizes by range. X3:<4, X3:<8, X5:<12, ... X9:>=32.
+    Y2  Maximum Y cycle size.
+    Yn  Y cycle sizes by range. Y3:<4, Y3:<8, Y5:<12, ... Y9:>=32.
+    bn  The number of batches for hn.
+    hn  The ordinal of the rightmost constraint applied in group n.
+    in  The number of instances for hn.
+
+  and the following functions:
+
+    exrate       exrate([SAMPLE]): suexrate style rating that is the average
+                 number of nodes for a depth-first singles only backtrack
+		 solver over SAMPLE (default 100) pseudo random permutations
+		 of the current puzzle. Suexrate counts Knuth DLX nodes.
+		 sudoku(1) is not DLX based and requires on average 9X less
+		 nodes per solution; the sudoku(1) node counts are multiplied
+		 by 9 to approximate suexrat(1).
+    determined   Compute the number of candidate cell values determined by
+                 eliminating candidates that cause any constraint to fail.
+                 '%(determined())g' lists the grid with determined cells
+                 included.
+    implicit     Determine the cell values implied by the constraints in
+                 scope.  '%(implicit())g' lists the grid of implicit cells.
+    max          max([index,]expression): return 1 if expression is greater
+                 than the maximum value [for index 1..9], 0 otherwise.
+                 For the final -Ff format max([index]) returns the max value.
+    min          min([index,]expression): return 1 if expression is less
+                 than the minimum value [for index 1..9], 0 otherwise.
+                 For the final -Ff format min([index]) returns the min value.
+    mutable      Determine the clues that have more than one value that results
+                 in one solution. The format '%(mutable())h' lists the
+                 mutable clue candidate values. The operands are:
+		       ()  Number of mutable clues.
+		    (max)  Maximum number of mutable values for one clue.
+		 (maxuni)  Maximum number of unique puzzles for one clue.
+		    (pos)  Mutable clue positions.
+		    (sig)  Number of mutable candidates by clue, high to low.
+		 (siguni)  Number of unique puzzles by clue, high to low.
+		    (tot)  Total number of mutable candidate values.
+		 (totuni)  Number of unique puzzles induced by mutable clues.
+    required     Determine the non-mutable clues and count the number of
+                 solutions when each clue is omitted. The format
+		 '%(required())h' lists number of solutions when each clue is
+		 omitted, 0 for non-clue cells. The operands are:
+		       ()  Number of required clues.
+		    (max)  Maximum number of solutions.
+		 (maxpos)  Cell position with the maximum solutions.
+		    (min)  Minimum number of solutions.
+		 (minpos)  Cell position with the minimum solutions.
+		    (sig)  Number of solutions, high to low.
+		    (tot)  Total number of solutions.
+    superfluous  Determine the clues that result in one solution when omitted.
+                 The format '%(superfluous())g' lists the grid of superfluous
+                 clues. The operands are:
+		       ()  Number of superfluous clues.
+		    (pos)  Superfluous clue positions.
+    symmetrize   The highest dihedral symmetry order for the current puzzle.
+    uniq         uniq() returns 1 if the current puzzle is different up to
+                 isomorphism from the previously listed puzzles. uniq(format)
+                 returns 1 if the -f format result is different from previous
+                 format results. Too many different puzzles/formats may
+		 may exhaust memory.
+
+  (%F) converts the output of the %F format string to a number and $V converts the
+  value of the environment variable to a number.
+
+INPUT FORMAT
+  Puzzle input is a sequence of numbers and spaces that fill the grid
+  from left to right, top to bottom.  Space, comma, |, and - if + or | appear,
+  are ignored, and all other non-digit (1 through 9) characters correspond
+  to an empty grid space.  Most pencilmark grid forms are accepted.  Multiple
+  descriptions  may be placed in one file.  A description ends after 81 cells
+  have been specified.  If the first character in a line is a non-digit the
+  line is ignored.  A description command line argument (file or actual
+  data) may be immediately followed by one or more command line argument
+  operations of the form [r,c]<OP><V>... that modify candidate values, where
+  <V> is a single digit cell value or a {...} list of candidate values, and
+  <OP> is = to set V, ^ to clear V.  '#' starts a comment until end of line.
+  "IDENT" sets a puzzle identification string for %i.  If there is no "IDENT"
+  then the last comment for the current puzzle is used for %i.  A comment on the
+  same line following the last puzzle cell is associated with that puzzle.
+  Subsequent comments are associated with subsequent puzzles.  For example, one
+  generated by -g -m -sp -q-YG -r12 -n1 -e 'V&&X' -f'"gmr11n1spq-YG"\n%#gg':
+
+      "gmr11n1spq-YG"
+      . 6 .  8 1 .  7 2 .
+      8 2 4  . . 6  . . .
+      . . .  . . 5  3 . .
+
+      . 1 .  . . .  8 . .
+      . 8 .  . . .  . 1 .
+      . . 9  . . .  . 4 .
+
+      . . 2  1 . .  . . .
+      . . .  6 . .  2 3 5
+      . 9 8  . 4 2  . 6 .
+
+  The first input line in each file may be #!sudoku followed by options that
+  override command line -c, -l and -x options for the duration of the file.
+  The previous options are restored after the file is read.  For example:
+    #!sudoku -c5,sym,num,clues,min,puz,author,seq
+
+  The input line #!exemplar identifies the remaining input puzzles as fish
+  pattern exemplars.  Exemplars may be listed with the %g format and subgrid
+  canonicalized with the %#tv, %#tc and %#Tc formats.  The exemplar cell
+  values are:
+    /  empty cell: a cell that may not have a candidate
+    X  base candidate: which may be missing
+    #  (exo-)fin cell: a base candidate not covered by any cover sector
+    @  endo-fin cell: a candidate in the intersection of two base sectors
+    *  potential exclusion if all fin cells are false
+    $  potential exclusion whether or not a fin cell is true
+    &  potential exclusion of base candidate covered by two cover sectors
+  The octal 3 band bitmask form {O,O,O} (listed by -v2) is also recognized.
+  #!template may be used to mark -gt template data when -gt is not specified.
+
+OUTPUT FORMAT
+  A solution is an 81 character string of [1-9A-IJ-R], [1-9] for clue cell
+  values, [A-I] for solution cell values, A for 1, B for 2, and so on, and
+  [J-R] for the backdoors, J for 1, K for 2, and so on.  The solution fills
+  the grid from left to right, top to bottom.  The default output format
+  for each input puzzle is '%v # %5r %q %(CSM)#c#/q' (see -f above).  The
+  output for the example above is the single line (folded for display):
+
+      .6.81.72.824..6........53...1....8...8.....1...
+      9....4...21........6..235.98.42.6. #   277 FNTX C28.M/S2.p
+
+  The canonical solution is a puzzle solution transformed to have the
+  smallest row order lexicographic value.  The canonical solution
+  induces an equivalence relation on the set of all solutions.  The
+  canonical puzzle retains the labeling of the canonical solution and
+  induces an equivalence relation on the puzzle within the solution.
+  If a canonical solution has non-trivial automorphisms then the
+  canonical puzzle uses the canonical solution automorphism with the
+  smallest row order lexicographic value (with empty cells treated as
+  0).  There may be other canonical forms.  This one has an efficient
+  algorithm that takes advantage of the group symmetries of sudoku
+  solution grids.
+
+COMPRESSED GRID FORMAT
+  The sudz format efficiently compresses catalogs of row order minlex
+  canonical solution grids.  Grids are organized by the top band (top 3
+  rows).  There are 416 essentially different minlex bands and 5472730538
+  essentially different grids.  A byproduct of minlex ordering is that
+  earlier bands tend to account for more grids than later bands.  For
+  example, band 001 contains 1007170 grids, band 006 (the largest)
+  contains 96229042 grids, and bands 395,397,398,400,402,403,404,406,
+  408,409,410,412,413,414,415 contain no grids.
+
+  The sudz format is a sequence of windows.  Each window contains the number
+  of grids and initial band index.  Each grid has the band index (if
+  different from the previous grid), the number of automorphisms (if > 1),
+  the number of cells that differ from the previous grid, and the list of
+  differing cell values encoded using a basic singles constraint solver.
+  The windows are compressed using the Burrows-Wheeler bzip library.
+
+  The entire catalog of 5472730538 essentially different grids, in minlex
+  order, compresses to 5.70GiB, an average 8.96 bits/grid.  Uncompress rate
+  is ~100K grids/sec/Ghz, or ~5 hours minimum to stream through the entire
+  catalog on a 2.8Ghz processor.
+
+PERFORMANCE
+  The solution rate for the best on average options -qFN on a collection
+  of posted and generated puzzles is ~1000 puzzles/second/Ghz, the -gg full
+  grid (81 clues) generation rate is ~5000 puzzles/second/Ghz, and the
+  -g -m1 -qFN generation rate is ~75 puzzles/second/Ghz.  sudocoup(1),
+  coded for speed, solves ~7000 puzzles/second/Ghz.  sudocoo(1), coded for
+  simplicity, is in between and is more sensitive to input grid variations.
+
+EXAMPLES
+  Note: % must be entered as %% in windows .bat files and shortcut commands.
+  Generate 100 minimal symmetric puzzles limited to pairs and x-wings in g.dat:
+    sudoku -g -sg -m -q+T2H2W2-XYG -e "valid&&minimal==1" -n100 -f%v -o g.dat
+  Reformat and collate for player's forum inferior low/high steppers:
+    sudoku -f"%#tq,%(steps)x,%(clues)x,%(minimal)[-][M][SM]x,%#0v,gsf,%n" \
+           -q{FN}-G -B *.dat | sort -t, -k1,1 -k2,3n -k4,4r
+  Generate and search for player's forum ulterior low/high steppers:
+    sudoku -f"%#tq,%(steps)x,%(clues)x,%(minimal)[-][M][SM]x,%#0v,gsf,%n" \
+           -e"V&&(I<4||I>20)" -g -q{B2:N}-G -Q!{FN} -AB -m -sg
+  Count isomorphic puzzles and list each non-trivial representative:
+    sudoku -f"%C %c %4n %#0v" *.dat |
+    sort -k1,1 | uniq -c -s82 -w82 | grep -v "^ *1 "
+  Count isomorphic solutions and list each non-trivial representative:
+    sudoku -f"%C %c %4n %#0v" *.dat |
+    sort -k1,1 | uniq -c -w82 | grep -v "^ *1 "
+  Solve and categorize a collection of puzzles:
+    sudoku -F"# %t seconds" -f"%v # %7n %10t %Q" puzzles.dat > puzzles.out
+  Label and trace constraint interations:
+    sudoku -ki -v2 puzzle.dat | less
+  Capture the pencilmark grid after constraint iteration N:
+    sudoku -kiN -f%#ph puzzle.dat
+  Havard's "Making 17's from JPF's 19" sequence:
+    sudoku -go"{-1+1}x3{-2+1}{-2+2}{1+1}x9" jpf-19.dat
+  Generate 10 non-equivalent mimimal symmetric puzzles, each solved by a
+  different set of constraints, with the same solution grid as the
+  first puzzle in s.dat:
+    sudoku -gp -Ys.dat -j0 -n10 -m -sg -e 'minimal==1&&uniq()&&uniq(%q)'
+  Filter weak and strong pearls:
+    sudoku -S -qss+G -e '(%#Pq)>2'
+  Generate and compress the band 299 grids (133302) into 299.sudz:
+    sudoku -gb299 -f '%#ec' -o 299.sudz
+  Count the number of grids (97) with non-trivial automorphisms in 299.sudz:
+    sudoku -e '(%#An)>1' -f- -Ff'%#an/%n' 299.sudz
+
+CAVEATS
+  This is a puzzle and algorithm analysis program.
+  Look elsewhere for interactive gaming and GUIs.
+  Its easier to solve than to generate,
+  and easier to generate than to rate,
+  and much easier to code than to document.
+
+SEE ALSO
+  sudocoup(1), sudocoo(1), pseudocoup(1)
+
+CONTRIBUTORS
+  Subgrid (multiple solution) row order minlex canonicalizer by Michael Deverin.
+  Qb BRnet constraint method by Ed Russell.
+  Distance/similarity Hungarian Algorithm implementation by Ed Russell.
+  Z fish finder by Ron Kral.
+  Bit-based sudoku solver for quick verification by Brian Turner.
+
+IMPLEMENTATION
+  version     sudoku (AT&T Research) 2010-06-09
+  author      Glenn Fowler <glenn.s.fowler@gmail.com>
+  copyright   Copyright (c) 2005-2010 AT&T Intellectual Property
+  license     http://www.opensource.org/licenses/cpl1.0.txt
+</PRE>
+</BODY>
+</HTML>

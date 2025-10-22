@@ -1,0 +1,15 @@
+ast-sudoku :PACKAGE: sudoku
+
+:LICENSE: *.open
+
+:CATEGORY: games
+
+:INDEX: sudoku solvers
+
+:DESCRIPTION:
+	The AT&T Software Technology ast-sudoku package from AT&T Research
+	contains the standalone sudoku solver and generator sudoku(1), the
+	standalone sudoku and QWH (quasigroup with holes) backtrack solver
+	sudocoup(1) for N<=64, the standalone sudoku and QWH backtrack solver
+	pseudocoup(1) for N<=1000, and the quick and dirty standalone solver
+	sudocoo(1).

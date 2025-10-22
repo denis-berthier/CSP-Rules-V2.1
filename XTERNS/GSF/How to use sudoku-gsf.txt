@@ -1,0 +1,17 @@
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Compile gsf:
+Unix
+cd src/cmd/sudoku
+gcc -O2 sudzlib.c sudata.c subcanon.c sudoku.c -o sudoku-gsf-x86
+
+
+Windows
+cd src/cmd/sudoku
+gcc -O2 sudzlib.c sudata.c subcanon.c sudoku.c -o sudoku-gsf.exe
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+

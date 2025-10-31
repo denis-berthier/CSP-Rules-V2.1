@@ -2,6 +2,9 @@
  
 ## A general Pattern-Based solver of finite Constraint Satisfaction Problems</b>
 
+<br><br>
+<a href="https://doi.org/10.5281/zenodo.17491942"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17491942.svg" alt="DOI"></a>
+<br><br>
 
 
 ## 1. What is CSP-Rules?<br>

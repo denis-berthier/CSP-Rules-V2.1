@@ -5,21 +5,24 @@
 3) Trivial additions to the globals, saliences or print functions (which may be necessary when new resolution rules are added) are not mentioned. <br>
 4) All the changes from the  first publication are indeed additions to the original functionalities; in particular:<br>
 -- no basic data structure has been changed ;<br>
--- no fundamental generic resolution rule (i.e. bivalue-chains, z-chains, t-whips, whips, g-bivalue-chains, g-whips, braids, g-braids), as defined in [CRT] or [PBCS], has been changed (though the files that contain them may have been split into partial-chain extension rules and chain elimination rules);<br>
+-- no fundamental generic resolution rule (i.e. bivalue-chains, z-chains, t-whips, whips, g-bivalue-chains, g-whips, braids, g-braids...), as defined in [CRT] or [PBCS], has been changed (though the files that contain them may have been split into partial-chain extension rules and chain elimination rules);<br>
 -- no application-specific resolution rule, as defined in [CRT] or [PBCS]  - such as Subsets in Sudoku or any application that has them, ascending-chains in Futoshiki, loops in Slitherlink... - has been changed (though their "blocked" and "unblocked" versions may may have been fused);<br>
 -- no bug has been found since the first publication (note that this software had been largely tested (on millions of instances) before the first publication). <br>
 5) Because they reflect changes to the software (almost) as soon as such changes are published, updates of the User Manual are not mentioned _per se_, except in case of a major update. <br><br>
 
 
 
+#### 2025 Nov 07 (SudoRules):
+* Add the SudoRules EXPANSION kit. The manual for it is included in my book [HCCS3] (see the README.md file)
+
 #### 2025 Oct 22 (CSP-Rules and SudoRules):
 * Add external programs and CLIPS functions to call them.
 
 #### 2025 Oct 22 (CLIPS):
-* Update CLIPS to allow both versions 6.3 or 6.4, on any computer.
+* Update CLIPS to allow using both versions 6.3 or 6.4, on any computer.
 
 #### 2025 Feb 01 (CSP-Rules):
-* Publication of the second editiopn of the "User Manual and Research Notebooks for CSP-Rules".
+* Publication of the second edition of the "User Manual and Research Notebooks for CSP-Rules".
 
 #### 2025 Jan 27 (SudoRules):
 * Add possibility to select upto 408 deadly patterns.

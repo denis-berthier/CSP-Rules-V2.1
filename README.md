@@ -3,7 +3,9 @@
 ## A general Pattern-Based solver of finite Constraint Satisfaction Problems</b>
 
 <br><br>
-<a href="https://doi.org/10.5281/zenodo.17491942"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17491942.svg" alt="DOI"></a>
+<a href="https://doi.org/10.5281/zenodo.17491941"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17491941.svg" alt="DOI"></a> <br>
+[This is the permanent, version independent DOI, always referring to the latest release. <br>
+Note that minor (cosmetic) updates on GitHub don't give rise to a new release; if you want the latest update, download directly from GitHub.]
 <br><br>
 
 
@@ -221,7 +223,17 @@ singles to the end
 Notice that <strong><em>more interactive ways of solving a CSP</em></strong> are described in the User Manual. These include focused eliminations or taking into account additional (extra-logical) requirements on the number of steps in the resolution path.
 <br><br>
 
-## 5. Installation and updates<br>
+## 5. CSP-Rules as a versatile research tool<br>
+The above description of CSP-Rules as a solver of finite CSPs remains true, but as years have passsed and with all the aadditions made to the original release, CSP-Rules has also appeared to be a very versatile research tool. <br>
+Not that it wasn't one since the start: the systematic classification of large collections of CSPs according to various generic ratings based on different families of resolution rules and the comparison of the resolution power of such rules have always been at the heart of the original motivation. The controlled-bias collection (https://github.com/denis-berthier/Controlled-bias_Sudoku_generator_and_collection) is probably the best large-scale illustration of it.<br>
+But one can mention a few additions to the original "research tool" facet, dedicated to more specific application-specific topics:
+- using CSP-Rules as a proof assistant: <br>
+-- see the SlitherRules application <br>
+-- or, in SudoRules, the proof in T&E(3) of the impossibility of the trivalue oddagon pattern or the analysis of eleven's 630 impossible patterns and the T&E(n) levels required for them.
+- using the recently added SudoRules Expansion kit as a means for the first systematic exploration of the T&E(n) domains in Sudoku.
+<br><br>
+
+## 6. Installation and updates<br>
 Download CSP-Rules V2.1 from the master branch (by clicking the "Code" button and then the "Download zip" option), unzip the resulting file, rename it to "CSP-Rules-V2.1" (in particular, delete the possible "-master" part in its name, go to the "Docs" folder and read the Basic User Manual for an easy installation step and for how to use CSP-Rules.<br><br>
 For ease of use, executable versions of CLIPS are delivered in the "CLIPS" folder. However, if you are using a Mac, due to the strict MacOS security rules, you may have to allow it to run or to recompile your own version of the CLIPS core. Go to https://sourceforge.net/p/clipsrules/code/HEAD/tree/branches/63x/core/, click "download snapshot", unzip the file thus obtained. In a Terminal, go to the core directory, type "make". You will get a "clips" executable file in this directory; move it to the CLIPS folder of CSP-Rules-V2.1. <br><br>
 Notice that _the installation procedure must be redone every time you download a new release_. In order to avoid re-compiling CLIPS, you can keep a copy of it outside the CSP-Rules-V2.1 folder; you can similarly make a backup copy of your most frequently used config file(s).<br><br>
@@ -229,7 +241,7 @@ CSP-Rules-V2.1 was first published on August 19th, 2020.<br>
 See the UPDATES.md file for a detailed list of the updates (i.e. of additional functionalities) since the first release. 
 <br><br>
 
-## 6. Structure of directories<br>
+## 7. Structure of directories<br>
 | CSP-Rules | CSP-Rules-V2.1 | CSP-Rules-Generic | ... | <br>
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Docs | ... |<br>
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| FutoRules-V2.1 | ... |<br>
@@ -267,12 +279,12 @@ See the UPDATES.md file for a detailed list of the updates (i.e. of additional f
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| TE2-classif | ... (deprecated, now included in SUDCL ) |
 <br><br>
 
-## 7. License<br>
+## 8. License<br>
 The software parts in CSP-Rules V2.1 are distributed under the GNU GPL v3.0 license (see the full text in the Docs folder).<br>
 Of course, the other publications (books, articles, conference proceedings...) remain protected by their original respective copyrights; this also applies to the CLIPS software.
 <br><br>
 
-## 8. Companion repositories<br>
+## 9. Companion repositories<br>
 CSP-Rules-V2.1 has six companion repositories on GitHub:
 * one including typical examples for each of the CSP-Rules applications. The first releases of CSP-Rules-V2.1 had an EXAMPLES folder.
 For easier additions to the examples, not requiring to make an update to CSP-Rules itself, this folder has now been moved to an independent repository: https://github.com/denis-berthier/CSP-Rules-Examples.
@@ -285,7 +297,7 @@ For easier additions to the examples, not requiring to make an update to CSP-Rul
 See these repositories for a detailed description of their contents.
 <br><br>
 
-## 9. References<br>
+## 10. References<br>
 (A copy of  the references is present in the "Publications" folder. Each of them can also be downloaded from ResearchGate: https://www.researchgate.net/profile/Denis-Berthier/research)<br>
 ### Articles<br>
 * [Berthier 2008a]: BERTHIER D., From Constraints to Resolution Rules, Part I: Conceptual Framework, International Joint Conferences on Computer, Information, Systems Sciences and Engineering (CISSE 08), December 5-13, 2008, Springer. Published as a chapter of Advanced Techniques in Computing Sciences and Software Engineering, Khaled Elleithy Editor, pp. 165-170, Springer, 2010.<br>

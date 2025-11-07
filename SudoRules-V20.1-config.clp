@@ -41,7 +41,7 @@
 ;;; Note: this is irrelevant if you are not using external programs
 ; (bind ?*Operating-System* = WINDOWS)
 
-;;; Set the following varinale to TRUE
+;;; Set the following variable to TRUE
 ;;; if you're using an "Apple silicon" Mac, i.e. with ARM processor
 ; (bind ?*ARM* TRUE)
 
@@ -63,12 +63,12 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.33-r961");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.43-r961");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used to run CSP-Rules
 (defglobal ?*Computer-description* =
-    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 26.0"
+    "MacBookPro 16'' M1Max 2021 3.2GHz, 64GB LPDDR5, MacOS 26.1"
 )                                                                               <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 

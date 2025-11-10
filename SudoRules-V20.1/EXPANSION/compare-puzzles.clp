@@ -964,6 +964,7 @@
             (bind ?addable-clues (sudoku-strings-plus ?addable-clues (sudoku-strings-minus ?puz ?puzzle)))
             (bind ?puz (readline "addable-clues-from-file-of-puzzles-puzzle-file"))
         )
+        (close "addable-clues-from-file-of-puzzles-puzzle-file")
     )
     ?addable-clues
 )

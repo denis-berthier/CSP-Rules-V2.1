@@ -692,7 +692,7 @@
 
 (deffunction puzzles-of-file1-with-some-expansion-in-file2 (?file1 ?file2 ?file-out)
     (if (file-exists-and-nonempty ?file1) then
-        (bind ?len1 (length$ ?file1))
+        (bind ?len1 (file-length ?file1))
         (open ?file-out "puzzles-of-file1-with-some-expansion-in-file2-file-out" "w")
         (open ?file1 "puzzles-of-file1-with-some-expansion-in-file2-file1" "r")
         (loop-for-count (?i 1 ?len1)
@@ -731,7 +731,7 @@
 
 (deffunction puzzles-of-file1-with-some-strict-expansion-in-file2 (?file1 ?file2 ?file-out)
     (if (file-exists-and-nonempty ?file1) then
-        (bind ?len1 (length$ ?file1))
+        (bind ?len1 (file-length ?file1))
         (open ?file-out "puzzles-of-file1-with-some-strict-expansion-in-file2-file-out" "w")
         (open ?file1 "puzzles-of-file1-with-some-strict-expansion-in-file2-file1" "r")
         (loop-for-count (?i 1 ?len1)
@@ -771,7 +771,7 @@
 ;;; used for terminal puzzles
 (deffunction strict-expands-in-file1-of-some-puzzle-in-file2 (?file1 ?file2 ?file-out)
     (if (file-exists-and-nonempty ?file1) then
-        (bind ?len1 (length$ ?file1))
+        (bind ?len1 (file-length ?file1))
         (open ?file-out "strict-expands-in-file1-of-some-puzzle-in-file2-file-out" "w")
         (open ?file1 "strict-expands-in-file1-of-some-puzzle-in-file2-file1" "r")
         (loop-for-count (?i 1 ?len1)

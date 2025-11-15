@@ -114,7 +114,7 @@
     )
 
     (loop-for-count (?i (+ ?p 1) (+ ?p ?n))
-        (printout t ".")
+        (show-progression ?i)
         (bind ?USOL-i-DIR (str-cat ?*GRIDS-DIR* "USOL-" ?i "/"))
         (bind ?Usol-i-file (str-cat ?USOL-i-DIR "SOLN.txt"))
         (bind ?Usol-i (read-solution-from-unique-file ?Usol-i-file))
@@ -215,6 +215,7 @@
 
 (deffunction SGS-sample-TE3-1st-view-of-inner-border-for-n-solution-grids-after-first-p (?type ?p ?n)
     (loop-for-count (?i (+ ?p 1) (+ ?p ?n))
+        (show-progression ?i)
         (bind ?USOL-i-DIR (str-cat ?*GRIDS-DIR* "USOL-" ?i "/"))
         (TE3-1st-view-of-inner-border-for-type-in-Usol-i ?type ?USOL-i-DIR)
     )
@@ -348,9 +349,8 @@
 (deffunction SGS-sample-TE3-expansion-steps-to-inner-border-for-n-solution-grids-after-first-p (?type ?p ?n)
     (bind ?time0 (time))
     (loop-for-count (?i (+ ?p 1) (+ ?p ?n))
+        (show-progression ?i)
         (bind ?USOL-i-DIR (str-cat ?*GRIDS-DIR* "USOL-" ?i "/"))
-        (printout t ".")
-        (if (eq (mod ?i 100) 0) then (printout t crlf))
         (TE3-expansion-steps-to-inner-border-for-type-in-Usol-i ?type ?USOL-i-DIR)
     )
     (printout t crlf

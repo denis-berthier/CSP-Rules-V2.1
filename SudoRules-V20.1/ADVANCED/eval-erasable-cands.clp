@@ -90,7 +90,7 @@
         (bind ?cand (nth$ ?i ?cand-list))
         (if ?*debug*
             then (printout t crlf crlf "===> Trying to eliminate candidate #" ?i ": " ?cand crlf)
-            else (printout t ".")
+            else (printout t ".") (flush-stdout)
         )
         (try-to-eliminate-candidates ?cand)
         ;;; If this candidate ?cand has been eliminated, evaluate it wrt ?RT0:
@@ -154,7 +154,7 @@
     (while (<= ?i ?len)
         (bind ?cand (nth$ ?i ?cand-list))
         (if ?*debug* then (printout t crlf crlf "===> Trying to eliminate candidate #" ?i ": " (print-label ?cand) crlf)
-            else (printout t ".")
+            else (printout t ".") (flush-stdout)
         )
         (try-to-eliminate-candidates ?cand)
         ;;; If this candidate ?cand has been eliminated, evaluate it wrt ?RT0:

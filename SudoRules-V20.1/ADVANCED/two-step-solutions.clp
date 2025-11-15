@@ -223,7 +223,7 @@
             (bind ?cand2 (nth$ ?j ?erasable-cands))
             (if ?*debug*
                 then (printout t crlf "Trying candidate pair " (print-label-pair ?cand ?cand2) crlf)
-                else (printout t ".")
+                else (printout t ".") (flush-stdout)
             )
             (bind ?*solution-found* FALSE)
             (bind ?*context-counter* (+ ?*context-counter* 1))
@@ -238,7 +238,7 @@
             (if (not (member$ ?cand2 ?erasable-cands)) then
                 (if ?*debug*
                     then (printout t crlf "Trying candidate pair " (print-label-pair ?cand ?cand2) crlf)
-                    else (printout t ".")
+                    else (printout t ".") (flush-stdout)
                 )
                 (bind ?*solution-found* FALSE)
                 (bind ?*context-counter* (+ ?*context-counter* 1))

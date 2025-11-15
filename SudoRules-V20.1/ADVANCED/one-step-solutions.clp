@@ -230,7 +230,7 @@
         (bind ?cont ?*context-counter*)
         (if ?*debug*
             then (printout t "=> Testing " (print-label ?cand) " as a possible " ?RT0 "-anti-backdoor." crlf)
-            else (printout t ".")
+            else (printout t ".") (flush-stdout)
         )
         (mute-print-options)
         (ABD-use-cont-to-test-candidate-as-RT0-anti-backdoor-in-cont0 0 ?cont ?RT0 ?cand)

@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.40  10/19/17             */
+   /*            CLIPS Version 6.43  11/14/25             */
    /*                                                     */
    /*               FILE I/O ROUTER MODULE                */
    /*******************************************************/
@@ -53,6 +53,9 @@
 /*            data structures.                               */
 /*                                                           */
 /*            Added flush, rewind, tell, and seek functions. */
+/*                                                           */
+/*      6.43: Function flush didn't work for stdout and      */
+/*            stderr.                                        */
 /*                                                           */
 /*************************************************************/
 
@@ -369,17 +372,13 @@ bool FlushFile(
   Environment *theEnv,
   const char *fid)
   {
-   struct fileRouter *fptr;
+   FILE *stream;
 
-   for (fptr = FileRouterData(theEnv)->ListOfFileRouters;
-        fptr != NULL;
-        fptr = fptr->next)
+   stream = FindFptr(theEnv,fid);
+   if ((stream != NULL) && (stream != stdin))
      {
-      if (strcmp(fptr->logicalName,fid) == 0)
-        {
-         GenFlush(theEnv,fptr->stream);
-         return true;
-        }
+      GenFlush(theEnv,stream);
+      return true;
      }
 
    return false;
@@ -395,13 +394,16 @@ bool FlushAllFiles(
   {
    struct fileRouter *fptr;
 
+   GenFlush(theEnv,stdout);
+   GenFlush(theEnv,stderr);
+
    if (FileRouterData(theEnv)->ListOfFileRouters == NULL) return false;
 
    for (fptr = FileRouterData(theEnv)->ListOfFileRouters;
         fptr != NULL;
         fptr = fptr->next)
      { GenFlush(theEnv,fptr->stream); }
-
+   
    return true;
   }
 

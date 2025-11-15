@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.40  10/11/17            */
+   /*             CLIPS Version 6.43  10/30/25            */
    /*                                                     */
    /*            MEMORY ALLOCATION HEADER FILE            */
    /*******************************************************/
@@ -41,6 +41,8 @@
 /*                                                           */
 /*      6.31: Fix for get_mem macro.                         */
 /*                                                           */
+/*      6.32: Restored support for BLOCK_MEMORY.             */
+/*                                                           */
 /*      6.40: Removed LOCALE definition.                     */
 /*                                                           */
 /*            Pragma once and other inclusion changes.       */
@@ -64,6 +66,9 @@
 
 struct memoryPtr;
 
+struct chunkInfo;
+struct blockInfo;
+
 typedef bool OutOfMemoryFunction(Environment *,size_t);
 
 #ifndef MEM_TABLE_SIZE
@@ -73,6 +78,22 @@ typedef bool OutOfMemoryFunction(Environment *,size_t);
 struct memoryPtr
   {
    struct memoryPtr *next;
+  };
+
+struct chunkInfo
+  {
+   struct chunkInfo *prevChunk;
+   struct chunkInfo *nextFree;
+   struct chunkInfo *lastFree;
+   long int size;
+  };
+
+struct blockInfo
+  {
+   struct blockInfo *nextBlock;
+   struct blockInfo *prevBlock;
+   struct chunkInfo *nextFree;
+   long int size;
   };
 
 #if (MEM_TABLE_SIZE > 0)
@@ -164,6 +185,12 @@ struct memoryData
    struct memoryPtr *TempMemoryPtr;
    struct memoryPtr **MemoryTable;
    size_t TempSize;
+ #if BLOCK_MEMORY
+   struct blockInfo *TopMemoryBlock;
+   size_t BlockInfoSize;
+   size_t ChunkInfoSize;
+   bool BlockMemoryInitialized;
+#endif
   };
 
 #define MemoryData(theEnv) ((struct memoryData *) GetEnvironmentData(theEnv,MEMORY_DATA))
@@ -187,6 +214,10 @@ struct memoryData
    bool                           SetConserveMemory(Environment *,bool);
    bool                           GetConserveMemory(Environment *);
    void                           genmemcpy(char *,char *,unsigned long);
+
+#if BLOCK_MEMORY
+   void                           ReturnAllBlocks(Environment *); 
+#endif
 
 #endif /* _H_memalloc */
 

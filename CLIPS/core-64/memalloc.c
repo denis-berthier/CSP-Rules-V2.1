@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.41  05/24/21             */
+   /*            CLIPS Version 6.43  11/03/25             */
    /*                                                     */
    /*                    MEMORY MODULE                    */
    /*******************************************************/
@@ -40,6 +40,8 @@
 /*                                                           */
 /*            Removed support for BLOCK_MEMORY.              */
 /*                                                           */
+/*      6.32: Restored support for BLOCK_MEMORY.             */
+/*                                                           */
 /*      6.40: Pragma once and other inclusion changes.       */
 /*                                                           */
 /*            Added support for booleans with <stdbool.h>.   */
@@ -74,6 +76,18 @@
 
 #define SpecialMalloc(sz) malloc((STD_SIZE) sz)
 #define SpecialFree(ptr) free(ptr)
+
+/***************************************/
+/* LOCAL INTERNAL FUNCTION DEFINITIONS */
+/***************************************/
+
+#if BLOCK_MEMORY
+   static bool                    InitializeBlockMemory(Environment *,size_t);
+   static bool                    AllocateBlock(Environment *,struct blockInfo *,size_t);
+   static void                    AllocateChunk(Environment *,struct blockInfo *,struct chunkInfo *,size_t);
+   static void                   *RequestChunk(Environment *,size_t);
+   static bool                    ReturnChunk(Environment *,void *,size_t);
+#endif
 
 /********************************************/
 /* InitializeMemory: Sets up memory tables. */
@@ -115,6 +129,26 @@ void *genalloc(
   {
    void *memPtr;
 
+#if BLOCK_MEMORY
+   memPtr = RequestChunk(theEnv,size);
+
+   if (memPtr == NULL)
+     {
+      ReleaseMem(theEnv,(long long) ((size * 5 > 4096) ? size * 5 : 4096));
+      memPtr = RequestChunk(theEnv,size);
+      if (memPtr == NULL)
+        {
+         ReleaseMem(theEnv,-1);
+         memPtr = RequestChunk(theEnv,size);
+         while (memPtr == NULL)
+           {
+            if ((*MemoryData(theEnv)->OutOfMemoryCallback)(theEnv,size))
+              return NULL;
+            memPtr = RequestChunk(theEnv,size);
+           }
+        }
+     }
+#else
    memPtr = malloc(size);
 
    if (memPtr == NULL)
@@ -133,6 +167,7 @@ void *genalloc(
            }
         }
      }
+#endif
 
    MemoryData(theEnv)->MemoryAmount += size;
    MemoryData(theEnv)->MemoryCalls++;
@@ -181,7 +216,16 @@ void genfree(
   void *waste,
   size_t size)
   {
+#if BLOCK_MEMORY
+   if (ReturnChunk(theEnv,waste,size) == false)
+     {
+      PrintErrorID(theEnv,"MEMORY",2,true);
+      WriteString(theEnv,STDERR,"Release error in genfree.\n");
+      return;
+     }
+#else
    free(waste);
+#endif
 
    MemoryData(theEnv)->MemoryAmount -= size;
    MemoryData(theEnv)->MemoryCalls--;
@@ -479,3 +523,450 @@ void genmemcpy(
    for (i = 0L ; i < size ; i++)
      dst[i] = src[i];
   }
+
+/**************************/
+/* BLOCK MEMORY FUNCTIONS */
+/**************************/
+
+#if BLOCK_MEMORY
+
+/***************************************************/
+/* InitializeBlockMemory: Initializes block memory */
+/*   management and allocates the first block.     */
+/***************************************************/
+static bool InitializeBlockMemory(
+  Environment *theEnv,
+  size_t requestSize)
+  {
+   struct chunkInfo *chunkPtr;
+   size_t initialBlockSize, usableBlockSize;
+
+   /*===========================================*/
+   /* The block memory routines depend upon the */
+   /* size of a character being 1 byte.         */
+   /*===========================================*/
+
+   if (sizeof(char) != 1)
+     {
+      fprintf(stdout, "Size of character data is not 1\n");
+      fprintf(stdout, "Memory allocation functions may not work\n");
+      return(0);
+     }
+
+   MemoryData(theEnv)->ChunkInfoSize = sizeof(struct chunkInfo);
+   MemoryData(theEnv)->ChunkInfoSize = ((((MemoryData(theEnv)->ChunkInfoSize - 1) / STRICT_ALIGN_SIZE) + 1) * STRICT_ALIGN_SIZE);
+
+   MemoryData(theEnv)->BlockInfoSize = sizeof(struct blockInfo);
+   MemoryData(theEnv)->BlockInfoSize = ((((MemoryData(theEnv)->BlockInfoSize - 1) / STRICT_ALIGN_SIZE) + 1) * STRICT_ALIGN_SIZE);
+
+   initialBlockSize = (INITBLOCKSIZE > requestSize ? INITBLOCKSIZE : requestSize);
+   initialBlockSize += MemoryData(theEnv)->ChunkInfoSize * 2 + MemoryData(theEnv)->BlockInfoSize;
+   initialBlockSize = (((initialBlockSize - 1) / STRICT_ALIGN_SIZE) + 1) * STRICT_ALIGN_SIZE;
+
+   usableBlockSize = initialBlockSize - (2 * MemoryData(theEnv)->ChunkInfoSize) - MemoryData(theEnv)->BlockInfoSize;
+
+   /* make sure we get a buffer big enough to be usable */
+   if ((requestSize < INITBLOCKSIZE) &&
+       (usableBlockSize <= requestSize + MemoryData(theEnv)->ChunkInfoSize))
+     {
+      initialBlockSize = requestSize + MemoryData(theEnv)->ChunkInfoSize * 2 + MemoryData(theEnv)->BlockInfoSize;
+      initialBlockSize = (((initialBlockSize - 1) / STRICT_ALIGN_SIZE) + 1) * STRICT_ALIGN_SIZE;
+      usableBlockSize = initialBlockSize - (2 * MemoryData(theEnv)->ChunkInfoSize) - MemoryData(theEnv)->BlockInfoSize;
+     }
+
+   MemoryData(theEnv)->TopMemoryBlock = (struct blockInfo *) malloc((STD_SIZE) initialBlockSize);
+
+   if (MemoryData(theEnv)->TopMemoryBlock == NULL)
+     {
+      fprintf(stdout, "Unable to allocate initial memory pool\n");
+      return false;
+     }
+
+   MemoryData(theEnv)->TopMemoryBlock->nextBlock = NULL;
+   MemoryData(theEnv)->TopMemoryBlock->prevBlock = NULL;
+   MemoryData(theEnv)->TopMemoryBlock->nextFree = (struct chunkInfo *) (((char *) MemoryData(theEnv)->TopMemoryBlock) + MemoryData(theEnv)->BlockInfoSize);
+   MemoryData(theEnv)->TopMemoryBlock->size = (long) usableBlockSize;
+
+   chunkPtr = (struct chunkInfo *) (((char *) MemoryData(theEnv)->TopMemoryBlock) + MemoryData(theEnv)->BlockInfoSize + MemoryData(theEnv)->ChunkInfoSize + usableBlockSize);
+   chunkPtr->nextFree = NULL;
+   chunkPtr->lastFree = NULL;
+   chunkPtr->prevChunk = MemoryData(theEnv)->TopMemoryBlock->nextFree;
+   chunkPtr->size = 0;
+
+   MemoryData(theEnv)->TopMemoryBlock->nextFree->nextFree = NULL;
+   MemoryData(theEnv)->TopMemoryBlock->nextFree->lastFree = NULL;
+   MemoryData(theEnv)->TopMemoryBlock->nextFree->prevChunk = NULL;
+   MemoryData(theEnv)->TopMemoryBlock->nextFree->size = (long) usableBlockSize;
+
+   MemoryData(theEnv)->BlockMemoryInitialized = true;
+   return true;
+  }
+
+/***************************************************************************/
+/* AllocateBlock: Adds a new block of memory to the list of memory blocks. */
+/***************************************************************************/
+static bool AllocateBlock(
+  Environment *theEnv,
+  struct blockInfo *blockPtr,
+  size_t requestSize)
+  {
+   size_t blockSize, usableBlockSize;
+   struct blockInfo *newBlock;
+   struct chunkInfo *newTopChunk;
+
+   /*============================================================*/
+   /* Determine the size of the block that needs to be allocated */
+   /* to satisfy the request. Normally, a default block size is  */
+   /* used, but if the requested size is larger than the default */
+   /* size, then the requested size is used for the block size.  */
+   /*============================================================*/
+
+   blockSize = (BLOCKSIZE > requestSize ? BLOCKSIZE : requestSize);
+   blockSize += MemoryData(theEnv)->BlockInfoSize;
+   blockSize += MemoryData(theEnv)->ChunkInfoSize * 3;
+   blockSize = (((blockSize - 1) / STRICT_ALIGN_SIZE) + 1) * STRICT_ALIGN_SIZE;
+
+   usableBlockSize = blockSize - MemoryData(theEnv)->BlockInfoSize - (2 * MemoryData(theEnv)->ChunkInfoSize);
+
+   /*=========================*/
+   /* Allocate the new block. */
+   /*=========================*/
+
+   newBlock = (struct blockInfo *) malloc((STD_SIZE) blockSize);
+   if (newBlock == NULL) return false;
+
+   /*======================================*/
+   /* Initialize the block data structure. */
+   /*======================================*/
+
+   newBlock->nextBlock = NULL;
+   newBlock->prevBlock = blockPtr;
+   newBlock->nextFree = (struct chunkInfo *) (((char *) newBlock) + MemoryData(theEnv)->BlockInfoSize);
+   newBlock->size = (long) usableBlockSize;
+   blockPtr->nextBlock = newBlock;
+
+   newTopChunk = (struct chunkInfo *) (((char *) newBlock) + MemoryData(theEnv)->BlockInfoSize + MemoryData(theEnv)->ChunkInfoSize + usableBlockSize);
+   newTopChunk->nextFree = NULL;
+   newTopChunk->lastFree = NULL;
+   newTopChunk->size = 0;
+   newTopChunk->prevChunk = newBlock->nextFree;
+
+   newBlock->nextFree->nextFree = NULL;
+   newBlock->nextFree->lastFree = NULL;
+   newBlock->nextFree->prevChunk = NULL;
+   newBlock->nextFree->size = (long) usableBlockSize;
+
+   return true;
+  }
+
+/*******************************************************/
+/* RequestChunk: Allocates memory by returning a chunk */
+/*   of memory from a larger block of memory.          */
+/*******************************************************/
+static void *RequestChunk(
+  Environment *theEnv,
+  size_t requestSize)
+  {
+   struct chunkInfo *chunkPtr;
+   struct blockInfo *blockPtr;
+
+   /*==================================================*/
+   /* Allocate initial memory pool block if it has not */
+   /* already been allocated.                          */
+   /*==================================================*/
+
+   if (MemoryData(theEnv)->BlockMemoryInitialized == false)
+      {
+       if (InitializeBlockMemory(theEnv,requestSize) == 0) return(NULL);
+      }
+
+   /*====================================================*/
+   /* Make sure that the amount of memory requested will */
+   /* fall on a boundary of strictest alignment          */
+   /*====================================================*/
+
+   requestSize = (((requestSize - 1) / STRICT_ALIGN_SIZE) + 1) * STRICT_ALIGN_SIZE;
+
+   /*=====================================================*/
+   /* Search through the list of free memory for a block  */
+   /* of the appropriate size.  If a block is found, then */
+   /* allocate and return a pointer to it.                */
+   /*=====================================================*/
+
+   blockPtr = MemoryData(theEnv)->TopMemoryBlock;
+
+   while (blockPtr != NULL)
+     {
+      chunkPtr = blockPtr->nextFree;
+
+      while (chunkPtr != NULL)
+        {
+         if ((chunkPtr->size == (long) requestSize) ||
+             (chunkPtr->size >= (long) (requestSize + MemoryData(theEnv)->ChunkInfoSize)))
+           {
+            AllocateChunk(theEnv,blockPtr,chunkPtr,requestSize);
+
+            return((void *) (((char *) chunkPtr) + MemoryData(theEnv)->ChunkInfoSize));
+           }
+         chunkPtr = chunkPtr->nextFree;
+        }
+
+      if (blockPtr->nextBlock == NULL)
+        {
+         if (AllocateBlock(theEnv,blockPtr,requestSize) == 0)  /* get another block */
+           { return(NULL); }
+        }
+      blockPtr = blockPtr->nextBlock;
+     }
+
+   SystemError(theEnv,"MEMORY",2);
+   ExitRouter(theEnv,EXIT_FAILURE);
+   return NULL; /* Unreachable, but prevents warning. */
+  }
+
+/********************************************/
+/* AllocateChunk: Allocates a chunk from an */
+/*   existing chunk in a block of memory.   */
+/********************************************/
+static void AllocateChunk(
+  Environment *theEnv,
+  struct blockInfo *parentBlock,
+  struct chunkInfo *chunkPtr,
+  size_t requestSize)
+  {
+   struct chunkInfo *splitChunk, *nextChunk;
+
+   /*=============================================================*/
+   /* If the size of the memory chunk is an exact match for the   */
+   /* requested amount of memory, then the chunk can be allocated */
+   /* without splitting it.                                       */
+   /*=============================================================*/
+
+   if ((long) requestSize == chunkPtr->size)
+     {
+      chunkPtr->size = - (long int) requestSize;
+      if (chunkPtr->lastFree == NULL)
+        {
+         if (chunkPtr->nextFree != NULL)
+           { parentBlock->nextFree = chunkPtr->nextFree; }
+         else
+           { parentBlock->nextFree = NULL; }
+        }
+      else
+        { chunkPtr->lastFree->nextFree = chunkPtr->nextFree; }
+
+      if (chunkPtr->nextFree != NULL)
+        { chunkPtr->nextFree->lastFree = chunkPtr->lastFree; }
+
+      chunkPtr->lastFree = NULL;
+      chunkPtr->nextFree = NULL;
+      return;
+     }
+
+   /*===========================================================*/
+   /* If the size of the memory chunk is larger than the memory */
+   /* request, then split the chunk into two pieces.            */
+   /*===========================================================*/
+
+   nextChunk = (struct chunkInfo *)
+              (((char *) chunkPtr) + MemoryData(theEnv)->ChunkInfoSize + chunkPtr->size);
+
+   splitChunk = (struct chunkInfo *)
+                  (((char *) chunkPtr) + (MemoryData(theEnv)->ChunkInfoSize + requestSize));
+
+   splitChunk->size = chunkPtr->size - (long) (requestSize + MemoryData(theEnv)->ChunkInfoSize);
+   splitChunk->prevChunk = chunkPtr;
+
+   splitChunk->nextFree = chunkPtr->nextFree;
+   splitChunk->lastFree = chunkPtr->lastFree;
+
+   nextChunk->prevChunk = splitChunk;
+
+   if (splitChunk->lastFree == NULL)
+     { parentBlock->nextFree = splitChunk; }
+   else
+     { splitChunk->lastFree->nextFree = splitChunk; }
+
+   if (splitChunk->nextFree != NULL)
+     { splitChunk->nextFree->lastFree = splitChunk; }
+
+   chunkPtr->size = - (long int) requestSize;
+   chunkPtr->lastFree = NULL;
+   chunkPtr->nextFree = NULL;
+
+   return;
+  }
+
+/***********************************************************/
+/* ReturnChunk: Frees memory allocated using RequestChunk. */
+/***********************************************************/
+static bool ReturnChunk(
+  Environment *theEnv,
+  void *memPtr,
+  size_t size)
+  {
+   struct chunkInfo *chunkPtr, *lastChunk, *nextChunk, *topChunk;
+   struct blockInfo *blockPtr;
+
+   /*=====================================================*/
+   /* Determine if the expected size of the chunk matches */
+   /* the size stored in the chunk's information record.  */
+   /*=====================================================*/
+
+   size = (((size - 1) / STRICT_ALIGN_SIZE) + 1) * STRICT_ALIGN_SIZE;
+
+   chunkPtr = (struct chunkInfo *) (((char *) memPtr) - MemoryData(theEnv)->ChunkInfoSize);
+
+   if (chunkPtr == NULL)
+     { return false; }
+
+   if (chunkPtr->size >= 0)
+     { return false; }
+
+   if (chunkPtr->size != - (long int) size)
+     { return false; }
+
+   chunkPtr->size = - chunkPtr->size;
+
+   /*=============================================*/
+   /* Determine in which block the chunk resides. */
+   /*=============================================*/
+
+   topChunk = chunkPtr;
+   while (topChunk->prevChunk != NULL)
+     { topChunk = topChunk->prevChunk; }
+   blockPtr = (struct blockInfo *) (((char *) topChunk) - MemoryData(theEnv)->BlockInfoSize);
+
+   /*===========================================*/
+   /* Determine the chunks physically preceding */
+   /* and following the returned chunk.         */
+   /*===========================================*/
+
+   lastChunk = chunkPtr->prevChunk;
+   nextChunk = (struct chunkInfo *) (((char *) memPtr) + size);
+
+   /*=========================================================*/
+   /* Add the chunk to the list of free chunks for the block. */
+   /*=========================================================*/
+
+   if (blockPtr->nextFree != NULL)
+     { blockPtr->nextFree->lastFree = chunkPtr; }
+
+   chunkPtr->nextFree = blockPtr->nextFree;
+   chunkPtr->lastFree = NULL;
+
+   blockPtr->nextFree = chunkPtr;
+
+   /*=====================================================*/
+   /* Combine this chunk with previous chunk if possible. */
+   /*=====================================================*/
+
+   if (lastChunk != NULL)
+     {
+      if (lastChunk->size > 0)
+        {
+         lastChunk->size += (MemoryData(theEnv)->ChunkInfoSize + (size_t) chunkPtr->size);
+
+         if (nextChunk != NULL)
+           { nextChunk->prevChunk = lastChunk; }
+         else
+           { return false; }
+
+         if (lastChunk->lastFree != NULL)
+           { lastChunk->lastFree->nextFree = lastChunk->nextFree; }
+
+         if (lastChunk->nextFree != NULL)
+           { lastChunk->nextFree->lastFree = lastChunk->lastFree; }
+
+         lastChunk->nextFree = chunkPtr->nextFree;
+         if (chunkPtr->nextFree != NULL)
+           { chunkPtr->nextFree->lastFree = lastChunk; }
+         lastChunk->lastFree = NULL;
+
+         blockPtr->nextFree = lastChunk;
+         chunkPtr->lastFree = NULL;
+         chunkPtr->nextFree = NULL;
+         chunkPtr = lastChunk;
+        }
+     }
+
+   /*=====================================================*/
+   /* Combine this chunk with the next chunk if possible. */
+   /*=====================================================*/
+
+   if (nextChunk == NULL) return false;
+   if (chunkPtr == NULL) return false;
+
+   if (nextChunk->size > 0)
+     {
+      chunkPtr->size += (MemoryData(theEnv)->ChunkInfoSize + (size_t) nextChunk->size);
+
+      topChunk = (struct chunkInfo *) (((char *) nextChunk) + nextChunk->size + MemoryData(theEnv)->ChunkInfoSize);
+      if (topChunk != NULL)
+        { topChunk->prevChunk = chunkPtr; }
+      else
+        { return false; }
+
+      if (nextChunk->lastFree != NULL)
+        { nextChunk->lastFree->nextFree = nextChunk->nextFree; }
+
+      if (nextChunk->nextFree != NULL)
+        { nextChunk->nextFree->lastFree = nextChunk->lastFree; }
+
+     }
+
+   /*===========================================*/
+   /* Free the buffer if we can, but don't free */
+   /* the first buffer if it's the only one.    */
+   /*===========================================*/
+
+   if ((chunkPtr->prevChunk == NULL) &&
+       (chunkPtr->size == blockPtr->size))
+     {
+      if (blockPtr->prevBlock != NULL)
+        {
+         blockPtr->prevBlock->nextBlock = blockPtr->nextBlock;
+         if (blockPtr->nextBlock != NULL)
+           { blockPtr->nextBlock->prevBlock = blockPtr->prevBlock; }
+         free((char *) blockPtr);
+        }
+      else
+        {
+         if (blockPtr->nextBlock != NULL)
+           {
+            blockPtr->nextBlock->prevBlock = NULL;
+            MemoryData(theEnv)->TopMemoryBlock = blockPtr->nextBlock;
+            free((char *) blockPtr);
+           }
+        }
+     }
+
+   return true;
+  }
+
+/***********************************************/
+/* ReturnAllBlocks: Frees all allocated blocks */
+/*   back to the operating system.             */
+/***********************************************/
+void ReturnAllBlocks(
+  Environment *theEnv)
+  {
+   struct blockInfo *theBlock, *nextBlock;
+
+   /*======================================*/
+   /* Free up int based memory allocation. */
+   /*======================================*/
+
+   theBlock = MemoryData(theEnv)->TopMemoryBlock;
+   while (theBlock != NULL)
+     {
+      nextBlock = theBlock->nextBlock;
+      free((char *) theBlock);
+      theBlock = nextBlock;
+     }
+
+   MemoryData(theEnv)->TopMemoryBlock = NULL;
+  }
+  
+#endif
+

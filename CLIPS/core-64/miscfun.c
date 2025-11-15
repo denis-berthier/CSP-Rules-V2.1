@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.42  07/05/24             */
+   /*            CLIPS Version 6.43  11/11/25             */
    /*                                                     */
    /*            MISCELLANEOUS FUNCTIONS MODULE           */
    /*******************************************************/
@@ -65,6 +65,8 @@
 /*                                                           */
 /*      6.31: Added local-time and gm-time functions.        */
 /*                                                           */
+/*      6.32: Restored support for BLOCK_MEMORY.             */
+/*                                                           */
 /*      6.40: Changed restrictions from char * to            */
 /*            CLIPSLexeme * to support strings               */
 /*            originating from sources that are not          */
@@ -116,6 +118,9 @@
 /*            and instance names when a symbol is generated  */
 /*            so that names automatically generated for      */
 /*            instances are unique.                          */
+/*                                                           */
+/*      6.43: Functions random and seed modified to support  */
+/*            splitmix64 random number generation.           */
 /*                                                           */
 /*************************************************************/
 
@@ -407,7 +412,7 @@ void RandomFunction(
    /* Return the randomly generated integer. */
    /*========================================*/
 
-   rv = genrand();
+   rv = genrand(theEnv);
 
    if (argCount == 2)
      {
@@ -455,7 +460,7 @@ void SeedFunction(
    /* Seed the random number generator with the provided integer. */
    /*=============================================================*/
 
-   genseed((unsigned int) theValue.integerValue->contents);
+   genseed(theEnv,(uint64_t) theValue.integerValue->contents);
   }
 
 /********************************************/
@@ -840,6 +845,13 @@ WriteString(theEnv,STDOUT,"Multifield function package is ");
 
 WriteString(theEnv,STDOUT,"Debugging function package is ");
 #if DEBUGGING_FUNCTIONS
+  WriteString(theEnv,STDOUT,"ON\n");
+#else
+  WriteString(theEnv,STDOUT,"OFF\n");
+#endif
+
+WriteString(theEnv,STDOUT,"Block memory is ");
+#if BLOCK_MEMORY
   WriteString(theEnv,STDOUT,"ON\n");
 #else
   WriteString(theEnv,STDOUT,"OFF\n");

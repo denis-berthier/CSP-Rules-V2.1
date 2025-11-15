@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.40  07/23/20             */
+   /*            CLIPS Version 6.43  11/03/25             */
    /*                                                     */
    /*                 SYMBOL BSAVE MODULE                 */
    /*******************************************************/
@@ -31,11 +31,14 @@
 /*            Removed use of void pointers for specific      */
 /*            data structures.                               */
 /*                                                           */
+/*      6.43: Fixed DEFTEMPLATE_CONSTRUCT compile issue when */
+/*            other binary file features disabled.           */
+/*                                                           */
 /*************************************************************/
 
 #include "setup.h"
 
-#if BLOAD || BLOAD_ONLY || BLOAD_AND_BSAVE || BLOAD_INSTANCES || BSAVE_INSTANCES
+#if BLOAD || BLOAD_ONLY || BLOAD_AND_BSAVE || BLOAD_INSTANCES || BSAVE_INSTANCES || DEFTEMPLATE_CONSTRUCT
 
 #include "argacces.h"
 #include "bload.h"
@@ -54,11 +57,11 @@
 /***************************************/
 
    static void                        ReadNeededBitMaps(Environment *);
-#if BLOAD_AND_BSAVE || BSAVE_INSTANCES
+#if BLOAD_AND_BSAVE || BSAVE_INSTANCES || DEFTEMPLATE_CONSTRUCT
    static void                        WriteNeededBitMaps(Environment *,FILE *);
 #endif
 
-#if BLOAD_AND_BSAVE || BSAVE_INSTANCES
+#if BLOAD_AND_BSAVE || BSAVE_INSTANCES || DEFTEMPLATE_CONSTRUCT
 
 /**********************************************/
 /* WriteNeededAtomicValues: Save all symbols, */

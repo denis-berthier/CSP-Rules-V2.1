@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.40  10/01/16            */
+   /*             CLIPS Version 6.43  11/04/25            */
    /*                                                     */
    /*                 SYMBOL HEADER FILE                  */
    /*******************************************************/
@@ -73,6 +73,9 @@
 /*            ALLOW_ENVIRONMENT_GLOBALS no longer supported. */
 /*                                                           */
 /*            UDF redesign.                                  */
+/*                                                           */
+/*      6.43: Fixed DEFTEMPLATE_CONSTRUCT compile issue when */
+/*            other binary file features disabled.           */
 /*                                                           */
 /*************************************************************/
 
@@ -170,7 +173,7 @@ struct symbolData
    CLIPSInteger **IntegerTable;
    CLIPSBitMap **BitMapTable;
    CLIPSExternalAddress **ExternalAddressTable;
-#if BLOAD || BLOAD_ONLY || BLOAD_AND_BSAVE || BLOAD_INSTANCES || BSAVE_INSTANCES
+#if BLOAD || BLOAD_ONLY || BLOAD_AND_BSAVE || BLOAD_INSTANCES || BSAVE_INSTANCES || DEFTEMPLATE_CONSTRUCT
    unsigned long NumberOfSymbols;
    unsigned long NumberOfFloats;
    unsigned long NumberOfIntegers;

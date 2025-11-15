@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.41  01/27/23             */
+   /*            CLIPS Version 6.43  11/11/25             */
    /*                                                     */
    /*            SYSTEM DEPENDENT HEADER FILE             */
    /*******************************************************/
@@ -106,6 +106,9 @@
 /*            Changed gengetcwd buffer length parameter from */
 /*            int to size_t.                                 */
 /*                                                           */
+/*      6.43: Functions random and seed modified to support  */
+/*            splitmix64 random number generation.           */
+/*                                                           */
 /*************************************************************/
 
 #ifndef _H_sysdep
@@ -116,6 +119,7 @@
 
 #include <stdio.h>
 #include <setjmp.h>
+#include <stdint.h>
 
    double                      gentime(void);
 #if SYSTEM_FUNCTION
@@ -134,8 +138,8 @@
    long long                   GenTell(Environment *,FILE *);
    int                         GenSeek(Environment *,FILE *,long,int);
    void                        genexit(Environment *,int);
-   int                         genrand(void);
-   void                        genseed(unsigned int);
+   uint32_t                    genrand(Environment *);
+   void                        genseed(Environment *,uint64_t);
    bool                        genremove(Environment *,const char *);
    bool                        genrename(Environment *,const char *,const char *);
    char                       *gengetcwd(char *,size_t);

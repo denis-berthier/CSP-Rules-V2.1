@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.41  05/10/21            */
+   /*             CLIPS Version 6.42  11/03/25            */
    /*                                                     */
    /*                  SETUP HEADER FILE                  */
    /*******************************************************/
@@ -75,6 +75,8 @@
 /*            by this flag is deprecated.                    */
 /*                                                           */
 /*            Removed support for BLOCK_MEMORY.              */
+/*                                                           */
+/*      6.32: Restored support for BLOCK_MEMORY.             */
 /*                                                           */
 /*      6.40: Removed globle definition.                     */
 /*                                                           */
@@ -435,6 +437,22 @@
 
 #ifndef PROFILING_FUNCTIONS
 #define PROFILING_FUNCTIONS 1
+#endif
+
+/************************************************************************/
+/* BLOCK_MEMORY: Causes memory to be allocated in large blocks.         */
+/*   INITBUFFERSIZE and BLOCKSIZE should both be set to less than the   */
+/*   maximum size of a signed integer. On a 16-bit machine, they should */
+/*   be less than 32768.                                                */
+/************************************************************************/
+
+#define BLOCK_MEMORY 1
+
+#if BLOCK_MEMORY
+
+#define INITBLOCKSIZE 32000
+#define BLOCKSIZE 32000
+
 #endif
 
 /******************************************************/

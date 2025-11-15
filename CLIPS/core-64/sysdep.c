@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.42  01/07/25             */
+   /*            CLIPS Version 6.43  11/11/25             */
    /*                                                     */
    /*               SYSTEM DEPENDENT MODULE               */
    /*******************************************************/
@@ -129,6 +129,9 @@
 /*      6.42: Added void argument to genrand and gentime     */
 /*            functions to remove compiler warnings.         */
 /*                                                           */
+/*      6.43: Functions random and seed modified to support  */
+/*            splitmix64 random number generation.           */
+/*                                                           */
 /*************************************************************/
 
 #include "setup.h"
@@ -191,6 +194,7 @@ struct systemDependentData
    int (*BeforeOpenFunction)(Environment *);
    int (*AfterOpenFunction)(Environment *);
    jmp_buf *jmpBuffer;
+   uint64_t state;
   };
 
 #define SystemDependentData(theEnv) ((struct systemDependentData *) GetEnvironmentData(theEnv,SYSTEM_DEPENDENT_DATA))
@@ -203,6 +207,8 @@ void InitializeSystemDependentData(
   Environment *theEnv)
   {
    AllocateEnvironmentData(theEnv,SYSTEM_DEPENDENT_DATA,sizeof(struct systemDependentData),NULL);
+   
+   SystemDependentData(theEnv)->state = 0x9E3779B97F4A7C15ULL;
   }
 
 /*********************************************************/
@@ -398,21 +404,30 @@ int gensnprintf(
    return rv;
   }
 
-/******************************************************/
-/* genrand: Generic random number generator function. */
-/******************************************************/
-int genrand(void)
+/***************************************************************/
+/* genrand: Random number generator function using SplitMix64. */
+/***************************************************************/
+uint32_t genrand(
+  Environment *theEnv)
   {
-   return(rand());
+   uint64_t z;
+   
+   z = (SystemDependentData(theEnv)->state += 0x9E3779B97F4A7C15ULL);
+   z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
+   z = (z ^ (z >> 27)) * 0x94D049BB133111EBULL;
+   z = z ^ (z >> 31);
+
+   return z >> 33;
   }
 
 /**********************************************************************/
 /* genseed: Generic function for seeding the random number generator. */
 /**********************************************************************/
 void genseed(
-  unsigned int seed)
+  Environment *theEnv,
+  uint64_t seed) 
   {
-   srand(seed);
+   SystemDependentData(theEnv)->state = seed ? seed : 0x9E3779B97F4A7C15ULL;
   }
 
 /*********************************************/

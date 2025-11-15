@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.40  08/25/16             */
+   /*            CLIPS Version 6.43  11/11/25             */
    /*                                                     */
    /*         CONFLICT RESOLUTION STRATEGY MODULE         */
    /*******************************************************/
@@ -49,6 +49,9 @@
 /*            ALLOW_ENVIRONMENT_GLOBALS no longer supported. */
 /*                                                           */
 /*            UDF redesign.                                  */
+/*                                                           */
+/*      6.43: Functions random and seed modified to support  */
+/*            splitmix64 random number generation.           */
 /*                                                           */
 /*************************************************************/
 
@@ -731,7 +734,7 @@ static Activation *PlaceRandomActivation(
   Activation *newActivation,
   struct salienceGroup *theGroup)
   {
-   int randomID;
+   uint32_t randomID;
    unsigned long long timetag;
    Activation *lastAct, *actPtr;
 

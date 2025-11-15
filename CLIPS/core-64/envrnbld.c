@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.42  01/07/25             */
+   /*            CLIPS Version 6.43  11/03/25             */
    /*                                                     */
    /*             ENVIRONMENT BUILD MODULE                */
    /*******************************************************/
@@ -13,6 +13,8 @@
 /*      Gary D. Riley                                        */
 /*                                                           */
 /* Revision History:                                         */
+/*                                                           */
+/*      6.32: Restored support for BLOCK_MEMORY.             */
 /*                                                           */
 /*      6.40: Added to separate environment creation and     */
 /*            deletion code.                                 */
@@ -239,6 +241,10 @@ bool DestroyEnvironment(
 
 #if (MEM_TABLE_SIZE > 0)
    free(theMemData->MemoryTable);
+#endif
+
+#if BLOCK_MEMORY
+   ReturnAllBlocks(theEnvironment);
 #endif
 
    for (i = 0; i < MAXIMUM_ENVIRONMENT_POSITIONS; i++)

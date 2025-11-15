@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.41  01/29/23             */
+   /*            CLIPS Version 6.43  11/11/25             */
    /*                                                     */
    /*                    AGENDA MODULE                    */
    /*******************************************************/
@@ -56,11 +56,14 @@
 /*                                                           */
 /*            UDF redesign.                                  */
 /*                                                           */
-/*      6.41: Used gensnprintf in place of gensprintf and.   */
+/*      6.41: Used gensnprintf in place of gensprintf and    */
 /*            sprintf.                                       */
 /*                                                           */
 /*            Added ExitRouter after SystemError call in     */
 /*            DetachActivation.                              */
+/*                                                           */
+/*      6.43: Functions random and seed modified to support  */
+/*            splitmix64 random number generation.           */
 /*                                                           */
 /*************************************************************/
 
@@ -173,7 +176,7 @@ void AddActivation(
    newActivation->timetag = AgendaData(theEnv)->CurrentTimetag++;
    newActivation->salience = EvaluateSalience(theEnv,theRule);
 
-   newActivation->randomID = genrand();
+   newActivation->randomID = genrand(theEnv);
    newActivation->prev = NULL;
    newActivation->next = NULL;
 

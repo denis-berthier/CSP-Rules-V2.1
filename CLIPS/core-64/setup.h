@@ -446,7 +446,7 @@
 /*   be less than 32768.                                                */
 /************************************************************************/
 
-#define BLOCK_MEMORY 1
+#define BLOCK_MEMORY 0
 
 #if BLOCK_MEMORY
 

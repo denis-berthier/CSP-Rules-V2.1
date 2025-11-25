@@ -165,7 +165,7 @@
 ;;; Lists of rules leading to deadly  patterns
 (defglobal ?*deadly-patterns-rules-list-0* = (create$))
 (defglobal ?*deadly-patterns-rules-list-4* = (create$ "4c/DP4-2-1"))
-(defglobal ?*deadly-patterns-rules-list-5* = ?*deadly-patterns-rules-list-4*))
+(defglobal ?*deadly-patterns-rules-list-5* = ?*deadly-patterns-rules-list-4*)
 (defglobal ?*deadly-patterns-rules-list-6* = (create$
     ?*deadly-patterns-rules-list-4*
     "6c/DP6-3-1" "6c/DP6-3-2" "6c/DP6-2-3" "6c/DP6-2-4"

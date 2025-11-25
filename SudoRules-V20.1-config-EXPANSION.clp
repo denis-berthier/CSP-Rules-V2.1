@@ -64,7 +64,7 @@
 
 ;;; CLIPS is the underlying inference engine.
 ;;; The version of CLIPS used may be defined here (used only for displaying it in the banner)
-(defglobal ?*Clips-version* = "6.43-r965");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+(defglobal ?*Clips-version* = "6.43-r966");                                     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 ;;; Description of the computer used to run CSP-Rules

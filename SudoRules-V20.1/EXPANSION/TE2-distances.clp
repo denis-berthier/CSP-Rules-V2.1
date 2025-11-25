@@ -121,20 +121,20 @@
         (TE2-expansion-steps-out-of-TE2-for-type-in-Usol-i ?type ?Usol-i ?USOL-i-DIR)
     )
     (close "SGS-sample-TE2-expansion-steps-out-of-TE2-for-n-solution-grids-after-first-p-Usols-file")
-    (printout t
-        crlf
-        "max number of steps out of T&E(2) in the sample = "
-        (SGS-sample-max-value-of-type (str-cat ?type "-dist-out"))
-        crlf
-    )
 )
 
 
 (deffunction SGS-sample-TE2-expansion-steps-out-of-TE2 (?type)
+    (bind ?time0 (time))
     (SGS-sample-TE2-expansion-steps-out-of-TE2-for-n-solution-grids-after-first-p
         ?type 0 ?*Sample-Size*
     )
+    (printout t ?*Sample-Name* ":" crlf
+        "   total-time = " (seconds-to-hours (- (time) ?time0)) crlf
+        "   max number of steps out of T&E(2) = " (SGS-sample-max-value-of-type (str-cat ?type "-dist-out")) crlf
+    )
 )
+
 
 
 (deffunction SGMS-multi-sample-TE2-expansion-steps-out-of-TE2 (?type)
@@ -151,11 +151,13 @@
         crlf
     )
     (printout t
-        "max number of steps out of T&E(2) in the sample = "
-        (SGMS-multi-sample-max-value-of-type (str-cat ?type "-dist-out"))
-        crlf
+        "Multi-sample :" crlf
+        "   total time = " (seconds-to-hours (- (time) ?time0)) crlf
+        "   min number of steps out of T&E(2) = "
+            (SGMS-multi-sample-min-value-of-type (str-cat ?type "-dist-out")) crlf
+        "   max number of steps out of T&E(2) = "
+           (SGMS-multi-sample-max-value-of-type (str-cat ?type "-dist-out")) crlf
     )
-    (printout t "Total time = " (seconds-to-hours (- (time) ?time0)) crlf)
 )
 
 
@@ -223,8 +225,13 @@
 
 
 (deffunction SGS-sample-TE2-1st-view-of-inner-border (?type)
+    (bind ?time0 (time))
     (SGS-sample-TE2-1st-view-of-inner-border-for-n-solution-grids-after-first-p
         ?type 0 ?*Sample-Size*
+    )
+    (printout t ?*Sample-Name* ":" crlf
+        "   total time = " (seconds-to-hours (- (time) ?time0)) crlf
+        "   max(first view of inner border) = " (SGS-sample-max-value-of-type (str-cat ?type "-1bview")) crlf
     )
 )
 
@@ -243,8 +250,11 @@
         (bind ?max (max ?max ?max-i))
         (printout t ?nth-sample ": min 1bview = " ?min-i "; max 1bview = " ?max-i crlf)
     )
-    (printout t "Global results: min 1bview = " ?min " max 1bview = " ?max crlf)
-    (printout t "Total time = " (seconds-to-hours (- (time) ?time0)) crlf)
+    (printout t "Multi-sample :" crlf
+        "   Total time = " (seconds-to-hours (- (time) ?time0)) crlf
+        "   min 1bview = " ?min crlf
+        "   max 1bview = " ?max crlf
+    )
 )
 
 
@@ -355,19 +365,20 @@
         (bind ?USOL-i-DIR (str-cat ?*GRIDS-DIR* "USOL-" ?i "/"))
         (TE2-expansion-steps-to-inner-border-for-type-in-Usol-i ?type ?USOL-i-DIR)
     )
-    (printout t crlf
-        "max minimal number of steps to the inner border in the sample = "
-        (SGS-sample-max-value-of-type (str-cat ?type "-dist-in"))
-        crlf
-    )
-    (printout t "total time = " (seconds-to-hours (- (time) ?time0)) crlf)
 )
 
 
 (deffunction SGS-sample-TE2-expansion-steps-to-inner-border (?type)
+    (bind ?time0 (time))
     (SGS-sample-TE2-expansion-steps-to-inner-border-for-n-solution-grids-after-first-p
         ?type 0 ?*Sample-Size*
     )
+    (printout t ?*Sample-Name* ":" crlf
+        "   total time = " (seconds-to-hours (- (time) ?time0)) crlf
+        "   max distance to the inner border = "
+            (SGS-sample-max-value-of-type (str-cat ?type "-dist-in"))
+    )
+)
 )
 
 
@@ -385,8 +396,11 @@
         (bind ?max (max ?max ?max-i))
         (printout t ?nth-sample ": min dist-in = " ?min-i "; max dist-in = " ?max-i crlf)
     )
-    (printout t "Global results: min dist-in = " ?min " max dist-in = " ?max crlf)
-    (printout t "Total time = " (seconds-to-hours (- (time) ?time0)) crlf)
+    (printout t "Multi-sample :" crlf
+        "   Total time = " (seconds-to-hours (- (time) ?time0)) crlf
+        "   min distance to the inner border = " ?min crlf
+        "   max distance to the inner border = " ?max crlf
+    )
 )
 
 

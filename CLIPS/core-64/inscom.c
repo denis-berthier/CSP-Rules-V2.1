@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*            CLIPS Version 6.42  03/02/24             */
+   /*            CLIPS Version 6.43  11/16/25             */
    /*                                                     */
    /*               INSTANCE COMMAND MODULE               */
    /*******************************************************/
@@ -78,6 +78,8 @@
 /*                                                           */
 /*      6.42: Fixed GC bug by including garbage fact and     */
 /*            instances in the GC frame.                     */
+/*                                                           */
+/*      6.43: Fixed FindInstance bug.                        */
 /*                                                           */
 /*************************************************************/
 
@@ -833,7 +835,7 @@ Instance *FindInstance(
   {
    CLIPSLexeme *isym;
 
-   isym = FindSymbolHN(theEnv,iname,LEXEME_BITS | INSTANCE_NAME_BIT);
+   isym = FindSymbolHN(theEnv,iname,INSTANCE_NAME_BIT);
 
    if (isym == NULL)
      { return NULL; }

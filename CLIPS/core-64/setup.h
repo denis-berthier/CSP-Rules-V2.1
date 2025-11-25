@@ -444,6 +444,11 @@
 /*   INITBUFFERSIZE and BLOCKSIZE should both be set to less than the   */
 /*   maximum size of a signed integer. On a 16-bit machine, they should */
 /*   be less than 32768.                                                */
+/*   The block memory code is not optimized for performance, so this    */
+/*   should only be used in cases where a system has restrictions on    */
+/*   on the number of outstanding memory allocations and another        */
+/*   optimized drop-in replacement for malloc (such as mimalloc) is     */
+/*   not available.                                                     */
 /************************************************************************/
 
 #define BLOCK_MEMORY 0

@@ -41,34 +41,54 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (deffunction SGS-sample-puzzles-of-type1-not-in-type2-for-n-solution-grids-after-first-p (?type1 ?type2 ?p ?n)
-    ;;; result is sent to the terminal
+    ;;; result is a list
     (bind ?t0 (time))
+    (bind ?res (create$))
     (loop-for-count (?j 1 ?n)
         (bind ?i (+ ?p ?j))
         (bind ?USOL-i-DIR (str-cat ?*GRIDS-DIR* "USOL-" ?i "/"))
         (bind ?file1 (str-cat ?USOL-i-DIR ?type1 ".txt"))
         (bind ?file2 (str-cat ?USOL-i-DIR ?type2 ".txt"))
-        (puzzles-of-file1-not-in-file2 ?file1 ?file2)
+        (bind ?res (create$ ?res (puzzles-of-file1-not-in-file2 ?file1 ?file2)))
     )
     (printout t "type1-not-in-type2 total time = " (seconds-to-hours (- (time) ?t0))  crlf)
+    ?res
 )
+
+(deffunction SGS-sample-puzzles-of-type1-not-in-type2 (?type1 ?type2)
+    ;;; result is a list
+    (SGS-sample-puzzles-of-type1-not-in-type2-for-n-solution-grids-after-first-p ?type1 ?type2 0 ?*Sample-Size*)
+)
+
+(deffunction SGMS-multi-sample-puzzles-of-type1-not-in-type2 (?type1 ?type2)
+    (bind ?res (create$))
+    (loop-for-count (?nth-sample 1 ?*nb-samples-in-multi-sample*)
+        (multi-sample-switch-to-nth-sample ?nth-sample)
+        (bind ?res (create$ ?res (SGS-sample-puzzles-of-type1-not-in-type2 ?type1 ?type2)))
+    )
+    ?res
+)
+
 
 
 ;;; Utility for finding puzzles of some type with some expansion in a puzzle
 
 (deffunction SGS-sample-puzzles-of-type1-with-expansion-in-puzzle (?type1 ?puzzle)
-    ;;; result is sent to the terminal
+    ;;; result is a list
+    (bind ?res (create$))
     (loop-for-count (?i 1 ?*Sample-Size*)
         (bind ?USOL-i-DIR (str-cat ?*GRIDS-DIR* "USOL-" ?i "/"))
         (bind ?file1 (str-cat ?USOL-i-DIR ?type1 ".txt"))
-        (puzzles-of-file-with-expansion-in-puzzle ?file1 ?puzzle)
+        (bind ?res (create$ ?res (puzzles-of-file-with-expansion-in-puzzle ?file1 ?puzzle)))
     )
+    ?res
 )
 
 
+
 ;;; Utilities for finding "terminal" puzzles of some type
+;;; Contrary to the previous functions, the next ones print their results to a puzzle type
 
 (deffunction SGS-sample-puzzles-of-type1-with-no-expansion-of-type2 (?type1 ?type2 ?type-out)
     (loop-for-count (?i 1 ?*Sample-Size*)
@@ -310,6 +330,11 @@
         (OS-diff ?file1-i ?file2-i)
     )
 )
+
+(deffunction SGS-sample-diff (?type1 ?type2)
+    (SGS-sample-diff-for-n-solution-grids-after-first-p ?type1 ?type2 0 ?*Sample-Size*)
+)
+
 
 ;;; Because of long computation times for minimals, this is generally not done in large collections
 
@@ -828,7 +853,7 @@
 
 (deffunction SGS-sample-exclude-puzzles-in-excl-file (?type-in ?file-excl ?type-out)
     (SGS-sample-exclude-puzzles-in-excl-file-for-n-solution-grids-after-first-p
-        ?type-in ?file-excl ?type-out 0 ?*Sample-Size*)
+        ?type-in ?file-excl ?type-out 0 ?*Sample-Size*
     )
 )
 

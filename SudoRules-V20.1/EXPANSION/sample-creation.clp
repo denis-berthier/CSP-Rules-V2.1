@@ -201,7 +201,7 @@
 ;;; This is the function to build the whole structure
 (deffunction SGS-sample-build-basic-structure ()
     (OS-create-directory ?*GRIDS-DIR*)
-    (SGS-sample-build-basic-structure-for-n-solution-grids-after-first-p 0 ?*Sample-Size*))
+    (SGS-sample-build-basic-structure-for-n-solution-grids-after-first-p 0 ?*Sample-Size*)
 )
 
 

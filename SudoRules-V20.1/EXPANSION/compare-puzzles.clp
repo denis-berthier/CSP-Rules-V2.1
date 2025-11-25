@@ -262,7 +262,7 @@
 (deffunction some-puzzle-of-list1-not-in-list2 (?list1 ?list2)
     (bind ?ans FALSE)
     (foreach ?puz ?list1
-        (if (puzzle-not-in-list ?puz ?list2) then (bind ?ans TRUE) (return ?ans)))
+        (if (puzzle-not-in-list ?puz ?list2) then (bind ?ans TRUE) (return ?ans))
     )
     ?ans
 )
@@ -784,7 +784,7 @@
         (close "strict-expands-in-file1-of-some-puzzle-in-file2-file-out")
     )
 )
-)
+
 
 ;;; not used; to be re-written with no intermediate lists
 (deffunction puzzles-of-file1-that-are-not-strict-expands-of-any-puzzle-in-file2 (?file1 ?file2  ?file-out)

@@ -1382,18 +1382,24 @@
     ;;; partial-whips[i] must be loaded for some rules to work:
     (if ?*z-Chains* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* 1)))
     (if ?*t-Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*t-whips-max-length* 1))))
-    (if ?*Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*whips-max-length* 1))))
+    (if ?*Whips* then
+        (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*whips-max-length* 1)))
+    )
     
     ;;; Contrary to ORk-Forcing-Whips, whose length is (indirectly) further restricted by ?*all-chains-max-length*,
     ;;; ORk-Contrad-Whips and ORk-Whips need access to partial-whips
-    (if ?*OR2-Contrad-Whips* then (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*OR2-contrad-whips-max-length* 1))))
+    (if ?*OR2-Contrad-Whips* then
+        (bind ?*partial-whips-max-length* (max ?*partial-whips-max-length* (- ?*OR2-contrad-whips-max-length* 1)))
+    )
 
     ;;; partial-gwhips[i] must be loaded for some rules to work:
     (if ?*G-Whips* then (bind ?*partial-gwhips-max-length* (- ?*gwhips-max-length* 1)))
     
     ;;; Contrary to ORk-Forcing-G-Whips, whose length is (indirectly) further restricted by ?*all-chains-max-length*,
     ;;; ORk-Contrad-G-Whips and ORk-G-Whips neeed access to partial-gwhips
-    (if ?*OR2-Contrad-G-Whips* then (bind ?*partial-gwhips-max-length* (max ?*partial-gwhips-max-length* (- ?*OR2-contrad-gwhips-max-length* 1))))
+    (if ?*OR2-Contrad-G-Whips* then
+        (bind ?*partial-gwhips-max-length* (max ?*partial-gwhips-max-length* (- ?*OR2-contrad-gwhips-max-length* 1)))
+    )
 
     (printout t "Generic consistency-preserving rules dependencies set" crlf)
     
@@ -1513,7 +1519,7 @@
     (if ?*Forcing-G-Braids* then (bind ?*max-level* (max ?*max-level* ?*forcing-gbraids-max-length*)))
 
     TRUE
-))
+)
 
 
 

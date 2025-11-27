@@ -337,7 +337,7 @@
             (bind ?cand-integer 0)
             (loop-for-count (?j 1 (str-length ?cand-str))
                 (bind ?nb (nth$ 1 (explode$ (sub-string ?j ?j ?cand-str))))
-                ;;; add this candiadte to the list of candidates for this cell
+                ;;; add this candidate to the list of candidates for this cell
                 (bind ?cand-integer (+ (* 10 ?cand-integer) ?nb))
             )
             (bind ?RS-int (create$ ?RS-int ?cand-integer))

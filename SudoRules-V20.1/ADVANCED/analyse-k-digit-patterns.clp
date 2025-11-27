@@ -56,7 +56,7 @@
 (deffunction init-candidates-from-k-digit-pattern-string (?k ?string)
     ;;; Initialize candidates for cells with no entry.
     (bind ?*nb-candidates* 0)
-    (bind ?len (length$ ?string))
+    (bind ?len (str-length ?string))
     (if (< ?len 81) then
         (bind ?string (str-cat ?string
             "000000000000000000000000000000000000000000000000000000000000000000000000000000000"
@@ -503,7 +503,7 @@
 
 (deffunction init-candidates-from-kl-digit-pattern-string (?k ?l ?string)
     (bind ?*nb-candidates* 0)
-    (bind ?len (length$ ?string))
+    (bind ?len (str-length ?string))
     (if (< ?len 81) then
         (bind ?string (str-cat ?string
             "000000000000000000000000000000000000000000000000000000000000000000000000000000000"

@@ -37,10 +37,13 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; The Operating System is UNIX by default. Redefine it here is you're working on Windows.
+;;; The Operating System is UNIX by default.
+(defglobal ?*Operating-System* = UNIX)
+;;; Redefine it here is you're working on Windows.
 ;;; Note: this is irrelevant if you are not using external programs
 ; (bind ?*Operating-System* = WINDOWS)
 
+(defglobal ?*ARM* = FALSE)
 ;;; Set the following variable to TRUE
 ;;; if you're using an "Apple silicon" Mac, i.e. with ARM processor
 ; (bind ?*ARM* TRUE)

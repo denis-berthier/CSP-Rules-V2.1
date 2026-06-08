@@ -39,14 +39,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defglobal ?*Operating-System* = UNIX)
 
 (deffunction OS-Windows()
     (if (eq ?*Operating-System* WINDOWS) then TRUE else FALSE)
 )
-
-;;; set to TRUE if you're using an "Apple silicon" Mac, i.e. with ARM processor
-(defglobal ?*ARM* = FALSE)
 
 
 (defglobal ?*CSP-Rules-VersionNumber* = 2.1)

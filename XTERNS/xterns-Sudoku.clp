@@ -60,7 +60,7 @@
 
 ;;; For the SER or FPGX rating (not relevant for expansions),
 ;;; but used in other places:
-(defglobal ?*SER-cmd0* = (str-cat "java -jar " ?*SER* "SudokuExplainer.jar "))
+(defglobal ?*SER-cmd0* = (str-cat "java -cp " ?*SER* "SudokuExplainer.jar " "diuf.sudoku.test.serate "))
 (defglobal ?*FPGX-cmd0* = (str-cat "java -jar " ?*FPGX* "FPGX.jar "))
 
 
@@ -381,8 +381,8 @@
     (system
         (str-cat
             ?*SER-cmd0*
-            (if (OS-Windows) then " --format=%%r " else " --format=%r ")
             " -M "
+            (if (OS-Windows) then " --format=%%r " else " --format=%r ")
             ?puzzle-string
         )
     )

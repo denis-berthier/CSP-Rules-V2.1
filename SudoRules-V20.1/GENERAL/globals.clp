@@ -941,7 +941,7 @@
 ;;; Access to external Sudoku specific programs
 (defglobal ?*SHC* = (str-cat ?*XTERNS* "SHC" ?*Directory-symbol*))
 (defglobal ?*GSF* = (str-cat ?*XTERNS* "GSF" ?*Directory-symbol*))
-(defglobal ?*SER* = (str-cat ?*XTERNS* "SudokuExplainer/"))
+(defglobal ?*SER* = (str-cat ?*XTERNS* "SER/"))
 (defglobal ?*FPGX* = (str-cat ?*XTERNS* "FPGX/"))
 
 
